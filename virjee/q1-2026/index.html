@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Virjee Consulting (Dental) — Q1 2026 Update by Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  /* Markology brand palette */
+  :root {
+    --paper: #F9F9FF;
+    --navy:  #070630;
+    --blue:  #3872EB;
+    --lilac: #E6E9FF;
+    --ink:   #070630;
+    --mute:  #6C6E8A;
+    --hair:  rgba(7,6,48,0.10);
+    --good:  #10b981;
+    --good-soft: #d1fae5;
+    --watch: #f59e0b;
+    --watch-soft: #fef3c7;
+    --bad:   #ef4444;
+    --bad-soft: #fee2e2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #fff;
+    color: var(--ink);
+    line-height: 1.6;
+    font-size: 15px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .bangers {
+    font-family: 'Bangers', 'Impact', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .accent { color: var(--blue); }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+  section { padding: 80px 0; position: relative; overflow: hidden; }
+  @media (max-width: 720px) {
+    section { padding: 56px 0; }
+    .container { padding: 0 20px; }
+  }
+
+  /* Decorative stars */
+  .star { position: absolute; pointer-events: none; }
+
+  /* Pills */
+  .pill {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--navy);
+    color: #fff;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 999px;
+  }
+  .pill.blue { background: var(--blue); }
+  .pill.outlined { background: #fff; color: var(--navy); border: 2px solid var(--navy); }
+
+  /* ====== HERO ====== */
+  .hero { background: var(--paper); padding-top: 100px; padding-bottom: 80px; }
+  .hero h1 {
+    font-family: 'Bangers', 'Impact', sans-serif;
+    font-size: clamp(56px, 9vw, 120px);
+    line-height: 0.92;
+    letter-spacing: 0.02em;
+    color: var(--navy);
+    margin: 24px 0 0;
+  }
+  .hero .lede {
+    font-size: 19px;
+    line-height: 1.6;
+    color: var(--mute);
+    max-width: 620px;
+    margin-top: 28px;
+  }
+  .hero .meta {
+    margin-top: 28px;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--mute);
+  }
+  .hero .meta strong { color: var(--navy); font-weight: 600; }
+
+  /* ====== KPI STRIP (with explanations) ====== */
+  .kpi-section { background: #fff; padding: 64px 0; }
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 900px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .kpi-grid { grid-template-columns: 1fr; } }
+  .kpi {
+    background: var(--paper);
+    border: 2px solid var(--navy);
+    border-radius: 16px;
+    padding: 24px 22px;
+    box-shadow: 5px 5px 0 var(--navy);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .kpi:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--navy); }
+  .kpi:nth-child(2) { background: var(--lilac); }
+  .kpi .label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--blue);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  .kpi .value {
+    font-family: 'Bangers', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    color: var(--navy);
+  }
+  .kpi .delta {
+    margin-top: 10px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .kpi .delta.good { color: #047857; }
+  .kpi .delta.watch { color: #b45309; }
+  .kpi .explain {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 2px dashed var(--hair);
+    font-size: 12px;
+    color: var(--mute);
+    line-height: 1.5;
+  }
+
+  /* ====== SECTION HEADS ====== */
+  .section-head { margin-bottom: 48px; max-width: 800px; }
+  .section-head h2 {
+    font-family: 'Bangers', sans-serif;
+    font-size: clamp(40px, 5.5vw, 68px);
+    line-height: 0.98;
+    letter-spacing: 0.02em;
+    color: var(--navy);
+    margin-top: 16px;
+  }
+  .section-head p {
+    font-size: 17px;
+    color: var(--mute);
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+
+  /* ====== GOAL CARDS ====== */
+  .goals-section { background: var(--paper); }
+  .goal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 20px;
+  }
+  .goal-card {
+    background: #fff;
+    border: 2px solid var(--navy);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 6px 6px 0 var(--navy);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .goal-card:hover { transform: translate(-2px, -2px); box-shadow: 8px 8px 0 var(--navy); }
+  .goal-card:nth-child(2n) { background: var(--lilac); }
+  .goal-card .num-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: var(--blue);
+    color: #fff;
+    border: 2px solid var(--navy);
+    border-radius: 10px;
+    font-family: 'Bangers', sans-serif;
+    font-size: 22px;
+  }
+  .goal-card h3 {
+    font-family: 'Bangers', sans-serif;
+    font-size: 22px;
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+    color: var(--navy);
+  }
+  .goal-card .desc {
+    font-size: 14px;
+    color: var(--mute);
+    line-height: 1.55;
+  }
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border: 2px solid var(--navy);
+    width: fit-content;
+  }
+  .status.good { background: var(--good-soft); color: #047857; }
+  .status.watch { background: var(--watch-soft); color: #b45309; }
+  .status.neutral { background: #fff; color: var(--navy); }
+  .status .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: currentColor;
+    animation: pulse 1.6s infinite;
+  }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .progress {
+    height: 8px;
+    background: var(--hair);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 2px solid var(--navy);
+  }
+  .progress .bar { height: 100%; transition: width 0.6s ease; }
+  .progress .bar.good { background: var(--good); }
+  .progress .bar.watch { background: var(--watch); }
+  .progress .bar.neutral { background: var(--mute); }
+
+  /* ====== CHART CARDS ====== */
+  .charts-section { background: #fff; }
+  .chart-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  @media (max-width: 900px) { .chart-row { grid-template-columns: 1fr; } }
+  .chart-card {
+    background: var(--paper);
+    border: 2px solid var(--navy);
+    border-radius: 20px;
+    padding: 28px;
+    box-shadow: 6px 6px 0 var(--navy);
+  }
+  .chart-card h4 {
+    font-family: 'Bangers', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .chart-card .chart-sub {
+    font-size: 13px;
+    color: var(--mute);
+    margin-bottom: 20px;
+  }
+  .chart-container { position: relative; height: 280px; }
+
+  .lead-side {
+    display: flex; flex-direction: column; gap: 18px; padding-top: 8px;
+  }
+  .lead-side .item { padding: 14px 18px; background: #fff; border: 2px solid var(--navy); border-radius: 12px; }
+  .lead-side .item.lilac { background: var(--lilac); }
+  .lead-side .item .l { font-size: 12px; color: var(--mute); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; }
+  .lead-side .item .v { font-family: 'Bangers', sans-serif; font-size: 36px; color: var(--navy); margin-top: 4px; line-height: 1; }
+  .lead-side .item .v.good { color: var(--good); }
+  .placeholder-callout {
+    background: var(--watch-soft);
+    border: 2px dashed var(--watch);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: #b45309;
+    line-height: 1.5;
+    margin-top: 16px;
+  }
+
+  /* ====== TABLES ====== */
+  .table-section { background: var(--paper); }
+  .table-card {
+    background: #fff;
+    border: 2px solid var(--navy);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 6px 6px 0 var(--navy);
+  }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead { background: var(--navy); }
+  th {
+    text-align: left;
+    padding: 14px 18px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--blue);
+  }
+  th.num, td.num { text-align: right; }
+  td {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--hair);
+  }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: var(--paper); }
+  .move {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-weight: 700;
+    font-size: 13px;
+  }
+  .move.up { color: var(--good); }
+  .move.down { color: var(--bad); }
+  .move.new { background: var(--blue); color: #fff; padding: 3px 10px; border-radius: 6px; font-size: 11px; letter-spacing: 0.08em; border: 2px solid var(--navy); }
+
+  /* ====== Q2 PRIORITIES ====== */
+  .priorities-section { background: #fff; }
+  .priority-list { display: flex; flex-direction: column; gap: 16px; }
+  .priority {
+    background: var(--paper);
+    border: 2px solid var(--navy);
+    border-radius: 16px;
+    padding: 24px 28px;
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 20px;
+    align-items: start;
+    box-shadow: 5px 5px 0 var(--navy);
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .priority:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--navy); }
+  .priority:nth-child(2n) { background: var(--lilac); }
+  .priority .pnum {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: var(--blue);
+    color: #fff;
+    border: 2px solid var(--navy);
+    font-family: 'Bangers', sans-serif;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .priority h4 {
+    font-family: 'Bangers', sans-serif;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .priority p {
+    font-size: 14px;
+    color: var(--mute);
+    line-height: 1.55;
+  }
+  .priority .tag {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 4px 10px;
+    background: var(--navy);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    border-radius: 6px;
+    text-transform: uppercase;
+  }
+
+  /* ====== FOOTER ====== */
+  .footer {
+    background: var(--navy);
+    color: #fff;
+    text-align: center;
+    padding: 80px 0;
+  }
+  .footer h2 {
+    font-family: 'Bangers', sans-serif;
+    font-size: clamp(36px, 5vw, 56px);
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+  .footer h2 .accent { color: var(--blue); }
+  .footer p { color: #B4B6D6; margin-top: 16px; font-size: 14px; }
+  .footer .built-by {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 2px dashed rgba(255,255,255,0.2);
+    color: #8A8DB8;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .footer .built-by a { color: var(--blue); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<!-- ====== HERO ====== -->
+<section class="hero">
+  <svg class="star" style="top: 80px; left: 80px; transform: rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="top: 200px; right: 120px; transform: rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="bottom: 60px; left: 50%; transform: rotate(8deg);" width="20" height="20" viewBox="0 0 24 24" fill="#E6E9FF" stroke="#070630" stroke-width="1.5"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+
+  <div class="container">
+    <span class="pill blue" style="border: 2px solid var(--navy); box-shadow: 4px 4px 0 var(--navy);">Q1 2026 · Quarterly Update</span>
+    <h1>VIRJEE DENTAL.<br />Q1 IS <span class="accent">IN.</span></h1>
+    <p class="lede">
+      SEO had a strong quarter (visibility up nearly 60%, four new keywords in the top 3). Existing-practice lead volume came in at 15 per month against a 20 per month target, but April is already at 19 leads month-to-date and pacing to clear the goal. Content multiplication is nearly complete and personalization kicks off in Q2.
+    </p>
+    <div class="meta">
+      <span><strong>Period:</strong> Jan 1 to Mar 31, 2026</span>
+      <span><strong>Reporting date:</strong> May 1, 2026</span>
+      <span><strong>Prepared by:</strong> Markology</span>
+    </div>
+  </div>
+</section>
+
+<!-- ====== KPI STRIP ====== -->
+<section class="kpi-section">
+  <div class="container">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Q1 practice leads</div>
+        <div class="value">45</div>
+        <div class="delta watch">15/mo avg vs 20/mo target</div>
+        <div class="explain">
+          Existing-practice owners only (cross-site total). Excludes dental associates, buyers, startup-phase doctors, and broader medical leads who aren't practice owners. Source: Cross-Site Rollup tab.
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="label">Visibility</div>
+        <div class="value">17.0<span style="font-size: 28px;">%</span></div>
+        <div class="delta good">&uarr; 6.3 pp from start of Q1</div>
+        <div class="explain">
+          How prominent the site is in Google for our 63 tracked keywords. Higher % = appearing more often, in better positions. Up from 10.8% on Jan 1.
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="label">Share of Voice</div>
+        <div class="value">4.81<span style="font-size: 28px;">%</span></div>
+        <div class="delta good">&uarr; 1.34 pp</div>
+        <div class="explain">
+          Virjee's slice of all Google clicks for the tracked keywords vs. every competitor. Higher % = capturing more of the available demand.
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="label">Top 3 Keywords</div>
+        <div class="value">11</div>
+        <div class="delta good">&uarr; 4 net new</div>
+        <div class="explain">
+          Number of tracked keywords where Virjee ranks #1, #2, or #3 on Google. Those are the only positions that get meaningful clicks.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== 2026 GOALS ====== -->
+<section class="goals-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">The 5 Goals</span>
+      <h2>2026 GOALS<br /><span class="accent">Q1 STATUS.</span></h2>
+      <p>Five goals from the 2026 Focus & Planning deck. Two already on/ahead of pace, two in active build, one needs measurement set up.</p>
+    </div>
+    <div class="goal-grid">
+
+      <div class="goal-card">
+        <div class="num-box">01</div>
+        <h3>AI Visibility: 25/100</h3>
+        <p class="desc">Get pulled into AI answers across ChatGPT, Google AI box, Reddit-style forums, and FB groups.</p>
+        <span class="status watch"><span class="dot"></span>Currently at 14 of 25 target</span>
+        <div class="progress"><div class="bar watch" style="width: 56%"></div></div>
+        <p class="desc" style="font-size: 12px; font-style: italic;">SEMrush AI tracker shows 14/100 today. Q2 push is into AI-friendly content formats (answer-first blogs, structured FAQs, Reddit/forum activity) so the score climbs toward 25.</p>
+      </div>
+
+      <div class="goal-card">
+        <div class="num-box">02</div>
+        <h3>20 Practice Leads / Month</h3>
+        <p class="desc">Existing-practice owners only across the Dental and Local sheets.</p>
+        <span class="status watch"><span class="dot"></span>Below target Q1, recovering in April</span>
+        <div class="progress"><div class="bar watch" style="width: 75%"></div></div>
+        <p class="desc" style="font-size: 12px; font-style: italic;">Q1 averaged 15 existing-practice leads per month (45 total) against the 20 per month target. April is at 19 leads month-to-date and pacing to clear 20.</p>
+      </div>
+
+      <div class="goal-card">
+        <div class="num-box">03</div>
+        <h3>Continue SEO on Page 2 Keywords</h3>
+        <p class="desc">Push Page 2 target keywords into Page 1 and defend the top 10 wins.</p>
+        <span class="status good"><span class="dot"></span>Strong progress</span>
+        <div class="progress"><div class="bar good" style="width: 75%"></div></div>
+        <p class="desc" style="font-size: 12px; font-style: italic;">11 keywords now in top 3, up from 7. Multiple Page 2 keywords moved into top 10.</p>
+      </div>
+
+      <div class="goal-card">
+        <div class="num-box">04</div>
+        <h3>Multiply Content From One Webinar</h3>
+        <p class="desc">Each webinar turns into 3 blogs, 5 short clips, 10 FAQs, 1 email sequence, 1 landing page, and 1 guide.</p>
+        <span class="status watch"><span class="dot"></span>In progress</span>
+        <div class="progress"><div class="bar watch" style="width: 70%"></div></div>
+        <p class="desc" style="font-size: 12px; font-style: italic;">February webinar was the first run. Blogs, clips, FAQs, email sequence, and landing page are done. The downloadable guide is still outstanding. March webinar is next up for the same fan-out.</p>
+      </div>
+
+      <div class="goal-card">
+        <div class="num-box">05</div>
+        <h3>Personalized Funnels Per Persona</h3>
+        <p class="desc">Per-persona lead magnet, webinar topic, email language, CTA, sales-call framing + lead scoring.</p>
+        <span class="status neutral"><span class="dot"></span>Not started, Q2 focus</span>
+        <div class="progress"><div class="bar neutral" style="width: 5%"></div></div>
+        <p class="desc" style="font-size: 12px; font-style: italic;">No personalization work has started yet. Q2 is when we kick this off, beginning with one persona end to end before scaling to the rest.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ====== LEAD VOLUME ====== -->
+<section class="charts-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Lead Volume</span>
+      <h2>WHO CAME<br /><span class="accent">KNOCKING.</span></h2>
+      <p>Practice owners only. We exclude associates, dentists planning to buy, and startup-phase doctors. The 20 per month target is for established practices ready to engage a CPA today.</p>
+    </div>
+    <div class="chart-row">
+      <div class="chart-card">
+        <h4>Q1 Practice-Owner Leads</h4>
+        <div class="chart-sub">Dental + Local sheets, cross-site rollup. Bar shows total practice-owner leads per month.</div>
+        <div class="chart-container"><canvas id="leadsChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h4>Q1 Totals</h4>
+        <div class="chart-sub">Existing-practice leads vs. 60-lead Q1 target (20/mo &times; 3)</div>
+        <div class="lead-side">
+          <div class="item">
+            <div class="l">Total Q1 existing-practice leads</div>
+            <div class="v">45</div>
+          </div>
+          <div class="item lilac">
+            <div class="l">Monthly average</div>
+            <div class="v">15</div>
+          </div>
+          <div class="item">
+            <div class="l">vs. 60-lead Q1 target</div>
+            <div class="v" style="color: #b45309;">75%</div>
+          </div>
+          <div class="item lilac">
+            <div class="l">April month-to-date</div>
+            <div class="v good">19</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== SEO PERFORMANCE ====== -->
+<section class="charts-section" style="background: var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">The Receipts</span>
+      <h2>SEO IS<br /><span class="accent">DOING THE WORK.</span></h2>
+      <p>Visibility nearly doubled. Ranking distribution shifted up across the board. Domain organic keywords almost doubled from end of Q4 to end of Q1.</p>
+    </div>
+    <div class="chart-row">
+      <div class="chart-card">
+        <h4>Visibility & Share of Voice</h4>
+        <div class="chart-sub">Start of Q1 vs. end of Q1</div>
+        <div class="chart-container"><canvas id="visChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h4>Ranking Distribution</h4>
+        <div class="chart-sub">Tracked keywords by SERP position bucket</div>
+        <div class="chart-container"><canvas id="rankChart"></canvas></div>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px;">
+      <div class="chart-card">
+        <h4>Domain Trajectory</h4>
+        <div class="chart-sub">Total organic ranking keywords over the last 6 months. Source: SEMrush.</div>
+        <div class="chart-container"><canvas id="trajectoryChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== KEYWORD WINS ====== -->
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Q1 Wins</span>
+      <h2>KEYWORDS<br />ON THE <span class="accent">MOVE.</span></h2>
+      <p>Top movers up sorted by search volume. Acquisition-stage and exit-stage queries are converting hardest. That tracks cleanly with the Practice Buyer and Exit Planner personas.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Keyword</th>
+            <th class="num">Volume</th>
+            <th class="num">Q1 Start</th>
+            <th class="num">Q1 End</th>
+            <th class="num">Move</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>dental cpa</td><td class="num">480</td><td class="num">9</td><td class="num">8</td><td class="num"><span class="move up">&uarr; 1</span></td></tr>
+          <tr><td>bookkeeping for dentists</td><td class="num">210</td><td class="num">48</td><td class="num">27</td><td class="num"><span class="move up">&uarr; 21</span></td></tr>
+          <tr><td>tax planning for dentists</td><td class="num">110</td><td class="num">12</td><td class="num">2</td><td class="num"><span class="move up">&uarr; 10</span></td></tr>
+          <tr><td>cpa for dentists</td><td class="num">110</td><td class="num">10</td><td class="num">8</td><td class="num"><span class="move up">&uarr; 2</span></td></tr>
+          <tr><td>dental cpas</td><td class="num">70</td><td class="num">11</td><td class="num">7</td><td class="num"><span class="move up">&uarr; 4</span></td></tr>
+          <tr><td>ebitda dental practice</td><td class="num">70</td><td class="num">2</td><td class="num">1</td><td class="num"><span class="move up">&uarr; 1</span></td></tr>
+          <tr><td>dentist accountant</td><td class="num">70</td><td class="num">n/a</td><td class="num">14</td><td class="num"><span class="move new">NEW</span></td></tr>
+          <tr><td>buying a dental practice checklist</td><td class="num">70</td><td class="num">n/a</td><td class="num">13</td><td class="num"><span class="move new">NEW</span></td></tr>
+          <tr><td>dentist practice owner salary</td><td class="num">50</td><td class="num">11</td><td class="num">1</td><td class="num"><span class="move up">&uarr; 10</span></td></tr>
+          <tr><td>starting your own dental practice</td><td class="num">50</td><td class="num">58</td><td class="num">38</td><td class="num"><span class="move up">&uarr; 20</span></td></tr>
+          <tr><td>dental payroll</td><td class="num">50</td><td class="num">69</td><td class="num">15</td><td class="num"><span class="move up">&uarr; 54</span></td></tr>
+          <tr><td>houston dental cpa</td><td class="num">50</td><td class="num">3</td><td class="num">1</td><td class="num"><span class="move up">&uarr; 2</span></td></tr>
+          <tr><td>dental clinic setup cost</td><td class="num">50</td><td class="num">6</td><td class="num">1</td><td class="num"><span class="move up">&uarr; 5</span></td></tr>
+          <tr><td>cost of buying a dental practice</td><td class="num">50</td><td class="num">13</td><td class="num">1</td><td class="num"><span class="move up">&uarr; 12</span></td></tr>
+          <tr><td>dental key performance indicators</td><td class="num">50</td><td class="num">37</td><td class="num">23</td><td class="num"><span class="move up">&uarr; 14</span></td></tr>
+          <tr><td>tax consequences of selling a dental practice</td><td class="num">40</td><td class="num">8</td><td class="num">1</td><td class="num"><span class="move up">&uarr; 7</span></td></tr>
+          <tr><td>dental practice startup costs</td><td class="num">40</td><td class="num">7</td><td class="num">1</td><td class="num"><span class="move up">&uarr; 6</span></td></tr>
+          <tr><td>dental cpa firm</td><td class="num">40</td><td class="num">23</td><td class="num">10</td><td class="num"><span class="move up">&uarr; 13</span></td></tr>
+          <tr><td>dental cfo services</td><td class="num">20</td><td class="num">7</td><td class="num">1</td><td class="num"><span class="move up">&uarr; 6</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ====== AREAS TO WATCH ====== -->
+<section class="table-section" style="background: #fff;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Watch List</span>
+      <h2>WHERE WE<br />NEED TO <span class="accent">DEFEND.</span></h2>
+      <p>Keywords that slipped during Q1. Q2 work is content refresh and internal linking on these so they don't keep sliding.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Keyword</th>
+            <th class="num">Volume</th>
+            <th class="num">Q1 Start</th>
+            <th class="num">Q1 End</th>
+            <th class="num">Move</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>how much do dental practice owners make</td><td class="num">70</td><td class="num">1</td><td class="num">11</td><td class="num"><span class="move down">&darr; 10</span></td></tr>
+          <tr><td>practice valuation calculator</td><td class="num">70</td><td class="num">20</td><td class="num">30</td><td class="num"><span class="move down">&darr; 10</span></td></tr>
+          <tr><td>dental bookkeeping</td><td class="num">260</td><td class="num">14</td><td class="num">20</td><td class="num"><span class="move down">&darr; 6</span></td></tr>
+          <tr><td>dental practice revenue</td><td class="num">50</td><td class="num">14</td><td class="num">18</td><td class="num"><span class="move down">&darr; 4</span></td></tr>
+          <tr><td>dentists accountants</td><td class="num">40</td><td class="num">7</td><td class="num">9</td><td class="num"><span class="move down">&darr; 2</span></td></tr>
+          <tr><td>dentist cpa</td><td class="num">170</td><td class="num">10</td><td class="num">12</td><td class="num"><span class="move down">&darr; 2</span></td></tr>
+          <tr><td>dental practice value calculator</td><td class="num">170</td><td class="num">5</td><td class="num">7</td><td class="num"><span class="move down">&darr; 2</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ====== Q2 PRIORITIES ====== -->
+<section class="priorities-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Q2 Game Plan</span>
+      <h2>WHAT WE<br /><span class="accent">SHIP NEXT.</span></h2>
+      <p>Each priority is tagged to the 2026 goal it serves.</p>
+    </div>
+    <div class="priority-list">
+      <div class="priority">
+        <div class="pnum">01</div>
+        <div>
+          <h4>Push AI visibility content toward 25/100</h4>
+          <p>SEMrush is already tracking the score monthly. Q2 work is producing content built for AI surfaces: answer-first blog formats, structured FAQs, and Reddit/forum activity that AI assistants can quote.</p>
+          <span class="tag">Goal 1</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">02</div>
+        <div>
+          <h4>Finish content multiplication</h4>
+          <p>Ship the downloadable guide for the February webinar (the only outstanding February asset). Then run the March webinar through the full multiplication: 3 blogs, 5 clips, 10 FAQs, email sequence, landing page, and guide.</p>
+          <span class="tag">Goal 4</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">03</div>
+        <div>
+          <h4>Kick off personalization with one persona end to end</h4>
+          <p>Personalization hasn't started yet, and Q2 is when it begins. Practice Buyer is the persona to start with, since Q1 SEO momentum is strongest there. Build the full funnel for that one persona first: lead magnet, ad creative, landing page, email sequence, CTA, sales-call framing. Once it's proven, replicate for the other three.</p>
+          <span class="tag">Goal 5</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">04</div>
+        <div>
+          <h4>Defend the Page 1 SEO wins</h4>
+          <p>Keywords like "tax planning for dentists" (now #2) and "ebitda dental practice" (now #1) need fresh supporting content and internal links so they don't slip.</p>
+          <span class="tag">Goal 3</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====== FOOTER ====== -->
+<footer class="footer">
+  <div class="container">
+    <h2>Q2 STARTS<br /><span class="accent">NOW.</span></h2>
+    <p>Questions or want to dig into any number? Reach out direct.</p>
+    <div class="built-by">
+      Built by <a href="https://markology.io">Markology</a> · May 1, 2026
+    </div>
+  </div>
+</footer>
+
+<script>
+  Chart.defaults.font.family = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif";
+  Chart.defaults.font.size = 12;
+  Chart.defaults.color = '#6C6E8A';
+  Chart.defaults.borderColor = 'rgba(7,6,48,0.10)';
+
+  const navy = '#070630';
+  const blue = '#3872EB';
+  const lilac = '#E6E9FF';
+
+  // Leads chart - cross-site rollup: dental existing + local medical (broad)
+  new Chart(document.getElementById('leadsChart'), {
+    type: 'bar',
+    data: {
+      labels: ['January', 'February', 'March', 'April (MTD)'],
+      datasets: [
+        {
+          label: 'Dental sheet (existing practice)',
+          data: [9, 8, 6, 15],
+          backgroundColor: blue,
+          borderColor: navy,
+          borderWidth: 2,
+          borderRadius: 4,
+        },
+        {
+          label: 'Local sheet (medical, broad)',
+          data: [23, 14, 23, 15],
+          backgroundColor: lilac,
+          borderColor: navy,
+          borderWidth: 2,
+          borderRadius: 4,
+        },
+        {
+          label: 'Goal: 20/mo',
+          data: [20, 20, 20, 20],
+          type: 'line',
+          borderColor: navy,
+          borderWidth: 3,
+          borderDash: [8, 4],
+          pointRadius: 0,
+          fill: false,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { boxWidth: 14, padding: 16, font: { size: 12, weight: '600' } } },
+        tooltip: { callbacks: { footer: function(items) { let total = items.filter(i => i.dataset.label !== 'Goal: 20/mo').reduce((s, i) => s + i.parsed.y, 0); return 'Total: ' + total; } } }
+      },
+      scales: {
+        y: { beginAtZero: true, stacked: true, grid: { color: 'rgba(7,6,48,0.06)' } },
+        x: { stacked: true, grid: { display: false } }
+      }
+    }
+  });
+
+  // Visibility / SoV chart
+  new Chart(document.getElementById('visChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Visibility (%)', 'Share of Voice (%)'],
+      datasets: [
+        { label: 'Start of Q1', data: [10.75, 3.47], backgroundColor: lilac, borderColor: navy, borderWidth: 2, borderRadius: 4 },
+        { label: 'End of Q1', data: [17.04, 4.81], backgroundColor: blue, borderColor: navy, borderWidth: 2, borderRadius: 4 }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { boxWidth: 14, padding: 16, font: { size: 12, weight: '600' } } } },
+      scales: { y: { beginAtZero: true, grid: { color: 'rgba(7,6,48,0.06)' } }, x: { grid: { display: false } } }
+    }
+  });
+
+  // Ranking distribution chart
+  new Chart(document.getElementById('rankChart'), {
+    type: 'bar',
+    data: {
+      labels: ['Top 3', 'Top 10', 'Top 20', 'Top 100'],
+      datasets: [
+        { label: 'Start of Q1', data: [7, 17, 26, 48], backgroundColor: lilac, borderColor: navy, borderWidth: 2, borderRadius: 4 },
+        { label: 'End of Q1', data: [11, 18, 27, 31], backgroundColor: blue, borderColor: navy, borderWidth: 2, borderRadius: 4 }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { boxWidth: 14, padding: 16, font: { size: 12, weight: '600' } } } },
+      scales: { y: { beginAtZero: true, grid: { color: 'rgba(7,6,48,0.06)' } }, x: { grid: { display: false } } }
+    }
+  });
+
+  // Domain trajectory chart
+  new Chart(document.getElementById('trajectoryChart'), {
+    type: 'line',
+    data: {
+      labels: ['Oct 2025', 'Nov 2025', 'Dec 2025', 'Jan 2026', 'Feb 2026', 'Mar 2026'],
+      datasets: [
+        {
+          label: 'Total ranking keywords',
+          data: [167, 194, 238, 358, 416, 422],
+          borderColor: navy,
+          backgroundColor: 'rgba(7,6,48,0.06)',
+          tension: 0.35,
+          borderWidth: 3,
+          pointRadius: 6,
+          pointBackgroundColor: navy,
+          pointBorderColor: '#fff',
+          pointBorderWidth: 2,
+          fill: true,
+        },
+        {
+          label: 'Est. monthly traffic',
+          data: [38, 58, 120, 136, 107, 134],
+          borderColor: blue,
+          backgroundColor: 'rgba(56,114,235,0.08)',
+          tension: 0.35,
+          borderWidth: 3,
+          pointRadius: 6,
+          pointBackgroundColor: blue,
+          pointBorderColor: '#fff',
+          pointBorderWidth: 2,
+          fill: true,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { boxWidth: 14, padding: 16, font: { size: 12, weight: '600' } } } },
+      scales: { y: { beginAtZero: true, grid: { color: 'rgba(7,6,48,0.06)' } }, x: { grid: { display: false } } }
+    }
+  });
+</script>
+</body>
+</html>

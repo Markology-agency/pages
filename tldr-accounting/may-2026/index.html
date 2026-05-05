@@ -79,7 +79,7 @@ tbody tr:nth-child(even){background:var(--paper);}
     
     <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">May 2026 &middot; Monthly Update</span>
     <h1>TL;DR ACCOUNTING.<br/>FIVE #1 RANKINGS. <span class="accent">AND COUNTING.</span></h1>
-    <p class="lede">2,516 keywords in April with five at #1 and three more at #2. Domain rank has broken below 1.1M — a strong authority signal. Seattle accounting, therapist salary, and quickbooks-for-therapists content are all in top positions. The only flag is the pullback from the February peak of 2,731.</p>
+    <p class="lede">2,516 keywords in April driving 2,626 sessions, with five terms at #1 and three more at #2. Domain rank has broken below 1.1M, a strong authority signal. Seattle accounting, therapist salary, and quickbooks-for-therapists content are all in top positions. The flag is a parallel pullback in both keywords (from the February peak of 2,731) and sessions (from the January peak of 3,473).</p>
     <div class="meta">
       <span><strong>Period:</strong> November 2025 to April 2026</span>
       <span><strong>Reporting date:</strong> May 4, 2026</span>
@@ -97,7 +97,7 @@ tbody tr:nth-child(even){background:var(--paper);}
         <div class="delta good">&uarr; 10% since Nov 2025</div>
         <div class="explain">Total URLs from tldraccounting.com appearing in Google organic results. Source: SEMrush.</div>
       </div>
-      <div class="kpi"><div class="label">April Sessions</div><div class="value">N/A</div><div class="delta watch">GA not connected</div><div class="explain">Google Analytics property not connected for tldraccounting.com.</div></div>
+      <div class="kpi"><div class="label">April Sessions</div><div class="value">2,626</div><div class="delta watch">&darr; 3.7% vs March</div><div class="explain">Total GA4 sessions for tldraccounting.com in April 2026. Down from January peak of 3,473.</div></div>
       <div class="kpi">
         <div class="label">Domain Rank</div>
         <div class="value">1.0M</div>
@@ -134,7 +134,11 @@ tbody tr:nth-child(even){background:var(--paper);}
         <div class="chart-sub">Total organic keywords ranking each month.</div>
         <div class="chart-container"><canvas id="kwChart"></canvas></div>
       </div>
-      
+      <div class="chart-card">
+        <h4>Sessions by Month</h4>
+        <div class="chart-sub">Total GA4 sessions each month.</div>
+        <div class="chart-container"><canvas id="sessionsChart"></canvas></div>
+      </div>
     </div>
   </div>
 </section>
@@ -190,9 +194,9 @@ tbody tr:nth-child(even){background:var(--paper);}
       <div class="priority" style="">
         <div class="pnum">03</div>
         <div>
-          <h4>Connect Google Analytics</h4>
-          <p>Without session data it is not possible to evaluate which content is converting. Connecting a GA4 property would give visibility into traffic sources, bounce rates, and which of the 2,516 ranking keywords are actually driving leads.</p>
-          <span class="tag">Technical</span>
+          <h4>Map the session decline to specific top pages</h4>
+          <p>Sessions are down 24% from the January peak (3,473 to 2,626) and keywords have softened in parallel. A landing-page report in GA cross-referenced with SEMrush position changes will pinpoint whether the decline is concentrated on a few high-traffic pages, the kind that can be refreshed before the next quarter.</p>
+          <span class="tag">Analytics</span>
         </div>
       </div></div>
   </div>
@@ -211,8 +215,9 @@ Chart.defaults.font.family="'Inter',-apple-system,BlinkMacSystemFont,sans-serif"
 Chart.defaults.font.size=12;Chart.defaults.color='#6C6E8A';Chart.defaults.borderColor='rgba(7,6,48,0.10)';
 const navy='#070630',blue='#3872EB';
 
-  const months=["Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], kwData=[2282, 2326, 2478, 2731, 2725, 2516];
+  const months=["Nov 2025", "Dec 2025", "Jan 2026", "Feb 2026", "Mar 2026", "Apr 2026"], kwData=[2282, 2326, 2478, 2731, 2725, 2516], sessionsData=[2467, 2455, 3473, 3057, 2728, 2626];
   new Chart(document.getElementById('trajectoryChart'),{type:'line',data:{labels:months,datasets:[{label:'Keywords',data:kwData,borderColor:navy,backgroundColor:'rgba(7,6,48,0.06)',tension:0.35,borderWidth:3,pointRadius:5,pointBackgroundColor:navy}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{title:{display:true,text:'Keywords'},beginAtZero:false}}}});
   new Chart(document.getElementById('kwChart'),{type:'bar',data:{labels:months,datasets:[{label:'Keywords',data:kwData,backgroundColor:'rgba(7,6,48,0.75)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:false}}}});
+  new Chart(document.getElementById('sessionsChart'),{type:'bar',data:{labels:months,datasets:[{label:'Sessions',data:sessionsData,backgroundColor:'rgba(56,114,235,0.75)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:false}}}});
 </script>
 </body></html>

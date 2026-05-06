@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Elevated Tax, May 2026 Strategy Review by Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:80px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:56px 0;}.container{padding:0 20px;}}
+.star{position:absolute;pointer-events:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.hero{background:var(--paper);padding-top:100px;padding-bottom:80px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(44px,8vw,96px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:24px 0 0;}
+.hero .lede{font-size:19px;line-height:1.6;color:var(--mute);max-width:680px;margin-top:28px;}
+.hero .meta{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.kpi-section{background:#fff;padding:64px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 22px;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.kpi:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:12px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:48px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .delta{margin-top:10px;font-size:13px;font-weight:600;color:#047857;}
+.kpi .explain{margin-top:14px;padding-top:14px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);line-height:1.5;}
+.section-head{margin-bottom:48px;max-width:820px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(40px,5.5vw,68px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:16px;}
+.section-head p{font-size:17px;color:var(--mute);margin-top:16px;line-height:1.6;}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.chart-row{grid-template-columns:1fr;}}
+.chart-card{background:var(--paper);border:2px solid var(--navy);border-radius:20px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.chart-card h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:4px;}
+.chart-card .chart-sub{font-size:13px;color:var(--mute);margin-bottom:20px;}
+.chart-container{position:relative;height:280px;}
+.table-section{background:var(--paper);}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:20px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+thead{background:var(--navy);}
+th{text-align:left;padding:14px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);}
+th.num,td.num{text-align:right;}
+td{padding:14px 18px;border-bottom:1px solid var(--hair);}
+tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.upside-pill{display:inline-block;padding:3px 10px;background:var(--lilac);color:var(--navy);border:1.5px solid var(--navy);border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.05em;}
+.priorities-section{background:#fff;}
+.priority-list{display:flex;flex-direction:column;gap:16px;}
+.priority{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 28px;display:grid;grid-template-columns:56px 1fr;gap:20px;align-items:start;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.priority:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.priority .pnum{width:56px;height:56px;border-radius:14px;background:var(--blue);color:#fff;border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:30px;display:flex;align-items:center;justify-content:center;}
+.priority h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:6px;}
+.priority p{font-size:14px;color:var(--mute);line-height:1.55;}
+.priority .tag{display:inline-block;margin-top:10px;padding:4px 10px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.18em;border-radius:6px;text-transform:uppercase;}
+.story-section{background:var(--lilac);}
+.story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+@media(max-width:900px){.story-grid{grid-template-columns:1fr;}}
+.story-card{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:28px;box-shadow:5px 5px 0 var(--navy);}
+.story-card .num{font-family:'Bangers',sans-serif;font-size:64px;line-height:0.9;color:var(--blue);margin-bottom:8px;}
+.story-card h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:12px;line-height:1.1;}
+.story-card p{font-size:14px;color:var(--mute);line-height:1.55;}
+.ideas-section{background:#fff;}
+.ideas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+@media(max-width:900px){.ideas-grid{grid-template-columns:1fr;}}
+.idea{background:var(--paper);border:2px solid var(--navy);border-radius:20px;padding:32px 28px;box-shadow:6px 6px 0 var(--navy);position:relative;}
+.idea:nth-child(2),.idea:nth-child(3){background:var(--lilac);}
+.idea .badge{position:absolute;top:-14px;left:24px;background:var(--blue);color:#fff;border:2px solid var(--navy);padding:4px 12px;border-radius:8px;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;}
+.idea h4{font-family:'Bangers',sans-serif;font-size:26px;letter-spacing:0.04em;color:var(--navy);margin-bottom:12px;line-height:1.1;}
+.idea p{font-size:14px;color:var(--mute);line-height:1.6;margin-bottom:8px;}
+.callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:20px 24px;margin-top:24px;box-shadow:4px 4px 0 var(--navy);}
+.callout strong{color:var(--navy);font-weight:700;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:80px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,56px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:16px;font-size:14px;}
+.footer .built-by{margin-top:32px;padding-top:24px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px;}
+@media(max-width:720px){.metric-row{grid-template-columns:1fr;}}
+.metric{text-align:center;padding:24px;background:#fff;border:2px solid var(--navy);border-radius:12px;}
+.metric .v{font-family:'Bangers',sans-serif;font-size:48px;color:var(--blue);line-height:1;}
+.metric .l{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--mute);font-weight:700;margin-top:8px;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="star" style="top:80px;left:80px;transform:rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="top:200px;right:120px;transform:rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <div class="container">
+    <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">May 2026 &middot; Strategy Review</span>
+    <h1>RANKINGS UP 6X.<br/>ONE BLOG IS<br/><span class="accent">DOING THE WORK.</span></h1>
+    <p class="lede">Average ranking position improved from #36 to #7 in 12 months. A single article on partnership distributions is now showing in front of 75,000 dental and accounting professionals every quarter. Local Missoula terms are sitting just outside the top spots, ready to be pushed up. Here's what's working, where the upside lives, and what ships next.</p>
+    <div class="meta">
+      <span><strong>Period:</strong> February to April 2026 (90 days)</span>
+      <span><strong>Prepared for:</strong> Andrew Stolle</span>
+      <span><strong>Prepared by:</strong> Markology</span>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Organic Clicks (April)</div>
+        <div class="value">148</div>
+        <div class="delta">&uarr; 90% YoY</div>
+        <div class="explain">Monthly clicks from Google organic search. Source: Search Console. Up from 78 in May 2025.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Total Keywords Ranking</div>
+        <div class="value">113</div>
+        <div class="delta">&uarr; 135% YoY</div>
+        <div class="explain">URLs from elevatedtax.com appearing in Google results. Source: SEMrush. Up from 48 a year ago.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Avg Ranking Position</div>
+        <div class="value">#7.4</div>
+        <div class="delta">improved from #36.7</div>
+        <div class="explain">Average page position across all ranking keywords. Lower is better. Massive YoY improvement.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Top Article Impressions</div>
+        <div class="value">75K</div>
+        <div class="delta">90-day total</div>
+        <div class="explain">The S-corp distributions article alone earned 75,080 Google impressions over the last 90 days.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">The Trajectory</span>
+      <h2>UP AND TO<br/><span class="accent">THE RIGHT.</span></h2>
+      <p>Two views of the same story. Organic clicks have grown roughly 90% year over year. Average page ranking position has dropped from page four to page one. The strategy is working: Montana-relevant tax content paired with deeper technical pieces is winning Google's attention.</p>
+    </div>
+    <div class="chart-row">
+      <div class="chart-card">
+        <h4>Organic Clicks Per Month</h4>
+        <div class="chart-sub">From Google Search Console. Steady upward trend.</div>
+        <div class="chart-container"><canvas id="organicChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h4>Average Ranking Position</h4>
+        <div class="chart-sub">Lower is better. Position improved from #36.7 to #7.4.</div>
+        <div class="chart-container"><canvas id="positionChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="story-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">What's Working</span>
+      <h2>THE STRATEGY<br/><span class="accent">IS COMPOUNDING.</span></h2>
+      <p>Three signals confirm the content approach is the right one for Elevated Tax. Technical authority, local relevance, and steady momentum.</p>
+    </div>
+    <div class="story-grid">
+      <div class="story-card">
+        <div class="num">75K</div>
+        <h4>IMPRESSIONS ON ONE ARTICLE</h4>
+        <p>The "Distributions in Excess of Basis" article is the breakout piece in the index. 75,080 Google impressions in 90 days, ranking #5 to #6 for the head term. It's outperforming most general accounting content because it answers a specific question accountants and small business owners ask, but very few CPAs write about.</p>
+      </div>
+      <div class="story-card">
+        <div class="num">29x</div>
+        <h4>POSITION IMPROVEMENT</h4>
+        <p>A year ago the average page ranked at position #36.7 (page 4 of Google). Today it's #7.4 (page 1). That kind of shift takes 9 to 12 months of consistent content and on-page work, and the trajectory shows it's still climbing.</p>
+      </div>
+      <div class="story-card">
+        <div class="num">10</div>
+        <h4>LOCAL TERMS IN STRIKING DISTANCE</h4>
+        <p>Ten Missoula and Montana CPA terms currently sit between positions #12 and #25. Phrases like "missoula accountant," "cpa missoula mt," "accounting missoula," and "missoula bookkeeper." All are local commercial intent, all are within reach of top-3 with focused on-page work and local backlinks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;padding:80px 0;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">The Next Unlock</span>
+      <h2>RANKING ALREADY,<br/>READY TO <span class="accent">WIN THE CLICK.</span></h2>
+      <p>Twelve pages on the site already rack up between 200 and 75,000 monthly impressions in Google. The rankings are there. The next move is sharpening titles and meta descriptions so more of those impressions convert into clicks. Fast, cheap, and high-leverage.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Page</th><th class="num">90-Day Impressions</th><th class="num">Position</th><th class="num">Upside</th></tr></thead>
+        <tbody>
+          <tr><td>Distributions in Excess of Basis (S-corp/Partnership)</td><td class="num">75,080</td><td class="num">#5.7</td><td class="num"><span class="upside-pill">+1,985 clicks</span></td></tr>
+          <tr><td>Accountable Plans for S-Corps and Partnerships</td><td class="num">33,931</td><td class="num">#6.2</td><td class="num"><span class="upside-pill">+945 clicks</span></td></tr>
+          <tr><td>/ (Homepage)</td><td class="num">5,012</td><td class="num">#16.9</td><td class="num"><span class="upside-pill">+18 clicks</span></td></tr>
+          <tr><td>Tax Preparation Missoula MT</td><td class="num">2,884</td><td class="num">#13.8</td><td class="num"><span class="upside-pill">+80 clicks</span></td></tr>
+          <tr><td>Contact</td><td class="num">1,975</td><td class="num">#10.4</td><td class="num"><span class="upside-pill">+40 clicks</span></td></tr>
+          <tr><td>Accounting Missoula service page</td><td class="num">1,435</td><td class="num">#17.4</td><td class="num"><span class="upside-pill">+40 clicks</span></td></tr>
+          <tr><td>KBCPAs landing page</td><td class="num">999</td><td class="num">#28.9</td><td class="num"><span class="upside-pill">+22 clicks</span></td></tr>
+          <tr><td>Missoula Bookkeeper service page</td><td class="num">730</td><td class="num">#15.0</td><td class="num"><span class="upside-pill">+19 clicks</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>The math:</strong> the Distributions article alone is at 0.35% click-through rate against a benchmark of 3% for its position. Sharpening the title and meta to bring that page to a 3% CTR translates to roughly 2,000 additional clicks per quarter, off a single piece of content already ranking. That kind of upside is rare.</div>
+  </div>
+</section>
+
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Google Ads</span>
+      <h2>SPEND IS RUNNING<br/><span class="accent">WITHOUT A SCOREBOARD.</span></h2>
+      <p>The Google Ads account has three campaigns live and roughly $90 of monthly spend, but only one conversion action is configured (a lead form submission), and it has not registered a single conversion in 90 days. The campaigns are driving clicks. We don't know which clicks are turning into business. Step one is to fix the tracking. Step two is to optimize from real data.</p>
+    </div>
+    <div class="table-card" style="margin-bottom:32px;">
+      <table>
+        <thead><tr><th>Campaign</th><th class="num">Type</th><th class="num">90-Day Spend</th><th class="num">Clicks</th><th class="num">Tracked Conversions</th></tr></thead>
+        <tbody>
+          <tr><td>Search - Elevated Tax & Accounting</td><td class="num">Search</td><td class="num">$315.83</td><td class="num">44</td><td class="num">0</td></tr>
+          <tr><td>Search - Bookkeeping & Accounting</td><td class="num">Search</td><td class="num">$41.40</td><td class="num">6</td><td class="num">0</td></tr>
+          <tr><td>Performance Max - Brand Keywords</td><td class="num">Performance Max</td><td class="num">$10.30</td><td class="num">38</td><td class="num">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>The opportunity:</strong> set up proper conversion tracking (a real conversion is a Calendly booking or a phone call, not a button click) and connect Google Ads to GA4. Once we can see which campaigns produce real bookings versus which just produce clicks, we can confidently shift spend toward what works. With $90 monthly running blind, even a small efficiency gain compounds quickly.</div>
+  </div>
+</section>
+
+<section class="priorities-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">May / June Game Plan</span>
+      <h2>WHAT WE WORK<br/><span class="accent">NEXT.</span></h2>
+      <p>Six items, ordered by impact. Items 1 and 2 ship this week. Items 3 to 6 ship in the next 30 to 60 days.</p>
+    </div>
+    <div class="priority-list">
+      <div class="priority">
+        <div class="pnum">01</div>
+        <div>
+          <h4>Title and meta rewrite on the breakout articles</h4>
+          <p>The Distributions in Excess of Basis article and the Accountable Plans article together rack up over 109,000 monthly impressions but convert at 0.22 to 0.35% click-through rate. Sharpening their titles and meta descriptions to match the actual searcher intent ("S-corp distributions taxable", "partnership accountable plan rules") projects roughly 2,500 to 3,000 additional clicks per quarter at zero new content cost.</p>
+          <span class="tag">This Week</span>
+        </div>
+      </div>
+      <div class="priority" style="background:var(--lilac);">
+        <div class="pnum">02</div>
+        <div>
+          <h4>Set up proper Google Ads conversion tracking</h4>
+          <p>Right now Google Ads has only one conversion action configured ("GTM Submit lead form") and it has registered zero conversions in 90 days. Set up real outcome tracking: phone call clicks, contact form submissions on the actual page, and any Calendly booking events if applicable. Without this, every dollar of ad spend is invisible to the optimization algorithm.</p>
+          <span class="tag">This Week</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">03</div>
+        <div>
+          <h4>Push three local Missoula terms from page two to top three</h4>
+          <p>"Cpa missoula mt" at #16, "missoula cpa" at #16, "missoula cpas" at #16, "tax preparation missoula" at #21. All have commercial intent. On-page tightening on the homepage and the Missoula CPA service page, paired with two or three Montana-relevant directory or local-press backlinks, pushes them into the top three.</p>
+          <span class="tag">30 Days</span>
+        </div>
+      </div>
+      <div class="priority" style="background:var(--lilac);">
+        <div class="pnum">04</div>
+        <div>
+          <h4>Build a content cluster around the Distributions article</h4>
+          <p>The S-corp distributions piece is already ranking and pulling 75K impressions. Build three to five sibling articles ("S-corp basis tracking step by step", "How to take a tax-free shareholder distribution", "S-corp accountable plan template") and internally link them as a hub. Cluster authority compounds, and the topic expansion captures related queries the main article doesn't.</p>
+          <span class="tag">30 Days</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">05</div>
+        <div>
+          <h4>Optimize the S-Corp Calculator page</h4>
+          <p>The calculator at /s-corp-calculator/ ranks for "s corp vs llc calculator" at #25 and "s corp savings calculator" at #43. With the right meta and a couple of well-placed internal links from the distributions and accountable plans articles, this becomes a high-intent lead magnet. Anyone using the calculator is a high-fit prospect for tax services.</p>
+          <span class="tag">30 Days</span>
+        </div>
+      </div>
+      <div class="priority" style="background:var(--lilac);">
+        <div class="pnum">06</div>
+        <div>
+          <h4>Service page rewrites: Accounting, Bookkeeping, Tax, CFO</h4>
+          <p>The four core service pages currently get 0 to 6 organic clicks per 90 days despite ranking in Google. Rewrite each with answer-first headings, Montana-specific benchmarks, and clear pricing language consistent with the brand voice. The pages are getting served, they just aren't winning the click yet.</p>
+          <span class="tag">60 Days</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ideas-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">New Plays</span>
+      <h2>FOUR NEW<br/><span class="accent">DIRECTIONS.</span></h2>
+      <p>Outside the standard SEO and content rhythm. Four bigger swings worth piloting if you're open to them.</p>
+    </div>
+    <div class="ideas-grid">
+      <div class="idea">
+        <div class="badge">Idea 01</div>
+        <h4>Montana small business owner email series</h4>
+        <p>The Distributions article is bringing in dental practice owners, ranchers, outfitters, and other small business owners across Montana. Capture them with a free 7-email "Montana small business tax checklist" series gated by email signup on the article.</p>
+        <p>Builds an owned list, primes warm leads for your seasonal outreach, and makes Andrew the go-to Montana tax person they call when March panic hits.</p>
+      </div>
+      <div class="idea">
+        <div class="badge">Idea 02</div>
+        <h4>Local Missoula partnerships and PR</h4>
+        <p>Three or four placed mentions in Missoula-relevant publications (Missoulian business section, Montana Free Press, local industry associations) substantially move the needle on the local CPA terms currently stuck around #16.</p>
+        <p>Pair with one or two community signal-builders: chamber of commerce membership listing, BBB profile, sponsorship of a small business event. Modest investment, durable local trust.</p>
+      </div>
+      <div class="idea">
+        <div class="badge">Idea 03</div>
+        <h4>Seasonal video content for social</h4>
+        <p>Andrew on camera, two to three minute video, plain-spoken Montana tax tips: "What ranchers need to know about depreciation," "1099 vs W-2 for outfitters," "Why your side gig might be costing you money." Posted to LinkedIn and Facebook on a steady cadence around tax season triggers.</p>
+        <p>Local audiences trust faces. Andrew's voice is a brand asset that text content can't replace.</p>
+      </div>
+      <div class="idea">
+        <div class="badge">Idea 04</div>
+        <h4>Annual "What changed for Montana taxpayers" guide</h4>
+        <p>A downloadable PDF released every January, summarizing federal and Montana tax changes for the year ahead. Promoted on the site, on social, and via email.</p>
+        <p>One annual deliverable, multiple uses: lead magnet, organic content piece, local press hook, social content for the entire month of January.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">How We Measure This</span>
+      <h2>THREE NUMBERS<br/><span class="accent">EVERY MONTH.</span></h2>
+      <p>Going forward, every monthly update reports on these three numbers. They span the funnel from visibility to engaged traffic to qualified leads.</p>
+    </div>
+    <div class="metric-row">
+      <div class="metric">
+        <div class="v">148 &rarr; 400</div>
+        <div class="l">Monthly Organic Clicks</div>
+        <p style="margin-top:12px;font-size:13px;color:var(--mute);">Current 148 (April). 90-day target after CTR fixes.</p>
+      </div>
+      <div class="metric">
+        <div class="v">0.4% &rarr; 2%</div>
+        <div class="l">Avg. Top-12 Page CTR</div>
+        <p style="margin-top:12px;font-size:13px;color:var(--mute);">Current 0.2 to 0.5%. 60-day target.</p>
+      </div>
+      <div class="metric">
+        <div class="v">0 &rarr; 5+</div>
+        <div class="l">Tracked Lead Events / Month</div>
+        <p style="margin-top:12px;font-size:13px;color:var(--mute);">Current 0 (no tracking). After conversion setup.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <h2>THE FOUNDATION IS SOLID.<br/>NOW WE <span class="accent">CONVERT IT.</span></h2>
+    <p>Questions or pushback on anything in this plan? Reach out to Markology directly.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; May 6, 2026</div>
+  </div>
+</footer>
+
+<script>
+Chart.defaults.font.family="'Inter',-apple-system,BlinkMacSystemFont,sans-serif";
+Chart.defaults.font.size=12;Chart.defaults.color='#6C6E8A';Chart.defaults.borderColor='rgba(7,6,48,0.10)';
+const navy='#070630',blue='#3872EB';
+
+const months12=["May'25","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan'26","Feb","Mar","Apr"];
+const organic=[78,57,52,85,103,120,95,157,167,153,232,148];
+const positions=[36.7,36.9,36.8,30.7,18.3,7.9,10.1,8.8,8.4,6.8,6.4,7.4];
+
+new Chart(document.getElementById('organicChart'),{type:'bar',data:{labels:months12,datasets:[{label:'Organic Clicks',data:organic,backgroundColor:'rgba(56,114,235,0.78)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'Clicks per month'}}}}});
+
+new Chart(document.getElementById('positionChart'),{type:'line',data:{labels:months12,datasets:[{label:'Avg Position',data:positions,borderColor:blue,backgroundColor:'rgba(56,114,235,0.12)',fill:true,tension:0.35,borderWidth:3,pointRadius:5,pointBackgroundColor:blue}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{reverse:true,title:{display:true,text:'Avg Position (lower = better)'}}}}});
+</script>
+</body>
+</html>

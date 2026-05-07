@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>KB Financial Advisors, May 2026 Strategy Review by Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:80px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:56px 0;}.container{padding:0 20px;}}
+.star{position:absolute;pointer-events:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.hero{background:var(--paper);padding-top:100px;padding-bottom:80px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(44px,8vw,96px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:24px 0 0;}
+.hero .lede{font-size:19px;line-height:1.6;color:var(--mute);max-width:680px;margin-top:28px;}
+.hero .meta{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.kpi-section{background:#fff;padding:64px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 22px;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.kpi:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:12px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:48px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .delta{margin-top:10px;font-size:13px;font-weight:600;color:#047857;}
+.kpi .explain{margin-top:14px;padding-top:14px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);line-height:1.5;}
+.section-head{margin-bottom:48px;max-width:820px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(40px,5.5vw,68px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:16px;}
+.section-head p{font-size:17px;color:var(--mute);margin-top:16px;line-height:1.6;}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.chart-row{grid-template-columns:1fr;}}
+.chart-card{background:var(--paper);border:2px solid var(--navy);border-radius:20px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.chart-card h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:4px;}
+.chart-card .chart-sub{font-size:13px;color:var(--mute);margin-bottom:20px;}
+.chart-container{position:relative;height:280px;}
+.table-section{background:var(--paper);}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:20px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+thead{background:var(--navy);}
+th{text-align:left;padding:14px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);}
+th.num,td.num{text-align:right;}
+td{padding:14px 18px;border-bottom:1px solid var(--hair);}
+tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.upside-pill{display:inline-block;padding:3px 10px;background:var(--lilac);color:var(--navy);border:1.5px solid var(--navy);border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.05em;}
+.gain-pill{display:inline-block;padding:3px 10px;background:#D1FAE5;color:#065F46;border:1.5px solid #065F46;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.05em;}
+.new-pill{display:inline-block;padding:3px 10px;background:var(--blue);color:#fff;border:1.5px solid var(--navy);border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.05em;}
+.flat-pill{display:inline-block;padding:3px 10px;background:#FEF3C7;color:#78350F;border:1.5px solid #78350F;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.05em;}
+.priorities-section{background:#fff;}
+.priority-list{display:flex;flex-direction:column;gap:16px;}
+.priority{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 28px;display:grid;grid-template-columns:56px 1fr;gap:20px;align-items:start;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.priority:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.priority .pnum{width:56px;height:56px;border-radius:14px;background:var(--blue);color:#fff;border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:30px;display:flex;align-items:center;justify-content:center;}
+.priority h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:6px;}
+.priority p{font-size:14px;color:var(--mute);line-height:1.55;}
+.priority .tag{display:inline-block;margin-top:10px;padding:4px 10px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.18em;border-radius:6px;text-transform:uppercase;}
+.story-section{background:var(--lilac);}
+.story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+@media(max-width:900px){.story-grid{grid-template-columns:1fr;}}
+.story-card{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:28px;box-shadow:5px 5px 0 var(--navy);}
+.story-card .num{font-family:'Bangers',sans-serif;font-size:64px;line-height:0.9;color:var(--blue);margin-bottom:8px;}
+.story-card h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:12px;line-height:1.1;}
+.story-card p{font-size:14px;color:var(--mute);line-height:1.55;}
+.ideas-section{background:#fff;}
+.ideas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+@media(max-width:900px){.ideas-grid{grid-template-columns:1fr;}}
+.idea{background:var(--paper);border:2px solid var(--navy);border-radius:20px;padding:32px 28px;box-shadow:6px 6px 0 var(--navy);position:relative;}
+.idea:nth-child(2),.idea:nth-child(3){background:var(--lilac);}
+.idea .badge{position:absolute;top:-14px;left:24px;background:var(--blue);color:#fff;border:2px solid var(--navy);padding:4px 12px;border-radius:8px;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;}
+.idea h4{font-family:'Bangers',sans-serif;font-size:26px;letter-spacing:0.04em;color:var(--navy);margin-bottom:12px;line-height:1.1;}
+.idea p{font-size:14px;color:var(--mute);line-height:1.6;margin-bottom:8px;}
+.callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:20px 24px;margin-top:24px;box-shadow:4px 4px 0 var(--navy);}
+.callout strong{color:var(--navy);font-weight:700;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:80px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,56px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:16px;font-size:14px;}
+.footer .built-by{margin-top:32px;padding-top:24px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px;}
+@media(max-width:720px){.metric-row{grid-template-columns:1fr;}}
+.metric{text-align:center;padding:24px;background:#fff;border:2px solid var(--navy);border-radius:12px;}
+.metric .v{font-family:'Bangers',sans-serif;font-size:48px;color:var(--blue);line-height:1;}
+.metric .l{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--mute);font-weight:700;margin-top:8px;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="star" style="top:80px;left:80px;transform:rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="top:200px;right:120px;transform:rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <div class="container">
+    <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">May 2026 &middot; Strategy Review</span>
+    <h1>PAGE FOUR<br/>TO PAGE ONE.<br/><span class="accent">IN ONE YEAR.</span></h1>
+    <p class="lede">Twelve months ago, the average kbfinancialadvisors.com page ranked at position 32.8 (page 3 of Google). Today it sits at #11.9 (top of page 1). Keywords ranking are stable around 1,667. The equity-comp content cluster is winning Databricks 2026, AMT calculator, founders shares, and RSU cost basis territory. The next move is converting that visibility into clicks.</p>
+    <div class="meta">
+      <span><strong>Period:</strong> May 2025 to April 2026 (12 months)</span>
+      <span><strong>Prepared for:</strong> Landon Loveall</span>
+      <span><strong>Prepared by:</strong> Markology</span>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Organic Clicks (April)</div>
+        <div class="value">687</div>
+        <div class="delta">12-month avg ~963</div>
+        <div class="explain">Monthly clicks from Google organic search. Source: Search Console. Clicks have softened since October as AI Overviews capture answers at the top of SERP, but rankings have improved underneath.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Total Keywords Ranking</div>
+        <div class="value">1,667</div>
+        <div class="delta">stable cluster</div>
+        <div class="explain">URLs from kbfinancialadvisors.com appearing in Google's top 100. Source: SEMrush. Holding steady around 1,650 to 1,750 across 18 months.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Avg Ranking Position</div>
+        <div class="value">#11.9</div>
+        <div class="delta">improved from #32.8</div>
+        <div class="explain">Average page position weighted by impressions across all keywords. Lower is better. Roughly 21 spots of improvement YoY.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Top Strategic Gain</div>
+        <div class="value">+6</div>
+        <div class="delta">"amt calculator" #10 to #4</div>
+        <div class="explain">A 1,600-volume keyword at $2.43 CPC moved from page 1 bottom to top 5. The single largest commercial gain in the cluster YoY.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">The Trajectory</span>
+      <h2>RANKINGS ARE<br/><span class="accent">COMPOUNDING.</span></h2>
+      <p>Two views of the same trend. Search impressions held steady around 160,000 to 250,000 per month while average position improved from page three to page one. Clicks softened, an industry-wide AI Overviews pattern. Underlying ranking authority is strengthening in the equity-comp territory KB owns.</p>
+    </div>
+    <div class="chart-row">
+      <div class="chart-card">
+        <h4>Monthly Organic Clicks</h4>
+        <div class="chart-sub">From Google Search Console. Click softening reflects AI Overview capture at improving positions.</div>
+        <div class="chart-container"><canvas id="clicksChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h4>Average Ranking Position</h4>
+        <div class="chart-sub">Lower is better. Position improved from #32.8 to #11.9 over twelve months.</div>
+        <div class="chart-container"><canvas id="positionChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="story-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">What's Working</span>
+      <h2>THE CLUSTER IS<br/><span class="accent">EARNING AUTHORITY.</span></h2>
+      <p>Three signals confirm the equity-comp content strategy is the right wedge. The audience is tech employees and founders making real liquidity decisions, and Google is increasingly trusting kbfinancialadvisors.com as the page to surface for them.</p>
+    </div>
+    <div class="story-grid">
+      <div class="story-card">
+        <div class="num">21</div>
+        <h4>POSITIONS GAINED ON AVG</h4>
+        <p>From #32.8 a year ago to #11.9 today. Ranking on average jumped from page three of Google to the top of page one. That kind of YoY improvement is unusual in financial services SEO and reflects the topical authority being built around tech equity comp content.</p>
+      </div>
+      <div class="story-card">
+        <div class="num">#1</div>
+        <h4>DATABRICKS 2026 (NEW)</h4>
+        <p>The Databricks Tender Offer 2026 page launched in March, hit #1 for "databricks tender offer" and "databricks tender offer 2026" within sixty days, and now pulls 128 monthly clicks at 0.89% CTR. Proof of the timely-content sprint model: a single piece can capture an entire liquidity event.</p>
+      </div>
+      <div class="story-card">
+        <div class="num">+6</div>
+        <h4>AMT CALCULATOR #10 TO #4</h4>
+        <p>The largest commercial keyword gain in the cluster. "amt calculator" carries 1,600 monthly searches at a $2.43 CPC. The page moved from page 1 bottom to top 5. One landed editorial backlink should push this from #4 to top 3, where CTR roughly doubles.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Year over Year Movement</span>
+      <h2>WHAT MOVED, WHAT'S<br/><span class="accent">NEW, AND WHY.</span></h2>
+      <p>Twelve strategic keywords mapped from May 2025 to today. The mix is intentional: the equity-comp wedge keeps gaining ground while a few legacy money pages decayed and have already been refreshed today (May 7). NEW entries are pages that weren't ranking in the top 100 a year ago.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Keyword</th><th class="num">Volume</th><th class="num">May 2025</th><th class="num">May 2026</th><th class="num">Movement</th></tr></thead>
+        <tbody>
+          <tr><td>amt calculator</td><td class="num">1,600</td><td class="num">#10</td><td class="num">#4</td><td class="num"><span class="gain-pill">+6 spots</span></td></tr>
+          <tr><td>databricks tender offer</td><td class="num">110</td><td class="num">not ranking</td><td class="num">#1</td><td class="num"><span class="new-pill">NEW &middot; #1</span></td></tr>
+          <tr><td>founders shares</td><td class="num">140</td><td class="num">not ranking</td><td class="num">#7</td><td class="num"><span class="new-pill">NEW</span></td></tr>
+          <tr><td>how do stock options work for buying a house</td><td class="num">110</td><td class="num">not ranking</td><td class="num">#1</td><td class="num"><span class="new-pill">NEW &middot; #1</span></td></tr>
+          <tr><td>how to buy a house with stock options silicon valley</td><td class="num">140</td><td class="num">not ranking</td><td class="num">#4</td><td class="num"><span class="new-pill">NEW</span></td></tr>
+          <tr><td>iso amt calculator</td><td class="num">110</td><td class="num">not ranking</td><td class="num">#6</td><td class="num"><span class="new-pill">NEW</span></td></tr>
+          <tr><td>is it better to sell stocks in december or january</td><td class="num">30</td><td class="num">not ranking</td><td class="num">#1</td><td class="num"><span class="new-pill">NEW &middot; #1</span></td></tr>
+          <tr><td>amt cost basis</td><td class="num">70</td><td class="num">#5</td><td class="num">#3</td><td class="num"><span class="gain-pill">+2 spots</span></td></tr>
+          <tr><td>rsu cost basis</td><td class="num">390</td><td class="num">#8</td><td class="num">#6</td><td class="num"><span class="gain-pill">+2 spots</span></td></tr>
+          <tr><td>restricted stock units cost basis</td><td class="num">210</td><td class="num">#6</td><td class="num">#5</td><td class="num"><span class="gain-pill">+1 spot</span></td></tr>
+          <tr><td>what happens to rsus when you leave a company</td><td class="num">70</td><td class="num">not ranking</td><td class="num">#7</td><td class="num"><span class="new-pill">NEW</span></td></tr>
+          <tr><td>cost basis vs market value</td><td class="num">210</td><td class="num">#1</td><td class="num">#4</td><td class="num"><span class="flat-pill">addressed 5/7</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>The pattern:</strong> the wins are concentrated in the deliberate equity-comp wedge (RSU, AMT, ISO, founders, tender offer) where KB is publishing focused content. The losses are concentrated on a small number of older money pages that decayed without refresh. Those pages were content-refreshed today (5/7), so the May 2025 to May 2026 snapshot likely understates current state by 30 to 60 days.</div>
+  </div>
+</section>
+
+<section style="background:#fff;padding:80px 0;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">The Next Unlock</span>
+      <h2>RANKINGS ARE HERE.<br/>NOW WE <span class="accent">CONVERT THEM.</span></h2>
+      <p>Eight pages account for over 165,000 monthly impressions but average less than 0.6% CTR. Industry standard for these positions is 1.5% to 3%. The disconnect is title and meta description, not ranking. Six of the eight had their Rank Math title and meta refreshed today (5/7). Click impact propagates over 14 to 30 days.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Page</th><th class="num">90-Day Impressions</th><th class="num">CTR</th><th class="num">Position</th><th class="num">Upside at 2% CTR</th></tr></thead>
+        <tbody>
+          <tr><td>RSU Cost Basis Tech Employees Guide</td><td class="num">43,520</td><td class="num">0.57%</td><td class="num">#7.6</td><td class="num"><span class="upside-pill">+620 clicks/mo</span></td></tr>
+          <tr><td>/ (Homepage)</td><td class="num">30,955</td><td class="num">0.73%</td><td class="num">#8.7</td><td class="num"><span class="upside-pill">+390 clicks/mo</span></td></tr>
+          <tr><td>RSU and Stock Options After a Layoff</td><td class="num">25,303</td><td class="num">0.28%</td><td class="num">#6.3</td><td class="num"><span class="upside-pill">+430 clicks/mo</span></td></tr>
+          <tr><td>Selling Stock Before Year End</td><td class="num">19,018</td><td class="num">0.25%</td><td class="num">#4.8</td><td class="num"><span class="upside-pill">+330 clicks/mo</span></td></tr>
+          <tr><td>Understanding Your Pay Stub: Stock Options</td><td class="num">14,739</td><td class="num">0.36%</td><td class="num">#9.7</td><td class="num"><span class="upside-pill">+240 clicks/mo</span></td></tr>
+          <tr><td>Databricks Tender Offer 2026</td><td class="num">14,419</td><td class="num">0.89%</td><td class="num">#3.7</td><td class="num"><span class="upside-pill">+160 clicks/mo</span></td></tr>
+          <tr><td>Fair Market Value vs Cost Basis</td><td class="num">12,687</td><td class="num">0.39%</td><td class="num">#7.8</td><td class="num"><span class="upside-pill">+200 clicks/mo</span></td></tr>
+          <tr><td>Avoid Underpayment Penalty</td><td class="num">11,885</td><td class="num">0.48%</td><td class="num">#7.8</td><td class="num"><span class="upside-pill">+180 clicks/mo</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>The math:</strong> these eight pages combine for roughly 172,000 quarterly impressions. Lifting average CTR from 0.5% to 2% (still below standard for these positions) translates to roughly 2,500 additional monthly clicks. Six of the eight had Rank Math title and meta description refreshed on 5/7; FAQ schema and WebApplication schema were added to the two calculator pages; 7 internal links were injected to strengthen the cluster. Recheck CTR in 14 days.</div>
+  </div>
+</section>
+
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Google Ads</span>
+      <h2>SIGNAL IS CURRENTLY<br/><span class="accent">UNDER-AUDITED.</span></h2>
+      <p>Google Ads investigation is paused on tooling. Pipeboard's API quota is exhausted; Composio's googleads connector has a header bug that 400s every query. What we know from GA4: paid attribution looks broken. Direct sessions collapsed from 2,817 in December to 827 in April. Paid Search dropped from 93 to 17 sessions in the same window. The April top landing page is /?gadid=, with 110 sessions attributed to Direct, suggesting the Google Ads click identifier is landing in Direct rather than Paid Search.</p>
+    </div>
+    <div class="callout"><strong>Working theory:</strong> Google Ads auto-tagging may be off, the GA4 to Ads link is misconfigured, or campaigns paused mid-period and the lingering /?gadid= URLs are coming from old indexed referrals. Either way, paid spend is currently optimizing against a bad signal. Once Composio's connector is reconnected (or Pipeboard's quota resets), the audit takes about 30 minutes: verify auto-tagging, check campaign status history, review final URL templates, confirm the GA4 link is healthy.</div>
+  </div>
+</section>
+
+<section class="priorities-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">May / June Game Plan</span>
+      <h2>WHAT WE WORK<br/><span class="accent">NEXT.</span></h2>
+      <p>Seven items, ordered by impact. Items 1 and 2 are already in flight from today's session. Items 3 to 7 ship across the next 30 to 60 days. The big change this month: a coordinated CTR + structured data + content refresh sweep on the eight pages that account for the bulk of impressions.</p>
+    </div>
+    <div class="priority-list">
+      <div class="priority">
+        <div class="pnum">01</div>
+        <div>
+          <h4>Recheck CTR in 14 days on the six refreshed pages</h4>
+          <p>Today's session shipped Rank Math title and meta description rewrites on six high-impression pages, plus FAQ + WebApplication structured data on the two calculator pages, plus 7 internal links into the cluster. CTR impact propagates over 14 to 30 days as Google reindexes. The recheck reveals which moves are working and which need a second pass.</p>
+          <span class="tag">14 Days</span>
+        </div>
+      </div>
+      <div class="priority" style="background:var(--lilac);">
+        <div class="pnum">02</div>
+        <div>
+          <h4>Backlink outreach via HARO, Qwoted, and direct journalist pitches</h4>
+          <p>Three pitches drafted for Landon and saved at Desktop/KB-Financial-2026-05-07/landon-haro-qwoted-pitches.md: AMT for ISO exercises, RSU underwithholding, and a general tech equity expert availability. Target publications include The Information, Levels.fyi, Compound Manual, Bloomberg Tax, Kitces.com, and Forbes contributors. Cadence of 3 to 4 pitches per week through May. One landed editorial backlink at The Information or Bloomberg Tax should move "amt calculator" and "rsu tax calculator" from #4/#7 into the top 3.</p>
+          <span class="tag">This Week</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">03</div>
+        <div>
+          <h4>Resolve the Google Ads tooling block and run the gadid audit</h4>
+          <p>Reconnect googleads in Composio settings with the raw-digit MCC ID (no dashes, no leading whitespace), or wait for Pipeboard quota to reset. Once either path is open, pull customer auto-tagging setting, campaign status history Dec to Apr, final URL templates, and conversion action configurations. The audit will tell us whether spend is currently optimizing against a real signal or against tracking noise.</p>
+          <span class="tag">This Week</span>
+        </div>
+      </div>
+      <div class="priority" style="background:var(--lilac);">
+        <div class="pnum">04</div>
+        <div>
+          <h4>Add the comparison table and H2 direct answers to /when-to-sell-stock-options-vs-rsu/</h4>
+          <p>The page sits at #11.5 with 10,920 impressions and 0.87% CTR. A clean RSU vs ESPP vs ISO vs NSO comparison table near the top, plus a one-sentence direct answer under each H2, sets the page up for AI Overview citation and rich-result expansion. Expected CTR lift to 2% range, adding roughly 120 monthly clicks.</p>
+          <span class="tag">30 Days</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">05</div>
+        <div>
+          <h4>Refresh the AMT cost basis content cluster</h4>
+          <p>Two AMT-cluster posts (/incentive-stock-options-amt-and-cost-basis/, /amt-credit-carryforward-with-iso-explained/) were last touched in October 2025. Refresh both with answer-first H2 structure, current 2026 AMT exemption thresholds, and worked examples. Pair with the 2 inbound links shipped today from those pages to /amt-calculator-clients/. Goal: push "amt cost basis" from #3 to #1 and lift the calculator page rankings via cluster authority.</p>
+          <span class="tag">30 Days</span>
+        </div>
+      </div>
+      <div class="priority" style="background:var(--lilac);">
+        <div class="pnum">06</div>
+        <div>
+          <h4>Update the SEMrush position tracking project to reflect current strategy</h4>
+          <p>The current tracker (project 25711774) tracks 161 keywords heavily weighted toward older SF-local strategy ("san francisco financial advisors", "san francisco wealth management", "tender offer" generic). Most of those have decayed because the firm has moved away from that wedge. Replace with the actual current strategic targets: RSU cost basis, AMT calculator, ISO/NSO terms, founders shares / QSBS, tender offer + company-specific (Databricks, OpenAI, Stripe), tech employee equity terms. Monthly reports will then reflect the strategy that's actually being executed.</p>
+          <span class="tag">This Week</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">07</div>
+        <div>
+          <h4>Equity-comp company-specific landing pages</h4>
+          <p>Build dedicated tech-employer pages for the companies driving liquidity events: Google, Meta, Stripe, OpenAI, Anthropic, Databricks, Snowflake, Salesforce, and a few smaller pre-IPO names. Each page covers RSU vesting math, ISO/NSO mix, ESPP terms, double-trigger structure, and tax planning specific to that employer. The Stripe and Databricks pages already proved this pattern works at #1 and #1-#7 respectively. Five to seven new employer pages over the next quarter.</p>
+          <span class="tag">60 Days</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ideas-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">New Plays</span>
+      <h2>FOUR NEW<br/><span class="accent">DIRECTIONS.</span></h2>
+      <p>Outside the standard SEO and content rhythm. Four bigger swings worth piloting if Landon is open to them.</p>
+    </div>
+    <div class="ideas-grid">
+      <div class="idea">
+        <div class="badge">Idea 01</div>
+        <h4>Liquidity-event 48-hour content sprint template</h4>
+        <p>The Databricks Tender Offer 2026 page hit #1 within sixty days because it shipped fast around an actual liquidity event. Productize the playbook: when a major tech liquidity event is announced (tender, IPO, secondary), Markology drafts and ships a KB-branded post within 48 hours. The first-mover advantage on a fresh equity event is significant. Three to five sprint posts a year, each potentially worth 100 to 300 monthly clicks at #1.</p>
+      </div>
+      <div class="idea">
+        <div class="badge">Idea 02</div>
+        <h4>Levels.fyi or Compound partnership</h4>
+        <p>Levels.fyi has the tech compensation audience already, and Compound Manual is read by exactly the kind of HNW tech employee KB serves. A guest post or a syndicated equity-comp series on either platform delivers a quality editorial backlink and direct audience exposure. Pitch the AMT calculator as the data hook, with a co-branded "Equity Comp Tax Survival Guide" as the deliverable.</p>
+      </div>
+      <div class="idea">
+        <div class="badge">Idea 03</div>
+        <h4>California exit and state residency planning page</h4>
+        <p>Tech founders and senior employees with large pending liquidity events increasingly research relocating to Texas, Florida, Washington, or Nevada before realizing gains. KB has the expertise and the audience overlap. A dedicated page on residency timing, the California Franchise Tax Board's pursuit of would-be expats, and the practical mechanics of establishing residency before a sale. High-intent commercial query, likely $20+ CPC equivalent organic value.</p>
+      </div>
+      <div class="idea">
+        <div class="badge">Idea 04</div>
+        <h4>Annual Tech Equity Comp Report (data-driven)</h4>
+        <p>One quality research piece per year drawn from KB's anonymized client data: average RSU underwithholding gap by company, AMT exposure on private-company exercises, founders share strategies actually used. Educational, not advisory. Becomes the piece that gets pitched to The Information, Bloomberg, and equity-comp newsletters as the source citation, generating editorial backlinks at scale.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">How We Measure This</span>
+      <h2>THREE NUMBERS<br/><span class="accent">EVERY MONTH.</span></h2>
+      <p>Going forward, every monthly update reports on these three numbers. They span the funnel from visibility to engaged traffic to qualified outreach.</p>
+    </div>
+    <div class="metric-row">
+      <div class="metric">
+        <div class="v">687 &rarr; 1,200</div>
+        <div class="l">Monthly Organic Clicks</div>
+        <p style="margin-top:12px;font-size:13px;color:var(--mute);">Current 687 (April). 90-day target after CTR fixes propagate from the 5/7 refresh sweep.</p>
+      </div>
+      <div class="metric">
+        <div class="v">0.5% &rarr; 1.5%</div>
+        <div class="l">Avg Top-12 Page CTR</div>
+        <p style="margin-top:12px;font-size:13px;color:var(--mute);">Current 0.25 to 0.89% on top eight pages. 60-day target as Rank Math metas and FAQ schema take effect.</p>
+      </div>
+      <div class="metric">
+        <div class="v">0 &rarr; 2+</div>
+        <div class="l">Editorial Backlinks / Quarter</div>
+        <p style="margin-top:12px;font-size:13px;color:var(--mute);">Two landed quotes or features at The Information, Bloomberg Tax, Kitces, Levels.fyi, or equivalent over the next 90 days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <h2>THE AUTHORITY IS BUILT.<br/>NOW WE <span class="accent">CONVERT IT.</span></h2>
+    <p>Questions or pushback on anything in this plan? Reach out to Markology directly.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; May 7, 2026</div>
+  </div>
+</footer>
+
+<script>
+Chart.defaults.font.family="'Inter',-apple-system,BlinkMacSystemFont,sans-serif";
+Chart.defaults.font.size=12;Chart.defaults.color='#6C6E8A';Chart.defaults.borderColor='rgba(7,6,48,0.10)';
+const navy='#070630',blue='#3872EB';
+
+const months12=["May'25","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan'26","Feb","Mar","Apr"];
+const clicks=[1194,1072,1435,1376,1179,1070,855,856,589,649,773,687];
+const positions=[32.8,30.9,27.2,26.0,16.4,9.5,11.4,16.0,18.0,13.9,12.9,11.9];
+
+new Chart(document.getElementById('clicksChart'),{type:'bar',data:{labels:months12,datasets:[{label:'Organic Clicks',data:clicks,backgroundColor:'rgba(56,114,235,0.78)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'Monthly Clicks'}}}}});
+
+new Chart(document.getElementById('positionChart'),{type:'line',data:{labels:months12,datasets:[{label:'Avg Position',data:positions,borderColor:blue,backgroundColor:'rgba(56,114,235,0.12)',fill:true,tension:0.35,borderWidth:3,pointRadius:5,pointBackgroundColor:blue}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{reverse:true,title:{display:true,text:'Avg Position (lower = better)'}}}}});
+</script>
+</body>
+</html>

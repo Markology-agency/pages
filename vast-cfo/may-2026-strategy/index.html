@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vast CFO - May 2026 Strategy Review by Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--watch:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}
+.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:80px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:56px 0;}.container{padding:0 20px;}}
+.star{position:absolute;pointer-events:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.hero{background:var(--paper);padding-top:100px;padding-bottom:80px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(44px,8vw,96px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:24px 0 0;}
+.hero .lede{font-size:19px;line-height:1.6;color:var(--mute);max-width:720px;margin-top:28px;}
+.hero .meta{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.kpi-section{background:#fff;padding:64px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 22px;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.kpi:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:12px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:48px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .delta{margin-top:10px;font-size:13px;font-weight:600;}
+.kpi .delta.good{color:#047857;}.kpi .delta.watch{color:#b45309;}.kpi .delta.bad{color:#b91c1c;}
+.kpi .explain{margin-top:14px;padding-top:14px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);line-height:1.5;}
+.section-head{margin-bottom:48px;max-width:820px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(40px,5.5vw,68px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:16px;}
+.section-head p{font-size:17px;color:var(--mute);margin-top:16px;line-height:1.6;}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.chart-row{grid-template-columns:1fr;}}
+.chart-card{background:var(--paper);border:2px solid var(--navy);border-radius:20px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.chart-card h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:4px;}
+.chart-card .chart-sub{font-size:13px;color:var(--mute);margin-bottom:20px;}
+.chart-container{position:relative;height:280px;}
+.story-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(max-width:900px){.story-row{grid-template-columns:1fr;}}
+.story{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px;box-shadow:5px 5px 0 var(--navy);}
+.story:nth-child(2){background:var(--lilac);}
+.story h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.03em;color:var(--navy);margin-bottom:10px;}
+.story .big{font-family:'Bangers',sans-serif;font-size:42px;color:var(--blue);line-height:1;margin:8px 0 12px;}
+.story p{font-size:14px;color:var(--mute);line-height:1.55;}
+.table-section{background:var(--paper);}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:20px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+thead{background:var(--navy);}
+th{text-align:left;padding:14px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);}
+th.num,td.num{text-align:right;}
+td{padding:14px 18px;border-bottom:1px solid var(--hair);}
+tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.tag-new{display:inline-block;padding:2px 8px;background:var(--blue);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.12em;border-radius:6px;text-transform:uppercase;}
+.tag-up{display:inline-block;padding:2px 8px;background:#047857;color:#fff;font-size:10px;font-weight:700;letter-spacing:0.12em;border-radius:6px;}
+.ads-section{background:#fff;}
+.ads-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.ads-grid{grid-template-columns:1fr;}}
+.ads-card{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px;box-shadow:5px 5px 0 var(--navy);}
+.ads-card h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.03em;color:var(--navy);margin-bottom:14px;}
+.ads-card .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--hair);font-size:14px;}
+.ads-card .row:last-child{border-bottom:none;}
+.ads-card .label{color:var(--mute);}
+.ads-card .v{font-weight:600;color:var(--navy);}
+.ads-finding{background:var(--lilac);border:2px solid var(--navy);border-radius:14px;padding:18px 22px;margin-top:24px;font-size:14px;color:var(--ink);box-shadow:4px 4px 0 var(--navy);}
+.ads-finding strong{color:var(--navy);}
+.priorities-section{background:var(--paper);}
+.priority-list{display:flex;flex-direction:column;gap:16px;}
+.priority{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:24px 28px;display:grid;grid-template-columns:56px 1fr;gap:20px;align-items:start;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.priority:nth-child(even){background:var(--lilac);}
+.priority:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.priority .pnum{width:56px;height:56px;border-radius:14px;background:var(--blue);color:#fff;border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:30px;display:flex;align-items:center;justify-content:center;}
+.priority h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:6px;}
+.priority p{font-size:14px;color:var(--mute);line-height:1.55;}
+.priority .tag{display:inline-block;margin-top:10px;padding:4px 10px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.18em;border-radius:6px;text-transform:uppercase;}
+.plays-section{background:#fff;}
+.play-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+@media(max-width:900px){.play-grid{grid-template-columns:1fr;}}
+.play{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px;box-shadow:5px 5px 0 var(--navy);}
+.play h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.03em;color:var(--navy);margin-bottom:10px;}
+.play p{font-size:14px;color:var(--mute);line-height:1.55;}
+.measure-section{background:var(--paper);}
+.measure-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(max-width:900px){.measure-grid{grid-template-columns:1fr;}}
+.measure{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:24px;box-shadow:5px 5px 0 var(--navy);text-align:center;}
+.measure h4{font-size:12px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:14px;}
+.measure .arrow{font-family:'Bangers',sans-serif;font-size:24px;color:var(--navy);}
+.measure .now{font-family:'Bangers',sans-serif;font-size:32px;color:var(--mute);}
+.measure .target{font-family:'Bangers',sans-serif;font-size:36px;color:var(--blue);margin-top:6px;}
+.measure p{font-size:13px;color:var(--mute);margin-top:10px;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:80px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,56px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:16px;font-size:14px;max-width:640px;margin-left:auto;margin-right:auto;}
+.footer .built-by{margin-top:32px;padding-top:24px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="star" style="top:80px;left:80px;transform:rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="top:200px;right:120px;transform:rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <div class="container">
+    <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">May 2026 &middot; Strategy Review</span>
+    <h1>VAST CFO.<br/>FROM 8 KEYWORDS<br/><span class="accent">TO 43 IN 12 MONTHS.</span></h1>
+    <p class="lede">A year ago Vast CFO had 8 keywords ranking and an average Google position of #50. Today the site has 43 keywords ranking, average position #7, and 28,851 monthly impressions in Search Console. Restaurant accountant near me sits at #5. EBITDA for restaurants at #4. Restaurant CFO at #13. The next move is converting that visibility into clicks: the top 4 pages already get 51,000 monthly impressions but combined CTR is under 0.4%. Title tag rewrites alone could double organic clicks before any new content ships.</p>
+    <div class="meta">
+      <span><strong>Period:</strong> May 2025 to April 2026</span>
+      <span><strong>Reporting date:</strong> May 12, 2026</span>
+      <span><strong>Prepared by:</strong> Markology</span>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Organic Clicks (April)</div>
+        <div class="value">100</div>
+        <div class="delta good">&uarr; 222% vs May 2025 (31)</div>
+        <div class="explain">Google Search Console clicks for vastcfo.com in April 2026. April 2025 was 31 clicks at average position 50.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Total Keywords Ranking</div>
+        <div class="value">43</div>
+        <div class="delta good">&uarr; 5.4x vs May 2025 (8)</div>
+        <div class="explain">SEMrush keyword count for vastcfo.com in the US database. Domain rank also improved from 16.6M to 11.1M, a meaningful authority gain.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Avg Google Position</div>
+        <div class="value">7.1</div>
+        <div class="delta good">&uarr; 42 spots vs May 2025</div>
+        <div class="explain">Average ranking position across all queries Vast CFO surfaces for. May 2025 was 49.9. Pages now consistently land in the top 10.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Search Impressions (April)</div>
+        <div class="value">28.8K</div>
+        <div class="delta good">&uarr; 13x vs May 2025 (2.2K)</div>
+        <div class="explain">April 2026 GSC impressions. The visibility is there. CTR optimization is the next conversion lever.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);padding:80px 0;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">12-Month Trajectory</span>
+      <h2>THE LINE GOES UP.<br/><span class="accent">AND TO THE RIGHT.</span></h2>
+      <p>Both organic clicks and average ranking position have moved sharply in the last 6 months. The October to December 2025 gap reflects a Search Console data interruption (not a traffic loss); the underlying SEMrush keyword growth was steady through that window.</p>
+    </div>
+    <div class="chart-row">
+      <div class="chart-card">
+        <h4>Organic Clicks by Month</h4>
+        <div class="chart-sub">GSC clicks for vastcfo.com, May 2025 through April 2026.</div>
+        <div class="chart-container"><canvas id="clicksChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h4>Average Position by Month</h4>
+        <div class="chart-sub">Lower number = higher rankings. Months with no data are GSC reporting gaps.</div>
+        <div class="chart-container"><canvas id="posChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;padding:80px 0;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">What's Working</span>
+      <h2>THREE SIGNALS<br/><span class="accent">WORTH DOUBLING DOWN ON.</span></h2>
+      <p>The pattern is consistent: deep, hospitality-specific content (food cost, COGS, EBITDA, labor %) is what Google is rewarding. None of these wins are accidents.</p>
+    </div>
+    <div class="story-row">
+      <div class="story">
+        <h4>Keyword Footprint 5x</h4>
+        <div class="big">8 &rarr; 43</div>
+        <p>From 8 ranking keywords in May 2025 to 43 in April 2026. Every win is a hospitality-specific term: restaurant CFO, restaurant EBITDA, restaurant cost of goods, restaurant budget. Google now sees the site as a restaurant finance authority, not a generic accounting site.</p>
+      </div>
+      <div class="story">
+        <h4>Position Jump</h4>
+        <div class="big">#50 &rarr; #7</div>
+        <p>Average ranking position improved by 43 spots. Pages that used to live on page 5 now consistently land in the top 10. Restaurant accountant near me at #5, EBITDA for restaurants at #4, restaurant cost of goods at #8.</p>
+      </div>
+      <div class="story">
+        <h4>Topical Depth Compounding</h4>
+        <div class="big">3 clusters</div>
+        <p>Three content clusters are now ranking together: budget &amp; cost breakdown (10+ variations), EBITDA &amp; profitability (6 variations), and restaurant payroll (5 variations). When Google sees a domain rank for many variations of a topic, it ranks the next variation faster.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Year-Over-Year Movement</span>
+      <h2>WHAT WE'VE WON<br/><span class="accent">SINCE LAST MAY.</span></h2>
+      <p>Twelve strategic restaurant and hospitality terms now ranking that weren't a year ago. Most are NEW (no rank in May 2025), the rest gained 15-59 spots. This is what compounding content looks like.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Keyword</th><th class="num">Volume</th><th class="num">May 2025</th><th class="num">Apr 2026</th><th class="num">Movement</th></tr></thead>
+        <tbody>
+<tr><td>restaurant accountant near me</td><td class='num'>110</td><td class='num'>NR</td><td class='num'><strong>#5</strong></td><td class='num'><span class='tag-new'>NEW</span></td></tr>
+<tr><td>ebitda for restaurants</td><td class='num'>30</td><td class='num'>NR</td><td class='num'><strong>#4</strong></td><td class='num'><span class='tag-new'>NEW</span></td></tr>
+<tr><td>restaurant cost of goods</td><td class='num'>90</td><td class='num'>NR</td><td class='num'>#8</td><td class='num'><span class='tag-new'>NEW</span></td></tr>
+<tr><td>restaurant budget breakdown</td><td class='num'>50</td><td class='num'>NR</td><td class='num'>#11</td><td class='num'><span class='tag-new'>NEW</span></td></tr>
+<tr><td>how to budget a restaurant</td><td class='num'>70</td><td class='num'>NR</td><td class='num'>#12</td><td class='num'><span class='tag-new'>NEW</span></td></tr>
+<tr><td>restaurant cfo</td><td class='num'>70</td><td class='num'>NR</td><td class='num'>#13</td><td class='num'><span class='tag-new'>NEW</span></td></tr>
+<tr><td>restaurant budget</td><td class='num'>140</td><td class='num'>NR</td><td class='num'>#15</td><td class='num'><span class='tag-new'>NEW</span></td></tr>
+<tr><td>ebitda restaurant</td><td class='num'>40</td><td class='num'>NR</td><td class='num'>#15</td><td class='num'><span class='tag-new'>NEW</span></td></tr>
+<tr><td>restaurant cogs</td><td class='num'>70</td><td class='num'>NR</td><td class='num'>#26</td><td class='num'><span class='tag-new'>NEW</span></td></tr>
+<tr><td>brewery cpa</td><td class='num'>110</td><td class='num'>NR</td><td class='num'>#27</td><td class='num'><span class='tag-new'>NEW</span></td></tr>
+<tr><td>restaurant payroll services</td><td class='num'>110</td><td class='num'>#97</td><td class='num'>#38</td><td class='num'><span class='tag-up'>+59 spots</span></td></tr>
+<tr><td>restaurant operating cost calculator</td><td class='num'>40</td><td class='num'>#58</td><td class='num'>#43</td><td class='num'><span class='tag-up'>+15 spots</span></td></tr>
+</tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;padding:80px 0;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">The Next Unlock</span>
+      <h2>FOUR PAGES.<br/><span class="accent">FIFTY-ONE THOUSAND IMPRESSIONS.</span></h2>
+      <p>Vast CFO's top 4 pages already get over 51,000 monthly Google impressions. Combined CTR is under 0.4%. Industry CTR for positions 4 to 8 is 2 to 6%. Title and meta description rewrites are the highest-leverage move available right now: no new content needed, no link building required, no waiting for Google to recrawl new pages.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Page</th><th class="num">90d Impressions</th><th class="num">CTR</th><th class="num">Avg Pos</th><th class="num">Click Upside</th></tr></thead>
+        <tbody>
+<tr><td>/breaking-down-restaurant-sales/</td><td class='num'>26,499</td><td class='num'>0.42%</td><td class='num'>5.6</td><td class='num'><strong>+265/mo</strong> at 1.5% CTR</td></tr>
+<tr><td>/restaurant-ebitda-10-percent/</td><td class='num'>12,047</td><td class='num'>0.22%</td><td class='num'>4.8</td><td class='num'><strong>+150/mo</strong> at 1.5% CTR</td></tr>
+<tr><td>/cost-of-goods-sold-in-restaurant/</td><td class='num'>7,748</td><td class='num'>0.40%</td><td class='num'>7.3</td><td class='num'><strong>+85/mo</strong> at 1.5% CTR</td></tr>
+<tr><td>/restaurant-budget-breakdown-2025/</td><td class='num'>5,118</td><td class='num'>0.08%</td><td class='num'>13.3</td><td class='num'>Position improvement first</td></tr>
+<tr><td>/labor-percentage-for-restaurants/</td><td class='num'>2,245</td><td class='num'>0.22%</td><td class='num'>7.0</td><td class='num'><strong>+30/mo</strong> at 1.5% CTR</td></tr>
+<tr><td>/restaurant-cfo/ (service page)</td><td class='num'>600</td><td class='num'>0.17%</td><td class='num'>8.9</td><td class='num'><strong>+8/mo</strong> at 1.5% CTR</td></tr>
+</tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="ads-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Google Ads Audit</span>
+      <h2>THE PAID SIDE<br/><span class="accent">OF THE STORY.</span></h2>
+      <p>Last 90 days of Google Ads activity. The Restaurant Accounting search campaign is doing the work; two other active campaigns are spending without results.</p>
+    </div>
+    <div class="ads-grid">
+      <div class="ads-card">
+        <h4>Restaurant Accounting (Search)</h4>
+        <div class="row"><span class="label">Status</span><span class="v">Enabled</span></div>
+        <div class="row"><span class="label">Clicks (90d)</span><span class="v">47</span></div>
+        <div class="row"><span class="label">Spend (90d)</span><span class="v">$397.76</span></div>
+        <div class="row"><span class="label">Lead form submits</span><span class="v">2</span></div>
+        <div class="row"><span class="label">Cost per lead</span><span class="v">$199</span></div>
+        <div class="row"><span class="label">Verdict</span><span class="v" style="color:#047857;">Working &mdash; double down</span></div>
+      </div>
+      <div class="ads-card">
+        <h4>Performance Max (Brand)</h4>
+        <div class="row"><span class="label">Status</span><span class="v">Enabled</span></div>
+        <div class="row"><span class="label">Clicks (90d)</span><span class="v">100</span></div>
+        <div class="row"><span class="label">Spend (90d)</span><span class="v">$58.68</span></div>
+        <div class="row"><span class="label">Lead form submits</span><span class="v">0</span></div>
+        <div class="row"><span class="label">Conversion shown</span><span class="v">1 button click</span></div>
+        <div class="row"><span class="label">Verdict</span><span class="v" style="color:#b45309;">Cannibalizing brand organic</span></div>
+      </div>
+    </div>
+    <div class="ads-finding">
+      <strong>Conversion tracking finding (good news for once):</strong> Of 5 conversion actions on the account, only "GTM Submit lead form" is set to count in the conversions metric and as primary for goal. The button-click events (Book a Call, Get Started Now) and Contact form submission are excluded from the metric, which is the correct setup. The optimizer is bidding on real lead form submissions, not vanity button clicks. This is much cleaner than what we typically find.
+    </div>
+    <div class="ads-finding" style="background:#FFF4E6;border-color:#b45309;">
+      <strong>Wasted spend to clean up:</strong> The "Maximise conversions experiment" campaign spent $74.82 on 6 clicks with 0 conversions across 90 days. The auto-generated Local Services Campaign has 0 impressions and 0 spend (so harmless but should be paused). Pausing both frees up budget to reinvest in the proven Restaurant Accounting search campaign.
+    </div>
+  </div>
+</section>
+
+<section class="priorities-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Game Plan</span>
+      <h2>SEVEN MOVES.<br/><span class="accent">SIXTY DAYS.</span></h2>
+      <p>Sequenced so the quick wins ship first and the bigger plays land before the next strategy review.</p>
+    </div>
+    <div class="priority-list">
+      <div class="priority">
+        <div class="pnum">01</div>
+        <div>
+          <h4>Rewrite titles + metas on the top 3 high-impression pages</h4>
+          <p>/breaking-down-restaurant-sales/ (26,499 imps, 0.42% CTR), /restaurant-ebitda-10-percent/ (12,047 imps, 0.22% CTR), and /cost-of-goods-sold-in-restaurant/ (7,748 imps, 0.40% CTR). Move from generic informational titles to specific, benefit-led ones with numbers and operator language. Even hitting industry-baseline CTR for those positions adds 400+ clicks per month with no other work.</p>
+          <span class="tag">This Week</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">02</div>
+        <div>
+          <h4>Pause the Performance Max Brand campaign</h4>
+          <p>$58 over 90 days for 100 clicks that are almost certainly people who would have found Vast CFO via organic brand search anyway. Zero lead form submissions in the period, only one auto-counted button click. Pause it, watch organic brand clicks for 30 days, and only re-enable if there's a measurable drop.</p>
+          <span class="tag">This Week</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">03</div>
+        <div>
+          <h4>Kill the Maximise Conversions search experiment</h4>
+          <p>$74.82 spent, 6 clicks, 0 conversions across 90 days. The variant isn't working. End the experiment and reallocate that budget to the proven Restaurant Accounting search campaign at $199 cost per lead. Same monthly spend, more leads.</p>
+          <span class="tag">This Week</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">04</div>
+        <div>
+          <h4>Push restaurant cfo from #13 to top 5</h4>
+          <p>The /restaurant-cfo/ service page sits at #13 with 70 monthly searches. Internal links from the three high-impression blog posts (which Google trusts most) plus a content refresh focused on the multi-concept and winery operator personas should move it inside the top 10 within 60 days. This is the page that converts visitors into discovery calls.</p>
+          <span class="tag">30 Days</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">05</div>
+        <div>
+          <h4>Defend restaurant accounting services at #1</h4>
+          <p>The keyword jumped 99 positions in 30 days to land at #1 (480 monthly volume). That's the most valuable single ranking on the site. Defend it: refresh the page quarterly, monitor competitors weekly, and earn 1-2 backlinks from hospitality industry publications to make the position harder to displace.</p>
+          <span class="tag">30 Days</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">06</div>
+        <div>
+          <h4>Build out the winery accounting cluster</h4>
+          <p>"Winery accountants" is ranking at #6.7 with 6.67% CTR (the highest CTR on any non-brand query, signaling real intent). "Accounting for wineries" at #19, "accountant for winery" at #17. The /wineries/ service page exists but has no supporting content. Build 3 supporting articles: DTC vs wholesale margin, tasting room economics, winery COGS. The vertical is underdeveloped and converts well.</p>
+          <span class="tag">60 Days</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">07</div>
+        <div>
+          <h4>Build supporting content for brewpubs</h4>
+          <p>"Brewery cpa" at #27 (110 vol), "accountant for brewery" at #33. The /brewpubs/ service page exists but has nothing supporting it. Mirror what worked for restaurants: 2-3 deep content pieces (brewpub COGS, brewery payroll, brewery margins) to push the service page into the top 10.</p>
+          <span class="tag">60 Days</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="plays-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">New Plays</span>
+      <h2>FOUR IDEAS<br/><span class="accent">OUTSIDE THE PLAYBOOK.</span></h2>
+      <p>Things that aren't on the standard SEO checklist but fit how Vast CFO actually wins clients.</p>
+    </div>
+    <div class="play-grid">
+      <div class="play">
+        <h4>Tanya video Q&amp;A on YouTube</h4>
+        <p>Google Search Console shows dozens of long-tail questions Vast already ranks for ("a profitable restaurant typically averages a 28% to 35% food cost percentage" with 0% CTR). Tanya is already on camera for LinkedIn. A YouTube series answering one specific operator question per video would rank for those long-tails and double as social content.</p>
+      </div>
+      <div class="play">
+        <h4>Restaurant break-even calculator v2</h4>
+        <p>The /restaurant-profitability-calculator/ page is already ranking for several calculator-related queries (#30, #43, #42). Upgrading the tool itself, with branded results owners can save or share, would push it into the top 10 and create a natural lead capture for the email follow-up Tanya does best.</p>
+      </div>
+      <div class="play">
+        <h4>Multi-concept hospitality reporting kit</h4>
+        <p>The "Multi-Concept Operator" persona in the client brief has no dedicated content yet. A downloadable reporting template (P&amp;L by location, consolidated cash flow, KPI dashboard) gated behind email capture would attract a higher-tier prospect and let Tanya have a strategic conversation, not an explanatory one.</p>
+      </div>
+      <div class="play">
+        <h4>Quarterly hospitality benchmarks page</h4>
+        <p>Vast's data shows what real restaurant clients run at. A quarterly benchmarks post (food cost %, labor %, EBITDA margin by concept type) would rank for benchmark queries that have high volume and almost no good answers in search results. Anonymized aggregates only, no client names.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="measure-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">How We Measure This</span>
+      <h2>THREE NUMBERS.<br/><span class="accent">SEPTEMBER CHECK-IN.</span></h2>
+      <p>Targets to grade against at the next strategy review. None of these are guarantees, just where the work should land if the plan executes.</p>
+    </div>
+    <div class="measure-grid">
+      <div class="measure">
+        <h4>Monthly Organic Clicks</h4>
+        <div class="now">100</div>
+        <div class="arrow">&darr;</div>
+        <div class="target">250+</div>
+        <p>Driven by CTR rewrites on top 3 pages plus winery and brewpub content launching.</p>
+      </div>
+      <div class="measure">
+        <h4>Total Keywords Ranking</h4>
+        <div class="now">43</div>
+        <div class="arrow">&darr;</div>
+        <div class="target">75+</div>
+        <p>Winery cluster (3 articles) and brewpub cluster (3 articles) should add 25-35 new ranking keywords.</p>
+      </div>
+      <div class="measure">
+        <h4>Cost Per Lead (Google Ads)</h4>
+        <div class="now">$199</div>
+        <div class="arrow">&darr;</div>
+        <div class="target">$120</div>
+        <p>Pausing PMax Brand and the Maximise Conversions experiment frees ~$45/mo for the proven search campaign.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <h2>RESTAURANT FINANCE.<br/><span class="accent">VAST KNOWS THE LANGUAGE.</span></h2>
+    <p>The site has built real authority on restaurant operator queries in twelve months. The next quarter is about converting that authority into clicks, calls, and the right kind of clients.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; May 12, 2026</div>
+  </div>
+</footer>
+
+<script>
+Chart.defaults.font.family="'Inter',-apple-system,BlinkMacSystemFont,sans-serif";
+Chart.defaults.font.size=12;Chart.defaults.color='#6C6E8A';Chart.defaults.borderColor='rgba(7,6,48,0.10)';
+const navy='#070630',blue='#3872EB';
+
+const months=["May 25","Jun 25","Jul 25","Aug 25","Sep 25","Oct 25","Nov 25","Dec 25","Jan 26","Feb 26","Mar 26","Apr 26"];
+const clicks=[31,30,26,33,23,null,null,null,10,68,113,100];
+const positions=[49.9,55.5,45.4,45.0,35.9,null,null,null,12.6,10.5,7.7,7.1];
+
+new Chart(document.getElementById('clicksChart'),{type:'bar',data:{labels:months,datasets:[{label:'Clicks',data:clicks,backgroundColor:'rgba(56,114,235,0.75)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'Clicks'}}}}});
+
+new Chart(document.getElementById('posChart'),{type:'line',data:{labels:months,datasets:[{label:'Avg Position',data:positions,borderColor:navy,backgroundColor:'rgba(7,6,48,0.06)',tension:0.35,borderWidth:3,pointRadius:5,pointBackgroundColor:navy,spanGaps:true}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{reverse:true,title:{display:true,text:'Position (lower = better)'}}}}});
+</script>
+</body></html>

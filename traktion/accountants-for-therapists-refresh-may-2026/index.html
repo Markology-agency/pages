@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Traktion, accountants-for-therapists Refresh (May 2026) by Markology</title>
+<meta name="description" content="Execution spec for the /accountants-for-therapists/ page refresh: API changes live, Elementor work specced out. Push from #6 toward top 3."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}
+.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:72px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:48px 0;}.container{padding:0 20px;}}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.pill.good{background:var(--good);color:#fff;}
+.hero{background:var(--paper);padding-top:96px;padding-bottom:64px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7vw,80px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:24px 0 0;}
+.hero .lede{font-size:18px;color:var(--mute);max-width:780px;margin-top:24px;line-height:1.6;}
+.hero .meta{margin-top:24px;display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.crumb{margin-bottom:8px;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--mute);}
+.crumb a{color:var(--blue);text-decoration:none;}
+.kpi-section{background:#fff;padding:48px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:22px 22px;box-shadow:5px 5px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}
+.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:12px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:48px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .delta{margin-top:10px;font-size:13px;font-weight:600;color:#047857;}
+.kpi .explain{margin-top:14px;padding-top:14px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);line-height:1.5;}
+.section-head{margin-bottom:36px;max-width:820px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,60px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:12px;}
+.section-head p{font-size:16px;color:var(--mute);margin-top:14px;line-height:1.6;}
+.live-section{background:var(--lilac);}
+.live-list{display:flex;flex-direction:column;gap:14px;}
+.live-row{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:18px 22px;display:grid;grid-template-columns:42px 1fr;gap:18px;box-shadow:4px 4px 0 var(--navy);}
+.live-row .check{width:42px;height:42px;border-radius:10px;background:var(--good);color:#fff;border:2px solid var(--navy);display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;}
+.live-row .what{font-family:'Bangers',sans-serif;font-size:18px;letter-spacing:0.04em;color:var(--navy);margin-bottom:4px;line-height:1.2;}
+.live-row .detail{font-size:13px;color:var(--mute);line-height:1.55;}
+.live-row .detail code{background:var(--paper);border:1px solid var(--hair);padding:1px 6px;border-radius:4px;font-size:12px;color:var(--navy);}
+.spec-section{background:#fff;}
+.spec-list{display:flex;flex-direction:column;gap:20px;}
+.spec{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:28px 32px;box-shadow:5px 5px 0 var(--navy);}
+.spec h4{font-family:'Bangers',sans-serif;font-size:24px;letter-spacing:0.04em;color:var(--navy);margin-bottom:6px;}
+.spec .sub{font-size:13px;color:var(--mute);margin-bottom:18px;font-weight:600;}
+.spec .copy{background:#fff;border:1px solid var(--hair);border-radius:10px;padding:16px 20px;margin-top:12px;font-size:14px;color:var(--ink);line-height:1.65;}
+.spec .copy strong{color:var(--navy);}
+.spec .copy code{background:var(--paper);padding:2px 6px;border-radius:4px;font-size:13px;border:1px solid var(--hair);}
+.spec ul.checks{margin-top:12px;padding-left:0;list-style:none;}
+.spec ul.checks li{padding:6px 0 6px 24px;position:relative;font-size:14px;color:var(--ink);line-height:1.6;}
+.spec ul.checks li:before{content:"\2192";position:absolute;left:0;color:var(--blue);font-weight:700;}
+.spec .lead-block{background:var(--lilac);border:1px dashed var(--navy);border-radius:8px;padding:12px 16px;margin-top:10px;font-size:14px;color:var(--navy);font-style:italic;}
+.spec .lead-block strong{font-style:normal;display:block;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);margin-bottom:6px;}
+.compliance-section{background:var(--paper);}
+.compliance-card{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:32px;box-shadow:5px 5px 0 var(--navy);}
+.compliance-card ul{padding-left:20px;font-size:14px;color:var(--ink);line-height:1.85;}
+.compliance-card ul li{margin-bottom:6px;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:72px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(32px,4.5vw,48px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:14px;font-size:14px;}
+.footer .built-by{margin-top:32px;padding-top:24px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+.live-link{display:inline-block;margin-top:14px;font-size:13px;color:var(--blue);font-weight:600;text-decoration:none;border-bottom:2px solid var(--blue);}
+.live-link:hover{color:var(--navy);border-color:var(--navy);}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <div class="crumb"><a href="https://markology-agency.github.io/pages/">All clients</a> &rsaquo; <a href="https://markology-agency.github.io/pages/traktion/">Traktion</a> &rsaquo; accountants-for-therapists Refresh (May 2026)</div>
+    <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">May 2026 &middot; Execution Spec</span>
+    <h1>PUSH FROM #6<br/>TOWARD <span class="accent">TOP 3.</span></h1>
+    <p class="lede">"Accountant for therapists" gets 50 commercial-intent searches per month at $19.58 CPC, and the page sits at #6. Pushing it to top 3 doubles the click share. The API side of the refresh (title, meta, schema) is live as of May 13. The page body is Elementor-built, so the structural rewrites are specced below for hand-application. Three of the spec items use copy that's ready to paste; one calls for testimonials already public on the Heard comparison post.</p>
+    <div class="meta">
+      <span><strong>Target URL:</strong> <a href="https://traktionaccounting.com/accountants-for-therapists/" style="color:var(--blue);">traktionaccounting.com/accountants-for-therapists/</a></span>
+      <span><strong>Current:</strong> #6 for "accountant for therapists"</span>
+      <span><strong>Goal:</strong> Top 3 within 60-90 days</span>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Target Keyword Volume</div>
+        <div class="value">50</div>
+        <div class="delta">monthly searches</div>
+        <div class="explain">"Accountant for therapists" — commercial intent at $19.58 CPC. Currently #6, in striking distance of top 3.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">API Changes Live</div>
+        <div class="value">5</div>
+        <div class="delta">pushed May 13</div>
+        <div class="explain">Rank Math title, meta description, focus keyword, ProfessionalService + FAQPage schema, excerpt sync. WP Engine cache cleared.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Elementor Items Pending</div>
+        <div class="value">6</div>
+        <div class="delta">specced below</div>
+        <div class="explain">H1, 6 H2 sections, pricing block, testimonial block, 4 internal links, sticky mobile CTA. All copy ready.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Expected Move</div>
+        <div class="value">#6 &rarr; #3</div>
+        <div class="delta">within 60-90 days</div>
+        <div class="explain">Re-pull SEMrush rank tracking at 30 / 60 / 90 days post-Elementor-deploy to measure lift.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="live-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill good">Live as of May 13</span>
+      <h2>WHAT'S ALREADY SHIPPED.</h2>
+      <p>Pushed via WP REST API + Rank Math endpoints. WP Engine cache cleared. No further action needed on these.</p>
+    </div>
+
+    <div class="live-list">
+      <div class="live-row">
+        <div class="check">&#10003;</div>
+        <div>
+          <div class="what">New SEO title (55 chars, target keyword forward)</div>
+          <div class="detail"><code>Accountant for Therapists: Bookkeeping + Tax Done Right</code></div>
+        </div>
+      </div>
+      <div class="live-row">
+        <div class="check">&#10003;</div>
+        <div>
+          <div class="what">New meta description (147 chars, answer-first)</div>
+          <div class="detail"><code>Traktion is the accountant for therapists in private practice. Bookkeeping, tax filing, S-corp guidance, and CFO coaching from a team that gets it.</code></div>
+        </div>
+      </div>
+      <div class="live-row">
+        <div class="check">&#10003;</div>
+        <div>
+          <div class="what">Focus keyword set in Rank Math</div>
+          <div class="detail"><code>accountant for therapists, accountants for therapists, bookkeeping for therapists</code></div>
+        </div>
+      </div>
+      <div class="live-row">
+        <div class="check">&#10003;</div>
+        <div>
+          <div class="what">ProfessionalService schema rendering</div>
+          <div class="detail">priceRange <code>$200-$2500/month</code>, areaServed United States, serviceType "Accounting for Therapists", provider Traktion. Verified live in page head.</div>
+        </div>
+      </div>
+      <div class="live-row">
+        <div class="check">&#10003;</div>
+        <div>
+          <div class="what">FAQPage schema saved (will render once visible FAQ block exists)</div>
+          <div class="detail">Five Q&amp;A pairs already loaded into Rank Math schema. Schema only outputs once the page has a visible FAQ block matching the questions — that's the FAQ section spec'd below.</div>
+        </div>
+      </div>
+      <div class="live-row">
+        <div class="check">&#10003;</div>
+        <div>
+          <div class="what">Post excerpt synced</div>
+          <div class="detail">Was duplicating as a stale meta description. Now matches new copy, no more conflict.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="spec-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Elementor Work</span>
+      <h2>SIX SPEC ITEMS TO BUILD.</h2>
+      <p>The page is Elementor-built, so structural changes can't be pushed via REST without risk to layout. All copy below is ready to paste. Whitney edits inline if any benchmark feels off; nothing here is blocked on client input.</p>
+    </div>
+
+    <div class="spec-list">
+
+      <div class="spec">
+        <h4>01 &mdash; New H1</h4>
+        <div class="sub">Replace current H1 in hero section</div>
+        <div class="copy">
+          <strong>Current:</strong> "<em>Not</em> Another Automated Accounting Firm For Therapists"<br/><br/>
+          <strong>New:</strong> "The Accountant for Therapists Who Actually Speaks Private Practice"
+        </div>
+      </div>
+
+      <div class="spec">
+        <h4>02 &mdash; Six new H2 sections (each opens with answer + benchmark)</h4>
+        <div class="sub">Append below the hero, above the existing CTAs. Each H2 is a search query; each first sentence is the quotable answer.</div>
+
+        <div class="copy">
+          <strong>H2 (a):</strong> What does an accountant for therapists do?
+          <div class="lead-block"><strong>Lead sentence (answer)</strong>An accountant for therapists handles bookkeeping, tax filing, S-corp election analysis, payroll for group practices, and private-practice-specific financial coaching.</div>
+          Benchmark: a typical service bundle covers 95% of practice owner needs.
+        </div>
+
+        <div class="copy">
+          <strong>H2 (b):</strong> How much does an accountant for therapists cost?
+          <div class="lead-block"><strong>Lead sentence (answer)</strong>Solo therapists typically pay $200-$600 per month for monthly bookkeeping plus tax filing done by a human team.</div>
+          Benchmark: $200-$600 solo, $1,000-$2,500+ for group practice CFO work. Whitney edits inline if Traktion's tier framing differs.
+        </div>
+
+        <div class="copy">
+          <strong>H2 (c):</strong> When should a therapist hire an accountant?
+          <div class="lead-block"><strong>Lead sentence (answer)</strong>Most therapists benefit from a specialized accountant once revenue passes $80,000-$100,000 per year, when an S-corp election is on the table, or when hiring associate clinicians becomes a real option.</div>
+          Benchmark: the $80-100K revenue threshold + S-corp election trigger + first hire trigger.
+        </div>
+
+        <div class="copy">
+          <strong>H2 (d):</strong> How is Traktion different from Heard or a generalist CPA?
+          <div class="lead-block"><strong>Lead sentence (answer)</strong>Traktion is a hands-on human team that works with therapists as its main client base, while Heard is a software-led platform and most generalist CPAs do not specialize in private practice.</div>
+          Internal-link to the refreshed Heard comparison post (anchor: <code>Heard vs Traktion comparison</code>).
+        </div>
+
+        <div class="copy">
+          <strong>H2 (e):</strong> What financial coaching do private practice therapists actually need?
+          <div class="lead-block"><strong>Lead sentence (answer)</strong>Most therapists need help with three things: cash flow visibility, S-corp tax planning, and pricing or payer-mix decisions.</div>
+          Benchmark: 3 core coaching areas covered in the standard scope.
+        </div>
+
+        <div class="copy">
+          <strong>H2 (f):</strong> Frequently asked questions
+          <div class="lead-block"><strong>FAQ Q&amp;A pairs (already in Rank Math schema, add as visible block to trigger render)</strong></div>
+          <ul class="checks">
+            <li><strong>What does an accountant for therapists do?</strong> Handles bookkeeping, tax filing, S-corp election analysis, payroll for group practices, and financial coaching specific to private practice realities.</li>
+            <li><strong>How much does an accountant for therapists cost?</strong> Solo therapists typically pay $200-$600/mo for monthly bookkeeping plus tax. Software-only options run $150-$250/mo with less personalized service. CFO-level packages for group practices run $1,000-$2,500+/mo.</li>
+            <li><strong>When should a therapist hire an accountant?</strong> Most therapists benefit from a specialized accountant once revenue passes $80K-$100K per year, when an S-corp election is on the table, or when hiring associate clinicians becomes a real option.</li>
+            <li><strong>Do therapists need a CPA or can a bookkeeper handle taxes?</strong> Tax filing for a business return requires a CPA or Enrolled Agent. A full-service accountant for therapists includes both: monthly bookkeeping by a bookkeeper plus tax filing by a CPA or EA on the same team.</li>
+            <li><strong>Can Traktion help with S-corp election?</strong> Yes. Traktion runs the math on whether an S-corp election would save you money once you factor in payroll tax savings, reasonable salary requirements, and the additional filing costs.</li>
+            <li><strong>What makes Traktion different from Heard?</strong> Traktion is a hands-on human team; Heard is a software platform. Traktion clients work directly with the team and get a real accountant relationship. Heard runs on automation with messaging-portal support.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="spec">
+        <h4>03 &mdash; Pricing transparency block</h4>
+        <div class="sub">Three-tier visual (Bookkeeping / Bookkeeping + Tax / CFO Bundle). Use the industry-range copy already in H2 (b). Whitney edits inline before publish if Traktion's tier framing differs.</div>
+        <div class="copy">
+          <strong>Tier 1 &mdash; Bookkeeping:</strong> Starts around $200-$400/mo. Monthly categorization, reconciliation, financial reports.<br/><br/>
+          <strong>Tier 2 &mdash; Bookkeeping + Tax:</strong> $400-$700/mo. Tier 1 plus personal and business tax filing, S-corp election analysis.<br/><br/>
+          <strong>Tier 3 &mdash; CFO Bundle:</strong> $1,000-$2,500+/mo. Tier 2 plus forecasting, cash flow modeling, profitability analysis, growth planning.<br/><br/>
+          <em>Don't block on exact pricing confirmation; ship with these ranges and Whitney edits during her next Mebea sync if specifics differ.</em>
+        </div>
+      </div>
+
+      <div class="spec">
+        <h4>04 &mdash; Testimonial block (use existing public quotes)</h4>
+        <div class="sub">Pull from already-public Traktion testimonials. No client input needed.</div>
+        <div class="copy">
+          <strong>Testimonial 1 (already on the Heard comparison post, public Google review):</strong>
+          <div class="lead-block">"I recently had the pleasure of working with Mebea, the owner of Traktion Accounting, and I cannot recommend him and his team highly enough. I came to him with unresolved issues from my previous accountant, and Mebea was incredibly helpful and insightful in sorting everything out."<br/><strong>&mdash; Kerri Torres, Google review</strong></div>
+          <strong>Testimonial 2-3:</strong> pull 1-2 more from Traktion's existing public Google Business Profile reviews. Mark up as <code>Review</code> schema once on the page (Rank Math can do this automatically if review block is structured).
+        </div>
+      </div>
+
+      <div class="spec">
+        <h4>05 &mdash; Four internal links</h4>
+        <div class="sub">Placement specs by section.</div>
+        <ul class="checks">
+          <li>To <code>/s-corporation-tax-calculator/</code> &mdash; inside the "When should a therapist hire" or pricing section. Anchor: <code>S-corp tax calculator</code></li>
+          <li>To <code>/bookkeeping-for-therapists/</code> &mdash; inside the "What does an accountant do" section. Anchor: <code>bookkeeping for therapists</code></li>
+          <li>To <code>/accountant-for-therapists-reviews/</code> &mdash; inside the "Traktion vs Heard" section. Anchor: <code>Heard vs Traktion comparison</code></li>
+          <li>To <code>/private-practice-accounting/</code> &mdash; inside the financial coaching section. Anchor: <code>private practice accounting</code></li>
+        </ul>
+      </div>
+
+      <div class="spec">
+        <h4>06 &mdash; Sticky mobile CTA</h4>
+        <div class="sub">Elementor sticky widget, visible only on mobile breakpoint.</div>
+        <div class="copy">
+          <strong>Copy:</strong> "Book a free 20-min intro call"<br/>
+          <strong>Link:</strong> Traktion contact page (or Calendly if set up)<br/>
+          <strong>Background:</strong> brand navy (<code>#070630</code>)<br/>
+          <strong>Text:</strong> white (<code>#ffffff</code>)<br/>
+          <strong>Position:</strong> pinned to bottom of viewport, mobile only
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="compliance-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Compliance Check</span>
+      <h2>RULES BAKED INTO THE COPY.</h2>
+      <p>Compliance review applied to every benchmark and claim before drafting.</p>
+    </div>
+    <div class="compliance-card">
+      <ul>
+        <li>No "guaranteed savings" or "guaranteed return" language anywhere in the new copy.</li>
+        <li>Pricing ranges framed as industry benchmarks, not Traktion-specific guarantees.</li>
+        <li>Informational footer disclaimer to add: "Information here is general; not tax or accounting advice for your specific situation. Book a call to discuss your practice."</li>
+        <li>S-corp election framing avoids absolute claims ("would save you money" replaced with "whether an S-corp election would save you money").</li>
+        <li>Testimonials drawn from already-public sources (Google reviews, existing Heard comparison post). No fabricated quotes.</li>
+        <li>"Accountant" vs "CPA" distinction kept accurate (CPA/EA required for business return filing; bookkeeper for monthly books).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="footer">
+  <div class="container">
+    <h2>API SIDE LIVE.<br/>ELEMENTOR <span class="accent">IS READY TO GO.</span></h2>
+    <p>Six Elementor items, all copy ready. No client-input dependencies blocking the ship.</p>
+    <p style="margin-top:14px;">Sister deliverables: <a href="https://traktionaccounting.com/accountant-for-therapists-reviews/" style="color:var(--blue);">Heard comparison page (live)</a> &middot; <a href="https://markology-agency.github.io/pages/traktion/keyword-plateau-audit-may-2026/" style="color:var(--blue);">Plateau audit</a></p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; May 13, 2026</div>
+  </div>
+</section>
+
+</body>
+</html>

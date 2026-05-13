@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Traktion, May 2026 Strategy Review by Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}
+.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:72px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:48px 0;}.container{padding:0 20px;}}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.hero{background:var(--paper);padding-top:96px;padding-bottom:64px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7vw,80px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:24px 0 0;}
+.hero .lede{font-size:18px;color:var(--mute);max-width:720px;margin-top:24px;line-height:1.6;}
+.hero .meta{margin-top:24px;display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.crumb{margin-bottom:8px;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--mute);}
+.crumb a{color:var(--blue);text-decoration:none;}
+.kpi-section{background:#fff;padding:48px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:22px 22px;box-shadow:5px 5px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}
+.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:12px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:48px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .delta{margin-top:10px;font-size:13px;font-weight:600;color:#047857;}
+.kpi .explain{margin-top:14px;padding-top:14px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);line-height:1.5;}
+.section-head{margin-bottom:36px;max-width:820px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,60px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:12px;}
+.section-head p{font-size:16px;color:var(--mute);margin-top:14px;line-height:1.6;}
+.chart-card{background:var(--paper);border:2px solid var(--navy);border-radius:18px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.chart-card h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:4px;}
+.chart-card .chart-sub{font-size:13px;color:var(--mute);margin-bottom:20px;}
+.chart-container{position:relative;height:300px;}
+.table-section{background:var(--paper);}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:18px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+thead{background:var(--navy);}
+th{text-align:left;padding:14px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);}
+th.num,td.num{text-align:right;}
+td{padding:14px 18px;border-bottom:1px solid var(--hair);}
+tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.story-section{background:var(--lilac);}
+.story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+@media(max-width:900px){.story-grid{grid-template-columns:1fr;}}
+.story-card{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:28px;box-shadow:5px 5px 0 var(--navy);}
+.story-card .num{font-family:'Bangers',sans-serif;font-size:56px;line-height:0.9;color:var(--blue);}
+.story-card h4{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);margin-top:8px;margin-bottom:10px;line-height:1.1;}
+.story-card p{font-size:14px;color:var(--mute);line-height:1.55;}
+.priorities-section{background:#fff;}
+.priority-list{display:flex;flex-direction:column;gap:16px;}
+.priority{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 28px;display:grid;grid-template-columns:56px 1fr;gap:20px;box-shadow:5px 5px 0 var(--navy);}
+.priority .pnum{width:56px;height:56px;border-radius:14px;background:var(--blue);color:#fff;border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:30px;display:flex;align-items:center;justify-content:center;}
+.priority h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:6px;}
+.priority p{font-size:14px;color:var(--mute);line-height:1.55;}
+.priority .tag{display:inline-block;margin-top:10px;margin-right:8px;padding:4px 10px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.16em;border-radius:6px;text-transform:uppercase;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:72px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(32px,4.5vw,48px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:14px;font-size:14px;}
+.footer .built-by{margin-top:32px;padding-top:24px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="container">
+    <div class="crumb"><a href="https://markology-agency.github.io/pages/">All clients</a> &rsaquo; <a href="https://markology-agency.github.io/pages/traktion/">Traktion</a> &rsaquo; May 2026 Strategy</div>
+    <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">May 2026 &middot; Strategy Review</span>
+    <h1>133 KEYWORDS.<br/>THE THERAPIST NICHE<br/><span class="accent">IS THE WEDGE.</span></h1>
+    <p class="lede">A year ago traktionaccounting.com had zero organic footprint. Today it ranks for 133 keywords, including #1 for "therapy practice profitability," #2 for "CFO for therapists," and #6 for "accountant for therapists" (commercial intent, $19.58 CPC). The mental-health-practice niche is paying off. The next move is doubling down on it while building the Texas business-entity content cluster that's starting to show.</p>
+    <div class="meta">
+      <span><strong>Period:</strong> May 2025 to April 2026 (12 months)</span>
+      <span><strong>Prepared for:</strong> Mebea Yohannes &amp; Yeshi Negga</span>
+      <span><strong>Prepared by:</strong> Markology</span>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Total Keywords Ranking</div>
+        <div class="value">133</div>
+        <div class="delta">from 0 (12 months ago)</div>
+        <div class="explain">Keywords from traktionaccounting.com appearing in Google's top 100. Source: SEMrush. Domain had no ranked keywords pre-Aug 2024.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Top Ranking Position</div>
+        <div class="value">#1</div>
+        <div class="delta">'therapy practice profitability'</div>
+        <div class="explain">40 searches/month. Niche-leading content authority.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Highest CPC Win</div>
+        <div class="value">$64</div>
+        <div class="delta">Rank #7 'therapeutic accounting'</div>
+        <div class="explain">Commercial-intent keyword. CPC of $64.01 signals strong buying intent in the niche.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Brand Search Position</div>
+        <div class="value">#3</div>
+        <div class="delta">260 vol/month 'traktion'</div>
+        <div class="explain">Brand visibility on a generic term. Defended position despite competing 'traction' meanings.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">The Trajectory</span>
+      <h2>FROM ZERO TO 133<br/><span class="accent">IN UNDER A YEAR.</span></h2>
+      <p>Traktion's organic footprint went from nothing to a meaningful presence in 12 months. The growth was driven by content, not paid spend (no ads keywords). The keyword count plateaued slightly after the June 2025 peak of 100 keywords driving 99 organic visits, but has since recovered to 133.</p>
+    </div>
+    <div class="chart-card">
+      <h4>Keyword Count &middot; 12-Month Trend</h4>
+      <div class="chart-sub">Source: SEMrush. Pre-Aug 2024 the domain had no ranked keywords.</div>
+      <div class="chart-container"><canvas id="kwChart"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<section class="story-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">What's Working</span>
+      <h2>THE THERAPIST NICHE<br/><span class="accent">IS COMPOUNDING.</span></h2>
+      <p>Three signals confirm the mental-health-practice wedge is the right strategy. Specific authority on a narrow vertical drives traffic that generic accounting content never could.</p>
+    </div>
+    <div class="story-grid">
+      <div class="story-card">
+        <div class="num">9</div>
+        <h4>Top-15 therapist-niche keywords</h4>
+        <p>Therapy profitability, CFO for therapists, accountant for therapists, private practice expenses, group practice profitability, Profit First for therapists, accounting software for therapists, psychotherapist accountant, increasing therapy practice revenue. The niche owns Traktion's organic footprint.</p>
+      </div>
+      <div class="story-card">
+        <div class="num">$64</div>
+        <h4>CPC on 'therapeutic accounting'</h4>
+        <p>Ranking #7 for a search query with $64 commercial value. Two competitors paying that CPC means this is high-intent. Push to top-3.</p>
+      </div>
+      <div class="story-card">
+        <div class="num">3</div>
+        <h4>Heard Accounting capture pages</h4>
+        <p>Three pages targeting "heard accounting" queries (a major competitor in therapist accounting): #7 reviews, #9 review pattern, #13 brand. Smart competitor capture &mdash; therapists comparing Traktion to Heard land on a Traktion page.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Top Performers</span>
+      <h2>WHERE THE TRAFFIC<br/>IS COMING FROM.</h2>
+      <p>Top 12 ranked keywords by position. Therapist content cluster dominates. Texas business-entity content is the secondary cluster forming.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Keyword</th><th>Position</th><th class="num">Volume/mo</th><th class="num">CPC</th><th>URL</th></tr></thead>
+        <tbody>
+          <tr><td>therapy practice profitability</td><td>#1</td><td class="num">40</td><td class="num">&mdash;</td><td>/average-profit-of-a-therapy-practice/</td></tr>
+          <tr><td>cfo for therapists</td><td>#2</td><td class="num">40</td><td class="num">&mdash;</td><td>/financial-coaching-for-therapists/</td></tr>
+          <tr><td>traktion (brand)</td><td>#3</td><td class="num">260</td><td class="num">$1.03</td><td>/</td></tr>
+          <tr><td>accountant for therapists</td><td>#6</td><td class="num">50</td><td class="num">$19.58</td><td>/accountant-for-therapists-reviews/</td></tr>
+          <tr><td>therapeutic accounting</td><td>#7</td><td class="num">50</td><td class="num">$64.01</td><td>/accountant-for-therapists-reviews/</td></tr>
+          <tr><td>heard accounting reviews</td><td>#7</td><td class="num">40</td><td class="num">$12.51</td><td>/accountant-for-therapists-reviews/</td></tr>
+          <tr><td>private practice therapist expenses</td><td>#8</td><td class="num">30</td><td class="num">$11.06</td><td>/private-practice-expenses/</td></tr>
+          <tr><td>heard therapist accounting</td><td>#9</td><td class="num">40</td><td class="num">$10.73</td><td>/accountant-for-therapists-reviews/</td></tr>
+          <tr><td>starting a business checklist texas</td><td>#11</td><td class="num">90</td><td class="num">$6.61</td><td>/starting-a-business-in-texas-checklist/</td></tr>
+          <tr><td>heard accounting</td><td>#13</td><td class="num">320</td><td class="num">$6.14</td><td>/accountant-for-therapists-reviews/</td></tr>
+          <tr><td>profit first for therapists</td><td>#14</td><td class="num">210</td><td class="num">$1.51</td><td>/profit-first-for-therapists/</td></tr>
+          <tr><td>s corp vs llc texas</td><td>#17</td><td class="num">140</td><td class="num">$2.76</td><td>/llc-vs-s-corp-in-texas/</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="priorities-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">May/June Game Plan</span>
+      <h2>THREE PRIORITIES<br/>FOR THE NEXT 60 DAYS.</h2>
+      <p>Ordered by impact-per-hour. Each ships with corresponding Asana tasks.</p>
+    </div>
+    <div class="priority-list">
+      <div class="priority">
+        <div class="pnum">1</div>
+        <div>
+          <h4>DOUBLE DOWN ON THE THERAPIST CLUSTER</h4>
+          <p>Nine of the top 15 keywords are therapist-niche. The cluster is winning &mdash; expand it. Ship 6 new therapist-focused articles in the next 60 days, each anchored on a specific therapist-search query Google already shows demand for: "how much does a therapist pay in taxes," "S-corp election for private practice therapists," "QBO setup for group therapy practices," "tax write-offs for licensed therapists," "private practice break-even calculator," "therapist 1099 vs W-2 contractor decision." Each article 1500+ words, embeds the Profit First calculator already on-site, links to "Financial Coaching for Therapists" service page. Push "therapy practice profitability" (#1) to defend, "accountant for therapists" (#6) to top-3.</p>
+          <span class="tag">Content</span><span class="tag">SEO</span><span class="tag">Niche</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">2</div>
+        <div>
+          <h4>BUILD OUT THE TEXAS BUSINESS-ENTITY CLUSTER</h4>
+          <p>The Texas content is the second cluster forming. Three keywords ranking page-2 (s corp vs llc texas #17, starting a small business in texas checklist #19, business entity texas #20). These have meaningful volume (140, 30, 110) and low competition. Ship 3 new Texas-specific articles linked from the existing pillar pages: "Texas LLC franchise tax explained," "When should a Texas business owner elect S-corp?," "Texas startup tax checklist (first 90 days)." Add internal links from each Texas article to the relevant service page. Goal: move 3 keywords to page-1.</p>
+          <span class="tag">Content</span><span class="tag">Geo</span><span class="tag">Cluster expansion</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">3</div>
+        <div>
+          <h4>FIX THE TESTIMONIALS GAP + SHIP AUTHOR BIOS</h4>
+          <p>The homepage has a "Hear what our clients have to say" section header with no actual testimonials visible. For a service business in YMYL territory (financial advice), this is the single biggest trust-signal gap. Get 3-5 video testimonials from current therapist clients (Heard's content marketing is built on this). Also: Yeshi has CPA credentials but they're not on the homepage. Add CPA suffix to every Yeshi mention site-wide. Build a real "Meet the Team" page with founders' bios, credentials, years experience, and what each does day-to-day. These are 2-week fixes that move conversion rate, not rankings.</p>
+          <span class="tag">Trust</span><span class="tag">E-E-A-T</span><span class="tag">Conversion</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <h2>THE NICHE STRATEGY IS WORKING.<br/><span class="accent">NOW DOUBLE DOWN.</span></h2>
+    <p>Three actions move Traktion from 133 keywords to 250+ by end of Q3.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; <a href="https://markology-agency.github.io/pages/traktion/">Traktion report hub</a></div>
+  </div>
+</footer>
+
+<script>
+const navy='#070630',blue='#3872EB',lilac='#E6E9FF',mute='#6C6E8A';
+new Chart(document.getElementById('kwChart').getContext('2d'),{
+  type:'line',
+  data:{labels:['May 25','Jun 25','Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26','Apr 26'],
+    datasets:[{label:'Keywords Ranking',data:[76,100,89,106,112,108,109,116,135,128,132,122],borderColor:blue,backgroundColor:'rgba(56,114,235,0.15)',borderWidth:3,tension:0.3,fill:true,pointBackgroundColor:blue,pointBorderColor:navy,pointBorderWidth:2,pointRadius:5}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{font:{family:'Inter',weight:'600'},color:navy}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(7,6,48,0.08)'},ticks:{color:mute}},x:{grid:{display:false},ticks:{color:mute}}}}
+});
+</script>
+
+</body>
+</html>

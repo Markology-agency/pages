@@ -50,7 +50,7 @@
   <div class="wrap">
     <div class="hero-label">Google Ads audit</div>
     <h1 class="hero-title">Vast CFO - <em>Restaurant & winery</em> Google Ads</h1>
-    <p class="hero-sub">$3,007 spent over 13 months. 99 platform-counted conversions, but real qualified leads are tracking at roughly 1 every few months. The gap between what Google Ads is counting and what's actually walking in the door is the headline of this audit.</p>
+    <p class="hero-sub">$3,007 spent over 13 months. 99 platform-counted conversions, but real qualified leads (defined as a completed submission of the contact form at vastcfo.com/contact/) are tracking at roughly 1 every few months. The gap between what Google Ads is counting and what's actually walking in the door is the headline of this audit.</p>
     <div class="hero-stat">
       <div class="hero-stat-value">$152.15</div>
       <div class="hero-stat-label">90-day platform-reported cost per lead</div>
@@ -305,7 +305,7 @@
 
     <div class="callout bad">
       <div class="callout-title">Primary bidding action shows 0 conversions in last 30 days</div>
-      <div class="callout-body">"GTM Submit lead form" is the only action currently set as primary for bidding goals. It produced zero conversions in the last 30 days. Two possibilities: (1) the GTM tag is not firing correctly when someone submits the contact form on vastcfo.com, or (2) submissions are being intercepted by a third-party tool (Calendly, HubSpot) before the form reaches the page Google's tag is listening on. Either way, the campaign is currently optimizing toward an event that never fires.</div>
+      <div class="callout-body">"GTM Submit lead form" is the only action currently set as primary for bidding. It should be firing every time someone completes the contact form at vastcfo.com/contact/ (Whitney's confirmed definition of a real lead). It produced zero conversions in the last 30 days. Most likely cause: the GTM tag is not firing correctly on the contact form's submission event - either the tag listens for the wrong selector / event, or the form does an AJAX submit that the tag doesn't see. Less likely but possible: nobody submitted the form in 30 days, which would itself be a separate problem (landing page or campaign quality issue, not a tracking issue).</div>
     </div>
 
     <div class="callout warn">
@@ -316,10 +316,11 @@
     <div class="callout">
       <div class="callout-title">Recommended diagnostic steps (before any spend changes)</div>
       <div class="callout-body">
-        1. Test the contact form on vastcfo.com live - submit a real test and check if the "GTM Submit lead form" event fires in GTM debug mode and lands in Google Ads within 24 hours.<br>
-        2. Identify the actual booking flow (Calendly? HubSpot? In-page form?) and confirm where the "thank you" or "confirmation" event happens.<br>
-        3. Create a single conversion action that fires on that confirmation step. Set it as the only primary for goal. Demote all current actions to secondary.<br>
-        4. Wait 30 days, then re-evaluate - the campaign should now be optimizing toward actual booked consultations, not button clicks.
+        1. Submit the contact form at vastcfo.com/contact/ as a test, with GTM Preview mode open. Confirm the "GTM Submit lead form" tag fires on submit. If it doesn't, the trigger is misconfigured - fix it before anything else.<br>
+        2. After a confirmed test submission, watch Google Ads conversion reporting over 24-48 hours to verify the conversion lands. Some accounts have data sync issues even when the GTM tag fires correctly.<br>
+        3. Identify what page (if any) the user lands on after submitting. If there's a thank-you page (e.g., /contact/thank-you/) use that page view as a backup conversion action - it's harder to break than a form-submit listener.<br>
+        4. Once verified, demote the Book a Call, Get Started Now, and Contact form Submission actions to secondary. Keep "GTM Submit lead form" as the single primary. The bidding system should then optimize toward the real lead event.<br>
+        5. Wait 30 days at the corrected setup, then re-evaluate. If conversions still read zero, the issue is upstream - either the contact form isn't getting submissions from ad traffic (landing-page problem) or the test submission itself revealed a tag failure that needs developer work on the GTM container.
       </div>
     </div>
   </div>

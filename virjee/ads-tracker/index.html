@@ -1,0 +1,398 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Virjee Consulting — Ads & Leads Performance Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}
+.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:72px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:48px 0;}.container{padding:0 20px;}}
+.star{position:absolute;pointer-events:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.pill.live{background:var(--good);color:#fff;}
+.pill.live::before{content:"";display:inline-block;width:8px;height:8px;background:#fff;border-radius:50%;margin-right:6px;vertical-align:middle;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.hero{background:var(--paper);padding-top:96px;padding-bottom:64px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7.5vw,84px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:24px 0 0;}
+.hero .lede{font-size:18px;line-height:1.6;color:var(--mute);max-width:720px;margin-top:24px;}
+.hero .meta{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.toolbar{margin-top:28px;display:flex;gap:14px;flex-wrap:wrap;}
+.toolbar a{display:inline-block;padding:10px 18px;background:#fff;border:2px solid var(--navy);border-radius:10px;box-shadow:4px 4px 0 var(--navy);font-size:13px;font-weight:600;color:var(--navy);text-decoration:none;transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.toolbar a:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--navy);}
+
+.goal-section{background:#fff;padding:48px 0;}
+.goal-card{background:var(--lilac);border:2px solid var(--navy);border-radius:20px;padding:32px 36px;box-shadow:6px 6px 0 var(--navy);display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;}
+@media(max-width:720px){.goal-card{grid-template-columns:1fr;}}
+.goal-card .gh{font-family:'Bangers',sans-serif;font-size:32px;letter-spacing:0.04em;color:var(--navy);line-height:1;}
+.goal-card .gsub{font-size:14px;color:var(--mute);margin-top:8px;}
+.goal-progress{display:flex;align-items:center;gap:18px;}
+.goal-num{font-family:'Bangers',sans-serif;font-size:64px;line-height:0.9;color:var(--blue);}
+.goal-of{font-family:'Bangers',sans-serif;font-size:32px;color:var(--navy);opacity:0.5;}
+.goal-bar{margin-top:20px;background:#fff;border:2px solid var(--navy);border-radius:999px;height:18px;overflow:hidden;}
+.goal-bar-fill{background:var(--blue);height:100%;width:15%;transition:width 0.6s ease;}
+
+.kpi-section{background:#fff;padding:48px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:22px 22px;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.kpi:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}
+.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:12px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:48px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .delta{margin-top:10px;font-size:13px;font-weight:600;}
+.kpi .delta.up{color:#047857;}
+.kpi .delta.down{color:#b91c1c;}
+.kpi .delta.flat{color:var(--mute);}
+.kpi .explain{margin-top:14px;padding-top:14px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);line-height:1.5;}
+
+.section-head{margin-bottom:36px;max-width:820px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,60px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:12px;}
+.section-head p{font-size:16px;color:var(--mute);margin-top:14px;line-height:1.6;}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.split{grid-template-columns:1fr;}}
+.acct-card{background:#fff;border:2px solid var(--navy);border-radius:18px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.acct-card h3{font-family:'Bangers',sans-serif;font-size:26px;letter-spacing:0.04em;color:var(--navy);}
+.acct-card .acct-sub{font-size:12px;color:var(--mute);margin-bottom:18px;text-transform:uppercase;letter-spacing:0.12em;font-weight:600;}
+.acct-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--hair);font-size:14px;}
+.acct-row:last-child{border-bottom:none;}
+.acct-row span:last-child{font-weight:600;color:var(--navy);}
+
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.chart-row{grid-template-columns:1fr;}}
+.chart-card{background:var(--paper);border:2px solid var(--navy);border-radius:20px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.chart-card h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:4px;}
+.chart-card .chart-sub{font-size:13px;color:var(--mute);margin-bottom:20px;}
+.chart-container{position:relative;height:280px;}
+
+.table-section{background:var(--paper);}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:20px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+thead{background:var(--navy);}
+th{text-align:left;padding:14px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);}
+th.num,td.num{text-align:right;}
+td{padding:14px 18px;border-bottom:1px solid var(--hair);}
+tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.status-pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;}
+.status-on{background:#d1fae5;color:#065f46;border:1.5px solid #065f46;}
+.status-off{background:#fee2e2;color:#991b1b;border:1.5px solid #991b1b;}
+.status-test{background:var(--lilac);color:var(--navy);border:1.5px solid var(--navy);}
+
+.timeline-section{background:#fff;}
+.timeline{position:relative;padding-left:40px;}
+.timeline::before{content:"";position:absolute;left:14px;top:8px;bottom:8px;width:3px;background:var(--blue);border-radius:2px;}
+.tl-item{position:relative;margin-bottom:24px;background:var(--paper);border:2px solid var(--navy);border-radius:14px;padding:18px 22px;box-shadow:4px 4px 0 var(--navy);}
+.tl-item::before{content:"";position:absolute;left:-34px;top:18px;width:18px;height:18px;background:var(--blue);border:3px solid var(--navy);border-radius:50%;}
+.tl-date{font-size:11px;color:var(--blue);text-transform:uppercase;letter-spacing:0.18em;font-weight:700;}
+.tl-title{font-weight:600;color:var(--navy);margin-top:4px;font-size:15px;}
+.tl-body{font-size:13px;color:var(--mute);margin-top:6px;line-height:1.5;}
+.tl-tag{display:inline-block;margin-top:8px;padding:3px 10px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;border-radius:6px;}
+.tl-tag.dental{background:var(--blue);}
+.tl-tag.local{background:#7c3aed;}
+.tl-tag.system{background:var(--mute);}
+
+.anomaly-section{background:var(--lilac);}
+.anom-empty{background:#fff;border:2px dashed var(--navy);border-radius:18px;padding:48px 32px;text-align:center;}
+.anom-empty .ae-icon{font-size:48px;}
+.anom-empty .ae-msg{font-family:'Bangers',sans-serif;font-size:28px;letter-spacing:0.04em;color:var(--navy);margin-top:8px;}
+.anom-empty .ae-sub{font-size:14px;color:var(--mute);margin-top:8px;}
+
+.footer{background:var(--navy);color:#fff;text-align:center;padding:72px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(32px,4.5vw,48px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:14px;font-size:14px;}
+.footer .built-by{margin-top:32px;padding-top:24px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="star" style="top:80px;left:80px;transform:rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="top:200px;right:120px;transform:rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <div class="container">
+    <span class="pill live">Live Tracker</span>
+    <h1>VIRJEE CONSULTING<br/><span class="accent">PERFORMANCE TRACKER.</span></h1>
+    <p class="lede">Daily Google Ads + lead pipeline visibility for Virjee Consulting Dental and Local. Auto-refreshes every morning Melbourne time. Tracks conversions, campaign changes, anomalies, and the May 2026 push toward 20 existing-practice leads.</p>
+    <div class="meta">
+      <span><strong>Accounts:</strong> Virjee Dental + Virjee Consulting (Local)</span>
+      <span><strong>Period:</strong> May 2026 (rolling)</span>
+      <span><strong>Last refreshed:</strong> <span id="last-refresh">2026-05-13 11:30 AEST</span></span>
+    </div>
+    <div class="toolbar">
+      <a href="https://docs.google.com/spreadsheets/d/1ZnV-E86Fa3wu07icqIoMKZyHX4LbuqyNMTJo5zTlINk/edit" target="_blank">Dental leads sheet &rarr;</a>
+      <a href="https://docs.google.com/spreadsheets/d/1SeFxMqFyjbhphT1Fwk--AiGC57K5ZVyoxoF61WN6xu4/edit" target="_blank">Local leads sheet &rarr;</a>
+      <a href="https://ads.google.com/aw/overview?ocid=1164467596" target="_blank">Dental Google Ads &rarr;</a>
+      <a href="https://ads.google.com/aw/overview?ocid=8893090513" target="_blank">Local Google Ads &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section class="goal-section">
+  <div class="container">
+    <div class="goal-card">
+      <div>
+        <div class="gh">MAY 2026 GOAL: 20 EXISTING-PRACTICE LEADS</div>
+        <div class="gsub">Combined Dental + Local Medical owner-segment leads. Tracked vs. April baseline of 20 (16 Dental + 4 Local Medical).</div>
+        <div class="goal-bar"><div class="goal-bar-fill" id="goal-bar-fill" style="width:15%"></div></div>
+      </div>
+      <div class="goal-progress">
+        <div class="goal-num" id="goal-current">3</div>
+        <div class="goal-of">/ 20</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">May 2026 to date</span>
+      <h2>HEADLINE NUMBERS.</h2>
+      <p>Snapshot through 2026-05-13. Compared against April 2026 daily pace.</p>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Total Leads (May MTD)</div>
+        <div class="value">9</div>
+        <div class="delta down">23 below Apr pace</div>
+        <div class="explain">Dental 3 + Local 6. April delivered 62 total (37 Local + 25 Dental). Pace recovery hinges on the May 13 budget unlocks.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Existing-Practice Leads</div>
+        <div class="value">3</div>
+        <div class="delta down">17 to goal</div>
+        <div class="explain">Dental 2 (Somto, Mark P.) + Local Medical 1 (Juliya, dental practice owner). Goal: 20 by end of May.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Google Ads Spend (May MTD)</div>
+        <div class="value">$202</div>
+        <div class="delta flat">Pacing $40/day combined</div>
+        <div class="explain">Dental $166 + Local $36. April: $903 combined. Budgets raised May 13 to unlock more spend ($30/day Dental, $9/day Local PMax).</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Ads Conversions (May MTD)</div>
+        <div class="value">1</div>
+        <div class="delta down">Apr daily avg: 0.4</div>
+        <div class="explain">1 brand-search conversion on Dental. Main Dental campaign 0 conversions in May before May 8 negatives added. Owner-keyword traffic continues.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">By account</span>
+      <h2>ACCOUNT BREAKDOWN.</h2>
+      <p>Side-by-side view of where each account stands today and what changed in the last week.</p>
+    </div>
+    <div class="split">
+      <div class="acct-card">
+        <h3>VIRJEE DENTAL</h3>
+        <div class="acct-sub">Customer 1164467596 &middot; dentalcpausa.com</div>
+        <div class="acct-row"><span>May leads</span><span>3</span></div>
+        <div class="acct-row"><span>May existing-practice</span><span>2 of 3 (67%)</span></div>
+        <div class="acct-row"><span>May ad spend</span><span>$166</span></div>
+        <div class="acct-row"><span>May conversions</span><span>1 (brand)</span></div>
+        <div class="acct-row"><span>April baseline</span><span>25 leads · $669 / 6 conv</span></div>
+        <div class="acct-row"><span>Active campaigns</span><span>3 (Main, Brand, 2 EXP)</span></div>
+      </div>
+      <div class="acct-card">
+        <h3>VIRJEE LOCAL</h3>
+        <div class="acct-sub">Customer 8893090513 &middot; multi-industry</div>
+        <div class="acct-row"><span>May leads</span><span>6</span></div>
+        <div class="acct-row"><span>May existing-medical</span><span>1 of 4 medical (25%)</span></div>
+        <div class="acct-row"><span>May ad spend</span><span>$36</span></div>
+        <div class="acct-row"><span>May conversions</span><span>0</span></div>
+        <div class="acct-row"><span>April baseline</span><span>37 leads · $234 / 6 conv</span></div>
+        <div class="acct-row"><span>Active campaigns</span><span>3 (PMax, Search, Exp)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Trends</span>
+      <h2>LEADS &amp; CONVERSIONS.</h2>
+      <p>Monthly lead trend across both accounts and Ads conversion pacing for May 2026.</p>
+    </div>
+    <div class="chart-row">
+      <div class="chart-card">
+        <h4>Monthly Leads by Account</h4>
+        <div class="chart-sub">Total monthly form submissions (All Leads source). Last 8 months.</div>
+        <div class="chart-container"><canvas id="leadsChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h4>Existing-Practice Leads</h4>
+        <div class="chart-sub">Owner-segment leads only. The prized conversions.</div>
+        <div class="chart-container"><canvas id="existingChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Live campaigns</span>
+      <h2>ACTIVE GOOGLE ADS CAMPAIGNS.</h2>
+      <p>Current campaign roster across both accounts with daily budgets and last 30-day performance. Updated each morning by the daily check routine.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr><th>Campaign</th><th>Account</th><th>Status</th><th class="num">Daily Budget</th><th class="num">30-Day Spend</th><th class="num">30-Day Conv</th><th class="num">CPL</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Virjee Consulting - Campaign - Search</td><td>Dental</td><td><span class="status-pill status-on">Live</span></td><td class="num">$30</td><td class="num">$717</td><td class="num">4</td><td class="num">$179</td></tr>
+          <tr><td>Brand Campaign - Search</td><td>Dental</td><td><span class="status-pill status-on">Live</span></td><td class="num">$2</td><td class="num">$78</td><td class="num">2</td><td class="num">$39</td></tr>
+          <tr><td>Campaign - Search Exp_Exact match KW</td><td>Dental</td><td><span class="status-pill status-test">Test</span></td><td class="num">$30 (shared)</td><td class="num">$0</td><td class="num">0</td><td class="num">—</td></tr>
+          <tr><td>EXP_Health Insurance + Custom Audiences</td><td>Dental</td><td><span class="status-pill status-on">Live</span></td><td class="num">$30 (shared)</td><td class="num">$39</td><td class="num">1</td><td class="num">$39</td></tr>
+          <tr><td>Performance Max - Medical</td><td>Local</td><td><span class="status-pill status-on">Live</span></td><td class="num">$9</td><td class="num">$104</td><td class="num">5</td><td class="num">$21</td></tr>
+          <tr><td>Search Campaign - Medical Accounting Firm</td><td>Local</td><td><span class="status-pill status-on">Live</span></td><td class="num">$10 (shared)</td><td class="num">$166</td><td class="num">1</td><td class="num">$166</td></tr>
+          <tr><td>Search Medical Accounting Firm Exp_ Max conv</td><td>Local</td><td><span class="status-pill status-test">Test</span></td><td class="num">$10 (shared)</td><td class="num">$0</td><td class="num">0</td><td class="num">—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="timeline-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Changes log</span>
+      <h2>WHAT CHANGED.</h2>
+      <p>Chronological record of every campaign change, budget move, and structural fix. New items appended at top.</p>
+    </div>
+    <div class="timeline" id="changes-timeline">
+      <div class="tl-item">
+        <div class="tl-date">2026-05-13</div>
+        <div class="tl-title">Local Search "Medical Accounting Firm" unpaused + budget raised $5 → $10/day</div>
+        <div class="tl-body">Reactivated the April conversion channel that had been paused. Shared budget now $10/day with the trial campaign. Watch for ramp-up in healthcare-owner search traffic.</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-13</div>
+        <div class="tl-title">Local PMax Medical budget tripled $3 → $9/day</div>
+        <div class="tl-body">April delivered 5 conversions at $17/lead under a $3 cap (best efficiency across both accounts). Unlocked $6/day more capacity. Projected: 4-6 additional conversions in remaining May at same efficiency.</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-13</div>
+        <div class="tl-title">Daily Google Ads check routine created</div>
+        <div class="tl-body">Runs every morning at 8am Melbourne. Pulls yesterday's metrics, flags anomalies (paused campaigns, 0 impressions, conversion drops, spend at cap), posts summary to Asana tasks.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-08</div>
+        <div class="tl-title">Dental main campaign budget raised $20 → $30/day</div>
+        <div class="tl-body">Three campaigns shared a single $20/day budget — the main was eating it all, starving the two new EXP campaigns. Raise unlocks all three. Owner-keyword demand confirmed (116 impressions on "dental cpa" last 30 days).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-08</div>
+        <div class="tl-title">13 negative keywords added to Dental main</div>
+        <div class="tl-body">Owner-intent filter: <code>associate dentist</code>, <code>1099</code>, <code>hygienist</code>, <code>dental student</code>, <code>dental school</code>, <code>dental assistant</code>. Competitor brand block: <code>duckett ladd</code>, <code>edge dental advisors</code>, <code>rosen and associates</code>, <code>rosen cpa dental</code>. Junk: <code>free</code>, <code>salary</code>, <code>jobs</code>. Should shift spend toward practice owners.</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-07</div>
+        <div class="tl-title">Weekly lead-report refresh routine created</div>
+        <div class="tl-body">Runs every Wednesday 8am Melbourne. Rebuilds Enriched tabs from raw All Leads, refreshes current-month rows in v2 report tabs, posts summary to Asana.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-07</div>
+        <div class="tl-title">Lead reports rebuilt from raw — Enriched tabs were stale</div>
+        <div class="tl-body">Both Virjee sheets' Enriched tabs were missing recent May rows, causing report tables to show stale totals. Rebuilt Dental Enriched (363 rows) and Local Enriched (696 rows) from raw All Leads / Local Leads-Raw. Added May 2026 row to every v2 report tab.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="anomaly-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Daily monitoring</span>
+      <h2>ANOMALY LOG.</h2>
+      <p>Flagged by the daily 8am Google Ads check. Anomalies clear once resolved. Empty is good — it means everything's pacing normally.</p>
+    </div>
+    <div class="anom-empty" id="anom-empty">
+      <div class="ae-icon">&#9989;</div>
+      <div class="ae-msg">NO ANOMALIES YET</div>
+      <div class="ae-sub">First daily check runs tomorrow morning. Anomalies will appear here if any of: campaign paused unexpectedly, 0 impressions for 24h, 50%+ conversion drop, spend at budget cap, CPC up 50%+.</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <h2>VIRJEE CONSULTING<br/><span class="accent">TRACKER LIVE.</span></h2>
+    <p>Updated every morning Melbourne time by the daily and weekly Markology routines.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; Auto-refresh routines running</div>
+  </div>
+</footer>
+
+<script>
+const navy = '#070630', blue = '#3872EB', lilac = '#E6E9FF', mute = '#6C6E8A';
+
+// Monthly Leads chart (Dental vs Local)
+const leadsChart = new Chart(document.getElementById('leadsChart').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: ['Oct 25', 'Nov 25', 'Dec 25', 'Jan 26', 'Feb 26', 'Mar 26', 'Apr 26', 'May 26'],
+    datasets: [
+      { label: 'Dental', data: [20, 15, 20, 31, 20, 16, 25, 3], backgroundColor: blue, borderColor: navy, borderWidth: 2 },
+      { label: 'Local', data: [35, 35, 40, 40, 30, 37, 37, 6], backgroundColor: lilac, borderColor: navy, borderWidth: 2 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter', weight: '600' }, color: navy } } },
+    scales: { y: { beginAtZero: true, grid: { color: 'rgba(7,6,48,0.08)' }, ticks: { color: mute } }, x: { grid: { display: false }, ticks: { color: mute } } }
+  }
+});
+
+// Existing-practice leads (the prized segment)
+const existingChart = new Chart(document.getElementById('existingChart').getContext('2d'), {
+  type: 'line',
+  data: {
+    labels: ['Oct 25', 'Nov 25', 'Dec 25', 'Jan 26', 'Feb 26', 'Mar 26', 'Apr 26', 'May 26'],
+    datasets: [
+      { label: 'Dental Existing', data: [12, 8, 10, 18, 10, 8, 16, 2], borderColor: blue, backgroundColor: 'rgba(56,114,235,0.15)', borderWidth: 3, tension: 0.3, fill: true, pointBackgroundColor: blue, pointBorderColor: navy, pointBorderWidth: 2, pointRadius: 5 },
+      { label: 'Local Existing Medical', data: [7, 7, 4, 10, 5, 7, 4, 1], borderColor: '#7c3aed', backgroundColor: 'rgba(124,58,237,0.15)', borderWidth: 3, tension: 0.3, fill: true, pointBackgroundColor: '#7c3aed', pointBorderColor: navy, pointBorderWidth: 2, pointRadius: 5 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter', weight: '600' }, color: navy } } },
+    scales: { y: { beginAtZero: true, grid: { color: 'rgba(7,6,48,0.08)' }, ticks: { color: mute } }, x: { grid: { display: false }, ticks: { color: mute } } }
+  }
+});
+
+// Update goal bar based on current value
+const goalCurrent = parseInt(document.getElementById('goal-current').textContent);
+const goalPct = Math.min(100, Math.round((goalCurrent / 20) * 100));
+document.getElementById('goal-bar-fill').style.width = goalPct + '%';
+</script>
+
+</body>
+</html>

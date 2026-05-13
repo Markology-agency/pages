@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Ashford Sky — Google Ads Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Inter',sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;}
+.accent{color:var(--blue);}.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:64px 0;}@media(max-width:720px){section{padding:44px 0;}.container{padding:0 20px;}}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);}
+.pill.blue{background:var(--blue);}.pill.live{background:var(--good);}
+.pill.live::before{content:"";display:inline-block;width:8px;height:8px;background:#fff;border-radius:50%;margin-right:6px;vertical-align:middle;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.hero{background:var(--paper);padding-top:88px;padding-bottom:56px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7vw,80px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:20px 0 0;}
+.hero .lede{font-size:18px;color:var(--mute);max-width:720px;margin-top:20px;line-height:1.6;}
+.hero .meta{margin-top:24px;display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--mute);}.hero .meta strong{color:var(--navy);font-weight:600;}
+.crumb{margin-bottom:8px;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--mute);}.crumb a{color:var(--blue);text-decoration:none;}
+.toolbar{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;}
+.toolbar a{display:inline-block;padding:10px 18px;background:#fff;border:2px solid var(--navy);border-radius:10px;box-shadow:4px 4px 0 var(--navy);font-size:13px;font-weight:600;color:var(--navy);text-decoration:none;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:14px;padding:20px;box-shadow:5px 5px 0 var(--navy);}
+.kpi:nth-child(2),.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:10px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:44px;line-height:1;color:var(--navy);}
+.kpi .delta{margin-top:8px;font-size:12px;font-weight:600;}.kpi .delta.up{color:#047857;}.kpi .delta.down{color:#b91c1c;}.kpi .delta.flat{color:var(--mute);}
+.kpi .explain{margin-top:12px;padding-top:12px;border-top:2px dashed var(--hair);font-size:11px;color:var(--mute);line-height:1.4;}
+.section-head{margin-bottom:28px;max-width:820px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(28px,4vw,44px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:10px;}
+.section-head p{font-size:14px;color:var(--mute);margin-top:10px;line-height:1.5;}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:18px;overflow:hidden;box-shadow:5px 5px 0 var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:13px;}thead{background:var(--navy);}
+th{text-align:left;padding:12px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);}
+th.num,td.num{text-align:right;}td{padding:12px 16px;border-bottom:1px solid var(--hair);}tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.status-pill{display:inline-block;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;}
+.status-on{background:#d1fae5;color:#065f46;border:1.5px solid #065f46;}
+.tl-item{background:#fff;border:2px solid var(--navy);border-radius:12px;padding:16px 20px;box-shadow:4px 4px 0 var(--navy);margin-bottom:14px;}
+.tl-date{font-size:11px;color:var(--blue);text-transform:uppercase;letter-spacing:0.16em;font-weight:700;}
+.tl-title{font-weight:600;color:var(--navy);margin-top:4px;font-size:14px;}
+.tl-body{font-size:12px;color:var(--mute);margin-top:6px;line-height:1.5;}
+.anom-empty{background:#fff;border:2px dashed var(--navy);border-radius:14px;padding:36px 24px;text-align:center;}
+.anom-empty .ae-icon{font-size:36px;}.anom-empty .ae-msg{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-top:6px;}
+.anom-empty .ae-sub{font-size:13px;color:var(--mute);margin-top:6px;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:56px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(28px,4vw,40px);line-height:1;letter-spacing:0.02em;}.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:12px;font-size:13px;}
+.footer .built-by{margin-top:24px;padding-top:18px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}.footer .built-by a{color:var(--blue);text-decoration:none;}
+</style>
+</head>
+<body>
+<section class="hero">
+  <div class="container">
+    <div class="crumb"><a href="https://markology-agency.github.io/pages/">All clients</a> &rsaquo; <a href="https://markology-agency.github.io/pages/ashford-sky/">Ashford Sky</a> &rsaquo; Ads Tracker</div>
+    <span class="pill live">Live Tracker</span>
+    <h1>ASHFORD SKY<br/><span class="accent">ADS TRACKER.</span></h1>
+    <p class="lede">Daily Google Ads performance for Ashford Sky. Currently 2 enabled Search campaigns targeting Salt Lake City. Spend is minimal, conversions zero. This tracker baselines current state and flags when something changes.</p>
+    <div class="meta">
+      <span><strong>Customer ID:</strong> 2490937870</span>
+      <span><strong>Domain:</strong> ashfordsky.com</span>
+      <span><strong>Last refreshed:</strong> <span id="last-refresh">2026-05-13 16:40 AEST</span></span>
+    </div>
+    <div class="toolbar">
+      <a href="https://ads.google.com/aw/overview?ocid=2490937870" target="_blank">Open in Google Ads &rarr;</a>
+      <a href="https://markology-agency.github.io/pages/ashford-sky/may-2026-strategy/" target="_blank">Strategy &rarr;</a>
+      <a href="https://markology-agency.github.io/pages/ashford-sky/local-seo-audit/" target="_blank">Local SEO Audit &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-head"><span class="pill blue">Last 30 days</span><h2>HEADLINE NUMBERS.</h2><p>Aggregate across 2 enabled Salt Lake City Search campaigns.</p></div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="label">Spend (30d)</div><div class="value">$9.76</div><div class="delta flat">$0.33 / day</div><div class="explain">Total daily budget $10/day across 2 campaigns. Actual spend essentially zero. Auction demand isn't materializing.</div></div>
+      <div class="kpi"><div class="label">Impressions (30d)</div><div class="value">72</div><div class="delta flat">2.4 / day</div><div class="explain">68 impressions on the Ashford Sky brand campaign. 4 on the Bookkeeping &amp; Accounting non-brand campaign. Non-brand is essentially silent.</div></div>
+      <div class="kpi"><div class="label">Clicks (30d)</div><div class="value">1</div><div class="delta flat">CTR 1.4%</div><div class="explain">Single click in 30 days. CPC was $9.76. Either bid was set high or the auction was sparse.</div></div>
+      <div class="kpi"><div class="label">Conversions (30d)</div><div class="value">0</div><div class="delta down">No conversions tracked</div><div class="explain">Zero conversions. Need to verify: (a) conversion tracking is set up, (b) the single click landing experience exists.</div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head"><span class="pill blue">Campaign roster</span><h2>ACTIVE CAMPAIGNS.</h2><p>Both campaigns target Salt Lake City. Both enabled.</p></div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Campaign</th><th>Type</th><th>Status</th><th class="num">Daily Budget</th><th class="num">30d Spend</th><th class="num">30d Impr</th><th class="num">30d Clicks</th><th class="num">30d Conv</th><th class="num">CPC</th></tr></thead>
+        <tbody>
+          <tr><td>Search Campaign-Ashford Sky_Salt Lake City</td><td>Search</td><td><span class="status-pill status-on">Live</span></td><td class="num">$5</td><td class="num">$9.76</td><td class="num">68</td><td class="num">1</td><td class="num">0</td><td class="num">$9.76</td></tr>
+          <tr><td>Search Campaign-Bookkeeping&amp;Accounting_Salt Lake City</td><td>Search</td><td><span class="status-pill status-on">Live</span></td><td class="num">$5</td><td class="num">$0.00</td><td class="num">4</td><td class="num">0</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-head"><span class="pill blue">Initial findings</span><h2>WHAT THE DATA SHOWS.</h2></div>
+    <div class="kpi-grid" style="grid-template-columns:repeat(2,1fr);">
+      <div class="kpi" style="background:#fff;border-left:6px solid var(--bad);">
+        <div class="label">Ads aren't running</div>
+        <div class="explain" style="font-size:13px;border-top:none;padding-top:0;">$9.76 spent total across both campaigns in 30 days. With $10/day budget across the two, actual pacing is &lt;3% of cap. Either the ads aren't entering auction (low bids, poor ad strength, narrow targeting), or there's literally no search demand for the configured queries in the configured Salt Lake City geo.</div>
+      </div>
+      <div class="kpi" style="background:#fff;border-left:6px solid var(--warn);">
+        <div class="label">Bookkeeping &amp; Accounting campaign: 4 impressions / 0 clicks</div>
+        <div class="explain" style="font-size:13px;border-top:none;padding-top:0;">The non-brand acquisition campaign got 4 impressions and zero clicks. Either keyword targeting is wrong (too specific, too local, too low-volume), or the ads aren't competitive in their auctions. This is the acquisition channel that needs attention.</div>
+      </div>
+      <div class="kpi" style="background:#fff;border-left:6px solid var(--warn);">
+        <div class="label">Single $9.76 click on brand campaign</div>
+        <div class="explain" style="font-size:13px;border-top:none;padding-top:0;">$9.76 CPC for what's likely a brand-name click is unusually high. Brand traffic should be sub-$1 CPC. Check: is the brand keyword in BROAD match instead of EXACT? Are competitors bidding on the Ashford Sky brand name? Are bids set too aggressively?</div>
+      </div>
+      <div class="kpi" style="background:#fff;border-left:6px solid var(--blue);">
+        <div class="label">Decision needed: keep ads running or pause until foundation is built?</div>
+        <div class="explain" style="font-size:13px;border-top:none;padding-top:0;">Per the Local SEO Audit, Ashford Sky has zero local-pack visibility, no GBP optimization, and 3 keywords ranking. Running ads at this stage is paying $9+ per click to a site that hasn't been built for conversion. Consider pausing ads, focusing on GBP + content for 60 days, then re-launching ads against a stronger landing experience.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head"><span class="pill blue">Changes log</span><h2>WHAT CHANGED.</h2></div>
+    <div class="tl-item"><div class="tl-date">2026-05-13</div><div class="tl-title">Ads tracker launched</div><div class="tl-body">Live dashboard created. Baseline: $9.76 / 1 click / 0 conv over last 30 days across 2 enabled Salt Lake City Search campaigns.</div></div>
+  </div>
+</section>
+
+<section style="background:var(--lilac);">
+  <div class="container">
+    <div class="section-head"><span class="pill blue">Daily monitoring</span><h2>ANOMALY LOG.</h2><p>Flagged by the daily Google Ads check.</p></div>
+    <div class="anom-empty"><div class="ae-icon">&#9989;</div><div class="ae-msg">NO ANOMALIES YET</div><div class="ae-sub">Daily check will populate anomalies: campaigns paused unexpectedly, 0 impressions days, spend at cap, CPC spikes.</div></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <h2>ADS ARE SPENDING $0.<br/><span class="accent">FOUNDATION FIRST?</span></h2>
+    <p>Decision: keep ads running or pause until GBP + content are in place.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; <a href="https://markology-agency.github.io/pages/ashford-sky/">Ashford Sky report hub</a></div>
+  </div>
+</footer>
+</body>
+</html>

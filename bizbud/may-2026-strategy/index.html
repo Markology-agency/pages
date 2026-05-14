@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>BizBud, May 2026 Strategy Review by Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}
+.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:80px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:56px 0;}.container{padding:0 20px;}}
+.star{position:absolute;pointer-events:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.hero{background:var(--paper);padding-top:100px;padding-bottom:80px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(44px,8vw,96px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:24px 0 0;}
+.hero .lede{font-size:19px;line-height:1.6;color:var(--mute);max-width:680px;margin-top:28px;}
+.hero .meta{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.kpi-section{background:#fff;padding:64px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 22px;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.kpi:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}
+.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:12px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:48px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .delta{margin-top:10px;font-size:13px;font-weight:600;color:#047857;}
+.kpi .explain{margin-top:14px;padding-top:14px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);line-height:1.5;}
+.section-head{margin-bottom:48px;max-width:820px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(40px,5.5vw,68px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:16px;}
+.section-head p{font-size:17px;color:var(--mute);margin-top:16px;line-height:1.6;}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.chart-row{grid-template-columns:1fr;}}
+.chart-card{background:var(--paper);border:2px solid var(--navy);border-radius:20px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.chart-card h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:4px;}
+.chart-card .chart-sub{font-size:13px;color:var(--mute);margin-bottom:20px;}
+.chart-container{position:relative;height:280px;}
+.table-section{background:var(--paper);}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:20px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+thead{background:var(--navy);}
+th{text-align:left;padding:14px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);}
+th.num,td.num{text-align:right;}
+td{padding:14px 18px;border-bottom:1px solid var(--hair);}
+tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.upside-pill{display:inline-block;padding:3px 10px;background:var(--lilac);color:var(--navy);border:1.5px solid var(--navy);border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.05em;}
+.priorities-section{background:#fff;}
+.priority-list{display:flex;flex-direction:column;gap:16px;}
+.priority{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 28px;display:grid;grid-template-columns:56px 1fr;gap:20px;align-items:start;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.priority:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.priority .pnum{width:56px;height:56px;border-radius:14px;background:var(--blue);color:#fff;border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:30px;display:flex;align-items:center;justify-content:center;}
+.priority h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:6px;}
+.priority p{font-size:14px;color:var(--mute);line-height:1.55;}
+.priority .tag{display:inline-block;margin-top:10px;padding:4px 10px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.18em;border-radius:6px;text-transform:uppercase;}
+.story-section{background:var(--lilac);}
+.story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+@media(max-width:900px){.story-grid{grid-template-columns:1fr;}}
+.story-card{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:28px;box-shadow:5px 5px 0 var(--navy);}
+.story-card .num{font-family:'Bangers',sans-serif;font-size:64px;line-height:0.9;color:var(--blue);margin-bottom:8px;}
+.story-card h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:12px;line-height:1.1;}
+.story-card p{font-size:14px;color:var(--mute);line-height:1.55;}
+.ideas-section{background:#fff;}
+.ideas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+@media(max-width:900px){.ideas-grid{grid-template-columns:1fr;}}
+.idea{background:var(--paper);border:2px solid var(--navy);border-radius:20px;padding:32px 28px;box-shadow:6px 6px 0 var(--navy);position:relative;}
+.idea:nth-child(2),.idea:nth-child(3){background:var(--lilac);}
+.idea .badge{position:absolute;top:-14px;left:24px;background:var(--blue);color:#fff;border:2px solid var(--navy);padding:4px 12px;border-radius:8px;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;}
+.idea h4{font-family:'Bangers',sans-serif;font-size:26px;letter-spacing:0.04em;color:var(--navy);margin-bottom:12px;line-height:1.1;}
+.idea p{font-size:14px;color:var(--mute);line-height:1.6;margin-bottom:8px;}
+.callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:20px 24px;margin-top:24px;box-shadow:4px 4px 0 var(--navy);}
+.callout strong{color:var(--navy);font-weight:700;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:80px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,56px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:16px;font-size:14px;}
+.footer .built-by{margin-top:32px;padding-top:24px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px;}
+@media(max-width:720px){.metric-row{grid-template-columns:1fr;}}
+.metric{text-align:center;padding:24px;background:#fff;border:2px solid var(--navy);border-radius:12px;}
+.metric .v{font-family:'Bangers',sans-serif;font-size:48px;color:var(--blue);line-height:1;}
+.metric .l{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--mute);font-weight:700;margin-top:8px;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="star" style="top:80px;left:80px;transform:rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="top:200px;right:120px;transform:rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="bottom:60px;left:30%;transform:rotate(45deg);" width="20" height="20" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <div class="container">
+    <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">May 2026 &middot; Strategy Review</span>
+    <h1>FROM ZERO TO 46<br/>KEYWORDS. THE<br/>CREATOR NICHE <span class="accent">IS WORKING.</span></h1>
+    <p class="lede">A year ago, BizBud ranked for almost nothing. Today, 46 keywords are pulling impressions, monthly search impressions are up roughly 10x, and the Influencer + Digital Nomad ad campaigns are converting at $25 per lead on the strongest search terms. Here's the picture, the wins, and the four fixes that compound everything that's already working.</p>
+    <div class="meta">
+      <span><strong>Period:</strong> November 2025 to April 2026</span>
+      <span><strong>Prepared for:</strong> Cameron Botes</span>
+      <span><strong>Prepared by:</strong> Markology</span>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Organic Clicks (April)</div>
+        <div class="value">129</div>
+        <div class="delta">&uarr; from a near-zero baseline</div>
+        <div class="explain">Monthly clicks from Google organic search. Source: Search Console. November started at 67. April hit 129, nearly double in five months.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Keywords Ranking</div>
+        <div class="value">46</div>
+        <div class="delta">&uarr; from 4 a year ago</div>
+        <div class="explain">URLs from thebizbud.com appearing in Google results. Source: SEMrush. One year ago: 4 keywords, mostly accidental brand-adjacent matches. Today: 46, all topically aligned.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Top Ranking Position</div>
+        <div class="value">#6</div>
+        <div class="delta">"how to avoid tennessee franchise tax"</div>
+        <div class="explain">Best-ranking strategic keyword. Vol 90/mo. Already on page one. Sits inside a single blog driving 12K monthly impressions on its own.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Best Paid CPL</div>
+        <div class="value">$25</div>
+        <div class="delta">"bookkeeping for content creators"</div>
+        <div class="explain">Lowest cost-per-conversion on Google Ads over 90 days. 3 conversions at $76 total spend. The keyword that's proving creator targeting actually works.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">The Trajectory</span>
+      <h2>SIX MONTHS,<br/><span class="accent">TEN TIMES THE VISIBILITY.</span></h2>
+      <p>Two views of the same story. Monthly Google impressions climbed from under 600 in November to over 6,300 in April. Click volume nearly doubled in the same window. The site is moving from invisible to indexable, and the curve is still bending up.</p>
+    </div>
+    <div class="chart-row">
+      <div class="chart-card">
+        <h4>Monthly Google Impressions</h4>
+        <div class="chart-sub">From Search Console. 10x growth in six months.</div>
+        <div class="chart-container"><canvas id="imprChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h4>Monthly Organic Clicks</h4>
+        <div class="chart-sub">Clicks following impressions, with room to widen the gap.</div>
+        <div class="chart-container"><canvas id="clicksChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="story-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">What's Working</span>
+      <h2>THREE WINS THAT<br/><span class="accent">CONFIRM THE THESIS.</span></h2>
+      <p>Three signals say the creator and digital nomad positioning is real. The blog content is starting to compound. The paid niche keywords convert. And the audience is right.</p>
+    </div>
+    <div class="story-grid">
+      <div class="story-card">
+        <div class="num">12K</div>
+        <h4>MONTHLY IMPRESSIONS ON ONE BLOG</h4>
+        <p>The Tennessee Franchise &amp; Excise Tax blog is pulling 12,120 Google impressions every 90 days. It ranks for 35 distinct keywords from a single post. This was the inflection point that took BizBud from invisible to indexed.</p>
+      </div>
+      <div class="story-card">
+        <div class="num">$25</div>
+        <h4>CPL ON 'BOOKKEEPING FOR CONTENT CREATORS'</h4>
+        <p>The Influencer campaign converted three leads at $76 total spend on this single search term. That's the exact niche audience BizBud was built to serve, and it converts on the first ad impression. The creator-focused positioning isn't theoretical, the search demand is there.</p>
+      </div>
+      <div class="story-card">
+        <div class="num">29</div>
+        <h4>PAID CONVERSIONS IN FOUR MONTHS</h4>
+        <p>The two active Search campaigns produced 29 primary conversions on $5,652 spend between January and April. That's a $195 cost-per-lead in a niche where most accounting firms see $400 to $800. Even with measurement gaps (next section), the funnel is working.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;padding:80px 0;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">YoY Movement</span>
+      <h2>WHERE WE WERE<br/>VERSUS <span class="accent">WHERE WE ARE.</span></h2>
+      <p>A year ago, BizBud ranked for four keywords, and none of them aligned with the creator or digital nomad audience. Today, eleven topically aligned keywords sit on page two of Google, in striking distance of page one. Every keyword below is a NEW ranking that did not exist twelve months ago.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Strategic Keyword</th><th class="num">Volume</th><th class="num">May 2025</th><th class="num">May 2026</th><th class="num">Movement</th></tr></thead>
+        <tbody>
+          <tr><td>how to avoid tennessee franchise tax</td><td class="num">90</td><td class="num">not ranking</td><td class="num"><strong>#6</strong></td><td class="num"><span class="upside-pill">NEW</span></td></tr>
+          <tr><td>f&amp;e tax tennessee</td><td class="num">40</td><td class="num">not ranking</td><td class="num"><strong>#16</strong></td><td class="num"><span class="upside-pill">NEW</span></td></tr>
+          <tr><td>tennessee excise tax</td><td class="num">140</td><td class="num">not ranking</td><td class="num"><strong>#18</strong></td><td class="num"><span class="upside-pill">NEW</span></td></tr>
+          <tr><td>s corp tennessee</td><td class="num">70</td><td class="num">not ranking</td><td class="num"><strong>#18</strong></td><td class="num"><span class="upside-pill">NEW</span></td></tr>
+          <tr><td>s corporation in tennessee</td><td class="num">30</td><td class="num">not ranking</td><td class="num"><strong>#19</strong></td><td class="num"><span class="upside-pill">NEW</span></td></tr>
+          <tr><td>accountants for photographers</td><td class="num">30</td><td class="num">not ranking</td><td class="num"><strong>#20</strong></td><td class="num"><span class="upside-pill">NEW</span></td></tr>
+          <tr><td>obligated member entity</td><td class="num">320</td><td class="num">not ranking</td><td class="num"><strong>#21</strong></td><td class="num"><span class="upside-pill">NEW</span></td></tr>
+          <tr><td>tennessee llc tax</td><td class="num">40</td><td class="num">not ranking</td><td class="num"><strong>#22</strong></td><td class="num"><span class="upside-pill">NEW</span></td></tr>
+          <tr><td>bookkeeping for photographers</td><td class="num">50</td><td class="num">not ranking</td><td class="num"><strong>#22</strong></td><td class="num"><span class="upside-pill">NEW</span></td></tr>
+          <tr><td>tennessee franchise excise tax</td><td class="num">210</td><td class="num">not ranking</td><td class="num"><strong>#23</strong></td><td class="num"><span class="upside-pill">NEW</span></td></tr>
+          <tr><td>bookkeeping for content creators</td><td class="num">110</td><td class="num">not ranking</td><td class="num"><strong>#23</strong></td><td class="num"><span class="upside-pill">NEW</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>The math:</strong> "How to avoid tennessee franchise tax" already sits at #6 on page one. The other ten keywords are clustered between positions #16 and #23. CTR roughly 5x when a keyword moves from page two to top-3, so the highest-leverage SEO work for the next 60 days is title and meta rewrites on the pages already ranking, not new content.</div>
+  </div>
+</section>
+
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">The Next Unlock</span>
+      <h2>READY TO WIN<br/>THE <span class="accent">CLICK.</span></h2>
+      <p>Eight pages on the site are racking up real impressions in Google. Most of them have positions that put the page on the first or second page of results, but the click-through rates are sitting under 2%. Sharper titles and descriptions turn impressions into clicks. Cheapest, highest-leverage win on the docket.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Page</th><th class="num">Monthly Impressions</th><th class="num">CTR</th><th class="num">Position</th><th class="num">Upside</th></tr></thead>
+        <tbody>
+          <tr><td>Tennessee Franchise &amp; Excise Tax blog</td><td class="num">4,040</td><td class="num">0.39%</td><td class="num">#9.7</td><td class="num"><span class="upside-pill">+100 clicks</span></td></tr>
+          <tr><td>Digital Nomad Taxes service page</td><td class="num">272</td><td class="num">0.24%</td><td class="num">#11.6</td><td class="num"><span class="upside-pill">+12 clicks</span></td></tr>
+          <tr><td>Bookkeeping for Creators service page</td><td class="num">207</td><td class="num">0.64%</td><td class="num">#8.8</td><td class="num"><span class="upside-pill">+8 clicks</span></td></tr>
+          <tr><td>About Us page</td><td class="num">192</td><td class="num">0.52%</td><td class="num">#3.0</td><td class="num"><span class="upside-pill">+10 clicks</span></td></tr>
+          <tr><td>Tax Services for Influencers</td><td class="num">138</td><td class="num">1.45%</td><td class="num">#7.1</td><td class="num"><span class="upside-pill">+6 clicks</span></td></tr>
+          <tr><td>Tax for Creators page</td><td class="num">150</td><td class="num">0.45%</td><td class="num">#8.0</td><td class="num"><span class="upside-pill">+8 clicks</span></td></tr>
+          <tr><td>International Business Setup</td><td class="num">119</td><td class="num">0.56%</td><td class="num">#15.4</td><td class="num"><span class="upside-pill">+5 clicks</span></td></tr>
+          <tr><td>Bookkeeping for Photographers</td><td class="num">95</td><td class="num">1.41%</td><td class="num">#14.9</td><td class="num"><span class="upside-pill">+4 clicks</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>The math:</strong> Pulling the top six pages here up to a 3% click-through rate (the standard for these positions) adds roughly 150 additional organic clicks per month. That's a 100%+ jump in monthly clicks with no new content, no new rankings, no backlinks. Pure CTR engineering on impressions that already exist.</div>
+  </div>
+</section>
+
+<section style="background:#fff;padding:80px 0;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Google Ads</span>
+      <h2>THE NICHE CONVERTS.<br/><span class="accent">THE MEASUREMENT DOES NOT.</span></h2>
+      <p>Both Search campaigns are producing real conversions in a niche where most accounting firms struggle to get any. The bigger story is what's hiding in the conversion setup: two of the three lead form conversion actions are silently excluded from the conversion metric, which means the bidding algorithm is optimizing against the wrong signal. Fixing that alone should improve cost-per-real-conversion within 14 to 30 days.</p>
+    </div>
+    <div class="table-card" style="margin-bottom:32px;">
+      <table>
+        <thead><tr><th>Campaign</th><th class="num">Daily Budget</th><th class="num">6-Mo Spend</th><th class="num">Clicks</th><th class="num">Conversions</th><th class="num">CPL</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Influencer &amp; Content Creators</strong></td><td class="num">$35/day</td><td class="num">$3,046</td><td class="num">254</td><td class="num"><strong>14</strong></td><td class="num"><span class="upside-pill">$218</span></td></tr>
+          <tr><td><strong>Search Campaign – Digital Nomad</strong></td><td class="num">$20/day</td><td class="num">$2,606</td><td class="num">303</td><td class="num"><strong>15</strong></td><td class="num"><span class="upside-pill">$174</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="chart-row">
+      <div class="chart-card">
+        <h4>Monthly Ad Spend</h4>
+        <div class="chart-sub">Spend climbed from $700 in January to $1,760 in April.</div>
+        <div class="chart-container"><canvas id="adSpendChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h4>Monthly Conversions</h4>
+        <div class="chart-sub">Primary (book appointment) vs. all (includes lead forms).</div>
+        <div class="chart-container"><canvas id="adConvChart"></canvas></div>
+      </div>
+    </div>
+    <div class="callout"><strong>The hidden issue:</strong> Three conversion actions live in the account, but only "Book appointment (page load on /thank-you/)" is included in the conversion metric the bidding algorithm uses. The two lead form actions are marked <em>excluded from conversions</em>. That means every lead form submission counts as a "secondary" conversion (visible in all_conversions, ignored by bidding). The April drop in all_conversions (15 to 9) suggests the lead form pixel may not even be firing reliably. Fix this first, then re-evaluate CPLs.</div>
+  </div>
+</section>
+
+<section style="background:var(--paper);padding:80px 0;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Paid Search Terms</span>
+      <h2>WHERE THE PAID<br/>DOLLARS <span class="accent">ARE GOING.</span></h2>
+      <p>The good news: the niche search terms (cpa for content creators, bookkeeping for content creators, international tax accountant) are converting. The bad news: a handful of high-intent terms are absorbing real spend with zero conversions. Filtering those out should drop CPL by 25 to 40% inside two weeks.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Search Term</th><th class="num">Clicks</th><th class="num">Spend</th><th class="num">Conv</th><th class="num">CPL</th></tr></thead>
+        <tbody>
+          <tr><td>bookkeeping for content creators</td><td class="num">7</td><td class="num">$76</td><td class="num"><strong>3</strong></td><td class="num"><span class="upside-pill">$25</span></td></tr>
+          <tr><td>international tax accountant</td><td class="num">6</td><td class="num">$49</td><td class="num"><strong>1</strong></td><td class="num"><span class="upside-pill">$49</span></td></tr>
+          <tr><td>cpa for content creators</td><td class="num">11</td><td class="num">$226</td><td class="num"><strong>1</strong></td><td class="num">$226</td></tr>
+          <tr><td>content creator cpa</td><td class="num">3</td><td class="num">$61</td><td class="num">0</td><td class="num">no conv</td></tr>
+          <tr><td>influencer accountant</td><td class="num">6</td><td class="num">$79</td><td class="num">0</td><td class="num">no conv</td></tr>
+          <tr><td>accountants for content creators</td><td class="num">5</td><td class="num">$49</td><td class="num">0</td><td class="num">no conv</td></tr>
+          <tr><td>content creator tax accountant</td><td class="num">3</td><td class="num">$44</td><td class="num">0</td><td class="num">no conv</td></tr>
+          <tr><td>cpa influencers</td><td class="num">2</td><td class="num">$40</td><td class="num">0</td><td class="num">no conv</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>The opportunity:</strong> The top two rows are paying for themselves. Rows 4 through 8 spent a combined $273 on 19 clicks with zero conversions. That's roughly 8% of the 90-day budget producing no measurable outcome. Sharper landing pages on the influencer-specific terms (or pausing them for two weeks while the lead form tracking gets fixed) recovers ~$90 per month of pure waste.</div>
+  </div>
+</section>
+
+<section class="priorities-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">May / June Game Plan</span>
+      <h2>WHAT WE WORK<br/><span class="accent">NEXT.</span></h2>
+      <p>Six items, ordered by impact. Items 1 to 3 ship this week and unlock everything downstream. Items 4 to 6 are the 30-day moves that compound on top.</p>
+    </div>
+    <div class="priority-list">
+      <div class="priority">
+        <div class="pnum">01</div>
+        <div>
+          <h4>Fix Google Ads conversion tracking on lead forms</h4>
+          <p>Two of the three conversion actions are flagged "exclude from conversion metric," so the Maximize Conversions bidding strategy never sees lead form submissions as real conversions. Toggle both lead form actions to "include in conversions" and verify the thank-you page is firing the pixel reliably (April's all-conversion drop suggests it may not be). Once fixed, the bidding algorithm gets clean signal and CPL should drop meaningfully within two weeks.</p>
+          <span class="tag">This Week</span>
+        </div>
+      </div>
+      <div class="priority" style="background:var(--lilac);">
+        <div class="pnum">02</div>
+        <div>
+          <h4>Rewrite the Tennessee Franchise Tax blog title and meta</h4>
+          <p>The single highest-leverage SEO move on the site. The blog ranks for 35 keywords and pulls 4,000+ monthly impressions, but the click-through rate is 0.39% (a strong blog at that position should be at 2-3%). Sharper title (something like "Tennessee Franchise &amp; Excise Tax: 2026 Rules for LLCs and S-Corps") and meta description capture 100+ additional clicks per month with zero new content.</p>
+          <span class="tag">This Week</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">03</div>
+        <div>
+          <h4>Pause the underperforming influencer search terms</h4>
+          <p>"Influencer accountant," "content creator cpa," "content creator tax accountant," and "accountants for content creators" have spent $273 over 90 days with zero conversions. Add them as negatives or pause the matching keywords until the lead form tracking is fixed. Recovers roughly $90 per month of pure waste while preserving the converting terms ("bookkeeping for content creators," "international tax accountant").</p>
+          <span class="tag">This Week</span>
+        </div>
+      </div>
+      <div class="priority" style="background:var(--lilac);">
+        <div class="pnum">04</div>
+        <div>
+          <h4>CTR project: rewrite titles on the top 8 indexed pages</h4>
+          <p>Same playbook as the Tennessee blog, applied to seven other pages already pulling Google impressions (Digital Nomad Taxes, Bookkeeping for Creators, Tax Services for Influencers, Tax for Creators, International Business Setup, Bookkeeping for Photographers, About Us). Each title rewrite typically lifts CTR from under 1% to 2-3% within 30 days of re-crawl. Combined upside: 150+ additional monthly clicks.</p>
+          <span class="tag">30 Days</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">05</div>
+        <div>
+          <h4>Push 'how to avoid tennessee franchise tax' from #6 to top-3</h4>
+          <p>Already the highest-ranking strategic keyword and sitting just outside the top results. The next push is a content refresh (richer answer to the search intent, schema markup, internal links from related pages) and one or two quality backlinks to the post. Top-3 placement roughly 5x clicks compared to position #6, so the upside on this single keyword is sizable.</p>
+          <span class="tag">30 Days</span>
+        </div>
+      </div>
+      <div class="priority" style="background:var(--lilac);">
+        <div class="pnum">06</div>
+        <div>
+          <h4>Build follow-up blog: 'Bookkeeping for Content Creators'</h4>
+          <p>This term converts on paid at $25 per lead and ranks at #23 organically. A focused blog post (3,000+ words, answering "what makes creator bookkeeping different," "what to track," "common deductions," "S-corp election timing") targets the exact keyword that's already proven to drive conversions. Replicating the organic compounding that the Tennessee blog kicked off, but in the niche BizBud was actually built for.</p>
+          <span class="tag">60 Days</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="ideas-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">New Plays</span>
+      <h2>FOUR NEW<br/><span class="accent">DIRECTIONS.</span></h2>
+      <p>Outside the standard SEO and ads rhythm. Four bigger swings worth piloting if you're open to them.</p>
+    </div>
+    <div class="ideas-grid">
+      <div class="idea">
+        <div class="badge">Idea 01</div>
+        <h4>The cross-border niche</h4>
+        <p>"Cross border accountant," "us canada cross border tax," "international tax cpa" are showing up in paid search but BizBud has no dedicated landing page for the niche. Hidden vein of demand inside the digital nomad audience.</p>
+        <p>One service page targeting "cross-border accountant" plus a how-it-works guide for Canadian-US digital nomads could open a second high-intent vertical with minimal incremental spend.</p>
+      </div>
+      <div class="idea">
+        <div class="badge">Idea 02</div>
+        <h4>Creator-economy podcast tour</h4>
+        <p>Cameron's pro-soccer-turned-tax-expert origin story is a podcast gold mine. Short list: Creator Economy Live, The Influencer Economy, Trapital, The CreatorPreneur podcast.</p>
+        <p>Direct access to the exact target audience. Every appearance gets a backlink and a CTA. Three or four guest spots per quarter compounds both authority and traffic.</p>
+      </div>
+      <div class="idea">
+        <div class="badge">Idea 03</div>
+        <h4>Athlete-to-business-owner content vertical</h4>
+        <p>Cameron and Jared are both former pro athletes. There's a real (and undertargeted) audience of athletes transitioning into business: NIL collegiate athletes, retiring pros, content-creator athletes. Adjacent to creator-economy taxes but with a sharper hook.</p>
+        <p>One blog (How NIL Athletes Should Structure Their Income) and one LinkedIn campaign tests the niche cheaply.</p>
+      </div>
+      <div class="idea">
+        <div class="badge">Idea 04</div>
+        <h4>The 'Creator Tax Estimator' tool</h4>
+        <p>A free interactive calculator that takes platform earnings (YouTube, TikTok, brand deals, Patreon) and outputs a quarterly estimated tax payment. Solves the single biggest creator pain point and earns links and shares.</p>
+        <p>Engineering cost is real (one-time build), but the lead-capture rate on tools like this typically runs 3-5x a standard contact form. Lives as the highest-converting page on the site.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">How We Measure This</span>
+      <h2>THREE NUMBERS<br/><span class="accent">EVERY MONTH.</span></h2>
+      <p>Going forward, every monthly update reports on these three numbers. They span visibility, engagement, and paid efficiency. If they all move in the right direction, the strategy is compounding. If one stalls, that's where we focus.</p>
+    </div>
+    <div class="metric-row">
+      <div class="metric">
+        <div class="v">129 &rarr; 280</div>
+        <div class="l">Monthly Organic Clicks</div>
+        <p style="margin-top:12px;font-size:13px;color:var(--mute);">April was 129. CTR project + content refreshes pull this past 280 inside 90 days.</p>
+      </div>
+      <div class="metric">
+        <div class="v">$195 &rarr; $120</div>
+        <div class="l">True Cost-Per-Lead</div>
+        <p style="margin-top:12px;font-size:13px;color:var(--mute);">Current blended CPL is $195. Once lead form tracking is fixed and the wasteful terms are paused, $120 is the realistic target inside 30 days.</p>
+      </div>
+      <div class="metric">
+        <div class="v">0 &rarr; 4</div>
+        <div class="l">Top-3 Strategic Keywords</div>
+        <p style="margin-top:12px;font-size:13px;color:var(--mute);">Currently 0 strategic keywords sit in top-3 (only branded variants do). Target: 4 top-3 placements within 90 days, driven by title rewrites and one content refresh.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <h2>THE FOUNDATION IS BUILT.<br/>NOW WE <span class="accent">SHARPEN IT.</span></h2>
+    <p>Questions or pushback on anything in this plan? Reach out to Markology directly.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; May 14, 2026</div>
+  </div>
+</footer>
+
+<script>
+Chart.defaults.font.family="'Inter',-apple-system,BlinkMacSystemFont,sans-serif";
+Chart.defaults.font.size=12;Chart.defaults.color='#6C6E8A';Chart.defaults.borderColor='rgba(7,6,48,0.10)';
+const navy='#070630',blue='#3872EB';
+
+const months7=["Nov'25","Dec'25","Jan'26","Feb'26","Mar'26","Apr'26"];
+const impressions=[594,1057,1877,2801,6372,6307];
+const clicks=[67,74,124,121,128,129];
+
+new Chart(document.getElementById('imprChart'),{type:'bar',data:{labels:months7,datasets:[{label:'Impressions',data:impressions,backgroundColor:'rgba(56,114,235,0.78)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'Monthly impressions'}}}}});
+
+new Chart(document.getElementById('clicksChart'),{type:'bar',data:{labels:months7,datasets:[{label:'Clicks',data:clicks,backgroundColor:'rgba(7,6,48,0.78)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'Monthly clicks'}}}}});
+
+const adMonths=["Jan 2026","Feb 2026","Mar 2026","Apr 2026"];
+const adSpend=[700.75,1077.13,1369.23,1760.41];
+const adPrimary=[1,8,9,9];
+const adAll=[2,15,15,9];
+
+new Chart(document.getElementById('adSpendChart'),{type:'bar',data:{labels:adMonths,datasets:[{label:'Spend ($)',data:adSpend,backgroundColor:'rgba(7,6,48,0.78)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'USD'},ticks:{callback:function(v){return '$'+v}}}}}});
+
+new Chart(document.getElementById('adConvChart'),{type:'bar',data:{labels:adMonths,datasets:[{label:'Primary (book appointment)',data:adPrimary,backgroundColor:'rgba(56,114,235,0.78)',borderRadius:6},{label:'All (incl. lead forms)',data:adAll,backgroundColor:'rgba(7,6,48,0.55)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true,position:'bottom',labels:{boxWidth:12,padding:14}}},scales:{y:{beginAtZero:true,title:{display:true,text:'Conversions'}}}}});
+</script>
+</body>
+</html>

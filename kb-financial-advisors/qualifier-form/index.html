@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KB Financial Advisors — Schedule a Call</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand: #034734;
+    --brand-2: #023527;
+    --accent: #58b35a;
+    --accent-2: #4ba24c;
+    --ink: #2e2a37;
+    --muted: #69727d;
+    --line: #e7e5ea;
+    --bg: #faf9f7;
+    --card: #ffffff;
+    --good: #58b35a;
+    --warn: #b9851a;
+    --soft: #f3f1ee;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); font-family: "General Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, "Helvetica Neue", Arial, sans-serif; }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 20px 80px; }
+  .brand { display: flex; align-items: center; justify-content: center; margin-bottom: 32px; }
+  .brand img { height: 44px; width: auto; display: block; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 40px 40px 32px; box-shadow: 0 1px 2px rgba(3,71,52,0.04), 0 12px 32px rgba(3,71,52,0.06); }
+  .progress { height: 4px; background: var(--soft); border-radius: 99px; overflow: hidden; margin-bottom: 32px; }
+  .progress > span { display: block; height: 100%; background: var(--accent); width: 0%; transition: width 240ms ease; }
+  h1 { font-family: Georgia, "Times New Roman", "Canela Web", serif; font-weight: 400; font-size: 32px; line-height: 1.15; letter-spacing: -0.015em; margin: 0 0 10px; color: var(--brand); }
+  h2 { font-family: Georgia, "Times New Roman", "Canela Web", serif; font-weight: 400; font-size: 24px; line-height: 1.2; margin: 0 0 8px; color: var(--brand); }
+  .lede { color: var(--muted); margin: 0 0 28px; font-size: 16px; line-height: 1.6; }
+  .step { display: none; }
+  .step.active { display: block; }
+  label.opt { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border: 1px solid var(--line); border-radius: 6px; margin: 8px 0; cursor: pointer; background: white; transition: border-color 120ms, background 120ms, box-shadow 120ms; }
+  label.opt:hover { border-color: #c8e0c9; background: #f8fbf8; }
+  label.opt input { margin-top: 3px; accent-color: var(--accent); }
+  label.opt.sel { border-color: var(--accent); background: #f1f9f1; box-shadow: 0 0 0 3px rgba(88,179,90,0.15); }
+  .opt-text { font-size: 15.5px; line-height: 1.45; color: var(--ink); }
+  .opt-hint { display: block; color: var(--muted); font-size: 13.5px; margin-top: 2px; }
+  input[type=text], input[type=email] { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: 6px; font-size: 15.5px; font-family: inherit; color: var(--ink); outline: none; background: white; }
+  input[type=text]:focus, input[type=email]:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(88,179,90,0.18); }
+  .field { margin-bottom: 16px; }
+  .lbl { display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: var(--brand); }
+  .row { display: flex; gap: 12px; margin-top: 28px; align-items: center; }
+  .btn { font: inherit; font-weight: 600; font-size: 15px; padding: 13px 24px; border-radius: 6px; border: 1px solid transparent; cursor: pointer; transition: background 120ms, transform 80ms, box-shadow 120ms; font-family: "General Sans", inherit; letter-spacing: 0.005em; }
+  .btn-primary { background: var(--accent); color: white; }
+  .btn-primary:hover { background: var(--accent-2); }
+  .btn-primary:disabled { background: #cfd9cf; cursor: not-allowed; }
+  .btn-ghost { background: white; color: var(--brand); border-color: var(--line); }
+  .btn-ghost:hover { background: var(--soft); }
+  .spacer { flex: 1; }
+  .stepnum { color: var(--muted); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 14px; display: block; }
+  .outcome { text-align: left; }
+  .outcome .icon { width: 48px; height: 48px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 20px; font-weight: 600; }
+  .outcome.qualified .icon { background: #e8f4e8; color: var(--accent); }
+  .outcome.borderline .icon { background: #fff5dd; color: var(--warn); }
+  .outcome.notfit .icon { background: var(--soft); color: var(--brand); }
+  .outcome h1 { margin-bottom: 14px; }
+  .outcome p { font-size: 16px; line-height: 1.65; color: var(--ink); margin: 0 0 14px; }
+  .outcome ul { padding-left: 18px; margin: 0 0 18px; }
+  .outcome ul li { margin: 6px 0; line-height: 1.55; }
+  .embed-wrap { margin-top: 18px; }
+  .small { font-size: 13px; color: var(--muted); }
+  a.inline { color: var(--accent); text-decoration: underline; }
+  a.inline:hover { color: var(--accent-2); }
+  .check-row label.opt input[type=checkbox] { width: 16px; height: 16px; }
+  .restart { background: none; border: none; color: var(--accent); cursor: pointer; font: inherit; padding: 0; text-decoration: underline; font-size: 14px; }
+  .email-capture { display: flex; gap: 8px; margin-top: 8px; }
+  .email-capture input { flex: 1; }
+  .submitted { color: var(--accent); font-size: 14px; margin-top: 8px; font-weight: 600; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <img src="https://kbfinancialadvisors.com/wp-content/uploads/2024/11/51791-logo_option-1-main.svg" alt="KB Financial Advisors">
+  </div>
+
+  <div class="card">
+    <div class="progress" id="progress"><span style="width: 25%"></span></div>
+
+    <!-- Q1: Situation -->
+    <div class="step active" data-step="situation">
+      <span class="stepnum">Step 1</span>
+      <h1>Tell us a few details first.</h1>
+      <p class="lede">Five seconds. So we can match you to the right next step.</p>
+
+      <p class="lbl">What best describes your situation?</p>
+      <label class="opt"><input type="radio" name="situation" value="founder"><span class="opt-text">I'm a startup founder<span class="opt-hint">Pre-exit, secondary, or active fundraise.</span></span></label>
+      <label class="opt"><input type="radio" name="situation" value="ipo"><span class="opt-text">My company's planning an IPO<span class="opt-hint">S-1 filed, lockup approaching, or active IPO cycle.</span></span></label>
+      <label class="opt"><input type="radio" name="situation" value="bigtech"><span class="opt-text">I work at a public tech company<span class="opt-hint">Meta, Google, Apple, Amazon, Microsoft, or similar.</span></span></label>
+      <label class="opt"><input type="radio" name="situation" value="liquidity"><span class="opt-text">I recently had a liquidity event<span class="opt-hint">Tender offer, secondary sale, or acquisition.</span></span></label>
+      <label class="opt"><input type="radio" name="situation" value="unsure"><span class="opt-text">Not sure yet, I just want guidance</span></label>
+
+      <div class="row">
+        <div class="spacer"></div>
+        <button class="btn btn-primary" id="situation-next" disabled>Continue</button>
+      </div>
+    </div>
+
+    <!-- IPO sub: ISO vs RSU -->
+    <div class="step" data-step="ipo-type">
+      <span class="stepnum">Step 2</span>
+      <h1>What type of equity do you have?</h1>
+      <p class="lede">This changes the conversation. Pick the one that's biggest for you.</p>
+
+      <label class="opt"><input type="radio" name="ipo_type" value="iso"><span class="opt-text">ISOs (Incentive Stock Options)</span></label>
+      <label class="opt"><input type="radio" name="ipo_type" value="rsu"><span class="opt-text">RSUs (Restricted Stock Units)</span></label>
+      <label class="opt"><input type="radio" name="ipo_type" value="both"><span class="opt-text">Both ISOs and RSUs</span></label>
+      <label class="opt"><input type="radio" name="ipo_type" value="nso"><span class="opt-text">NSOs (Non-Qualified Stock Options)</span></label>
+
+      <div class="row">
+        <button class="btn btn-ghost" data-back>Back</button>
+        <div class="spacer"></div>
+        <button class="btn btn-primary" id="ipo-type-next" disabled>Continue</button>
+      </div>
+    </div>
+
+    <!-- Big Tech: quantitative -->
+    <div class="step" data-step="bigtech-q">
+      <span class="stepnum">Step 2 of 3</span>
+      <h1>A few quick details.</h1>
+      <p class="lede">We work best with concentrated equity and high income. These tell us if a call's worth your time.</p>
+
+      <p class="lbl">What company do you work for?</p>
+      <label class="opt"><input type="radio" name="bt_company" value="meta"><span class="opt-text">Meta</span></label>
+      <label class="opt"><input type="radio" name="bt_company" value="google"><span class="opt-text">Google</span></label>
+      <label class="opt"><input type="radio" name="bt_company" value="apple"><span class="opt-text">Apple</span></label>
+      <label class="opt"><input type="radio" name="bt_company" value="amazon"><span class="opt-text">Amazon</span></label>
+      <label class="opt"><input type="radio" name="bt_company" value="microsoft"><span class="opt-text">Microsoft</span></label>
+      <label class="opt"><input type="radio" name="bt_company" value="other"><span class="opt-text">Other</span></label>
+      <input type="text" id="bt-company-other" placeholder="Company name" style="display:none;margin-top:8px;">
+
+      <p class="lbl" style="margin-top:20px;">Approximate value of your RSUs today</p>
+      <label class="opt"><input type="radio" name="bt_value" value="lt1"><span class="opt-text">Under $1M</span></label>
+      <label class="opt"><input type="radio" name="bt_value" value="1to5"><span class="opt-text">$1M to $5M</span></label>
+      <label class="opt"><input type="radio" name="bt_value" value="gt5"><span class="opt-text">$5M+</span></label>
+
+      <p class="lbl" style="margin-top:20px;">Roughly what percent of your net worth is in company stock?</p>
+      <label class="opt"><input type="radio" name="bt_conc" value="lt25"><span class="opt-text">Under 25%</span></label>
+      <label class="opt"><input type="radio" name="bt_conc" value="25to50"><span class="opt-text">25% to 50%</span></label>
+      <label class="opt"><input type="radio" name="bt_conc" value="50to75"><span class="opt-text">50% to 75%</span></label>
+      <label class="opt"><input type="radio" name="bt_conc" value="gt75"><span class="opt-text">Over 75%</span></label>
+
+      <p class="lbl" style="margin-top:20px;">Approximate household income</p>
+      <label class="opt"><input type="radio" name="bt_income" value="lt500"><span class="opt-text">Under $500k</span></label>
+      <label class="opt"><input type="radio" name="bt_income" value="500to750"><span class="opt-text">$500k to $750k</span></label>
+      <label class="opt"><input type="radio" name="bt_income" value="gt750"><span class="opt-text">$750k+</span></label>
+
+      <div class="row">
+        <button class="btn btn-ghost" data-back>Back</button>
+        <div class="spacer"></div>
+        <button class="btn btn-primary" id="bigtech-q-next" disabled>Continue</button>
+      </div>
+    </div>
+
+    <!-- Big Tech: qualitative -->
+    <div class="step" data-step="bigtech-q2">
+      <span class="stepnum">Step 3 of 3</span>
+      <h1>A couple more.</h1>
+      <p class="lede">These tell us if we can actually help, or if you'd be better off somewhere else.</p>
+
+      <p class="lbl">What are you looking for help with? (select all)</p>
+      <div class="check-row">
+        <label class="opt"><input type="checkbox" name="bt_help" value="tax"><span class="opt-text">Tax planning</span></label>
+        <label class="opt"><input type="checkbox" name="bt_help" value="diversification"><span class="opt-text">Diversification strategy</span></label>
+        <label class="opt"><input type="checkbox" name="bt_help" value="retirement"><span class="opt-text">Retirement planning</span></label>
+        <label class="opt"><input type="checkbox" name="bt_help" value="full"><span class="opt-text">Full financial plan</span></label>
+        <label class="opt"><input type="checkbox" name="bt_help" value="investments"><span class="opt-text">Investment management</span></label>
+      </div>
+
+      <p class="lbl" style="margin-top:20px;">Are you looking for tax filing only?</p>
+      <label class="opt"><input type="radio" name="bt_taxonly" value="yes"><span class="opt-text">Yes</span></label>
+      <label class="opt"><input type="radio" name="bt_taxonly" value="no"><span class="opt-text">No</span></label>
+
+      <p class="lbl" style="margin-top:20px;">Would you consider working with an advisor who manages your investments?</p>
+      <label class="opt"><input type="radio" name="bt_advisor" value="yes"><span class="opt-text">Yes</span></label>
+      <label class="opt"><input type="radio" name="bt_advisor" value="no"><span class="opt-text">No</span></label>
+      <label class="opt"><input type="radio" name="bt_advisor" value="maybe"><span class="opt-text">Not sure yet</span></label>
+
+      <div class="row">
+        <button class="btn btn-ghost" data-back>Back</button>
+        <div class="spacer"></div>
+        <button class="btn btn-primary" id="bigtech-q2-next" disabled>See result</button>
+      </div>
+    </div>
+
+    <!-- IPO RSU: quantitative -->
+    <div class="step" data-step="rsu-q">
+      <span class="stepnum">Step 3 of 4</span>
+      <h1>A few quick details.</h1>
+      <p class="lede">If your company's heading toward an IPO, the next year drives most of your tax exposure.</p>
+
+      <div class="field">
+        <label class="lbl" for="rsu-company">What company do you work for?</label>
+        <input type="text" id="rsu-company" placeholder="Company name">
+      </div>
+
+      <p class="lbl" style="margin-top:10px;">Is your company expected to IPO this year?</p>
+      <label class="opt"><input type="radio" name="rsu_timing" value="yes"><span class="opt-text">Yes</span></label>
+      <label class="opt"><input type="radio" name="rsu_timing" value="no"><span class="opt-text">No</span></label>
+      <label class="opt"><input type="radio" name="rsu_timing" value="unsure"><span class="opt-text">Not sure</span></label>
+
+      <p class="lbl" style="margin-top:20px;">Approximate total RSU value today</p>
+      <label class="opt"><input type="radio" name="rsu_value" value="lt1"><span class="opt-text">Under $1M</span></label>
+      <label class="opt"><input type="radio" name="rsu_value" value="1to3"><span class="opt-text">$1M to $3M</span></label>
+      <label class="opt"><input type="radio" name="rsu_value" value="gt3"><span class="opt-text">$3M+</span></label>
+
+      <p class="lbl" style="margin-top:20px;">Approximate household income</p>
+      <label class="opt"><input type="radio" name="rsu_income" value="lt500"><span class="opt-text">Under $500k</span></label>
+      <label class="opt"><input type="radio" name="rsu_income" value="500to750"><span class="opt-text">$500k to $750k</span></label>
+      <label class="opt"><input type="radio" name="rsu_income" value="gt750"><span class="opt-text">$750k+</span></label>
+
+      <div class="row">
+        <button class="btn btn-ghost" data-back>Back</button>
+        <div class="spacer"></div>
+        <button class="btn btn-primary" id="rsu-q-next" disabled>Continue</button>
+      </div>
+    </div>
+
+    <!-- IPO RSU: qualitative -->
+    <div class="step" data-step="rsu-q2">
+      <span class="stepnum">Step 4 of 4</span>
+      <h1>A couple more.</h1>
+      <p class="lede">These tell us if we can actually help.</p>
+
+      <p class="lbl">What are you looking for help with? (select all)</p>
+      <div class="check-row">
+        <label class="opt"><input type="checkbox" name="rsu_help" value="ipo"><span class="opt-text">IPO strategy and planning</span></label>
+        <label class="opt"><input type="checkbox" name="rsu_help" value="tax"><span class="opt-text">Tax planning</span></label>
+        <label class="opt"><input type="checkbox" name="rsu_help" value="diversification"><span class="opt-text">Diversification</span></label>
+        <label class="opt"><input type="checkbox" name="rsu_help" value="longterm"><span class="opt-text">Long-term financial planning</span></label>
+        <label class="opt"><input type="checkbox" name="rsu_help" value="selling"><span class="opt-text">Selling strategy after IPO</span></label>
+      </div>
+
+      <p class="lbl" style="margin-top:20px;">Are you looking for tax filing only?</p>
+      <label class="opt"><input type="radio" name="rsu_taxonly" value="yes"><span class="opt-text">Yes</span></label>
+      <label class="opt"><input type="radio" name="rsu_taxonly" value="no"><span class="opt-text">No</span></label>
+
+      <p class="lbl" style="margin-top:20px;">Would you consider working with an advisor who manages your investments?</p>
+      <label class="opt"><input type="radio" name="rsu_advisor" value="yes"><span class="opt-text">Yes</span></label>
+      <label class="opt"><input type="radio" name="rsu_advisor" value="no"><span class="opt-text">No</span></label>
+      <label class="opt"><input type="radio" name="rsu_advisor" value="maybe"><span class="opt-text">Not sure yet</span></label>
+
+      <div class="row">
+        <button class="btn btn-ghost" data-back>Back</button>
+        <div class="spacer"></div>
+        <button class="btn btn-primary" id="rsu-q2-next" disabled>See result</button>
+      </div>
+    </div>
+
+    <!-- Liquidity event qualifier -->
+    <div class="step" data-step="liq-q">
+      <span class="stepnum">Step 2</span>
+      <h1>Tell us about the event.</h1>
+      <p class="lede">Liquidity events come in a lot of shapes. The numbers determine your best move.</p>
+
+      <p class="lbl">What type of event was it?</p>
+      <label class="opt"><input type="radio" name="liq_type" value="tender"><span class="opt-text">Tender offer or secondary sale</span></label>
+      <label class="opt"><input type="radio" name="liq_type" value="acquisition"><span class="opt-text">Acquisition or company sale</span></label>
+      <label class="opt"><input type="radio" name="liq_type" value="ipo"><span class="opt-text">Recent IPO</span></label>
+      <label class="opt"><input type="radio" name="liq_type" value="other"><span class="opt-text">Other</span></label>
+
+      <p class="lbl" style="margin-top:20px;">Approximate value of the event to you</p>
+      <label class="opt"><input type="radio" name="liq_value" value="lt1"><span class="opt-text">Under $1M</span></label>
+      <label class="opt"><input type="radio" name="liq_value" value="1to3"><span class="opt-text">$1M to $3M</span></label>
+      <label class="opt"><input type="radio" name="liq_value" value="gt3"><span class="opt-text">$3M+</span></label>
+
+      <p class="lbl" style="margin-top:20px;">Are you looking for tax filing only?</p>
+      <label class="opt"><input type="radio" name="liq_taxonly" value="yes"><span class="opt-text">Yes</span></label>
+      <label class="opt"><input type="radio" name="liq_taxonly" value="no"><span class="opt-text">No</span></label>
+
+      <p class="lbl" style="margin-top:20px;">Would you consider working with an advisor who manages your investments?</p>
+      <label class="opt"><input type="radio" name="liq_advisor" value="yes"><span class="opt-text">Yes</span></label>
+      <label class="opt"><input type="radio" name="liq_advisor" value="no"><span class="opt-text">No</span></label>
+      <label class="opt"><input type="radio" name="liq_advisor" value="maybe"><span class="opt-text">Not sure yet</span></label>
+
+      <div class="row">
+        <button class="btn btn-ghost" data-back>Back</button>
+        <div class="spacer"></div>
+        <button class="btn btn-primary" id="liq-q-next" disabled>See result</button>
+      </div>
+    </div>
+
+    <!-- OUTCOME: Qualified -->
+    <div class="step" data-step="out-qualified">
+      <div class="outcome qualified">
+        <span class="icon">✓</span>
+        <h1>Grab a time below.</h1>
+        <p>This is exactly the kind of situation we work with every day. Pick whatever works.</p>
+        <div class="embed-wrap">
+          <div id="SOIDIV_ScheduleYourCallKBFA" data-so-page="ScheduleYourCallKBFA" data-height="550" data-style="border: 1px solid #d8d8d8; min-width: 290px; max-width: 900px; border-radius: 8px;" data-psz="00"></div>
+          <script type="text/javascript" src="https://cdn.oncehub.com/mergedjs/so.js" async></script>
+        </div>
+        <p class="small" style="margin-top:18px">Prefer email first? <a class="inline" href="mailto:landon@kbadvisors.com">landon@kbadvisors.com</a></p>
+        <p class="small"><button class="restart" onclick="restart()">Start over</button></p>
+      </div>
+    </div>
+
+    <!-- OUTCOME: Needs more info (borderline + not-fit merge) -->
+    <div class="step" data-step="out-needs-info">
+      <div class="outcome">
+        <h1>We need a bit more information.</h1>
+        <p>Tell us what you're looking for and how we can help. Someone will get back to you within 24 hours.</p>
+
+        <div class="field"><label class="lbl" for="ni-first">First name</label><input type="text" id="ni-first" placeholder="Jane"></div>
+        <div class="field"><label class="lbl" for="ni-email">Email</label><input type="email" id="ni-email" placeholder="you@company.com"></div>
+        <div class="field">
+          <label class="lbl" for="ni-message">What are you looking for help with?</label>
+          <textarea id="ni-message" rows="4" placeholder="A few sentences on your situation and what you'd like help with." style="width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:6px;font-size:15.5px;font-family:inherit;color:var(--ink);outline:none;background:white;resize:vertical;"></textarea>
+        </div>
+
+        <div class="row">
+          <div class="spacer"></div>
+          <button class="btn btn-primary" id="ni-submit" disabled>Send</button>
+        </div>
+
+        <p id="ni-confirm" class="submitted" style="display:none;margin-top:14px;">Thanks. We'll be in touch within 24 hours.</p>
+        <p class="small" style="margin-top:18px"><button class="restart" onclick="restart()">Start over</button></p>
+      </div>
+    </div>
+
+    <!-- OUTCOME: Unsure -->
+    <div class="step" data-step="out-unsure">
+      <div class="outcome notfit">
+        <span class="icon">?</span>
+        <h1>Start here.</h1>
+        <p>If you're not sure where you stand yet, the best move is to read a few things first. These cover the most common decisions we see tech professionals and founders make wrong.</p>
+        <ul>
+          <li><a class="inline" href="https://kbfinancialadvisors.com/rsus-taxation/" target="_blank">How RSUs are taxed</a></li>
+          <li><a class="inline" href="https://kbfinancialadvisors.com/incentive-stock-options-tax/" target="_blank">ISO tax basics</a></li>
+          <li><a class="inline" href="https://kbfinancialadvisors.com/qualified-small-business-stock/" target="_blank">QSBS for founders</a></li>
+          <li><a class="inline" href="https://kbfinancialadvisors.com/ipo-financial-advisors/" target="_blank">IPO planning</a></li>
+        </ul>
+        <p>When your situation gets more specific, come back and we'll see if a call makes sense.</p>
+        <p class="small"><button class="restart" onclick="restart()">Start over</button></p>
+      </div>
+    </div>
+  </div>
+
+  <p class="small" style="text-align:center;margin-top:18px">© KB Financial Advisors · Educational only. Not investment advice.</p>
+</div>
+
+<script>
+  const state = { history: [], answers: {} };
+
+  const stepsEl = () => document.querySelectorAll('.step');
+  const progressEl = () => document.querySelector('#progress > span');
+
+  function show(stepName, opts = {}) {
+    stepsEl().forEach(s => s.classList.toggle('active', s.dataset.step === stepName));
+    if (!opts.skipHistory) state.history.push(stepName);
+    setProgress(stepName);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function setProgress(name) {
+    const map = {
+      'situation': 25,
+      'ipo-type': 50,
+      'liq-q': 60,
+      'bigtech-q': 50, 'bigtech-q2': 80,
+      'rsu-q': 60, 'rsu-q2': 85,
+      'out-qualified': 100, 'out-needs-info': 100, 'out-unsure': 100,
+    };
+    progressEl().style.width = (map[name] || 25) + '%';
+  }
+
+  function back() {
+    if (state.history.length < 2) return;
+    state.history.pop();
+    const prev = state.history.pop();
+    show(prev);
+  }
+
+  document.querySelectorAll('[data-back]').forEach(b => b.addEventListener('click', back));
+
+  document.querySelectorAll('label.opt').forEach(lbl => {
+    lbl.addEventListener('click', () => {
+      const input = lbl.querySelector('input');
+      if (!input) return;
+      if (input.type === 'radio') {
+        document.querySelectorAll(`input[name="${input.name}"]`).forEach(i => i.closest('label').classList.remove('sel'));
+        setTimeout(() => lbl.classList.toggle('sel', input.checked), 0);
+      } else {
+        setTimeout(() => lbl.classList.toggle('sel', input.checked), 0);
+      }
+      revalidate();
+    });
+  });
+
+  function val(name) { const el = document.querySelector(`input[name="${name}"]:checked`); return el ? el.value : null; }
+  function valsCb(name) { return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(i => i.value); }
+  function text(id) { const el = document.getElementById(id); return el ? (el.value || '').trim() : ''; }
+
+  function revalidate() {
+    document.getElementById('situation-next').disabled = !val('situation');
+    document.getElementById('ipo-type-next').disabled = !val('ipo_type');
+
+    // Big Tech company (radio + optional "other" text)
+    const btCo = val('bt_company');
+    const btCoOther = document.getElementById('bt-company-other');
+    if (btCoOther) btCoOther.style.display = btCo === 'other' ? 'block' : 'none';
+    const btCoOk = btCo && (btCo !== 'other' || text('bt-company-other'));
+    document.getElementById('bigtech-q-next').disabled = !(btCoOk && val('bt_value') && val('bt_conc') && val('bt_income'));
+    document.getElementById('bigtech-q2-next').disabled = !(valsCb('bt_help').length && val('bt_taxonly') && val('bt_advisor'));
+
+    document.getElementById('rsu-q-next').disabled = !(text('rsu-company') && val('rsu_timing') && val('rsu_value') && val('rsu_income'));
+    document.getElementById('rsu-q2-next').disabled = !(valsCb('rsu_help').length && val('rsu_taxonly') && val('rsu_advisor'));
+
+    document.getElementById('liq-q-next').disabled = !(val('liq_type') && val('liq_value') && val('liq_taxonly') && val('liq_advisor'));
+
+    const niSubmit = document.getElementById('ni-submit');
+    if (niSubmit) niSubmit.disabled = !(text('ni-first') && /\S+@\S+\.\S+/.test(text('ni-email')) && text('ni-message'));
+  }
+  document.addEventListener('input', revalidate);
+
+  // Q1 → route
+  document.getElementById('situation-next').addEventListener('click', () => {
+    const s = val('situation');
+    state.answers.situation = s;
+    if (s === 'founder') return show('out-qualified');
+    if (s === 'ipo') return show('ipo-type');
+    if (s === 'bigtech') return show('bigtech-q');
+    if (s === 'liquidity') return show('liq-q');
+    if (s === 'unsure') return show('out-unsure');
+  });
+
+  document.getElementById('ipo-type-next').addEventListener('click', () => {
+    const t = val('ipo_type');
+    state.answers.ipo_type = t;
+    if (t === 'iso' || t === 'both' || t === 'nso') return show('out-qualified');
+    if (t === 'rsu') return show('rsu-q');
+  });
+
+  document.getElementById('bigtech-q-next').addEventListener('click', () => {
+    const c = val('bt_company');
+    state.answers.bigtech = {
+      company: c === 'other' ? text('bt-company-other') : c,
+      value: val('bt_value'),
+      concentration: val('bt_conc'),
+      income: val('bt_income'),
+    };
+    show('bigtech-q2');
+  });
+
+  document.getElementById('bigtech-q2-next').addEventListener('click', () => {
+    Object.assign(state.answers.bigtech, {
+      help: valsCb('bt_help'),
+      taxonly: val('bt_taxonly'),
+      advisor: val('bt_advisor'),
+    });
+    routeOutcome();
+  });
+
+  document.getElementById('rsu-q-next').addEventListener('click', () => {
+    state.answers.rsu = {
+      company: text('rsu-company'),
+      timing: val('rsu_timing'),
+      value: val('rsu_value'),
+      income: val('rsu_income'),
+    };
+    show('rsu-q2');
+  });
+
+  document.getElementById('rsu-q2-next').addEventListener('click', () => {
+    Object.assign(state.answers.rsu, {
+      help: valsCb('rsu_help'),
+      taxonly: val('rsu_taxonly'),
+      advisor: val('rsu_advisor'),
+    });
+    routeOutcome();
+  });
+
+  document.getElementById('liq-q-next').addEventListener('click', () => {
+    state.answers.liquidity = {
+      type: val('liq_type'),
+      value: val('liq_value'),
+      taxonly: val('liq_taxonly'),
+      advisor: val('liq_advisor'),
+    };
+    routeOutcome();
+  });
+
+  function routeOutcome() {
+    const o = score();
+    state.answers.outcome = o;
+    submitToBackend(o);
+    if (o === 'qualified') show('out-qualified');
+    else show('out-needs-info');
+  }
+
+  function score() {
+    const sit = state.answers.situation;
+    if (sit === 'bigtech') {
+      const b = state.answers.bigtech;
+      if (b.taxonly === 'yes' || b.advisor === 'no') return 'notfit';
+      if (b.value === 'gt5' && b.advisor !== 'no') return 'qualified';
+      if (b.value === '1to5') return 'borderline';
+      return 'notfit';
+    }
+    if (sit === 'ipo' && state.answers.ipo_type === 'rsu') {
+      const r = state.answers.rsu;
+      if (r.taxonly === 'yes' || r.advisor === 'no') return 'notfit';
+      if (r.value === 'gt3' && r.advisor !== 'no') return 'qualified';
+      if (r.value === '1to3') return 'borderline';
+      return 'notfit';
+    }
+    if (sit === 'liquidity') {
+      const l = state.answers.liquidity;
+      if (l.taxonly === 'yes' || l.advisor === 'no') return 'notfit';
+      if (l.value === 'gt3') return 'qualified';
+      if (l.value === '1to3') return 'borderline';
+      return 'notfit';
+    }
+    return 'qualified';
+  }
+
+  // Needs-info submit (borderline + not-fit)
+  document.addEventListener('click', (e) => {
+    if (e.target && e.target.id === 'ni-submit') {
+      const payload = {
+        first: text('ni-first'),
+        email: text('ni-email'),
+        message: text('ni-message'),
+      };
+      state.answers.contact = payload;
+      submitToBackend(state.answers.outcome || 'needs-info', payload);
+      document.getElementById('ni-confirm').style.display = 'block';
+      ['ni-first', 'ni-email', 'ni-message', 'ni-submit'].forEach(id => {
+        const el = document.getElementById(id); if (el) el.disabled = true;
+      });
+    }
+  });
+
+  function submitToBackend(outcome, extra) {
+    console.log('SUBMIT', { outcome, answers: state.answers, ...(extra || {}) });
+  }
+
+  function restart() {
+    document.querySelectorAll('input').forEach(i => {
+      if (i.type === 'radio' || i.type === 'checkbox') i.checked = false;
+      else { i.value = ''; i.disabled = false; }
+      const lbl = i.closest('label'); if (lbl) lbl.classList.remove('sel');
+    });
+    const bc = document.getElementById('borderline-confirm'); if (bc) bc.style.display = 'none';
+    state.history = [];
+    state.answers = {};
+    revalidate();
+    show('situation');
+  }
+
+  revalidate();
+</script>
+</body>
+</html>

@@ -301,6 +301,16 @@
       </div>
     </div>
 
+    <!-- OUTCOME: Tax-only (hard no) -->
+    <div class="step" data-step="out-tax-only">
+      <div class="outcome">
+        <h1>We're not the right fit for tax filing only.</h1>
+        <p>KB is an all-in-one firm. We handle financial planning, tax strategy, and investment management together. Standalone tax filing isn't something we offer.</p>
+        <p>If your situation evolves — an equity event, concentrated stock, an IPO on the horizon — come back. We'd be happy to take another look.</p>
+        <p class="small" style="margin-top:18px;"><button class="restart" onclick="restart()">Start over</button></p>
+      </div>
+    </div>
+
     <!-- OUTCOME: Needs more info (borderline + not-fit merge) -->
     <div class="step" data-step="out-needs-info">
       <div class="outcome">
@@ -365,7 +375,7 @@
       'liq-q': 60,
       'bigtech-q': 50, 'bigtech-q2': 80,
       'rsu-q': 60, 'rsu-q2': 85,
-      'out-qualified': 100, 'out-needs-info': 100, 'out-unsure': 100,
+      'out-qualified': 100, 'out-needs-info': 100, 'out-tax-only': 100, 'out-unsure': 100,
     };
     progressEl().style.width = (map[name] || 25) + '%';
   }
@@ -491,6 +501,7 @@
     state.answers.outcome = o;
     submitToBackend(o);
     if (o === 'qualified') show('out-qualified');
+    else if (o === 'tax-only') show('out-tax-only');
     else show('out-needs-info');
   }
 
@@ -498,21 +509,24 @@
     const sit = state.answers.situation;
     if (sit === 'bigtech') {
       const b = state.answers.bigtech;
-      if (b.taxonly === 'yes' || b.advisor === 'no') return 'notfit';
-      if (b.value === 'gt5' && b.advisor !== 'no') return 'qualified';
+      if (b.taxonly === 'yes') return 'tax-only';
+      if (b.advisor === 'no') return 'notfit';
+      if (b.value === 'gt5') return 'qualified';
       if (b.value === '1to5') return 'borderline';
       return 'notfit';
     }
     if (sit === 'ipo' && state.answers.ipo_type === 'rsu') {
       const r = state.answers.rsu;
-      if (r.taxonly === 'yes' || r.advisor === 'no') return 'notfit';
-      if (r.value === 'gt3' && r.advisor !== 'no') return 'qualified';
+      if (r.taxonly === 'yes') return 'tax-only';
+      if (r.advisor === 'no') return 'notfit';
+      if (r.value === 'gt3') return 'qualified';
       if (r.value === '1to3') return 'borderline';
       return 'notfit';
     }
     if (sit === 'liquidity') {
       const l = state.answers.liquidity;
-      if (l.taxonly === 'yes' || l.advisor === 'no') return 'notfit';
+      if (l.taxonly === 'yes') return 'tax-only';
+      if (l.advisor === 'no') return 'notfit';
       if (l.value === 'gt3') return 'qualified';
       if (l.value === '1to3') return 'borderline';
       return 'notfit';

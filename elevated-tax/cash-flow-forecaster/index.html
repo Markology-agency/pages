@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Cash Flow Forecaster for Real Estate Agents - Preview - Elevated Tax</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; padding: 24px; background: #F6F7FB; font-family: 'Montserrat', sans-serif; }
+    .preview-banner {
+      max-width: 1200px; margin: 0 auto 16px; padding: 12px 18px;
+      background: #FFF4D6; border: 1px solid #E4C66A; border-radius: 4px;
+      font-size: 12px; color: #6B5520; font-family: 'Montserrat', sans-serif;
+    }
+    .preview-banner strong { color: #3A2A00; }
+  </style>
+</head>
+<body>
+<div class="preview-banner">
+  <strong>Preview only.</strong> Rendered preview for review. Live page will deploy to /cash-flow-forecaster/ on elevatedtax.com.
+</div>
+<!--
+  ============================================================================
+  ELEVATED TAX & ACCOUNTING
+  Standalone lead-magnet page wrapper for /cash-flow-forecaster/
+  Designed to wrap around cashflow-calculator_v3.html
+  ============================================================================
+
+  HOW TO INSTALL IN ELEMENTOR:
+  This file contains TWO short sections. Use three HTML widgets, in order:
+
+    1. HTML Widget #1  : paste SECTION A (intro paragraph + breadcrumb-style nav)
+    2. HTML Widget #2  : paste the entire contents of cashflow-calculator_v3.html
+    3. HTML Widget #3  : paste SECTION B (how-to-use + mini FAQ + book-a-call)
+
+  Save / Update.
+
+  PAGE URL: /cash-flow-forecaster/  (or /realtor-cash-flow-calculator/)
+  PURPOSE: This is the standalone home of the lead magnet. The
+           /real-estate-agents/ landing page links here for ads, and any
+           blog post about commissions / cash flow / planning can link
+           here organically.
+
+  SEO NOTE: This page should NOT compete with /real-estate-agents/ for the
+            same keywords. The landing page targets "cpa for realtors" and
+            "real estate agent tax deductions". This page can pick up
+            long-tail like "real estate agent cash flow forecaster" or
+            "realtor income calculator" purely on its own merit.
+  ============================================================================
+-->
+
+<!-- =========================================================================
+     SECTION A  —  INTRO  (goes ABOVE the calculator)
+     ========================================================================= -->
+
+<style>
+  .eta-lm, .eta-lm * { box-sizing: border-box; }
+  .eta-lm {
+    --eta-navy: #2E368F;
+    --eta-navy-deep: #232970;
+    --eta-lavender: #8183BF;
+    --eta-lavender-soft: #E8E8F4;
+    --eta-ink: #1A1A1A;
+    --eta-paper: #FFFFFF;
+    --eta-mist: #F6F7FB;
+    --eta-line: #E2E3EE;
+    --eta-muted: #6B6F8A;
+
+    --eta-display: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    --eta-body: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    --eta-radius: 4px;
+    --eta-radius-lg: 8px;
+
+    font-family: var(--eta-body);
+    color: var(--eta-ink);
+    line-height: 1.6;
+    max-width: 1200px;
+    margin: 0 auto 28px;
+    padding: 0;
+  }
+
+  .eta-lm__intro {
+    padding: 28px 0 12px;
+  }
+  .eta-lm__crumb {
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--eta-muted);
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+  .eta-lm__crumb a {
+    color: var(--eta-navy);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s;
+  }
+  .eta-lm__crumb a:hover { border-bottom-color: var(--eta-navy); }
+  .eta-lm__intro p {
+    font-size: 15px;
+    color: var(--eta-ink);
+    line-height: 1.65;
+    max-width: 760px;
+    margin: 0 0 12px;
+  }
+  .eta-lm__intro a {
+    color: var(--eta-navy);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+</style>
+
+<div class="eta-lm">
+  <section class="eta-lm__intro">
+    <div class="eta-lm__crumb">
+      <a href="/">Home</a> &nbsp;/&nbsp; <a href="/real-estate-agents/">Real Estate Agents</a> &nbsp;/&nbsp; Cash Flow Forecaster
+    </div>
+    <p>
+      This free 12-month cash flow forecaster is built for self-employed real estate agents whose income arrives in lumps and on its own schedule. Enter your pipeline of deals, their close probabilities, and your monthly expenses. You'll see a probability-weighted projection of your cash position, with the tight months flagged so you can plan ahead.
+    </p>
+    <p>
+      Need help applying the numbers to your actual tax situation? <a href="/real-estate-agents/">Learn how Elevated Tax works with Montana real estate agents</a> or <a href="/accounting-missoula/">see our accounting services</a>.
+    </p>
+  </section>
+</div>
+
+<!--
+  ============================================================================
+  ELEVATED TAX & ACCOUNTING
+  12-Month Cash Flow Forecaster for Real Estate Agents
+  ============================================================================
+
+  DROP-IN INSTRUCTIONS FOR ELEMENTOR:
+  1. Open the page in Elementor.
+  2. Drag an "HTML" widget onto the page.
+  3. Paste this ENTIRE file's contents into the widget.
+  4. Save / Update.
+
+  HUBSPOT INTEGRATION (activate later — see HUBSPOT_CONFIG block in <script>):
+  - Create a HubSpot form with two fields: firstname, email.
+  - Grab your Portal ID and Form GUID from the HubSpot embed code.
+  - Paste them into HUBSPOT_CONFIG below, flip enabled: true. Done.
+
+  REQUIRED EXTERNAL LIBRARIES (loaded via CDN below):
+  - Chart.js (cash flow chart)
+  - jsPDF + jsPDF-AutoTable (client-side PDF generation)
+  - svg2pdf.js (embeds the SVG logo into the PDF crisply)
+
+  ============================================================================
+-->
+
+<style>
+  /* ---------- Scoped reset & root ---------- */
+  .eta-calc, .eta-calc * { box-sizing: border-box; }
+  .eta-calc {
+    /* Brand tokens */
+    --eta-navy: #2E368F;
+    --eta-navy-deep: #232970;
+    --eta-lavender: #8183BF;
+    --eta-lavender-soft: #E8E8F4;
+    --eta-ink: #1A1A1A;
+    --eta-paper: #FFFFFF;
+    --eta-mist: #F6F7FB;
+    --eta-line: #E2E3EE;
+    --eta-muted: #6B6F8A;
+    --eta-success: #2E7D5B;
+    --eta-danger: #C0392B;
+
+    /* Type */
+    --eta-display: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    --eta-body: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+
+    /* Rhythm */
+    --eta-radius: 4px;
+    --eta-radius-lg: 8px;
+
+    font-family: var(--eta-body);
+    color: var(--eta-ink);
+    background: var(--eta-paper);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  .eta-calc h1, .eta-calc h2, .eta-calc h3, .eta-calc h4 {
+    font-family: var(--eta-display);
+    color: var(--eta-ink);
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  /* ---------- Header band ---------- */
+  .eta-header {
+    background: var(--eta-navy);
+    color: #fff;
+    padding: 40px 48px;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--eta-radius-lg) var(--eta-radius-lg) 0 0;
+  }
+  .eta-header__flags {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 220px;
+    height: 100%;
+    opacity: 0.18;
+    pointer-events: none;
+  }
+  .eta-header__logo {
+    height: 48px;
+    width: auto;
+    margin-bottom: 28px;
+    display: block;
+  }
+  .eta-header__logo .eta-logo-wordmark,
+  .eta-header__logo .eta-logo-tagline { fill: #fff; }
+  .eta-header__eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--eta-lavender);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  .eta-header__title {
+    font-size: clamp(28px, 4vw, 38px);
+    color: #fff;
+    line-height: 1.15;
+    max-width: 720px;
+    font-weight: 700;
+  }
+  .eta-header__subtitle {
+    margin-top: 14px;
+    font-size: 16px;
+    color: #D9DAEC;
+    max-width: 680px;
+    line-height: 1.55;
+  }
+
+  /* ---------- Body shell ---------- */
+  .eta-body {
+    background: var(--eta-paper);
+    padding: 40px 48px 48px;
+    border: 1px solid var(--eta-line);
+    border-top: none;
+    border-radius: 0 0 var(--eta-radius-lg) var(--eta-radius-lg);
+  }
+
+  /* ---------- Starting cash row ---------- */
+  .eta-starting {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 18px 22px;
+    background: var(--eta-mist);
+    border: 1px solid var(--eta-line);
+    border-radius: var(--eta-radius);
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+  }
+  .eta-starting__label {
+    font-weight: 600;
+    color: var(--eta-ink);
+    font-size: 14px;
+  }
+  .eta-starting__hint {
+    font-size: 12px;
+    color: var(--eta-muted);
+    margin-top: 2px;
+  }
+  .eta-starting__input {
+    width: 200px;
+  }
+
+  /* ---------- Two-column input layout ---------- */
+  .eta-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 860px) {
+    .eta-columns { grid-template-columns: 1fr; gap: 24px; }
+    .eta-header { padding: 32px 24px; }
+    .eta-body { padding: 28px 20px 32px; }
+  }
+  .eta-column {
+    background: var(--eta-paper);
+  }
+  .eta-column__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    margin-bottom: 16px;
+    border-bottom: 2px solid var(--eta-navy);
+  }
+  .eta-column__title {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--eta-navy);
+    font-weight: 700;
+  }
+  .eta-column__count {
+    font-size: 11px;
+    color: var(--eta-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ---------- Row inputs ---------- */
+  .eta-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .eta-row {
+    display: grid;
+    gap: 8px;
+    align-items: center;
+    padding: 10px;
+    background: var(--eta-mist);
+    border: 1px solid var(--eta-line);
+    border-radius: var(--eta-radius);
+    transition: border-color 0.15s;
+  }
+  .eta-row:focus-within {
+    border-color: var(--eta-navy);
+    background: #fff;
+  }
+  .eta-row--deal {
+    grid-template-columns: 1.4fr 0.9fr 0.7fr 1fr 32px;
+  }
+  .eta-row--expense {
+    grid-template-columns: 1.8fr 1fr 32px;
+  }
+  @media (max-width: 640px) {
+    .eta-row--deal,
+    .eta-row--expense {
+      grid-template-columns: 1fr 1fr;
+    }
+    .eta-row--deal > *:nth-child(1) { grid-column: 1 / -1; }
+    .eta-row--deal > *:nth-child(5),
+    .eta-row--expense > *:last-child {
+      grid-column: 2 / 3;
+      justify-self: end;
+    }
+  }
+
+  .eta-input, .eta-select {
+    width: 100%;
+    padding: 8px 10px;
+    font-family: var(--eta-body);
+    font-size: 14px;
+    color: var(--eta-ink);
+    background: #fff;
+    border: 1px solid var(--eta-line);
+    border-radius: var(--eta-radius);
+    outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    -moz-appearance: textfield;
+  }
+  .eta-input::-webkit-outer-spin-button,
+  .eta-input::-webkit-inner-spin-button {
+    -webkit-appearance: none; margin: 0;
+  }
+  .eta-input:focus, .eta-select:focus {
+    border-color: var(--eta-navy);
+    box-shadow: 0 0 0 3px rgba(46, 54, 143, 0.12);
+  }
+  .eta-input::placeholder { color: #B0B3C9; }
+
+  .eta-row__remove {
+    background: transparent;
+    border: 1px solid var(--eta-line);
+    color: var(--eta-muted);
+    width: 32px;
+    height: 32px;
+    border-radius: var(--eta-radius);
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    padding: 0;
+  }
+  .eta-row__remove:hover {
+    background: var(--eta-danger);
+    border-color: var(--eta-danger);
+    color: #fff;
+  }
+
+  .eta-add-btn {
+    margin-top: 8px;
+    background: transparent;
+    border: 1px dashed var(--eta-navy);
+    color: var(--eta-navy);
+    padding: 10px 14px;
+    font-family: var(--eta-body);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border-radius: var(--eta-radius);
+    cursor: pointer;
+    transition: all 0.15s;
+    width: 100%;
+  }
+  .eta-add-btn:hover {
+    background: var(--eta-navy);
+    color: #fff;
+  }
+
+  /* ---------- Results section ---------- */
+  .eta-results {
+    margin-top: 8px;
+    padding-top: 32px;
+    border-top: 1px solid var(--eta-line);
+  }
+  .eta-results__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .eta-results__title {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--eta-navy);
+    font-weight: 700;
+  }
+  .eta-results__horizon {
+    font-size: 12px;
+    color: var(--eta-muted);
+  }
+
+  .eta-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  @media (max-width: 720px) {
+    .eta-stats { grid-template-columns: repeat(2, 1fr); }
+  }
+  .eta-stat {
+    padding: 16px 18px;
+    background: var(--eta-mist);
+    border-left: 3px solid var(--eta-navy);
+    border-radius: 0 var(--eta-radius) var(--eta-radius) 0;
+  }
+  .eta-stat--warn { border-left-color: var(--eta-danger); }
+  .eta-stat--good { border-left-color: var(--eta-success); }
+  .eta-stat__label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--eta-muted);
+    font-weight: 600;
+  }
+  .eta-stat__value {
+    font-family: var(--eta-display);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--eta-ink);
+    margin-top: 4px;
+    letter-spacing: -0.02em;
+  }
+  .eta-stat__value--warn { color: var(--eta-danger); }
+  .eta-stat__value--good { color: var(--eta-success); }
+  .eta-stat__hint {
+    font-size: 11px;
+    color: var(--eta-muted);
+    margin-top: 2px;
+  }
+
+  .eta-chart-wrap {
+    background: var(--eta-mist);
+    padding: 20px;
+    border-radius: var(--eta-radius);
+    margin-bottom: 24px;
+    border: 1px solid var(--eta-line);
+  }
+  .eta-chart {
+    width: 100%;
+    height: 320px;
+  }
+
+  .eta-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--eta-muted);
+    background: var(--eta-mist);
+    border-radius: var(--eta-radius);
+    border: 1px dashed var(--eta-line);
+  }
+  .eta-empty__title {
+    font-size: 16px;
+    color: var(--eta-ink);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .eta-empty__text { font-size: 13px; }
+
+  /* ---------- CTA / capture ---------- */
+  .eta-cta {
+    margin-top: 32px;
+    padding: 28px;
+    background: linear-gradient(135deg, var(--eta-navy) 0%, var(--eta-navy-deep) 100%);
+    border-radius: var(--eta-radius-lg);
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .eta-cta__flags {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 180px;
+    height: 100%;
+    opacity: 0.12;
+    pointer-events: none;
+  }
+  .eta-cta__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+  @media (max-width: 720px) {
+    .eta-cta__inner { grid-template-columns: 1fr; }
+  }
+  .eta-cta__eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--eta-lavender);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  .eta-cta__title {
+    color: #fff;
+    font-size: 22px;
+    margin-bottom: 6px;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .eta-cta__text {
+    font-size: 14px;
+    color: #D9DAEC;
+    max-width: 480px;
+  }
+  .eta-btn-primary {
+    background: #FFFFFF !important;
+    background-color: #FFFFFF !important;
+    color: #2E368F !important;
+    border: none;
+    padding: 14px 24px;
+    font-family: var(--eta-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: var(--eta-radius);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+    -webkit-appearance: none;
+    appearance: none;
+    text-shadow: none;
+    box-shadow: none;
+  }
+  .eta-btn-primary:hover:not(:disabled) {
+    background: #8183BF !important;
+    background-color: #8183BF !important;
+    color: #FFFFFF !important;
+    transform: translateY(-1px);
+  }
+  .eta-btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* ---------- Modal ---------- */
+  .eta-modal-backdrop {
+    /* Re-declare brand tokens so the modal works outside .eta-calc scope */
+    --eta-navy: #2E368F;
+    --eta-navy-deep: #232970;
+    --eta-lavender: #8183BF;
+    --eta-ink: #1A1A1A;
+    --eta-paper: #FFFFFF;
+    --eta-mist: #F6F7FB;
+    --eta-line: #E2E3EE;
+    --eta-muted: #6B6F8A;
+    --eta-danger: #C0392B;
+    --eta-display: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    --eta-body: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    --eta-radius: 4px;
+    --eta-radius-lg: 8px;
+
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 26, 26, 0.55);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999;
+    padding: 20px;
+  }
+  .eta-modal-backdrop.is-open { display: flex; }
+  .eta-modal {
+    background: #fff;
+    border-radius: var(--eta-radius-lg);
+    max-width: 460px;
+    width: 100%;
+    padding: 36px 32px 32px;
+    position: relative;
+    box-shadow: 0 24px 60px rgba(26, 26, 26, 0.35);
+    font-family: var(--eta-body);
+    color: var(--eta-ink);
+  }
+  .eta-modal__close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    background: transparent;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--eta-radius);
+    cursor: pointer;
+    color: var(--eta-muted);
+    font-size: 20px;
+    line-height: 1;
+  }
+  .eta-modal__close:hover { background: var(--eta-mist); color: var(--eta-ink); }
+  .eta-modal__eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--eta-navy);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .eta-modal__title {
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: var(--eta-ink);
+  }
+  .eta-modal__text {
+    font-size: 14px;
+    color: var(--eta-muted);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .eta-field {
+    margin-bottom: 14px;
+  }
+  .eta-field__label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--eta-ink);
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+  .eta-modal__submit {
+    width: 100%;
+    background: #2E368F !important;
+    background-color: #2E368F !important;
+    color: #FFFFFF !important;
+    border: none;
+    padding: 14px;
+    font-family: var(--eta-display);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: var(--eta-radius);
+    cursor: pointer;
+    transition: background 0.15s;
+    margin-top: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    text-shadow: none;
+    box-shadow: none;
+  }
+  .eta-modal__submit:hover:not(:disabled) {
+    background: #232970 !important;
+    background-color: #232970 !important;
+    color: #FFFFFF !important;
+  }
+  .eta-modal__submit:disabled { opacity: 0.6; cursor: not-allowed; }
+  .eta-modal__privacy {
+    font-size: 11px;
+    color: var(--eta-muted);
+    margin-top: 12px;
+    text-align: center;
+    line-height: 1.5;
+  }
+  .eta-modal__error {
+    display: none;
+    background: #FBECEA;
+    border: 1px solid var(--eta-danger);
+    color: var(--eta-danger);
+    padding: 10px 12px;
+    border-radius: var(--eta-radius);
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+  .eta-modal__error.is-shown { display: block; }
+
+  /* ---------- Footer note ---------- */
+  .eta-footnote {
+    margin-top: 24px;
+    font-size: 11px;
+    color: var(--eta-muted);
+    text-align: center;
+    line-height: 1.6;
+  }
+</style>
+
+<!-- =========================================================================
+     MARKUP
+     ========================================================================= -->
+<div class="eta-calc" id="etaCalc">
+
+  <!-- Header band -->
+  <header class="eta-header">
+    <!-- Decorative angled-flag motif from the brand guide -->
+    <svg class="eta-header__flags" viewBox="0 0 220 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <polygon fill="#FFFFFF" points="40,30 220,30 200,55 20,55"/>
+      <polygon fill="#FFFFFF" points="60,85 220,85 200,110 40,110"/>
+      <polygon fill="#FFFFFF" points="80,140 220,140 200,165 60,165"/>
+    </svg>
+
+    <!-- Logo (Elevated Tax & Accounting, white treatment) -->
+    <svg class="eta-header__logo" viewBox="0 0 1066 600" xmlns="http://www.w3.org/2000/svg" aria-label="Elevated Tax & Accounting">
+      <g>
+        <polygon fill="#8183BF" points="572.4,350.1 572.4,388.2 601,361 601,322.8"/>
+        <polygon class="eta-logo-wordmark" fill="#FFFFFF" points="601,322.8 434.7,322.8 406.2,350.1 572.4,350.1"/>
+        <polygon fill="#8183BF" points="601,284.7 601,322.8 629.5,295.6 629.5,257.5"/>
+        <polygon class="eta-logo-wordmark" fill="#FFFFFF" points="629.5,257.5 463.3,257.5 434.7,284.7 601,284.7"/>
+        <polygon fill="#8183BF" points="629.5,219.4 629.5,257.5 658.1,230.3 658.1,192.2"/>
+        <polygon class="eta-logo-wordmark" fill="#FFFFFF" points="658.1,192.2 491.9,192.2 463.3,219.4 629.5,219.4"/>
+      </g>
+      <g class="eta-logo-wordmark" fill="#FFFFFF">
+        <path d="M244.5,493.1h-65.1v-58h62.9v11.1h-48.8v11.8h33.9v11.1h-33.9v12.7h51V493.1z"/>
+        <path d="M331.3,493.1h-58.7v-58h14.1v46.8h44.6V493.1z"/>
+        <path d="M422.9,493.1h-65.1v-58h62.9v11.1h-48.8v11.8h33.9v11.1h-33.9v12.7h51V493.1z"/>
+        <path d="M523.2,435.1l-34.3,58h-13.1l-34.3-58h15.8l25,42.5l25-42.5H523.2z"/>
+        <path d="M611.5,493.1h-14.2l-6.6-12.5h-37.2l-6.6,12.5h-14.2l30.8-58h17.4L611.5,493.1z M584.6,469.5l-12.7-23.8l-12.7,23.8H584.6z"/>
+        <path d="M689.6,446.2H662v46.8h-14.1v-46.8h-27.6v-11.1h69.3V446.2z"/>
+        <path d="M781.2,493.1h-65.1v-58H779v11.1h-48.8v11.8h33.9v11.1h-33.9v12.7h51V493.1z"/>
+        <path d="M849.8,435.1c10.7,0,19.3,2.7,25.6,8.1c6.3,5.4,9.5,12.6,9.5,21.5c0,8.5-3.4,15.5-10.3,21c-6.2,4.9-13.8,7.4-22.8,7.4h-40.8v-58H849.8z M850.8,481.9c6.6,0,11.8-2.5,15.7-7.4c2.4-3,3.6-6.4,3.6-10c0-5.3-1.8-9.6-5.4-13.1c-3.6-3.4-8.3-5.2-13.9-5.2H825v35.7H850.8z"/>
+      </g>
+      <g class="eta-logo-tagline" fill="#FFFFFF">
+        <path d="M285.7,541.5h-9v15.3H272v-15.3h-9v-3.6h22.6V541.5z"/>
+        <path d="M320.1,556.8h-4.6l-2.2-4.1h-12.2l-2.2,4.1h-4.7l10.1-18.9h5.7L320.1,556.8z M311.3,549.1l-4.2-7.8l-4.1,7.8H311.3z"/>
+        <path d="M358.3,556.8h-6.1l-7.3-6.8l-7.4,6.8h-6.1l10.4-9.6l-10-9.3h6.1l7,6.6l7-6.6h6.1l-10,9.3L358.3,556.8z"/>
+        <path d="M412.6,556.9c-2.6-0.1-5.1-0.7-7.4-1.7c-2.8,1.3-5.3,1.9-7.6,1.9c-2.4,0-4.3-0.6-5.7-1.7c-1.5-1.1-2.2-2.5-2.2-4.1c0-2.6,2.1-4.5,6.2-5.7c-0.4-0.9-0.7-1.7-0.7-2.6c0-1.2,0.4-2.2,1.1-3.1c1.2-1.5,2.9-2.2,5-2.2c1.7,0,3,0.5,4.1,1.4c1,0.9,1.6,2.1,1.6,3.6c0,2.4-1.5,4.1-4.5,5.1c0.8,0.9,1.7,1.8,2.8,2.7c1.1-1.2,1.8-2.5,2.3-4h4.4c-0.7,2.3-1.8,4.3-3.4,6.1c1.2,0.3,2.5,0.5,3.7,0.5h0.3V556.9z M402,552.6c-1.3-1.2-2.6-2.5-3.7-3.9c-2.9,0.4-4.3,1.3-4.3,2.6c0,1.4,1.4,2.1,4.1,2.1C399.3,553.4,400.5,553.2,402,552.6z M400.1,544.8c1.8-0.2,2.7-0.9,2.7-2.1c0-0.4-0.1-0.8-0.4-1c-0.3-0.3-0.7-0.4-1.1-0.4c-0.5,0-1,0.2-1.3,0.5c-0.3,0.3-0.5,0.8-0.5,1.3C399.5,543.5,399.7,544.1,400.1,544.8z"/>
+        <path d="M470,556.8h-4.6l-2.2-4.1H451l-2.2,4.1h-4.7l10.1-18.9h5.7L470,556.8z M461.2,549.1l-4.2-7.8l-4.1,7.8H461.2z"/>
+        <path d="M507,542.9l-4.2,1.5c-2.3-2.3-5.1-3.5-8.3-3.5c-2.3,0-4.2,0.6-5.7,1.8c-1.5,1.2-2.2,2.7-2.2,4.6c0,1.9,0.8,3.4,2.3,4.6c1.5,1.2,3.5,1.8,6,1.8c3.1,0,5.8-1.2,8-3.6l3.9,2.1c-1.6,1.8-3.3,3.1-5.1,3.9c-1.9,0.8-4,1.2-6.5,1.2c-3.3,0-6.3-0.8-8.9-2.4c-1.3-0.8-2.3-1.9-3-3.2c-0.7-1.4-1.1-2.8-1.1-4.4c0-2.8,1.1-5.1,3.3-6.9c2.5-2.1,5.7-3.1,9.6-3.1C499.9,537.3,503.9,539.2,507,542.9z"/>
+        <path d="M545.2,542.9l-4.2,1.5c-2.3-2.3-5.1-3.5-8.3-3.5c-2.3,0-4.2,0.6-5.7,1.8c-1.5,1.2-2.2,2.7-2.2,4.6c0,1.9,0.8,3.4,2.3,4.6c1.5,1.2,3.5,1.8,6,1.8c3.1,0,5.8-1.2,8-3.6l3.9,2.1c-1.6,1.8-3.3,3.1-5.1,3.9c-1.9,0.8-4,1.2-6.5,1.2c-3.3,0-6.3-0.8-8.9-2.4c-1.3-0.8-2.3-1.9-3-3.2c-0.7-1.4-1.1-2.8-1.1-4.4c0-2.8,1.1-5.1,3.3-6.9c2.5-2.1,5.7-3.1,9.6-3.1C538.2,537.3,542.2,539.2,545.2,542.9z"/>
+        <path d="M584.5,547.3c0,2.8-1.1,5.1-3.3,6.9c-2.5,2.1-5.7,3.1-9.6,3.1c-3.9,0-7.1-1-9.6-3.1c-2.2-1.8-3.2-4.1-3.2-6.9c0-2.8,1.1-5.1,3.3-6.9c2.5-2.1,5.7-3.1,9.6-3.1c3.9,0,7.1,1,9.6,3.1C583.4,542.2,584.5,544.5,584.5,547.3z M579.7,547.3c0-1.9-0.7-3.4-2.2-4.6c-1.5-1.2-3.5-1.8-5.9-1.8c-2.5,0-4.4,0.6-5.9,1.8c-1.5,1.2-2.2,2.7-2.2,4.6c0,1.9,0.7,3.5,2.2,4.6c1.5,1.2,3.4,1.8,5.9,1.8c2.5,0,4.5-0.6,5.9-1.8C579,550.8,579.7,549.2,579.7,547.3z"/>
+        <path d="M623.2,550.4c0,2-1,3.7-3.1,5c-2.1,1.3-4.9,2-8.4,2c-3.5,0-6.3-0.7-8.4-2c-2-1.3-3.1-2.9-3.1-5v-12.6h4.6v11.9c0,1.2,0.6,2.1,1.8,2.8c1.2,0.7,2.9,1.1,5,1.1c2.1,0,3.8-0.4,5.1-1.1c1.2-0.7,1.8-1.6,1.8-2.8v-11.9h4.6V550.4z"/>
+        <path d="M663.2,556.8h-5.4l-12.8-13.5l-0.1,0v13.5h-4.6v-18.9h5.4l12.8,13.5l0.1,0v-13.5h4.6V556.8z"/>
+        <path d="M700.2,541.5h-9v15.3h-4.6v-15.3h-9v-3.6h22.6V541.5z"/>
+        <path d="M719.3,556.8h-4.6v-18.9h4.6V556.8z"/>
+        <path d="M759,556.8h-5.4l-12.8-13.5l-0.1,0v13.5h-4.6v-18.9h5.4l12.8,13.5l0.1,0v-13.5h4.6V556.8z"/>
+        <path d="M801.3,547.2c0,2.9-1.1,5.3-3.4,7.1c-2.6,2.1-5.9,3.1-9.9,3.1c-3.9,0-7.1-1-9.6-3.1c-2.2-1.8-3.3-4.1-3.3-6.9c0-2.8,1.1-5,3.3-6.9c2.5-2.1,5.7-3.2,9.6-3.2c5,0,8.6,1.5,11,4.5l-4.8,1.7c-1.6-1.7-3.7-2.5-6.3-2.5c-2.4,0-4.4,0.6-6,1.8c-1.6,1.2-2.3,2.7-2.3,4.5c0,2,0.9,3.6,2.8,4.8c1.6,1,3.4,1.5,5.6,1.5c1.9,0,3.6-0.4,5.1-1.1c1.4-0.7,2.5-1.7,3.1-2.8H787v-3.6h14.3V547.2z"/>
+      </g>
+    </svg>
+
+    <div class="eta-header__eyebrow">For Real Estate Agents</div>
+    <h1 class="eta-header__title">12-Month Cash Flow Forecaster</h1>
+    <p class="eta-header__subtitle">
+      Don't let lumpy, unpredictable commissions get you down. Enter your pipeline of deals and your monthly expenses, and we'll show you a probability-weighted projection of your cash position through the closing of your latest deal &mdash; so you know exactly when to push, save, or invest.
+    </p>
+  </header>
+
+  <!-- Main body -->
+  <div class="eta-body">
+
+    <!-- Starting cash -->
+    <div class="eta-starting">
+      <div>
+        <div class="eta-starting__label">Current Cash on Hand</div>
+        <div class="eta-starting__hint">Your starting balance &mdash; cash in business + personal accounts available to cover expenses.</div>
+      </div>
+      <input type="number" class="eta-input eta-starting__input" id="etaStartingCash" placeholder="$0" min="0" step="100"/>
+    </div>
+
+    <!-- Two-column input -->
+    <div class="eta-columns">
+
+      <!-- DEALS column -->
+      <section class="eta-column">
+        <div class="eta-column__header">
+          <div class="eta-column__title">Pipeline &mdash; Deals</div>
+          <div class="eta-column__count" id="etaDealCount">0 deals</div>
+        </div>
+        <div class="eta-rows" id="etaDealRows"></div>
+        <button class="eta-add-btn" id="etaAddDeal" type="button">+ Add a Deal</button>
+      </section>
+
+      <!-- EXPENSES column -->
+      <section class="eta-column">
+        <div class="eta-column__header">
+          <div class="eta-column__title">Monthly Expenses</div>
+          <div class="eta-column__count" id="etaExpenseCount">0 line items</div>
+        </div>
+        <div class="eta-rows" id="etaExpenseRows"></div>
+        <button class="eta-add-btn" id="etaAddExpense" type="button">+ Add an Expense</button>
+      </section>
+
+    </div>
+
+    <!-- Results -->
+    <section class="eta-results">
+      <div class="eta-results__header">
+        <div class="eta-results__title">Projected Cash Flow</div>
+        <div class="eta-results__horizon" id="etaHorizon">&mdash;</div>
+      </div>
+
+      <div id="etaResultsContent">
+        <div class="eta-empty">
+          <div class="eta-empty__title">Add at least one deal and one expense to see your forecast</div>
+          <div class="eta-empty__text">Probabilities and close dates determine when expected cash arrives. Try a few scenarios.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="eta-cta">
+      <svg class="eta-cta__flags" viewBox="0 0 180 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <polygon fill="#FFFFFF" points="20,30 180,30 160,55 0,55"/>
+        <polygon fill="#FFFFFF" points="40,85 180,85 160,110 20,110"/>
+        <polygon fill="#FFFFFF" points="60,140 180,140 160,165 40,165"/>
+      </svg>
+      <div class="eta-cta__inner">
+        <div>
+          <div class="eta-cta__eyebrow">Take it with you</div>
+          <h2 class="eta-cta__title">Get a personalized PDF report of your forecast</h2>
+          <p class="eta-cta__text">A polished, shareable breakdown of your pipeline, expenses, and month-by-month cash position &mdash; in your name, ready to download.</p>
+        </div>
+        <button class="eta-btn-primary" id="etaGetReport" type="button" disabled>Get My Report</button>
+      </div>
+    </section>
+
+    <div class="eta-footnote">
+      Forecasts are probability-weighted projections based on your inputs and are for planning purposes only. Actual results may vary.
+      Elevated Tax &amp; Accounting can help build a real cash flow plan tailored to your business.
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="eta-modal-backdrop" id="etaModal">
+  <div class="eta-modal" role="dialog" aria-labelledby="etaModalTitle">
+    <button class="eta-modal__close" id="etaModalClose" aria-label="Close">&times;</button>
+    <div class="eta-modal__eyebrow">Almost done</div>
+    <h3 class="eta-modal__title" id="etaModalTitle">Where should we send your report?</h3>
+    <p class="eta-modal__text">Enter your name and email to download your personalized cash flow forecast.</p>
+
+    <div class="eta-modal__error" id="etaModalError"></div>
+
+    <div class="eta-field">
+      <label class="eta-field__label" for="etaFirstName">First Name</label>
+      <input type="text" class="eta-input" id="etaFirstName" autocomplete="given-name"/>
+    </div>
+    <div class="eta-field">
+      <label class="eta-field__label" for="etaEmail">Email Address</label>
+      <input type="email" class="eta-input" id="etaEmail" autocomplete="email"/>
+    </div>
+    <button class="eta-modal__submit" id="etaSubmit" type="button">Download My Report</button>
+    <p class="eta-modal__privacy">We respect your inbox. By submitting, you agree to receive occasional helpful resources from Elevated Tax &amp; Accounting. Unsubscribe anytime.</p>
+  </div>
+</div>
+
+<!-- =========================================================================
+     EXTERNAL LIBRARIES
+     ========================================================================= -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+
+<!-- =========================================================================
+     SCRIPT
+     ========================================================================= -->
+<script>
+(function() {
+  'use strict';
+
+  // ============================================================================
+  // HUBSPOT INTEGRATION
+  //
+  // To activate HubSpot lead capture:
+  //   1. Create a HubSpot Form with two fields: firstname (single-line text)
+  //      and email (email).
+  //   2. Publish the form.
+  //   3. Open the embed code; copy the portalId and formGuid values.
+  //   4. Paste them below and set enabled: true.
+  //
+  // While enabled is false, the calculator still works end-to-end:
+  // name/email are collected, the PDF is generated and downloaded, and the
+  // HubSpot call is simply skipped.
+  // ============================================================================
+  const HUBSPOT_CONFIG = {
+    enabled: false,
+    portalId: '',   // e.g. '12345678'
+    formGuid: '',   // e.g. 'a1b2c3d4-e5f6-7890-abcd-ef1234567890'
+    region:   'na1' // 'na1' (US) or 'eu1' (EU) — check your HubSpot account
+  };
+
+  async function submitToHubSpot(firstName, email) {
+    if (!HUBSPOT_CONFIG.enabled) return { ok: true, skipped: true };
+    if (!HUBSPOT_CONFIG.portalId || !HUBSPOT_CONFIG.formGuid) {
+      console.warn('[ETA] HubSpot enabled but portalId/formGuid not set.');
+      return { ok: true, skipped: true };
+    }
+    const endpoint =
+      `https://api.hsforms.com/submissions/v3/integration/submit/${HUBSPOT_CONFIG.portalId}/${HUBSPOT_CONFIG.formGuid}`;
+    const payload = {
+      fields: [
+        { name: 'firstname', value: firstName },
+        { name: 'email',     value: email }
+      ],
+      context: {
+        pageUri:   window.location.href,
+        pageName:  document.title
+      }
+    };
+    try {
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      return { ok: res.ok, status: res.status };
+    } catch (err) {
+      console.error('[ETA] HubSpot submission failed:', err);
+      return { ok: false, error: err };
+    }
+  }
+
+  // ============================================================================
+  // STATE
+  // ============================================================================
+  const state = {
+    deals: [],
+    expenses: [],
+    startingCash: 0,
+    chart: null
+  };
+
+  let dealIdCounter = 0;
+  let expenseIdCounter = 0;
+
+  // ============================================================================
+  // UTILITIES
+  // ============================================================================
+  const fmtMoney = (n, opts = {}) => {
+    const sign = n < 0 ? '-' : '';
+    const abs = Math.abs(n);
+    const formatted = abs.toLocaleString('en-US', {
+      minimumFractionDigits: opts.cents ? 2 : 0,
+      maximumFractionDigits: opts.cents ? 2 : 0
+    });
+    return `${sign}$${formatted}`;
+  };
+  const fmtMonth = (date) =>
+    date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+  const fmtMonthLong = (date) =>
+    date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+  const monthKey = (date) =>
+    `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+
+  // ============================================================================
+  // ROW MANAGEMENT
+  // ============================================================================
+  function addDealRow(prefill) {
+    const id = ++dealIdCounter;
+    const row = document.createElement('div');
+    row.className = 'eta-row eta-row--deal';
+    row.dataset.id = id;
+
+    // Default close date: ~60 days out
+    const defaultDate = new Date();
+    defaultDate.setDate(defaultDate.getDate() + 60);
+    const dateStr = defaultDate.toISOString().slice(0, 10);
+
+    row.innerHTML = `
+      <input type="text"   class="eta-input" data-field="description" placeholder="e.g. 123 Maple St — Buyer" />
+      <input type="number" class="eta-input" data-field="value"       placeholder="$ Commission" min="0" step="100" />
+      <input type="number" class="eta-input" data-field="probability" placeholder="% Close" min="0" max="100" step="5" />
+      <input type="date"   class="eta-input" data-field="closeDate"   value="${dateStr}" />
+      <button class="eta-row__remove" type="button" aria-label="Remove deal">&times;</button>
+    `;
+
+    if (prefill) {
+      row.querySelector('[data-field="description"]').value = prefill.description || '';
+      row.querySelector('[data-field="value"]').value = prefill.value || '';
+      row.querySelector('[data-field="probability"]').value = prefill.probability || '';
+      if (prefill.closeDate) row.querySelector('[data-field="closeDate"]').value = prefill.closeDate;
+    }
+
+    document.getElementById('etaDealRows').appendChild(row);
+    bindRow(row, 'deal');
+    recompute();
+  }
+
+  function addExpenseRow(prefill) {
+    const id = ++expenseIdCounter;
+    const row = document.createElement('div');
+    row.className = 'eta-row eta-row--expense';
+    row.dataset.id = id;
+    row.innerHTML = `
+      <input type="text"   class="eta-input" data-field="description" placeholder="e.g. Marketing / Ads" />
+      <input type="number" class="eta-input" data-field="amount"      placeholder="$ Monthly" min="0" step="50" />
+      <button class="eta-row__remove" type="button" aria-label="Remove expense">&times;</button>
+    `;
+
+    if (prefill) {
+      row.querySelector('[data-field="description"]').value = prefill.description || '';
+      row.querySelector('[data-field="amount"]').value = prefill.amount || '';
+    }
+
+    document.getElementById('etaExpenseRows').appendChild(row);
+    bindRow(row, 'expense');
+    recompute();
+  }
+
+  function bindRow(row, type) {
+    row.querySelectorAll('input').forEach(input => {
+      input.addEventListener('input', recompute);
+    });
+    row.querySelector('.eta-row__remove').addEventListener('click', () => {
+      row.remove();
+      recompute();
+    });
+  }
+
+  // ============================================================================
+  // READ INPUTS
+  // ============================================================================
+  function readInputs() {
+    state.startingCash = parseFloat(document.getElementById('etaStartingCash').value) || 0;
+
+    state.deals = Array.from(document.querySelectorAll('#etaDealRows .eta-row')).map(row => ({
+      description: row.querySelector('[data-field="description"]').value.trim(),
+      value:       parseFloat(row.querySelector('[data-field="value"]').value) || 0,
+      probability: Math.max(0, Math.min(100, parseFloat(row.querySelector('[data-field="probability"]').value) || 0)),
+      closeDate:   row.querySelector('[data-field="closeDate"]').value
+    })).filter(d => d.value > 0 && d.closeDate);
+
+    state.expenses = Array.from(document.querySelectorAll('#etaExpenseRows .eta-row')).map(row => ({
+      description: row.querySelector('[data-field="description"]').value.trim(),
+      amount:      parseFloat(row.querySelector('[data-field="amount"]').value) || 0
+    })).filter(e => e.amount > 0);
+
+    document.getElementById('etaDealCount').textContent =
+      `${state.deals.length} deal${state.deals.length === 1 ? '' : 's'}`;
+    document.getElementById('etaExpenseCount').textContent =
+      `${state.expenses.length} line item${state.expenses.length === 1 ? '' : 's'}`;
+  }
+
+  // ============================================================================
+  // CORE CALCULATION
+  // ============================================================================
+  function calculateForecast() {
+    const today = new Date();
+    today.setDate(1);
+    today.setHours(0, 0, 0, 0);
+
+    // Determine horizon: latest deal close date, capped at 12 months out.
+    let horizonEnd = new Date(today);
+    horizonEnd.setMonth(horizonEnd.getMonth() + 11); // include current month → 12 months total
+
+    let latestClose = null;
+    state.deals.forEach(d => {
+      const dt = new Date(d.closeDate);
+      if (!latestClose || dt > latestClose) latestClose = dt;
+    });
+    if (latestClose) {
+      const latestMonth = new Date(latestClose.getFullYear(), latestClose.getMonth(), 1);
+      if (latestMonth < horizonEnd) horizonEnd = latestMonth;
+      if (latestMonth < today) horizonEnd = today; // edge case: all deals in the past
+    }
+
+    // Build month buckets
+    const months = [];
+    const cursor = new Date(today);
+    while (cursor <= horizonEnd) {
+      months.push({
+        date: new Date(cursor),
+        key: monthKey(cursor),
+        income: 0,
+        expense: 0,
+        net: 0,
+        balance: 0
+      });
+      cursor.setMonth(cursor.getMonth() + 1);
+    }
+
+    // Sum monthly expenses
+    const monthlyExpense = state.expenses.reduce((sum, e) => sum + e.amount, 0);
+    months.forEach(m => { m.expense = monthlyExpense; });
+
+    // Apply probability-weighted deals into their close month
+    let totalWeightedPipeline = 0;
+    state.deals.forEach(d => {
+      const weighted = d.value * (d.probability / 100);
+      totalWeightedPipeline += weighted;
+      const closeDt = new Date(d.closeDate);
+      const ck = monthKey(closeDt);
+      const bucket = months.find(m => m.key === ck);
+      if (bucket) bucket.income += weighted;
+    });
+
+    // Running balance
+    let runningBalance = state.startingCash;
+    let monthsInDeficit = 0;
+    let lowestPoint = { value: Infinity, month: null };
+
+    months.forEach(m => {
+      m.net = m.income - m.expense;
+      runningBalance += m.net;
+      m.balance = runningBalance;
+      if (runningBalance < 0) monthsInDeficit++;
+      if (runningBalance < lowestPoint.value) {
+        lowestPoint = { value: runningBalance, month: m.date };
+      }
+    });
+
+    return {
+      months,
+      totalWeightedPipeline,
+      monthlyBurn: monthlyExpense,
+      endingBalance: months.length ? months[months.length - 1].balance : state.startingCash,
+      monthsInDeficit,
+      lowestPoint,
+      horizonStart: today,
+      horizonEnd: months.length ? months[months.length - 1].date : today
+    };
+  }
+
+  // ============================================================================
+  // RENDER RESULTS
+  // ============================================================================
+  function renderResults() {
+    readInputs();
+    const hasData = state.deals.length > 0 && state.expenses.length > 0;
+    const reportBtn = document.getElementById('etaGetReport');
+    reportBtn.disabled = !hasData;
+
+    const resultsEl = document.getElementById('etaResultsContent');
+    const horizonEl = document.getElementById('etaHorizon');
+
+    if (!hasData) {
+      resultsEl.innerHTML = `
+        <div class="eta-empty">
+          <div class="eta-empty__title">Add at least one deal and one expense to see your forecast</div>
+          <div class="eta-empty__text">Probabilities and close dates determine when expected cash arrives. Try a few scenarios.</div>
+        </div>`;
+      horizonEl.textContent = '—';
+      if (state.chart) { state.chart.destroy(); state.chart = null; }
+      return;
+    }
+
+    const f = calculateForecast();
+    horizonEl.textContent = `${fmtMonth(f.horizonStart)} → ${fmtMonth(f.horizonEnd)} · ${f.months.length} month${f.months.length === 1 ? '' : 's'}`;
+
+    const endingClass = f.endingBalance >= 0 ? 'eta-stat__value--good' : 'eta-stat__value--warn';
+    const endingMod = f.endingBalance >= 0 ? 'eta-stat--good' : 'eta-stat--warn';
+    const deficitClass = f.monthsInDeficit === 0 ? 'eta-stat__value--good' : 'eta-stat__value--warn';
+    const deficitMod = f.monthsInDeficit === 0 ? 'eta-stat--good' : 'eta-stat--warn';
+
+    resultsEl.innerHTML = `
+      <div class="eta-stats">
+        <div class="eta-stat">
+          <div class="eta-stat__label">Weighted Pipeline</div>
+          <div class="eta-stat__value">${fmtMoney(f.totalWeightedPipeline)}</div>
+          <div class="eta-stat__hint">Sum of (deal value × probability)</div>
+        </div>
+        <div class="eta-stat">
+          <div class="eta-stat__label">Monthly Burn</div>
+          <div class="eta-stat__value">${fmtMoney(f.monthlyBurn)}</div>
+          <div class="eta-stat__hint">Total recurring expenses</div>
+        </div>
+        <div class="eta-stat ${endingMod}">
+          <div class="eta-stat__label">Projected Ending Cash</div>
+          <div class="eta-stat__value ${endingClass}">${fmtMoney(f.endingBalance)}</div>
+          <div class="eta-stat__hint">By ${fmtMonth(f.horizonEnd)}</div>
+        </div>
+        <div class="eta-stat ${deficitMod}">
+          <div class="eta-stat__label">Months in Deficit</div>
+          <div class="eta-stat__value ${deficitClass}">${f.monthsInDeficit}</div>
+          <div class="eta-stat__hint">${f.monthsInDeficit === 0 ? 'You stay positive' : 'Cash runs negative'}</div>
+        </div>
+      </div>
+
+      <div class="eta-chart-wrap">
+        <canvas id="etaChart" class="eta-chart"></canvas>
+      </div>
+    `;
+
+    renderChart(f);
+  }
+
+  function renderChart(f) {
+    const canvas = document.getElementById('etaChart');
+    if (!canvas) return;
+
+    if (state.chart) state.chart.destroy();
+
+    const labels = f.months.map(m => fmtMonth(m.date));
+    const balances = f.months.map(m => m.balance);
+    const incomes = f.months.map(m => m.income);
+    const expenses = f.months.map(m => -m.expense);
+
+    state.chart = new Chart(canvas, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [
+          {
+            type: 'bar',
+            label: 'Expected Income',
+            data: incomes,
+            backgroundColor: 'rgba(129, 131, 191, 0.85)',
+            borderColor: '#8183BF',
+            borderWidth: 0,
+            stack: 'flow',
+            order: 2
+          },
+          {
+            type: 'bar',
+            label: 'Expenses',
+            data: expenses,
+            backgroundColor: 'rgba(192, 57, 43, 0.55)',
+            borderColor: '#C0392B',
+            borderWidth: 0,
+            stack: 'flow',
+            order: 2
+          },
+          {
+            type: 'line',
+            label: 'Cash Balance',
+            data: balances,
+            borderColor: '#2E368F',
+            backgroundColor: 'rgba(46, 54, 143, 0.08)',
+            borderWidth: 2.5,
+            tension: 0.3,
+            pointRadius: 4,
+            pointBackgroundColor: '#2E368F',
+            pointBorderColor: '#fff',
+            pointBorderWidth: 2,
+            fill: true,
+            order: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              font: { family: 'Montserrat', size: 12 },
+              color: '#1A1A1A',
+              padding: 16,
+              boxWidth: 12,
+              boxHeight: 12
+            }
+          },
+          tooltip: {
+            backgroundColor: '#1A1A1A',
+            titleFont: { family: 'Montserrat', weight: '700' },
+            bodyFont: { family: 'Montserrat' },
+            padding: 12,
+            callbacks: {
+              label: (ctx) => `${ctx.dataset.label}: ${fmtMoney(ctx.parsed.y)}`
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            ticks: { font: { family: 'Montserrat', size: 11 }, color: '#6B6F8A' }
+          },
+          y: {
+            grid: { color: '#E2E3EE', drawBorder: false },
+            ticks: {
+              font: { family: 'Montserrat', size: 11 },
+              color: '#6B6F8A',
+              callback: (v) => '$' + v.toLocaleString('en-US')
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // Debounced recompute
+  let computeTimer = null;
+  function recompute() {
+    clearTimeout(computeTimer);
+    computeTimer = setTimeout(renderResults, 60);
+  }
+
+  // ============================================================================
+  // PDF GENERATION
+  // ============================================================================
+  function generatePDF(firstName) {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ unit: 'pt', format: 'letter' });
+    const f = calculateForecast();
+
+    const PAGE_W = doc.internal.pageSize.getWidth();   // 612
+    const PAGE_H = doc.internal.pageSize.getHeight();  // 792
+    const MARGIN = 48;
+    const NAVY = '#2E368F';
+    const LAVENDER = '#8183BF';
+    const INK = '#1A1A1A';
+    const MUTED = '#6B6F8A';
+    const LINE = '#E2E3EE';
+    const MIST = '#F6F7FB';
+
+    // ---------- PAGE 1: COVER ----------
+    // Navy header band
+    doc.setFillColor(NAVY);
+    doc.rect(0, 0, PAGE_W, 220, 'F');
+
+    // Decorative angled flags (top right)
+    doc.setFillColor('#FFFFFF');
+    doc.setGState(new doc.GState({ opacity: 0.18 }));
+    drawFlag(doc, PAGE_W - 180, 20, 160, 18);
+    drawFlag(doc, PAGE_W - 160, 50, 140, 18);
+    drawFlag(doc, PAGE_W - 140, 80, 120, 18);
+    doc.setGState(new doc.GState({ opacity: 1 }));
+
+    // Logo on cover (white treatment)
+    drawLogo(doc, MARGIN, 50, 130, '#FFFFFF', '#8183BF');
+
+    // Eyebrow
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor('#8183BF');
+    doc.text('CASH FLOW FORECAST', MARGIN, 165, { charSpace: 2 });
+
+    // Title
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(26);
+    doc.setTextColor('#FFFFFF');
+    doc.text('12-Month Cash Flow Forecast', MARGIN, 195);
+
+    // Body — personalized
+    let y = 270;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    doc.setTextColor(INK);
+    const safeName = firstName && firstName.trim() ? firstName.trim() : 'Agent';
+    const today = new Date();
+    const prepDate = today.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+    doc.text(`Prepared for ${safeName}`, MARGIN, y);
+    y += 16;
+    doc.setTextColor(MUTED);
+    doc.setFontSize(10);
+    doc.text(prepDate, MARGIN, y);
+
+    // Horizon line
+    y += 28;
+    doc.setDrawColor(LINE);
+    doc.setLineWidth(0.5);
+    doc.line(MARGIN, y, PAGE_W - MARGIN, y);
+    y += 18;
+    doc.setFontSize(9);
+    doc.setTextColor(MUTED);
+    doc.text('FORECAST HORIZON', MARGIN, y, { charSpace: 1.5 });
+    y += 14;
+    doc.setFontSize(12);
+    doc.setTextColor(INK);
+    doc.setFont('helvetica', 'bold');
+    doc.text(`${fmtMonthLong(f.horizonStart)} → ${fmtMonthLong(f.horizonEnd)}`, MARGIN, y);
+    doc.setFont('helvetica', 'normal');
+
+    // KPI grid
+    y += 30;
+    const kpiW = (PAGE_W - MARGIN * 2 - 16) / 2;
+    const kpiH = 70;
+    const kpis = [
+      { label: 'WEIGHTED PIPELINE', value: fmtMoney(f.totalWeightedPipeline), hint: 'Sum of deal value × probability' },
+      { label: 'MONTHLY BURN', value: fmtMoney(f.monthlyBurn), hint: 'Total recurring expenses' },
+      { label: 'PROJECTED ENDING CASH', value: fmtMoney(f.endingBalance), hint: `By ${fmtMonthLong(f.horizonEnd)}`, accent: f.endingBalance >= 0 ? '#2E7D5B' : '#C0392B' },
+      { label: 'MONTHS IN DEFICIT', value: String(f.monthsInDeficit), hint: f.monthsInDeficit === 0 ? 'You stay positive' : 'Cash runs negative', accent: f.monthsInDeficit === 0 ? '#2E7D5B' : '#C0392B' }
+    ];
+    kpis.forEach((k, i) => {
+      const col = i % 2;
+      const row = Math.floor(i / 2);
+      const x = MARGIN + col * (kpiW + 16);
+      const ky = y + row * (kpiH + 12);
+      // Block bg
+      doc.setFillColor(MIST);
+      doc.rect(x, ky, kpiW, kpiH, 'F');
+      // Accent bar
+      doc.setFillColor(k.accent || NAVY);
+      doc.rect(x, ky, 3, kpiH, 'F');
+      // Label
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      doc.setTextColor(MUTED);
+      doc.text(k.label, x + 14, ky + 18, { charSpace: 1.5 });
+      // Value
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(20);
+      doc.setTextColor(k.accent || INK);
+      doc.text(k.value, x + 14, ky + 44);
+      // Hint
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(8.5);
+      doc.setTextColor(MUTED);
+      doc.text(k.hint, x + 14, ky + 60);
+    });
+    y += kpiH * 2 + 12 + 24;
+
+    // Starting cash callout
+    doc.setFillColor(NAVY);
+    doc.rect(MARGIN, y, PAGE_W - MARGIN * 2, 50, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor('#8183BF');
+    doc.text('STARTING CASH ON HAND', MARGIN + 16, y + 20, { charSpace: 1.5 });
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(18);
+    doc.setTextColor('#FFFFFF');
+    doc.text(fmtMoney(state.startingCash), MARGIN + 16, y + 40);
+    y += 50 + 20;
+
+    // Footer
+    drawFooter(doc, PAGE_W, PAGE_H, MARGIN, MUTED, LINE);
+
+    // ---------- PAGE 2: MONTHLY CHART + TABLE ----------
+    doc.addPage();
+    drawSectionHeader(doc, 'MONTH-BY-MONTH PROJECTION', PAGE_W, MARGIN, NAVY, LAVENDER);
+
+    // Monthly table
+    const tableData = f.months.map(m => [
+      fmtMonthLong(m.date),
+      fmtMoney(m.income),
+      fmtMoney(m.expense),
+      (m.net >= 0 ? '+' : '') + fmtMoney(m.net),
+      fmtMoney(m.balance)
+    ]);
+
+    doc.autoTable({
+      startY: 130,
+      head: [['Month', 'Expected Income', 'Expenses', 'Net', 'Cash Balance']],
+      body: tableData,
+      margin: { left: MARGIN, right: MARGIN },
+      theme: 'plain',
+      headStyles: {
+        fillColor: NAVY,
+        textColor: '#FFFFFF',
+        font: 'helvetica',
+        fontStyle: 'bold',
+        fontSize: 9,
+        cellPadding: { top: 10, right: 10, bottom: 10, left: 10 }
+      },
+      bodyStyles: {
+        font: 'helvetica',
+        fontSize: 10,
+        textColor: INK,
+        cellPadding: { top: 9, right: 10, bottom: 9, left: 10 },
+        lineColor: LINE,
+        lineWidth: 0.5
+      },
+      alternateRowStyles: { fillColor: MIST },
+      columnStyles: {
+        0: { fontStyle: 'bold' },
+        1: { halign: 'right' },
+        2: { halign: 'right' },
+        3: { halign: 'right' },
+        4: { halign: 'right', fontStyle: 'bold' }
+      },
+      didParseCell: (data) => {
+        if (data.section === 'body') {
+          if (data.column.index === 3) {
+            const rawNet = f.months[data.row.index].net;
+            if (rawNet < 0) data.cell.styles.textColor = '#C0392B';
+            else if (rawNet > 0) data.cell.styles.textColor = '#2E7D5B';
+          }
+          if (data.column.index === 4) {
+            const bal = f.months[data.row.index].balance;
+            if (bal < 0) data.cell.styles.textColor = '#C0392B';
+          }
+        }
+      }
+    });
+
+    drawFooter(doc, PAGE_W, PAGE_H, MARGIN, MUTED, LINE);
+
+    // ---------- PAGE 3: DEAL & EXPENSE DETAIL ----------
+    doc.addPage();
+    drawSectionHeader(doc, 'PIPELINE DETAIL', PAGE_W, MARGIN, NAVY, LAVENDER);
+
+    // Deals table
+    doc.autoTable({
+      startY: 130,
+      head: [['Deal', 'Value', 'Probability', 'Weighted', 'Close Date']],
+      body: state.deals.map(d => {
+        const closeDt = new Date(d.closeDate);
+        return [
+          d.description || '(Unnamed deal)',
+          fmtMoney(d.value),
+          d.probability + '%',
+          fmtMoney(d.value * d.probability / 100),
+          closeDt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+        ];
+      }),
+      margin: { left: MARGIN, right: MARGIN },
+      theme: 'plain',
+      headStyles: {
+        fillColor: NAVY,
+        textColor: '#FFFFFF',
+        font: 'helvetica',
+        fontStyle: 'bold',
+        fontSize: 9,
+        cellPadding: { top: 10, right: 10, bottom: 10, left: 10 }
+      },
+      bodyStyles: {
+        font: 'helvetica',
+        fontSize: 10,
+        textColor: INK,
+        cellPadding: { top: 9, right: 10, bottom: 9, left: 10 },
+        lineColor: LINE,
+        lineWidth: 0.5
+      },
+      alternateRowStyles: { fillColor: MIST },
+      columnStyles: {
+        1: { halign: 'right' },
+        2: { halign: 'right' },
+        3: { halign: 'right', fontStyle: 'bold' },
+        4: { halign: 'right' }
+      }
+    });
+
+    // Expenses subsection
+    let expY = doc.lastAutoTable.finalY + 36;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(NAVY);
+    doc.text('MONTHLY EXPENSES', MARGIN, expY, { charSpace: 1.5 });
+    doc.setDrawColor(NAVY);
+    doc.setLineWidth(1.5);
+    doc.line(MARGIN, expY + 6, PAGE_W - MARGIN, expY + 6);
+
+    doc.autoTable({
+      startY: expY + 16,
+      head: [['Expense', 'Monthly Amount']],
+      body: state.expenses.map(e => [
+        e.description || '(Unnamed expense)',
+        fmtMoney(e.amount)
+      ]),
+      foot: [['Total Monthly Burn', fmtMoney(f.monthlyBurn)]],
+      margin: { left: MARGIN, right: MARGIN },
+      theme: 'plain',
+      headStyles: {
+        fillColor: NAVY,
+        textColor: '#FFFFFF',
+        font: 'helvetica',
+        fontStyle: 'bold',
+        fontSize: 9,
+        cellPadding: { top: 10, right: 10, bottom: 10, left: 10 }
+      },
+      bodyStyles: {
+        font: 'helvetica',
+        fontSize: 10,
+        textColor: INK,
+        cellPadding: { top: 9, right: 10, bottom: 9, left: 10 },
+        lineColor: LINE,
+        lineWidth: 0.5
+      },
+      footStyles: {
+        fillColor: '#E8E8F4',
+        textColor: NAVY,
+        font: 'helvetica',
+        fontStyle: 'bold',
+        fontSize: 10,
+        cellPadding: { top: 10, right: 10, bottom: 10, left: 10 }
+      },
+      alternateRowStyles: { fillColor: MIST },
+      columnStyles: {
+        1: { halign: 'right', fontStyle: 'bold' }
+      }
+    });
+
+    drawFooter(doc, PAGE_W, PAGE_H, MARGIN, MUTED, LINE);
+
+    // ---------- PAGE 4: NEXT STEPS / CTA ----------
+    doc.addPage();
+    drawSectionHeader(doc, 'WHAT TO DO WITH THIS', PAGE_W, MARGIN, NAVY, LAVENDER);
+
+    let csY = 150;
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    doc.setTextColor(INK);
+    const intro = `${safeName}, your forecast above is a probability-weighted view of the next ${f.months.length} month${f.months.length === 1 ? '' : 's'}. Here's how agents typically use a report like this:`;
+    doc.text(doc.splitTextToSize(intro, PAGE_W - MARGIN * 2), MARGIN, csY);
+    csY += 50;
+
+    const points = [
+      { h: 'Spot the gap before it spots you.', b: 'If projected ending cash or any month dips below zero, you have time to act now — line up financing, defer a hire, or push to close a deal sooner.' },
+      { h: 'Pressure-test your probabilities.', b: 'Honest probabilities beat optimistic ones. Try lowering each deal by 10–20% and see if the forecast still holds. Plan for the realistic case, not the best case.' },
+      { h: 'Know what each deal really moves.', b: 'A 60%-probable $20K commission is worth $12K in the model. That math should drive where you spend marketing and time this month.' },
+      { h: 'Match expenses to seasonality.', b: 'If you have a slow stretch, that\'s the wrong month to renew an annual subscription or sign a new lease. The month-by-month table shows your real runway.' }
+    ];
+    points.forEach(p => {
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(11);
+      doc.setTextColor(NAVY);
+      doc.text(p.h, MARGIN, csY);
+      csY += 14;
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(10);
+      doc.setTextColor(INK);
+      const lines = doc.splitTextToSize(p.b, PAGE_W - MARGIN * 2);
+      doc.text(lines, MARGIN, csY);
+      csY += lines.length * 13 + 14;
+    });
+
+    // CTA block at bottom
+    const ctaH = 130;
+    const ctaY = PAGE_H - MARGIN - ctaH - 30;
+    doc.setFillColor(NAVY);
+    doc.rect(MARGIN, ctaY, PAGE_W - MARGIN * 2, ctaH, 'F');
+    // accent flags
+    doc.setFillColor('#FFFFFF');
+    doc.setGState(new doc.GState({ opacity: 0.12 }));
+    drawFlag(doc, PAGE_W - MARGIN - 110, ctaY + 14, 90, 12);
+    drawFlag(doc, PAGE_W - MARGIN - 95, ctaY + 34, 75, 12);
+    drawFlag(doc, PAGE_W - MARGIN - 80, ctaY + 54, 60, 12);
+    doc.setGState(new doc.GState({ opacity: 1 }));
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor('#8183BF');
+    doc.text('READY FOR A REAL CASH FLOW PLAN?', MARGIN + 20, ctaY + 28, { charSpace: 1.5 });
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(16);
+    doc.setTextColor('#FFFFFF');
+    doc.text('Let\'s build one tailored to your business.', MARGIN + 20, ctaY + 56);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor('#D9DAEC');
+    const ctaCopy = 'Elevated Tax & Accounting works with real estate professionals to turn forecasts like this one into a written, actionable plan — covering taxes, entity structure, retirement strategy, and the quarterly check-ins that keep it on track.';
+    doc.text(doc.splitTextToSize(ctaCopy, PAGE_W - MARGIN * 2 - 40), MARGIN + 20, ctaY + 76);
+
+    drawFooter(doc, PAGE_W, PAGE_H, MARGIN, MUTED, LINE);
+
+    // Save with personalized filename
+    const filename = `Elevated_Cash_Flow_Forecast_${safeName.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
+    doc.save(filename);
+  }
+
+  // ---------- PDF drawing helpers ----------
+  function drawFlag(doc, x, y, w, h) {
+    // Parallelogram with sloped right edge — echoes the brand-guide flag motif
+    doc.lines(
+      [[w - h, 0], [-h, h], [-(w - h), 0]],
+      x, y, [1, 1], 'F', true
+    );
+  }
+
+  function drawSectionHeader(doc, title, pageW, margin, navy, lavender) {
+    // Navy stripe top
+    doc.setFillColor(navy);
+    doc.rect(0, 0, pageW, 60, 'F');
+    // Lavender thin band
+    doc.setFillColor(lavender);
+    doc.rect(0, 60, pageW, 4, 'F');
+    // Logo small, white
+    drawLogo(doc, margin, 18, 90, '#FFFFFF', '#8183BF');
+    // Section title
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(11);
+    doc.setTextColor(navy);
+    doc.text(title, margin, 100, { charSpace: 1.5 });
+    doc.setDrawColor(navy);
+    doc.setLineWidth(1.5);
+    doc.line(margin, 110, pageW - margin, 110);
+  }
+
+  function drawFooter(doc, pageW, pageH, margin, muted, line) {
+    doc.setDrawColor(line);
+    doc.setLineWidth(0.5);
+    doc.line(margin, pageH - 36, pageW - margin, pageH - 36);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(muted);
+    doc.text('Elevated Tax & Accounting   ·   elevatedtaxandaccounting.com', margin, pageH - 22);
+    const pageNum = doc.internal.getCurrentPageInfo().pageNumber;
+    const totalPages = doc.internal.getNumberOfPages();
+    doc.text(`Page ${pageNum} of ${totalPages}`, pageW - margin, pageH - 22, { align: 'right' });
+  }
+
+  function drawLogo(doc, x, y, width, wordmarkColor, accentColor) {
+    // Reproduces the Elevated lockup. Original SVG viewBox: 1066 x 750
+    // We draw at a scaled width; height auto-scales.
+    const scale = width / 1066;
+    // The logo's content spans roughly y=190 (top of glyph) to y=560 (bottom of tagline)
+    // So we shift up to start at y=0 visually.
+    const yOffset = -190 * scale;
+
+    // Staircase glyph — primary (wordmarkColor)
+    const polyP = (pts, color) => {
+      doc.setFillColor(color);
+      const points = pts.map(([px, py]) => [px * scale + x, py * scale + y + yOffset]);
+      doc.lines(
+        points.slice(1).map(([px, py], i) => [px - points[i][0], py - points[i][1]]),
+        points[0][0], points[0][1], [1, 1], 'F', true
+      );
+    };
+
+    // Top stair (accent)
+    polyP([[629.5,219.4],[629.5,257.5],[658.1,230.3],[658.1,192.2]], accentColor);
+    // Top stair (main)
+    polyP([[658.1,192.2],[491.9,192.2],[463.3,219.4],[629.5,219.4]], wordmarkColor);
+    // Middle stair (accent)
+    polyP([[601,284.7],[601,322.8],[629.5,295.6],[629.5,257.5]], accentColor);
+    // Middle stair (main)
+    polyP([[629.5,257.5],[463.3,257.5],[434.7,284.7],[601,284.7]], wordmarkColor);
+    // Bottom stair (accent)
+    polyP([[572.4,350.1],[572.4,388.2],[601,361],[601,322.8]], accentColor);
+    // Bottom stair (main)
+    polyP([[601,322.8],[434.7,322.8],[406.2,350.1],[572.4,350.1]], wordmarkColor);
+
+    // Wordmark "ELEVATED" — render as bold text in helvetica as a faithful, readable stand-in
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(28 * scale * 4);
+    doc.setTextColor(wordmarkColor);
+    doc.text('ELEVATED', x + width / 2, y + yOffset + 493 * scale, { align: 'center', charSpace: 4 * scale });
+
+    // Tagline "TAX & ACCOUNTING"
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11 * scale * 4);
+    doc.setTextColor(accentColor);
+    doc.text('TAX & ACCOUNTING', x + width / 2, y + yOffset + 553 * scale, { align: 'center', charSpace: 3 * scale });
+  }
+
+  // ============================================================================
+  // MODAL HANDLING
+  // ============================================================================
+  function openModal() {
+    document.getElementById('etaModalError').classList.remove('is-shown');
+    document.getElementById('etaModal').classList.add('is-open');
+    setTimeout(() => document.getElementById('etaFirstName').focus(), 100);
+  }
+  function closeModal() {
+    document.getElementById('etaModal').classList.remove('is-open');
+  }
+
+  async function handleSubmit() {
+    const firstName = document.getElementById('etaFirstName').value.trim();
+    const email = document.getElementById('etaEmail').value.trim();
+    const submitBtn = document.getElementById('etaSubmit');
+    const errorEl = document.getElementById('etaModalError');
+    errorEl.classList.remove('is-shown');
+
+    if (!firstName) {
+      errorEl.textContent = 'Please enter your first name.';
+      errorEl.classList.add('is-shown');
+      return;
+    }
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRe.test(email)) {
+      errorEl.textContent = 'Please enter a valid email address.';
+      errorEl.classList.add('is-shown');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Generating…';
+
+    try {
+      // Fire HubSpot in parallel — don't block PDF generation on it
+      const hubspotPromise = submitToHubSpot(firstName, email);
+      generatePDF(firstName);
+      await hubspotPromise;
+      closeModal();
+    } catch (err) {
+      console.error('[ETA] PDF generation failed:', err);
+      errorEl.textContent = 'Something went wrong generating your report. Please try again.';
+      errorEl.classList.add('is-shown');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Download My Report';
+    }
+  }
+
+  // ============================================================================
+  // BOOTSTRAP
+  // ============================================================================
+  function init() {
+    // Seed two empty deal rows and three expense rows for instant usability
+    addDealRow();
+    addDealRow();
+    addExpenseRow();
+    addExpenseRow();
+    addExpenseRow();
+
+    document.getElementById('etaStartingCash').addEventListener('input', recompute);
+    document.getElementById('etaAddDeal').addEventListener('click', () => addDealRow());
+    document.getElementById('etaAddExpense').addEventListener('click', () => addExpenseRow());
+
+    document.getElementById('etaGetReport').addEventListener('click', openModal);
+    document.getElementById('etaModalClose').addEventListener('click', closeModal);
+    document.getElementById('etaModal').addEventListener('click', (e) => {
+      if (e.target.id === 'etaModal') closeModal();
+    });
+    document.getElementById('etaSubmit').addEventListener('click', handleSubmit);
+    document.getElementById('etaEmail').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') handleSubmit();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+
+<style>
+  .eta-lm-b, .eta-lm-b * { box-sizing: border-box; }
+  .eta-lm-b {
+    --eta-navy: #2E368F;
+    --eta-navy-deep: #232970;
+    --eta-lavender: #8183BF;
+    --eta-lavender-soft: #E8E8F4;
+    --eta-ink: #1A1A1A;
+    --eta-paper: #FFFFFF;
+    --eta-mist: #F6F7FB;
+    --eta-line: #E2E3EE;
+    --eta-muted: #6B6F8A;
+
+    --eta-display: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    --eta-body: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+    --eta-radius: 4px;
+    --eta-radius-lg: 8px;
+
+    font-family: var(--eta-body);
+    color: var(--eta-ink);
+    line-height: 1.6;
+    max-width: 1200px;
+    margin: 36px auto 0;
+  }
+  .eta-lm-b h2, .eta-lm-b h3 {
+    font-family: var(--eta-display);
+    color: var(--eta-ink);
+    margin: 0;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .eta-lm-b__eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--eta-navy);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .eta-lm-b__h2 {
+    font-size: clamp(24px, 3vw, 30px);
+    margin-bottom: 16px;
+    line-height: 1.25;
+  }
+
+  /* ---------- How to use ---------- */
+  .eta-lm-b__howto {
+    padding: 36px 0 8px;
+  }
+  .eta-lm-b__steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 22px;
+  }
+  @media (max-width: 720px) {
+    .eta-lm-b__steps { grid-template-columns: 1fr; }
+  }
+  .eta-lm-b__step {
+    padding: 22px;
+    background: var(--eta-mist);
+    border: 1px solid var(--eta-line);
+    border-radius: var(--eta-radius);
+    border-left: 3px solid var(--eta-navy);
+  }
+  .eta-lm-b__step-num {
+    font-family: var(--eta-display);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--eta-lavender);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .eta-lm-b__step h3 {
+    font-size: 15px;
+    margin-bottom: 6px;
+  }
+  .eta-lm-b__step p {
+    font-size: 13px;
+    color: var(--eta-muted);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* ---------- Mini FAQ ---------- */
+  .eta-lm-b__faq {
+    padding: 36px 0;
+  }
+  .eta-lm-b__faq-list {
+    margin-top: 18px;
+  }
+  .eta-lm-b__faq-item {
+    border: 1px solid var(--eta-line);
+    border-radius: var(--eta-radius);
+    padding: 18px 22px;
+    margin-bottom: 10px;
+    background: var(--eta-paper);
+  }
+  .eta-lm-b__faq-q {
+    font-family: var(--eta-display);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--eta-navy);
+    margin-bottom: 6px;
+  }
+  .eta-lm-b__faq-a {
+    font-size: 14px;
+    color: var(--eta-ink);
+    line-height: 1.65;
+    margin: 0;
+  }
+  .eta-lm-b__faq-a a {
+    color: var(--eta-navy);
+    text-decoration: underline;
+    font-weight: 600;
+  }
+
+  /* ---------- Help card ---------- */
+  .eta-lm-b__help {
+    margin: 16px 0 48px;
+    padding: 36px 40px;
+    background: var(--eta-lavender-soft);
+    border-radius: var(--eta-radius-lg);
+    border-left: 5px solid var(--eta-navy);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 24px;
+    align-items: center;
+  }
+  @media (max-width: 720px) {
+    .eta-lm-b__help {
+      grid-template-columns: 1fr;
+      padding: 28px 24px;
+    }
+  }
+  .eta-lm-b__help-eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--eta-navy);
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .eta-lm-b__help h2 {
+    font-size: 22px;
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+  .eta-lm-b__help p {
+    font-size: 14px;
+    color: var(--eta-ink);
+    margin: 0;
+    max-width: 520px;
+    line-height: 1.6;
+  }
+  .eta-lm-b__help-btn {
+    display: inline-block;
+    background: var(--eta-navy);
+    color: #FFFFFF !important;
+    font-family: var(--eta-display);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 14px 24px;
+    border-radius: var(--eta-radius);
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .eta-lm-b__help-btn:hover {
+    background: var(--eta-navy-deep);
+    transform: translateY(-1px);
+  }
+</style>
+
+<div class="eta-lm-b">
+
+  <!-- ===== HOW TO USE ===== -->
+  <section class="eta-lm-b__howto">
+    <div class="eta-lm-b__eyebrow">How to Use This Forecaster</div>
+    <h2 class="eta-lm-b__h2">Three inputs, twelve months of clarity.</h2>
+
+    <div class="eta-lm-b__steps">
+      <div class="eta-lm-b__step">
+        <div class="eta-lm-b__step-num">1</div>
+        <h3>Enter your deals in the pipeline</h3>
+        <p>Add each active deal with its expected commission, your probability of closing, and the close date. Be honest with the percentages, that's where the magic happens.</p>
+      </div>
+      <div class="eta-lm-b__step">
+        <div class="eta-lm-b__step-num">2</div>
+        <h3>List your monthly expenses</h3>
+        <p>Business and personal. Marketing, MLS dues, software, your mortgage, groceries, the works. The forecaster uses these to project net cash, not just incoming commission.</p>
+      </div>
+      <div class="eta-lm-b__step">
+        <div class="eta-lm-b__step-num">3</div>
+        <h3>Download your PDF report</h3>
+        <p>The chart, the month-by-month breakdown, and the stats land in a branded PDF you can share with your spouse, your bookkeeper, or your CPA.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MINI FAQ ===== -->
+  <section class="eta-lm-b__faq">
+    <div class="eta-lm-b__eyebrow">Quick Questions</div>
+    <h2 class="eta-lm-b__h2">A few common ones before you download.</h2>
+
+    <div class="eta-lm-b__faq-list">
+      <div class="eta-lm-b__faq-item">
+        <div class="eta-lm-b__faq-q">Is my information stored anywhere?</div>
+        <p class="eta-lm-b__faq-a">Your pipeline and expense numbers never leave your browser. The PDF is generated client-side, no server upload. We do collect your first name and email when you download so we can follow up with helpful resources for self-employed agents. Unsubscribe any time.</p>
+      </div>
+      <div class="eta-lm-b__faq-item">
+        <div class="eta-lm-b__faq-q">How accurate is a probability-weighted forecast?</div>
+        <p class="eta-lm-b__faq-a">It's a planning tool, not a crystal ball. The output is only as good as the close probabilities you enter. The value is in seeing the pattern: which months are likely to be lean, which months are flush, and what changes when a key deal slips a month.</p>
+      </div>
+      <div class="eta-lm-b__faq-item">
+        <div class="eta-lm-b__faq-q">Does this forecast cover taxes?</div>
+        <p class="eta-lm-b__faq-a">Not yet. This version models gross cash flow before tax obligations. A solid rule for self-employed real estate agents in Montana: set aside 25-30% of every commission for federal + state + self-employment tax. If you want a tax-aware plan tailored to your numbers, <a href="/contact-us/">book a call with Andrew</a>.</p>
+      </div>
+      <div class="eta-lm-b__faq-item">
+        <div class="eta-lm-b__faq-q">Could I save more by electing S-corp status?</div>
+        <p class="eta-lm-b__faq-a">Quite possibly, if your net profit is consistently above $50,000-$60,000. Try our <a href="/s-corp-calculator/">S-corp calculator</a> to estimate the savings, then talk through whether the timing makes sense.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== HELP CARD ===== -->
+  <section class="eta-lm-b__help">
+    <div>
+      <div class="eta-lm-b__help-eyebrow">Want Help Applying This?</div>
+      <h2>Turn the forecast into a real plan.</h2>
+      <p>A forecaster shows you what's coming. A CPA helps you act on it: when to set aside cash for taxes, when to fund a retirement account, when an S-corp starts making sense. Andrew works with Montana real estate agents year-round, not just in April.</p>
+    </div>
+    <a href="/contact-us/" class="eta-lm-b__help-btn">Book a 20-min Call</a>
+  </section>
+
+</div>
+
+<!-- =========================================================================
+     END SECTION B
+     ========================================================================= -->
+</body>
+</html>

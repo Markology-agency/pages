@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Core Advisors Goals Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0b1f3a;
+  --navy-2:#13294b;
+  --ink:#0b1f3a;
+  --muted:#5a6a82;
+  --line:#dfe6f0;
+  --line-2:#e7eef7;
+  --bg:#eaf2fa;
+  --card:#ffffff;
+  --accent:#7fb3d5;
+  --accent-2:#cfe4f3;
+  --off:#e63946;
+  --later:#f4a261;
+  --consid:#f4d35e;
+  --on:#2ecc71;
+  --radius:14px;
+  --shadow:0 4px 24px rgba(11,31,58,.06);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,-apple-system,Segoe UI,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+
+/* ===== Toolbar ===== */
+.toolbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(234,242,250,.85);
+  backdrop-filter:saturate(120%) blur(8px);
+  border-bottom:1px solid var(--line-2);
+}
+.toolbar-inner{
+  max-width:1180px;margin:0 auto;padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;color:var(--navy);font-size:16px;letter-spacing:-.2px}
+.brand img{height:34px;width:auto;display:block}
+.brand .sep{color:var(--muted);font-weight:400;margin:0 4px}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.btn{
+  font:600 14px/1 'Inter',sans-serif;
+  padding:10px 16px;border-radius:999px;border:1px solid var(--navy);
+  background:#fff;color:var(--navy);cursor:pointer;transition:.15s ease;
+  display:inline-flex;align-items:center;gap:8px;
+}
+.btn:hover{background:var(--navy);color:#fff}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.primary:hover{background:#000}
+.btn.ghost{border-color:var(--line);color:var(--muted)}
+.btn.ghost:hover{border-color:var(--navy);color:var(--navy);background:#fff}
+.btn svg{width:14px;height:14px}
+
+/* ===== Hero ===== */
+.hero{padding:48px 24px 24px;text-align:center}
+.hero h1{font-size:44px;font-weight:700;margin:0 0 12px;color:var(--navy);letter-spacing:-.5px}
+.hero p{max-width:640px;margin:0 auto;color:var(--muted);font-size:15px;line-height:1.6}
+
+/* ===== Wrapper ===== */
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 64px}
+
+/* ===== Info card ===== */
+.card{
+  background:var(--card);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:28px 28px 24px;margin-top:24px;
+}
+.card h3{margin:0 0 12px;font-size:13px;font-weight:600;color:var(--navy);text-transform:none;letter-spacing:.2px}
+.client-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.field input,.field select,.field textarea{
+  width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:10px;
+  background:#fff;font:400 14px/1.3 'Inter',sans-serif;color:var(--ink);
+  transition:border-color .15s,box-shadow .15s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none;border-color:var(--navy);box-shadow:0 0 0 3px rgba(11,31,58,.08);
+}
+.date-wrap{position:relative}
+.date-wrap input{padding-right:38px}
+.date-wrap svg{position:absolute;right:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted);pointer-events:none}
+
+.goals-list{display:flex;flex-direction:column;gap:8px}
+.goal-row{display:flex;align-items:center;gap:8px}
+.goal-row input{flex:1}
+.icon-btn{
+  width:34px;height:34px;border-radius:8px;border:1px solid transparent;
+  background:transparent;color:var(--muted);cursor:pointer;
+  display:inline-flex;align-items:center;justify-content:center;
+}
+.icon-btn:hover{background:#fbe9eb;color:var(--off);border-color:#f5d4d7}
+.icon-btn svg{width:14px;height:14px}
+.add-link{
+  margin-top:14px;background:none;border:none;color:var(--navy);font-weight:600;
+  cursor:pointer;padding:6px 0;display:inline-flex;align-items:center;gap:6px;font-size:14px;
+}
+.add-link:hover{text-decoration:underline}
+
+/* ===== Levers ===== */
+.section-title{
+  text-align:center;font-size:32px;font-weight:700;color:var(--navy);
+  margin:48px 0 24px;letter-spacing:-.3px;
+}
+.lever-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:20px;
+}
+.lever{
+  background:#fff;border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:22px 20px 24px;position:relative;display:flex;flex-direction:column;gap:14px;
+}
+.lever-head{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.lever-icon{
+  width:48px;height:48px;border-radius:10px;background:#eef5fb;
+  display:flex;align-items:center;justify-content:center;color:var(--navy);
+  margin:0 auto;
+}
+.lever-icon svg{width:26px;height:26px}
+.lever-remove{position:absolute;top:10px;right:10px}
+.lever-title-block{text-align:center}
+.lever-title{
+  width:100%;text-align:center;border:none;background:transparent;
+  font:600 17px/1.3 'Inter',sans-serif;color:var(--navy);padding:4px 6px;border-radius:6px;
+}
+.lever-title:focus{outline:none;background:#f4f8fc}
+.lever-notes{
+  width:100%;text-align:center;border:none;background:transparent;
+  font:400 13px/1.45 'Inter',sans-serif;color:var(--muted);padding:4px 6px;border-radius:6px;
+  resize:none;min-height:36px;overflow:hidden;
+}
+.lever-notes:focus{outline:none;background:#f4f8fc}
+
+.goal-select{
+  width:100%;padding:11px 14px;border:1px solid var(--line);border-radius:999px;
+  background:#fff url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='%230b1f3a' d='M2 4l4 4 4-4'/></svg>") no-repeat right 14px center;
+  -webkit-appearance:none;appearance:none;font:500 13px/1.2 'Inter',sans-serif;color:var(--navy);
+  cursor:pointer;
+}
+.goal-select:focus{outline:none;border-color:var(--navy)}
+
+/* ===== Gauge ===== */
+.gauge-wrap{padding:6px 4px 4px;display:flex;flex-direction:column;align-items:center}
+.gauge{width:100%;max-width:220px;aspect-ratio:2 / 1;position:relative}
+.gauge svg{width:100%;height:100%;overflow:visible;display:block}
+.gauge-labels{
+  position:absolute;inset:0;pointer-events:none;font-size:11px;font-weight:600;color:var(--navy);
+}
+.gauge-labels .lbl{position:absolute;white-space:nowrap;transform:translate(-50%,-50%)}
+.gauge-labels .lbl.off    {left:4%;  top:84%}
+.gauge-labels .lbl.later  {left:18%; top:14%}
+.gauge-labels .lbl.consid {left:82%; top:14%}
+.gauge-labels .lbl.on     {left:96%; top:84%}
+.gauge-zones path{cursor:pointer;transition:opacity .15s, filter .15s}
+.gauge-zones path:hover{filter:brightness(1.05)}
+
+/* ===== Footer toolbar ===== */
+.foot{
+  display:flex;justify-content:center;gap:10px;margin-top:32px;flex-wrap:wrap;
+}
+
+/* ===== Responsive ===== */
+@media (max-width:720px){
+  .client-grid{grid-template-columns:1fr}
+  .hero h1{font-size:32px}
+  .section-title{font-size:24px}
+}
+
+/* ===== Print: fit goals + levers on one page ===== */
+@media print{
+  @page{ size: letter portrait; margin: .35in; }
+
+  html,body{background:#fff;color:#000;font-size:10px}
+  .toolbar,.foot,.lever-remove,.icon-btn,.add-link,.hero p{display:none !important}
+
+  /* Compact header */
+  .hero{padding:0 0 6px;text-align:left}
+  .hero h1{font-size:16px;margin:0;color:var(--navy)}
+  .wrap{padding:0;max-width:none}
+
+  /* Client + Goals — compact, single card */
+  .card{
+    padding:8px 10px;margin:0 0 8px;
+    box-shadow:none;border:1px solid var(--line);border-radius:8px;
+    page-break-inside:avoid;
+  }
+  .card h3{margin:0 0 4px;font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+  .client-grid{gap:6px;margin-bottom:8px}
+  .field input,.field select,.field textarea{
+    padding:4px 6px;font-size:10px;border-radius:4px;background:#fff;
+  }
+  .goals-list{gap:3px}
+  .goal-row{gap:4px}
+
+  /* Levers section */
+  .section-title{font-size:13px;margin:6px 0 6px;color:var(--navy)}
+  .lever-grid{grid-template-columns:repeat(3,1fr);gap:8px}
+  .lever{
+    padding:8px 8px 10px;gap:5px;
+    box-shadow:none;border:1px solid var(--line);border-radius:8px;
+    page-break-inside:avoid;break-inside:avoid;
+  }
+  .lever-icon{width:28px;height:28px;border-radius:6px}
+  .lever-icon svg{width:16px;height:16px}
+  .lever-title{font-size:11px;padding:0}
+  .lever-notes{font-size:9px;padding:0;min-height:24px;line-height:1.3}
+  .goal-select{padding:3px 18px 3px 8px;font-size:9px;background-size:8px}
+  .gauge{max-width:140px}
+  .gauge-labels{font-size:8px}
+
+  /* Force date input to print value */
+  input[type="date"]{-webkit-appearance:none;appearance:none}
+  .date-wrap svg{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- Toolbar -->
+<header class="toolbar">
+  <div class="toolbar-inner">
+    <div class="brand">
+      <img src="https://coreadvisors.com/wp-content/uploads/2024/12/Final-Logo-1.png"
+           alt="Core Advisors"
+           onerror="this.style.display='none'">
+      <span class="sep">|</span>
+      <span>Goals Calculator</span>
+    </div>
+    <div class="tools">
+      <button class="btn ghost" onclick="addLever()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M3 8h10"/></svg>
+        Add Lever
+      </button>
+      <button class="btn ghost" onclick="confirmReset()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8a5 5 0 1 0 1.5-3.5M3 3v3h3"/></svg>
+        Reset
+      </button>
+      <button class="btn primary" onclick="window.print()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6V2h8v4M4 12H2V7h12v5h-2M4 10h8v4H4z"/></svg>
+        Print / Save PDF
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>Core Advisors Goals Calculator</h1>
+  <p>Map the levers that move your financial plan. Adjust each lever from Off to On to see which trade-offs unlock the goals you care about most.</p>
+</section>
+
+<!-- Body -->
+<main class="wrap">
+
+  <!-- Client + Goals card -->
+  <section class="card">
+    <h3>Client Information</h3>
+    <div class="client-grid">
+      <div class="field"><input id="f-client" placeholder="Client Name" oninput="state.client=this.value"></div>
+      <div class="field"><input id="f-advisor" placeholder="Advisor" oninput="state.advisor=this.value"></div>
+      <div class="field date-wrap">
+        <input id="f-date" type="date" oninput="state.date=this.value">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="3" width="12" height="11" rx="1"/><path d="M2 7h12M5 2v2M11 2v2"/></svg>
+      </div>
+    </div>
+
+    <h3>Goals</h3>
+    <div id="goals" class="goals-list"></div>
+    <button class="add-link" onclick="addGoal()">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3v10M3 8h10"/></svg>
+      Add Goal
+    </button>
+  </section>
+
+  <!-- Levers -->
+  <h2 class="section-title">Levers</h2>
+  <div id="grid" class="lever-grid"></div>
+
+  <div class="foot">
+    <button class="btn" onclick="addLever()">+ Add Lever</button>
+    <button class="btn primary" onclick="window.print()">Print / Save PDF</button>
+  </div>
+
+</main>
+
+<script>
+/* ---------- State ---------- */
+const STORAGE_KEY = 'core-advisors-goals-calculator-v1';
+
+const defaultState = {
+  client: '', advisor: '', date: '',
+  goals: ['Goal 1','Goal 2','Goal 3'],
+  levers: [
+    { title:'Push Retirement', notes:'Push retirement age to 60', goal:0, status:0 },
+    { title:'Sell Rentals',    notes:'List properties',           goal:1, status:3 }
+  ]
+};
+
+let state;
+try { state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || structuredClone(defaultState); }
+catch { state = structuredClone(defaultState); }
+
+const STATUSES = [
+  { key:'off',    label:'Off',          color:'var(--off)' },
+  { key:'later',  label:'Later',        color:'var(--later)' },
+  { key:'consid', label:'Considering',  color:'var(--consid)' },
+  { key:'on',     label:'On',           color:'var(--on)' }
+];
+
+function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+/* ---------- Render: header inputs ---------- */
+function hydrateHeader(){
+  document.getElementById('f-client').value  = state.client  || '';
+  document.getElementById('f-advisor').value = state.advisor || '';
+  document.getElementById('f-date').value    = state.date    || '';
+}
+
+/* ---------- Render: goals ---------- */
+function renderGoals(){
+  const root = document.getElementById('goals');
+  root.innerHTML = state.goals.map((g,i)=>`
+    <div class="goal-row">
+      <div class="field" style="flex:1">
+        <input value="${escapeAttr(g)}" oninput="state.goals[${i}]=this.value;save();updateGoalSelects()">
+      </div>
+      <button class="icon-btn" title="Remove goal" onclick="removeGoal(${i})">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+      </button>
+    </div>
+  `).join('');
+}
+
+function addGoal(){
+  state.goals.push('New Goal');
+  save(); renderGoals(); renderLevers();
+}
+function removeGoal(i){
+  if(state.goals.length<=1) return;
+  state.goals.splice(i,1);
+  state.levers.forEach(l=>{ if(l.goal>=state.goals.length) l.goal=0; });
+  save(); renderGoals(); renderLevers();
+}
+function updateGoalSelects(){
+  document.querySelectorAll('.goal-select').forEach(sel=>{
+    const i = +sel.dataset.lever;
+    const cur = state.levers[i].goal;
+    sel.innerHTML = state.goals.map((g,gi)=>`<option value="${gi}" ${gi==cur?'selected':''}>${escapeHtml(g)}</option>`).join('');
+  });
+}
+
+/* ---------- Render: levers ---------- */
+function renderLevers(){
+  const root = document.getElementById('grid');
+  root.innerHTML = state.levers.map((l,i)=>leverCard(l,i)).join('');
+  // Auto-size note textareas
+  document.querySelectorAll('.lever-notes').forEach(autosize);
+}
+
+function leverCard(l,i){
+  const goalOpts = state.goals.map((g,gi)=>`<option value="${gi}" ${gi==l.goal?'selected':''}>${escapeHtml(g)}</option>`).join('');
+  return `
+  <article class="lever">
+    <button class="icon-btn lever-remove" title="Remove lever" onclick="removeLever(${i})">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+    </button>
+
+    <div class="lever-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="4" y="3" width="16" height="18" rx="2"/>
+        <rect x="7" y="6" width="10" height="3" rx="1"/>
+        <circle cx="8.5" cy="13" r="1"/><circle cx="12" cy="13" r="1"/><circle cx="15.5" cy="13" r="1"/>
+        <circle cx="8.5" cy="17" r="1"/><circle cx="12" cy="17" r="1"/><circle cx="15.5" cy="17" r="1"/>
+      </svg>
+    </div>
+
+    <div class="lever-title-block">
+      <input class="lever-title" value="${escapeAttr(l.title)}" oninput="state.levers[${i}].title=this.value;save()"/>
+      <textarea class="lever-notes" rows="1" placeholder="Add a short note..." oninput="state.levers[${i}].notes=this.value;save();autosize(this)">${escapeHtml(l.notes||'')}</textarea>
+    </div>
+
+    <select class="goal-select" data-lever="${i}" onchange="state.levers[${i}].goal=+this.value;save()">
+      ${goalOpts}
+    </select>
+
+    ${gauge(l.status, i)}
+  </article>`;
+}
+
+function addLever(){
+  state.levers.push({ title:'New Lever', notes:'', goal:0, status:1 });
+  save(); renderLevers();
+}
+function removeLever(i){
+  state.levers.splice(i,1);
+  save(); renderLevers();
+}
+function setStatus(i,s){
+  state.levers[i].status = s;
+  save(); renderLevers();
+}
+
+/* ---------- Gauge (SVG semi-circle, 4 stroked segments) ---------- */
+function gauge(status, idx){
+  // Math-convention angles: 0° = right, 90° = up, 180° = left.
+  // 4 segments of 45° each spanning the upper semicircle.
+  const cx=120, cy=120, r=82, strokeW=28;
+  const colors = ['#e63946','#f4a261','#f4d35e','#2ecc71'];
+  const dim    = '#eef2f7';
+  const segs = [
+    { a1:180, a2:135 }, // Off
+    { a1:135, a2:90  }, // Later
+    { a1:90,  a2:45  }, // Considering
+    { a1:45,  a2:0   }  // On
+  ];
+
+  const zonePaths = segs.map((s,si)=>{
+    const color = si === status ? colors[si] : (si < status ? colors[si] : dim);
+    return `<path d="${arcStroke(cx,cy,r,s.a1,s.a2)}"
+            stroke="${color}" stroke-width="${strokeW}" fill="none" stroke-linecap="butt"
+            style="cursor:pointer" onclick="setStatus(${idx},${si})"/>`;
+  }).join('');
+
+  // Needle angle: center of selected segment
+  const seg = segs[status];
+  const ang = (seg.a1 + seg.a2) / 2;
+  const needleEnd  = polar(cx, cy, r+strokeW/2 - 4, ang);
+  const needleBaseL = polar(cx, cy, 9, ang+90);
+  const needleBaseR = polar(cx, cy, 9, ang-90);
+
+  return `
+    <div class="gauge-wrap">
+      <div class="gauge">
+        <svg viewBox="0 0 240 145" aria-label="Status gauge">
+          <g class="gauge-zones">${zonePaths}</g>
+          <polygon points="${needleBaseL.x},${needleBaseL.y} ${needleBaseR.x},${needleBaseR.y} ${needleEnd.x},${needleEnd.y}"
+                   fill="#0b1f3a"/>
+          <circle cx="${cx}" cy="${cy}" r="11" fill="#0b1f3a"/>
+          <circle cx="${cx}" cy="${cy}" r="4"  fill="#fff"/>
+        </svg>
+        <div class="gauge-labels">
+          <span class="lbl off">Off</span>
+          <span class="lbl later">Later</span>
+          <span class="lbl consid">Considering</span>
+          <span class="lbl on">On</span>
+        </div>
+      </div>
+    </div>`;
+}
+
+function polar(cx,cy,r,deg){
+  const rad = deg * Math.PI/180;
+  return { x: cx + r*Math.cos(rad), y: cy - r*Math.sin(rad) };
+}
+
+// Arc stroke between two angles (degrees, math convention).
+// SVG sweep-flag=1 = positive-angle direction = clockwise visually (y-axis is down).
+// Our gauge spans 180° (left) → 0° (right) across the TOP, drawn clockwise on screen.
+function arcStroke(cx,cy,r,a1,a2){
+  const p1 = polar(cx,cy,r,a1);
+  const p2 = polar(cx,cy,r,a2);
+  const large = Math.abs(a1-a2) > 180 ? 1 : 0;
+  return `M ${p1.x} ${p1.y} A ${r} ${r} 0 ${large} 1 ${p2.x} ${p2.y}`;
+}
+
+/* ---------- Helpers ---------- */
+function escapeHtml(s){ return String(s??'').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function escapeAttr(s){ return escapeHtml(s); }
+function autosize(el){ el.style.height='auto'; el.style.height=(el.scrollHeight)+'px'; }
+
+function confirmReset(){
+  if(!confirm('Clear all client info, goals, and levers? This cannot be undone.')) return;
+  state = structuredClone(defaultState);
+  save(); hydrateHeader(); renderGoals(); renderLevers();
+}
+
+/* ---------- Boot ---------- */
+hydrateHeader();
+renderGoals();
+renderLevers();
+</script>
+
+</body>
+</html>

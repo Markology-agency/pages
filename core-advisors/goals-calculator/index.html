@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Core Advisors Goals Calculator</title>
+<title>Core Advisors Financial Planning Levers</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -59,8 +59,8 @@ a{color:inherit}
 .btn svg{width:14px;height:14px}
 
 /* ===== Hero ===== */
-.hero{padding:48px 24px 24px;text-align:center}
-.hero h1{font-size:44px;font-weight:700;margin:0 0 12px;color:var(--navy);letter-spacing:-.5px}
+.hero{padding:22px 24px 8px;text-align:center}
+.hero h1{font-size:26px;font-weight:700;margin:0;color:var(--navy);letter-spacing:-.2px}
 .hero p{max-width:640px;margin:0 auto;color:var(--muted);font-size:15px;line-height:1.6}
 
 /* ===== Wrapper ===== */
@@ -89,11 +89,13 @@ a{color:inherit}
 .goal-row{display:flex;align-items:center;gap:8px}
 .goal-row input{flex:1}
 .icon-btn{
-  width:34px;height:34px;border-radius:8px;border:1px solid transparent;
+  width:32px;height:32px;border-radius:8px;border:1px solid transparent;
   background:transparent;color:var(--muted);cursor:pointer;
-  display:inline-flex;align-items:center;justify-content:center;
+  display:inline-flex;align-items:center;justify-content:center;transition:.15s ease;
 }
 .icon-btn:hover{background:#fbe9eb;color:var(--off);border-color:#f5d4d7}
+.icon-btn.ord:hover{background:#eef5fb;color:var(--navy);border-color:#cfe0f0}
+.icon-btn:disabled{opacity:.3;cursor:not-allowed;background:transparent !important;border-color:transparent !important;color:var(--muted) !important}
 .icon-btn svg{width:14px;height:14px}
 .add-link{
   margin-top:14px;background:none;border:none;color:var(--navy);font-weight:600;
@@ -120,7 +122,9 @@ a{color:inherit}
   margin:0 auto;
 }
 .lever-icon svg{width:26px;height:26px}
-.lever-remove{position:absolute;top:10px;right:10px}
+.lever-tools{position:absolute;top:8px;right:8px;display:flex;gap:2px}
+.lever-tools .icon-btn{width:28px;height:28px}
+.lever-tools .icon-btn svg{width:12px;height:12px}
 .lever-title-block{text-align:center}
 .lever-title{
   width:100%;text-align:center;border:none;background:transparent;
@@ -165,8 +169,8 @@ a{color:inherit}
 /* ===== Responsive ===== */
 @media (max-width:720px){
   .client-grid{grid-template-columns:1fr}
-  .hero h1{font-size:32px}
-  .section-title{font-size:24px}
+  .hero h1{font-size:22px}
+  .section-title{font-size:22px}
 }
 
 /* ===== Print: fit goals + levers on one page ===== */
@@ -174,7 +178,7 @@ a{color:inherit}
   @page{ size: letter portrait; margin: .35in; }
 
   html,body{background:#fff;color:#000;font-size:10px}
-  .toolbar,.foot,.lever-remove,.icon-btn,.add-link,.hero p{display:none !important}
+  .toolbar,.foot,.lever-tools,.icon-btn,.add-link,.hero p{display:none !important}
 
   /* Compact header */
   .hero{padding:0 0 6px;text-align:left}
@@ -227,7 +231,7 @@ a{color:inherit}
            alt="Core Advisors"
            onerror="this.style.display='none'">
       <span class="sep">|</span>
-      <span>Goals Calculator</span>
+      <span>Financial Planning Levers</span>
     </div>
     <div class="tools">
       <button class="btn ghost" onclick="addLever()">
@@ -248,8 +252,7 @@ a{color:inherit}
 
 <!-- Hero -->
 <section class="hero">
-  <h1>Core Advisors Goals Calculator</h1>
-  <p>Map the levers that move your financial plan. Adjust each lever from Off to On to see which trade-offs unlock the goals you care about most.</p>
+  <h1>Financial Planning Levers</h1>
 </section>
 
 <!-- Body -->
@@ -288,20 +291,57 @@ a{color:inherit}
 
 <script>
 /* ---------- State ---------- */
-const STORAGE_KEY = 'core-advisors-goals-calculator-v1';
+const STORAGE_KEY = 'core-advisors-financial-planning-levers-v1';
 
-const defaultState = {
-  client: '', advisor: '', date: '',
-  goals: ['Goal 1','Goal 2','Goal 3'],
-  levers: [
-    { title:'Push Retirement', notes:'Push retirement age to 60', goal:0, status:0 },
-    { title:'Sell Rentals',    notes:'List properties',           goal:1, status:3 }
-  ]
-};
+let nextId = 1;
+const makeId = () => nextId++;
+
+function freshDefault(){
+  const g1 = { id: makeId(), text: 'Goal 1' };
+  const g2 = { id: makeId(), text: 'Goal 2' };
+  return {
+    client: '', advisor: '', date: '',
+    goals: [g1, g2],
+    levers: [
+      { id: makeId(), title:'Push Retirement', notes:'Push retirement age to 60', goalId: g1.id, status:0 },
+      { id: makeId(), title:'Sell Rentals',    notes:'List properties',           goalId: g2.id, status:3 }
+    ]
+  };
+}
+
+function migrate(s){
+  if(!s || typeof s !== 'object') return freshDefault();
+  s.goals  = (s.goals  || []).map(g => typeof g === 'string'
+    ? { id: makeId(), text: g }
+    : { id: g.id || makeId(), text: g.text ?? '' });
+  s.levers = (s.levers || []).map(l => {
+    const lever = {
+      id: l.id || makeId(),
+      title: l.title || '',
+      notes: l.notes || '',
+      status: typeof l.status === 'number' ? l.status : 1,
+      goalId: l.goalId ?? null
+    };
+    // Old format: numeric goal index → look up corresponding goal id
+    if (lever.goalId == null && typeof l.goal === 'number') {
+      const g = s.goals[l.goal];
+      lever.goalId = g ? g.id : null;
+    }
+    return lever;
+  });
+  // Drop dangling goal refs
+  const validIds = new Set(s.goals.map(g => g.id));
+  s.levers.forEach(l => { if (l.goalId != null && !validIds.has(l.goalId)) l.goalId = null; });
+  // Advance id counter past anything we just loaded
+  const used = [0, ...s.goals.map(g=>g.id), ...s.levers.map(l=>l.id)];
+  nextId = Math.max(nextId, Math.max(...used) + 1);
+  return s;
+}
 
 let state;
-try { state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || structuredClone(defaultState); }
-catch { state = structuredClone(defaultState); }
+try { state = migrate(JSON.parse(localStorage.getItem(STORAGE_KEY))); }
+catch { state = freshDefault(); }
+if (!state.goals && !state.levers) state = freshDefault();
 
 const STATUSES = [
   { key:'off',    label:'Off',          color:'var(--off)' },
@@ -322,11 +362,18 @@ function hydrateHeader(){
 /* ---------- Render: goals ---------- */
 function renderGoals(){
   const root = document.getElementById('goals');
+  const last = state.goals.length - 1;
   root.innerHTML = state.goals.map((g,i)=>`
     <div class="goal-row">
       <div class="field" style="flex:1">
-        <input value="${escapeAttr(g)}" oninput="state.goals[${i}]=this.value;save();updateGoalSelects()">
+        <input value="${escapeAttr(g.text)}" oninput="state.goals[${i}].text=this.value;save();updateGoalSelects()">
       </div>
+      <button class="icon-btn ord" title="Move up"   onclick="moveGoal(${i},-1)" ${i===0    ? 'disabled' : ''}>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10l4-4 4 4"/></svg>
+      </button>
+      <button class="icon-btn ord" title="Move down" onclick="moveGoal(${i},1)"  ${i===last ? 'disabled' : ''}>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6l4 4 4-4"/></svg>
+      </button>
       <button class="icon-btn" title="Remove goal" onclick="removeGoal(${i})">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
       </button>
@@ -335,21 +382,34 @@ function renderGoals(){
 }
 
 function addGoal(){
-  state.goals.push('New Goal');
+  state.goals.push({ id: makeId(), text: 'New Goal' });
   save(); renderGoals(); renderLevers();
 }
 function removeGoal(i){
-  if(state.goals.length<=1) return;
+  const removedId = state.goals[i].id;
   state.goals.splice(i,1);
-  state.levers.forEach(l=>{ if(l.goal>=state.goals.length) l.goal=0; });
+  state.levers.forEach(l => { if(l.goalId === removedId) l.goalId = null; });
+  save(); renderGoals(); renderLevers();
+}
+function moveGoal(i, dir){
+  const j = i + dir;
+  if (j < 0 || j >= state.goals.length) return;
+  [state.goals[i], state.goals[j]] = [state.goals[j], state.goals[i]];
   save(); renderGoals(); renderLevers();
 }
 function updateGoalSelects(){
   document.querySelectorAll('.goal-select').forEach(sel=>{
     const i = +sel.dataset.lever;
-    const cur = state.levers[i].goal;
-    sel.innerHTML = state.goals.map((g,gi)=>`<option value="${gi}" ${gi==cur?'selected':''}>${escapeHtml(g)}</option>`).join('');
+    const cur = state.levers[i].goalId;
+    sel.innerHTML = goalOptions(cur);
   });
+}
+function goalOptions(currentId){
+  const none = `<option value="" ${currentId==null?'selected':''}>— No goal —</option>`;
+  const goals = state.goals.map(g =>
+    `<option value="${g.id}" ${g.id===currentId?'selected':''}>${escapeHtml(g.text)}</option>`
+  ).join('');
+  return none + goals;
 }
 
 /* ---------- Render: levers ---------- */
@@ -361,12 +421,20 @@ function renderLevers(){
 }
 
 function leverCard(l,i){
-  const goalOpts = state.goals.map((g,gi)=>`<option value="${gi}" ${gi==l.goal?'selected':''}>${escapeHtml(g)}</option>`).join('');
+  const last = state.levers.length - 1;
   return `
   <article class="lever">
-    <button class="icon-btn lever-remove" title="Remove lever" onclick="removeLever(${i})">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
-    </button>
+    <div class="lever-tools">
+      <button class="icon-btn ord" title="Move left"  onclick="moveLever(${i},-1)" ${i===0    ? 'disabled' : ''}>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 4l-4 4 4 4"/></svg>
+      </button>
+      <button class="icon-btn ord" title="Move right" onclick="moveLever(${i},1)"  ${i===last ? 'disabled' : ''}>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l4 4-4 4"/></svg>
+      </button>
+      <button class="icon-btn" title="Remove lever" onclick="removeLever(${i})">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+      </button>
+    </div>
 
     <div class="lever-icon">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
@@ -382,8 +450,8 @@ function leverCard(l,i){
       <textarea class="lever-notes" rows="1" placeholder="Add a short note..." oninput="state.levers[${i}].notes=this.value;save();autosize(this)">${escapeHtml(l.notes||'')}</textarea>
     </div>
 
-    <select class="goal-select" data-lever="${i}" onchange="state.levers[${i}].goal=+this.value;save()">
-      ${goalOpts}
+    <select class="goal-select" data-lever="${i}" onchange="state.levers[${i}].goalId = this.value === '' ? null : +this.value;save()">
+      ${goalOptions(l.goalId)}
     </select>
 
     ${gauge(l.status, i)}
@@ -391,7 +459,13 @@ function leverCard(l,i){
 }
 
 function addLever(){
-  state.levers.push({ title:'New Lever', notes:'', goal:0, status:1 });
+  state.levers.push({ id: makeId(), title:'New Lever', notes:'', goalId: null, status:1 });
+  save(); renderLevers();
+}
+function moveLever(i, dir){
+  const j = i + dir;
+  if (j < 0 || j >= state.levers.length) return;
+  [state.levers[i], state.levers[j]] = [state.levers[j], state.levers[i]];
   save(); renderLevers();
 }
 function removeLever(i){
@@ -473,7 +547,7 @@ function autosize(el){ el.style.height='auto'; el.style.height=(el.scrollHeight)
 
 function confirmReset(){
   if(!confirm('Clear all client info, goals, and levers? This cannot be undone.')) return;
-  state = structuredClone(defaultState);
+  state = freshDefault();
   save(); hydrateHeader(); renderGoals(); renderLevers();
 }
 

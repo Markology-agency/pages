@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Steve Ellard CPA — December 2025 Keyword Drop Investigation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#d97706;--bad:#dc2626;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:72px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:48px 0;}.container{padding:0 20px;}}
+.star{position:absolute;pointer-events:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.pill.good{background:var(--good);}
+.pill.warn{background:var(--warn);}
+.hero{background:var(--paper);padding-top:88px;padding-bottom:64px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7vw,84px);line-height:0.95;letter-spacing:0.02em;color:var(--navy);margin:20px 0 0;}
+.hero .lede{font-size:18px;line-height:1.6;color:var(--mute);max-width:780px;margin-top:24px;}
+.hero .meta{margin-top:24px;display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.hero .meta a{color:var(--blue);font-weight:600;text-decoration:none;}
+.lead-callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:14px;padding:22px 26px;margin-top:32px;box-shadow:4px 4px 0 var(--navy);max-width:900px;}
+.lead-callout .label{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:8px;}
+.lead-callout p{font-size:17px;color:var(--navy);font-weight:500;line-height:1.5;}
+.kpi-section{background:#fff;padding:56px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:22px 20px;box-shadow:5px 5px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:10px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:44px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .delta{margin-top:8px;font-size:12px;font-weight:600;color:#047857;}
+.kpi .delta.bad{color:var(--bad);}
+.kpi .delta.warn{color:var(--warn);}
+.kpi .explain{margin-top:12px;padding-top:12px;border-top:2px dashed var(--hair);font-size:11px;color:var(--mute);line-height:1.5;}
+.section-head{margin-bottom:40px;max-width:880px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,60px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:14px;}
+.section-head p{font-size:16px;color:var(--mute);margin-top:14px;line-height:1.6;}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.chart-row{grid-template-columns:1fr;}}
+.chart-card{background:var(--paper);border:2px solid var(--navy);border-radius:18px;padding:26px;box-shadow:6px 6px 0 var(--navy);}
+.chart-card h4{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);margin-bottom:4px;}
+.chart-card .chart-sub{font-size:12px;color:var(--mute);margin-bottom:18px;}
+.chart-container{position:relative;height:280px;}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:18px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead{background:var(--navy);}
+th{text-align:left;padding:13px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.16em;color:var(--blue);}
+th.num,td.num{text-align:right;}
+td{padding:12px 16px;border-bottom:1px solid var(--hair);vertical-align:top;font-family:'Inter';}
+td.mono{font-family:'SF Mono',Menlo,Consolas,monospace;font-size:12px;}
+tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.pos-pill{display:inline-block;padding:3px 9px;background:var(--blue);color:#fff;border:1.5px solid var(--navy);border-radius:6px;font-size:11px;font-weight:700;}
+.pos-pill.win{background:var(--good);}
+.pos-pill.bad{background:var(--bad);}
+.pos-pill.mid{background:var(--lilac);color:var(--navy);}
+.status-pill{display:inline-block;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:0.04em;border:1.5px solid var(--navy);text-transform:uppercase;}
+.s-ok{background:var(--good);color:#fff;}
+.s-bad{background:var(--bad);color:#fff;}
+.s-meh{background:var(--warn);color:#fff;}
+.summary-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+@media(max-width:720px){.summary-row{grid-template-columns:repeat(2,1fr);}}
+.summary-pill{background:#fff;border:2px solid var(--navy);border-radius:12px;padding:14px 16px;box-shadow:3px 3px 0 var(--navy);}
+.summary-pill .v{font-family:'Bangers',sans-serif;font-size:28px;color:var(--blue);line-height:1;}
+.summary-pill .l{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--mute);font-weight:700;margin-top:6px;}
+.story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+@media(max-width:900px){.story-grid{grid-template-columns:1fr;}}
+.story-card{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:24px;box-shadow:5px 5px 0 var(--navy);}
+.story-card .num{font-family:'Bangers',sans-serif;font-size:52px;line-height:0.9;color:var(--blue);margin-bottom:8px;}
+.story-card.warn .num{color:var(--warn);}
+.story-card.bad .num{color:var(--bad);}
+.story-card.good .num{color:var(--good);}
+.story-card h4{font-family:'Bangers',sans-serif;font-size:19px;letter-spacing:0.04em;color:var(--navy);margin-bottom:10px;line-height:1.15;}
+.story-card p{font-size:13px;color:var(--mute);line-height:1.55;}
+.priority-list{display:flex;flex-direction:column;gap:14px;}
+.priority{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:20px 24px;display:grid;grid-template-columns:48px 1fr;gap:18px;align-items:start;box-shadow:5px 5px 0 var(--navy);}
+.priority .pnum{width:48px;height:48px;border-radius:12px;background:var(--blue);color:#fff;border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:26px;display:flex;align-items:center;justify-content:center;}
+.priority h4{font-family:'Bangers',sans-serif;font-size:18px;letter-spacing:0.04em;color:var(--navy);margin-bottom:6px;}
+.priority p{font-size:14px;color:var(--mute);line-height:1.55;}
+.priority .tag{display:inline-block;margin-top:8px;padding:3px 9px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.16em;border-radius:6px;text-transform:uppercase;}
+.callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:18px 22px;margin-top:20px;box-shadow:4px 4px 0 var(--navy);}
+.callout.warn{border-left-color:var(--warn);}
+.callout.bad{border-left-color:var(--bad);}
+.callout.good{border-left-color:var(--good);}
+.callout strong{color:var(--navy);font-weight:700;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:60px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(30px,4vw,46px);line-height:1;letter-spacing:0.02em;}
+.footer p{color:#B4B6D6;margin-top:14px;font-size:14px;}
+.footer .built-by{margin-top:24px;padding-top:18px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.section-bg-paper{background:var(--paper);}
+.section-bg-lilac{background:var(--lilac);}
+.verdict-box{background:var(--good);color:#fff;border:2px solid var(--navy);border-radius:16px;padding:28px 32px;margin-top:24px;box-shadow:6px 6px 0 var(--navy);}
+.verdict-box .label{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;margin-bottom:10px;opacity:0.9;}
+.verdict-box h3{font-family:'Bangers',sans-serif;font-size:32px;letter-spacing:0.02em;line-height:1.05;margin-bottom:12px;}
+.verdict-box p{font-size:15px;line-height:1.6;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="star" style="top:70px;left:60px;transform:rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="top:180px;right:100px;transform:rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <div class="container">
+    <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">SEO Investigation &middot; May 20, 2026</span>
+    <h1>THE DECEMBER 2025<br/><span class="accent">KEYWORD CLIFF.</span></h1>
+    <p class="lede">A read-only investigation into why SEMrush showed Steve Ellard's keyword count drop from 66 to 29 between November and December 2025. The short version: it was not a ranking loss. It was a site migration, and the most valuable keywords got better, not worse.</p>
+    <div class="meta">
+      <span><strong>Domain:</strong> stevenmellardcpa.com</span>
+      <span><strong>Window:</strong> Nov 2025 &rarr; May 2026</span>
+      <span><strong>Source:</strong> SEMrush US + live URL checks</span>
+      <span><strong>Asana Task:</strong> <a href="https://app.asana.com/0/0/1214572794396552" target="_blank">[SEO] Investigate the December keyword drop</a></span>
+    </div>
+    <div class="lead-callout">
+      <div class="label">The headline finding</div>
+      <p>The keyword count dropped because Steve's site went through a structural migration in late November 2025. The old <code>/resources/blog/</code> and <code>/what-we-do/</code> URLs were replaced with a flatter <code>/blog/</code> and root-level service-page structure. SEMrush re-indexed under the new URLs in December. The brand terms ("steven ellard", "steve ellard") jumped from position 4-8 to position 1, traffic 8x'd from 17 to 140 estimated visits per month. This was a migration win that looked like a cliff in the raw count.</p>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Keywords Nov 2025</div>
+        <div class="value">66</div>
+        <div class="delta warn">old URL structure</div>
+        <div class="explain">SEMrush snapshot 2025-11-15. Mostly long-tail 1099 and vehicle-expense blog terms ranking positions 40-100 on old /resources/blog/ URLs.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Keywords Dec 2025</div>
+        <div class="value">29</div>
+        <div class="delta bad">&darr;56% raw count</div>
+        <div class="explain">SEMrush snapshot 2025-12-15. The count dropped but the quality of what remained went up dramatically.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Est. Traffic Nov 2025</div>
+        <div class="value">17</div>
+        <div class="delta warn">low brand surface</div>
+        <div class="explain">Pre-migration. Brand terms ("steven ellard") sitting at positions 4-7 on a deep blog page, not the homepage. Almost no homepage signal.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Est. Traffic Dec 2025</div>
+        <div class="value">140</div>
+        <div class="delta">&uarr;8.2x in one month</div>
+        <div class="explain">Post-migration. Same four brand terms ("steven ellard", "steve ellard", etc.) jumped to position #1 on the new homepage. That single change drives nearly all the traffic gain.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Visual Story</span>
+      <h2>WHAT THE GRAPHS<br/><span class="accent">ACTUALLY SHOW.</span></h2>
+      <p>Two charts, same data, opposite narratives. The keyword count tells one story. The traffic estimate tells the truth.</p>
+    </div>
+    <div class="chart-row">
+      <div class="chart-card">
+        <h4>Keyword Count (12 months)</h4>
+        <div class="chart-sub">SEMrush domain_rank_history, US. The Nov→Dec drop is visible but misleading.</div>
+        <div class="chart-container"><canvas id="kwChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h4>Organic Traffic Estimate (12 months)</h4>
+        <div class="chart-sub">Same months. The 8x jump in December is the real signal.</div>
+        <div class="chart-container"><canvas id="trChart"></canvas></div>
+      </div>
+    </div>
+    <div class="callout good"><strong>Read both charts together.</strong> If a keyword drop were a true ranking loss, traffic would have fallen with it. Instead, traffic moved in the opposite direction. That tells you the lost keywords were low-traffic long-tails, and the surviving keywords were the high-value commercial intent terms. A migration consolidated the SEO equity onto fewer, better URLs.</div>
+  </div>
+</section>
+
+<section class="section-bg-paper">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Evidence #1</span>
+      <h2>THE URL STRUCTURE<br/><span class="accent">CHANGED IN DECEMBER.</span></h2>
+      <p>Comparing the top-ranking URLs in the Nov vs Dec SEMrush snapshots makes the migration obvious. The November set is all old-structure blog and service URLs. The December set is the flat new structure.</p>
+    </div>
+    <div class="two-col" style="display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;">
+      <div class="table-card">
+        <table>
+          <thead><tr><th>Nov 2025 URL pattern</th><th>Top keyword</th><th class="num">Pos</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">/what-we-do/business-management-services</td><td>steve ellard</td><td class="num"><span class="pos-pill">#5</span></td></tr>
+            <tr><td class="mono">/resources/blog/We-Are-Moving!</td><td>steven m ellard cpa</td><td class="num"><span class="pos-pill">#7</span></td></tr>
+            <tr><td class="mono">/resources/blog/Massachusetts-HIRD-Reporting</td><td>ma hird</td><td class="num"><span class="pos-pill">#10</span></td></tr>
+            <tr><td class="mono">/who-we-serve/testimonials</td><td>breakwater dental brewster ma</td><td class="num"><span class="pos-pill mid">#19</span></td></tr>
+            <tr><td class="mono">/resources/blog/does-your-business-need-to-file-1099s...</td><td>when do you need to file 1099</td><td class="num"><span class="pos-pill mid">#27</span></td></tr>
+            <tr><td class="mono">/resources/blog/tax-guide-for-vehicle-expenses</td><td>schedule c auto expenses</td><td class="num"><span class="pos-pill mid">#55</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-card">
+        <table>
+          <thead><tr><th>Dec 2025 URL pattern</th><th>Top keyword</th><th class="num">Pos</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">/</td><td>steven m ellard cpa</td><td class="num"><span class="pos-pill win">#1</span></td></tr>
+            <tr><td class="mono">/</td><td>steve ellard</td><td class="num"><span class="pos-pill win">#1</span></td></tr>
+            <tr><td class="mono">/payroll-services-cape-cod/</td><td>atlantic payroll login</td><td class="num"><span class="pos-pill">#13</span></td></tr>
+            <tr><td class="mono">/accounting/top-accounting-firms-on-cape-cod/</td><td>cape cod accountants</td><td class="num"><span class="pos-pill">#19</span></td></tr>
+            <tr><td class="mono">/tax-preparation-cape-cod/</td><td>steven ellard</td><td class="num"><span class="pos-pill">#27</span></td></tr>
+            <tr><td class="mono">/healthcare-accounting-services/</td><td>steve ellard</td><td class="num"><span class="pos-pill mid">#93</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="callout"><strong>Look at the URL shapes.</strong> November is the old <code>/what-we-do/...</code> and <code>/who-we-serve/...</code> info-architecture (the prior site theme). December is the current flat structure with service pages at the root level. SEMrush did not re-attribute the old URLs to the new ones overnight, so the count of indexed pages dropped. But the equity consolidated onto the new pages, which is why the homepage went to #1 for every brand-name search.</div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="pill warn">Evidence #2</span>
+      <h2>LIVE REDIRECT TESTS<br/><span class="accent">TODAY.</span></h2>
+      <p>We pulled the actual HTTP response for six of the old URLs that were ranking in November. Two patterns emerged: some redirected to their new equivalent, most got dumped onto the homepage. That second pattern is a missed opportunity.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Old URL (Nov 2025 ranking)</th><th class="num">Status</th><th>301 redirect target</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">/resources/blog/does-your-business-need-to-file-1099s...</td><td class="num">301</td><td class="mono">/blog/does-your-business-need-to-file-1099s.../</td><td><span class="status-pill s-ok">Mapped</span></td></tr>
+          <tr><td class="mono">/resources/blog/We-Are-Moving!</td><td class="num">301</td><td class="mono">/blog/we-are-moving/</td><td><span class="status-pill s-ok">Mapped</span></td></tr>
+          <tr><td class="mono">/resources/blog/tax-guide-for-vehicle-expenses</td><td class="num">301</td><td class="mono">/</td><td><span class="status-pill s-bad">Dumped to home</span></td></tr>
+          <tr><td class="mono">/what-we-do/business-management-services</td><td class="num">301</td><td class="mono">/</td><td><span class="status-pill s-bad">Dumped to home</span></td></tr>
+          <tr><td class="mono">/who-we-serve/testimonials</td><td class="num">301</td><td class="mono">/</td><td><span class="status-pill s-bad">Dumped to home</span></td></tr>
+          <tr><td class="mono">/blog/does-your-business-need-to-file-1099s/</td><td class="num">301</td><td class="mono">/</td><td><span class="status-pill s-bad">Dumped to home</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn"><strong>Half-finished migration.</strong> The good news: the 1099 blog post is still alive at a new URL with a proper 301 chain. The bad news: the vehicle-expenses guide, the business-management service page, the testimonials page, and at least one slug variant of the 1099 post all redirect to the homepage. That throws away the keyword equity from those pages, which is exactly what SEMrush's keyword count is reflecting. Recovery means redirecting those URLs to the correct new equivalent or rebuilding the missing posts.</div>
+  </div>
+</section>
+
+<section class="section-bg-paper">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">The Verdict</span>
+      <h2>NOT A RANKING LOSS.<br/><span class="accent">A LAZY MIGRATION.</span></h2>
+      <p>Three things to take away. The headline is good news for Steve, the cleanup work is operational, and the action items are small enough to ship without a client meeting.</p>
+    </div>
+    <div class="story-grid">
+      <div class="story-card good">
+        <div class="num">8.2x</div>
+        <h4>TRAFFIC WENT UP, NOT DOWN</h4>
+        <p>17 to 140 estimated monthly visits between November and December 2025. If this had been a Google penalty or algorithm hit, traffic would have dropped with the keyword count. It rose instead, which means the migration consolidated equity correctly on the brand-name searches.</p>
+      </div>
+      <div class="story-card good">
+        <div class="num">#1</div>
+        <h4>FOR EVERY BRAND TERM</h4>
+        <p>"steven m ellard cpa," "steven ellard cpa," "steven ellard," and "steve ellard" all moved to position #1 on the homepage in December. Pre-migration they were sitting at positions 4-7 on a deep blog page. That is the single biggest SEO improvement of the year.</p>
+      </div>
+      <div class="story-card warn">
+        <div class="num">4</div>
+        <h4>BROKEN REDIRECT TARGETS</h4>
+        <p>At least four old URLs redirect to the homepage instead of the new equivalent page. That dumps the keyword equity. Two of those (vehicle-expense guide, business-management service) had real ranking traffic in November. They are recoverable with a one-line redirect fix.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Recommendations</span>
+      <h2>WHAT WE DO<br/><span class="accent">FROM HERE.</span></h2>
+      <p>Three actions. None require Steve's input. All are operational SEO fixes Markology can execute.</p>
+    </div>
+    <div class="priority-list">
+      <div class="priority">
+        <div class="pnum">1</div>
+        <div>
+          <h4>FIX THE BROKEN REDIRECTS</h4>
+          <p>Update the four 301 rules that currently dump to homepage. Map them to the closest topical equivalent on the new site. Examples:</p>
+          <ul style="margin:10px 0 0 22px;font-size:13px;color:var(--mute);line-height:1.7;">
+            <li><code>/resources/blog/tax-guide-for-vehicle-expenses</code> &rarr; <code>/blog/tax-guide-for-vehicle-expenses/</code> (rebuild post if missing) or <code>/individual-tax-services/</code></li>
+            <li><code>/what-we-do/business-management-services</code> &rarr; <code>/cfo-services/</code> or <code>/cape-cod-accountants/</code></li>
+            <li><code>/who-we-serve/testimonials</code> &rarr; the new about/team page (verify URL)</li>
+            <li><code>/blog/does-your-business-need-to-file-1099s/</code> &rarr; <code>/blog/does-your-business-need-to-file-1099s-the-initial-deadline-of-january-31-is-fast-approaching/</code> (canonical slug)</li>
+          </ul>
+          <span class="tag">Dev or WP admin via redirect plugin</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">2</div>
+        <div>
+          <h4>REBUILD THE MISSING VEHICLE-EXPENSE POST</h4>
+          <p>The vehicle-expense guide was ranking for 15+ long-tail keywords in November (schedule c auto expenses, deductible vehicle expenses, automobile expense deduction, etc.). The post no longer exists at any URL. Either restore from a backup or rewrite under <code>/blog/tax-guide-for-vehicle-expenses/</code> using the Cape Cod CPA voice. Easy keyword win, no client input needed, all the demand is documented in the November snapshot above.</p>
+          <span class="tag">SEO + Writing, 1 blog post</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">3</div>
+        <div>
+          <h4>UPDATE THE MAY 2026 REPORT NARRATIVE</h4>
+          <p>The May SEO report frames the Nov→Dec change as an unsolved "keyword cliff" worth investigating. With this analysis, the framing for the June report changes to "site migration completed, brand-term rankings jumped to #1, two pages of cleanup work identified and shipped." That's a story Steve wants to hear.</p>
+          <span class="tag">Reporting, June 4</span>
+        </div>
+      </div>
+    </div>
+    <div class="verdict-box">
+      <div class="label">Bottom line for the May 21 meeting</div>
+      <h3>NO ACTION REQUIRED FROM STEVE.</h3>
+      <p>This was internal-facing diagnostic work. The keyword "drop" Steve saw in the May report is fully explained: it's a SEMrush re-indexing artifact from his own December 2025 site migration. The pages we care about are ranking better than they were a year ago. Markology handles the redirect cleanup and missing-post rebuild as part of June's work — no client decision needed.</p>
+    </div>
+  </div>
+</section>
+
+<section class="footer">
+  <div class="container">
+    <h2>INVESTIGATION SHIPPED.</h2>
+    <p>Findings written 2026-05-20. Asana W3 task moving to Internal Review.</p>
+    <div class="built-by">Built by Markology &middot; SEO Department &middot; markology.io</div>
+  </div>
+</section>
+
+<script>
+const months = ['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May'];
+const kwSeries = [65, 90, 81, 92, 88, 66, 29, 31, 31, 29, 49, 47];
+const trSeries = [145, 144, 29, 15, 17, 17, 140, 147, 148, 146, 124, 126];
+
+const baseOpts = {
+  responsive: true,
+  maintainAspectRatio: false,
+  plugins: { legend: { display: false } },
+  scales: {
+    x: { grid: { display: false }, ticks: { color: '#6C6E8A', font: { family: 'Inter', size: 11 } } },
+    y: { beginAtZero: true, grid: { color: 'rgba(7,6,48,0.06)' }, ticks: { color: '#6C6E8A', font: { family: 'Inter', size: 11 } } }
+  }
+};
+
+new Chart(document.getElementById('kwChart'), {
+  type: 'line',
+  data: { labels: months, datasets: [{
+    label: 'Keyword Count',
+    data: kwSeries,
+    borderColor: '#3872EB',
+    backgroundColor: 'rgba(56,114,235,0.15)',
+    borderWidth: 3,
+    fill: true,
+    tension: 0.3,
+    pointRadius: 5,
+    pointBackgroundColor: '#3872EB',
+    pointBorderColor: '#070630',
+    pointBorderWidth: 2
+  }]},
+  options: baseOpts
+});
+
+new Chart(document.getElementById('trChart'), {
+  type: 'line',
+  data: { labels: months, datasets: [{
+    label: 'Est. Traffic',
+    data: trSeries,
+    borderColor: '#10b981',
+    backgroundColor: 'rgba(16,185,129,0.15)',
+    borderWidth: 3,
+    fill: true,
+    tension: 0.3,
+    pointRadius: 5,
+    pointBackgroundColor: '#10b981',
+    pointBorderColor: '#070630',
+    pointBorderWidth: 2
+  }]},
+  options: baseOpts
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Profit Planning Calculator for Therapists — TL;DR Preview</title>
+<style>body{margin:0;background:#fafbfc;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}.preview-banner{background:#222;color:#fff;padding:14px 24px;font-size:13px;text-align:center}.preview-banner strong{color:#00a4d6}.preview-page{padding:40px 24px}.preview-page h1{max-width:980px;margin:0 auto 6px;font-size:32px;color:#222}.preview-page .subhead{max-width:980px;margin:0 auto 20px;font-size:17px;color:#5a6b78}</style>
+</head>
+<body>
+<div class="preview-banner">
+  <strong>PREVIEW</strong> — TL;DR Profit Planning Calculator. Working build. Whitney: paste the embed code into wp-admin once you preview here.
+</div>
+<div class="preview-page">
+  <h1>Profit Planning Calculator for Therapists</h1>
+  <p class="subhead">Find out what your private practice can actually earn, and what to change to earn more.</p>
+<style>
+.tldr-pc-wrap{max-width:980px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#222}
+.tldr-pc-intro{font-size:17px;line-height:1.6;margin:18px 0 28px}
+.tldr-pc-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin:24px 0}
+@media (max-width:760px){.tldr-pc-grid{grid-template-columns:1fr}}
+.tldr-pc-card{background:#f7fbfd;border:1px solid #d6ecf6;border-radius:14px;padding:24px}
+.tldr-pc-card h3{margin:0 0 16px;font-size:17px;color:#00688a;text-transform:uppercase;letter-spacing:.5px}
+.tldr-pc-field{margin:14px 0}
+.tldr-pc-field label{display:block;font-size:14px;font-weight:600;margin-bottom:6px;color:#333}
+.tldr-pc-field input[type="number"],.tldr-pc-field select{width:100%;padding:10px 12px;border:1px solid #cfd8df;border-radius:8px;font-size:15px;background:#fff;color:#222;box-sizing:border-box}
+.tldr-pc-field input[type="number"]:focus,.tldr-pc-field select:focus{outline:none;border-color:#00a4d6;box-shadow:0 0 0 3px rgba(0,164,214,.18)}
+.tldr-pc-field .tldr-pc-hint{font-size:12px;color:#7a8896;margin-top:4px}
+.tldr-pc-radios{display:flex;gap:10px;margin-top:4px}
+.tldr-pc-radios label{flex:1;text-align:center;padding:10px;border:1px solid #cfd8df;border-radius:8px;background:#fff;cursor:pointer;font-weight:600;font-size:14px;transition:all .15s}
+.tldr-pc-radios input[type="radio"]{display:none}
+.tldr-pc-radios input[type="radio"]:checked + span{color:#fff}
+.tldr-pc-radios label:has(input:checked){background:#00a4d6;border-color:#00a4d6;color:#fff}
+.tldr-pc-slider-row{display:flex;align-items:center;gap:12px}
+.tldr-pc-slider-row input[type="range"]{flex:1}
+.tldr-pc-slider-row input[type="number"]{width:90px;flex:none}
+.tldr-pc-results{margin-top:32px;padding:28px;background:linear-gradient(135deg,#00a4d6,#0086b3);color:#fff;border-radius:16px}
+.tldr-pc-results h3{margin:0 0 18px;font-size:16px;text-transform:uppercase;letter-spacing:1px;opacity:.9}
+.tldr-pc-headlines{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:760px){.tldr-pc-headlines{grid-template-columns:1fr}}
+.tldr-pc-stat{background:rgba(255,255,255,.12);padding:18px;border-radius:10px}
+.tldr-pc-stat .label{font-size:12px;text-transform:uppercase;letter-spacing:.5px;opacity:.85}
+.tldr-pc-stat .value{font-size:30px;font-weight:700;margin-top:6px;line-height:1.1}
+.tldr-pc-stat .sub{font-size:13px;opacity:.85;margin-top:4px}
+.tldr-pc-levers{margin-top:32px;background:#fff;border:1px solid #e1eff7;border-radius:14px;padding:0;overflow:hidden;position:relative}
+.tldr-pc-levers-header{padding:22px 24px 14px;border-bottom:1px solid #eef5fa}
+.tldr-pc-levers-header h3{margin:0 0 6px;font-size:18px;color:#00688a}
+.tldr-pc-levers-header p{margin:0;font-size:14px;color:#5a6b78}
+.tldr-pc-lever-list{padding:8px 24px 24px}
+.tldr-pc-lever{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid #f0f5f8}
+.tldr-pc-lever:last-child{border-bottom:none}
+.tldr-pc-lever-rank{width:38px;height:38px;background:#00a4d6;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex:none}
+.tldr-pc-lever-body{flex:1}
+.tldr-pc-lever-body .title{font-weight:600;color:#222;font-size:15px}
+.tldr-pc-lever-body .delta{font-size:14px;color:#00688a;margin-top:2px;font-weight:600}
+.tldr-pc-benchmark{margin:18px 24px 24px;padding:14px 16px;background:#fff8e1;border-left:3px solid #f0b400;font-size:14px;color:#5a4a00;border-radius:0 8px 8px 0}
+.tldr-pc-gate{position:absolute;inset:0;backdrop-filter:blur(8px);background:rgba(255,255,255,.65);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:24px;text-align:center}
+.tldr-pc-gate h4{margin:0 0 8px;font-size:20px;color:#222}
+.tldr-pc-gate p{margin:0 0 18px;font-size:14px;color:#5a6b78;max-width:380px}
+.tldr-pc-gate-form{display:flex;gap:8px;max-width:380px;width:100%}
+.tldr-pc-gate-form input[type="email"]{flex:1;padding:12px 14px;border:1px solid #cfd8df;border-radius:8px;font-size:14px}
+.tldr-pc-gate-form button{padding:12px 22px;background:#00a4d6;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px}
+.tldr-pc-gate-form button:hover{background:#0086b3}
+.tldr-pc-cta{margin-top:30px;padding:30px;text-align:center;background:#f7fbfd;border-radius:14px}
+.tldr-pc-cta h3{margin:0 0 10px;font-size:22px;color:#222}
+.tldr-pc-cta p{margin:0 0 18px;font-size:15px;color:#5a6b78}
+.tldr-pc-cta a{display:inline-block;padding:14px 32px;background:#00a4d6;color:#fff;text-decoration:none;border-radius:8px;font-weight:700;font-size:16px}
+.tldr-pc-cta a:hover{background:#0086b3}
+.tldr-pc-related{margin-top:24px;padding:20px;border:1px dashed #cfd8df;border-radius:10px;font-size:14px;color:#5a6b78}
+.tldr-pc-related a{color:#00688a;font-weight:600}
+.tldr-pc-tldr{margin-top:24px;padding:18px 22px;background:#222;color:#fff;border-radius:10px;font-size:15px;line-height:1.5}
+.tldr-pc-tldr strong{color:#00a4d6}
+</style>
+
+<div class="tldr-pc-wrap">
+
+<p class="tldr-pc-intro">You started a private practice to help people. The financial side was probably not the plan. This calculator does the math you've been putting off: how much you can realistically make based on your rates, your client load, and your insurance mix. Plug in your numbers and we'll tell you what's possible, plus the three levers that move the dial fastest.</p>
+
+<div class="tldr-pc-grid">
+
+  <div class="tldr-pc-card">
+    <h3>Your practice</h3>
+
+    <div class="tldr-pc-field">
+      <label>Practice type</label>
+      <div class="tldr-pc-radios">
+        <label><input type="radio" name="pc_type" value="solo" checked><span>Solo</span></label>
+        <label><input type="radio" name="pc_type" value="group"><span>Group</span></label>
+      </div>
+    </div>
+
+    <div class="tldr-pc-field" id="pc_clin_wrap">
+      <label>Number of clinicians (including you)</label>
+      <div class="tldr-pc-slider-row">
+        <input type="range" id="pc_clin_slider" min="1" max="15" step="1" value="1">
+        <input type="number" id="pc_clinicians" min="1" max="25" value="1">
+      </div>
+    </div>
+
+    <div class="tldr-pc-field">
+      <label>Clients per clinician per week</label>
+      <div class="tldr-pc-slider-row">
+        <input type="range" id="pc_cpw_slider" min="5" max="35" step="1" value="22">
+        <input type="number" id="pc_cpw" min="1" max="40" value="22">
+      </div>
+      <div class="tldr-pc-hint">Industry standard for a full caseload is 22-25.</div>
+    </div>
+
+    <div class="tldr-pc-field">
+      <label>Session length</label>
+      <select id="pc_session">
+        <option value="45">45 minutes</option>
+        <option value="50" selected>50 minutes</option>
+        <option value="60">60 minutes</option>
+        <option value="90">90 minutes</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="tldr-pc-card">
+    <h3>Your rates</h3>
+
+    <div class="tldr-pc-field">
+      <label>Average private pay rate per session</label>
+      <div class="tldr-pc-slider-row">
+        <input type="range" id="pc_pp_slider" min="60" max="350" step="5" value="150">
+        <input type="number" id="pc_pp" min="0" max="500" value="150">
+      </div>
+    </div>
+
+    <div class="tldr-pc-field">
+      <label>Average insurance reimbursement per session</label>
+      <div class="tldr-pc-slider-row">
+        <input type="range" id="pc_ins_slider" min="40" max="200" step="5" value="90">
+        <input type="number" id="pc_ins" min="0" max="300" value="90">
+      </div>
+    </div>
+
+    <div class="tldr-pc-field">
+      <label>% of clients on private pay</label>
+      <div class="tldr-pc-slider-row">
+        <input type="range" id="pc_mix_slider" min="0" max="100" step="5" value="50">
+        <input type="number" id="pc_mix" min="0" max="100" value="50">
+      </div>
+    </div>
+
+    <div class="tldr-pc-field" id="pc_owner_wrap" style="display:none">
+      <label>Your take as the owner (% of practice profit)</label>
+      <div class="tldr-pc-slider-row">
+        <input type="range" id="pc_owner_slider" min="20" max="80" step="5" value="35">
+        <input type="number" id="pc_owner" min="0" max="100" value="35">
+      </div>
+      <div class="tldr-pc-hint">Typical owner split when associates are W-2 employees: 30-40%.</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="tldr-pc-results" id="pc_results">
+  <h3>Your numbers</h3>
+  <div class="tldr-pc-headlines">
+    <div class="tldr-pc-stat">
+      <div class="label">Monthly revenue</div>
+      <div class="value" id="pc_rev">$0</div>
+      <div class="sub">Before overhead and taxes</div>
+    </div>
+    <div class="tldr-pc-stat">
+      <div class="label" id="pc_profit_label">Monthly profit</div>
+      <div class="value" id="pc_profit">$0</div>
+      <div class="sub" id="pc_profit_sub">After overhead, before tax</div>
+    </div>
+    <div class="tldr-pc-stat">
+      <div class="label">Annual owner income</div>
+      <div class="value" id="pc_annual">$0</div>
+      <div class="sub">Pre-tax estimate</div>
+    </div>
+  </div>
+</div>
+
+<div class="tldr-pc-levers">
+  <div class="tldr-pc-levers-header">
+    <h3>Your three biggest levers</h3>
+    <p>The fastest ways to grow what you take home, ranked by impact.</p>
+  </div>
+  <div class="tldr-pc-lever-list" id="pc_lever_list">
+    <div class="tldr-pc-lever"><div class="tldr-pc-lever-rank">1</div><div class="tldr-pc-lever-body"><div class="title">Raise your private pay rate by 10%</div><div class="delta" id="pc_lever1">+$0/month</div></div></div>
+    <div class="tldr-pc-lever"><div class="tldr-pc-lever-rank">2</div><div class="tldr-pc-lever-body"><div class="title">Shift 10 points of mix toward private pay</div><div class="delta" id="pc_lever2">+$0/month</div></div></div>
+    <div class="tldr-pc-lever"><div class="tldr-pc-lever-rank">3</div><div class="tldr-pc-lever-body"><div class="title">Add one client per clinician per week</div><div class="delta" id="pc_lever3">+$0/month</div></div></div>
+  </div>
+  <div class="tldr-pc-benchmark" id="pc_benchmark"></div>
+
+  <div class="tldr-pc-gate" id="pc_gate">
+    <h4>See your three biggest levers</h4>
+    <p>Enter your email and we'll show you which changes will move your numbers fastest, plus send you our quarterly tax checklist for therapists.</p>
+    <form class="tldr-pc-gate-form" id="pc_gate_form">
+      <input type="email" id="pc_email" placeholder="your@email.com" required>
+      <button type="submit">Unlock</button>
+    </form>
+  </div>
+</div>
+
+<div class="tldr-pc-cta">
+  <h3>Want help getting from where you are to where you want to be?</h3>
+  <p>Book a free, no-pressure call. We'll look at your actual books and tell you what's realistic.</p>
+  <a href="/lets-chat/">Book a Lets Chat Call</a>
+</div>
+
+<div class="tldr-pc-related">
+  Thinking about going S-Corp? Use our <a href="/s-corp-vs-pllc-calculator/">S-Corp vs PLLC Tax Calculator for Therapists</a> next.
+</div>
+
+<div class="tldr-pc-tldr">
+  <strong>TL;DR:</strong> Knowing your number is the first step. Hitting it is what we help with.
+</div>
+
+</div>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var fmt=function(n){return '$'+Math.round(n).toLocaleString('en-US')};
+  var WEEKS_PER_MO=4.33;
+
+  // Bind slider <-> number input pairs
+  var pairs=[['pc_clin_slider','pc_clinicians'],['pc_cpw_slider','pc_cpw'],['pc_pp_slider','pc_pp'],['pc_ins_slider','pc_ins'],['pc_mix_slider','pc_mix'],['pc_owner_slider','pc_owner']];
+  pairs.forEach(function(p){
+    var s=$(p[0]),n=$(p[1]);
+    if(!s||!n)return;
+    s.addEventListener('input',function(){n.value=s.value;compute()});
+    n.addEventListener('input',function(){s.value=n.value;compute()});
+  });
+
+  // Practice-type toggle
+  document.querySelectorAll('input[name="pc_type"]').forEach(function(r){
+    r.addEventListener('change',function(){
+      var isGroup=document.querySelector('input[name="pc_type"]:checked').value==='group';
+      $('pc_owner_wrap').style.display=isGroup?'block':'none';
+      if(isGroup&&parseInt($('pc_clinicians').value,10)<2){$('pc_clinicians').value=3;$('pc_clin_slider').value=3}
+      if(!isGroup){$('pc_clinicians').value=1;$('pc_clin_slider').value=1}
+      compute();
+    });
+  });
+
+  $('pc_session').addEventListener('change',compute);
+
+  function compute(){
+    var isGroup=document.querySelector('input[name="pc_type"]:checked').value==='group';
+    var clin=Math.max(1,parseInt($('pc_clinicians').value,10)||1);
+    var cpw=Math.max(1,parseInt($('pc_cpw').value,10)||1);
+    var pp=Math.max(0,parseFloat($('pc_pp').value)||0);
+    var ins=Math.max(0,parseFloat($('pc_ins').value)||0);
+    var mix=Math.min(100,Math.max(0,parseFloat($('pc_mix').value)||0))/100;
+    var ownerPct=Math.min(100,Math.max(0,parseFloat($('pc_owner').value)||35))/100;
+
+    var rps=mix*pp+(1-mix)*ins;
+    var revPerClinPerWk=cpw*rps;
+    var monthlyRev=revPerClinPerWk*WEEKS_PER_MO*clin;
+    var margin=isGroup?0.45:0.55;
+    var profitBeforeOwner=monthlyRev*margin;
+
+    var ownerTake, profitLabel, profitSub;
+    if(isGroup){
+      ownerTake=profitBeforeOwner*ownerPct;
+      profitLabel='Your monthly take';
+      profitSub='Owner share of practice profit';
+    } else {
+      ownerTake=profitBeforeOwner;
+      profitLabel='Monthly profit';
+      profitSub='After overhead, before tax';
+    }
+
+    $('pc_rev').textContent=fmt(monthlyRev);
+    $('pc_profit').textContent=fmt(ownerTake);
+    $('pc_profit_label').textContent=profitLabel;
+    $('pc_profit_sub').textContent=profitSub;
+    $('pc_annual').textContent=fmt(ownerTake*12);
+
+    // Lever calculations (impact on monthly REVENUE — then apply same margin + owner share)
+    var ownerShareOfMargin=isGroup?(margin*ownerPct):margin;
+
+    var lever1Delta=(pp*0.10)*mix*cpw*WEEKS_PER_MO*clin*ownerShareOfMargin;
+    var newMix=Math.min(1,mix+0.10);
+    var newRps=newMix*pp+(1-newMix)*ins;
+    var lever2Delta=(newRps-rps)*cpw*WEEKS_PER_MO*clin*ownerShareOfMargin;
+    var lever3Delta=rps*WEEKS_PER_MO*clin*ownerShareOfMargin;
+    var lever4Delta=isGroup?(revPerClinPerWk*WEEKS_PER_MO*ownerShareOfMargin):null;
+
+    var levers=[
+      {t:'Raise your private pay rate by 10%',d:lever1Delta},
+      {t:'Shift 10 points of mix toward private pay',d:lever2Delta},
+      {t:'Add one client per clinician per week',d:lever3Delta}
+    ];
+    if(isGroup)levers.push({t:'Add one more clinician at current ratios',d:lever4Delta});
+    levers.sort(function(a,b){return b.d-a.d});
+    var top=levers.slice(0,3);
+    var lis=document.querySelectorAll('#pc_lever_list .tldr-pc-lever');
+    for(var i=0;i<3;i++){
+      lis[i].querySelector('.title').textContent=top[i].t;
+      lis[i].querySelector('.delta').textContent='+'+fmt(top[i].d)+'/month';
+    }
+
+    // Benchmark line
+    var mixPct=Math.round(mix*100);
+    var msg;
+    if(mixPct>=70){
+      msg="You're at "+mixPct+"% private pay, which is where established therapy practices typically land. Your top lever above is where your next gain comes from.";
+    } else if(mixPct>=50){
+      msg="You're at "+mixPct+"% private pay. Most established TL;DR clients run 70%+ private pay by their third year. Each 10 points of mix shift is worth roughly "+fmt(Math.abs(lever2Delta))+"/month at your current rates.";
+    } else {
+      msg="You're at "+mixPct+"% private pay. Therapy practices that lean insurance often plateau on revenue. Shifting 10 points toward private pay would add about "+fmt(Math.abs(lever2Delta))+"/month at your current rates.";
+    }
+    $('pc_benchmark').textContent=msg;
+
+    // Track
+    if(window.gtag){window.gtag('event','calculator_run',{calculator_name:'profit-planning',monthly_revenue:Math.round(monthlyRev),mix_pct:mixPct})}
+  }
+
+  // Email gate
+  var GATE_KEY='tldr_pc_unlocked';
+  function unlock(){
+    var g=$('pc_gate');
+    if(g)g.style.display='none';
+    try{localStorage.setItem(GATE_KEY,'1')}catch(e){}
+  }
+  if(localStorage.getItem(GATE_KEY)==='1')unlock();
+
+  $('pc_gate_form').addEventListener('submit',function(e){
+    e.preventDefault();
+    var email=$('pc_email').value.trim();
+    if(!email||email.indexOf('@')===-1)return;
+    if(window.gtag){window.gtag('event','calculator_email_capture',{calculator_name:'profit-planning'})}
+    // Post to TL;DR's existing ConvertKit endpoint via CF7-style submission
+    var fd=new FormData();
+    fd.append('email',email);
+    fd.append('source','profit-planning-calculator');
+    fd.append('tag','profit-calculator-lead');
+    fetch('/wp-json/tldr/v1/calc-lead',{method:'POST',body:fd,credentials:'omit'}).catch(function(){});
+    unlock();
+  });
+
+  compute();
+})();
+</script></div>
+</body>
+</html>

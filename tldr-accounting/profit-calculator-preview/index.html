@@ -5,89 +5,153 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Profit Planning Calculator for Therapists — TL;DR: Accounting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#222;line-height:1.6}
-.draft-banner{background:#f7fbfd;border-bottom:1px solid #d6ecf6;color:#00688a;padding:10px 24px;font-size:13px;text-align:center}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#fff;font-family:'Inter',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#1a2733;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:#00a4d6;text-decoration:none}
+a:hover{color:#006489}
+
+.draft-banner{background:#e8f4fb;border-bottom:1px solid #c5e3f1;color:#006489;padding:10px 24px;font-size:13px;text-align:center;font-family:'Inter',sans-serif}
 .draft-banner strong{color:#00a4d6}
-.site-header{background:#fff;border-bottom:1px solid #eef0f2;padding:18px 24px;text-align:center}
-.site-header .brand{font-size:22px;font-weight:700;color:#00a4d6;letter-spacing:.5px}
-.site-header .tagline{font-size:13px;color:#7a8896;margin-top:2px}
-.page-hero{max-width:980px;margin:0 auto;padding:48px 24px 8px;text-align:left}
-.page-hero h1{margin:0 0 8px;font-size:36px;color:#222;line-height:1.15}
-.page-hero .subhead{margin:0;font-size:18px;color:#5a6b78;font-weight:400}
-.calc-section{padding:0 24px 60px}
+
+.site-header{background:#fff;border-bottom:1px solid #eef0f2;position:sticky;top:0;z-index:10;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.site-header-inner{max-width:1240px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.site-header .brand{display:flex;align-items:center;gap:14px;text-decoration:none}
+.site-header .brand img{width:48px;height:48px}
+.site-header .brand .wordmark{font-family:'Poppins',sans-serif;font-size:20px;font-weight:700;color:#1a2733;letter-spacing:-.5px}
+.site-header .brand .wordmark span{color:#00a4d6}
+.site-nav{display:flex;align-items:center;gap:28px}
+.site-nav a{color:#1a2733;font-size:14px;font-weight:500;transition:color .15s}
+.site-nav a:hover{color:#00a4d6}
+.site-cta{background:#00a4d6;color:#fff;padding:10px 22px;border-radius:30px;font-size:14px;font-weight:600;transition:background .15s}
+.site-cta:hover{background:#006489;color:#fff}
+@media (max-width:880px){.site-nav{display:none}.site-header-inner{padding:14px 20px}}
+
+.page-hero{background:linear-gradient(180deg,#f4f9fc 0%,#fff 100%);padding:64px 32px 32px}
+.page-hero-inner{max-width:1080px;margin:0 auto}
+.page-hero .eyebrow{font-size:13px;font-weight:600;color:#00a4d6;text-transform:uppercase;letter-spacing:1px;margin:0 0 12px}
+.page-hero h1{font-family:'Poppins',sans-serif;margin:0 0 12px;font-size:42px;color:#1a2733;line-height:1.12;font-weight:700;letter-spacing:-.5px}
+.page-hero .subhead{margin:0;font-size:19px;color:#5a6b78;font-weight:400;max-width:760px}
+@media (max-width:680px){.page-hero h1{font-size:30px}.page-hero{padding:40px 20px 24px}.page-hero .subhead{font-size:16px}}
+
+.calc-section{padding:24px 32px 80px;max-width:1080px;margin:0 auto}
+@media (max-width:680px){.calc-section{padding:16px 20px 60px}}
+
+.site-footer{background:#0f1e2c;color:#a8b6c2;padding:48px 32px 24px;font-family:'Inter',sans-serif}
+.site-footer-inner{max-width:1240px;margin:0 auto}
+.site-footer-row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-start;gap:32px;padding-bottom:32px;border-bottom:1px solid #1d3041}
+.site-footer .brand-block{flex:1;min-width:240px}
+.site-footer .brand-block .wordmark{font-family:'Poppins',sans-serif;font-size:22px;font-weight:700;color:#fff;letter-spacing:-.5px;margin-bottom:8px}
+.site-footer .brand-block .wordmark span{color:#00a4d6}
+.site-footer .brand-block .tagline{font-size:14px;color:#a8b6c2;max-width:300px}
+.site-footer-nav{display:flex;flex-wrap:wrap;gap:24px;font-size:14px}
+.site-footer-nav a{color:#a8b6c2;font-weight:500}
+.site-footer-nav a:hover{color:#00a4d6}
+.site-footer-social{display:flex;gap:10px}
+.site-footer-social a{display:flex;align-items:center;justify-content:center;width:36px;height:36px;background:rgba(255,255,255,.08);border-radius:50%;transition:background .15s}
+.site-footer-social a:hover{background:#00a4d6}
+.site-footer-social svg{width:18px;height:18px;fill:#fff}
+.site-footer-bottom{padding-top:20px;font-size:13px;color:#6b7d8c;text-align:center}
+@media (max-width:680px){.site-footer{padding:32px 20px 20px}.site-footer-row{flex-direction:column}}
+
+.tldr-pc-wrap{max-width:980px;margin:0 auto;font-family:'Inter',sans-serif;color:#1a2733}
+.tldr-pc-intro{font-size:17px;line-height:1.6;margin:0 0 32px;color:#3a4a5a}
+.tldr-pc-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin:24px 0}
+@media (max-width:760px){.tldr-pc-grid{grid-template-columns:1fr;gap:16px}}
+.tldr-pc-card{background:#fff;border:1px solid #e2eef6;border-radius:16px;padding:28px;box-shadow:0 1px 4px rgba(0,80,120,.04)}
+.tldr-pc-card h3{margin:0 0 18px;font-family:'Poppins',sans-serif;font-size:14px;color:#00688a;text-transform:uppercase;letter-spacing:1.2px;font-weight:700}
+.tldr-pc-field{margin:16px 0}
+.tldr-pc-field label{display:block;font-size:14px;font-weight:600;margin-bottom:8px;color:#1a2733}
+.tldr-pc-field input[type="number"],.tldr-pc-field select{width:100%;padding:11px 14px;border:1.5px solid #d6e3ec;border-radius:10px;font-size:15px;background:#fff;color:#1a2733;font-family:inherit;transition:all .15s}
+.tldr-pc-field input[type="number"]:focus,.tldr-pc-field select:focus{outline:none;border-color:#00a4d6;box-shadow:0 0 0 3px rgba(0,164,214,.15)}
+.tldr-pc-field .tldr-pc-hint{font-size:12.5px;color:#7a8896;margin-top:6px;font-style:italic}
+.tldr-pc-radios{display:flex;gap:8px;margin-top:4px}
+.tldr-pc-radios label{flex:1;text-align:center;padding:11px;border:1.5px solid #d6e3ec;border-radius:10px;background:#fff;cursor:pointer;font-weight:600;font-size:14px;transition:all .15s;color:#1a2733}
+.tldr-pc-radios input[type="radio"]{display:none}
+.tldr-pc-radios label:has(input:checked){background:#00a4d6;border-color:#00a4d6;color:#fff}
+.tldr-pc-slider-row{display:flex;align-items:center;gap:12px}
+.tldr-pc-slider-row input[type="range"]{flex:1;accent-color:#00a4d6}
+.tldr-pc-slider-row input[type="number"]{width:96px;flex:none;text-align:center}
+
+.tldr-pc-results{margin-top:32px;padding:32px;background:linear-gradient(135deg,#00a4d6 0%,#006489 100%);color:#fff;border-radius:18px;box-shadow:0 8px 24px rgba(0,104,137,.15)}
+.tldr-pc-results h3{margin:0 0 22px;font-family:'Poppins',sans-serif;font-size:14px;text-transform:uppercase;letter-spacing:1.5px;opacity:.95;font-weight:700}
+.tldr-pc-headlines{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:760px){.tldr-pc-headlines{grid-template-columns:1fr}}
+.tldr-pc-stat{background:rgba(255,255,255,.14);padding:22px;border-radius:12px;backdrop-filter:blur(8px)}
+.tldr-pc-stat .label{font-size:12px;text-transform:uppercase;letter-spacing:.5px;opacity:.9;font-weight:600}
+.tldr-pc-stat .value{font-family:'Poppins',sans-serif;font-size:34px;font-weight:700;margin-top:8px;line-height:1;letter-spacing:-.5px}
+.tldr-pc-stat .sub{font-size:13px;opacity:.85;margin-top:6px}
+
+.tldr-pc-levers{margin-top:28px;background:#fff;border:1px solid #e2eef6;border-radius:18px;padding:0;overflow:hidden;position:relative;box-shadow:0 1px 4px rgba(0,80,120,.04)}
+.tldr-pc-levers-header{padding:26px 28px 16px;border-bottom:1px solid #f1f6f9}
+.tldr-pc-levers-header h3{margin:0 0 6px;font-family:'Poppins',sans-serif;font-size:20px;color:#1a2733;font-weight:700;letter-spacing:-.3px}
+.tldr-pc-levers-header p{margin:0;font-size:15px;color:#5a6b78}
+.tldr-pc-lever-list{padding:8px 28px 24px}
+.tldr-pc-lever{display:flex;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid #f1f6f9}
+.tldr-pc-lever:last-child{border-bottom:none}
+.tldr-pc-lever-rank{width:40px;height:40px;background:linear-gradient(135deg,#00a4d6,#006489);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:17px;flex:none;font-family:'Poppins',sans-serif}
+.tldr-pc-lever-body{flex:1}
+.tldr-pc-lever-body .title{font-weight:600;color:#1a2733;font-size:15px}
+.tldr-pc-lever-body .delta{font-size:14px;color:#00688a;margin-top:4px;font-weight:700}
+.tldr-pc-benchmark{margin:0 28px 28px;padding:16px 18px;background:#fffbf0;border-left:3px solid #f0b400;font-size:14px;color:#5a4a00;border-radius:0 10px 10px 0;line-height:1.55}
+.tldr-pc-gate{position:absolute;inset:0;backdrop-filter:blur(10px);background:rgba(255,255,255,.78);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:32px;text-align:center}
+.tldr-pc-gate h4{margin:0 0 10px;font-family:'Poppins',sans-serif;font-size:22px;color:#1a2733;font-weight:700;letter-spacing:-.3px}
+.tldr-pc-gate p{margin:0 0 20px;font-size:14.5px;color:#5a6b78;max-width:400px;line-height:1.55}
+.tldr-pc-gate-form{display:flex;gap:8px;max-width:400px;width:100%}
+.tldr-pc-gate-form input[type="email"]{flex:1;padding:13px 16px;border:1.5px solid #d6e3ec;border-radius:10px;font-size:14px;font-family:inherit}
+.tldr-pc-gate-form input[type="email"]:focus{outline:none;border-color:#00a4d6;box-shadow:0 0 0 3px rgba(0,164,214,.15)}
+.tldr-pc-gate-form button{padding:13px 26px;background:#00a4d6;color:#fff;border:none;border-radius:10px;font-weight:700;cursor:pointer;font-size:14px;font-family:inherit;transition:background .15s}
+.tldr-pc-gate-form button:hover{background:#006489}
+
+.tldr-pc-cta{margin-top:36px;padding:40px;text-align:center;background:linear-gradient(180deg,#f4f9fc,#e8f4fb);border-radius:18px}
+.tldr-pc-cta h3{margin:0 0 12px;font-family:'Poppins',sans-serif;font-size:24px;color:#1a2733;font-weight:700;letter-spacing:-.3px}
+.tldr-pc-cta p{margin:0 0 22px;font-size:15.5px;color:#5a6b78}
+.tldr-pc-cta a{display:inline-block;padding:14px 36px;background:#00a4d6;color:#fff;text-decoration:none;border-radius:30px;font-weight:700;font-size:15px;transition:background .15s}
+.tldr-pc-cta a:hover{background:#006489;color:#fff}
+
+.tldr-pc-related{margin-top:24px;padding:22px 26px;border:1px dashed #c5e3f1;border-radius:12px;font-size:14.5px;color:#5a6b78;background:#fafdfe}
+.tldr-pc-related a{color:#00688a;font-weight:600}
+
+.tldr-pc-tldr{margin-top:28px;padding:22px 26px;background:#0f1e2c;color:#fff;border-radius:12px;font-size:16px;line-height:1.55}
+.tldr-pc-tldr strong{color:#00a4d6;font-family:'Poppins',sans-serif;font-weight:700}
 </style>
 </head>
 <body>
+
 <div class="draft-banner">
   <strong>Draft preview</strong> — final version will live at tldraccounting.com/profit-planning-calculator-therapists/
 </div>
-<div class="site-header">
-  <div class="brand">TL;DR: Accounting</div>
-  <div class="tagline">Taxes and accounting made simple — for therapists in private practice</div>
-</div>
-<div class="page-hero">
-  <h1>Profit Planning Calculator for Therapists</h1>
-  <p class="subhead">Find out what your private practice can actually earn, and what to change to earn more.</p>
-</div>
-<div class="calc-section">
-<style>
-.tldr-pc-wrap{max-width:980px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#222}
-.tldr-pc-intro{font-size:17px;line-height:1.6;margin:18px 0 28px}
-.tldr-pc-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin:24px 0}
-@media (max-width:760px){.tldr-pc-grid{grid-template-columns:1fr}}
-.tldr-pc-card{background:#f7fbfd;border:1px solid #d6ecf6;border-radius:14px;padding:24px}
-.tldr-pc-card h3{margin:0 0 16px;font-size:17px;color:#00688a;text-transform:uppercase;letter-spacing:.5px}
-.tldr-pc-field{margin:14px 0}
-.tldr-pc-field label{display:block;font-size:14px;font-weight:600;margin-bottom:6px;color:#333}
-.tldr-pc-field input[type="number"],.tldr-pc-field select{width:100%;padding:10px 12px;border:1px solid #cfd8df;border-radius:8px;font-size:15px;background:#fff;color:#222;box-sizing:border-box}
-.tldr-pc-field input[type="number"]:focus,.tldr-pc-field select:focus{outline:none;border-color:#00a4d6;box-shadow:0 0 0 3px rgba(0,164,214,.18)}
-.tldr-pc-field .tldr-pc-hint{font-size:12px;color:#7a8896;margin-top:4px}
-.tldr-pc-radios{display:flex;gap:10px;margin-top:4px}
-.tldr-pc-radios label{flex:1;text-align:center;padding:10px;border:1px solid #cfd8df;border-radius:8px;background:#fff;cursor:pointer;font-weight:600;font-size:14px;transition:all .15s}
-.tldr-pc-radios input[type="radio"]{display:none}
-.tldr-pc-radios input[type="radio"]:checked + span{color:#fff}
-.tldr-pc-radios label:has(input:checked){background:#00a4d6;border-color:#00a4d6;color:#fff}
-.tldr-pc-slider-row{display:flex;align-items:center;gap:12px}
-.tldr-pc-slider-row input[type="range"]{flex:1}
-.tldr-pc-slider-row input[type="number"]{width:90px;flex:none}
-.tldr-pc-results{margin-top:32px;padding:28px;background:linear-gradient(135deg,#00a4d6,#0086b3);color:#fff;border-radius:16px}
-.tldr-pc-results h3{margin:0 0 18px;font-size:16px;text-transform:uppercase;letter-spacing:1px;opacity:.9}
-.tldr-pc-headlines{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-@media (max-width:760px){.tldr-pc-headlines{grid-template-columns:1fr}}
-.tldr-pc-stat{background:rgba(255,255,255,.12);padding:18px;border-radius:10px}
-.tldr-pc-stat .label{font-size:12px;text-transform:uppercase;letter-spacing:.5px;opacity:.85}
-.tldr-pc-stat .value{font-size:30px;font-weight:700;margin-top:6px;line-height:1.1}
-.tldr-pc-stat .sub{font-size:13px;opacity:.85;margin-top:4px}
-.tldr-pc-levers{margin-top:32px;background:#fff;border:1px solid #e1eff7;border-radius:14px;padding:0;overflow:hidden;position:relative}
-.tldr-pc-levers-header{padding:22px 24px 14px;border-bottom:1px solid #eef5fa}
-.tldr-pc-levers-header h3{margin:0 0 6px;font-size:18px;color:#00688a}
-.tldr-pc-levers-header p{margin:0;font-size:14px;color:#5a6b78}
-.tldr-pc-lever-list{padding:8px 24px 24px}
-.tldr-pc-lever{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid #f0f5f8}
-.tldr-pc-lever:last-child{border-bottom:none}
-.tldr-pc-lever-rank{width:38px;height:38px;background:#00a4d6;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:16px;flex:none}
-.tldr-pc-lever-body{flex:1}
-.tldr-pc-lever-body .title{font-weight:600;color:#222;font-size:15px}
-.tldr-pc-lever-body .delta{font-size:14px;color:#00688a;margin-top:2px;font-weight:600}
-.tldr-pc-benchmark{margin:18px 24px 24px;padding:14px 16px;background:#fff8e1;border-left:3px solid #f0b400;font-size:14px;color:#5a4a00;border-radius:0 8px 8px 0}
-.tldr-pc-gate{position:absolute;inset:0;backdrop-filter:blur(8px);background:rgba(255,255,255,.65);display:flex;align-items:center;justify-content:center;flex-direction:column;padding:24px;text-align:center}
-.tldr-pc-gate h4{margin:0 0 8px;font-size:20px;color:#222}
-.tldr-pc-gate p{margin:0 0 18px;font-size:14px;color:#5a6b78;max-width:380px}
-.tldr-pc-gate-form{display:flex;gap:8px;max-width:380px;width:100%}
-.tldr-pc-gate-form input[type="email"]{flex:1;padding:12px 14px;border:1px solid #cfd8df;border-radius:8px;font-size:14px}
-.tldr-pc-gate-form button{padding:12px 22px;background:#00a4d6;color:#fff;border:none;border-radius:8px;font-weight:700;cursor:pointer;font-size:14px}
-.tldr-pc-gate-form button:hover{background:#0086b3}
-.tldr-pc-cta{margin-top:30px;padding:30px;text-align:center;background:#f7fbfd;border-radius:14px}
-.tldr-pc-cta h3{margin:0 0 10px;font-size:22px;color:#222}
-.tldr-pc-cta p{margin:0 0 18px;font-size:15px;color:#5a6b78}
-.tldr-pc-cta a{display:inline-block;padding:14px 32px;background:#00a4d6;color:#fff;text-decoration:none;border-radius:8px;font-weight:700;font-size:16px}
-.tldr-pc-cta a:hover{background:#0086b3}
-.tldr-pc-related{margin-top:24px;padding:20px;border:1px dashed #cfd8df;border-radius:10px;font-size:14px;color:#5a6b78}
-.tldr-pc-related a{color:#00688a;font-weight:600}
-.tldr-pc-tldr{margin-top:24px;padding:18px 22px;background:#222;color:#fff;border-radius:10px;font-size:15px;line-height:1.5}
-.tldr-pc-tldr strong{color:#00a4d6}
-</style>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="brand" href="https://www.tldraccounting.com">
+      <img src="https://www.tldraccounting.com/wp-content/uploads/2022/10/image-3-1.svg" alt="TL;DR Accounting">
+      <span class="wordmark">TL;DR<span>:</span> Accounting</span>
+    </a>
+    <nav class="site-nav">
+      <a href="https://www.tldraccounting.com/accounting-for-therapists/">What We Do</a>
+      <a href="https://www.tldraccounting.com/pricing/">Pricing</a>
+      <a href="https://www.tldraccounting.com/the-team/">Meet The Team</a>
+      <a href="http://learn.tldraccounting.com">Courses</a>
+      <a href="https://www.tldraccounting.com/tldr-blog/">Blog</a>
+    </nav>
+    <a class="site-cta" href="https://www.tldraccounting.com/lets-chat/">Let's Chat</a>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <p class="eyebrow">Free calculator for therapists</p>
+    <h1>Profit Planning Calculator for Therapists</h1>
+    <p class="subhead">Find out what your private practice can actually earn, and what to change to earn more.</p>
+  </div>
+</section>
+
+<main class="calc-section">
 
 <div class="tldr-pc-wrap">
 
@@ -219,11 +283,11 @@ body{margin:0;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Sego
 <div class="tldr-pc-cta">
   <h3>Want help getting from where you are to where you want to be?</h3>
   <p>Book a free, no-pressure call. We'll look at your actual books and tell you what's realistic.</p>
-  <a href="/lets-chat/">Book a Lets Chat Call</a>
+  <a href="https://www.tldraccounting.com/lets-chat/">Book a Let's Chat Call</a>
 </div>
 
 <div class="tldr-pc-related">
-  Thinking about going S-Corp? Use our <a href="/s-corp-vs-pllc-calculator/">S-Corp vs PLLC Tax Calculator for Therapists</a> next.
+  Thinking about going S-Corp? Use our <a href="https://www.tldraccounting.com/s-corp-vs-pllc-calculator/">S-Corp vs PLLC Tax Calculator for Therapists</a> next.
 </div>
 
 <div class="tldr-pc-tldr">
@@ -231,6 +295,29 @@ body{margin:0;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Sego
 </div>
 
 </div>
+</main>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <div class="site-footer-row">
+      <div class="brand-block">
+        <div class="wordmark">TL;DR<span>:</span> Accounting</div>
+        <div class="tagline">Taxes and accounting made simple, for therapists in private practice.</div>
+      </div>
+      <nav class="site-footer-nav">
+        <a href="https://www.tldraccounting.com/">Home</a>
+        <a href="https://learn.tldraccounting.com/collections">All Courses</a>
+        <a href="https://www.tldraccounting.com/privacy-policy/">Privacy Policy</a>
+        <a href="https://www.tldraccounting.com/terms-and-conditions/">Terms and Conditions</a>
+      </nav>
+      <div class="site-footer-social">
+        <a href="https://www.linkedin.com/company/tl-dr-accounting" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg></a>
+        <a href="https://www.facebook.com/tldraccounting" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg></a>
+      </div>
+    </div>
+    <div class="site-footer-bottom">© Copyright TL;DR: Accounting 2026</div>
+  </div>
+</footer>
 
 <script>
 (function(){
@@ -238,7 +325,6 @@ body{margin:0;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Sego
   var fmt=function(n){return '$'+Math.round(n).toLocaleString('en-US')};
   var WEEKS_PER_MO=4.33;
 
-  // Bind slider <-> number input pairs
   var pairs=[['pc_clin_slider','pc_clinicians'],['pc_cpw_slider','pc_cpw'],['pc_pp_slider','pc_pp'],['pc_ins_slider','pc_ins'],['pc_mix_slider','pc_mix'],['pc_owner_slider','pc_owner']];
   pairs.forEach(function(p){
     var s=$(p[0]),n=$(p[1]);
@@ -247,7 +333,6 @@ body{margin:0;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Sego
     n.addEventListener('input',function(){s.value=n.value;compute()});
   });
 
-  // Practice-type toggle
   document.querySelectorAll('input[name="pc_type"]').forEach(function(r){
     r.addEventListener('change',function(){
       var isGroup=document.querySelector('input[name="pc_type"]:checked').value==='group';
@@ -292,9 +377,7 @@ body{margin:0;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Sego
     $('pc_profit_sub').textContent=profitSub;
     $('pc_annual').textContent=fmt(ownerTake*12);
 
-    // Lever calculations (impact on monthly REVENUE — then apply same margin + owner share)
     var ownerShareOfMargin=isGroup?(margin*ownerPct):margin;
-
     var lever1Delta=(pp*0.10)*mix*cpw*WEEKS_PER_MO*clin*ownerShareOfMargin;
     var newMix=Math.min(1,mix+0.10);
     var newRps=newMix*pp+(1-newMix)*ins;
@@ -316,7 +399,6 @@ body{margin:0;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Sego
       lis[i].querySelector('.delta').textContent='+'+fmt(top[i].d)+'/month';
     }
 
-    // Benchmark line
     var mixPct=Math.round(mix*100);
     var msg;
     if(mixPct>=70){
@@ -328,11 +410,9 @@ body{margin:0;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Sego
     }
     $('pc_benchmark').textContent=msg;
 
-    // Track
     if(window.gtag){window.gtag('event','calculator_run',{calculator_name:'profit-planning',monthly_revenue:Math.round(monthlyRev),mix_pct:mixPct})}
   }
 
-  // Email gate
   var GATE_KEY='tldr_pc_unlocked';
   function unlock(){
     var g=$('pc_gate');
@@ -346,7 +426,6 @@ body{margin:0;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Sego
     var email=$('pc_email').value.trim();
     if(!email||email.indexOf('@')===-1)return;
     if(window.gtag){window.gtag('event','calculator_email_capture',{calculator_name:'profit-planning'})}
-    // Post to TL;DR's existing ConvertKit endpoint via CF7-style submission
     var fd=new FormData();
     fd.append('email',email);
     fd.append('source','profit-planning-calculator');
@@ -357,6 +436,6 @@ body{margin:0;background:#fff;font-family:-apple-system,BlinkMacSystemFont,"Sego
 
   compute();
 })();
-</script></div>
+</script>
 </body>
 </html>

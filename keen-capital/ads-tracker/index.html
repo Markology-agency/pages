@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Keen Capital, Google Ads Tracker by Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#b45309;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:72px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:48px 0;}.container{padding:0 20px;}}
+.star{position:absolute;pointer-events:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.pill.live{background:var(--good);border:2px solid var(--navy);color:#fff;box-shadow:3px 3px 0 var(--navy);}
+.hero{background:var(--paper);padding-top:88px;padding-bottom:72px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7vw,84px);line-height:0.94;letter-spacing:0.02em;color:var(--navy);margin:20px 0 0;}
+.hero .lede{font-size:18px;line-height:1.6;color:var(--mute);max-width:780px;margin-top:24px;}
+.hero .meta{margin-top:24px;display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.toolbar{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;}
+.toolbar a{font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;background:#fff;border:2px solid var(--navy);padding:8px 14px;border-radius:8px;color:var(--navy);text-decoration:none;box-shadow:3px 3px 0 var(--navy);transition:transform 0.15s ease;}
+.toolbar a:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 var(--navy);}
+.kpi-section{background:#fff;padding:56px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:22px;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.kpi:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:12px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:44px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .delta{margin-top:10px;font-size:13px;font-weight:600;color:#047857;}
+.kpi .delta.warn{color:var(--warn);}
+.kpi .delta.flat{color:var(--mute);}
+.kpi .explain{margin-top:12px;padding-top:12px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);line-height:1.5;}
+.section-head{margin-bottom:40px;max-width:860px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,60px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:14px;}
+.section-head p{font-size:16px;color:var(--mute);margin-top:14px;line-height:1.6;}
+.table-section{background:var(--paper);}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:18px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+thead{background:var(--navy);}
+th{text-align:left;padding:13px 16px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);}
+th.num,td.num{text-align:right;}
+td{padding:12px 16px;border-bottom:1px solid var(--hair);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.tag-pill{display:inline-block;padding:3px 10px;background:var(--lilac);color:var(--navy);border:1.5px solid var(--navy);border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.05em;}
+.tag-pill.done{background:#D1FAE5;}
+.tag-pill.paused{background:#FEE2E2;}
+.tag-pill.edits{background:#FED7AA;}
+.tag-pill.review{background:#FEF3C7;}
+.callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:18px 22px;margin-top:20px;box-shadow:4px 4px 0 var(--navy);}
+.callout strong{color:var(--navy);font-weight:700;}
+.callout.warn{border-left-color:var(--warn);background:#FEF3C7;}
+.priorities-section{background:#fff;}
+.priority-list{display:flex;flex-direction:column;gap:16px;}
+.priority{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:22px 26px;display:grid;grid-template-columns:50px 1fr;gap:18px;align-items:start;box-shadow:5px 5px 0 var(--navy);}
+.priority .pnum{width:50px;height:50px;border-radius:12px;background:var(--blue);color:#fff;border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:26px;display:flex;align-items:center;justify-content:center;}
+.priority h4{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);margin-bottom:6px;}
+.priority p{font-size:14px;color:var(--mute);line-height:1.55;}
+.priority p a{color:var(--blue);text-decoration:none;font-weight:600;}
+.priority p a:hover{text-decoration:underline;}
+.priority .tag{display:inline-block;margin-top:8px;padding:3px 10px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.18em;border-radius:6px;text-transform:uppercase;}
+.q-section{background:var(--lilac);}
+.q-card{background:#fff;border:2px solid var(--navy);border-radius:18px;padding:28px 30px;box-shadow:6px 6px 0 var(--navy);}
+.q-card .qlabel{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:8px;}
+.q-card h4{font-family:'Bangers',sans-serif;font-size:24px;letter-spacing:0.04em;color:var(--navy);margin-bottom:12px;line-height:1.1;}
+.q-card p{font-size:14px;color:var(--mute);line-height:1.6;}
+.q-card .opts{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px;}
+@media(max-width:720px){.q-card .opts{grid-template-columns:1fr;}}
+.q-card .opt{background:var(--paper);border:1.5px solid var(--navy);border-radius:10px;padding:14px 16px;}
+.q-card .opt strong{color:var(--navy);font-weight:700;display:block;margin-bottom:4px;font-size:13px;}
+.q-card .opt span{font-size:13px;color:var(--mute);line-height:1.5;}
+.cpl-section{background:#fff;}
+.cpl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+@media(max-width:900px){.cpl-grid{grid-template-columns:1fr;}}
+.cpl-card{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px;box-shadow:5px 5px 0 var(--navy);}
+.cpl-card:nth-child(2){background:var(--lilac);}
+.cpl-card .l{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:8px;}
+.cpl-card .v{font-family:'Bangers',sans-serif;font-size:36px;line-height:1;color:var(--navy);}
+.cpl-card .sub{font-size:13px;color:var(--mute);margin-top:8px;line-height:1.5;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:72px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(32px,4.5vw,48px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:14px;font-size:14px;}
+.footer .built-by{margin-top:32px;padding-top:24px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+.disclaimer{background:#fff;border:1.5px solid var(--hair);border-radius:10px;padding:14px 18px;margin-top:20px;font-size:12px;color:var(--mute);line-height:1.6;}
+.disclaimer strong{color:var(--navy);}
+a.taskl{color:var(--blue);text-decoration:none;font-weight:600;}
+a.taskl:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="star" style="top:80px;left:80px;transform:rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="top:200px;right:120px;transform:rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <div class="container">
+    <span class="pill live">Live Tracker</span>
+    <h1>KEEN CAPITAL<br/><span class="accent">GOOGLE ADS TRACKER.</span></h1>
+    <p class="lede">Rolling visibility on the Keen Capital Google Ads account: spend, clicks, cost-per-conversion, campaign state, and the open Asana items blocking ad optimization. One of six campaigns is currently serving impressions while the conversion-tracking rebuild and the Chapin SC landing page get finished. RIA framing applies: longer sales cycles, higher-value lead, looser daily CPL signal.</p>
+    <div class="meta">
+      <span><strong>Account:</strong> Keen Capital (Google Ads 1214513966)</span>
+      <span><strong>Period:</strong> 30-day rolling</span>
+      <span><strong>Last refreshed:</strong> May 20, 2026</span>
+    </div>
+    <div class="toolbar">
+      <a href="https://ads.google.com/aw/overview?ocid=1214513966" target="_blank">Google Ads &rarr;</a>
+      <a href="https://www.keeninvestors.com/" target="_blank">Live site &rarr;</a>
+      <a href="../may-2026/" target="_blank">May SEO report &rarr;</a>
+      <a href="../may-2026-strategy/" target="_blank">May strategy memo &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">30-Day Headline</span>
+      <h2>WHAT THE ACCOUNT<br/><span class="accent">IS DOING.</span></h2>
+      <p>Pulled from Google Ads via Pipeboard. The 30-day window represents the most recent rolling four-week period through the refresh date above.</p>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Ads Spend (30d)</div>
+        <div class="value">$202.83</div>
+        <div class="delta flat">Single active campaign</div>
+        <div class="explain">All spend traced to one campaign: Leads-Search-November_Maximise clicks. Daily pacing roughly $6.70.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Clicks (30d)</div>
+        <div class="value">73</div>
+        <div class="delta">3.88% CTR</div>
+        <div class="explain">CTR is healthy for RIA search ads in this range. Maximize-clicks bidding strategy doing what it says on the tin.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Conversions (30d)</div>
+        <div class="value">4</div>
+        <div class="delta warn">Tracking under audit</div>
+        <div class="explain">Reported conversion count. Conversion-tracking audit is in Edits Needed, so the underlying event definition is being verified before optimization signal is trusted.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Cost per Conversion</div>
+        <div class="value">$50.71</div>
+        <div class="delta">Within RIA range</div>
+        <div class="explain">RIA HNW lead-gen CPL typically lands $75 to $200. $50.71 is healthy IF the tracked event represents a real qualified inquiry, which is what the audit is verifying.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Campaign State</span>
+      <h2>ONE OF SIX<br/><span class="accent">CURRENTLY LIVE.</span></h2>
+      <p>Six campaigns exist in the account. Only one is currently serving impressions. The other five are paused while the conversion-tracking rebuild and the new Chapin SC landing page get finished.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Campaign</th><th class="num">Status</th><th class="num">30-Day Spend</th><th class="num">Clicks</th><th class="num">Conversions</th><th class="num">Cost/Conv</th></tr></thead>
+        <tbody>
+          <tr><td>Leads-Search-November_Maximise clicks</td><td class="num"><span class="tag-pill done">ENABLED</span></td><td class="num">$202.83</td><td class="num">73</td><td class="num">4</td><td class="num">$50.71</td></tr>
+          <tr><td>Leads-Search-November Exp_Max conversions</td><td class="num"><span class="tag-pill done">ENABLED</span></td><td class="num">$0.00</td><td class="num">0</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>May A/B Campaign</td><td class="num"><span class="tag-pill paused">PAUSED</span></td><td class="num">$0.00</td><td class="num">0</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Leads-Search-November Exp_Exact Match Keywords</td><td class="num"><span class="tag-pill paused">PAUSED</span></td><td class="num">$0.00</td><td class="num">0</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Leads-Search-28th-Aug</td><td class="num"><span class="tag-pill paused">PAUSED</span></td><td class="num">$0.00</td><td class="num">0</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Performance-Max-11-SEP</td><td class="num"><span class="tag-pill paused">PAUSED</span></td><td class="num">$0.00</td><td class="num">0</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn"><strong>Why so much is paused:</strong> Three Asana tasks are gating the account reactivation. The conversion-tracking audit (W1, Edits Needed) has to confirm the event definition before any optimization signal can be trusted. Two A/B Manage Google Ads Campaign tasks (W2 + W3, Edits Needed) hold the relaunch of the experimental campaigns. Reactivation cascade unblocks once tracking is verified and the Chapin SC landing page goes live.</div>
+  </div>
+</section>
+
+<section class="cpl-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">RIA CPL Framing</span>
+      <h2>WHAT $50 PER LEAD<br/><span class="accent">ACTUALLY MEANS.</span></h2>
+      <p>RIA lead-gen runs on different math than accounting or restaurant CFO accounts. The sales cycle is longer, the qualified-prospect bar is higher, and the lifetime value of a single HNW client justifies a CPL multiple of what an SMB practice would tolerate. Three benchmarks to keep in view before treating the current $50.71 cost-per-conv as either "too high" or "too low."</p>
+    </div>
+    <div class="cpl-grid">
+      <div class="cpl-card">
+        <div class="l">Typical RIA HNW CPL range</div>
+        <div class="v">$75 - $200</div>
+        <div class="sub">Industry benchmark for HNW prospect lead-gen via paid search. Below this band is suspiciously cheap (worth checking the tracked event definition). Above this band is normal until late funnel converts.</div>
+      </div>
+      <div class="cpl-card">
+        <div class="l">Current Keen Capital CPL (30d)</div>
+        <div class="v">$50.71</div>
+        <div class="sub">Below the typical RIA band. Either a strong early signal OR a sign that the tracked conversion event is a soft action (page view, scroll) rather than a real inquiry. Tracking audit is what tells the difference.</div>
+      </div>
+      <div class="cpl-card">
+        <div class="l">Sales cycle, HNW prospect to client</div>
+        <div class="v">60 - 180 days</div>
+        <div class="sub">RIA HNW prospects rarely convert on a single touch. A "conversion" in Google Ads is the start of a sales journey, not the end. Optimizing on a 30-day window means optimizing for cycle-start signals, not closes.</div>
+      </div>
+    </div>
+    <div class="callout"><strong>The framing:</strong> Don't treat the $50.71 CPL like a Vast CFO or BizBud-type accounting lead. RIA economics support spending more per lead because each closed HNW client represents a multi-year AUM relationship. The question isn't "is $50 cheap?" — it's "is the event that triggered the $50 count a real qualified prospect signal?" That's what the conversion-tracking audit answers.</div>
+  </div>
+</section>
+
+<section class="q-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Open Decision</span>
+      <h2>WHAT COUNTS AS<br/><span class="accent">A CONVERSION?</span></h2>
+      <p>The blocker on every ad reactivation: defining the conversion event Thomas considers a "qualified lead." Four candidate events live on the site today. Each one optimizes the campaign toward a different downstream behavior.</p>
+    </div>
+    <div class="q-card">
+      <div class="qlabel">Conversion Event Definition &middot; Open</div>
+      <h4>Which behavior is the Google Ads optimization target?</h4>
+      <p>Until this is locked, the audit task can't fully close and the A/B campaigns can't relaunch with confidence. Markology recommends choosing one primary event and demoting the others to secondary signals.</p>
+      <div class="opts">
+        <div class="opt"><strong>Calendly booking</strong><span>Highest-intent event. A booked discovery call is a real qualified-prospect signal. Lowest volume of the four, so optimization signal is sparse on the current $200/month spend. Best primary event when budget scales up.</span></div>
+        <div class="opt"><strong>Contact form submission</strong><span>Mid-intent. Some real prospects, some general inquiries. Higher volume than Calendly so the optimization algorithm has more to learn from. Common default for HNW lead-gen accounts. Markology recommendation for current spend scale.</span></div>
+        <div class="opt"><strong>Phone call (call tracking)</strong><span>High-intent but underused on the current site. Requires call-tracking number setup. Worth adding as a secondary conversion once budget scales.</span></div>
+        <div class="opt"><strong>Financial-snapshot intake</strong><span>Highest-intent of all if the intake form goes deep (assets, goals, timeline). Lowest-volume. Best as a bottom-funnel event for retargeting and downstream nurture, not as the primary ads optimization signal.</span></div>
+      </div>
+      <p style="margin-top:14px;"><strong>Markology recommendation:</strong> Contact form as primary conversion event. Calendly booking as secondary. Both reported in Google Ads, with Smart Bidding optimizing on contact form. Re-evaluate the split once monthly spend crosses $1,000 and Calendly bookings have enough volume to optimize against directly.</p>
+    </div>
+  </div>
+</section>
+
+<section class="priorities-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Open Asana Action Items</span>
+      <h2>WHAT'S GATING<br/><span class="accent">REACTIVATION.</span></h2>
+      <p>Three tasks have to clear before the paused campaigns turn back on. All three sit in Edits Needed status on the May 2026 board. Rebuild is the blocker.</p>
+    </div>
+    <div class="priority-list">
+      <div class="priority">
+        <div class="pnum">01</div>
+        <div>
+          <h4>Audit + fix Google Ads conversion tracking</h4>
+          <p><a href="https://app.asana.com/0/0/1214573399718974" class="taskl">Asana task</a> &middot; Ads, W1, due 5/9, Edits Needed. Verifies the event definitions firing in Google Ads + GA4 match Thomas's working definition of a "qualified lead." This is the gate for everything downstream. Until the underlying conversion event is verified, the $50.71 CPL is steering by an unconfirmed signal.</p>
+          <span class="tag">Tracking &middot; W1</span>
+        </div>
+      </div>
+      <div class="priority" style="background:var(--lilac);">
+        <div class="pnum">02</div>
+        <div>
+          <h4>A/B Manage Google Ads Campaign (W2)</h4>
+          <p><a href="https://app.asana.com/0/0/1214287073263248" class="taskl">Asana task</a> &middot; Ads, W2, due 5/11, Edits Needed. Rebuild the experimental A/B campaign structure. Blocked by the tracking audit and by the conversion-event decision above. Once tracking + event are confirmed, this relaunches with a clean experiment design.</p>
+          <span class="tag">A/B &middot; W2</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">03</div>
+        <div>
+          <h4>A/B Manage Google Ads Campaign (W3)</h4>
+          <p><a href="https://app.asana.com/0/0/1214287073263256" class="taskl">Asana task</a> &middot; Ads, W3, due 5/18, Edits Needed. Second A/B campaign in the rebuild. Pairs with the new <a href="https://app.asana.com/0/0/1214573403686352" class="taskl">Chapin SC ad landing page</a> on the Development board (W3, Not Started). The landing page is the conversion target for whichever Chapin-anchored ad set gets pushed first.</p>
+          <span class="tag">A/B &middot; W3</span>
+        </div>
+      </div>
+    </div>
+    <div class="callout"><strong>The sequencing:</strong> 1) Finish the conversion-tracking audit. 2) Confirm the conversion event with Thomas. 3) Push the Chapin SC ad landing page live. 4) Relaunch the two A/B campaigns with the new event firing into the new landing. Each step gates the next. Trying to skip any of them produces noisy signal that can't be optimized against.</p>
+  </div>
+</section>
+
+<section class="table-section" style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Recommended Next 30 Days</span>
+      <h2>WHAT MARKOLOGY<br/><span class="accent">DRIVES NEXT.</span></h2>
+      <p>Sequenced plan for the next 30 days assuming the conversion-event question gets resolved in tomorrow's meeting.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Step</th><th>Deliverable</th><th>Owner</th><th class="num">Window</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Lock conversion event with Thomas (contact form recommended as primary)</td><td>Whitney + Thomas</td><td class="num">5/21 meeting</td></tr>
+          <tr><td>2</td><td>Close tracking-audit task: verify GA4 + Google Ads event match locked definition</td><td>Markology (Ads)</td><td class="num">By 5/30</td></tr>
+          <tr><td>3</td><td>Ship Chapin SC ad landing page (Development W3 task)</td><td>Markology (Dev)</td><td class="num">By 6/5</td></tr>
+          <tr><td>4</td><td>Relaunch A/B experimental campaigns with new event firing</td><td>Markology (Ads)</td><td class="num">By 6/12</td></tr>
+          <tr><td>5</td><td>First 30-day post-rebuild measurement window</td><td>Markology (Ads)</td><td class="num">By 7/12</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="disclaimer"><strong>Compliance note:</strong> All ad copy + landing page copy for Keen Capital is prepared under SEC-RIA rules. Educational, advice-oriented framing only. No specific securities, funds, or investments named. No return guarantees. No "risk-free" or "guaranteed" language. Past-performance disclaimers where relevant on any landing-page content referencing market outcomes.</div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <h2>REBUILD IS THE BLOCKER.<br/><span class="accent">SEQUENCE WINS.</span></h2>
+    <p>Conversion event, tracking audit, Chapin landing, A/B relaunch. Each step clears the next. June ships the rebuild. July measures it.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; May 20, 2026 &middot; <a href="../meeting-prep-2026-05-21/">May 21 Meeting Prep</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

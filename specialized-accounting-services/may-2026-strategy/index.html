@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SAS — Strategy Memo — May 2026 (Maintenance, July Restart) — Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--watch:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}
+.container{max-width:1100px;margin:0 auto;padding:0 32px;}
+section{padding:80px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:56px 0;}.container{padding:0 20px;}}
+.star{position:absolute;pointer-events:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.hero{background:var(--paper);padding-top:100px;padding-bottom:80px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(44px,8vw,88px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:24px 0 0;}
+.hero .lede{font-size:19px;line-height:1.6;color:var(--mute);max-width:780px;margin-top:28px;}
+.hero .meta{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.section-head{margin-bottom:40px;max-width:820px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,56px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:14px;}
+.section-head p{font-size:17px;color:var(--mute);margin-top:14px;line-height:1.6;}
+.prose{font-size:15px;line-height:1.7;color:var(--ink);max-width:820px;}
+.prose p{margin-bottom:16px;}
+.prose strong{color:var(--navy);}
+.prose a{color:var(--blue);text-decoration:none;font-weight:600;}
+.prose a:hover{text-decoration:underline;}
+.story-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:24px;}
+@media(max-width:900px){.story-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.story-grid{grid-template-columns:1fr;}}
+.story-card{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:22px;box-shadow:5px 5px 0 var(--navy);}
+.story-card .month{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:6px;}
+.story-card .num{font-family:'Bangers',sans-serif;font-size:34px;line-height:1;color:var(--navy);margin-bottom:8px;}
+.story-card h4{font-family:'Bangers',sans-serif;font-size:16px;letter-spacing:0.04em;color:var(--navy);margin-bottom:8px;line-height:1.15;}
+.story-card p{font-size:12.5px;color:var(--mute);line-height:1.5;}
+.callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:20px 24px;margin-top:24px;box-shadow:4px 4px 0 var(--navy);}
+.callout strong{color:var(--navy);font-weight:700;}
+.callout a{color:var(--blue);font-weight:600;text-decoration:none;}
+.callout a:hover{text-decoration:underline;}
+.priority-list{display:flex;flex-direction:column;gap:16px;}
+.priority{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 28px;display:grid;grid-template-columns:56px 1fr;gap:20px;align-items:start;box-shadow:5px 5px 0 var(--navy);}
+.priority .pnum{width:56px;height:56px;border-radius:14px;background:var(--blue);color:#fff;border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:30px;display:flex;align-items:center;justify-content:center;}
+.priority h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:6px;}
+.priority p{font-size:14px;color:var(--mute);line-height:1.55;margin-bottom:8px;}
+.priority p a{color:var(--blue);font-weight:600;text-decoration:none;}
+.priority p a:hover{text-decoration:underline;}
+.priority .tag{display:inline-block;margin-top:6px;padding:4px 10px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.18em;border-radius:6px;text-transform:uppercase;}
+.pipeline-table{width:100%;border-collapse:collapse;background:#fff;border:2px solid var(--navy);border-radius:14px;overflow:hidden;box-shadow:5px 5px 0 var(--navy);font-size:14px;}
+.pipeline-table thead{background:var(--navy);}
+.pipeline-table th{text-align:left;padding:14px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);}
+.pipeline-table td{padding:13px 18px;border-bottom:1px solid var(--hair);}
+.pipeline-table tr:last-child td{border-bottom:none;}
+.pipeline-table tbody tr:nth-child(even){background:var(--paper);}
+.pipeline-table a{color:var(--blue);text-decoration:none;font-weight:600;}
+.pipeline-table a:hover{text-decoration:underline;}
+.status-pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.04em;border:1.5px solid var(--navy);}
+.status-pill.in-progress{background:var(--blue);color:#fff;}
+.status-pill.internal-review{background:var(--lilac);color:var(--navy);}
+.status-pill.edits-needed{background:#fef3c7;color:#92400e;border-color:#92400e;}
+.status-pill.not-started{background:#fff;color:var(--navy);}
+.q-list{display:flex;flex-direction:column;gap:14px;}
+.q-card{background:#fff;border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:18px 22px;box-shadow:4px 4px 0 var(--navy);}
+.q-card .label{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:6px;}
+.q-card h5{font-family:'Inter',sans-serif;font-size:15px;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.q-card p{font-size:13.5px;color:var(--mute);line-height:1.55;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:80px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,56px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:16px;font-size:14px;}
+.footer .built-by{margin-top:32px;padding-top:24px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="star" style="top:80px;left:80px;transform:rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="top:200px;right:120px;transform:rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <div class="container">
+    <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">Strategy Memo &middot; May 2026</span>
+    <h1>SAS.<br/>MAINTENANCE STEADY.<br/><span class="accent">JULY RESTART.</span></h1>
+    <p class="lede">SAS is on temporary Maintenance through June 2026, resuming National Monthly in July. This memo frames the restart conversation: where the migration recovery stands today, what the strategic gap is (ROBS still on the legacy domain), and what the first month back should prioritize when active work resumes.</p>
+    <div class="meta">
+      <span><strong>Meeting:</strong> May 21, 2026 ET</span>
+      <span><strong>Client contact:</strong> Michael Sommers</span>
+      <span><strong>Plan:</strong> National Monthly (Maintenance May to June, resumes July)</span>
+      <span><strong>Prepared by:</strong> Markology &middot; May 20, 2026</span>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Where We Are</span>
+      <h2>RECOVERY ON SCHEDULE.<br/><span class="accent">NICHE STILL ON LEGACY.</span></h2>
+    </div>
+    <div class="prose">
+      <p>The March 2026 migration from sas-cpas.com to sas-acct.com followed the textbook curve. Pre-migration peak (February) was 96 ranking keywords pulling 394 monthly organic. Two months in, the new domain is at <strong>23 ranking keywords and 209 visits</strong>, the legacy domain is down to <strong>44 keywords and 87 visits</strong>, and combined organic is 296. That puts SAS roughly 25% short of the pre-migration combined peak, which is on schedule for a 3 to 6 month recovery window.</p>
+      <p>The <strong>brand cluster is fully home</strong> on sas-acct.com. Three branded terms hold #1 (specialized accounting services, specialized accounting solutions, specialized accounting services llc). Any prospect Googling SAS by name lands on the right domain.</p>
+      <p>The <strong>franchise vertical is rebuilding</strong>. Eight non-brand franchise keywords are now ranking on the new domain (franchise accountant near me at #16, franchise accountants at #21, plus geo and vertical pages). Both top performers are inside striking distance of page one.</p>
+      <p>The <strong>ROBS niche is the visible gap</strong>. Every ROBS keyword still ranks via sas-cpas.com URLs (robs rollovers business #5, rollover as business startup robs #14, guidant rollovers as business startup #18). The 301s are serving traffic, but Google has not credited sas-acct.com/robs/ yet. This is the strategic question for the restart.</p>
+    </div>
+    <div class="story-grid">
+      <div class="story-card">
+        <div class="month">Feb 2026</div>
+        <div class="num">96 / 0</div>
+        <h4>Pre-Migration Peak</h4>
+        <p>Legacy at 96 keywords, 394 visits. New domain not yet live.</p>
+      </div>
+      <div class="story-card" style="background:var(--lilac);">
+        <div class="month">Mar 2026</div>
+        <div class="num">84 / 6</div>
+        <h4>Switch Flipped</h4>
+        <p>Migration goes live. Legacy starts shedding, new domain indexes first 6.</p>
+      </div>
+      <div class="story-card">
+        <div class="month">Apr 2026</div>
+        <div class="num">44 / 23</div>
+        <h4>Handoff Underway</h4>
+        <p>Brand cluster moves. Franchise vertical climbs. ROBS still legacy.</p>
+      </div>
+      <div class="story-card" style="background:var(--lilac);">
+        <div class="month">May 2026</div>
+        <div class="num">Catalyst</div>
+        <h4>Off-Page Push</h4>
+        <p>301 audit verified. Backlink outreach + non-brand rebuild queued.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">The Strategic Question</span>
+      <h2>THE ROBS GAP<br/><span class="accent">IS THE WHOLE GAME.</span></h2>
+      <p>The strategic question for the July restart is whether Markology focuses the first month back on a deliberate ROBS cluster rebuild. The data says yes.</p>
+    </div>
+    <div class="prose">
+      <p>ROBS (Rollover for Business Startups) is SAS's defining niche. It is the highest-intent franchise topic, the most differentiated against generalist franchise accountants, and the cluster with the deepest existing content footprint on the legacy domain. Five ROBS keywords are still ranking through sas-cpas.com 301s today (positions #5, #14, #18, #42, #46). On the new domain, only robs accounting services has surfaced (#3).</p>
+      <p>This is a transferable signal problem, not a content problem. Google trusts the old URL because it has the historical link authority. The new URL exists, the redirects are clean, but Google has not finished moving credit. The two levers that close this gap are <strong>direct backlinks pointing at sas-acct.com/robs/</strong> (full authority pass) and <strong>fresh, internally-linked ROBS content on the new domain</strong> (signal reinforcement).</p>
+      <p>Markology's recommendation: make the ROBS cluster the headline of the July National Monthly restart. Three of the four blogs already in the pipeline target this niche directly. The non-brand keyword cluster rebuild task is engineered to close exactly this gap. Add a targeted top-10 referring domain outreach campaign and the ROBS rankings should migrate to sas-acct.com over the following 60 to 90 days.</p>
+    </div>
+    <div class="callout"><strong>The restart frame:</strong> July is not "back to business as usual." It is "back with a focused ROBS push." Lead with content + links into /robs/, hold the franchise vertical position gains as the secondary track, and roll the Ace Hardware lead magnet in alongside as the third workstream.</div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Blog Pipeline Status</span>
+      <h2>FOUR BLOGS QUEUED.<br/><span class="accent">ALL ROBS OR MULTI-UNIT.</span></h2>
+      <p>Four blog drafts are already in the system across three different statuses. All four target the ROBS plus multi-unit franchise niche and are the rebuild content for the non-brand cluster.</p>
+    </div>
+    <table class="pipeline-table">
+      <thead><tr><th>Blog</th><th>Niche</th><th>Status</th><th>Due</th></tr></thead>
+      <tbody>
+        <tr><td><a href="https://app.asana.com/0/0/1213720759685967">ROBS vs. Home Equity</a></td><td>ROBS</td><td><span class="status-pill internal-review">Internal Review</span></td><td>04-28 (carry-over)</td></tr>
+        <tr><td><a href="https://app.asana.com/0/0/1214287272728886">How Taxes Change When You Go From One Location to Multiple</a></td><td>Multi-Unit</td><td><span class="status-pill internal-review">Internal Review</span></td><td>05-05</td></tr>
+        <tr><td><a href="https://app.asana.com/0/0/1214153786392933">C Corp vs S Corp for ROBS</a></td><td>ROBS</td><td><span class="status-pill in-progress">In Progress</span></td><td>05-26</td></tr>
+        <tr><td><a href="https://app.asana.com/0/0/1214287272822653">Biggest Financial Mistakes Multi-Unit Franchise Owners Make</a></td><td>Multi-Unit</td><td><span class="status-pill edits-needed">Edits Needed</span></td><td>05-22</td></tr>
+      </tbody>
+    </table>
+    <div class="callout"><strong>Recommendation:</strong> get "ROBS vs. Home Equity" and "How Taxes Change When You Go From One Location to Multiple" out of Internal Review and live this month — both are content-complete and just need Michael's review. Carry "C Corp vs S Corp for ROBS" and "Biggest Financial Mistakes Multi-Unit" into June as polishing items. All four publish on sas-acct.com with strong internal links into <a href="https://sas-acct.com/robs/">/robs/</a> and <a href="https://sas-acct.com/franchise-accounting/">/franchise-accounting/</a>.</div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Off-Page Status</span>
+      <h2>BACKLINK PUSH<br/><span class="accent">IS THE LEVER.</span></h2>
+      <p>Two off-page tasks tie directly to migration consolidation. Both are open this month.</p>
+    </div>
+    <div class="priority-list">
+      <div class="priority">
+        <div class="pnum">A</div>
+        <div>
+          <h4>Top referring domain outreach (W4)</h4>
+          <p>The <a href="https://app.asana.com/0/0/1214572385010901">Top referring domains backlink outreach task</a> is Not Started, due May 29. Plan: pull the top 10 referring domains to sas-cpas.com, contact each with a brief asking them to update the link to sas-acct.com. Direct links pass full authority where 301s pass less.</p>
+          <span class="tag">Open Ask — Client Greenlight</span>
+        </div>
+      </div>
+      <div class="priority" style="background:var(--lilac);">
+        <div class="pnum">B</div>
+        <div>
+          <h4>15X citations push (W3)</h4>
+          <p>The <a href="https://app.asana.com/0/0/1214287291993105">15X Citations task</a> is in Edits Needed status. Once unblocked, this rebuilds the NAP citation footprint on sas-acct.com. Citation consistency is a corroborating trust signal for both the franchise vertical and the Kenosha geo cluster (currently #43 cpa kenosha, #49 kenosha accountants — both within reach).</p>
+          <span class="tag">In-Flight</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">C</div>
+        <div>
+          <h4>301 redirect audit</h4>
+          <p>The <a href="https://app.asana.com/0/0/1214572346075730">301 redirect audit task</a> is in Internal Review. Every legacy URL maps to its closest new equivalent. The audit confirmed the redirect map is not the bottleneck. Status update for Michael.</p>
+          <span class="tag">Verified</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Ace Hardware Lead Magnet</span>
+      <h2>QUEUED FOR<br/><span class="accent">JULY RESTART.</span></h2>
+    </div>
+    <div class="prose">
+      <p>The <a href="https://app.asana.com/0/0/1213985257303639">Start Lead magnet: Ace Hardware task</a> is Not Started, due June 30. This pairs with SAS's existing #1 ranking on "hardware industry accounting" and "hardware accounting" to convert vertical-page traffic into qualified leads. The Q2 Lead Magnet task (parent) is also open in the Future section.</p>
+      <p>Markology's view: hardware industry rankings are SAS's strongest non-franchise vertical signal on the new domain. A gated downloadable (Ace Hardware franchise financial benchmarks, payroll structure, royalty reporting, B&amp;O exposure) converts that ranking into a lead form. Best framed as a July deliverable so it ships alongside the restart push rather than rushing into Maintenance month.</p>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">July Restart Priorities</span>
+      <h2>WHAT TO LEAD<br/><span class="accent">THE FIRST MONTH BACK.</span></h2>
+      <p>Markology's recommended priority order when National Monthly resumes July 2026.</p>
+    </div>
+    <div class="priority-list">
+      <div class="priority">
+        <div class="pnum">01</div>
+        <div>
+          <h4>ROBS cluster rebuild on sas-acct.com</h4>
+          <p>Publish two ROBS blogs in the first two weeks of July with strong internal links into /robs/. Refresh the /robs/ landing page with updated copy, FAQ schema, and one inbound link from the homepage. Pair with referring domain outreach for direct backlinks. Goal: move at least two ROBS keywords from sas-cpas.com URLs onto sas-acct.com URLs by August.</p>
+          <span class="tag">Priority 1</span>
+        </div>
+      </div>
+      <div class="priority" style="background:var(--lilac);">
+        <div class="pnum">02</div>
+        <div>
+          <h4>Ace Hardware lead magnet ship</h4>
+          <p>Build and ship the gated Ace Hardware lead magnet in the second half of July. Convert hardware industry rankings (#1 and #1) into a lead form. Tie it to a follow-up email sequence (1 to 3 touches over two weeks).</p>
+          <span class="tag">Priority 2</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">03</div>
+        <div>
+          <h4>Franchise vertical pages refresh</h4>
+          <p>Take the franchise vertical pages currently ranking #16 to #49 (auto, coffee shops, restaurant, retail) and refresh each with the same structure: H2 search-query headings, answer-first first sentence, one concrete benchmark per section, two internal links. These are the closest "push to page one" opportunities on the new domain.</p>
+          <span class="tag">Priority 3</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Open Client Asks</span>
+      <h2>WHAT WE NEED<br/><span class="accent">FROM MICHAEL.</span></h2>
+      <p>Five open items that need Michael's input or sign-off before Markology can keep moving.</p>
+    </div>
+    <div class="q-list">
+      <div class="q-card">
+        <div class="label">Q1 &middot; Restart Confirmation</div>
+        <h5>Confirm July 2026 as the National Monthly restart date.</h5>
+        <p>SAS was paused for May and June 2026. Markology has assumed July is the restart. Quick confirm.</p>
+      </div>
+      <div class="q-card">
+        <div class="label">Q2 &middot; July Priority Order</div>
+        <h5>Sign off on ROBS cluster rebuild as the July headline.</h5>
+        <p>Markology recommends ROBS-first. Open to leading with franchise vertical refresh or Ace Hardware lead magnet instead if Michael has a different read.</p>
+      </div>
+      <div class="q-card">
+        <div class="label">Q3 &middot; Blog Reviews</div>
+        <h5>Push the two ROBS / multi-unit blogs out of Internal Review.</h5>
+        <p>"ROBS vs. Home Equity" has been in Internal Review since April 28. "How Taxes Change When You Go From One Location to Multiple" since May 5. Both are content-complete.</p>
+      </div>
+      <div class="q-card">
+        <div class="label">Q4 &middot; Outreach Greenlight</div>
+        <h5>Approve Markology to email the top 10 referring domains on SAS's behalf.</h5>
+        <p>Brief is short ("we recently moved domains, please update the link to sas-acct.com"). Markology drafts and sends; Michael copied if useful.</p>
+      </div>
+      <div class="q-card">
+        <div class="label">Q5 &middot; Ads Direction</div>
+        <h5>Decide on PMax + exact-match Search experiment fate.</h5>
+        <p>Both campaigns at zero impressions for 30 days. Options: pause both and reallocate to the working Search campaign, or invest a budget lift to actually test them. See <a href="../ads-tracker/">the Google Ads tracker</a> for the full picture.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <h2>MAINTENANCE STEADY.<br/>JULY <span class="accent">RESTART READY.</span></h2>
+    <p>Questions or pushback before the May 21 sync? Reach out to Markology.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; May 20, 2026</div>
+  </div>
+</footer>
+
+</body></html>

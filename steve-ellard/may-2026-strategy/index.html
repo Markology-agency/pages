@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Steve Ellard CPA — May 2026 Strategy Memo by Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--watch:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:80px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:56px 0;}.container{padding:0 20px;}}
+.star{position:absolute;pointer-events:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.crumb{margin-bottom:8px;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--mute);}.crumb a{color:var(--blue);text-decoration:none;}
+.hero{background:var(--paper);padding-top:100px;padding-bottom:80px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(44px,8vw,96px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:24px 0 0;}
+.hero .lede{font-size:19px;line-height:1.6;color:var(--mute);max-width:760px;margin-top:28px;}
+.hero .meta{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.toolbar{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;}
+.toolbar a{display:inline-block;padding:10px 18px;background:#fff;border:2px solid var(--navy);border-radius:10px;box-shadow:4px 4px 0 var(--navy);font-size:13px;font-weight:600;color:var(--navy);text-decoration:none;}
+.toolbar a:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--navy);}
+.kpi-section{background:#fff;padding:64px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 22px;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.kpi:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.kpi:nth-child(2),.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:12px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:48px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .delta{margin-top:10px;font-size:13px;font-weight:600;color:#047857;}
+.kpi .delta.watch{color:#b45309;}.kpi .delta.bad{color:#b91c1c;}
+.kpi .explain{margin-top:14px;padding-top:14px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);line-height:1.5;}
+.section-head{margin-bottom:48px;max-width:880px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(40px,5.5vw,68px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:16px;}
+.section-head p{font-size:17px;color:var(--mute);margin-top:16px;line-height:1.6;}
+.summary-card{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:18px;padding:28px 32px;box-shadow:6px 6px 0 var(--navy);margin-bottom:40px;}
+.summary-card .l{font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--blue);font-weight:700;margin-bottom:10px;}
+.summary-card p{font-size:17px;color:var(--navy);font-weight:500;line-height:1.6;}
+.summary-card p + p{margin-top:14px;}
+.state-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;}
+@media(max-width:900px){.state-grid{grid-template-columns:1fr;}}
+.state-card{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:24px 26px;box-shadow:5px 5px 0 var(--navy);}
+.state-card .badge{display:inline-block;padding:4px 10px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;border:2px solid var(--navy);margin-bottom:14px;}
+.state-card.good .badge{background:#d1fae5;color:#065f46;}
+.state-card.warn .badge{background:#fef3c7;color:#92400e;}
+.state-card.bad .badge{background:#fee2e2;color:#991b1b;}
+.state-card h4{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);margin-bottom:10px;line-height:1.15;}
+.state-card ul{margin-left:18px;margin-top:8px;}
+.state-card li{font-size:13px;color:var(--mute);line-height:1.55;margin-bottom:6px;}
+.state-card li strong{color:var(--navy);}
+.decision-card{background:#fff;border:2px solid var(--navy);border-radius:20px;padding:36px 40px;box-shadow:8px 8px 0 var(--navy);}
+.decision-card .label{font-family:'Bangers',sans-serif;font-size:24px;letter-spacing:0.04em;color:var(--blue);margin-bottom:6px;}
+.decision-card h3{font-family:'Bangers',sans-serif;font-size:32px;letter-spacing:0.04em;color:var(--navy);margin-bottom:18px;line-height:1.1;}
+.decision-card .data-strip{background:var(--paper);border:2px dashed var(--navy);border-radius:12px;padding:18px 22px;margin:24px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;}
+@media(max-width:720px){.decision-card .data-strip{grid-template-columns:repeat(2,1fr);}}
+.decision-card .data-strip .ds{text-align:center;}
+.decision-card .data-strip .v{font-family:'Bangers',sans-serif;font-size:32px;color:var(--blue);line-height:1;}
+.decision-card .data-strip .l{font-size:10px;letter-spacing:0.16em;text-transform:uppercase;color:var(--mute);font-weight:700;margin-top:6px;}
+.options-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px;}
+@media(max-width:900px){.options-grid{grid-template-columns:1fr;}}
+.option{background:var(--paper);border:2px solid var(--navy);border-radius:14px;padding:20px 22px;box-shadow:5px 5px 0 var(--navy);}
+.option:nth-child(2){background:var(--lilac);}
+.option .opt-num{font-family:'Bangers',sans-serif;font-size:18px;color:var(--blue);letter-spacing:0.04em;}
+.option h5{font-family:'Bangers',sans-serif;font-size:18px;letter-spacing:0.04em;color:var(--navy);margin:6px 0 10px;line-height:1.15;}
+.option p{font-size:13px;color:var(--mute);line-height:1.55;}
+.option .verdict{display:inline-block;margin-top:10px;padding:3px 9px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.16em;border-radius:6px;text-transform:uppercase;}
+.option.recommended{border-color:var(--good);box-shadow:5px 5px 0 var(--good);}
+.option.recommended .verdict{background:var(--good);}
+.priority-list{display:flex;flex-direction:column;gap:16px;}
+.priority{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 28px;display:grid;grid-template-columns:56px 1fr;gap:20px;align-items:start;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.priority:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.priority.lilac{background:var(--lilac);}
+.priority .pnum{width:56px;height:56px;border-radius:14px;background:var(--blue);color:#fff;border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:30px;display:flex;align-items:center;justify-content:center;}
+.priority h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:6px;}
+.priority p{font-size:14px;color:var(--mute);line-height:1.55;}
+.priority .tag{display:inline-block;margin-top:10px;padding:4px 10px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.18em;border-radius:6px;text-transform:uppercase;}
+.priority a{color:var(--blue);font-weight:600;text-decoration:none;}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:18px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead{background:var(--navy);}
+th{text-align:left;padding:13px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.16em;color:var(--blue);}
+th.num,td.num{text-align:right;}
+td{padding:12px 16px;border-bottom:1px solid var(--hair);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.status-pill{display:inline-block;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:0.04em;border:1.5px solid var(--navy);text-transform:uppercase;}
+.s-ir{background:var(--blue);color:#fff;}.s-ns{background:#fff;color:var(--navy);}.s-en{background:var(--watch);color:#fff;}.s-cr{background:var(--lilac);color:var(--navy);}.s-ip{background:var(--good);color:#fff;}
+.callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:20px 24px;margin-top:24px;box-shadow:4px 4px 0 var(--navy);}
+.callout strong{color:var(--navy);font-weight:700;}
+.callout a{color:var(--blue);font-weight:600;text-decoration:none;}
+.ask-list{display:flex;flex-direction:column;gap:12px;}
+.ask{background:#fff;border:2px solid var(--navy);border-radius:12px;padding:18px 22px;box-shadow:4px 4px 0 var(--navy);display:grid;grid-template-columns:40px 1fr;gap:16px;align-items:start;}
+.ask .anum{width:40px;height:40px;border-radius:10px;background:var(--lilac);color:var(--navy);border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:20px;display:flex;align-items:center;justify-content:center;}
+.ask h5{font-family:'Bangers',sans-serif;font-size:16px;letter-spacing:0.04em;color:var(--navy);margin-bottom:4px;line-height:1.2;}
+.ask p{font-size:13px;color:var(--mute);line-height:1.5;}
+.ask .who{display:inline-block;margin-top:6px;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--blue);}
+.chart-card{background:var(--paper);border:2px solid var(--navy);border-radius:18px;padding:26px;box-shadow:6px 6px 0 var(--navy);}
+.chart-card h4{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);margin-bottom:4px;}
+.chart-card .chart-sub{font-size:12px;color:var(--mute);margin-bottom:18px;}
+.chart-container{position:relative;height:280px;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:80px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,56px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:16px;font-size:14px;}
+.footer .built-by{margin-top:32px;padding-top:24px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="star" style="top:80px;left:80px;transform:rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="top:200px;right:120px;transform:rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <div class="container">
+    <div class="crumb"><a href="https://markology-agency.github.io/pages/">All clients</a> &rsaquo; <a href="https://markology-agency.github.io/pages/steve-ellard/">Steve Ellard CPA</a> &rsaquo; May 2026 Strategy Memo</div>
+    <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">May 2026 &middot; Strategy Memo</span>
+    <h1>THE CAPE COD STRATEGY<br/>IS WORKING.<br/><span class="accent">ONE DECISION TO MAKE.</span></h1>
+    <p class="lede">Eight non-branded Cape Cod terms in the top 10. Five blogs mid-pipeline. The local foundation is in place. The single strategic question on the table for tomorrow's call: what do we do with "atlantic payroll" at 590 monthly searches sitting on the Steve Ellard CPA domain. The data, the options, and a recommendation are below.</p>
+    <div class="meta">
+      <span><strong>Prepared for:</strong> Steve Ellard + Mandy</span>
+      <span><strong>Prepared by:</strong> Markology</span>
+      <span><strong>Meeting date:</strong> May 21, 2026</span>
+      <span><strong>Period:</strong> Q1 to Q2 2026</span>
+    </div>
+    <div class="toolbar">
+      <a href="https://markology-agency.github.io/pages/steve-ellard/may-2026/" target="_blank">May SEO report &rarr;</a>
+      <a href="https://markology-agency.github.io/pages/steve-ellard/ads-tracker/" target="_blank">Ads tracker &rarr;</a>
+      <a href="https://app.asana.com/0/1214286901706699" target="_blank">May Asana board &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="summary-card">
+      <div class="l">Executive Summary</div>
+      <p>The Cape Cod local SEO strategy is producing. Eight non-branded Cape Cod CPA, accounting, payroll, and tax-prep keywords are in Google's top 10. Two are top 4. The branded terms are owned at #1. Traffic estimate is holding steady at ~126 monthly visits despite a December 2025 keyword cliff that shrunk the long-tail footprint from 88 keywords to 29 in one month.</p>
+      <p>Three strategic questions are on the table. First and biggest: "atlantic payroll" (590 monthly searches, the highest-volume keyword in the entire ranking set) is currently pointing at the Steve Ellard CPA domain at position #11, which violates the two-brand separation rule. Second: the December cliff still needs a root-cause read by 5/22. Third: a 10-subtask SEO Onboarding back-fill is blocked on one WordPress App Password from Steve or Mandy.</p>
+      <p>The recommendation in this memo: redirect the "atlantic payroll" demand to the Atlantic Payroll Partners brand site, finish the December investigation this week, unblock the WP App Password, and double down on the Cape Cod content cluster that's already winning page-1 placements.</p>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Page-1 Cape Cod Terms</div>
+        <div class="value">11</div>
+        <div class="delta">8 in top 10</div>
+        <div class="explain">Non-branded Cape Cod terms on page 1 or 2. The local strategy is producing exactly the placements it was designed to produce.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Atlantic Payroll Volume</div>
+        <div class="value">590</div>
+        <div class="delta watch">Currently #11 on wrong domain</div>
+        <div class="explain">The single highest-volume keyword in the index. Pointing at stevenmellardcpa.com/payroll-services-cape-cod/ instead of the Atlantic Payroll Partners brand.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Blogs in Pipeline</div>
+        <div class="value">5</div>
+        <div class="delta">3 with Steve for review</div>
+        <div class="explain">May content pipeline: P&amp;L, Payroll Taxes MA, DIY Payroll, Q2 Estimated Tax, Bookkeeper vs CPA. Two more drafted earlier in May (Airbnb/VRBO, Outgrown DIY Payroll).</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Onboarding Subtasks Blocked</div>
+        <div class="value">10</div>
+        <div class="delta bad">1 unlock needed</div>
+        <div class="explain">Foundation onboarding back-fill is open with 10 subtasks. Single unlock: WordPress Application Password from Steve / Mandy.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Where We Are</span>
+      <h2>CURRENT STATE,<br/>NO SPIN.<br/><span class="accent">WINS &amp; BLOCKERS.</span></h2>
+      <p>Three columns. What's working, what's stuck, what needs a decision. Pulled from the live SEMrush data, the May 2026 Asana board, and the meeting-prep agent.</p>
+    </div>
+    <div class="state-grid">
+      <div class="state-card good">
+        <span class="badge">Working</span>
+        <h4>The Cape Cod cluster is winning</h4>
+        <ul>
+          <li><strong>"Cpa cape cod" at #9</strong> on the homepage (70 monthly searches, $6.34 CPC).</li>
+          <li><strong>"Cape cod accountants" at #6</strong> on the accounting firms page.</li>
+          <li><strong>Five tax-prep variants at #7-#9</strong> all hitting page 1.</li>
+          <li><strong>"Payroll service company cape cod ma" at #4</strong> and "small business accounting company cape cod" at #4.</li>
+          <li><strong>"Cape cod bookkeeping" climbed +4 spots</strong> in the last 30 days to #4.</li>
+          <li><strong>Traffic holding 124+ monthly visits</strong> even through the Dec keyword cliff.</li>
+        </ul>
+      </div>
+      <div class="state-card warn">
+        <span class="badge">Stuck</span>
+        <h4>Two unresolved diagnostics</h4>
+        <ul>
+          <li><strong>December 2025 keyword cliff:</strong> SEMrush went from 88 keywords (Nov) to 29 (Dec). Recovery to 47 today. Root cause not identified yet.</li>
+          <li><strong>"Restaurant accounting services" dropped 22 spots</strong> to #40. Service page needs a freshness pass.</li>
+          <li><strong>"Atlantic payroll" at #11</strong> on the wrong brand domain (see the next section).</li>
+          <li><strong>April Reddit Tasks still in Client Review,</strong> May Reddit Tasks in Edits Needed with a 5/21 due date.</li>
+        </ul>
+      </div>
+      <div class="state-card bad">
+        <span class="badge">Blocked</span>
+        <h4>Foundation onboarding is held up</h4>
+        <ul>
+          <li><strong>WordPress App Password</strong> needed from Steve or Mandy. Single biggest unlock — once it lands, 9 other subtasks fire.</li>
+          <li><strong>Rank Math Pro upload</strong> waits on WP access.</li>
+          <li><strong>NitroPack + Metricool install</strong> waits on WP access.</li>
+          <li><strong>E-E-A-T sprint, local SEO audit, GMB posts, Hoth setup, initial SEO reports</strong> all queued behind the foundation work.</li>
+          <li><strong>Estimated unlock:</strong> if WP App Password is delivered this week, the full back-fill completes by 5/31.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Big Strategic Question</span>
+      <h2>THE ATLANTIC PAYROLL<br/><span class="accent">TWO-BRAND CALL.</span></h2>
+      <p>Steve Ellard runs two Markology clients: Steven M. Ellard CPA (this site, Cape Cod accounting and tax) and Atlantic Payroll Partners (separate brand, payroll only). CLAUDE.md is explicit: never mix content between them. The data below is the conflict.</p>
+    </div>
+    <div class="decision-card">
+      <div class="label">The Conflict</div>
+      <h3>590 monthly searches for "atlantic payroll" are landing on the wrong domain.</h3>
+      <p style="color:var(--mute);">SEMrush shows the highest-volume keyword in the entire Steve Ellard CPA ranking set is "atlantic payroll" at position #11. It's pointing at stevenmellardcpa.com/payroll-services-cape-cod/. That's a Steve Ellard CPA page ranking for the Atlantic Payroll Partners brand name. Whoever clicks that result is going to one site but expecting the other.</p>
+      <div class="data-strip">
+        <div class="ds"><div class="v">590</div><div class="l">Monthly Searches</div></div>
+        <div class="ds"><div class="v">$4.76</div><div class="l">Commercial CPC</div></div>
+        <div class="ds"><div class="v">#11</div><div class="l">Current Position</div></div>
+        <div class="ds"><div class="v">Wrong</div><div class="l">Brand Mismatch</div></div>
+      </div>
+      <p style="color:var(--mute);"><strong>What's happening underneath:</strong> Google sees the Steve Ellard CPA payroll service page as the topical authority for "Cape Cod payroll" plus a partial match on the Atlantic Payroll brand string. That's why a CPA page is ranking on a payroll brand query. The fix has to come from us, not Google.</p>
+      <div class="options-grid">
+        <div class="option recommended">
+          <div class="opt-num">Option 01</div>
+          <h5>Redirect the demand to the Atlantic Payroll Partners site</h5>
+          <p>Add the Atlantic Payroll brand name to the stevenmellardcpa.com payroll page only in a "Looking for Atlantic Payroll Partners? Visit their site &rarr;" disclaimer near the top. Build a parallel /atlantic-payroll/ landing page on the Atlantic Payroll Partners domain that targets the exact brand term. Let Google reassign the ranking signal over 60-90 days. Add cross-brand canonical hint via internal linking.</p>
+          <span class="verdict">Recommended</span>
+        </div>
+        <div class="option">
+          <div class="opt-num">Option 02</div>
+          <h5>Keep the demand on stevenmellardcpa.com and target it harder</h5>
+          <p>Treat "atlantic payroll" as a Cape Cod payroll discovery query and let Steve Ellard CPA convert that traffic into accounting clients. Add Atlantic Payroll context to the page, target the term explicitly, push the position from #11 to top 5. Note: this violates the two-brand separation rule in CLAUDE.md and risks brand confusion for the Atlantic Payroll Partners side.</p>
+          <span class="verdict">Off-Brand Risk</span>
+        </div>
+        <div class="option">
+          <div class="opt-num">Option 03</div>
+          <h5>Let it ride at #11 and stop optimizing</h5>
+          <p>Leave the page as-is. At #11 it's just below the page-1 fold. Click-through rate is minimal at that position. No active reinforcement of the brand bleed, but no fix either. The 590 monthly searches keep landing on the wrong domain at low volume.</p>
+          <span class="verdict">Status Quo</span>
+        </div>
+      </div>
+      <div class="callout"><strong>Markology recommendation: Option 01.</strong> The current setup actively confuses the two brands every time someone searches "atlantic payroll" and clicks the #11 result. The Atlantic Payroll Partners brand is supposed to be the answer to "atlantic payroll," and Markology is the agency for both clients. Redirecting demand to the correct site protects the brand boundary, keeps Steve's CPA site focused on Cape Cod accounting search intent, and over 60-90 days lifts the Atlantic Payroll Partners domain on its own brand term. The "Target atlantic payroll more aggressively" task is currently in <a href="https://app.asana.com/0/0/1214572794516948" target="_blank">Internal Review</a> pending this call.</div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Cape Cod Content Cluster</span>
+      <h2>THE CONTENT<br/><span class="accent">IS COMPOUNDING.</span></h2>
+      <p>Five blogs in flight this month, each one targeting a distinct Cape Cod intent. The cluster is what lifts every individual page's local relevance signal in Google's eyes.</p>
+    </div>
+    <div class="table-card" style="margin-bottom:24px;">
+      <table>
+        <thead><tr><th>Blog Topic</th><th>Cape Cod Intent</th><th>Status</th><th>Due</th><th></th></tr></thead>
+        <tbody>
+          <tr><td>Signs Your Cape Cod Business Has Outgrown DIY Payroll</td><td>Payroll &mdash; growth-stage owners</td><td><span class="status-pill s-ip">Write Done</span></td><td>Input WIP</td><td><a href="https://app.asana.com/0/0/1214172171913197" target="_blank" style="color:var(--blue);font-weight:600;">Open &rarr;</a></td></tr>
+          <tr><td>Airbnb &amp; VRBO Tax on Cape Cod: What Hosts Actually Owe</td><td>Tax &mdash; STR hosts (high seasonality match)</td><td><span class="status-pill s-en">Edits Needed</span></td><td>Input IR</td><td><a href="https://app.asana.com/0/0/1214153786392924" target="_blank" style="color:var(--blue);font-weight:600;">Open &rarr;</a></td></tr>
+          <tr><td>How to Read Your Profit &amp; Loss Statement (and What to Do About It)</td><td>Bookkeeping &mdash; year-round small biz owner</td><td><span class="status-pill s-cr">Client Review</span></td><td>5/5</td><td><a href="https://app.asana.com/0/0/1214287028404958" target="_blank" style="color:var(--blue);font-weight:600;">Open &rarr;</a></td></tr>
+          <tr><td>Payroll Taxes in MA: What Cape Cod Business Owners Keep Getting Wrong</td><td>Payroll &mdash; MA-specific tax answers</td><td><span class="status-pill s-ir">Internal Review</span></td><td>5/12</td><td><a href="https://app.asana.com/0/0/1214286901738482" target="_blank" style="color:var(--blue);font-weight:600;">Open &rarr;</a></td></tr>
+          <tr><td>What Happens If You Miss the Q2 Estimated Tax Deadline?</td><td>Tax &mdash; quarterly deadline urgency</td><td><span class="status-pill s-ir">Internal Review</span></td><td>5/19</td><td><a href="https://app.asana.com/0/0/1214286901928871" target="_blank" style="color:var(--blue);font-weight:600;">Open &rarr;</a></td></tr>
+          <tr><td>When Should a Cape Cod Small Business Hire a Bookkeeper vs a CPA?</td><td>Top-of-funnel &mdash; service category selection</td><td><span class="status-pill s-en">Edits Needed</span></td><td>5/22</td><td><a href="https://app.asana.com/0/0/1214287108583473" target="_blank" style="color:var(--blue);font-weight:600;">Open &rarr;</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>The pattern that's emerging.</strong> Every blog targets a distinct Cape Cod intent (STR hosts, growth-stage owners, MA-specific payroll, quarterly tax deadlines, service category selection). The /tax-preparation-cape-cod/ anchor link goes into every relevant draft per the CLAUDE.md linking rule. Each blog closes with a related-blog recommendation and "Until next time!" per the voice guide. Five blogs over 30 days against eight existing top-10 Cape Cod keywords is the right shape for the next algo refresh.</div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">SEO Onboarding Back-Fill</span>
+      <h2>TEN SUBTASKS.<br/><span class="accent">ONE UNLOCK.</span></h2>
+      <p>The full foundation back-fill is queued and due 5/24 to 5/31. None started. The blocker is the WordPress Application Password from Steve or Mandy. Everything else cascades automatically once that lands.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th class="num">#</th><th>Subtask</th><th>Owner</th><th>Due</th><th>Blocks On</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td><strong>Add WordPress Application Password</strong></td><td>Steve / Mandy</td><td>5/24</td><td>&mdash; (the unlock)</td></tr>
+          <tr><td class="num">2</td><td>Rank Math Pro license upload</td><td>Markology</td><td>5/25</td><td>WP App Password</td></tr>
+          <tr><td class="num">3</td><td>NitroPack install + config</td><td>Markology</td><td>5/26</td><td>WP App Password</td></tr>
+          <tr><td class="num">4</td><td>Metricool install + connect</td><td>Markology</td><td>5/26</td><td>WP App Password</td></tr>
+          <tr><td class="num">5</td><td>E-E-A-T sprint (author bios, schema, llms.txt)</td><td>Markology</td><td>5/28</td><td>WP App Password</td></tr>
+          <tr><td class="num">6</td><td>Local SEO audit (NAP, citations, GBP)</td><td>Markology</td><td>5/28</td><td>None &mdash; can start now</td></tr>
+          <tr><td class="num">7</td><td>Initial SEO baseline report (Cape Cod)</td><td>Markology</td><td>5/29</td><td>None &mdash; can start now</td></tr>
+          <tr><td class="num">8</td><td>Initial strategy report (Cape Cod cluster plan)</td><td>Markology</td><td>5/29</td><td>This memo covers it</td></tr>
+          <tr><td class="num">9</td><td>GMB posts (4 weekly)</td><td>Markology</td><td>5/30</td><td>GMB access</td></tr>
+          <tr><td class="num">10</td><td>The Hoth citation campaign setup</td><td>Markology</td><td>5/31</td><td>NAP confirmation</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>What we need from Steve or Mandy this week.</strong> Generate a WordPress Application Password (Users &rarr; Profile &rarr; Application Passwords on the WP admin) for the username "markology" (or new user we create) and send it via LastPass share or 1Password vault. Five minutes on Mandy's side unblocks 9 subtasks on ours.</div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Recommended 30 Days</span>
+      <h2>WHAT WE<br/><span class="accent">WORK NEXT.</span></h2>
+      <p>Six priorities, ordered. Items 1-2 ship this week. Items 3-6 ship inside 30 days.</p>
+    </div>
+    <div class="priority-list">
+      <div class="priority">
+        <div class="pnum">01</div>
+        <div>
+          <h4>Lock the Atlantic Payroll two-brand decision in tomorrow's meeting</h4>
+          <p>Get a yes or no on Option 01 (redirect demand to Atlantic Payroll Partners domain). If yes, the next 30 days: add the "Looking for Atlantic Payroll Partners?" disclaimer on the Steve Ellard payroll page, build a parallel /atlantic-payroll/ landing on the Atlantic Payroll Partners domain, internal-link from any blog content that touches both brands. Reassign the ranking signal over 60-90 days. Move the <a href="https://app.asana.com/0/0/1214572794516948" target="_blank">"Target atlantic payroll" task</a> from Internal Review to either Done or a new build-out task.</p>
+          <span class="tag">Tomorrow</span>
+        </div>
+      </div>
+      <div class="priority lilac">
+        <div class="pnum">02</div>
+        <div>
+          <h4>Close the December keyword cliff investigation</h4>
+          <p>The <a href="https://app.asana.com/0/0/1214572794396552" target="_blank">W3 task</a> is due 5/22 and not started. Run: GSC coverage report diff Nov-vs-Dec, Wayback Machine snapshot comparison of the sitemap and any pages that lost rankings, full SEMrush keyword loss list for the December drop. If the cause is a content prune or sitemap change, restore. If it's the December core update, the answer is more Cape Cod content depth (which is already in flight). Read by end of week.</p>
+          <span class="tag">This Week</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">03</div>
+        <div>
+          <h4>Unblock the WordPress App Password to fire the onboarding back-fill</h4>
+          <p>Mandy generates the WP Application Password this week. Markology lands it in LastPass. The 9 dependent foundation subtasks (Rank Math Pro, NitroPack, Metricool, E-E-A-T sprint, GMB, citations) complete by 5/31. This is the single highest-leverage 5 minutes Steve's team can spend this month.</p>
+          <span class="tag">This Week</span>
+        </div>
+      </div>
+      <div class="priority lilac">
+        <div class="pnum">04</div>
+        <div>
+          <h4>Push "cpa cape cod" from #9 to top 3</h4>
+          <p>The flagship commercial keyword (70 monthly searches, $6.34 CPC) sits at #9 on the homepage. Top-3 placement roughly 5x click-through rate. Action: tighten homepage on-page targeting around "Cape Cod CPA," add a Cape Cod FAQ block, internal-link from the highest-traffic blogs, earn one or two Cape Cod local backlinks (Cape Cod Chamber, BBB, Cape Cod Times business section). Same playbook lifts "cape cod accountants" (#6) and the tax-prep cluster (#7-#9) together.</p>
+          <span class="tag">30 Days</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">05</div>
+        <div>
+          <h4>Build 2-3 non-branded Cape Cod service pages</h4>
+          <p>The "Build 2-3 non-branded service pages" task is queued for W4 (due 5/29). Recommended targets: Cape Cod small business accounting, Cape Cod restaurant accounting (the #40 falling page needs a rewrite anyway), Cape Cod self-employed tax. Each follows the global blog SEO+LLM structure plus Steve's voice (witty, dry, conversational, "we"/"you" POV, no em dashes, Cape Cod local pride, Until next time! closer). Expands the long-tail footprint after the December cliff.</p>
+          <span class="tag">30 Days</span>
+        </div>
+      </div>
+      <div class="priority lilac">
+        <div class="pnum">06</div>
+        <div>
+          <h4>Run the E-E-A-T sprint + Markology dev sprint on the site</h4>
+          <p>Queued for W4 (5/29). Once the WP App Password lands, ship: author bios with credentials, LocalBusiness + Person + Service schema, llms.txt for AI engine discoverability, FAQ schema on the top Cape Cod service pages, internal link audit. Per the cross-client memory, this is the operational sprint that pushes the AI-citation surface area higher in advance of the next algo cycle. Foundation play, not deliverable content.</p>
+          <span class="tag">May 29</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Open Asks</span>
+      <h2>WHAT WE NEED<br/><span class="accent">FROM STEVE.</span></h2>
+      <p>Six specific items Steve or Mandy owe us. Sized so the meeting closes with a clear list of who-does-what.</p>
+    </div>
+    <div class="ask-list">
+      <div class="ask">
+        <div class="anum">1</div>
+        <div>
+          <h5>Decision on the Atlantic Payroll two-brand call</h5>
+          <p>Recommended: Option 01 (redirect demand to Atlantic Payroll Partners domain). Yes or no in tomorrow's meeting.</p>
+          <span class="who">Steve</span>
+        </div>
+      </div>
+      <div class="ask">
+        <div class="anum">2</div>
+        <div>
+          <h5>WordPress Application Password</h5>
+          <p>Generate from Users &rarr; Profile &rarr; Application Passwords on the WP admin. Send via LastPass share or 1Password vault. Unblocks 9 onboarding subtasks.</p>
+          <span class="who">Mandy</span>
+        </div>
+      </div>
+      <div class="ask">
+        <div class="anum">3</div>
+        <div>
+          <h5>Review the 5 blogs queued in Client Review</h5>
+          <p>P&amp;L Statement (overdue 5/5), Payroll Taxes MA (5/12), Q2 Estimated Tax (5/19), DIY Payroll (5/26), Bookkeeper vs CPA (5/26). Five reviews in two weeks. Batched or trickled?</p>
+          <span class="who">Steve / Mandy</span>
+        </div>
+      </div>
+      <div class="ask">
+        <div class="anum">4</div>
+        <div>
+          <h5>Confirm Mandy is the right reviewer for ongoing content</h5>
+          <p>Currently a mix of Steve and Mandy on Client Review. Confirm the workflow: Mandy reviews first, Steve only signs off, or both eyes on every blog?</p>
+          <span class="who">Steve</span>
+        </div>
+      </div>
+      <div class="ask">
+        <div class="anum">5</div>
+        <div>
+          <h5>Google Business Profile manager access</h5>
+          <p>Need Markology added as a manager on the Steve Ellard CPA GMB listing so we can post weekly updates and respond to reviews. Unblocks GMB posts subtask.</p>
+          <span class="who">Steve</span>
+        </div>
+      </div>
+      <div class="ask">
+        <div class="anum">6</div>
+        <div>
+          <h5>BOSS/Payroll webinar direction</h5>
+          <p>The "BOSS/Payroll Webinars Ideas" task on the W3 board is due 5/29 and Not Started. Worth a 5-minute conversation tomorrow: what audience, what angle, what calendar window?</p>
+          <span class="who">Steve</span>
+        </div>
+      </div>
+      <div class="ask">
+        <div class="anum">7</div>
+        <div>
+          <h5>Sign-off on the May Reddit Tasks edit pass</h5>
+          <p>April Reddit is still in Client Review carryover. May Reddit is in Edits Needed with a 5/21 due date (literally meeting day). Worth a quick pass before or right after the meeting.</p>
+          <span class="who">Steve</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <h2>THE STRATEGY IS SOLID.<br/>ONE DECISION TO <span class="accent">LOCK IN.</span></h2>
+    <p>Questions or pushback on anything in this memo? Reach out to Markology directly.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; May 20, 2026 &middot; <a href="https://markology-agency.github.io/pages/steve-ellard/may-2026/">May SEO report</a> &middot; <a href="https://markology-agency.github.io/pages/steve-ellard/ads-tracker/">Ads tracker</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

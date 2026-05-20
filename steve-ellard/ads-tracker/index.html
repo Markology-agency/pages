@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Steve Ellard CPA — Google Ads Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}body{font-family:'Inter',sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;}
+.accent{color:var(--blue);}.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:64px 0;}@media(max-width:720px){section{padding:44px 0;}.container{padding:0 20px;}}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);}
+.pill.blue{background:var(--blue);}.pill.live{background:var(--good);}
+.pill.live::before{content:"";display:inline-block;width:8px;height:8px;background:#fff;border-radius:50%;margin-right:6px;vertical-align:middle;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.hero{background:var(--paper);padding-top:88px;padding-bottom:56px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7vw,80px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:20px 0 0;}
+.hero .lede{font-size:18px;color:var(--mute);max-width:740px;margin-top:20px;line-height:1.6;}
+.hero .meta{margin-top:24px;display:flex;gap:18px;flex-wrap:wrap;font-size:13px;color:var(--mute);}.hero .meta strong{color:var(--navy);font-weight:600;}
+.crumb{margin-bottom:8px;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--mute);}.crumb a{color:var(--blue);text-decoration:none;}
+.toolbar{margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;}
+.toolbar a{display:inline-block;padding:10px 18px;background:#fff;border:2px solid var(--navy);border-radius:10px;box-shadow:4px 4px 0 var(--navy);font-size:13px;font-weight:600;color:var(--navy);text-decoration:none;}
+.toolbar a:hover{transform:translate(-1px,-1px);box-shadow:5px 5px 0 var(--navy);}
+.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+@media(max-width:1000px){.kpi-grid{grid-template-columns:repeat(3,1fr);}}@media(max-width:720px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}@media(max-width:480px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:14px;padding:20px;box-shadow:5px 5px 0 var(--navy);}
+.kpi:nth-child(2),.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:10px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:38px;line-height:1;color:var(--navy);}
+.kpi .delta{margin-top:8px;font-size:12px;font-weight:600;}.kpi .delta.up{color:#047857;}.kpi .delta.down{color:#b91c1c;}.kpi .delta.flat{color:var(--mute);}.kpi .delta.warn{color:#b45309;}
+.kpi .explain{margin-top:12px;padding-top:12px;border-top:2px dashed var(--hair);font-size:11px;color:var(--mute);line-height:1.4;}
+.section-head{margin-bottom:28px;max-width:880px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(28px,4vw,46px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:10px;}
+.section-head p{font-size:14px;color:var(--mute);margin-top:10px;line-height:1.5;}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:18px;overflow:hidden;box-shadow:5px 5px 0 var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:13px;}thead{background:var(--navy);}
+th{text-align:left;padding:12px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.14em;color:var(--blue);}
+th.num,td.num{text-align:right;}td{padding:12px 16px;border-bottom:1px solid var(--hair);vertical-align:top;}tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.row-bad{background:#fee2e2 !important;}
+.row-good{background:#dcfce7 !important;}
+.status-pill{display:inline-block;padding:3px 8px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;border:1.5px solid var(--navy);}
+.status-on{background:#d1fae5;color:#065f46;}
+.status-paused{background:#f3f4f6;color:var(--mute);}
+.status-zero{background:#fef3c7;color:#92400e;}
+.flag-tag{display:inline-block;padding:2px 8px;background:var(--bad);color:#fff;font-size:9px;font-weight:700;letter-spacing:0.1em;border-radius:4px;margin-top:4px;}
+.win-tag{display:inline-block;padding:2px 8px;background:var(--good);color:#fff;font-size:9px;font-weight:700;letter-spacing:0.1em;border-radius:4px;margin-top:4px;}
+.callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:20px 24px;margin-top:24px;box-shadow:4px 4px 0 var(--navy);}
+.callout strong{color:var(--navy);font-weight:700;}
+.callout a{color:var(--blue);font-weight:600;text-decoration:none;}
+.callout.win{background:#dcfce7;border-left-color:var(--good);}
+.callout.warn{background:#fef3c7;border-left-color:var(--warn);}
+.findings-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+@media(max-width:720px){.findings-grid{grid-template-columns:1fr;}}
+.finding{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:22px;box-shadow:5px 5px 0 var(--navy);}
+.finding.bad{border-left:6px solid var(--bad);}
+.finding.warn{border-left:6px solid var(--warn);}
+.finding.good{border-left:6px solid var(--good);}
+.finding.blue{border-left:6px solid var(--blue);}
+.finding .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:8px;}
+.finding h4{font-family:'Bangers',sans-serif;font-size:18px;letter-spacing:0.04em;color:var(--navy);margin-bottom:10px;line-height:1.15;}
+.finding p{font-size:13px;color:var(--mute);line-height:1.55;}
+.action-list{display:flex;flex-direction:column;gap:14px;}
+.action{background:#fff;border:2px solid var(--navy);border-radius:12px;padding:18px 22px;box-shadow:4px 4px 0 var(--navy);display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:start;}
+.action .anum{width:44px;height:44px;border-radius:10px;background:var(--blue);color:#fff;border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:22px;display:flex;align-items:center;justify-content:center;}
+.action h5{font-family:'Bangers',sans-serif;font-size:17px;letter-spacing:0.04em;color:var(--navy);margin-bottom:4px;line-height:1.2;}
+.action p{font-size:13px;color:var(--mute);line-height:1.5;}
+.action a.task{display:inline-block;align-self:start;padding:6px 12px;background:var(--lilac);color:var(--navy);border:2px solid var(--navy);border-radius:6px;font-size:11px;font-weight:700;text-decoration:none;white-space:nowrap;}
+.action a.task:hover{background:var(--blue);color:#fff;}
+.tl-item{background:#fff;border:2px solid var(--navy);border-radius:12px;padding:16px 20px;box-shadow:4px 4px 0 var(--navy);margin-bottom:14px;}
+.tl-date{font-size:11px;color:var(--blue);text-transform:uppercase;letter-spacing:0.16em;font-weight:700;}
+.tl-title{font-weight:600;color:var(--navy);margin-top:4px;font-size:14px;}
+.tl-body{font-size:12px;color:var(--mute);margin-top:6px;line-height:1.5;}
+.anom-empty{background:#fff;border:2px dashed var(--navy);border-radius:14px;padding:36px 24px;text-align:center;}
+.anom-empty .ae-icon{font-size:36px;}.anom-empty .ae-msg{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-top:6px;}
+.anom-empty .ae-sub{font-size:13px;color:var(--mute);margin-top:6px;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:56px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(28px,4vw,40px);line-height:1;letter-spacing:0.02em;}.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:12px;font-size:13px;}
+.footer .built-by{margin-top:24px;padding-top:18px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}.footer .built-by a{color:var(--blue);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <div class="crumb"><a href="https://markology-agency.github.io/pages/">All clients</a> &rsaquo; <a href="https://markology-agency.github.io/pages/steve-ellard/">Steve Ellard CPA</a> &rsaquo; Ads Tracker</div>
+    <span class="pill live">Live Tracker</span>
+    <h1>STEVE ELLARD CPA<br/><span class="accent">ADS TRACKER.</span></h1>
+    <p class="lede">Daily Google Ads performance for Steven M. Ellard CPA. One Search campaign actively spending, one paid conversion last 30 days at $92 CPL. Two waste flags burning ~10% of budget on competitor brand searches. One clear winner ("tax accountant cape cod") to double down on.</p>
+    <div class="meta">
+      <span><strong>Customer ID:</strong> 1013061456</span>
+      <span><strong>Domain:</strong> stevenmellardcpa.com</span>
+      <span><strong>Timezone:</strong> America/New_York</span>
+      <span><strong>Currency:</strong> USD</span>
+      <span><strong>Last refreshed:</strong> 2026-05-20</span>
+    </div>
+    <div class="toolbar">
+      <a href="https://ads.google.com/aw/overview?ocid=1013061456" target="_blank">Open in Google Ads &rarr;</a>
+      <a href="https://markology-agency.github.io/pages/steve-ellard/may-2026-strategy/" target="_blank">Strategy memo &rarr;</a>
+      <a href="https://markology-agency.github.io/pages/steve-ellard/may-2026/" target="_blank">May SEO report &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-head"><span class="pill blue">Last 30 days</span><h2>HEADLINE NUMBERS.</h2><p>Aggregate across all 6 campaigns in the account. Only 1 is actively spending. 2 more are Enabled but at zero spend.</p></div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="label">Spend (30d)</div><div class="value">$92.41</div><div class="delta flat">$3.08 / day</div><div class="explain">Total spend across the account in the last 30 days. Essentially all of it on the "Search - Tax / bookkeeping" campaign.</div></div>
+      <div class="kpi"><div class="label">Clicks (30d)</div><div class="value">21</div><div class="delta flat">CTR 3.18%</div><div class="explain">3.18% CTR is healthy for a small Cape Cod accountant in a high-CPC vertical. Click quality is mixed (competitor brand vs commercial-intent local).</div></div>
+      <div class="kpi"><div class="label">Impressions (30d)</div><div class="value">661</div><div class="delta flat">22 / day</div><div class="explain">Auction demand is real but limited. Volume is constrained by geo + budget caps. Room to grow if we restructure around what converts.</div></div>
+      <div class="kpi"><div class="label">Conversions (30d)</div><div class="value">1</div><div class="delta warn">$92 CPL</div><div class="explain">One conversion attributed to "tax accountant cape cod" at $5.44 CPC. The keyword that converted is exactly the term we want Steve to own organically + paid.</div></div>
+      <div class="kpi"><div class="label">Avg CPC</div><div class="value">$4.40</div><div class="delta flat">Vertical normal</div><div class="explain">$4.40 average CPC across the account. In line with Cape Cod CPA / accountant CPCs we see in SEMrush ($5.49 to $6.34 organic CPC values).</div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head"><span class="pill blue">Campaign roster</span><h2>SIX CAMPAIGNS.<br/>ONE SPENDING.</h2><p>One Search campaign actively spending. Two Payroll campaigns are Enabled but registering zero spend and effectively zero impressions. Three are Paused.</p></div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Campaign</th><th>Type</th><th>Status</th><th class="num">30d Spend</th><th class="num">30d Clicks</th><th class="num">30d Conv</th><th class="num">CPL</th></tr></thead>
+        <tbody>
+          <tr class="row-good"><td>Search - Tax / bookkeeping <span class="win-tag">ACTIVE</span></td><td>Search</td><td><span class="status-pill status-on">Live</span></td><td class="num">$92.41</td><td class="num">21</td><td class="num">1</td><td class="num">$92.41</td></tr>
+          <tr><td>Search - Payroll Services <span class="flag-tag">ENABLED, $0 SPEND</span></td><td>Search</td><td><span class="status-pill status-zero">Live, Silent</span></td><td class="num">$0.00</td><td class="num">0</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Search - Payroll Services Exp_Maximise conv. <span class="flag-tag">ENABLED, $0 SPEND</span></td><td>Search</td><td><span class="status-pill status-zero">Live, Silent</span></td><td class="num">$0.00</td><td class="num">0</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Search - Payroll</td><td>Search</td><td><span class="status-pill status-paused">Paused</span></td><td class="num">$0.00</td><td class="num">0</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Search - Tax / Accounting - USA</td><td>Search</td><td><span class="status-pill status-paused">Paused</span></td><td class="num">$0.00</td><td class="num">0</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>October Campaign</td><td>Search</td><td><span class="status-pill status-paused">Paused</span></td><td class="num">$0.00</td><td class="num">0</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn"><strong>Two Payroll campaigns are Enabled but silent.</strong> "Search - Payroll Services" and "Search - Payroll Services Exp_Maximise conversions" are both set to Live status but have $0 spend and effectively 0 impressions in 30 days. Either bids are below auction floor, budgets are $0, or the keyword targeting isn't matching any active searches. Worth confirming with Steve tomorrow: are these meant to be running? If yes, fix bids/budgets. If no, pause to clean up the account view.</div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-head"><span class="pill blue">Search term waste flags</span><h2>WHERE THE BUDGET<br/><span class="accent">LEAKED.</span></h2><p>Top search terms triggering ads in the last 30 days. Two competitor-brand queries burned $9.74 of the $92 spend with zero chance of converting. One commercial-intent Cape Cod query converted at $5.44.</p></div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Search Term</th><th class="num">Cost</th><th class="num">Clicks</th><th class="num">Conv</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td>tax preparer near me</td><td class="num">$8.23</td><td class="num">2</td><td class="num">0</td><td>Broad-intent &mdash; review match type</td></tr>
+          <tr class="row-bad"><td>h &amp; r block teaticket ma <span class="flag-tag">COMPETITOR BRAND</span></td><td class="num">$5.95</td><td class="num">1</td><td class="num">0</td><td>Negative-keyword immediately</td></tr>
+          <tr><td>tax preparers near me</td><td class="num">$5.90</td><td class="num">1</td><td class="num">0</td><td>Broad-intent &mdash; review match type</td></tr>
+          <tr class="row-good"><td>tax accountant cape cod <span class="win-tag">CONVERTED</span></td><td class="num">$5.44</td><td class="num">1</td><td class="num">1</td><td>Winner &mdash; double down on Cape Cod CPA exact-match</td></tr>
+          <tr><td>bookkeeping services near me</td><td class="num">$4.07</td><td class="num">1</td><td class="num">0</td><td>Broad-intent &mdash; review match type</td></tr>
+          <tr class="row-bad"><td>h and r block orleans ma <span class="flag-tag">COMPETITOR BRAND</span></td><td class="num">$3.79</td><td class="num">1</td><td class="num">0</td><td>Negative-keyword immediately</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>Two clear waste flags.</strong> "h &amp; r block teaticket ma" and "h and r block orleans ma" burned $9.74 of the $92 spend (~10.5% of budget) with zero conversions and effectively zero chance of converting. Anyone searching the H&amp;R Block brand wants H&amp;R Block, not Steve. <strong>Action:</strong> add "h&amp;r block", "h and r block", "hr block", "block" (with required modifiers) to the campaign-level negative keyword list. Recover $10 per month minimum.</div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head"><span class="pill blue">The Winner</span><h2>"TAX ACCOUNTANT CAPE COD"<br/><span class="accent">WORKED.</span></h2><p>The single converted search term last 30 days. Worth its own section because it's the campaign blueprint going forward.</p></div>
+    <div class="findings-grid">
+      <div class="finding good">
+        <div class="label">The Data</div>
+        <h4>1 click, $5.44 CPC, 1 conversion</h4>
+        <p>"Tax accountant cape cod" triggered one click in the last 30 days at $5.44 CPC. That click converted. 100% conversion rate on the only term that performed. The CPC is in line with the SEMrush organic CPC for "cape cod accountants" ($5.49) — meaning this is real commercial-intent demand at fair-market pricing.</p>
+      </div>
+      <div class="finding blue">
+        <div class="label">Why It Matters</div>
+        <h4>This is the same term winning organically</h4>
+        <p>Steve already ranks #6 on "cape cod accountants" and #9 on "cpa cape cod" organically. The paid winner is the same kind of intent. The organic and paid worlds are converging on one type of Cape Cod buyer: someone who already knows they want a Cape Cod CPA and is shopping by location.</p>
+      </div>
+      <div class="finding good">
+        <div class="label">The Blueprint</div>
+        <h4>Tighten the active campaign around Cape Cod CPA exact-match</h4>
+        <p>Restructure "Search - Tax / bookkeeping" around exact-match keywords: "[cape cod cpa]", "[tax accountant cape cod]", "[cpa cape cod]", "[cape cod accountant]", "[accountant cape cod]". Drop or demote the broad-intent "tax preparer near me" angle which is burning budget without converting. Keep one Cape Cod-geo broad-match group as a discovery layer.</p>
+      </div>
+      <div class="finding warn">
+        <div class="label">The Caveat</div>
+        <h4>One conversion is a small sample</h4>
+        <p>Statistically, one conversion in 30 days isn't a full read. The directional signal (Cape Cod local intent converts, competitor brand and broad-intent don't) is strong. The "A/B Manage Google Ads Campaign" task on the W3 board (Not Started, due 5/18) is the place to run a proper test against this hypothesis once the negatives are in place.</p>
+      </div>
+    </div>
+    <div class="callout win"><strong>Recommended next move:</strong> add the H&amp;R Block negatives this week, restructure the "Search - Tax / bookkeeping" campaign around Cape Cod CPA exact-match in the next 7 days, decide on the two silent Payroll campaigns in tomorrow's meeting (kill or fix bids), then re-baseline 30 days from now against a cleaner spend.</div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-head"><span class="pill blue">Open Asana actions</span><h2>WHAT'S QUEUED<br/><span class="accent">FROM W3.</span></h2><p>Ads-relevant tasks already in the May 2026 board. Click through to update status as we work them.</p></div>
+    <div class="action-list">
+      <div class="action">
+        <div class="anum">1</div>
+        <div>
+          <h5>A/B Manage Google Ads Campaign</h5>
+          <p>W3 task, Not Started, due 5/18. Run the structural A/B: original "Search - Tax / bookkeeping" campaign vs a Cape Cod exact-match restructure with H&amp;R Block negatives. Measure cost-per-conversion delta over 14-30 days.</p>
+        </div>
+        <a class="task" href="https://app.asana.com/0/0/1214286884654866" target="_blank">Open in Asana</a>
+      </div>
+      <div class="action">
+        <div class="anum">2</div>
+        <div>
+          <h5>Target "atlantic payroll" more aggressively (SEO + Ads tie-in)</h5>
+          <p>W2 task, Internal Review, due 5/15. Decision pending in tomorrow's meeting per the <a href="https://markology-agency.github.io/pages/steve-ellard/may-2026-strategy/" target="_blank">strategy memo</a>. If Option 01 is approved, this task closes out (redirect demand to Atlantic Payroll Partners domain) instead of doubling down on stevenmellardcpa.com.</p>
+        </div>
+        <a class="task" href="https://app.asana.com/0/0/1214572794516948" target="_blank">Open in Asana</a>
+      </div>
+      <div class="action">
+        <div class="anum">3</div>
+        <div>
+          <h5>Decide the two silent Payroll campaigns</h5>
+          <p>"Search - Payroll Services" and "Search - Payroll Services Exp_Maximise conv" are Enabled but $0 spend. Discussion point #7 in tomorrow's meeting prep. Outcome: pause or fix bids/budgets. New Asana task to be created based on the call.</p>
+        </div>
+        <a class="task" href="https://app.asana.com/0/1214286901706699" target="_blank">May board</a>
+      </div>
+      <div class="action">
+        <div class="anum">4</div>
+        <div>
+          <h5>Add H&amp;R Block negatives across campaigns</h5>
+          <p>Recover ~$10/month minimum. Negatives to add: "h&amp;r block", "h and r block", "hr block", "block" (with modifiers), "jackson hewitt", "liberty tax" (preventive). Quick win, no downside. New Asana task to be created tomorrow.</p>
+        </div>
+        <a class="task" href="https://app.asana.com/0/1214286901706699" target="_blank">May board</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head"><span class="pill blue">Changes log</span><h2>WHAT CHANGED.</h2></div>
+    <div class="tl-item"><div class="tl-date">2026-05-20</div><div class="tl-title">Ads tracker launched</div><div class="tl-body">Live dashboard created ahead of the 5/21 client meeting. Baseline: $92.41 / 21 clicks / 1 conv over last 30 days. Six campaigns total (1 active, 2 enabled-silent, 3 paused). Two waste flags (H&amp;R Block competitor brand). One winner ("tax accountant cape cod" exact-match converted).</div></div>
+  </div>
+</section>
+
+<section style="background:var(--lilac);">
+  <div class="container">
+    <div class="section-head"><span class="pill blue">Daily monitoring</span><h2>ANOMALY LOG.</h2><p>Flagged by the daily Google Ads check once it's scheduled.</p></div>
+    <div class="anom-empty"><div class="ae-icon">&#9989;</div><div class="ae-msg">DAILY CHECK NOT YET SCHEDULED</div><div class="ae-sub">Daily Google Ads anomaly routine will populate this section once added to the daily-agents schedule: campaigns paused unexpectedly, 0 impressions days, spend at cap, CPC spikes, conversion drops.</div></div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <h2>$92 SPENT.<br/>ONE CONVERSION.<br/><span class="accent">TIGHTEN THE LEAK.</span></h2>
+    <p>Add the H&amp;R Block negatives. Restructure around Cape Cod CPA exact-match. Decide the Payroll campaigns in tomorrow's meeting.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; May 20, 2026 &middot; <a href="https://markology-agency.github.io/pages/steve-ellard/">Steve Ellard report hub</a></div>
+  </div>
+</footer>
+
+</body>
+</html>

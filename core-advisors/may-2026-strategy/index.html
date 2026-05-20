@@ -3,140 +3,269 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Core Advisors, May 2026 Strategy Review by Markology</title>
+<title>Core Advisors, Strategy Memo, May 2026 by Markology</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;}
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#D97706;--bad:#DC2626;}
 *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
 body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
-.accent{color:var(--blue);}
-.container{max-width:1200px;margin:0 auto;padding:0 32px;}
-section{padding:80px 0;position:relative;overflow:hidden;}
-@media(max-width:720px){section{padding:56px 0;}.container{padding:0 20px;}}
-.star{position:absolute;pointer-events:none;}
+.accent{color:var(--blue);}.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:72px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:48px 0;}.container{padding:0 20px;}}
 .pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
-.pill.blue{background:var(--blue);}
-.hero{background:var(--paper);padding-top:100px;padding-bottom:80px;}
-.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(44px,8vw,96px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:24px 0 0;}
-.hero .lede{font-size:19px;line-height:1.6;color:var(--mute);max-width:680px;margin-top:28px;}
-.hero .meta{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.pill.blue{background:var(--blue);}.pill.warn{background:var(--warn);}.pill.good{background:var(--good);}.pill.bad{background:var(--bad);}
+.hero{background:var(--paper);padding-top:84px;padding-bottom:64px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7vw,84px);line-height:0.95;letter-spacing:0.02em;color:var(--navy);margin:20px 0 0;}
+.hero .lede{font-size:18px;line-height:1.6;color:var(--mute);max-width:760px;margin-top:24px;}
+.hero .meta{margin-top:24px;display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
 .hero .meta strong{color:var(--navy);font-weight:600;}
-.kpi-section{background:#fff;padding:64px 0;}
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
-.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 22px;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
-.kpi:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
-.kpi:nth-child(2){background:var(--lilac);}
-.kpi:nth-child(4){background:var(--lilac);}
-.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:12px;}
-.kpi .value{font-family:'Bangers',sans-serif;font-size:48px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
-.kpi .delta{margin-top:10px;font-size:13px;font-weight:600;color:#047857;}
-.kpi .explain{margin-top:14px;padding-top:14px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);line-height:1.5;}
-.section-head{margin-bottom:48px;max-width:820px;}
-.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(40px,5.5vw,68px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:16px;}
-.section-head p{font-size:17px;color:var(--mute);margin-top:16px;line-height:1.6;}
-.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
-@media(max-width:900px){.chart-row{grid-template-columns:1fr;}}
-.chart-card{background:var(--paper);border:2px solid var(--navy);border-radius:20px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
-.chart-card h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:4px;}
-.chart-card .chart-sub{font-size:13px;color:var(--mute);margin-bottom:20px;}
-.chart-container{position:relative;height:280px;}
-.table-section{background:var(--paper);}
-.table-card{background:#fff;border:2px solid var(--navy);border-radius:20px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);}
-table{width:100%;border-collapse:collapse;font-size:14px;}
-thead{background:var(--navy);}
-th{text-align:left;padding:14px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);}
-th.num,td.num{text-align:right;}
-td{padding:14px 18px;border-bottom:1px solid var(--hair);}
-tr:last-child td{border-bottom:none;}
-tbody tr:nth-child(even){background:var(--paper);}
-.upside-pill{display:inline-block;padding:3px 10px;background:var(--lilac);color:var(--navy);border:1.5px solid var(--navy);border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.05em;}
-.priorities-section{background:#fff;}
-.priority-list{display:flex;flex-direction:column;gap:16px;}
-.priority{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 28px;display:grid;grid-template-columns:56px 1fr;gap:20px;align-items:start;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
-.priority:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
-.priority .pnum{width:56px;height:56px;border-radius:14px;background:var(--blue);color:#fff;border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:30px;display:flex;align-items:center;justify-content:center;}
-.priority h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:6px;}
-.priority p{font-size:14px;color:var(--mute);line-height:1.55;}
-.priority .tag{display:inline-block;margin-top:10px;padding:4px 10px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.18em;border-radius:6px;text-transform:uppercase;}
-.story-section{background:var(--lilac);}
-.story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-@media(max-width:900px){.story-grid{grid-template-columns:1fr;}}
-.story-card{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:28px;box-shadow:5px 5px 0 var(--navy);}
-.story-card .num{font-family:'Bangers',sans-serif;font-size:64px;line-height:0.9;color:var(--blue);margin-bottom:8px;}
-.story-card h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:12px;line-height:1.1;}
-.story-card p{font-size:14px;color:var(--mute);line-height:1.55;}
-.ideas-section{background:#fff;}
-.ideas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
-@media(max-width:900px){.ideas-grid{grid-template-columns:1fr;}}
-.idea{background:var(--paper);border:2px solid var(--navy);border-radius:20px;padding:32px 28px;box-shadow:6px 6px 0 var(--navy);position:relative;}
-.idea:nth-child(2),.idea:nth-child(3){background:var(--lilac);}
-.idea .badge{position:absolute;top:-14px;left:24px;background:var(--blue);color:#fff;border:2px solid var(--navy);padding:4px 12px;border-radius:8px;font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;}
-.idea h4{font-family:'Bangers',sans-serif;font-size:26px;letter-spacing:0.04em;color:var(--navy);margin-bottom:12px;line-height:1.1;}
-.idea p{font-size:14px;color:var(--mute);line-height:1.6;margin-bottom:8px;}
-.callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:20px 24px;margin-top:24px;box-shadow:4px 4px 0 var(--navy);}
-.callout strong{color:var(--navy);font-weight:700;}
-.footer{background:var(--navy);color:#fff;text-align:center;padding:80px 0;}
-.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,56px);line-height:1;letter-spacing:0.02em;}
+.section-head{margin-bottom:36px;max-width:840px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(34px,4.8vw,56px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:14px;}
+.section-head p{font-size:16px;color:var(--mute);margin-top:14px;line-height:1.6;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+@media(max-width:900px){.two-col{grid-template-columns:1fr;}}
+.list-card{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:24px;box-shadow:5px 5px 0 var(--navy);}
+.list-card.shipped{background:#ECFDF5;}
+.list-card.stalled{background:#FEF3C7;}
+.list-card h3{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;margin-bottom:14px;color:var(--navy);}
+.list-card.shipped h3 .accent{color:var(--good);}
+.list-card.stalled h3 .accent{color:var(--warn);}
+.list-card ul{list-style:none;padding:0;}
+.list-card li{padding:10px 0;border-bottom:1px dashed var(--hair);font-size:14px;line-height:1.5;display:flex;gap:10px;align-items:flex-start;}
+.list-card li:last-child{border-bottom:none;}
+.list-card li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:7px;}
+.list-card.shipped li::before{background:var(--good);}
+.list-card.stalled li::before{background:var(--warn);}
+.list-card .memo-pill{font-size:10px;background:var(--lilac);color:var(--navy);padding:2px 8px;border-radius:6px;font-weight:700;letter-spacing:0.05em;margin-left:6px;}
+.review-batch{background:#fff;}
+.review-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+@media(max-width:900px){.review-grid{grid-template-columns:1fr;}}
+.review-card{background:var(--paper);border:2px solid var(--navy);border-radius:14px;padding:22px;box-shadow:5px 5px 0 var(--navy);display:flex;flex-direction:column;gap:8px;}
+.review-card .review-tag{font-size:10px;text-transform:uppercase;letter-spacing:0.16em;color:var(--blue);font-weight:700;}
+.review-card h4{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.02em;color:var(--navy);line-height:1.15;}
+.review-card p{font-size:13px;color:var(--mute);line-height:1.55;}
+.review-card a{display:inline-block;margin-top:6px;font-size:12px;color:var(--blue);font-weight:600;text-decoration:none;border-bottom:1px dotted var(--blue);}
+.blocker-section{background:var(--navy);color:#fff;}
+.blocker-section h2{color:#fff;}
+.blocker-section .section-head p{color:#B4B6D6;}
+.blocker-card{background:rgba(255,255,255,0.07);border:2px solid rgba(255,255,255,0.2);border-radius:14px;padding:22px 26px;}
+.blocker-card h3{font-family:'Bangers',sans-serif;font-size:22px;color:#fff;letter-spacing:0.04em;margin-bottom:10px;}
+.blocker-card p{color:#B4B6D6;font-size:14px;line-height:1.55;}
+.blocker-card .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,0.15);font-size:14px;color:#E0E2F3;gap:14px;}
+.blocker-card .row:last-child{border-bottom:none;}
+.blocker-card .row strong{color:#fff;white-space:nowrap;}
+.ab-section{background:var(--paper);}
+.ab-card{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.ab-card h3{font-family:'Bangers',sans-serif;font-size:24px;letter-spacing:0.04em;margin-bottom:8px;color:var(--navy);}
+.ab-card .sub{font-size:13px;color:var(--mute);margin-bottom:18px;}
+.ab-card .question{padding:12px 0;border-bottom:1px dashed var(--hair);}
+.ab-card .question:last-child{border-bottom:none;}
+.ab-card .question strong{display:block;color:var(--navy);font-size:14px;margin-bottom:4px;}
+.ab-card .question span{color:var(--mute);font-size:13px;line-height:1.5;}
+.p2-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+@media(max-width:900px){.p2-grid{grid-template-columns:1fr;}}
+.p2-card{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:22px;box-shadow:5px 5px 0 var(--navy);}
+.p2-card .p2-num{font-family:'Bangers',sans-serif;font-size:32px;line-height:1;color:var(--blue);letter-spacing:0.02em;margin-bottom:6px;}
+.p2-card h4{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);margin-bottom:8px;line-height:1.15;}
+.p2-card p{font-size:13px;color:var(--mute);line-height:1.55;margin-bottom:12px;}
+.p2-card .ask{padding:8px 12px;background:var(--lilac);border-left:4px solid var(--blue);font-size:13px;color:var(--navy);border-radius:4px;font-weight:600;}
+.cluster-card{background:#FEF3C7;border:2px solid var(--navy);border-radius:16px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.cluster-card h3{font-family:'Bangers',sans-serif;font-size:24px;letter-spacing:0.04em;margin-bottom:6px;color:var(--navy);}
+.cluster-card .sub{font-size:13px;color:#92400E;margin-bottom:18px;}
+.cluster-card .opt{padding:14px 18px;background:#fff;border:1.5px solid var(--navy);border-radius:8px;margin-bottom:12px;}
+.cluster-card .opt:last-child{margin-bottom:0;}
+.cluster-card .opt strong{display:block;font-family:'Bangers',sans-serif;font-size:16px;color:var(--navy);letter-spacing:0.02em;margin-bottom:6px;}
+.cluster-card .opt span{font-size:13px;color:var(--mute);line-height:1.5;}
+.next-30{background:#fff;}
+.next-30-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+@media(max-width:900px){.next-30-grid{grid-template-columns:1fr;}}
+.next-30-card{background:var(--paper);border:2px solid var(--navy);border-radius:14px;padding:22px;box-shadow:5px 5px 0 var(--navy);}
+.next-30-card .num{font-family:'Bangers',sans-serif;font-size:42px;color:var(--blue);line-height:1;letter-spacing:0.02em;}
+.next-30-card h4{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);margin:8px 0 8px;line-height:1.15;}
+.next-30-card p{font-size:13px;color:var(--mute);line-height:1.55;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:64px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(30px,4vw,46px);line-height:1;letter-spacing:0.02em;}
 .footer h2 .accent{color:var(--blue);}
-.footer p{color:#B4B6D6;margin-top:16px;font-size:14px;}
-.footer .built-by{margin-top:32px;padding-top:24px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer p{color:#B4B6D6;margin-top:14px;font-size:14px;}
+.footer .built-by{margin-top:28px;padding-top:20px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
 .footer .built-by a{color:var(--blue);text-decoration:none;}
-.metric-row{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:32px;}
-@media(max-width:720px){.metric-row{grid-template-columns:1fr;}}
-.metric{text-align:center;padding:24px;background:#fff;border:2px solid var(--navy);border-radius:12px;}
-.metric .v{font-family:'Bangers',sans-serif;font-size:48px;color:var(--blue);line-height:1;}
-.metric .l{font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--mute);font-weight:700;margin-top:8px;}
 </style>
 </head>
 <body>
 
 <section class="hero">
-  <svg class="star" style="top:80px;left:80px;transform:rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
-  <svg class="star" style="top:200px;right:120px;transform:rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
-  <svg class="star" style="bottom:60px;left:30%;transform:rotate(45deg);" width="20" height="20" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
   <div class="container">
-    <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">May 2026 &middot; Strategy Review</span>
-    <h1>RANKINGS ARE<br/>COMPOUNDING. THE<br/>DENTAL NICHE <span class="accent">IS PROVING IT.</span></h1>
-    <p class="lede">Organic clicks are at an all-time high. 142 keywords ranking, double the November count. Average position has climbed from #40 to #14 in 12 months. Every recent inbound is a dentist. Here's what's working, where the upside lives, and what ships next.</p>
+    <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">May 2026 &middot; Strategy Memo</span>
+    <h1>TWO WEEKS AFTER<br/>THE MAY 6 SYNC:<br/><span class="accent">WHAT'S MOVED.</span></h1>
+    <p class="lede">The May 6 strategy memo flagged three things: SEO was working, the 60% session drop was almost certainly a paid traffic problem, and the fastest unlock was CTR plus attribution. Two weeks later: every Markology-side action is shipped or in Internal Review. The remaining blockers are Thomas-side, the Google Ads side needs a decision, and the retirement blog cluster needs a go/shelve call.</p>
     <div class="meta">
-      <span><strong>Period:</strong> February to April 2026 (90 days)</span>
       <span><strong>Prepared for:</strong> Thomas Gore</span>
-      <span><strong>Prepared by:</strong> Markology</span>
+      <span><strong>Date:</strong> May 20, 2026</span>
+      <span><strong>Companion to:</strong> May 6, 2026 strategy review</span>
     </div>
   </div>
 </section>
 
-<section class="kpi-section">
+<section style="background:var(--paper);">
   <div class="container">
-    <div class="kpi-grid">
-      <div class="kpi">
-        <div class="label">Organic Clicks (April)</div>
-        <div class="value">135</div>
-        <div class="delta">&uarr; 55% YoY</div>
-        <div class="explain">Monthly clicks from Google organic search. Source: Search Console. Up from 87 in May 2025.</div>
+    <div class="section-head">
+      <span class="pill">14 Days Later</span>
+      <h2>SHIPPED VS.<br/><span class="accent">STILL GATED.</span></h2>
+      <p>The May 6 memo asked Thomas for Google Ads access, GA4 viewer access, sign-off on priority order, and a read on four P2 ideas. The technical plumbing has all fired. The strategic confirmations from Thomas are the remaining gate.</p>
+    </div>
+    <div class="two-col">
+      <div class="list-card shipped">
+        <h3>SHIPPED <span class="accent">&rarr;</span></h3>
+        <ul>
+          <li>UTM parameters added to every Calendly link on coreadvisors.com <span class="memo-pill">Memo P0 #2</span></li>
+          <li>March 2026 zero-conversion anomaly investigation closed <span class="memo-pill">Diagnosis</span></li>
+          <li>Calendly real booking conversion tracking, in Internal Review <span class="memo-pill">P0 #1</span></li>
+          <li>Title and meta rewrite, top 12 high-impression low-CTR pages, in Internal Review <span class="memo-pill">P1 #6</span></li>
+          <li>Keyword gap report vs dentistadvisors.com, in Internal Review <span class="memo-pill">P1 #10</span></li>
+          <li>Three SEO blog drafts in Internal/Client Review (Associate Hiring, Second Practice, Independent vs DSO) <span class="memo-pill">Series</span></li>
+          <li>May social posts (8 captions plus graphics) queued and ready <span class="memo-pill">Recurring</span></li>
+        </ul>
       </div>
-      <div class="kpi">
-        <div class="label">Total Keywords Ranking</div>
-        <div class="value">142</div>
-        <div class="delta">&uarr; 137% YoY</div>
-        <div class="explain">URLs from coreadvisors.com appearing in Google results. Source: SEMrush. Up from 60 a year ago.</div>
+      <div class="list-card stalled">
+        <h3>STILL GATED <span class="accent">&rarr;</span></h3>
+        <ul>
+          <li>Google Ads Standard Access for whitney@markology.io on customer 4463043539 <span class="memo-pill">Thomas ask</span></li>
+          <li>GA4 viewer access on property 312089447 still revoked <span class="memo-pill">Thomas ask</span></li>
+          <li>A/B Google Ads Campaign questions (deferred from May 19) <span class="memo-pill">Open question</span></li>
+          <li>63% Ads impression drop diagnosis, Edits Needed (live data dependent) <span class="memo-pill">P0 #1</span></li>
+          <li>Calendly intake required field plus 2 qualifying questions <span class="memo-pill">P0 #5</span></li>
+          <li>Sign-off on four P2 ideas (podcast, calculator retargeting, LinkedIn outbound, Second Opinion) <span class="memo-pill">P2 review</span></li>
+          <li>Three retirement cluster blogs in Edits Needed, May 22 due <span class="memo-pill">Retirement series</span></li>
+        </ul>
       </div>
-      <div class="kpi">
-        <div class="label">Avg Ranking Position</div>
-        <div class="value">#14</div>
-        <div class="delta">improved from #40</div>
-        <div class="explain">Average page position across all ranking keywords. Lower is better. Up from #40 a year ago.</div>
+    </div>
+  </div>
+</section>
+
+<section class="review-batch">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Internal Review Batch</span>
+      <h2>SIX ITEMS READY<br/>FOR <span class="accent">THOMAS WALKTHROUGH.</span></h2>
+      <p>The six deliverables below are all in Internal or Client Review status as of May 20. Each is ready to ship after Thomas signs off in the May 21 call. The collective impact (better titles, real attribution, three new blog posts, a gap report Thomas can use) is the unlock for the next 30 days.</p>
+    </div>
+    <div class="review-grid">
+      <div class="review-card">
+        <div class="review-tag">P1 #6 / Memo</div>
+        <h4>Titles + Metas, Top 12 Pages</h4>
+        <p>Rewrite of title tags and meta descriptions on the 12 highest-impression, lowest-CTR pages. Targets the "ranks but doesn't click" problem from the May 6 memo. Conservative 3% CTR estimate would add roughly +700 organic clicks/month.</p>
+        <a href="https://app.asana.com/0/0/1214572464163417" target="_blank">Asana task &rarr;</a>
       </div>
-      <div class="kpi">
-        <div class="label">Top Dental Keyword Gain</div>
-        <div class="value">+19</div>
-        <div class="delta">"dental financial advisors" #27 &rarr; #8</div>
-        <div class="explain">Largest YoY position gain on a strategic dental keyword. Vol 140, 12-month movement.</div>
+      <div class="review-card">
+        <div class="review-tag">P0 #1 / Memo</div>
+        <h4>Calendly Conversion Tracking</h4>
+        <p>Real booking event tracked into GA4 and Google Ads. No more guessing on attribution. Will overlap with the existing tracking briefly so we can validate.</p>
+        <a href="https://app.asana.com/0/0/1214572977882405" target="_blank">Asana task &rarr;</a>
+      </div>
+      <div class="review-card">
+        <div class="review-tag">P1 #10 / Memo</div>
+        <h4>dentistadvisors.com Gap Report</h4>
+        <p>994 keywords vs Core Advisors' 142. Filtered to commercial-intent, dental-niche terms Thomas can credibly chase. Output is a content roadmap, not just a list.</p>
+        <a href="https://app.asana.com/0/0/1214572387354551" target="_blank">Asana task &rarr;</a>
+      </div>
+      <div class="review-card">
+        <div class="review-tag">Associate-to-Owner Series</div>
+        <h4>When to Hire an Associate Dentist</h4>
+        <p>Client Review. Lead piece for the Associate-to-Owner content series the May 6 memo prioritized. Targets a real, high-intent journey moment for the Associate persona.</p>
+        <a href="https://app.asana.com/0/0/1214285639038290" target="_blank">Asana task &rarr;</a>
+      </div>
+      <div class="review-card">
+        <div class="review-tag">Associate-to-Owner Series</div>
+        <h4>Should You Open a Second Practice</h4>
+        <p>Internal Review. Second piece in the series. Pairs with the Practice Valuation calculator and Wealth Management for Dentists service page.</p>
+        <a href="https://app.asana.com/0/0/1214285441767134" target="_blank">Asana task &rarr;</a>
+      </div>
+      <div class="review-card">
+        <div class="review-tag">Associate-to-Owner Series</div>
+        <h4>Independent Practice vs DSO Pros and Cons</h4>
+        <p>Internal Review. Third piece. Targets the live decision most associates and new owners are actively weighing. Strong fit for the Dental CFO service page.</p>
+        <a href="https://app.asana.com/0/0/1214285487683552" target="_blank">Asana task &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blocker-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill bad" style="background:var(--bad);">Top Blocker</span>
+      <h2>THOMAS-SIDE ACCESS<br/>STILL <span class="accent">OPEN.</span></h2>
+      <p>Until Markology has Google Ads Standard Access and GA4 viewer access, the 60% session drop diagnosis and the Ads-side decisions get made on incomplete data. Two minutes in his Admin panel, both accounts. Highest-leverage thing Thomas can do this week.</p>
+    </div>
+    <div class="blocker-card">
+      <h3>What's Needed</h3>
+      <div class="row"><span>Google Ads Standard Access for whitney@markology.io</span><strong>Customer 4463043539</strong></div>
+      <div class="row"><span>GA4 viewer access</span><strong>Property 312089447</strong></div>
+      <div class="row"><span>Impact if granted today</span><strong>~7-day diagnosis cycle</strong></div>
+      <div class="row"><span>Impact if not granted by end of May</span><strong>Ads recommendations stay theoretical</strong></div>
+    </div>
+  </div>
+</section>
+
+<section class="ab-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill warn">A/B Campaign Questions</span>
+      <h2>DEFERRED FROM MAY 19.<br/><span class="accent">NEEDS A DECISION.</span></h2>
+      <p>The "Search Exp_ Maximize conversions_KW Exact match" experiment campaign was set up to A/B against the main Search campaign. After 30 days the experiment has zero impressions, meaning the exact-match keyword set is too narrow to compete in auction. Three questions for Thomas.</p>
+    </div>
+    <div class="ab-card">
+      <h3>Open Questions on the A/B</h3>
+      <div class="sub">Defer pattern: raised May 6, queued May 11, deferred from May 19 night. Decision needed May 21.</div>
+      <div class="question">
+        <strong>1. Kill the experiment, or widen the exact-match list?</strong>
+        <span>Zero impressions for 30 days means the exact phrases aren't winning auction. Options are (a) kill it and put the budget back into the broader Search campaign, or (b) widen the keyword set so the experiment actually serves.</span>
+      </div>
+      <div class="question">
+        <strong>2. If we widen, what's the budget split?</strong>
+        <span>Current state has $0 going to the experiment. If we widen, we recommend a 30/70 split (experiment / main Search) to get statistical signal without bleeding budget.</span>
+      </div>
+      <div class="question">
+        <strong>3. What's the success metric for the A/B?</strong>
+        <span>Cost per Calendly booking, cost per lead, or something else. Without a clear winner condition the A/B will run forever. Recommend cost per Calendly booking once tracking lands.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">P2 Ideas</span>
+      <h2>FOUR BIGGER SWINGS.<br/><span class="accent">YES OR NO?</span></h2>
+      <p>The May 6 memo surfaced four ideas that need a Thomas-level go/no-go before Markology builds. None are core SEO work; all are conversion or lead-gen levers that compound on top of the SEO foundation. Cheapest pilot is the calculator retargeting. Boldest swing is Second Opinion.</p>
+    </div>
+    <div class="p2-grid">
+      <div class="p2-card">
+        <div class="p2-num">P2.1</div>
+        <h4>Podcast Guest Tour</h4>
+        <p>Pitch Thomas as a guest on 6-10 dental-industry podcasts over 90 days. Audience is dental practice owners directly. No paid spend, builds authority + backlinks + warm referrals to coreadvisors.com.</p>
+        <div class="ask">Ask: yes/no on Markology booking pitches + prep brief.</div>
+      </div>
+      <div class="p2-card">
+        <div class="p2-num">P2.2</div>
+        <h4>Calculator Retargeting on Meta</h4>
+        <p>$500/month test. Retarget anyone who hits the Dental Practice Valuation Calculator with a 7-day Meta ad sequence offering a 1:1 valuation consult. Cheapest experimental spend in the deck.</p>
+        <div class="ask">Ask: yes/no on $500/mo Meta retargeting pilot for 60 days.</div>
+      </div>
+      <div class="p2-card">
+        <div class="p2-num">P2.3</div>
+        <h4>LinkedIn DM Playbook for Thomas</h4>
+        <p>Hands Thomas a 5-template DM script + outreach list of 50 dental practice owners per month. Thomas owns the send. Markology owns the list, scripts, and Calendly handoff.</p>
+        <div class="ask">Ask: yes/no on whether Thomas wants to own the send-side.</div>
+      </div>
+      <div class="p2-card">
+        <div class="p2-num">P2.4</div>
+        <h4>"Second Opinion" $200 Guarantee</h4>
+        <p>Productized offer: a $200 second-opinion review of an existing dentist's tax/financial setup. Conversion offer at the top of the funnel that lowers the bar to enter the Core Advisors relationship.</p>
+        <div class="ask">Ask: yes/no on testing as a Calendly-bookable, $200 SKU.</div>
       </div>
     </div>
   </div>
@@ -145,301 +274,59 @@ tbody tr:nth-child(even){background:var(--paper);}
 <section style="background:var(--paper);">
   <div class="container">
     <div class="section-head">
-      <span class="pill">The Trajectory</span>
-      <h2>UP AND TO<br/><span class="accent">THE RIGHT.</span></h2>
-      <p>Two views of the same story. Organic clicks are climbing month over month. Average page ranking position is dropping (lower is better). The dental advisory niche is rewarding consistent content with steadily improving visibility.</p>
+      <span class="pill warn">Retirement Cluster Decision</span>
+      <h2>PUSH THROUGH OR<br/><span class="accent">SHELVE?</span></h2>
+      <p>Three retirement blogs (401(k) vs SIMPLE IRA, Retirement by Decade, Student Loans) have been in Edits Needed for 10+ days with a May 22 due date. They pair with the Retirement Planning for Dentists service page, which currently earns near-zero organic. The call is whether to push the revision pass through this week or shelve the briefs and reuse the slot for additional Associate-to-Owner series pieces (which are performing in Internal Review).</p>
     </div>
-    <div class="chart-row">
-      <div class="chart-card">
-        <h4>Organic Clicks Per Month</h4>
-        <div class="chart-sub">From Google Search Console. Up and to the right.</div>
-        <div class="chart-container"><canvas id="organicChart"></canvas></div>
+    <div class="cluster-card">
+      <h3>Two Paths</h3>
+      <div class="sub">Recommendation: push through. Retirement is a core service line with currently zero organic. Shelving leaves the service page exposed.</div>
+      <div class="opt">
+        <strong>Option A &mdash; Push Through (recommended)</strong>
+        <span>Writer cycles one more revision pass this week. Three blogs publish by end of May. Internal links to Retirement Planning service page lift its organic visibility. Cost: ~6 hours of writer/editor time.</span>
       </div>
-      <div class="chart-card">
-        <h4>Average Ranking Position</h4>
-        <div class="chart-sub">Lower is better. Position improved from #40 to #14 in 12 months.</div>
-        <div class="chart-container"><canvas id="positionChart"></canvas></div>
+      <div class="opt">
+        <strong>Option B &mdash; Shelve and Reuse Slot</strong>
+        <span>Retirement briefs go on shelf. Replace the May 22 slots with three more Associate-to-Owner pieces (Practice Acquisition Financing, S-Corp Election for Dentists, Goodwill vs Equipment Allocation). Faster path to publish but leaves the retirement service page exposed.</span>
       </div>
     </div>
   </div>
 </section>
 
-<section class="story-section">
+<section class="next-30">
   <div class="container">
     <div class="section-head">
-      <span class="pill blue">What's Working</span>
-      <h2>THE NICHE IS<br/><span class="accent">LOCKED IN.</span></h2>
-      <p>Three signals confirm the dental positioning is doing its job. The audience is right. The content is starting to compound. The conversion shape is healthy.</p>
+      <span class="pill blue">Recommended Next 30 Days</span>
+      <h2>WHERE TO POINT<br/>JUNE'S <span class="accent">EFFORT.</span></h2>
+      <p>Three priorities for the next 30 days, in order of expected impact. Each one assumes Thomas restores Ads + GA4 access by May 23.</p>
     </div>
-    <div class="story-grid">
-      <div class="story-card">
-        <div class="num">+19</div>
-        <h4>SPOTS GAINED ON 'DENTAL FINANCIAL ADVISORS'</h4>
-        <p>The flagship commercial keyword climbed from position #27 in May 2025 to position #8 today (vol 140). Now sitting just outside the top results for one of the highest-intent dental advisory queries in the index. Top-3 placement is the next push.</p>
+    <div class="next-30-grid">
+      <div class="next-30-card">
+        <div class="num">01</div>
+        <h4>Publish the Internal Review batch</h4>
+        <p>Ship titles+metas, the three Associate-to-Owner blogs, gap report, and Calendly tracking immediately after Thomas walkthrough. This single batch is the biggest CTR + content lift of Q2.</p>
       </div>
-      <div class="story-card">
-        <div class="num">+733%</div>
-        <h4>BLOG TRAFFIC ON TAX CONTENT</h4>
-        <p>The Dentist Tax Deduction blog jumped from 3 clicks (November to January) to 25 clicks (February to April). QBI Deduction up 350%. Profit Sharing up 150%. Tax-focused dental content is the engine driving organic growth.</p>
+      <div class="next-30-card">
+        <div class="num">02</div>
+        <h4>Execute the top-3 push</h4>
+        <p>"Dentist advisors", "dental financial advisors", and "dental practice value calculator" all at #9. On-page strengthening + 1-2 targeted backlinks each. Realistic shot at top 5 by end of June.</p>
       </div>
-      <div class="story-card">
-        <div class="num">#14</div>
-        <h4>AVG RANKING POSITION</h4>
-        <p>A year ago the average page ranked at position #40. Today it's #14. Page 2 is now the floor, not the ceiling. Nine high-intent dental keywords sit between #6 and #13, in striking distance of top-3 placement.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section style="background:#fff;padding:80px 0;">
-  <div class="container">
-    <div class="section-head">
-      <span class="pill">YoY Movement</span>
-      <h2>WHERE WE WERE<br/>VERSUS <span class="accent">WHERE WE ARE.</span></h2>
-      <p>The strategically tracked dental advisory keywords, year over year. Branded terms are now top-3. Commercial dental terms have moved up an average of 8 positions over the last 12 months. "How much does a dental practice cost" wasn't ranking at all in May 2025 and now sits at #6.</p>
-    </div>
-    <div class="table-card">
-      <table>
-        <thead><tr><th>Strategic Keyword</th><th class="num">Volume</th><th class="num">May 2025</th><th class="num">May 2026</th><th class="num">Movement</th></tr></thead>
-        <tbody>
-          <tr><td>core advisors</td><td class="num">90</td><td class="num">#2</td><td class="num"><strong>#1</strong></td><td class="num"><span class="upside-pill">+1</span></td></tr>
-          <tr><td>core advisors ltd</td><td class="num">30</td><td class="num">#1</td><td class="num"><strong>#1</strong></td><td class="num"><span class="upside-pill">held</span></td></tr>
-          <tr><td>dentists advisors</td><td class="num">50</td><td class="num">#13</td><td class="num"><strong>#6</strong></td><td class="num"><span class="upside-pill">+7 spots</span></td></tr>
-          <tr><td>how much does a dental practice cost</td><td class="num">90</td><td class="num">not ranking</td><td class="num"><strong>#6</strong></td><td class="num"><span class="upside-pill">NEW</span></td></tr>
-          <tr><td>dental financial advisors</td><td class="num">140</td><td class="num">#27</td><td class="num"><strong>#8</strong></td><td class="num"><span class="upside-pill">+19 spots</span></td></tr>
-          <tr><td>dentist advisors</td><td class="num">210</td><td class="num">#14</td><td class="num"><strong>#9</strong></td><td class="num"><span class="upside-pill">+5 spots</span></td></tr>
-          <tr><td>dental practice value calculator</td><td class="num">110</td><td class="num">#17</td><td class="num"><strong>#9</strong></td><td class="num"><span class="upside-pill">+8 spots</span></td></tr>
-          <tr><td>capital core advisors</td><td class="num">140</td><td class="num">#11</td><td class="num"><strong>#10</strong></td><td class="num"><span class="upside-pill">+1 spot</span></td></tr>
-          <tr><td>dental practice valuation calculator</td><td class="num">320</td><td class="num">#16</td><td class="num"><strong>#13</strong></td><td class="num"><span class="upside-pill">+3 spots</span></td></tr>
-          <tr><td>financial advisors for dentists</td><td class="num">140</td><td class="num">#20</td><td class="num"><strong>#13</strong></td><td class="num"><span class="upside-pill">+7 spots</span></td></tr>
-          <tr><td>dentist financial advisor</td><td class="num">110</td><td class="num">#29</td><td class="num"><strong>#13</strong></td><td class="num"><span class="upside-pill">+16 spots</span></td></tr>
-          <tr><td>dental cfo</td><td class="num">170</td><td class="num">#16</td><td class="num"><strong>#15</strong></td><td class="num"><span class="upside-pill">+1 spot</span></td></tr>
-          <tr><td>dental advisors</td><td class="num">70</td><td class="num">#18</td><td class="num"><strong>#15</strong></td><td class="num"><span class="upside-pill">+3 spots</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="callout"><strong>The math:</strong> "Dentists advisors" #6, "how much does a dental practice cost" #6, "dental financial advisors" #8, "dentist advisors" #9, and "dental practice value calculator" #9 are all one focused push from a top-3 placement, where click-through rates roughly 5x compared to positions #6 to #9. The commercial dental advisory keywords collectively represent the most valuable real estate in the index.</div>
-  </div>
-</section>
-
-<section class="table-section">
-  <div class="container">
-    <div class="section-head">
-      <span class="pill">The Next Unlock</span>
-      <h2>RANKING ALREADY,<br/>READY TO <span class="accent">WIN THE CLICK.</span></h2>
-      <p>Twelve pages on the site already rack up between 1,000 and 6,500 monthly impressions in Google. The rankings are there. The next move is sharpening titles and meta descriptions so more of those impressions convert into clicks. Fast, cheap, and high-leverage.</p>
-    </div>
-    <div class="table-card">
-      <table>
-        <thead><tr><th>Page</th><th class="num">Monthly Impressions</th><th class="num">Position</th><th class="num">Upside</th></tr></thead>
-        <tbody>
-          <tr><td>Best Dental Financial Advisors blog</td><td class="num">6,417</td><td class="num">#15.8</td><td class="num"><span class="upside-pill">+180 clicks</span></td></tr>
-          <tr><td>QBI Deduction for Dentists blog</td><td class="num">5,461</td><td class="num">#5.3</td><td class="num"><span class="upside-pill">+145 clicks</span></td></tr>
-          <tr><td>Profit Margin for Dentists blog</td><td class="num">5,031</td><td class="num">#9.4</td><td class="num"><span class="upside-pill">+140 clicks</span></td></tr>
-          <tr><td>Dental Practice Valuation Calculator</td><td class="num">3,778</td><td class="num">#22.2</td><td class="num"><span class="upside-pill">+110 clicks</span></td></tr>
-          <tr><td>Cost to Buy a Dental Practice blog</td><td class="num">3,408</td><td class="num">#16.8</td><td class="num"><span class="upside-pill">+95 clicks</span></td></tr>
-          <tr><td>Wealth Management for Dentists service page</td><td class="num">1,833</td><td class="num">#20.1</td><td class="num"><span class="upside-pill">+50 clicks</span></td></tr>
-          <tr><td>Dental CFO service page</td><td class="num">1,078</td><td class="num">#18.1</td><td class="num"><span class="upside-pill">+30 clicks</span></td></tr>
-          <tr><td>Dental Payroll service page</td><td class="num">1,052</td><td class="num">#23.8</td><td class="num"><span class="upside-pill">+30 clicks</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="callout"><strong>The math:</strong> Bringing the top six pages here up to a 3% click-through rate (the standard for these positions) translates to roughly 700 additional organic clicks every month. That's nearly doubling site traffic from organic alone, with no new content, no new rankings, and no backlink campaign required.</div>
-  </div>
-</section>
-
-<section style="background:#fff;padding:80px 0;">
-  <div class="container">
-    <div class="section-head">
-      <span class="pill">Google Ads</span>
-      <h2>PMAX IS A<br/><span class="accent">QUIET WINNER.</span></h2>
-      <p>Performance Max drove 227 clicks and 36 booking-intent events (button clicks on Schedule a Call, Book Now, and form submissions) for $122 over 90 days. The Search campaign drove 78 clicks and 1 conversion for $559. PMax is the clear winner. The bigger story is that the current tracking measures intent (button clicks), not the actual outcome (a confirmed Calendly booking). Fixing that gives PMax precise optimization signal and tells us exactly which ad spend produces real bookings.</p>
-    </div>
-    <div class="table-card" style="margin-bottom:32px;">
-      <table>
-        <thead><tr><th>Campaign</th><th class="num">Type</th><th class="num">90-Day Spend</th><th class="num">Clicks</th><th class="num">Total Conversions</th><th class="num">True CPA</th></tr></thead>
-        <tbody>
-          <tr><td><strong>PMax - Core Advisors - USA</strong></td><td class="num">Performance Max</td><td class="num">$121.92</td><td class="num">227</td><td class="num"><strong>36</strong></td><td class="num"><span class="upside-pill">$3.39 / click-event</span></td></tr>
-          <tr><td>Search - Core Advisors - USA</td><td class="num">Search</td><td class="num">$559.10</td><td class="num">78</td><td class="num">1</td><td class="num">$559.10</td></tr>
-          <tr><td>Search - USA Exp_ M</td><td class="num">Search</td><td class="num">$25.37</td><td class="num">3</td><td class="num">0</td><td class="num">N/A</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="chart-row">
-      <div class="chart-card">
-        <h4>Monthly Ad Spend</h4>
-        <div class="chart-sub">Spend has held in a tight $112 to $249 range over six months.</div>
-        <div class="chart-container"><canvas id="adSpendChart"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <h4>Monthly Conversions</h4>
-        <div class="chart-sub">From Google Ads conversion tracking. Six-month trend.</div>
-        <div class="chart-container"><canvas id="adConvChart"></canvas></div>
-      </div>
-    </div>
-    <div class="callout"><strong>The opportunity:</strong> set up real conversion tracking for confirmed Calendly bookings (not just button clicks), then reallocate the $185 monthly Search spend into PMax. Even at conservative CPA assumptions on actual bookings ($20 to $30 per booked call), PMax is the strongest channel in the funnel. Once the booking event is tracked precisely, the optimization algorithm gets clean signal and efficiency improves further within 14 to 30 days.</div>
-  </div>
-</section>
-
-<section class="priorities-section">
-  <div class="container">
-    <div class="section-head">
-      <span class="pill blue">May / June Game Plan</span>
-      <h2>WHAT WE WORK<br/><span class="accent">NEXT.</span></h2>
-      <p>Seven items, ordered by impact. Items 1 to 4 ship this week. Items 5 to 7 ship in the next 30 to 60 days. Each one builds on rankings, content, or the funnel that's already proven.</p>
-    </div>
-    <div class="priority-list">
-      <div class="priority">
-        <div class="pnum">01</div>
-        <div>
-          <h4>Track confirmed Calendly bookings as the real conversion event</h4>
-          <p>Right now the campaigns measure button clicks, not actual booked calls. We'll set up a Calendly booking webhook that fires a Google Ads conversion event the moment a booking is confirmed. That gives PMax precise signal to optimize against and makes every dollar of ad spend traceable to a real outcome. Quick win on top of this: reallocate the $185 monthly Search budget into PMax (which is already the strongest performer).</p>
-          <span class="tag">This Week</span>
-        </div>
-      </div>
-      <div class="priority" style="background:var(--lilac);">
-        <div class="pnum">02</div>
-        <div>
-          <h4>Title and meta rewrite project: top 12 pages</h4>
-          <p>Highest-leverage SEO work on the docket. Pages already rank. They just need stronger titles and meta descriptions to win the click. Estimated upside is 5 to 10x organic clicks on those pages within 60 days, no new content required.</p>
-          <span class="tag">This Week</span>
-        </div>
-      </div>
-      <div class="priority">
-        <div class="pnum">03</div>
-        <div>
-          <h4>Add UTM tracking to every Calendly link on the site</h4>
-          <p>Tagging every Calendly CTA with proper source and campaign parameters means every booking from this point forward tells us where it came from (organic, paid, blog post, social, referral). Live attribution data flows in within 24 hours of going live.</p>
-          <span class="tag">This Week</span>
-        </div>
-      </div>
-      <div class="priority" style="background:var(--lilac);">
-        <div class="pnum">04</div>
-        <div>
-          <h4>Required intake question on Calendly</h4>
-          <p>Adding two short qualifying questions to the booking flow ('What's your current setup?' and 'What's prompting the conversation?') means every meeting starts with context. Better-prepped meetings raise close rate and filter out non-fit callers before they hit the calendar.</p>
-          <span class="tag">This Week</span>
-        </div>
-      </div>
-      <div class="priority">
-        <div class="pnum">05</div>
-        <div>
-          <h4>Push three keywords from page one to top three</h4>
-          <p>Dentist advisors at #9 (210 monthly searches). Dental financial advisors at #8 (140). Dental practice value calculator at #9 (110). All three have ranked in striking distance for 12 months. A content refresh plus 1 to 2 quality backlinks each pushes them into the top results.</p>
-          <span class="tag">30 Days</span>
-        </div>
-      </div>
-      <div class="priority" style="background:var(--lilac);">
-        <div class="pnum">06</div>
-        <div>
-          <h4>Service page rewrite project (all 7 pages)</h4>
-          <p>Restructure each service page (Dental CFO, Payroll, Wealth Management, Retirement Planning, Bookkeeping, Tax, Accounting) with answer-first headings, benchmark numbers, and internal links. These are the highest-intent pages on the site. The rewrite turns existing impressions into clicks and clicks into bookings.</p>
-          <span class="tag">30 Days</span>
-        </div>
-      </div>
-      <div class="priority">
-        <div class="pnum">07</div>
-        <div>
-          <h4>'Associate-to-Owner' content series (6 blogs)</h4>
-          <p>A third of recent inbound is associates considering DSO buy-in or partnership. Six blog posts targeting the exact financial questions in that decision (DSO buy-in math, S-corp vs LLC, practice purchase financing, owner compensation, first-year tax planning) catch the highest-frequency persona in the funnel.</p>
-          <span class="tag">60 Days</span>
-        </div>
+      <div class="next-30-card">
+        <div class="num">03</div>
+        <h4>Run the A/B decision + negatives</h4>
+        <p>Kill or widen the exact-match experiment. Add the five negatives (insurance, retiree dental plan, ryan isaac, adcpa, pro fi) regardless. Restart PMax with intent once tracking is verified.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section class="ideas-section">
+<section class="footer">
   <div class="container">
-    <div class="section-head">
-      <span class="pill">New Plays</span>
-      <h2>FOUR NEW<br/><span class="accent">DIRECTIONS.</span></h2>
-      <p>Outside the standard SEO and content rhythm. Four bigger swings worth piloting if you're open to them, ranked from lowest-effort to most ambitious.</p>
-    </div>
-    <div class="ideas-grid">
-      <div class="idea">
-        <div class="badge">Idea 01</div>
-        <h4>Podcast guest tour</h4>
-        <p>Pitch you onto two or three dental practice owner podcasts per quarter. Short list: Shared Practices, The Dentalpreneur, ACT Dental, The Dental Hacks.</p>
-        <p>Direct access to the exact target audience, plus a backlink and a Calendly CTA on every appearance. One of the most underrated channels for B2B advisors in any niche.</p>
-      </div>
-      <div class="idea">
-        <div class="badge">Idea 02</div>
-        <h4>Calculator-page retargeting on Meta</h4>
-        <p>Anyone who hits the Practice Valuation Calculator and doesn't book a call gets retargeted on Facebook and Instagram with a 'Want help reading the number?' creative leading back to your calendar.</p>
-        <p>Hyper-qualified audience. Low spend, fast feedback loop. Modest budget required to test (around $500 per month).</p>
-      </div>
-      <div class="idea">
-        <div class="badge">Idea 03</div>
-        <h4>Targeted LinkedIn outbound for Thomas</h4>
-        <p>10 to 15 personalized DMs per week to dental practice owners in specific situations: 5 to 15 ops, recently bought a practice, recently hit a milestone.</p>
-        <p>Each message shares one specific tax or financial insight relevant to that owner, with a soft 'happy to chat if useful' close. Conversion rate runs 30 to 50% on this style when done correctly. Small numbers, big returns.</p>
-      </div>
-      <div class="idea">
-        <div class="badge">Idea 04</div>
-        <h4>The 'Second Opinion' guarantee</h4>
-        <p>Free 30-minute review for any dentist currently working with another CPA or financial advisor. Pitch: 'If we don't identify $5,000+ in savings or improvements, we'll send you a $200 Amazon gift card.'</p>
-        <p>Bold offer, but for a target client whose lifetime value is $30K+ per year, the math works heavily in your favor. Removes the biggest objection in the category: 'I already have a guy.'</p>
-      </div>
-    </div>
+    <h2>READY FOR <span class="accent">MAY 21.</span></h2>
+    <p>Prepared by Markology for the May 21 2026 Core Advisors strategy sync. Companion document to the May 6 strategy review. Task data live from Core Advisors May 2026 Asana board. Run date May 20, 2026.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a></div>
   </div>
 </section>
 
-<section style="background:var(--paper);">
-  <div class="container">
-    <div class="section-head">
-      <span class="pill blue">How We Measure This</span>
-      <h2>THREE NUMBERS<br/><span class="accent">EVERY MONTH.</span></h2>
-      <p>Going forward, every monthly update reports on these three numbers. They span the funnel from visibility to engaged traffic. If they all move in the right direction, the strategy is working. If one stalls, that's where we focus.</p>
-    </div>
-    <div class="metric-row">
-      <div class="metric">
-        <div class="v">5 &rarr; 9</div>
-        <div class="l">Top-3 Strategic Keywords</div>
-        <p style="margin-top:12px;font-size:13px;color:var(--mute);">Currently 2 (both branded). Target: top-3 placement on dentists advisors, dental financial advisors, dentist advisors, dental practice value calculator.</p>
-      </div>
-      <div class="metric">
-        <div class="v">0.2% &rarr; 2%</div>
-        <div class="l">Avg. Organic CTR (Top 12 Pages)</div>
-        <p style="margin-top:12px;font-size:13px;color:var(--mute);">Current 0.1 to 0.3%. 60-day target.</p>
-      </div>
-      <div class="metric">
-        <div class="v">135 &rarr; 250</div>
-        <div class="l">Monthly Organic Clicks</div>
-        <p style="margin-top:12px;font-size:13px;color:var(--mute);">Current 135 (April). 90-day target after CTR fixes.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container">
-    <h2>THE NICHE IS RIGHT.<br/>NOW WE <span class="accent">SCALE IT.</span></h2>
-    <p>Questions or pushback on anything in this plan? Reach out to Markology directly.</p>
-    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; May 6, 2026</div>
-  </div>
-</footer>
-
-<script>
-Chart.defaults.font.family="'Inter',-apple-system,BlinkMacSystemFont,sans-serif";
-Chart.defaults.font.size=12;Chart.defaults.color='#6C6E8A';Chart.defaults.borderColor='rgba(7,6,48,0.10)';
-const navy='#070630',blue='#3872EB';
-
-const months12=["May'25","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan'26","Feb","Mar","Apr"];
-const organic=[87,93,104,106,74,94,77,97,142,130,141,135];
-const positions=[40.6,41.5,39.8,39.5,30.6,19.3,19.6,23.9,21.9,15.1,14.6,14.4];
-
-new Chart(document.getElementById('organicChart'),{type:'bar',data:{labels:months12,datasets:[{label:'Organic Clicks',data:organic,backgroundColor:'rgba(56,114,235,0.78)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'Clicks per month'}}}}});
-
-new Chart(document.getElementById('positionChart'),{type:'line',data:{labels:months12,datasets:[{label:'Avg Position',data:positions,borderColor:blue,backgroundColor:'rgba(56,114,235,0.12)',fill:true,tension:0.35,borderWidth:3,pointRadius:5,pointBackgroundColor:blue}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{reverse:true,title:{display:true,text:'Avg Position (lower = better)'}}}}});
-
-const adMonths=["Nov 2025","Dec 2025","Jan 2026","Feb 2026","Mar 2026","Apr 2026"];
-const adSpend=[112.46,185.60,198.09,214.89,249.22,233.48];
-const adConv=[7,3,2,6,0,4];
-
-new Chart(document.getElementById('adSpendChart'),{type:'bar',data:{labels:adMonths,datasets:[{label:'Spend ($)',data:adSpend,backgroundColor:'rgba(7,6,48,0.78)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'USD'},ticks:{callback:function(v){return '$'+v}}}}}});
-
-new Chart(document.getElementById('adConvChart'),{type:'bar',data:{labels:adMonths,datasets:[{label:'Conversions',data:adConv,backgroundColor:'rgba(56,114,235,0.78)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'Conversions'}}}}});
-</script>
 </body>
 </html>

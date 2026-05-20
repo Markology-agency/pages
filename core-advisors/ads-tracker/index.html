@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Core Advisors, Google Ads Tracker by Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#D97706;--bad:#DC2626;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:72px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:48px 0;}.container{padding:0 20px;}}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}.pill.warn{background:var(--warn);}.pill.bad{background:var(--bad);}.pill.good{background:var(--good);}
+.hero{background:var(--paper);padding-top:84px;padding-bottom:64px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7vw,84px);line-height:0.95;letter-spacing:0.02em;color:var(--navy);margin:20px 0 0;}
+.hero .lede{font-size:18px;line-height:1.6;color:var(--mute);max-width:760px;margin-top:24px;}
+.hero .meta{margin-top:24px;display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.kpi-section{background:#fff;padding:56px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:14px;padding:22px 20px;box-shadow:5px 5px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:10px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:10px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:44px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .delta{margin-top:8px;font-size:12px;font-weight:600;color:#047857;}
+.kpi .delta.bad{color:var(--bad);}.kpi .delta.warn{color:var(--warn);}
+.kpi .explain{margin-top:12px;padding-top:10px;border-top:1.5px dashed var(--hair);font-size:12px;color:var(--mute);line-height:1.45;}
+.section-head{margin-bottom:36px;max-width:840px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(34px,4.8vw,56px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:14px;}
+.section-head p{font-size:16px;color:var(--mute);margin-top:14px;line-height:1.6;}
+.pmax-section{background:var(--navy);color:#fff;}
+.pmax-section .section-head h2{color:#fff;}
+.pmax-section .section-head p{color:#B4B6D6;}
+.pmax-card{background:rgba(220,38,38,0.18);border:2px solid var(--bad);border-radius:16px;padding:30px;}
+.pmax-card h3{font-family:'Bangers',sans-serif;font-size:26px;color:#fff;letter-spacing:0.04em;margin-bottom:10px;}
+.pmax-card h3 .pill{margin-left:10px;font-size:10px;vertical-align:middle;background:var(--bad);color:#fff;}
+.pmax-card p{color:#FECACA;font-size:14px;line-height:1.6;margin-bottom:18px;}
+.pmax-card .row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,0.18);font-size:14px;color:#E0E2F3;gap:14px;}
+.pmax-card .row:last-child{border-bottom:none;}
+.pmax-card .row strong{color:#fff;white-space:nowrap;}
+.pmax-card .callout-line{margin-top:18px;padding:14px 16px;background:rgba(0,0,0,0.20);border-left:4px solid var(--bad);border-radius:6px;font-size:13px;color:#FECACA;line-height:1.55;}
+.table-section{background:var(--paper);}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:16px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);margin-bottom:24px;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+thead{background:var(--navy);}
+th{text-align:left;padding:12px 14px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.16em;color:var(--blue);}
+th.num,td.num{text-align:right;}
+td{padding:11px 14px;border-bottom:1px solid var(--hair);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.status-pill{display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:0.05em;border:1.5px solid var(--navy);}
+.s-paused{background:#FEE2E2;color:#991B1B;}
+.s-enabled{background:#DCFCE7;color:#166534;}
+.s-zero{background:#FEF3C7;color:#92400E;}
+.snap-card{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.snap-card.alert{background:#FEF3C7;}
+.snap-card h3{font-family:'Bangers',sans-serif;font-size:24px;letter-spacing:0.04em;margin-bottom:6px;color:var(--navy);}
+.snap-card .sub{font-size:13px;color:var(--mute);margin-bottom:18px;}
+.snap-card .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed var(--hair);font-size:14px;gap:14px;}
+.snap-card .row:last-child{border-bottom:none;}
+.snap-card .row strong{color:var(--navy);white-space:nowrap;}
+.snap-card .callout-line{margin-top:14px;padding:12px 14px;background:rgba(7,6,48,0.04);border-left:4px solid var(--blue);border-radius:6px;font-size:13px;color:var(--navy);line-height:1.5;}
+.snap-card.alert .callout-line{background:rgba(220,38,38,0.07);border-left-color:var(--bad);}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.two-col{grid-template-columns:1fr;}}
+.exp-card{background:#FEF3C7;border:2px solid var(--navy);border-radius:16px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.exp-card h3{font-family:'Bangers',sans-serif;font-size:24px;letter-spacing:0.04em;margin-bottom:6px;color:var(--navy);}
+.exp-card .sub{font-size:13px;color:#92400E;margin-bottom:18px;}
+.exp-card .opt{padding:14px 18px;background:#fff;border:1.5px solid var(--navy);border-radius:8px;margin-bottom:12px;}
+.exp-card .opt:last-child{margin-bottom:0;}
+.exp-card .opt strong{display:block;font-family:'Bangers',sans-serif;font-size:16px;color:var(--navy);letter-spacing:0.02em;margin-bottom:6px;}
+.exp-card .opt span{font-size:13px;color:var(--mute);line-height:1.5;}
+.action-card{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.action-card h3{font-family:'Bangers',sans-serif;font-size:24px;letter-spacing:0.04em;margin-bottom:14px;color:var(--navy);}
+.action-card ul{list-style:none;padding:0;}
+.action-card li{padding:10px 0;border-bottom:1px dashed var(--hair);font-size:14px;line-height:1.5;display:flex;gap:10px;align-items:flex-start;}
+.action-card li:last-child{border-bottom:none;}
+.action-card li::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:7px;background:var(--blue);}
+.action-card a{color:var(--navy);text-decoration:none;border-bottom:1px dotted var(--mute);}
+.action-card a:hover{color:var(--blue);border-bottom-color:var(--blue);}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:64px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(30px,4vw,46px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:14px;font-size:14px;}
+.footer .built-by{margin-top:28px;padding-top:20px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+.neg-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+.neg-list .neg{padding:6px 12px;background:var(--navy);color:#fff;border-radius:6px;font-size:12px;font-weight:700;letter-spacing:0.04em;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <span class="pill warn" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">Live Tracker &middot; Refreshed May 20, 2026</span>
+    <h1>GOOGLE ADS TRACKER:<br/>SPEND IS LOW.<br/><span class="accent">CONVERSIONS ARE LOWER.</span></h1>
+    <p class="lede">Customer 4463043539 has spent $214 across the last 30 days and produced 1 conversion. PMax was the only campaign that converted in the prior 90 days (9 of 10 conversions) and it is now paused. Search has spent $180 with zero conversions. The experiment campaign is live with zero impressions. This page is the live operational view; it updates whenever the meeting prep is refreshed.</p>
+    <div class="meta">
+      <span><strong>Customer:</strong> 4463043539</span>
+      <span><strong>Source:</strong> Pipeboard, last 30 days</span>
+      <span><strong>Refreshed:</strong> May 20, 2026</span>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Google Ads Spend, 30d</div>
+        <div class="value">$214</div>
+        <div class="delta bad">&darr; PMax now PAUSED</div>
+        <div class="explain">Total spend across all enabled campaigns. PMax contributed $34, Search contributed $180, experiment contributed $0. Other four historical campaigns are paused.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Conversions, 30d</div>
+        <div class="value">1</div>
+        <div class="delta bad">vs. 10 in prior 90d</div>
+        <div class="explain">Single PMax conversion. Zero on Search despite $180 spent. Tracking fix and PMax pause both overlap this window; need confirmation of cause.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Search 0-Conv Spend, 30d</div>
+        <div class="value">$180</div>
+        <div class="delta bad">0 conv at $7.21 CPC</div>
+        <div class="explain">Search campaign live and spending, zero conversions returned. CPC of $7.21 is in normal range for the dental advisor vertical; the gap is on the conversion side.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">PMax 90d Share of Conv</div>
+        <div class="value">90%</div>
+        <div class="delta warn">9 of 10 conversions</div>
+        <div class="explain">In the prior 90-day window PMax produced 9 of 10 total conversions. PMax is the only converter. It is currently paused.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pmax-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill bad">Critical Status</span>
+      <h2>PMAX WAS THE ONLY<br/>CONVERTER. <span class="accent">IT IS PAUSED.</span></h2>
+      <p>Performance Max for Core Advisors was the dominant lead source in the trailing 90 days: 9 of 10 conversions on roughly $34 of recent spend. As of this report's run date, PMax is paused in the account. Until restart timing is confirmed by Thomas, the funnel has no working paid channel.</p>
+    </div>
+    <div class="pmax-card">
+      <h3>PMax - Core Advisors - USA <span class="pill">PAUSED</span></h3>
+      <p>The single largest decision in the account right now. Confirm with Thomas whether the pause was intentional (budget pull, testing Calendly tracking overlap) or accidental, then set a restart date.</p>
+      <div class="row"><span>30-day spend</span><strong>$34</strong></div>
+      <div class="row"><span>30-day conversions</span><strong>1</strong></div>
+      <div class="row"><span>Prior 90-day conversions</span><strong>9 of 10 total</strong></div>
+      <div class="row"><span>Current status</span><strong>PAUSED</strong></div>
+      <div class="row"><span>Action needed</span><strong>Restart decision, May 21 call</strong></div>
+      <div class="callout-line"><strong>If accidental:</strong> restart this week, Calendly tracking is in Internal Review and ready to validate. <strong>If intentional:</strong> hold until tracking is live and pixel-verified, then restart with the same audience signals + adjusted creatives.</div>
+    </div>
+  </div>
+</section>
+
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Campaign Performance</span>
+      <h2>FOUR ENABLED, ONE<br/>SERVING, <span class="accent">ZERO CONVERTING.</span></h2>
+      <p>Last 30 days, Pipeboard pull on customer 4463043539. The main Search campaign is the only one with meaningful spend; the experiment shows zero impressions; PMax (the converter) is paused; four historical campaigns are paused.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:42%">Campaign</th>
+            <th class="num" style="width:12%">Spend</th>
+            <th class="num" style="width:12%">Impressions</th>
+            <th class="num" style="width:12%">Conversions</th>
+            <th style="width:22%">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>PMax - Core Advisors - USA</td><td class="num">$34</td><td class="num">low</td><td class="num">1</td><td><span class="status-pill s-paused">PAUSED</span></td></tr>
+          <tr><td>Search - Core Advisors - USA</td><td class="num">$180</td><td class="num">~25k</td><td class="num">0</td><td><span class="status-pill s-enabled">ENABLED</span></td></tr>
+          <tr><td>Search Exp_ Max Conv_KW Exact</td><td class="num">$0</td><td class="num">0</td><td class="num">0</td><td><span class="status-pill s-zero">ENABLED, 0 IMPR</span></td></tr>
+          <tr><td>Other 4 historical campaigns</td><td class="num">$0</td><td class="num">0</td><td class="num">0</td><td><span class="status-pill s-paused">ALL PAUSED</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill warn">Experiment Decision</span>
+      <h2>EXACT MATCH EXPERIMENT:<br/><span class="accent">KILL OR WIDEN?</span></h2>
+      <p>"Search Exp_ Maximize conversions_KW Exact" was set up to A/B against the main Search campaign. After 30 days the experiment has zero impressions. Exact-match keyword auctions aren't winning. Two options.</p>
+    </div>
+    <div class="exp-card">
+      <h3>Two Paths</h3>
+      <div class="sub">Decision needed at the May 21 client meeting. Currently $0 going to the experiment, so urgency is the opportunity cost on the main Search budget.</div>
+      <div class="opt">
+        <strong>Option A &mdash; Kill the Experiment</strong>
+        <span>Pause "Search Exp_ Max Conv_KW Exact" and put the planned budget back into the main Search campaign with broader match types. Cleanest path. Loses A/B signal but recovers all spend onto a campaign that's already serving.</span>
+      </div>
+      <div class="opt">
+        <strong>Option B &mdash; Widen the Keyword Set</strong>
+        <span>Add 15-25 additional exact-match dental-advisor terms (current set is too narrow to win auction). Run a 30/70 split with the main Search campaign. Gives the A/B a real chance and tests whether "Maximize conversions" bidding outperforms manual on the high-intent terms.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill bad">Search Term Waste</span>
+      <h2>FIVE NEGATIVES<br/>TO ADD <span class="accent">THIS WEEK.</span></h2>
+      <p>Last 30 days of search term data shows five distinct waste categories pulling Search budget into zero-conversion queries. None of these need Thomas sign-off; all five are getting added regardless of how the bigger A/B decision lands.</p>
+    </div>
+    <div class="two-col">
+      <div class="snap-card alert">
+        <h3>Top Waste Search Terms</h3>
+        <div class="sub">Pipeboard, last 30 days, zero conversions on each</div>
+        <div class="row"><span>"dental insurance for retirement"</span><strong>$5.65 &middot; off-intent</strong></div>
+        <div class="row"><span>"gic retiree dental plan"</span><strong>$10.67 &middot; consumer</strong></div>
+        <div class="row"><span>"ryan isaac dentist advisors"</span><strong>3 impr &middot; competitor</strong></div>
+        <div class="row"><span>"adcpa com"</span><strong>2 impr &middot; competitor domain</strong></div>
+        <div class="row"><span>"pro fi"</span><strong>2 impr &middot; competitor brand</strong></div>
+        <div class="callout-line">Five different waste types: consumer searches looking for dental insurance, retiree plan shoppers, and three competitor brand searches. None of these convert. None should.</div>
+      </div>
+      <div class="snap-card">
+        <h3>Negatives To Add</h3>
+        <div class="sub">Add to Search - Core Advisors - USA, this week</div>
+        <p style="font-size:14px;color:var(--mute);line-height:1.55;">Add as phrase-match negatives so adjacent variants (e.g. "dental insurance plan" + "retiree dental plan provider") also stop pulling spend.</p>
+        <div class="neg-list">
+          <span class="neg">insurance</span>
+          <span class="neg">retiree dental plan</span>
+          <span class="neg">ryan isaac</span>
+          <span class="neg">adcpa</span>
+          <span class="neg">pro fi</span>
+        </div>
+        <div class="callout-line">Cheap waste cut. Expected impact: removes ~$30-50/month of zero-converting spend and reclaims ~5-8 clicks for the on-intent search pool. Add regardless of the A/B decision.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Open Action Items</span>
+      <h2>WHAT'S IN <span class="accent">ASANA.</span></h2>
+      <p>The Ads-side action items currently sitting in the Core Advisors May 2026 board. Two are gated on Thomas access, one on the A/B decision, the rest are Markology-executable once tracking lands.</p>
+    </div>
+    <div class="action-card">
+      <h3>Ads Tasks, May 2026 Board</h3>
+      <ul>
+        <li><a href="https://app.asana.com/0/0/1214572977882405" target="_blank">Set up real Calendly booking conversion tracking</a> &mdash; Internal Review, ready to ship after Thomas walkthrough</li>
+        <li><a href="https://app.asana.com/0/0/1214285487672458" target="_blank">A/B Manage Google Ads Campaign</a> &mdash; Edits Needed (depends on May 21 A/B decision)</li>
+        <li><a href="https://app.asana.com/0/0/1214573035904031" target="_blank">Diagnose 63% Google Ads impression drop (Nov 2025 to Apr 2026)</a> &mdash; Edits Needed (waiting on Standard Access)</li>
+        <li><a href="https://app.asana.com/0/0/1214572561006281" target="_blank">Diagnose 60% GA session drop (paid + tracking audit)</a> &mdash; Waiting (needs GA4 viewer)</li>
+        <li><a href="https://app.asana.com/0/0/1214285441729830" target="_blank">A/B Manage Google Ads Campaign (W3 follow-up)</a> &mdash; Not Started</li>
+        <li>Add 5 negatives (insurance / retiree dental plan / ryan isaac / adcpa / pro fi) &mdash; Not gated, scheduling for this week</li>
+        <li>PMax restart decision &mdash; Pending Thomas confirmation in May 21 call</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="footer">
+  <div class="container">
+    <h2>LIVE OPERATIONAL <span class="accent">VIEW.</span></h2>
+    <p>Prepared by Markology for Core Advisors. Live Google Ads data sourced from Pipeboard, customer 4463043539. Refreshes whenever the meeting prep is refreshed. Run date May 20, 2026.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a></div>
+  </div>
+</section>
+
+</body>
+</html>

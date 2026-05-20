@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Client Meeting Prep — TL;DR Accounting — May 21, 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#d97706;--bad:#dc2626;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:80px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:56px 0;}.container{padding:0 20px;}}
+.star{position:absolute;pointer-events:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.hero{background:var(--paper);padding-top:100px;padding-bottom:80px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(44px,8vw,96px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:24px 0 0;}
+.hero .lede{font-size:19px;line-height:1.6;color:var(--mute);max-width:780px;margin-top:28px;}
+.hero .meta{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.kpi-section{background:#fff;padding:64px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 22px;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.kpi:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:12px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:48px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .delta{margin-top:10px;font-size:13px;font-weight:600;color:#047857;}
+.kpi .delta.warn{color:var(--warn);}
+.kpi .delta.bad{color:var(--bad);}
+.kpi .explain{margin-top:14px;padding-top:14px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);line-height:1.5;}
+.section-head{margin-bottom:48px;max-width:820px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(40px,5.5vw,68px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:16px;}
+.section-head p{font-size:17px;color:var(--mute);margin-top:16px;line-height:1.6;}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.chart-row{grid-template-columns:1fr;}}
+.chart-card{background:var(--paper);border:2px solid var(--navy);border-radius:20px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.chart-card h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:4px;}
+.chart-card .chart-sub{font-size:13px;color:var(--mute);margin-bottom:20px;}
+.chart-container{position:relative;height:280px;}
+.table-section{background:var(--paper);}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:20px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+thead{background:var(--navy);}
+th{text-align:left;padding:14px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);}
+th.num,td.num{text-align:right;}
+td{padding:14px 18px;border-bottom:1px solid var(--hair);vertical-align:top;}
+tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.upside-pill{display:inline-block;padding:3px 10px;background:var(--lilac);color:var(--navy);border:1.5px solid var(--navy);border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.05em;}
+.status-pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.05em;border:1.5px solid var(--navy);}
+.status-pill.cr{background:#FEF3C7;color:#92400e;}
+.status-pill.ir{background:var(--lilac);color:var(--navy);}
+.status-pill.ns{background:#fff;color:var(--mute);}
+.status-pill.en{background:#FECACA;color:var(--bad);}
+.status-pill.done{background:#D1FAE5;color:#065f46;}
+a.task-link{color:var(--blue);text-decoration:none;font-weight:600;}
+a.task-link:hover{text-decoration:underline;}
+.priorities-section{background:#fff;}
+.priority-list{display:flex;flex-direction:column;gap:16px;}
+.priority{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 28px;display:grid;grid-template-columns:56px 1fr;gap:20px;align-items:start;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.priority:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.priority .pnum{width:56px;height:56px;border-radius:14px;background:var(--blue);color:#fff;border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:30px;display:flex;align-items:center;justify-content:center;}
+.priority h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:6px;}
+.priority p{font-size:14px;color:var(--mute);line-height:1.55;}
+.priority .tag{display:inline-block;margin-top:10px;padding:4px 10px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.18em;border-radius:6px;text-transform:uppercase;}
+.story-section{background:var(--lilac);}
+.story-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
+@media(max-width:900px){.story-grid{grid-template-columns:1fr;}}
+.story-card{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:28px;box-shadow:5px 5px 0 var(--navy);}
+.story-card .num{font-family:'Bangers',sans-serif;font-size:64px;line-height:0.9;color:var(--blue);margin-bottom:8px;}
+.story-card h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:12px;line-height:1.1;}
+.story-card p{font-size:14px;color:var(--mute);line-height:1.55;}
+.callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:20px 24px;margin-top:24px;box-shadow:4px 4px 0 var(--navy);}
+.callout.warn{border-left-color:var(--warn);background:#FEF3C7;}
+.callout.bad{border-left-color:var(--bad);background:#FECACA;}
+.callout strong{color:var(--navy);font-weight:700;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:80px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,56px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:16px;font-size:14px;}
+.footer .built-by{margin-top:32px;padding-top:24px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+.summary-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:32px;}
+@media(max-width:720px){.summary-row{grid-template-columns:repeat(2,1fr);}}
+.sum-card{background:#fff;border:2px solid var(--navy);border-radius:12px;padding:18px;box-shadow:4px 4px 0 var(--navy);}
+.sum-card .v{font-family:'Bangers',sans-serif;font-size:36px;color:var(--blue);line-height:1;}
+.sum-card .l{font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--mute);font-weight:700;margin-top:8px;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="star" style="top:80px;left:80px;transform:rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="top:200px;right:120px;transform:rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <div class="container">
+    <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">Client Meeting Prep &middot; May 21, 2026</span>
+    <h1>FIVE BLOGS<br/>STUCK IN<br/><span class="accent">CLIENT REVIEW.</span></h1>
+    <p class="lede">The Markology side is moving. Eight blogs are in motion this quarter, the May newsletter is in Internal Review, the Seattle local-cluster expansion is queued for this week, and the February keyword pullback investigation is wrapped. The pinch point is review velocity: five blogs are waiting for client sign-off before they can publish, and one of them has been waiting since April. This meeting is about clearing that queue and confirming the Q2 lead magnet direction.</p>
+    <div class="meta">
+      <span><strong>Client:</strong> TL;DR Accounting (Khaled)</span>
+      <span><strong>Niche:</strong> Therapist private practice (national)</span>
+      <span><strong>Plan:</strong> National Monthly</span>
+      <span><strong>Prepared by:</strong> Markology &middot; 2026-05-20</span>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Organic Traffic (Apr)</div>
+        <div class="value">1,039</div>
+        <div class="delta warn">&darr; 26% vs Feb peak (1,765)</div>
+        <div class="explain">SEMrush US estimated monthly organic visits. Feb 2026 peak then March 979, April 1,039. Pullback investigation closed Internal Review.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Organic Keywords Ranking</div>
+        <div class="value">2,516</div>
+        <div class="delta">stable ~2,500–2,700</div>
+        <div class="explain">Keyword footprint flat. Traffic loss is concentrated in a few high-volume pages, not a broad rankings drop.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Blogs In Motion This Quarter</div>
+        <div class="value">8</div>
+        <div class="delta">5 in Client Review</div>
+        <div class="explain">Eight therapist-niche pieces moving through Markology. Five are blocked waiting for Khaled's review/sign-off.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Therapist-Niche Top Rankings</div>
+        <div class="value">3</div>
+        <div class="delta">page 1, core terms</div>
+        <div class="explain">"psychotherapist accountant" #2, "accountant for therapists" #2, "bookkeeping for therapists" #3. Niche authority is real.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">SEO Snapshot</span>
+      <h2>NICHE AUTHORITY<br/>IS <span class="accent">HOLDING.</span></h2>
+      <p>Two views of the last twelve months. Keyword count is steady. Organic traffic spiked in February 2026 then settled back. The February pullback investigation closed in Internal Review and points to a small number of high-volume pages losing positions rather than a sitewide problem.</p>
+    </div>
+    <div class="chart-row">
+      <div class="chart-card">
+        <h4>Estimated Organic Traffic Per Month</h4>
+        <div class="chart-sub">SEMrush US database. Feb spike, then settled.</div>
+        <div class="chart-container"><canvas id="trafficChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h4>Organic Keywords Ranking</h4>
+        <div class="chart-sub">Stable footprint across the same window.</div>
+        <div class="chart-container"><canvas id="kwChart"></canvas></div>
+      </div>
+    </div>
+
+    <div class="callout warn" style="margin-top:32px;">
+      <strong>February pullback &mdash; investigation status:</strong> The dedicated W2 SEO task <a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1209521999646340/task/1214572245733647">[SEO] Investigate the February keyword pullback</a> is in <strong>Internal Review</strong> (due May 15). A follow-up <a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1209521999646340/task/1214572276453294">[SEO] Map the session decline to specific top pages</a> is queued for W4 (due May 29). The trend reads as: a handful of high-volume non-niche pages (federal-tax-payment-system / EFTPS, payment-plan, RSU box 14 pages) lost positions while the therapist-niche pages held. Worth confirming with Khaled whether non-niche traffic is worth defending or whether the niche-only direction means we let those decay.
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Top Therapist-Niche Rankings</span>
+      <h2>THE NICHE PAGES<br/>ARE <span class="accent">EARNING TRUST.</span></h2>
+      <p>The pages built for therapists rank where they should. Three of the four core commercial terms sit on page 1 of Google. The Seattle local cluster is also strong on first-page real estate, which validates the W3 plan to expand that footprint.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Keyword</th><th class="num">Position</th><th class="num">Volume</th><th>Landing Page</th></tr></thead>
+        <tbody>
+          <tr><td>psychotherapist accountant</td><td class="num"><strong>#2</strong></td><td class="num">260</td><td>/accounting-for-therapists/</td></tr>
+          <tr><td>accountant for therapists</td><td class="num"><strong>#2</strong></td><td class="num">50</td><td>/accounting-for-therapists/</td></tr>
+          <tr><td>bookkeeping for therapists</td><td class="num"><strong>#3</strong></td><td class="num">110</td><td>/bookkeeping-for-therapists/</td></tr>
+          <tr><td>therapist pay</td><td class="num">#3</td><td class="num">880</td><td>/starting-salary-for-therapists-by-state-2024/</td></tr>
+          <tr><td>average income of a therapist</td><td class="num">#3</td><td class="num">880</td><td>/starting-salary-for-therapists-by-state-2024/</td></tr>
+          <tr><td>average therapist salary</td><td class="num">#6</td><td class="num">1,300</td><td>/starting-salary-for-therapists-by-state-2024/</td></tr>
+          <tr><td>how much does a therapist make</td><td class="num">#8</td><td class="num">4,400</td><td>/starting-salary-for-therapists-by-state-2024/</td></tr>
+          <tr><td>therapist salary</td><td class="num">#12</td><td class="num">12,100</td><td>/starting-salary-for-therapists-by-state-2024/</td></tr>
+          <tr><td>is therapy tax deductible</td><td class="num">#8</td><td class="num">260</td><td>/therapy-tax-deductible/</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="section-head" style="margin-top:64px;">
+      <span class="pill blue">Seattle Local Cluster</span>
+      <h2>SEATTLE IS<br/><span class="accent">PAGE 1 ALREADY.</span></h2>
+      <p>The W3 task <a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1209521999646340/task/1214572346113211">[SEO] Expand the Seattle small business accounting local footprint</a> (Not Started, due May 22) builds on a strong base: TL;DR is already #1 for the core Seattle small business CPA terms. The expansion plan should focus on adjacent neighborhoods (West Seattle, Bellevue, Capitol Hill) and the longer-tail terms currently sitting at #20–#90.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Keyword</th><th class="num">Position</th><th class="num">Volume</th><th class="num">CPC</th></tr></thead>
+        <tbody>
+          <tr><td>small business accountant seattle</td><td class="num"><strong>#1</strong></td><td class="num">90</td><td class="num">$16.45</td></tr>
+          <tr><td>small business cpa seattle</td><td class="num"><strong>#1</strong></td><td class="num">90</td><td class="num">$20.40</td></tr>
+          <tr><td>small business tax accountant seattle</td><td class="num"><strong>#1</strong></td><td class="num">50</td><td class="num">$0.00</td></tr>
+          <tr><td>bookkeeping for small seattle businesses</td><td class="num"><strong>#1</strong></td><td class="num">50</td><td class="num">$15.64</td></tr>
+          <tr><td>small business accounting seattle</td><td class="num">#2</td><td class="num">50</td><td class="num">$16.45</td></tr>
+          <tr><td>accounting services seattle</td><td class="num">#10</td><td class="num">50</td><td class="num">$6.64</td></tr>
+          <tr><td>seattle bookkeeping services</td><td class="num">#17</td><td class="num">110</td><td class="num">$16.82</td></tr>
+          <tr><td>seattle cpa</td><td class="num">#44</td><td class="num">480</td><td class="num">$10.14</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Paid Search</span>
+      <h2>NOT CURRENTLY<br/>RUNNING <span class="accent">PAID SEARCH.</span></h2>
+      <p>Confirmed against the Pipeboard Google Ads customer list: no TL;DR Accounting account is connected. The Markology playbook on this client is organic + content. If paid search becomes a Q3 conversation, the wedge would be the high-CPC Seattle local terms ($16–$20 CPC where TL;DR already ranks #1 organically) and the therapist-niche commercial terms.</p>
+    </div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Strategy Notes</span>
+      <h2>WHERE THE<br/>BOTTLENECK <span class="accent">IS.</span></h2>
+      <p>Three honest reads on where this client is right now.</p>
+    </div>
+    <div class="story-grid">
+      <div class="story-card">
+        <div class="num">5</div>
+        <h4>BLOGS WAITING ON CLIENT REVIEW</h4>
+        <p>Most Affordable CPA For Therapists (status Client Review, originally April), 1099 vs W-2 Guide (Client Review, due May 4), Is Your Biller Costing (Client Review, April), Private Pay vs Insurance (Client Review, May 12), How Much Should a Therapist Pay Themselves (Client Review, May 5). All five need Khaled's read-and-approve before the Coordinator can input them.</p>
+      </div>
+      <div class="story-card">
+        <div class="num">Q2</div>
+        <h4>LEAD MAGNET — STATE TAXES — EDITS NEEDED</h4>
+        <p>The <a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1200508923874708/task/1213965799104832">Q2 Lead Magnet: State Taxes — Do I have to pay?</a> is in <strong>Edits Needed</strong> with a May 8 due date that has slipped. This is the Q2 capture asset — the deeper email-list driver behind the blog cadence. Worth confirming the edits direction with Khaled today so it can ship before end of May.</p>
+      </div>
+      <div class="story-card">
+        <div class="num">8</div>
+        <h4>CONTENT VELOCITY IS HEALTHY</h4>
+        <p>Two new SEO blogs queued for W3/W4 (Cancellations, Raise Their Rates), May newsletter in Internal Review, monthly Reddit task queued for W3, Seattle expansion queued for W3, citations push queued for W3, monthly backlinks queued for W4. The Markology side is producing on cadence. The publishing side is gated on review.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">W1 &ndash; W3 Task Status</span>
+      <h2>WHAT'S ON THE<br/>MAY BOARD <span class="accent">RIGHT NOW.</span></h2>
+      <p>Deduped tasks from the TL;DR Accounting &mdash; May 2026 monthly board (W1, W2, W3). Sorted by status priority. Blog and review tasks linked through to Asana.</p>
+    </div>
+    <div class="summary-row">
+      <div class="sum-card"><div class="v">5</div><div class="l">Client Review</div></div>
+      <div class="sum-card"><div class="v">4</div><div class="l">Internal Review</div></div>
+      <div class="sum-card"><div class="v">1</div><div class="l">Edits Needed</div></div>
+      <div class="sum-card"><div class="v">6</div><div class="l">Not Started</div></div>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Week</th><th>Task</th><th>Dept</th><th class="num">Due</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>W1</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1209521999646340/task/1214287111527489">SEO Blog: How Much Should a Therapist Pay Themselves in 2026?</a></td>
+            <td>Team</td><td class="num">May 5</td>
+            <td><span class="status-pill cr">Client Review</span></td>
+          </tr>
+          <tr>
+            <td>W2</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1209521999646340/task/1214287069620696">SEO Blog: Private Pay vs Insurance: Which Pays More for Therapists in 2026?</a></td>
+            <td>Team</td><td class="num">May 12</td>
+            <td><span class="status-pill cr">Client Review</span></td>
+          </tr>
+          <tr>
+            <td>April carryover</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1209521999646340/task/1213958827731396">SEO Blog: Most Affordable CPA For Therapists in 2026</a></td>
+            <td>Team</td><td class="num">no date</td>
+            <td><span class="status-pill cr">Client Review</span></td>
+          </tr>
+          <tr>
+            <td>April carryover</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1209521999646340/task/1213965799076543">SEO Blog: The Complete 1099 vs W-2 Guide for Therapists</a></td>
+            <td>Team</td><td class="num">May 4</td>
+            <td><span class="status-pill cr">Client Review</span></td>
+          </tr>
+          <tr>
+            <td>April carryover</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1209521999646340/task/1213964817624000">SEO Blog: Is Your Biller Costing Your Therapy Practice Money?</a></td>
+            <td>Team</td><td class="num">Apr 13</td>
+            <td><span class="status-pill cr">Client Review</span></td>
+          </tr>
+          <tr>
+            <td>W3</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1209521999646340/task/1214287031184444">SEO Blog: How to Handle Cancellations Without Losing Income in Private Practice</a></td>
+            <td>Team</td><td class="num">May 19</td>
+            <td><span class="status-pill ir">Internal Review</span></td>
+          </tr>
+          <tr>
+            <td>W2</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1209521999646340/task/1214572245733647">[SEO] Investigate the February keyword pullback</a></td>
+            <td>SEO</td><td class="num">May 15</td>
+            <td><span class="status-pill ir">Internal Review</span></td>
+          </tr>
+          <tr>
+            <td>W2</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1214287031114012/task/1214287031184451">Create May Newsletter</a></td>
+            <td>Email</td><td class="num">May 13</td>
+            <td><span class="status-pill ir">Internal Review</span></td>
+          </tr>
+          <tr>
+            <td>W2</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1209521999646340/task/1214590255042707">Within 1 month &ndash; 50 views on the latest review</a></td>
+            <td>Tracking</td><td class="num">May 8</td>
+            <td><span class="status-pill ir">Internal Review</span></td>
+          </tr>
+          <tr>
+            <td>W2</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1200508923874708/task/1213965799104832">Create Q2 Lead Magnet &ndash; State Taxes &ndash; Do I have to pay?</a></td>
+            <td>Design</td><td class="num">May 8</td>
+            <td><span class="status-pill en">Edits Needed</span></td>
+          </tr>
+          <tr>
+            <td>W3</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1209521999646340/task/1214572346113211">[SEO] Expand the Seattle small business accounting local footprint</a></td>
+            <td>SEO</td><td class="num">May 22</td>
+            <td><span class="status-pill ns">Not Started</span></td>
+          </tr>
+          <tr>
+            <td>W3</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1214287031114012/task/1214287031184458">15X Citations</a></td>
+            <td>SEO</td><td class="num">May 18</td>
+            <td><span class="status-pill ns">Not Started</span></td>
+          </tr>
+          <tr>
+            <td>W3</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1214287031114012/task/1214287031204974">Monthly Reddit Tasks</a></td>
+            <td>Reddit</td><td class="num">May 23</td>
+            <td><span class="status-pill ns">Not Started</span></td>
+          </tr>
+          <tr>
+            <td>W3</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1209521999646340/task/1214287031222532">Write Blog: When Should Therapists Raise Their Rates? 5 Financial Signals to Watch</a></td>
+            <td>Writing</td><td class="num">May 22</td>
+            <td><span class="status-pill ns">Not Started</span></td>
+          </tr>
+          <tr>
+            <td>W3</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1209521999646340/task/1214287072774566">Internal Review of blog: How to Handle Cancellations Without Losing Income</a></td>
+            <td>Team</td><td class="num">May 17</td>
+            <td><span class="status-pill ns">Not Started</span></td>
+          </tr>
+          <tr>
+            <td>W3</td>
+            <td><a class="task-link" href="https://app.asana.com/1/1195948299032337/project/1209521999646340/task/1214287072774570">Client Review of blog: How to Handle Cancellations Without Losing Income</a></td>
+            <td>Strategy</td><td class="num">May 19</td>
+            <td><span class="status-pill ns">Not Started</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="priorities-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Discussion Points for May 21</span>
+      <h2>WHAT TO COVER<br/>WITH KHALED <span class="accent">TOMORROW.</span></h2>
+      <p>Seven items, ordered by what unblocks the most work.</p>
+    </div>
+    <div class="priority-list">
+      <div class="priority">
+        <div class="pnum">01</div>
+        <div>
+          <h4>Clear the five-blog Client Review backlog</h4>
+          <p>Five blogs are sitting in Client Review status: Most Affordable CPA (since April), 1099 vs W-2 (due May 4), Is Your Biller Costing (April), Private Pay vs Insurance (due May 12), How Much Should a Therapist Pay Themselves (due May 5). Ask Khaled to either green-light them in the meeting (we can ship today), flag specific edits per piece, or commit to a turnaround date this week. The Coordinator's "Input blog into platform" tasks are blocked until each clears.</p>
+          <span class="tag">Unblocks 5 publishes</span>
+        </div>
+      </div>
+      <div class="priority" style="background:var(--lilac);">
+        <div class="pnum">02</div>
+        <div>
+          <h4>Q2 lead magnet &mdash; confirm edits direction on State Taxes</h4>
+          <p>The Q2 Lead Magnet "State Taxes &mdash; Do I have to pay?" is in Edits Needed (due May 8, slipped). This is the bigger capture asset behind the blog cadence and the natural pairing for the "private pay vs insurance" angle. Confirm the specific edits Khaled wants so the design team can close it out this week.</p>
+          <span class="tag">Q2 capture asset</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">03</div>
+        <div>
+          <h4>February pullback &mdash; defend non-niche pages or let them decay?</h4>
+          <p>The traffic dip from Feb 1,765 to Apr 1,039 is concentrated in non-therapist legacy pages (EFTPS / federal payment system, IRS payment plan, RSU box 14). The therapist-niche pages held. Strategic question: is it worth re-optimizing those legacy pages, or does the therapist-only direction mean we accept the decay and put effort into niche pages? Walks into the W4 follow-up task.</p>
+          <span class="tag">Strategy call</span>
+        </div>
+      </div>
+      <div class="priority" style="background:var(--lilac);">
+        <div class="pnum">04</div>
+        <div>
+          <h4>Seattle local cluster &mdash; confirm expansion scope</h4>
+          <p>TL;DR is already #1 for "small business accountant seattle," "small business cpa seattle," "small business tax accountant seattle," and "bookkeeping for small seattle businesses." The W3 task to expand the footprint kicks off this week. Confirm with Khaled: should expansion target Seattle neighborhoods (West Seattle, Bellevue, Capitol Hill) or Washington state more broadly (Tacoma, Bellingham, Spokane)?</p>
+          <span class="tag">W3 in-flight</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">05</div>
+        <div>
+          <h4>"How to Handle Cancellations" &mdash; in Internal Review, will head to Khaled next</h4>
+          <p>The next blog in the pipeline (W3 / due May 19) just landed in Internal Review status. Once Markology QAs it, it joins the Client Review queue. Flag this so Khaled knows another piece is on its way and the queue keeps moving.</p>
+          <span class="tag">Heads-up</span>
+        </div>
+      </div>
+      <div class="priority" style="background:var(--lilac);">
+        <div class="pnum">06</div>
+        <div>
+          <h4>May newsletter &mdash; sign-off path</h4>
+          <p>The May newsletter is in Internal Review (due May 13). Confirm Khaled's preferred send window for May and whether he wants to review before send or just review the lineup of blogs being featured.</p>
+          <span class="tag">Email channel</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">07</div>
+        <div>
+          <h4>Compliance reminder &mdash; Status: Risk client</h4>
+          <p>TL;DR is flagged Status: Risk in our system, which means every piece gets a compliance review before publish. Worth a quick check-in on whether any recent state-level CPA advertising rules have changed (licensure state, fee-language constraints) that we should bake into the Q2 lead magnet and the rate-setting blog drafts.</p>
+          <span class="tag">Compliance</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <h2>FIVE BLOGS WAITING.<br/>ONE MEETING TO <span class="accent">UNSTICK THEM.</span></h2>
+    <p>Prepared for Whitney's May 21, 2026 sync with Khaled at TL;DR Accounting.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; May 20, 2026</div>
+  </div>
+</footer>
+
+<script>
+Chart.defaults.font.family="'Inter',-apple-system,BlinkMacSystemFont,sans-serif";
+Chart.defaults.font.size=12;Chart.defaults.color='#6C6E8A';Chart.defaults.borderColor='rgba(7,6,48,0.10)';
+const navy='#070630',blue='#3872EB';
+
+// SEMrush data: oldest to newest (Nov 2024 -> Apr 2026)
+const months=["Nov'24","Dec'24","Jan'25","Feb'25","Mar'25","Apr'25","May'25","Jun'25","Jul'25","Aug'25","Sep'25","Oct'25","Nov'25","Dec'25","Jan'26","Feb'26","Mar'26","Apr'26"];
+const traffic=[889,562,630,839,901,732,1015,607,1512,1277,1085,967,977,1564,1411,1765,979,1039];
+const keywords=[2979,2609,2357,2493,2499,2341,2360,2439,2326,2038,2248,2237,2282,2326,2478,2731,2725,2516];
+
+new Chart(document.getElementById('trafficChart'),{type:'line',data:{labels:months,datasets:[{label:'Est. Organic Traffic',data:traffic,borderColor:blue,backgroundColor:'rgba(56,114,235,0.12)',fill:true,tension:0.35,borderWidth:3,pointRadius:4,pointBackgroundColor:blue}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'Est. monthly organic visits'}}}}});
+
+new Chart(document.getElementById('kwChart'),{type:'bar',data:{labels:months,datasets:[{label:'Ranking Keywords',data:keywords,backgroundColor:'rgba(56,114,235,0.78)',borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:false,title:{display:true,text:'Total ranking keywords'}}}}});
+</script>
+</body>
+</html>

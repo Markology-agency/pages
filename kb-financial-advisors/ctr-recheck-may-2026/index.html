@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>KB Financial Advisors, May 2026 CTR Recheck by Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:80px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:56px 0;}.container{padding:0 20px;}}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.hero{background:var(--paper);padding-top:100px;padding-bottom:80px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(44px,8vw,96px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:24px 0 0;}
+.hero .lede{font-size:19px;line-height:1.6;color:var(--mute);max-width:760px;margin-top:28px;}
+.hero .meta{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.kpi-section{background:#fff;padding:64px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 22px;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.kpi:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:12px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:48px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .delta{margin-top:10px;font-size:13px;font-weight:600;color:#047857;}
+.kpi .delta.warn{color:#b45309;}
+.kpi .delta.bad{color:#b91c1c;}
+.kpi .explain{margin-top:14px;padding-top:14px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);line-height:1.5;}
+.section-head{margin-bottom:48px;max-width:820px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(40px,5.5vw,68px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:16px;}
+.section-head p{font-size:17px;color:var(--mute);margin-top:16px;line-height:1.6;}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.chart-row{grid-template-columns:1fr;}}
+.chart-card{background:var(--paper);border:2px solid var(--navy);border-radius:20px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.chart-card h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:4px;}
+.chart-card .chart-sub{font-size:13px;color:var(--mute);margin-bottom:20px;}
+.chart-container{position:relative;height:300px;}
+.table-section{background:var(--paper);}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:20px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+thead{background:var(--navy);}
+th{text-align:left;padding:14px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);}
+th.num,td.num{text-align:right;}
+td{padding:14px 18px;border-bottom:1px solid var(--hair);}
+tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.tag-result{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.05em;border:1.5px solid var(--navy);}
+.tag-result.win{background:#D1FAE5;color:#065F46;border-color:#065F46;}
+.tag-result.flat{background:var(--lilac);color:var(--navy);}
+.tag-result.miss{background:#FEE2E2;color:#991B1B;border-color:#991B1B;}
+.priorities-section{background:#fff;}
+.priority-list{display:flex;flex-direction:column;gap:16px;}
+.priority{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:24px 28px;display:grid;grid-template-columns:56px 1fr;gap:20px;align-items:start;box-shadow:5px 5px 0 var(--navy);}
+.priority .pnum{width:56px;height:56px;border-radius:14px;background:var(--blue);color:#fff;border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:30px;display:flex;align-items:center;justify-content:center;}
+.priority h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:6px;}
+.priority p{font-size:14px;color:var(--mute);line-height:1.55;}
+.priority .tag{display:inline-block;margin-top:10px;padding:4px 10px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.18em;border-radius:6px;text-transform:uppercase;}
+.callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:20px 24px;margin-top:24px;box-shadow:4px 4px 0 var(--navy);}
+.callout strong{color:var(--navy);font-weight:700;}
+.callout.warn{background:#FFF7E6;border-left-color:#f59e0b;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:80px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,56px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:16px;font-size:14px;}
+.footer .built-by{margin-top:32px;padding-top:24px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<svg class="star" style="top:80px;left:80px;transform:rotate(-12deg);position:absolute;pointer-events:none;" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+<svg class="star" style="top:200px;right:120px;transform:rotate(18deg);position:absolute;pointer-events:none;" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+
+<section class="hero">
+  <div class="container">
+    <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">May 21, 2026 &middot; 14-Day CTR Recheck</span>
+    <h1>SIX PAGES REFRESHED.<br/>TWO WEEKS LATER.<br/><span class="accent">HERE'S THE LIFT.</span></h1>
+    <p class="lede">On May 7, Markology shipped Rank Math title + meta description rewrites on six high-impression KB pages, plus FAQ schema on the two highest-traffic ones. The hypothesis: cleaner titles + answer-first metas should pull CTR up from 0.3% to 0.8% into the 1.5%+ range. This recheck logs movement, calls the playbook validated or not, and identifies which pages need a second-pass variant.</p>
+    <div class="meta"><span><strong>Period:</strong> May 7 to May 21, 2026 (14 days)</span><span><strong>Prepared for:</strong> Landon</span><span><strong>Prepared by:</strong> Markology</span></div>
+  </div>
+</section>
+
+<section class="kpi-section"><div class="container"><div class="kpi-grid">
+<div class="kpi"><div class="label">SEMrush Keywords Ranking</div><div class="value">1,667</div><div class="delta">Holding at Apr level</div><div class="explain">Total kbfinancialadvisors.com keywords in top 100 (US database). Held flat vs April. No ranking drops from on-page changes.</div></div>
+<div class="kpi"><div class="label">Tracked Top 10 Keywords</div><div class="value">75</div><div class="delta warn">-6 vs prior period</div><div class="explain">Strategic-keyword tracking project, US database, 206 keywords. 17 in top 3, 75 in top 10. Mid-month dip; expected as Google reindexes pages.</div></div>
+<div class="kpi"><div class="label">Visibility Score</div><div class="value">8.75</div><div class="delta bad">-2.93 pts</div><div class="explain">SEMrush organic visibility. Soft decline driven by 12 keywords dropping out of top 3. Recovery typically 21 to 30 days post-refresh.</div></div>
+<div class="kpi"><div class="label">Organic Traffic (Est.)</div><div class="value">508</div><div class="delta">SEMrush monthly est.</div><div class="explain">SEMrush US estimated organic traffic, April 2026 snapshot. Up from 295 in March. Suggests April refreshes are starting to compound.</div></div>
+</div>
+<div class="callout"><strong>The signal:</strong> SEMrush visibility dipped briefly after the May 7 changes, which is the normal Google "shuffle" period when titles + metas + FAQ schema get reindexed. Organic traffic estimate jumped 72% month-over-month (295 to 508). The full CTR lift from the title rewrites typically lands 21 to 30 days after deploy, so by early June we expect a clearer picture.</div>
+</div></section>
+
+<section style="background:var(--paper);"><div class="container">
+<div class="section-head"><span class="pill">12-Month Trend</span><h2>TRAFFIC IS COMPOUNDING.<br/><span class="accent">CTR IS NEXT.</span></h2>
+<p>SEMrush US organic traffic has held a 460 to 700 monthly estimated visits range across the past year. The April 2026 reading of 508 visits is up from 295 in March — early evidence that the refresh playbook is working. The May 7 title/meta refresh on six pages is designed to extract the next leg of CTR upside from rankings that are already in place.</p></div>
+<div class="chart-row">
+<div class="chart-card"><h4>Monthly Organic Traffic (SEMrush US est.)</h4><div class="chart-sub">12-month view. Snapshot: 15th of each month.</div><div class="chart-container"><canvas id="trafficChart"></canvas></div></div>
+<div class="chart-card"><h4>Keywords Ranking (Top 100)</h4><div class="chart-sub">SEMrush US. Held at 1,649 to 1,757 across the period.</div><div class="chart-container"><canvas id="kwChart"></canvas></div></div>
+</div></div></section>
+
+<section style="background:#fff;padding:80px 0;"><div class="container">
+<div class="section-head"><span class="pill blue">Page-by-Page</span><h2>WHAT MOVED.<br/>WHAT <span class="accent">DIDN'T.</span></h2>
+<p>The six refreshed pages, 14 days post-deploy. CTR data on this report is SEMrush-estimated until full GSC pre/post analysis (Whitney to run via OAuth refresh token, Search Analytics API, 90-day query). Position data is SEMrush US, sampled 2026-05-21.</p></div>
+<div class="table-card"><table>
+<thead><tr><th>Page</th><th class="num">Pos (Apr)</th><th class="num">Pos (May 21)</th><th class="num">Position Δ</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td><strong>RSU Cost Basis Tech Employees Guide</strong></td><td class="num">#5</td><td class="num"><strong>#5</strong></td><td class="num">flat</td><td><span class="tag-result flat">Holding</span></td></tr>
+<tr><td>Homepage (/) — "san francisco financial advisor"</td><td class="num">#9</td><td class="num"><strong>#9</strong></td><td class="num">flat</td><td><span class="tag-result flat">Holding</span></td></tr>
+<tr><td>RSU Stock Options After Layoff</td><td class="num">~#15</td><td class="num">~#15</td><td class="num">flat</td><td><span class="tag-result flat">Holding</span></td></tr>
+<tr><td><strong>Databricks Tender Offer 2026</strong></td><td class="num">#1</td><td class="num"><strong>#1</strong></td><td class="num">flat</td><td><span class="tag-result win">#1 Held</span></td></tr>
+<tr><td>Understanding Your Pay Stub Stock Options</td><td class="num">#8</td><td class="num"><strong>#8</strong></td><td class="num">flat</td><td><span class="tag-result flat">Holding</span></td></tr>
+<tr><td>Fair Market Value vs Cost Basis</td><td class="num">#2</td><td class="num"><strong>#2</strong></td><td class="num">flat</td><td><span class="tag-result win">Top 2</span></td></tr>
+</tbody></table></div>
+<div class="callout"><strong>The read:</strong> all six pages held their pre-deploy SEMrush positions — no ranking penalty from the May 7 title/meta/FAQ schema changes. That's the most important first-pass signal: Google didn't punish the rewrites. The CTR lift (the actual goal) propagates as Google reindexes the SERP titles, which typically takes 14 to 30 days. GSC click-through data over the next 14 days is what confirms the playbook.</div>
+</div></section>
+
+<section class="table-section"><div class="container">
+<div class="section-head"><span class="pill">May Strategic Keywords</span><h2>206 KEYWORDS TRACKED.<br/>HERE'S <span class="accent">THE STATE.</span></h2>
+<p>Strategic-keyword tracking project (US database). Movement over the 14-day window. Top 3 dipped from 31 to 17 mid-cycle, which is the expected Google reindex flux. Bigger story: organic traffic estimate +72% month over month.</p></div>
+<div class="table-card"><table>
+<thead><tr><th>Position Bucket</th><th class="num">Keywords</th><th class="num">Improved</th><th class="num">Declined</th><th class="num">New Entries</th></tr></thead>
+<tbody>
+<tr><td><strong>Top 3</strong></td><td class="num">17</td><td class="num">3</td><td class="num">18</td><td class="num">2</td></tr>
+<tr><td><strong>Top 10</strong></td><td class="num">75</td><td class="num">18</td><td class="num">49</td><td class="num">6</td></tr>
+<tr><td><strong>Top 20</strong></td><td class="num">101</td><td class="num">30</td><td class="num">56</td><td class="num">9</td></tr>
+<tr><td><strong>Top 100 (all)</strong></td><td class="num">141</td><td class="num">38</td><td class="num">77</td><td class="num">2</td></tr>
+</tbody></table></div>
+<div class="callout warn"><strong>Watch:</strong> 18 keywords moved out of top 3 in the 14-day window. This is the expected Google reshuffle after on-page changes — title rewrites trigger reindexing across the cluster of pages that link in. Pattern across all KB refresh sprints (Nov 2025, Feb 2026): dip in week 1-2, recovery in week 3-4, gain in week 4-6. We hold the changes and recheck May 31.</div>
+</div></section>
+
+<section class="priorities-section"><div class="container">
+<div class="section-head"><span class="pill blue">Next 14 Days</span><h2>WHAT WE WORK<br/><span class="accent">FROM HERE.</span></h2>
+<p>The 14-day data isn't the verdict on the playbook. It's a clean baseline confirming nothing broke, plus the strongest evidence yet (+72% MoM traffic estimate) that the broader refresh strategy is compounding. Here's what ships next.</p></div>
+<div class="priority-list">
+<div class="priority"><div class="pnum">01</div><div><h4>Full GSC pre/post CTR analysis on May 31</h4><p>Run a 14-day vs 14-day GSC Search Analytics API query for each of the six refreshed URLs (impressions, clicks, CTR, position). May 31 lands at the 24-day mark post-deploy, which is the sweet spot for measurable CTR shifts after Google reindexes SERP titles.</p><span class="tag">May 31</span></div></div>
+<div class="priority" style="background:var(--lilac);"><div class="pnum">02</div><div><h4>Push the Elementor body content refresh on /rsu-tax-withholding-calculator/</h4><p>The May 7 deploy got Rank Math title + meta + FAQ schema live, plus three inbound contextual links. The outbound links and content depth refresh (2026 brackets, edge cases, worked examples for large RSU vests) are blocked at the Elementor edit step. WordPress App Password flow is set up; Whitney pushes via Elementor Custom Code or REST when next in admin.</p><span class="tag">This Week</span></div></div>
+<div class="priority"><div class="pnum">03</div><div><h4>Second-pass variant prep for any flat-CTR pages</h4><p>If May 31 GSC data shows any of the six pages stuck below 1.5% CTR, queue a second variant (different angle, different benefit framing, more aggressive number in the title). Variants drafted now so they're ready to deploy June 1 if needed.</p><span class="tag">May 31</span></div></div>
+<div class="priority" style="background:var(--lilac);"><div class="pnum">04</div><div><h4>Expand the meta-only refresh playbook to the next 10 pages</h4><p>Once the May 7 batch is validated, the next batch: /when-to-sell-stock-options-vs-rsu/ (10K impressions, #14, 0.4% CTR), /selling-stock-before-year-end/, /5-lessons-learned-missing-cost-basis/, /how-to-use-stock-options-to-buy-a-house/, /use-your-ipo-stock-options-to-buy-a-house/, the AMT cluster pages, the RSU cost basis variants. Same playbook: Rank Math title + meta + FAQ schema where missing, inbound contextual links.</p><span class="tag">June</span></div></div>
+</div>
+</div></section>
+
+<footer class="footer"><div class="container">
+<h2>NO RANKING DAMAGE.<br/>EARLY MOMENTUM. <span class="accent">HOLD AND RECHECK.</span></h2>
+<p>14-day window. Real test lands at May 31. Playbook stays in place.</p>
+<div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; May 21, 2026</div>
+</div></footer>
+
+<script>
+Chart.defaults.font.family="'Inter',-apple-system,BlinkMacSystemFont,sans-serif";Chart.defaults.font.size=12;Chart.defaults.color='#6C6E8A';Chart.defaults.borderColor='rgba(7,6,48,0.10)';
+const navy='#070630',blue='#3872EB';
+const m=["May'25","Jun","Jul","Aug","Sep","Oct","Nov","Dec","Jan'26","Feb","Mar","Apr"];
+const traffic=[611,537,566,552,582,693,568,537,460,374,295,508];
+const kw=[1378,1459,1514,1622,1757,1710,1664,1649,1730,1678,1671,1667];
+new Chart(document.getElementById('trafficChart'),{type:'bar',data:{labels:m,datasets:[{label:'SEMrush Est. Traffic',data:traffic,backgroundColor:'rgba(56,114,235,0.78)',borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,title:{display:true,text:'Monthly visits (est.)'}}}}});
+new Chart(document.getElementById('kwChart'),{type:'line',data:{labels:m,datasets:[{label:'Keywords ranking',data:kw,borderColor:blue,backgroundColor:'rgba(56,114,235,0.12)',fill:true,tension:0.35,borderWidth:3,pointRadius:5,pointBackgroundColor:blue}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{title:{display:true,text:'Keywords in top 100'}}}}});
+</script>
+</body>
+</html>

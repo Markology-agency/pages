@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Thompson Flaherty CPA — Ads & Leads Performance Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}
+.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:72px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:48px 0;}.container{padding:0 20px;}}
+.star{position:absolute;pointer-events:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.pill.warn{background:var(--warn);color:#fff;}
+.pill.warn::before{content:"";display:inline-block;width:8px;height:8px;background:#fff;border-radius:50%;margin-right:6px;vertical-align:middle;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.hero{background:var(--paper);padding-top:96px;padding-bottom:64px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7.5vw,84px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:24px 0 0;}
+.hero .lede{font-size:18px;line-height:1.6;color:var(--mute);max-width:760px;margin-top:24px;}
+.hero .meta{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.toolbar{margin-top:28px;display:flex;gap:14px;flex-wrap:wrap;}
+.toolbar a{display:inline-block;padding:10px 18px;background:#fff;border:2px solid var(--navy);border-radius:10px;box-shadow:4px 4px 0 var(--navy);font-size:13px;font-weight:600;color:var(--navy);text-decoration:none;transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.toolbar a:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--navy);}
+
+.blocker-section{background:#fff;padding:48px 0;}
+.blocker-card{background:#fff7ed;border:2px solid var(--warn);border-radius:20px;padding:32px 36px;box-shadow:6px 6px 0 var(--warn);}
+.blocker-card h3{font-family:'Bangers',sans-serif;font-size:28px;letter-spacing:0.04em;color:var(--navy);}
+.blocker-card .bsub{font-size:14px;color:var(--mute);margin:6px 0 18px;}
+.blocker-list{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:8px;}
+@media(max-width:900px){.blocker-list{grid-template-columns:1fr;}}
+.blocker{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:18px 20px;}
+.blocker .bnum{display:inline-block;width:28px;height:28px;line-height:24px;text-align:center;background:var(--warn);color:#fff;border:2px solid var(--navy);border-radius:8px;font-family:'Bangers',sans-serif;font-size:16px;margin-right:8px;vertical-align:middle;}
+.blocker .btitle{display:inline-block;font-weight:700;color:var(--navy);font-size:15px;vertical-align:middle;}
+.blocker p{font-size:13px;color:var(--mute);margin-top:10px;line-height:1.5;}
+.blocker .bowner{display:inline-block;margin-top:10px;padding:3px 10px;background:var(--lilac);color:var(--navy);border:1.5px solid var(--navy);font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;border-radius:6px;}
+
+.kpi-section{background:#fff;padding:48px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:22px 22px;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.kpi:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}
+.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:12px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:48px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .delta{margin-top:10px;font-size:13px;font-weight:600;}
+.kpi .delta.up{color:#047857;}
+.kpi .delta.down{color:#b91c1c;}
+.kpi .delta.flat{color:var(--mute);}
+.kpi .delta.warn{color:#b45309;}
+.kpi .explain{margin-top:14px;padding-top:14px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);line-height:1.5;}
+
+.section-head{margin-bottom:36px;max-width:820px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(36px,5vw,60px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:12px;}
+.section-head p{font-size:16px;color:var(--mute);margin-top:14px;line-height:1.6;}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.split{grid-template-columns:1fr;}}
+.acct-card{background:#fff;border:2px solid var(--navy);border-radius:18px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.acct-card h3{font-family:'Bangers',sans-serif;font-size:26px;letter-spacing:0.04em;color:var(--navy);}
+.acct-card .acct-sub{font-size:12px;color:var(--mute);margin-bottom:18px;text-transform:uppercase;letter-spacing:0.12em;font-weight:600;}
+.acct-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--hair);font-size:14px;}
+.acct-row:last-child{border-bottom:none;}
+.acct-row span:last-child{font-weight:600;color:var(--navy);}
+
+.table-section{background:var(--paper);}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:20px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+thead{background:var(--navy);}
+th{text-align:left;padding:14px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);}
+th.num,td.num{text-align:right;}
+td{padding:14px 18px;border-bottom:1px solid var(--hair);}
+tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.status-pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;}
+.status-on{background:#d1fae5;color:#065f46;border:1.5px solid #065f46;}
+.status-cold{background:#fef3c7;color:#92400e;border:1.5px solid #92400e;}
+.status-fix{background:#fee2e2;color:#991b1b;border:1.5px solid #991b1b;}
+.status-good{background:#d1fae5;color:#065f46;border:1.5px solid #065f46;}
+
+.lead-source{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;background:var(--lilac);color:var(--navy);border:1.5px solid var(--navy);}
+.lead-source.organic{background:#d1fae5;color:#065f46;border-color:#065f46;}
+.lead-source.ads{background:#dbeafe;color:#1e40af;border-color:#1e40af;}
+
+.timeline-section{background:#fff;}
+.timeline{position:relative;padding-left:40px;}
+.timeline::before{content:"";position:absolute;left:14px;top:8px;bottom:8px;width:3px;background:var(--blue);border-radius:2px;}
+.tl-item{position:relative;margin-bottom:24px;background:var(--paper);border:2px solid var(--navy);border-radius:14px;padding:18px 22px;box-shadow:4px 4px 0 var(--navy);}
+.tl-item::before{content:"";position:absolute;left:-34px;top:18px;width:18px;height:18px;background:var(--blue);border:3px solid var(--navy);border-radius:50%;}
+.tl-date{font-size:11px;color:var(--blue);text-transform:uppercase;letter-spacing:0.18em;font-weight:700;}
+.tl-title{font-weight:600;color:var(--navy);margin-top:4px;font-size:15px;}
+.tl-body{font-size:13px;color:var(--mute);margin-top:6px;line-height:1.5;}
+.tl-tag{display:inline-block;margin-top:8px;padding:3px 10px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;border-radius:6px;}
+.tl-tag.stl{background:#7c3aed;}
+.tl-tag.chi{background:var(--blue);}
+.tl-tag.system{background:var(--mute);}
+
+.plan-section{background:var(--lilac);}
+.plan-list{display:flex;flex-direction:column;gap:16px;}
+.plan{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:24px 28px;display:grid;grid-template-columns:56px 1fr;gap:20px;align-items:start;box-shadow:5px 5px 0 var(--navy);}
+.plan .pnum{width:56px;height:56px;border-radius:14px;background:var(--blue);color:#fff;border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:30px;display:flex;align-items:center;justify-content:center;}
+.plan h4{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:6px;}
+.plan p{font-size:14px;color:var(--mute);line-height:1.55;}
+.plan .tag{display:inline-block;margin-top:10px;padding:4px 10px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.18em;border-radius:6px;text-transform:uppercase;}
+
+.footer{background:var(--navy);color:#fff;text-align:center;padding:72px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(32px,4.5vw,48px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:14px;font-size:14px;}
+.footer .built-by{margin-top:32px;padding-top:24px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="star" style="top:80px;left:80px;transform:rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="top:200px;right:120px;transform:rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <div class="container">
+    <span class="pill warn">Cold Start &middot; Awaiting First Impression</span>
+    <h1>THOMPSON FLAHERTY<br/><span class="accent">ADS &amp; LEADS TRACKER.</span></h1>
+    <p class="lede">Daily Google Ads + lead pipeline view for Thompson Flaherty CPA. Two Search campaigns went live May 17 across Metro East, St Louis, and Chicago. Zero impressions through May 22 because bid floors and conversion tracking are still being calibrated. Three unblocks below get delivery moving.</p>
+    <div class="meta">
+      <span><strong>Account:</strong> Thompson Flaherty CPA (2110746337)</span>
+      <span><strong>Period:</strong> May 2026 (since 05-17 launch)</span>
+      <span><strong>Last refreshed:</strong> <span id="last-refresh">2026-05-22 (initial build)</span></span>
+    </div>
+    <div class="toolbar">
+      <a href="https://docs.google.com/spreadsheets/d/1QH5id4kfotbBC6nIqxuNXG3rfnD50vTPjPWl1n6y8sM/edit" target="_blank">Website Leads sheet &rarr;</a>
+      <a href="https://ads.google.com/aw/overview?ocid=2110746337" target="_blank">TF Google Ads &rarr;</a>
+      <a href="https://markology-agency.github.io/pages/thompson-flaherty/may-2026/" target="_blank">May 2026 SEO Report &rarr;</a>
+      <a href="https://thompsonflaherty.com/" target="_blank">thompsonflaherty.com &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section class="blocker-section">
+  <div class="container">
+    <div class="blocker-card">
+      <h3>WHY ZERO IMPRESSIONS YET</h3>
+      <div class="bsub">Both campaigns are ENABLED and SERVING but the bidding + tracking foundation needs three short fixes before Google will start delivering them at scale. None are technical surprises &mdash; they're standard cold-start calibration items.</div>
+      <div class="blocker-list">
+        <div class="blocker">
+          <span class="bnum">1</span><span class="btitle">Bid raise on the 2 STL ad groups</span>
+          <p>Five of seven ad groups were bumped to market CPC on 5/20. The two remaining (STL Head Terms, Small Business CPA STL) need bids raised from $4-$5 to $6.00 and $7.50 respectively. Below-market bids on every keyword = no auction entry.</p>
+          <span class="bowner">Whitney &middot; Ads UI</span>
+        </div>
+        <div class="blocker">
+          <span class="bnum">2</span><span class="btitle">Conversion Action in Ads account</span>
+          <p>The AW-18169486874 gtag fires on /thank-you/ once installed, but no matching Conversion Action exists in the Ads account. Without one, the tag has nothing to talk to, optimization stays manual forever, and the campaigns can't graduate to Smart Bidding. Tools &amp; Settings &rarr; Conversions &rarr; New &rarr; Website &rarr; URL contains /thank-you/.</p>
+          <span class="bowner">Whitney &middot; Ads UI &middot; ~5 min</span>
+        </div>
+        <div class="blocker">
+          <span class="bnum">3</span><span class="btitle">MCC invite accept (Markology MCC 8210062698)</span>
+          <p>Until TF Ads accepts the Markology MCC link, the daily check routine (anomaly monitor + bid pacing alerts) can't auto-fire. Manual pulls only until accepted.</p>
+          <span class="bowner">Whitney &middot; TF Ads UI &middot; ~1 min</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">May 2026 since 5/17 launch</span>
+      <h2>HEADLINE NUMBERS.</h2>
+      <p>Live pull from Pipeboard (Ads) + the Website Leads sheet. Numbers reset to zero on the Ads side until the three unblocks land. Lead side already has one real organic submission to track conversion handling on.</p>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Ad Impressions (May MTD)</div>
+        <div class="value">0</div>
+        <div class="delta warn">Cold start &middot; awaiting bid + tracking</div>
+        <div class="explain">Both campaigns ENABLED/SERVING since 5/17. Zero auction entries because bids sit below market CPC on the highest-value ad groups, and no Conversion Action exists for the system to optimize toward.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Spend (May MTD)</div>
+        <div class="value">$0</div>
+        <div class="delta flat">Daily caps: $20 total ($10/campaign)</div>
+        <div class="explain">No clicks = no spend. Each campaign has a $10/day cap with MANUAL_CPC bidding, enhanced CPC OFF. Projected first-week spend after unblock: $50-$140 depending on auction depth.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Website Leads (May MTD)</div>
+        <div class="value">1</div>
+        <div class="delta up">First real lead in the new sheet</div>
+        <div class="explain">David Berkenbile (5/18). Solo tech consultant in Edwardsville with a 2025 S-corp situation needing cleanup. Organic / Contact page. 37 raw submissions cleaned to 1 real after spam filter + 4 ambiguous deletions.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Ad-Sourced Leads (May MTD)</div>
+        <div class="value">0</div>
+        <div class="delta flat">Awaiting first impression</div>
+        <div class="explain">Zero impressions = zero clicks = zero ad-sourced leads possible. Once delivery starts and Conversion Action is wired, this tile becomes the primary success metric.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Live campaigns</span>
+      <h2>ACTIVE GOOGLE ADS CAMPAIGNS.</h2>
+      <p>Two Search campaigns covering the three target metros. Both ENABLED and SERVING status &mdash; the issue is auction entry, not campaign state.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr><th>Campaign</th><th>Geo</th><th>Status</th><th class="num">Daily Budget</th><th class="num">May Spend</th><th class="num">May Impr.</th><th class="num">May Clicks</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Search - Metro East &amp; STL Metro</td><td>Edwardsville + Cape Cod-style STL ring</td><td><span class="status-pill status-cold">Cold Start</span></td><td class="num">$10</td><td class="num">$0</td><td class="num">0</td><td class="num">0</td></tr>
+          <tr><td>Search - Chicago Metro</td><td>Chicago + 4 suburbs</td><td><span class="status-pill status-cold">Cold Start</span></td><td class="num">$10</td><td class="num">$0</td><td class="num">0</td><td class="num">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="table-section" style="background:#fff;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Ad group bid floor</span>
+      <h2>AD GROUP BID STATUS.</h2>
+      <p>Bids were too low across all seven ad groups at launch. Five were raised to market CPC on 5/20. Two STL ad groups still under-bid &mdash; finishing these unlocks the Metro East &amp; STL Metro campaign.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr><th>Ad Group</th><th>Campaign</th><th class="num">Keywords</th><th class="num">Old Bid</th><th class="num">New Bid</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>STL Head Terms</td><td>Metro East &amp; STL</td><td class="num">13</td><td class="num">$5.00</td><td class="num">$7.50</td><td><span class="status-pill status-fix">Needs Raise</span></td></tr>
+          <tr><td>Small Business CPA - STL</td><td>Metro East &amp; STL</td><td class="num">9</td><td class="num">$4.00</td><td class="num">$6.00</td><td><span class="status-pill status-fix">Needs Raise</span></td></tr>
+          <tr><td>Near Me - STL Geo</td><td>Metro East &amp; STL</td><td class="num">13</td><td class="num">$4.00</td><td class="num">$5.50</td><td><span class="status-pill status-good">Raised 5/20</span></td></tr>
+          <tr><td>Chicago Head Terms</td><td>Chicago Metro</td><td class="num">12</td><td class="num">$7.00</td><td class="num">$10.00</td><td><span class="status-pill status-good">Raised 5/20</span></td></tr>
+          <tr><td>Small Business CPA - Chicago</td><td>Chicago Metro</td><td class="num">8</td><td class="num">$7.00</td><td class="num">$7.50</td><td><span class="status-pill status-good">Raised 5/20</span></td></tr>
+          <tr><td>Chicago Suburbs</td><td>Chicago Metro</td><td class="num">22</td><td class="num">$7.00</td><td class="num">$7.50</td><td><span class="status-pill status-good">Raised 5/20</span></td></tr>
+          <tr><td>Near Me - Chicago Geo</td><td>Chicago Metro</td><td class="num">7</td><td class="num">$7.00</td><td class="num">$7.50</td><td><span class="status-pill status-good">Raised 5/20</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Lead pipeline</span>
+      <h2>WEBSITE LEADS.</h2>
+      <p>Pulled live from the Thompson Flaherty Website Leads sheet. 37 raw form submissions came through May 1-22; 32 auto-flagged spam by the conditional rule, 4 manually verified fake and deleted, 1 real lead remaining.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr><th>Date</th><th>Name</th><th>Inquiry</th><th>Source</th><th>Snapshot</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>05/18/2026</td>
+            <td>David Berkenbile<br/><span style="font-size:11px;color:var(--mute);">Berk Systems, Edwardsville IL</span></td>
+            <td>Business Tax</td>
+            <td><span class="lead-source organic">Organic / Contact</span></td>
+            <td>Solo tech consultant. 2025 S-corp elected but no payroll, no 1120-S filed. Wants to file zero-out 1120 + revert to disregarded LLC going forward. Local Metro East fit.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Pipeline split</span>
+      <h2>BY ACCOUNT.</h2>
+      <p>Single-account view today. When the Chicago Metro campaign starts delivering separately from the Metro East &amp; STL campaign, this section will split into per-campaign pipelines like the Virjee tracker.</p>
+    </div>
+    <div class="split">
+      <div class="acct-card">
+        <h3>METRO EAST &amp; ST LOUIS</h3>
+        <div class="acct-sub">Campaign 23850553650 &middot; $10/day</div>
+        <div class="acct-row"><span>May ad spend</span><span>$0</span></div>
+        <div class="acct-row"><span>May impressions</span><span>0</span></div>
+        <div class="acct-row"><span>May conversions</span><span>0</span></div>
+        <div class="acct-row"><span>Ad groups</span><span>3 (1 raised, 2 pending)</span></div>
+        <div class="acct-row"><span>Top keyword volume</span><span>cpa st louis (210/mo)</span></div>
+        <div class="acct-row"><span>Pilot landing page</span><span>/cpa-st-louis/ (drafted)</span></div>
+      </div>
+      <div class="acct-card">
+        <h3>CHICAGO METRO</h3>
+        <div class="acct-sub">Campaign 23860375327 &middot; $10/day</div>
+        <div class="acct-row"><span>May ad spend</span><span>$0</span></div>
+        <div class="acct-row"><span>May impressions</span><span>0</span></div>
+        <div class="acct-row"><span>May conversions</span><span>0</span></div>
+        <div class="acct-row"><span>Ad groups</span><span>4 (all raised 5/20)</span></div>
+        <div class="acct-row"><span>Top keyword volume</span><span>cpa chicago (880/mo)</span></div>
+        <div class="acct-row"><span>Pilot landing page</span><span>/cpa-chicago/ (queued)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="timeline-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Changes log</span>
+      <h2>WHAT CHANGED.</h2>
+      <p>Chronological record of every campaign change, structural fix, and infrastructure step since launch. New items appended at top.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-date">2026-05-22</div>
+        <div class="tl-title">Ads &amp; Leads Tracker built</div>
+        <div class="tl-body">Initial build of this page. Auto-refresh routine will be wired once the MCC accept lands &mdash; until then refreshes are manual on demand. Sources: Pipeboard for Ads metrics, Website Leads sheet for the pipeline side.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-20</div>
+        <div class="tl-title">Bid raise on 5 of 7 ad groups</div>
+        <div class="tl-body">49 keywords moved closer to market CPC: Near Me STL Geo ($4 → $5.50, 13 kw), Chicago Head Terms ($7 → $10.00, 12 kw), Small Business CPA Chicago ($7 → $7.50, 8 kw), Chicago Suburbs ($7 → $7.50, 22 kw), Near Me Chicago Geo ($7 → $7.50, 7 kw). STL Head Terms + Small Business CPA STL pending Whitney's explicit ok.</div>
+        <span class="tl-tag chi">Chicago</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-20</div>
+        <div class="tl-title">Website Leads sheet built + spam filter applied</div>
+        <div class="tl-body">New sheet at <code>1QH5id4kfotbBC6nIqxuNXG3rfnD50vTPjPWl1n6y8sM</code> in TF shared drive. 37 raw entries imported, conditional format auto-paints "Spam" rows pink. 32 flagged spam by the rule, 4 manually verified fake and deleted by Whitney, 1 real lead (David Berkenbile, 5/18). Tab renamed to "All Leads" to match the Virjee daily-refresh routine pattern.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-19</div>
+        <div class="tl-title">AW-18169486874 conversion tag drafted for /thank-you/</div>
+        <div class="tl-body">Google Ads gtag prepared for installation on the existing /thank-you/ page (WP id 375). Install still pending Whitney's shell session (~2 min paste into WP). Note: even with the tag installed, the Ads account also needs a matching Conversion Action defined &mdash; blocker #2 above.</div>
+        <span class="tl-tag stl">Tracking</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-17</div>
+        <div class="tl-title">Both campaigns enabled &amp; eligible</div>
+        <div class="tl-body">Search - Metro East &amp; STL Metro (23850553650) and Search - Chicago Metro (23860375327) flipped to ENABLED. Both report ELIGIBLE / SERVING from the Ads API. $10/day cap each. MANUAL_CPC bidding, enhanced CPC OFF. Geo targeting per the architecture docs (Metro East core + STL ring + Chicago + 4 suburbs).</div>
+        <span class="tl-tag stl">Launch</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="plan-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Next 30 days</span>
+      <h2>WHAT GETS DELIVERY MOVING.</h2>
+      <p>Five steps in order. Items 1-3 are the same three unblocks at the top of this page &mdash; restated as the operational sequence. Items 4-5 are what we expect to be doing once delivery is live.</p>
+    </div>
+    <div class="plan-list">
+      <div class="plan">
+        <div class="pnum">1</div>
+        <div>
+          <h4>FINISH THE BID RAISE ON THE 2 STL AD GROUPS</h4>
+          <p>STL Head Terms to $7.50, Small Business CPA STL to $6.00. 22 keywords total. Either Whitney's explicit ok to re-run via Pipeboard, or 5 minutes in Ads UI. This unblocks the Metro East &amp; STL campaign auction.</p>
+          <span class="tag">Day 1</span>
+        </div>
+      </div>
+      <div class="plan">
+        <div class="pnum">2</div>
+        <div>
+          <h4>WIRE THE CONVERSION ACTION + INSTALL THE GTAG</h4>
+          <p>Two parts. (a) Tools &amp; Settings &rarr; Conversions &rarr; New conversion &rarr; Website &rarr; URL contains /thank-you/, category Submit lead form, count Once, attribution Data-driven. (b) Paste the AW-18169486874 gtag block into the existing /thank-you/ page (WP id 375). Verify firing with Tag Assistant.</p>
+          <span class="tag">Day 1-2</span>
+        </div>
+      </div>
+      <div class="plan">
+        <div class="pnum">3</div>
+        <div>
+          <h4>ACCEPT MARKOLOGY MCC INVITE</h4>
+          <p>One-click from inside TF Ads. Once accepted, the daily 8am check routine (impressions, spend pacing, anomaly alerts) starts auto-firing into this tracker. Same routine that's running for Virjee.</p>
+          <span class="tag">Day 1</span>
+        </div>
+      </div>
+      <div class="plan">
+        <div class="pnum">4</div>
+        <div>
+          <h4>SHIP /cpa-st-louis/ + /cpa-chicago/ LANDING PAGES</h4>
+          <p>St Louis pilot is drafted as a Google Doc (1,600 words, schema spec'd). Paste into WP the moment Editor-level App Password lands. Chicago pilot queued for the WEEK 4 sprint. Both pages become the ad destination instead of the homepage, which lifts Quality Score and lets us split the campaigns into per-city ad groups.</p>
+          <span class="tag">WEEK 3-4</span>
+        </div>
+      </div>
+      <div class="plan">
+        <div class="pnum">5</div>
+        <div>
+          <h4>FIRST 14 DAYS OF DELIVERY: REVIEW &amp; PRUNE</h4>
+          <p>Once impressions start, week-one focus is search-term mining (find the negatives we need) + Quality Score auditing per ad group. Week two: first round of bid + budget rebalancing based on actual CPC and conversion rate. Goal by day 30: $0.40-$0.50 cost per click in St Louis (vs current $4-7 max bids), $1.20-$1.60 in Chicago.</p>
+          <span class="tag">WEEK 4 &amp; June</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <h2>THOMPSON FLAHERTY<br/><span class="accent">TRACKER LIVE.</span></h2>
+    <p>Manual refresh today &middot; daily auto-refresh starts after MCC accept</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; Pulls live from Pipeboard + Google Sheets</div>
+  </div>
+</footer>
+
+</body>
+</html>

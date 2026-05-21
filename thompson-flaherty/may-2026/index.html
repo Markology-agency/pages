@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thompson Flaherty CPA — May 2026 SEO Update by Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --paper: #F9F9FF;
+    --navy:  #070630;
+    --blue:  #3872EB;
+    --lilac: #E6E9FF;
+    --ink:   #070630;
+    --mute:  #6C6E8A;
+    --hair:  rgba(7,6,48,0.10);
+    --good:  #10b981;
+    --good-soft: #d1fae5;
+    --watch: #f59e0b;
+    --watch-soft: #fef3c7;
+    --bad:   #ef4444;
+    --bad-soft: #fee2e2;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #fff; color: var(--ink); line-height: 1.6; font-size: 15px; -webkit-font-smoothing: antialiased; }
+  .bangers { font-family: 'Bangers', 'Impact', sans-serif; font-weight: 400; letter-spacing: 0.02em; text-transform: uppercase; }
+  .accent { color: var(--blue); }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
+  section { padding: 80px 0; position: relative; overflow: hidden; }
+  @media (max-width: 720px) { section { padding: 56px 0; } .container { padding: 0 20px; } }
+  .star { position: absolute; pointer-events: none; }
+  .pill { display: inline-block; padding: 6px 14px; background: var(--navy); color: #fff; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 700; border-radius: 999px; }
+  .pill.blue { background: var(--blue); }
+  .pill.outlined { background: #fff; color: var(--navy); border: 2px solid var(--navy); }
+
+  .hero { background: var(--paper); padding-top: 100px; padding-bottom: 80px; }
+  .hero h1 { font-family: 'Bangers', 'Impact', sans-serif; font-size: clamp(56px, 9vw, 120px); line-height: 0.92; letter-spacing: 0.02em; color: var(--navy); margin: 24px 0 0; }
+  .hero .lede { font-size: 19px; line-height: 1.6; color: var(--mute); max-width: 720px; margin-top: 28px; }
+  .hero .meta { margin-top: 28px; display: flex; gap: 28px; flex-wrap: wrap; font-size: 13px; color: var(--mute); }
+  .hero .meta strong { color: var(--navy); font-weight: 600; }
+
+  .kpi-section { background: #fff; padding: 64px 0; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  @media (max-width: 900px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 540px) { .kpi-grid { grid-template-columns: 1fr; } }
+  .kpi { background: var(--paper); border: 2px solid var(--navy); border-radius: 16px; padding: 24px 22px; box-shadow: 5px 5px 0 var(--navy); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .kpi:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--navy); }
+  .kpi:nth-child(2) { background: var(--lilac); }
+  .kpi .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.18em; color: var(--blue); font-weight: 700; margin-bottom: 12px; }
+  .kpi .value { font-family: 'Bangers', sans-serif; font-size: 48px; line-height: 1; letter-spacing: 0.02em; color: var(--navy); }
+  .kpi .delta { margin-top: 10px; font-size: 13px; font-weight: 600; }
+  .kpi .delta.good { color: #047857; }
+  .kpi .delta.watch { color: #b45309; }
+  .kpi .explain { margin-top: 14px; padding-top: 14px; border-top: 2px dashed var(--hair); font-size: 12px; color: var(--mute); line-height: 1.5; }
+
+  .section-head { margin-bottom: 48px; max-width: 820px; }
+  .section-head h2 { font-family: 'Bangers', sans-serif; font-size: clamp(40px, 5.5vw, 68px); line-height: 0.98; letter-spacing: 0.02em; color: var(--navy); margin-top: 16px; }
+  .section-head p { font-size: 17px; color: var(--mute); margin-top: 16px; line-height: 1.6; }
+
+  .charts-section { background: #fff; }
+  .chart-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 900px) { .chart-row { grid-template-columns: 1fr; } }
+  .chart-card { background: var(--paper); border: 2px solid var(--navy); border-radius: 20px; padding: 28px; box-shadow: 6px 6px 0 var(--navy); }
+  .chart-card h4 { font-family: 'Bangers', sans-serif; font-size: 22px; letter-spacing: 0.04em; color: var(--navy); margin-bottom: 4px; }
+  .chart-card .chart-sub { font-size: 13px; color: var(--mute); margin-bottom: 20px; }
+  .chart-container { position: relative; height: 280px; }
+
+  .table-section { background: var(--paper); }
+  .table-card { background: #fff; border: 2px solid var(--navy); border-radius: 20px; overflow: hidden; box-shadow: 6px 6px 0 var(--navy); }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  thead { background: var(--navy); }
+  th { text-align: left; padding: 14px 18px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.18em; color: var(--blue); }
+  th.num, td.num { text-align: right; }
+  td { padding: 14px 18px; border-bottom: 1px solid var(--hair); }
+  tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: var(--paper); }
+  .move { display: inline-flex; align-items: center; gap: 4px; font-weight: 700; font-size: 13px; }
+  .move.up { color: var(--good); }
+  .move.down { color: var(--bad); }
+  .move.new { background: var(--blue); color: #fff; padding: 3px 10px; border-radius: 6px; font-size: 11px; letter-spacing: 0.08em; border: 2px solid var(--navy); }
+
+  .priorities-section { background: #fff; }
+  .priority-list { display: flex; flex-direction: column; gap: 16px; }
+  .priority { background: var(--paper); border: 2px solid var(--navy); border-radius: 16px; padding: 24px 28px; display: grid; grid-template-columns: 56px 1fr; gap: 20px; align-items: start; box-shadow: 5px 5px 0 var(--navy); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+  .priority:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--navy); }
+  .priority:nth-child(2n) { background: var(--lilac); }
+  .priority .pnum { width: 56px; height: 56px; border-radius: 14px; background: var(--blue); color: #fff; border: 2px solid var(--navy); font-family: 'Bangers', sans-serif; font-size: 30px; display: flex; align-items: center; justify-content: center; }
+  .priority h4 { font-family: 'Bangers', sans-serif; font-size: 22px; letter-spacing: 0.04em; color: var(--navy); margin-bottom: 6px; }
+  .priority p { font-size: 14px; color: var(--mute); line-height: 1.55; }
+  .priority .tag { display: inline-block; margin-top: 10px; padding: 4px 10px; background: var(--navy); color: #fff; font-size: 10px; font-weight: 700; letter-spacing: 0.18em; border-radius: 6px; text-transform: uppercase; }
+
+  .footer { background: var(--navy); color: #fff; text-align: center; padding: 80px 0; }
+  .footer h2 { font-family: 'Bangers', sans-serif; font-size: clamp(36px, 5vw, 56px); line-height: 1; letter-spacing: 0.02em; }
+  .footer h2 .accent { color: var(--blue); }
+  .footer p { color: #B4B6D6; margin-top: 16px; font-size: 14px; }
+  .footer .built-by { margin-top: 32px; padding-top: 24px; border-top: 2px dashed rgba(255,255,255,0.2); color: #8A8DB8; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 600; }
+  .footer .built-by a { color: var(--blue); text-decoration: none; }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="star" style="top: 80px; left: 80px; transform: rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="top: 200px; right: 120px; transform: rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="bottom: 60px; left: 50%; transform: rotate(8deg);" width="20" height="20" viewBox="0 0 24 24" fill="#E6E9FF" stroke="#070630" stroke-width="1.5"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+
+  <div class="container">
+    <span class="pill blue" style="border: 2px solid var(--navy); box-shadow: 4px 4px 0 var(--navy);">May 2026 &middot; Monthly Update + St Louis Pilot</span>
+    <h1>METRO EAST HELD.<br />ST LOUIS IS <span class="accent">NEXT.</span></h1>
+    <p class="lede">
+      Thompson Flaherty owns the #1 organic position for "cpa edwardsville il" with the homepage. Two new Chicago-metro keywords entered the rankings this month with zero new pages built &mdash; signal that Google is already linking TF to broader Illinois geography. The St Louis pilot page is drafted and ready, two May blogs are in review, and the E-E-A-T + Local SEO sprint shipped on May 17. The May agenda is built around protecting the Metro East core while opening two new metros at once.
+    </p>
+    <div class="meta">
+      <span><strong>Period:</strong> November 2025 to April 2026</span>
+      <span><strong>Reporting date:</strong> May 21, 2026</span>
+      <span><strong>Prepared by:</strong> Markology</span>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Total Keywords Ranking</div>
+        <div class="value">38</div>
+        <div class="delta watch">Down from Feb peak of 74</div>
+        <div class="explain">
+          Total thompsonflaherty.com URLs appearing anywhere in Google organic results. April reading. Post-tax-season retraction is normal for CPA firms. Source: SEMrush domain_organic, US database, April 15 reading.
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="label">Est. Monthly Organic Traffic</div>
+        <div class="value">68</div>
+        <div class="delta good">&uarr; 6% vs Nov 2025 baseline</div>
+        <div class="explain">
+          SEMrush estimated traffic, held steady at ~67-68 through Q1 even as keyword count contracted. Sign that the keywords still ranking are the higher-intent commercial ones. Source: SEMrush domain_rank_history.
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="label">#1 Rankings (Non-brand)</div>
+        <div class="value">1</div>
+        <div class="delta good">&uarr; "cpa edwardsville il" defended</div>
+        <div class="explain">
+          Homepage holds the #1 position on the firm's most strategic local term (40 mo. volume, $5.37 CPC). Brand term "thompson flaherty" also ranks #1. This is the Metro East flag in the ground.
+        </div>
+      </div>
+      <div class="kpi">
+        <div class="label">New Chicago-Metro Entries</div>
+        <div class="value">2</div>
+        <div class="delta good">DuPage County keywords appeared</div>
+        <div class="explain">
+          "Accounting firms in DuPage County Illinois" (#41, 50 vol) and "accountants Glen Ellyn IL" (#44, 40 vol) entered the rankings this month with no new pages built. Earliest possible signal of Chicago expansion working.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="charts-section" style="background: var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">The Receipts</span>
+      <h2>SIX MONTHS<br /><span class="accent">OF MOVEMENT.</span></h2>
+      <p>Keyword count peaked at 74 in February and pulled back to 38 in April. The retraction is seasonal and expected after April 15. Traffic estimates have held in the high 60s the entire period, which means the keywords still ranking are the higher-quality commercial terms. The base going into the May build cycle is stronger than the Nov 2025 starting point.</p>
+    </div>
+    <div style="margin-bottom: 24px;">
+      <div class="chart-card">
+        <h4>Domain Trajectory: Nov 2025 to Apr 2026</h4>
+        <div class="chart-sub">Total organic ranking keywords (SEMrush) and estimated monthly traffic.</div>
+        <div class="chart-container"><canvas id="trajectoryChart"></canvas></div>
+      </div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-card">
+        <h4>Keywords by Month</h4>
+        <div class="chart-sub">Total organic keywords ranking each month.</div>
+        <div class="chart-container"><canvas id="kwChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h4>Est. Traffic by Month</h4>
+        <div class="chart-sub">SEMrush estimated monthly organic traffic.</div>
+        <div class="chart-container"><canvas id="trafficChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Top Performers</span>
+      <h2>WHERE WE<br /><span class="accent">OWN IT.</span></h2>
+      <p>The keywords currently driving real traffic. Brand and Metro East lead. The Chicago-metro entries are early signal &mdash; positions 41 and 44 are page 5, but the homepage entering at all is the relevant data point.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Keyword</th><th class="num">Volume</th><th class="num">CPC</th><th class="num">Position</th><th>Ranking URL</th></tr></thead>
+        <tbody>
+          <tr><td>thompson flaherty</td><td class="num">70</td><td class="num">&mdash;</td><td class="num"><strong>#1</strong></td><td><code>/</code></td></tr>
+          <tr><td>cpa edwardsville il</td><td class="num">40</td><td class="num">$5.37</td><td class="num"><strong>#1</strong></td><td><code>/</code></td></tr>
+          <tr><td>kelly flaherty</td><td class="num">90</td><td class="num">&mdash;</td><td class="num">#9</td><td><code>/ourstaff.php</code></td></tr>
+          <tr><td>loy miller talley</td><td class="num">40</td><td class="num">&mdash;</td><td class="num">#17</td><td><code>/</code></td></tr>
+          <tr><td>thompson cpa</td><td class="num">50</td><td class="num">&mdash;</td><td class="num">#18</td><td><code>/</code></td></tr>
+          <tr><td>marge's tax service</td><td class="num">50</td><td class="num">&mdash;</td><td class="num">#19</td><td><code>/</code></td></tr>
+          <tr><td>thompson accounting services</td><td class="num">40</td><td class="num">&mdash;</td><td class="num">#25</td><td><code>/</code></td></tr>
+          <tr><td>best tax cpa weston</td><td class="num">70</td><td class="num">&mdash;</td><td class="num">#26</td><td><code>/</code></td></tr>
+          <tr><td>thompson tax service</td><td class="num">140</td><td class="num">&mdash;</td><td class="num">#29</td><td><code>/</code></td></tr>
+          <tr><td>businesses in edwardsville il</td><td class="num">70</td><td class="num">&mdash;</td><td class="num">#34</td><td><code>/</code></td></tr>
+          <tr><td>accounting firms in dupage county illinois</td><td class="num">50</td><td class="num">&mdash;</td><td class="num">#41</td><td><code>/</code></td></tr>
+          <tr><td>thompson tax</td><td class="num">110</td><td class="num">$3.69</td><td class="num">#43</td><td><code>/</code></td></tr>
+          <tr><td>accountants glen ellyn il</td><td class="num">40</td><td class="num">&mdash;</td><td class="num">#44</td><td><code>/</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="table-section" style="background: #fff;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">New Entries This Month</span>
+      <h2>FRESH ON<br /><span class="accent">THE MAP.</span></h2>
+      <p>Two Chicago-area keywords just entered the index, both on the homepage. The fact that Google is now connecting TF to DuPage County and Glen Ellyn searches without any geo-specific content is exactly the early signal the Chicago expansion playbook relies on. Once the planned /chicago/ hub and neighborhood pages ship, these positions should consolidate.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Keyword</th><th class="num">Monthly Volume</th><th class="num">Current Position</th><th class="num">Status</th></tr></thead>
+        <tbody>
+          <tr><td>accounting firms in dupage county illinois</td><td class="num">50</td><td class="num">#41</td><td class="num"><span class="move new">NEW</span></td></tr>
+          <tr><td>accountants glen ellyn il</td><td class="num">40</td><td class="num">#44</td><td class="num"><span class="move new">NEW</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section style="background: #fff; padding: 80px 0;">
+  <div class="container">
+    <div class="section-head" style="margin-bottom: 36px; max-width: 880px;">
+      <span class="pill blue">St Louis Pilot &middot; Chicago Expansion</span>
+      <h2 style="margin-top: 14px;">TWO NEW METROS,<br /><span class="accent">ONE PLAYBOOK.</span></h2>
+      <p style="margin-top: 14px;">Both expansions follow the same Service+City page architecture. St Louis ships first as the pilot (highest leverage on the 210 mo. volume head term "cpa st louis"). Chicago Tier 1 batch follows in June. Every page links up to a metro hub, adds LocalBusiness schema with named suburbs in the areaServed array, and pulls Kelly Flaherty's St Louis Small Business Monthly credibility into the bio block.</p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px;">
+      <div style="background: var(--paper); border: 2px solid var(--navy); border-radius: 14px; padding: 24px; box-shadow: 5px 5px 0 var(--navy);">
+        <span class="pill" style="background: var(--good); font-size: 10px;">St Louis &middot; ~580/mo unclaimed volume</span>
+        <h4 class="bangers" style="font-size: 22px; color: var(--navy); margin-top: 14px; margin-bottom: 8px;">PILOT READY TO SHIP.</h4>
+        <p style="font-size: 12px; color: var(--mute); line-height: 1.5;">Page draft live in Drive: H1 "CPA Services in St Louis," 1,300 words, six H2s covering year-round tax strategy, monthly bookkeeping, S-corp election, multi-state Illinois-Missouri returns, named CPA (Kelly Flaherty), and a suburb block calling out Clayton, Chesterfield, Creve Coeur, Ladue, Kirkwood, Webster Groves, University City, St Charles, Florissant, and Wildwood. LocalBusiness schema + Rank Math meta drafted.</p>
+        <p style="font-size: 12px; color: var(--navy); font-weight: 700; margin-top: 14px; letter-spacing: 0.08em; text-transform: uppercase;">Target keywords</p>
+        <p style="font-size: 13px; color: var(--mute); line-height: 1.55; margin-top: 4px;">cpa st louis (210) &middot; tax accountant st louis (90) &middot; accountant st louis (90) &middot; accounting firm st louis (20) &middot; cpa firm st louis (10). Tier 2 standalone pages (/cpa-university-city/, /cpa-st-charles/, /tax-accountant-clayton/) queued for the next sprint after pilot indexation check.</p>
+      </div>
+      <div style="background: var(--paper); border: 2px solid var(--navy); border-radius: 14px; padding: 24px; box-shadow: 5px 5px 0 var(--navy);">
+        <span class="pill" style="background: var(--blue); font-size: 10px;">Chicago &middot; ~1,820/mo unclaimed volume</span>
+        <h4 class="bangers" style="font-size: 22px; color: var(--navy); margin-top: 14px; margin-bottom: 8px;">TIER 1 BATCH QUEUED.</h4>
+        <p style="font-size: 12px; color: var(--mute); line-height: 1.5;">Ten Tier 1 pages mapped in the keyword research doc. /cpa-chicago/ (880 vol) and /tax-accountant-chicago/ (480 vol) are the head-term anchors. Suburb pages: /cpa-naperville/ (90 vol), /cpa-northbrook/ (90), /cpa-evanston/, /cpa-skokie/, /cpa-glenview/, /cpa-highland-park/, /cpa-barrington/, /cpa-oak-brook/. Twenty-three originally proposed neighborhoods consolidated to 10 after volume validation.</p>
+        <p style="font-size: 12px; color: var(--navy); font-weight: 700; margin-top: 14px; letter-spacing: 0.08em; text-transform: uppercase;">Early signal</p>
+        <p style="font-size: 13px; color: var(--mute); line-height: 1.55; margin-top: 4px;">Two DuPage County / Glen Ellyn keywords entered the rankings this month on the homepage. Confirms the Chicago expansion premise &mdash; once dedicated pages exist, ranking velocity should accelerate.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 56px;">
+      <h3 style="font-family:'Bangers',sans-serif;font-size:32px;letter-spacing:0.04em;color:var(--navy);margin-bottom:8px;">CANNIBALIZATION FLAG.</h3>
+      <p style="font-size: 14px; color: var(--mute); margin-bottom: 24px;">"cpa edwardsville il" is the firm's #1 strategic local term &mdash; and Google is currently indexing 13 different URLs on the domain for it. Homepage is at #1 (correct). Twelve legacy .php pages dilute authority on positions 12 through 96. Fix: canonicalize the homepage and 301-redirect the .php variants to topic-matched destinations.</p>
+      <div class="table-card">
+        <table>
+          <thead><tr><th>Ranking URL</th><th class="num">Position</th><th>Fix</th></tr></thead>
+          <tbody>
+            <tr><td><code>/</code> (homepage)</td><td class="num"><strong>#1</strong></td><td>Canonical &mdash; leave</td></tr>
+            <tr><td><code>/contact.php</code></td><td class="num">#12</td><td>301 &rarr; /contact/</td></tr>
+            <tr><td><code>/clientportal.php</code></td><td class="num">#23</td><td>301 &rarr; client portal URL</td></tr>
+            <tr><td><code>/calc-section.php</code></td><td class="num">#28, #30</td><td>301 &rarr; / or calculator hub</td></tr>
+            <tr><td><code>/ourstaff.php</code></td><td class="num">#35, #40</td><td>301 &rarr; /about/</td></tr>
+            <tr><td><code>/taxprep.php</code></td><td class="num">#51</td><td>301 &rarr; /tax-business/</td></tr>
+            <tr><td><code>/quote.php</code></td><td class="num">#73</td><td>301 &rarr; /contact/</td></tr>
+            <tr><td><code>/services.php</code></td><td class="num">#76, #91</td><td>301 &rarr; /tax-business/</td></tr>
+            <tr><td><code>/payrollservice.php</code></td><td class="num">#78</td><td>301 &rarr; /payroll/</td></tr>
+            <tr><td><code>/auditing.php</code></td><td class="num">#82</td><td>301 &rarr; /accounting/</td></tr>
+            <tr><td><code>/bizservices.php</code></td><td class="num">#89, #93</td><td>301 &rarr; /tax-business/</td></tr>
+            <tr><td><code>/about.php</code></td><td class="num">#96</td><td>301 &rarr; /about/</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size: 12px; color: var(--mute); margin-top: 8px; font-style: italic;">Redirect spec already drafted &mdash; sitting on the Asana dev task. Adds the existing /tax-business/, /accounting/, /payroll/ pages as the consolidation targets, removing the duplicate-content competition with the homepage.</p>
+    </div>
+
+    <div class="kpi-grid" style="margin-top: 56px;">
+      <div class="kpi">
+        <div class="label">May Sprint Shipped</div>
+        <div class="value">7</div>
+        <div class="explain">Local SEO audit + E-E-A-T scorecard + LocalBusiness schema + 4 Person schemas (Kelly, Athar, Christian, Tyler) + Organization schema enrichment + llms.txt draft + Chicago neighborhood keyword research.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">May Blogs Drafted</div>
+        <div class="value">2</div>
+        <div class="explain">"Updated Meal Deduction Guide for 2026" + "When Should an Illinois Business Switch from Sole Prop or LLC to S-Corp?" &mdash; both in Internal Review, brand voice + benchmark-per-section structure confirmed.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Schema Entities Live</div>
+        <div class="value">7</div>
+        <div class="explain">1 Organization (enriched) + 1 LocalBusiness (geo coordinates, 13-area service array) + 4 Person entities (each CPA with credentials and firm link) + AccountingService type proposed for /cpa-st-louis/.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Ads Budget Approved</div>
+        <div class="value">$65<span style="font-size: 28px;">/d</span></div>
+        <div class="explain">Two Search campaigns built. Metro East &amp; STL ($32.50/day, 3 ad groups) + Chicago Metro ($32.50/day, 4 ad groups). 14 RSAs ready. Launch unblocks once /thank-you/ AW tag installs.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="priorities-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">June Game Plan</span>
+      <h2>WHAT WE<br /><span class="accent">WORK NEXT.</span></h2>
+      <p>Four focuses for June, all anchored on the May groundwork. The St Louis pilot ships first to test the page architecture before the Chicago batch follows.</p>
+    </div>
+    <div class="priority-list">
+      <div class="priority">
+        <div class="pnum">01</div>
+        <div>
+          <h4>Publish /cpa-st-louis/ and start the indexation clock</h4>
+          <p>Page draft is finalized and ready to paste into WordPress. Goes live this week, then Markology submits via Google Search Console Indexing API the same day. Thirty-day indexation watch tracks position on "cpa st louis" (210 mo. volume head term). Outcome triggers the Tier 2 batch (/cpa-university-city/, /cpa-st-charles/, /tax-accountant-clayton/).</p>
+          <span class="tag">St Louis Pilot</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">02</div>
+        <div>
+          <h4>Build the /chicago/ hub + first three suburb pages</h4>
+          <p>Tier 1 batch begins June 3: /cpa-chicago/, /cpa-naperville/, /cpa-northbrook/. Each follows the same Service+City pattern as the St Louis pilot. Internal-link them up to a shared /chicago/ hub page. The two newly-ranking DuPage County keywords get a dedicated /cpa-dupage-county/ destination in the same sprint to consolidate the homepage's accidental ranking.</p>
+          <span class="tag">Chicago Batch</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">03</div>
+        <div>
+          <h4>Fix the .php cannibalization and ship the Google Ads campaigns</h4>
+          <p>Twelve legacy .php URLs get 301-redirected to topic-matched pages this week (full mapping table above). Removes the self-competition on "cpa edwardsville il" and consolidates authority on the homepage and core service pages. In parallel, Markology installs the AW conversion tag on /thank-you/ and launches both Google Ads campaigns (Metro East + Chicago) once MCC access connects.</p>
+          <span class="tag">Tech + Ads</span>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pnum">04</div>
+        <div>
+          <h4>Compound the May content into the June calendar</h4>
+          <p>The two May blogs (Meal Deductions + Illinois Sole Prop to S-Corp) ship to the live site once Client Review clears. June drops are queued: "Missouri vs Illinois LLC formation for St Louis founders" and "Q2 estimated payment quick reference for Metro East owners." Both anchor the geo expansion and reinforce the May newsletter's June 15 estimated payment angle.</p>
+          <span class="tag">Content</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <h2>METRO EAST HELD.<br />ST LOUIS <span class="accent">NEXT.</span></h2>
+    <p>Questions or want to dig into any number? Reach out.</p>
+    <div class="built-by">
+      Built by <a href="https://markology.io">Markology</a> &middot; Published May 21, 2026
+    </div>
+  </div>
+</footer>
+
+<script>
+  Chart.defaults.font.family = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif";
+  Chart.defaults.font.size = 12;
+  Chart.defaults.color = '#6C6E8A';
+  Chart.defaults.borderColor = 'rgba(7,6,48,0.10)';
+
+  const navy = '#070630';
+  const blue = '#3872EB';
+  const lilac = '#E6E9FF';
+
+  const months = ['Nov 2025', 'Dec 2025', 'Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026'];
+  const kwData   = [46, 52, 68, 74, 55, 38];
+  const traffData = [64, 51, 67, 67, 68, 68];
+
+  new Chart(document.getElementById('trajectoryChart'), {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: [
+        { label: 'Total ranking keywords', data: kwData, borderColor: navy, backgroundColor: 'rgba(7,6,48,0.06)', tension: 0.35, borderWidth: 3, pointRadius: 6, pointBackgroundColor: navy, pointBorderColor: '#fff', pointBorderWidth: 2, fill: true, yAxisID: 'y' },
+        { label: 'Est. monthly traffic', data: traffData, borderColor: blue, backgroundColor: 'rgba(56,114,235,0.08)', tension: 0.35, borderWidth: 3, pointRadius: 6, pointBackgroundColor: blue, pointBorderColor: '#fff', pointBorderWidth: 2, fill: true, yAxisID: 'y1' }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { position: 'bottom', labels: { boxWidth: 14, padding: 16, font: { size: 12, weight: '600' } } } },
+      scales: {
+        y: { type: 'linear', position: 'left', beginAtZero: true, grid: { color: 'rgba(7,6,48,0.06)' }, title: { display: true, text: 'Keywords', color: '#6C6E8A', font: { size: 11 } } },
+        y1: { type: 'linear', position: 'right', beginAtZero: true, grid: { drawOnChartArea: false }, title: { display: true, text: 'Traffic', color: '#6C6E8A', font: { size: 11 } } },
+        x: { grid: { display: false } }
+      }
+    }
+  });
+
+  new Chart(document.getElementById('kwChart'), {
+    type: 'bar',
+    data: { labels: months, datasets: [{ label: 'Keywords ranking', data: kwData, backgroundColor: navy, borderColor: navy, borderWidth: 2, borderRadius: 4 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: 'rgba(7,6,48,0.06)' } }, x: { grid: { display: false } } } }
+  });
+
+  new Chart(document.getElementById('trafficChart'), {
+    type: 'bar',
+    data: { labels: months, datasets: [{ label: 'Est. monthly traffic', data: traffData, backgroundColor: blue, borderColor: blue, borderWidth: 2, borderRadius: 4 }] },
+    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true, grid: { color: 'rgba(7,6,48,0.06)' } }, x: { grid: { display: false } } } }
+  });
+</script>
+</body>
+</html>

@@ -4,25 +4,30 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Financial Health Assessment | Affinity Accounting</title>
-<meta name="description" content="A 20-question diagnostic across Accounting, Cash Flow, Profitability, Planning, Systems, and Tax. Get your Financial Health Score in under 5 minutes." />
+<meta name="description" content="A quick diagnostic for owner-led service businesses. Get your Financial Health Score in 5 minutes." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --teal: #58A4AE;
-    --teal-dark: #3D7A82;
-    --teal-light: #E8F2F4;
-    --peach: #DBA69B;
-    --peach-light: #F8EDE9;
-    --ink: #1F2A2E;
-    --slate: #4A5A60;
-    --mute: #7B8A8F;
-    --line: #E2E8EA;
-    --bg: #FBF9F7;
-    --card: #FFFFFF;
-    --shadow: 0 8px 32px rgba(31, 42, 46, 0.06);
-    --shadow-lift: 0 16px 48px rgba(31, 42, 46, 0.12);
+    --navy: #363f51;
+    --navy-soft: #4a5366;
+    --teal: #58a4ae;
+    --teal-soft: #e8f3f5;
+    --pink: #dba69b;
+    --pink-soft: #faf0ed;
+    --blue: #aabace;
+    --blue-soft: #eef2f7;
+    --ink: #1d2330;
+    --slate: #5a6478;
+    --mute: #8b94a8;
+    --line: #e8ebf0;
+    --line-soft: #f3f5f8;
+    --bg: #fafaf7;
+    --card: #ffffff;
+    --shadow-sm: 0 2px 8px rgba(54, 63, 81, 0.04);
+    --shadow: 0 8px 32px rgba(54, 63, 81, 0.06);
+    --shadow-lift: 0 20px 56px rgba(54, 63, 81, 0.12);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -30,270 +35,365 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     background: var(--bg);
     color: var(--ink);
-    line-height: 1.6;
+    line-height: 1.55;
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
-  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 24px 80px; }
+  .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
 
-  /* Header */
-  header { text-align: center; margin-bottom: 32px; }
-  .brand {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-weight: 700; font-size: 14px; letter-spacing: 0.12em;
-    text-transform: uppercase; color: var(--teal-dark);
-    margin-bottom: 24px;
+  /* Layout */
+  .wrap { max-width: 680px; margin: 0 auto; padding: 28px 24px 80px; min-height: 100vh;
+    display: flex; flex-direction: column; }
+
+  /* Logo header */
+  .logo-bar {
+    display: flex; justify-content: center; padding: 4px 0 32px;
   }
-  .brand-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--teal); }
+  .logo-bar svg { height: 28px; width: auto; }
+  @media (max-width: 600px) { .logo-bar svg { height: 24px; } }
 
   /* Progress */
-  .progress-wrap { margin-bottom: 32px; }
+  .progress-wrap { margin-bottom: 28px; opacity: 0; transition: opacity 0.4s ease; }
+  .progress-wrap.visible { opacity: 1; }
   .progress-bar {
-    height: 6px; background: var(--line); border-radius: 999px; overflow: hidden;
+    height: 3px; background: var(--line); border-radius: 999px; overflow: hidden;
   }
   .progress-fill {
-    height: 100%; background: linear-gradient(90deg, var(--teal), var(--teal-dark));
-    width: 0%; transition: width 0.4s ease;
+    height: 100%; background: var(--teal);
+    width: 0%; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 999px;
   }
   .progress-text {
-    display: flex; justify-content: space-between; font-size: 13px; color: var(--mute);
-    margin-top: 8px; font-weight: 500;
+    display: flex; justify-content: space-between; font-size: 12px; color: var(--mute);
+    margin-top: 10px; font-weight: 500; letter-spacing: 0.02em;
+  }
+  .progress-text .section-label {
+    color: var(--teal); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
   }
 
   /* Card */
   .card {
-    background: var(--card); border-radius: 20px; padding: 40px 40px;
-    box-shadow: var(--shadow); border: 1px solid var(--line);
+    background: var(--card); border-radius: 18px; padding: 56px 56px;
+    box-shadow: var(--shadow); border: 1px solid var(--line-soft);
+    flex: 1; display: flex; flex-direction: column;
   }
-  @media (max-width: 600px) { .card { padding: 28px 22px; border-radius: 16px; } }
+  @media (max-width: 640px) { .card { padding: 36px 26px; border-radius: 14px; } }
 
   /* Steps */
-  .step { display: none; animation: fade 0.4s ease; }
-  .step.active { display: block; }
+  .step { display: none; animation: fade 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
+  .step.active { display: flex; flex-direction: column; flex: 1; }
   @keyframes fade {
-    from { opacity: 0; transform: translateY(8px); }
+    from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: translateY(0); }
   }
 
   /* Typography */
-  h1 {
-    font-size: 34px; font-weight: 800; line-height: 1.2;
-    letter-spacing: -0.02em; margin-bottom: 12px;
+  h1.title {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 48px; font-weight: 600; line-height: 1.1;
+    color: var(--navy); letter-spacing: -0.01em;
   }
-  h2 {
-    font-size: 24px; font-weight: 700; line-height: 1.3;
-    letter-spacing: -0.01em; margin-bottom: 8px;
-  }
-  .section-label {
-    display: inline-block; font-size: 12px; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--teal); background: var(--teal-light);
-    padding: 6px 12px; border-radius: 999px; margin-bottom: 16px;
-  }
-  .lede { font-size: 17px; color: var(--slate); margin-bottom: 28px; }
-  .question {
-    font-size: 19px; font-weight: 600; line-height: 1.45;
-    color: var(--ink); margin-bottom: 6px;
-  }
-  .question-hint {
-    font-size: 14px; color: var(--mute); font-style: italic; margin-bottom: 20px;
-  }
-
-  /* Likert scale */
-  .scale {
-    display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
-    margin-bottom: 12px;
-  }
-  .scale-option {
-    cursor: pointer; position: relative;
-  }
-  .scale-option input { position: absolute; opacity: 0; pointer-events: none; }
-  .scale-option .box {
-    border: 2px solid var(--line); border-radius: 12px;
-    padding: 16px 10px; text-align: center; transition: all 0.2s ease;
-    background: var(--card);
-  }
-  .scale-option .num {
-    font-size: 24px; font-weight: 800; color: var(--slate);
-    display: block; margin-bottom: 4px; letter-spacing: -0.02em;
-  }
-  .scale-option .label {
-    font-size: 11px; font-weight: 600; color: var(--mute);
-    text-transform: uppercase; letter-spacing: 0.06em;
-  }
-  .scale-option:hover .box { border-color: var(--teal); transform: translateY(-2px); }
-  .scale-option input:checked + .box {
-    border-color: var(--teal); background: var(--teal);
-    box-shadow: 0 6px 20px rgba(88, 164, 174, 0.3);
-  }
-  .scale-option input:checked + .box .num,
-  .scale-option input:checked + .box .label {
-    color: #fff;
+  h1.title .accent { color: var(--teal); font-style: italic; }
+  h2.q-heading {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 30px; font-weight: 600; line-height: 1.25;
+    color: var(--navy); letter-spacing: -0.005em;
+    margin-bottom: 14px;
   }
   @media (max-width: 600px) {
-    .scale { grid-template-columns: repeat(5, 1fr); gap: 5px; }
-    .scale-option .box { padding: 12px 4px; }
-    .scale-option .num { font-size: 20px; }
-    .scale-option .label { font-size: 9px; }
+    h1.title { font-size: 38px; }
+    h2.q-heading { font-size: 24px; }
+  }
+
+  .eyebrow {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 14px;
+  }
+  .lede {
+    font-size: 17px; color: var(--slate); line-height: 1.65;
+    margin-bottom: 28px; max-width: 540px;
+  }
+  .q-hint {
+    font-size: 14px; color: var(--mute); font-style: italic;
+    line-height: 1.5; margin-bottom: 24px;
+  }
+
+  /* Intro page */
+  #step-intro { justify-content: center; min-height: 480px; }
+  .intro-meta {
+    display: flex; gap: 32px; flex-wrap: wrap;
+    margin: 8px 0 36px; font-size: 14px; color: var(--mute);
+    border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+    padding: 18px 0;
+  }
+  .intro-meta-item {
+    display: flex; align-items: baseline; gap: 8px;
+  }
+  .intro-meta-item strong {
+    color: var(--navy); font-weight: 700; font-size: 22px;
+    font-family: 'Cormorant Garamond', serif;
+  }
+  .intro-meta-item span { font-weight: 500; }
+
+  /* Likert scale - column layout for readability */
+  .scale-list {
+    display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px;
+  }
+  .scale-option {
+    cursor: pointer; position: relative; display: block;
+  }
+  .scale-option input { position: absolute; opacity: 0; pointer-events: none; }
+  .scale-option .row {
+    display: flex; align-items: center; gap: 16px;
+    padding: 16px 20px;
+    border: 1.5px solid var(--line);
+    border-radius: 12px; background: var(--card);
+    transition: all 0.18s ease;
+  }
+  .scale-option .num-pill {
+    flex-shrink: 0; width: 32px; height: 32px;
+    border-radius: 50%; background: var(--bg);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 15px; color: var(--slate);
+    transition: all 0.18s ease;
+  }
+  .scale-option .opt-label {
+    font-size: 16px; font-weight: 500; color: var(--ink);
+    line-height: 1.3;
+  }
+  .scale-option .opt-desc {
+    font-size: 13px; color: var(--mute); font-weight: 400;
+    margin-top: 2px; line-height: 1.4;
+  }
+  .scale-option:hover .row {
+    border-color: var(--teal); background: var(--teal-soft);
+    transform: translateX(2px);
+  }
+  .scale-option input:checked + .row {
+    border-color: var(--teal); background: var(--teal-soft);
+    box-shadow: 0 4px 16px rgba(88, 164, 174, 0.18);
+  }
+  .scale-option input:checked + .row .num-pill {
+    background: var(--teal); color: #fff;
   }
 
   /* Multiple choice */
   .choices { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
-  .choice { cursor: pointer; position: relative; }
+  .choice { cursor: pointer; position: relative; display: block; }
   .choice input { position: absolute; opacity: 0; pointer-events: none; }
-  .choice .box {
-    border: 2px solid var(--line); border-radius: 12px;
-    padding: 16px 18px; transition: all 0.2s ease; background: var(--card);
-    font-size: 15px; line-height: 1.4; color: var(--slate);
+  .choice .row {
+    padding: 18px 22px;
+    border: 1.5px solid var(--line); border-radius: 12px;
+    background: var(--card); transition: all 0.18s ease;
+    font-size: 15px; line-height: 1.5; color: var(--ink);
+    font-weight: 500;
   }
-  .choice:hover .box { border-color: var(--teal); }
-  .choice input:checked + .box {
-    border-color: var(--teal); background: var(--teal-light);
-    color: var(--ink); font-weight: 600;
+  .choice:hover .row {
+    border-color: var(--teal); background: var(--teal-soft);
+    transform: translateX(2px);
+  }
+  .choice input:checked + .row {
+    border-color: var(--teal); background: var(--teal-soft);
+    box-shadow: 0 4px 16px rgba(88, 164, 174, 0.18);
+  }
+
+  /* Section divider page */
+  .section-divider {
+    text-align: center; padding: 60px 0;
+  }
+  .section-divider .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 64px; color: var(--pink); font-weight: 500;
+    line-height: 1; margin-bottom: 8px; font-style: italic;
+  }
+  .section-divider .name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px; color: var(--navy); font-weight: 600;
+    line-height: 1.1; margin-bottom: 16px;
+  }
+  .section-divider .desc {
+    font-size: 16px; color: var(--slate); max-width: 420px; margin: 0 auto;
   }
 
   /* Form fields */
   .field { margin-bottom: 18px; }
   .field label {
     display: block; font-size: 14px; font-weight: 600;
-    color: var(--slate); margin-bottom: 6px;
+    color: var(--slate); margin-bottom: 8px;
   }
   .field input, .field select {
-    width: 100%; padding: 12px 14px; border: 2px solid var(--line);
-    border-radius: 10px; font-family: inherit; font-size: 15px;
-    color: var(--ink); background: var(--card); transition: border-color 0.2s;
+    width: 100%; padding: 14px 16px; border: 1.5px solid var(--line);
+    border-radius: 10px; font-family: inherit; font-size: 16px;
+    color: var(--ink); background: var(--card); transition: border-color 0.2s, box-shadow 0.2s;
   }
   .field input:focus, .field select:focus {
     outline: none; border-color: var(--teal);
+    box-shadow: 0 0 0 4px rgba(88, 164, 174, 0.12);
   }
-  .field-hint { font-size: 13px; color: var(--mute); margin-top: 4px; }
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  @media (max-width: 540px) { .field-row { grid-template-columns: 1fr; } }
 
   /* Buttons */
   .actions {
-    display: flex; gap: 12px; justify-content: space-between;
-    margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line);
+    display: flex; gap: 12px; justify-content: space-between; align-items: center;
+    margin-top: auto; padding-top: 28px;
   }
-  button {
+  button.btn {
     font-family: inherit; cursor: pointer; border: none;
-    font-size: 15px; font-weight: 600; padding: 14px 28px;
-    border-radius: 10px; transition: all 0.2s ease;
+    font-size: 15px; font-weight: 600; padding: 14px 30px;
+    border-radius: 999px; transition: all 0.2s ease;
+    letter-spacing: 0.005em;
   }
   .btn-primary {
-    background: var(--ink); color: #fff;
+    background: var(--navy); color: #fff;
+    box-shadow: 0 4px 14px rgba(54, 63, 81, 0.18);
   }
-  .btn-primary:hover { background: var(--teal-dark); transform: translateY(-1px); }
+  .btn-primary:hover {
+    background: var(--ink); transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(54, 63, 81, 0.25);
+  }
   .btn-primary:disabled {
-    background: var(--line); color: var(--mute); cursor: not-allowed; transform: none;
+    background: var(--line); color: var(--mute); cursor: not-allowed;
+    transform: none; box-shadow: none;
   }
   .btn-ghost {
-    background: transparent; color: var(--slate); padding: 14px 18px;
+    background: transparent; color: var(--slate); padding: 12px 16px;
   }
-  .btn-ghost:hover { color: var(--ink); }
-  .btn-ghost:disabled { opacity: 0.3; cursor: not-allowed; }
+  .btn-ghost:hover { color: var(--navy); }
+  .btn-ghost:disabled { opacity: 0.25; cursor: not-allowed; }
+  .btn-large {
+    padding: 17px 40px; font-size: 16px;
+  }
 
   /* Results */
-  .score-card { text-align: center; padding: 8px 0 16px; }
+  .score-hero { text-align: center; padding: 16px 0 24px; }
+  .score-hero .eyebrow { margin-bottom: 16px; }
   .score-number {
-    font-size: 84px; font-weight: 800; line-height: 1;
-    letter-spacing: -0.04em; color: var(--teal-dark);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 110px; font-weight: 600; line-height: 1;
+    letter-spacing: -0.03em; color: var(--navy);
     display: inline-block;
   }
-  .score-out-of { font-size: 28px; color: var(--mute); font-weight: 600; }
+  .score-out-of {
+    font-size: 32px; color: var(--mute); font-weight: 500;
+    font-family: 'Cormorant Garamond', serif;
+  }
   .tier-name {
-    font-size: 26px; font-weight: 700; margin: 16px 0 8px;
-    letter-spacing: -0.01em;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 600; margin: 20px 0 6px;
+    color: var(--teal); letter-spacing: -0.005em;
   }
   .tier-meaning {
-    background: var(--peach-light); border-left: 4px solid var(--peach);
-    padding: 18px 22px; border-radius: 8px; text-align: left;
-    color: var(--ink); font-size: 15px; line-height: 1.6; margin: 24px 0;
+    background: var(--pink-soft); border-left: 3px solid var(--pink);
+    padding: 22px 26px; border-radius: 6px; text-align: left;
+    color: var(--ink); font-size: 15px; line-height: 1.65; margin: 28px 0;
   }
   .section-breakdown {
-    background: var(--bg); border-radius: 12px; padding: 22px;
-    margin: 24px 0;
+    border-top: 1px solid var(--line); padding-top: 28px; margin: 20px 0 0;
   }
   .section-breakdown h3 {
-    font-size: 14px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.1em; color: var(--mute); margin-bottom: 14px;
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--mute); margin-bottom: 18px;
   }
   .section-row {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 15px;
+    padding: 12px 0; font-size: 15px; gap: 14px;
   }
-  .section-row:last-child { border-bottom: none; }
-  .section-row .name { color: var(--slate); font-weight: 500; }
-  .section-row .val { font-weight: 700; color: var(--ink); }
+  .section-row + .section-row { border-top: 1px solid var(--line-soft); }
+  .section-row .name { color: var(--ink); font-weight: 500; flex-shrink: 0; min-width: 140px; }
+  .section-row .val { font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; }
   .section-bar {
-    flex: 1; height: 6px; background: var(--line); border-radius: 999px;
-    margin: 0 14px; overflow: hidden; max-width: 140px;
+    flex: 1; height: 5px; background: var(--line); border-radius: 999px;
+    overflow: hidden; max-width: 200px;
   }
-  .section-bar-fill { height: 100%; background: var(--teal); }
+  .section-bar-fill { height: 100%; background: var(--teal); border-radius: 999px;
+    transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); }
 
   .cta-block {
-    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
-    color: #fff; border-radius: 14px; padding: 28px; margin-top: 28px;
-    text-align: center;
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
+    color: #fff; border-radius: 14px; padding: 32px; margin-top: 32px;
+    text-align: center; position: relative; overflow: hidden;
+  }
+  .cta-block::before {
+    content: ''; position: absolute; top: -40px; right: -40px;
+    width: 160px; height: 160px; background: var(--teal); opacity: 0.15;
+    border-radius: 50%;
   }
   .cta-block h3 {
-    font-size: 22px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 600; margin-bottom: 10px;
+    position: relative;
   }
-  .cta-block p { font-size: 15px; opacity: 0.92; margin-bottom: 18px; }
+  .cta-block p { font-size: 15px; opacity: 0.85; margin-bottom: 22px; position: relative; }
   .cta-button {
-    display: inline-block; background: #fff; color: var(--teal-dark);
-    padding: 14px 32px; border-radius: 10px; text-decoration: none;
-    font-weight: 700; font-size: 15px; transition: transform 0.2s;
+    display: inline-block; background: #fff; color: var(--navy);
+    padding: 14px 36px; border-radius: 999px; text-decoration: none;
+    font-weight: 700; font-size: 15px; transition: all 0.2s;
+    position: relative;
   }
-  .cta-button:hover { transform: translateY(-2px); }
+  .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
 
-  .footer-note {
-    text-align: center; font-size: 13px; color: var(--mute);
-    margin-top: 32px; padding-top: 24px;
+  .foot-note {
+    text-align: center; font-size: 12px; color: var(--mute);
+    margin-top: 24px; line-height: 1.6;
   }
-  .footer-note a { color: var(--teal-dark); text-decoration: none; font-weight: 600; }
+  .foot-note a { color: var(--teal); text-decoration: none; font-weight: 600; }
 
-  /* Intro */
-  .intro-meta {
-    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
-    margin: 24px 0 8px; font-size: 14px; color: var(--mute);
-  }
-  .intro-meta span { display: inline-flex; align-items: center; gap: 6px; }
-  .intro-meta strong { color: var(--ink); font-weight: 700; }
-
-  .scale-legend {
-    background: var(--bg); border-radius: 10px; padding: 16px 20px;
-    margin: 24px 0; font-size: 13px; color: var(--slate);
-  }
-  .scale-legend strong { color: var(--ink); }
-  .scale-legend ul { list-style: none; margin-top: 8px; }
-  .scale-legend li { padding: 3px 0; }
-  .scale-legend li strong { color: var(--teal-dark); margin-right: 6px; }
-
-  .loading { text-align: center; padding: 40px; }
+  /* Loading */
+  .loading { text-align: center; padding: 80px 20px; }
   .spinner {
-    width: 36px; height: 36px; border: 3px solid var(--line);
+    width: 40px; height: 40px; border: 3px solid var(--line);
     border-top-color: var(--teal); border-radius: 50%;
-    animation: spin 0.8s linear infinite; margin: 0 auto 16px;
+    animation: spin 0.9s linear infinite; margin: 0 auto 20px;
   }
   @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Gate form */
+  .gate-intro {
+    text-align: center; margin-bottom: 32px;
+  }
+  .gate-intro .eyebrow { color: var(--pink); }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <header>
-    <div class="brand">
-      <span class="brand-dot"></span>
-      <span>Affinity Accounting</span>
-    </div>
-  </header>
+  <div class="logo-bar">
+    <!-- Affinity Accounting logo (inline SVG from brand kit) -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 481.5571 42.1063" aria-label="Affinity Accounting">
+      <g>
+        <path d="M69.1016,5.0942,80.0894,35.4424H76.1245L71.5483,22.8306H63.3022L58.6411,35.4424H54.6553L65.7905,5.0942Zm1.2446,14.4463-2.9107-8.0561-2.9311,8.0561Z" fill="#363f51"/>
+        <path d="M97.2358,5.0942V8.4053H86.332V18.6128H97.2358v3.311H86.332V35.4424H82.5151V5.0942Z" fill="#363f51"/>
+        <path d="M115.4155,5.0942V8.4053H104.5117V18.6128h10.9038v3.311H104.5117V35.4424h-3.8169V5.0942Z" fill="#363f51"/>
+        <path d="M122.9019,5.0942V35.4424h-3.8174V5.0942Z" fill="#363f51"/>
+        <path d="M131.5488,5.0942l17.294,24.253V5.0942H152.66V35.4424h-4.2183L131.5913,11.8008V35.4424h-3.8174V5.0942Z" fill="#363f51"/>
+        <path d="M161.3486,5.0942V35.4424h-3.8174V5.0942Z" fill="#363f51"/>
+        <path d="M175.6479,8.4053V35.4424h-3.7963V8.4053h-7.2549V5.0942h18.2851V8.4053Z" fill="#363f51"/>
+        <path d="M194.65,23.168,184.2314,5.0942H188.45l8.12,14.0455,8.0982-14.0455h4.2182L198.4673,23.168V35.4424H194.65Z" fill="#363f51"/>
+        <path d="M234.6992,5.0942,245.687,35.4424h-3.9648L237.146,22.8306H228.9l-4.6611,12.6118h-3.9859L231.3882,5.0942Zm1.2446,14.4463-2.9106-8.0561-2.9311,8.0561Z" fill="#363f51"/>
+        <path d="M271.6909,28.7568l2.6577,2.3624A16.4185,16.4185,0,0,1,263.0654,35.78a15.2145,15.2145,0,0,1-11.1884-4.5659,14.943,14.943,0,0,1-4.566-10.9561A14.975,14.975,0,0,1,251.877,9.333a15.1616,15.1616,0,0,1,11.1884-4.5976,16.38,16.38,0,0,1,11.2832,4.6821l-2.6577,2.3618a12.9627,12.9627,0,0,0-8.6255-3.69,11.4537,11.4537,0,0,0-8.3833,3.5327,11.7478,11.7478,0,0,0-3.5327,8.6362,11.7633,11.7633,0,0,0,3.5327,8.668,11.47,11.47,0,0,0,8.3833,3.522A12.9611,12.9611,0,0,0,271.6909,28.7568Z" fill="#363f51"/>
+        <path d="M301.6177,28.7568l2.6577,2.3624A16.4185,16.4185,0,0,1,292.9922,35.78a15.2148,15.2148,0,0,1-11.1885-4.5659,14.9433,14.9433,0,0,1-4.5659-10.9561A14.9753,14.9753,0,0,1,281.8037,9.333a15.1618,15.1618,0,0,1,11.1885-4.5976,16.38,16.38,0,0,1,11.2832,4.6821l-2.6577,2.3618a12.9627,12.9627,0,0,0-8.6255-3.69,11.4535,11.4535,0,0,0-8.3833,3.5327,11.7478,11.7478,0,0,0-3.5327,8.6362,11.7633,11.7633,0,0,0,3.5327,8.668,11.47,11.47,0,0,0,8.3833,3.522A12.9611,12.9611,0,0,0,301.6177,28.7568Z" fill="#363f51"/>
+        <path d="M333.896,9.27a14.9639,14.9639,0,0,1,4.5869,10.9453,14.9779,14.9779,0,0,1-4.5869,10.9776,15.9641,15.9641,0,0,1-22.3975,0,14.9779,14.9779,0,0,1-4.5869-10.9776A14.9639,14.9639,0,0,1,311.4985,9.27a15.9376,15.9376,0,0,1,22.3975,0ZM322.687,8.0044a11.4551,11.4551,0,0,0-8.394,3.5537,11.8,11.8,0,0,0-3.543,8.6572,11.8149,11.8149,0,0,0,3.543,8.689,11.7382,11.7382,0,0,0,16.8086,0,11.8133,11.8133,0,0,0,3.5434-8.689,11.7989,11.7989,0,0,0-3.5434-8.6572A11.4786,11.4786,0,0,0,322.687,8.0044Z" fill="#363f51"/>
+        <path d="M359.2144,5.0942h3.8173V26.5635a10.4622,10.4622,0,0,1-3.0581,6.1372,9.96,9.96,0,0,1-7.36,2.9946,10.0943,10.0943,0,0,1-7.4448-3.0263,9.8268,9.8268,0,0,1-3.0157-7.1812V5.0942H345.97V25.4878a6.6819,6.6819,0,0,0,1.9824,4.9033,6.4091,6.4091,0,0,0,9.29,0,6.7,6.7,0,0,0,1.9722-4.9033Z" fill="#363f51"/>
+        <path d="M371.4673,5.0942l17.2939,24.253V5.0942h3.8174V35.4424H388.36L371.51,11.8008V35.4424h-3.8174V5.0942Z" fill="#363f51"/>
+        <path d="M406.6035,8.4053V35.4424h-3.7964V8.4053h-7.2549V5.0942h18.2852V8.4053Z" fill="#363f51"/>
+        <path d="M420.9023,5.0942V35.4424H417.085V5.0942Z" fill="#363f51"/>
+        <path d="M429.5488,5.0942l17.294,24.253V5.0942H450.66V35.4424h-4.2183L429.5913,11.8008V35.4424h-3.8174V5.0942Z" fill="#363f51"/>
+        <path d="M481.1138,31.3086a15.6824,15.6824,0,0,1-22.0284-.0947A14.9433,14.9433,0,0,1,454.52,20.2578,14.9753,14.9753,0,0,1,459.0854,9.333a15.162,15.162,0,0,1,11.1885-4.5976,16.38,16.38,0,0,1,11.2832,4.6821l-2.6577,2.3618a12.9627,12.9627,0,0,0-8.6255-3.69,11.4537,11.4537,0,0,0-8.3833,3.5327,11.7478,11.7478,0,0,0-3.5327,8.6362,11.7633,11.7633,0,0,0,3.5327,8.668,11.47,11.47,0,0,0,8.3833,3.522,10.8961,10.8961,0,0,0,7.044-2.32V20.89h3.7959Z" fill="#363f51"/>
+        <g>
+          <circle cx="9.0951" cy="9.0951" r="9.0951" fill="#363f51"/>
+          <circle cx="34.3398" cy="9.0951" r="9.0951" fill="#dba69b"/>
+          <circle cx="9.0951" cy="33.0111" r="9.0951" fill="#58a4ae"/>
+          <circle cx="34.3398" cy="33.0111" r="9.0951" fill="#aabace"/>
+        </g>
+      </g>
+    </svg>
+  </div>
 
-  <div class="progress-wrap" id="progressWrap" style="display:none;">
+  <div class="progress-wrap" id="progressWrap">
     <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
     <div class="progress-text">
-      <span id="progressLabel">Section 1 of 7</span>
-      <span id="progressCount">Question 1 of 24</span>
+      <span class="section-label" id="progressLabel">Accounting</span>
+      <span id="progressCount">1 of 24</span>
     </div>
   </div>
 
@@ -301,120 +401,51 @@
 
     <!-- INTRO -->
     <div class="step active" id="step-intro">
-      <h1>Financial Health Assessment</h1>
-      <p class="lede">A clear, honest view of how well your financial information supports your day-to-day operations and your most important business decisions. Built for owner-led service businesses doing $1M to $15M in Milwaukee, Chicago, and beyond.</p>
+      <div class="eyebrow">Financial Health Assessment</div>
+      <h1 class="title">How healthy<br><span class="accent">are your numbers?</span></h1>
+      <p class="lede">A quick diagnostic for owner-led service businesses. Answer 24 questions and we will show you exactly where your financial foundation is strong and where there is room to grow.</p>
+
       <div class="intro-meta">
-        <span><strong>24</strong> questions</span>
-        <span><strong>5</strong> minutes</span>
-        <span><strong>Instant</strong> score</span>
+        <div class="intro-meta-item"><strong>24</strong><span>questions</span></div>
+        <div class="intro-meta-item"><strong>5</strong><span>minutes</span></div>
+        <div class="intro-meta-item"><strong>Instant</strong><span>score</span></div>
       </div>
-      <div class="scale-legend">
-        <strong>How the 1 to 5 scale works:</strong>
-        <ul>
-          <li><strong>1.</strong> Not in place</li>
-          <li><strong>2.</strong> Inconsistent</li>
-          <li><strong>3.</strong> Functional</li>
-          <li><strong>4.</strong> Consistent</li>
-          <li><strong>5.</strong> Embedded</li>
-        </ul>
-      </div>
-      <div class="actions" style="justify-content: flex-end; border: none; padding-top: 8px;">
-        <button class="btn-primary" onclick="startQuiz()">Begin Assessment &rarr;</button>
+
+      <div class="actions" style="justify-content: flex-end;">
+        <button class="btn btn-primary btn-large" onclick="startQuiz()">Begin Assessment &rarr;</button>
       </div>
     </div>
 
-    <!-- BUSINESS SNAPSHOT -->
-    <div class="step" id="step-snapshot">
-      <span class="section-label">Business Snapshot</span>
-      <h2>Tell us a bit about your business</h2>
-      <p class="lede">So we can tailor your results to your situation.</p>
+    <!-- DYNAMIC STEPS (section dividers + questions) -->
+    <div id="question-host"></div>
 
-      <div class="field-row">
-        <div class="field">
-          <label for="f_name">Your name</label>
-          <input type="text" id="f_name" required />
-        </div>
-        <div class="field">
-          <label for="f_title">Your title</label>
-          <input type="text" id="f_title" placeholder="Owner, CEO, etc." />
-        </div>
+    <!-- GATE (capture before reveal) -->
+    <div class="step" id="step-gate">
+      <div class="gate-intro">
+        <div class="eyebrow">Almost there</div>
+        <h2 class="q-heading">Where should we send your score?</h2>
+        <p class="lede" style="margin: 0 auto 20px;">Add your details below to unlock your Financial Health Score and personalized breakdown.</p>
+      </div>
+
+      <div class="field">
+        <label for="f_name">Your name</label>
+        <input type="text" id="f_name" autocomplete="name" />
       </div>
       <div class="field">
         <label for="f_email">Work email</label>
-        <input type="email" id="f_email" required />
+        <input type="email" id="f_email" autocomplete="email" />
       </div>
       <div class="field">
         <label for="f_company">Business name</label>
-        <input type="text" id="f_company" required />
-      </div>
-      <div class="field-row">
-        <div class="field">
-          <label for="f_industry">Industry or service type</label>
-          <input type="text" id="f_industry" placeholder="Marketing agency, consulting, etc." />
-        </div>
-        <div class="field">
-          <label for="f_revenue">Annual revenue</label>
-          <select id="f_revenue">
-            <option value="">Select range</option>
-            <option>Under $1M</option>
-            <option>$1M to $3M</option>
-            <option>$3M to $5M</option>
-            <option>$5M to $10M</option>
-            <option>$10M to $15M</option>
-            <option>$15M+</option>
-          </select>
-        </div>
-      </div>
-      <div class="field-row">
-        <div class="field">
-          <label for="f_employees">Number of employees</label>
-          <input type="text" id="f_employees" placeholder="Full-time, part-time, contractors" />
-        </div>
-        <div class="field">
-          <label for="f_setup">Current accounting setup</label>
-          <input type="text" id="f_setup" placeholder="In-house, outsourced, owner-managed" />
-        </div>
-      </div>
-      <div class="field">
-        <label for="f_reason">What prompted you to take this assessment?</label>
-        <input type="text" id="f_reason" placeholder="Growth planning, tax concerns, better visibility, referral, etc." />
+        <input type="text" id="f_company" autocomplete="organization" />
       </div>
 
       <div class="actions">
-        <button class="btn-ghost" disabled>&larr; Back</button>
-        <button class="btn-primary" onclick="advanceFromSnapshot()">Continue &rarr;</button>
+        <button class="btn btn-ghost" onclick="prevStep()">&larr; Back</button>
+        <button class="btn btn-primary btn-large" onclick="submitGate()">Show My Score &rarr;</button>
       </div>
-    </div>
-
-    <!-- DYNAMIC QUESTION STEPS get injected here -->
-    <div id="question-host"></div>
-
-    <!-- RESULTS -->
-    <div class="step" id="step-results">
-      <div class="score-card">
-        <span class="section-label" id="tierLabel">Your Tier</span>
-        <div>
-          <span class="score-number" id="scoreNumber">0</span>
-          <span class="score-out-of"> / 100</span>
-        </div>
-        <h2 class="tier-name" id="tierName"></h2>
-      </div>
-
-      <div class="tier-meaning" id="tierMeaning"></div>
-
-      <div class="section-breakdown">
-        <h3>Score by area</h3>
-        <div id="sectionBars"></div>
-      </div>
-
-      <div class="cta-block">
-        <h3>Want a focused conversation about your results?</h3>
-        <p>Book a no-obligation discovery call. We will walk through your assessment together and pinpoint the highest-leverage next move for your business.</p>
-        <a class="cta-button" href="https://affinitymke.com/contact/" target="_blank" rel="noopener">Book a Discovery Call</a>
-      </div>
-
-      <p class="footer-note">
-        Your responses have been sent to your Affinity team. Questions? Email <a href="mailto:info@affinitymke.com">info@affinitymke.com</a> or call (414) 533-8100.
+      <p class="foot-note" style="margin-top: 16px;">
+        Your results stay private. We will never share your information.
       </p>
     </div>
 
@@ -426,9 +457,37 @@
       </div>
     </div>
 
+    <!-- RESULTS -->
+    <div class="step" id="step-results">
+      <div class="score-hero">
+        <div class="eyebrow">Your Financial Health Score</div>
+        <div>
+          <span class="score-number" id="scoreNumber">0</span><span class="score-out-of"> / 100</span>
+        </div>
+        <h2 class="tier-name" id="tierName"></h2>
+      </div>
+
+      <div class="tier-meaning" id="tierMeaning"></div>
+
+      <div class="section-breakdown">
+        <h3>Score by Area</h3>
+        <div id="sectionBars"></div>
+      </div>
+
+      <div class="cta-block">
+        <h3>Ready to dig deeper?</h3>
+        <p>Book a no-obligation discovery call. We will walk through your assessment and pinpoint the single highest-leverage move for your business.</p>
+        <a class="cta-button" href="https://affinitymke.com/contact/" target="_blank" rel="noopener">Book a Discovery Call</a>
+      </div>
+
+      <p class="foot-note">
+        Questions? Email <a href="mailto:info@affinitymke.com">info@affinitymke.com</a> &nbsp;or call (414) 533-8100.
+      </p>
+    </div>
+
   </div>
 
-  <p class="footer-note">
+  <p class="foot-note" style="margin-top: 20px;">
     Affinity Accounting &nbsp;&middot;&nbsp; Milwaukee &nbsp;&middot;&nbsp; Chicago &nbsp;&middot;&nbsp;
     <a href="https://affinitymke.com/">affinitymke.com</a>
   </p>
@@ -440,26 +499,26 @@
 const SECTIONS = [
   {
     name: "Accounting",
-    blurb: "The reliability of your core accounting function.",
+    subtitle: "How reliable is your core accounting function?",
     questions: [
       { id: "q1", title: "Financial Statements", text: "Financial statements are consistently produced, reviewed, and trusted on a monthly basis." },
-      { id: "q2", title: "Account Reconciliations", text: "Bank statements, credit card statements, accounts payable, accounts receivable, and fixed assets are reconciled and reviewed on a monthly basis." },
-      { id: "q3", title: "Invoices and Payments", text: "The system for tracking receivables and payables, issuing invoices, and following up on collections is reliable, accurate, and timely." },
-      { id: "q4", title: "Bookkeeping", text: "Day-to-day bookkeeping, including transaction review and categorization, is organized, consistent, and reliable." }
+      { id: "q2", title: "Account Reconciliations", text: "Bank, credit card, AP, AR, and fixed assets are reconciled and reviewed monthly." },
+      { id: "q3", title: "Invoices and Payments", text: "Tracking receivables and payables, issuing invoices, and following up on collections is reliable and timely." },
+      { id: "q4", title: "Bookkeeping", text: "Day-to-day bookkeeping (transaction review and categorization) is organized, consistent, and reliable." }
     ]
   },
   {
     name: "Cash Flow",
-    blurb: "Your visibility into current and future cash position.",
+    subtitle: "How clear is your view of current and future cash?",
     questions: [
-      { id: "q5", title: "Cash Flow Forecasting", text: "A rolling cash flow forecast is in place, starting from the current cash position and looking forward at least 90 days." },
+      { id: "q5", title: "Cash Flow Forecasting", text: "A rolling cash flow forecast is in place, starting from current cash and looking forward at least 90 days." },
       { id: "q6", title: "Minimum Cash Target", text: "A defined minimum cash target has been established and is actively monitored." },
       { id: "q7", title: "Cash Shortfall Visibility", text: "Cash shortfalls are anticipated in advance, not discovered as surprises." }
     ]
   },
   {
     name: "Profitability",
-    blurb: "How well you understand what drives profit in your business.",
+    subtitle: "How well do you understand what drives profit?",
     questions: [
       { id: "q8", title: "Margins", text: "Gross margins are known and understood by project, job, client, or service line." },
       { id: "q9", title: "Pricing", text: "Pricing decisions are modeled for profitability, not just revenue.", hint: 'You can answer "What is our effective hourly rate after scope creep and write-offs?"' },
@@ -468,90 +527,103 @@ const SECTIONS = [
   },
   {
     name: "Planning",
-    blurb: "Your ability to plan ahead and make confident financial decisions.",
+    subtitle: "How well can you plan ahead with confidence?",
     questions: [
-      { id: "q11", title: "Budgeting and Forecasting", text: "Revenues, expenses, and cash flow are planned through an annual budgeting process, with expectations updated throughout the year using rolling forecasts.", hint: "You have a budget and you compare actual results to it regularly." },
-      { id: "q12", title: "Affordability and Decision Confidence", text: "Financial implications are evaluated and affordability is assessed before acting.", hint: 'You can answer "Can we afford this?" before committing.' },
-      { id: "q13", title: "Capacity, Productivity, and KPIs", text: "Labor productivity, capacity constraints, and key performance indicators are defined and used to anticipate bottlenecks, plan effectively, and maximize efficiency." },
-      { id: "q14", title: "Decision Modeling", text: "When making major business decisions (hiring, pricing changes, new investments), financial models or scenario analysis are used to evaluate the impact before committing.", hint: "Decisions are supported by data and projections, not just gut instinct." }
+      { id: "q11", title: "Budgeting and Forecasting", text: "Revenues, expenses, and cash flow are planned annually and updated with rolling forecasts.", hint: "You have a budget and you compare actual results to it regularly." },
+      { id: "q12", title: "Affordability and Decision Confidence", text: "Financial implications are evaluated before acting.", hint: 'You can answer "Can we afford this?" before committing.' },
+      { id: "q13", title: "Capacity, Productivity, and KPIs", text: "Labor productivity, capacity, and KPIs are defined and used to anticipate bottlenecks and plan effectively." },
+      { id: "q14", title: "Decision Modeling", text: "Major decisions (hiring, pricing, investments) are evaluated with financial models or scenario analysis.", hint: "Decisions are supported by data and projections, not just gut instinct." }
     ]
   },
   {
     name: "Systems and Reporting",
-    blurb: "Whether your financial systems produce useful, reliable information.",
+    subtitle: "Do your financial systems produce useful information?",
     questions: [
-      { id: "q15", title: "Chart of Accounts Structure", text: "The chart of accounts is simple, consistent, and structured to support meaningful reporting." },
-      { id: "q16", title: "Operational and Job-Level Reporting", text: "Reporting provides clear visibility into performance by job, project, service line, or client, where applicable." },
-      { id: "q17", title: "System Integration", text: "Core systems (accounting, payroll, CRM, and operational systems) are reasonably integrated and support reliable reporting without excessive manual effort." },
-      { id: "q18", title: "Internal Controls", text: "Sufficient internal controls are in place to ensure appropriate segregation of duties and protection of assets." }
+      { id: "q15", title: "Chart of Accounts", text: "The chart of accounts is simple, consistent, and structured to support meaningful reporting." },
+      { id: "q16", title: "Job-Level Reporting", text: "Reporting provides clear visibility into performance by job, project, service line, or client." },
+      { id: "q17", title: "System Integration", text: "Accounting, payroll, CRM, and operational systems are reasonably integrated and support reliable reporting." },
+      { id: "q18", title: "Internal Controls", text: "Sufficient internal controls exist for segregation of duties and protection of assets." }
     ]
   },
   {
     name: "Tax",
-    blurb: "The health and proactivity of your tax function.",
+    subtitle: "How proactive is your tax function?",
     questions: [
-      { id: "q19", title: "Tax Compliance and Filing Discipline", text: "Tax filings for payroll, sales tax, and income tax are organized, timely, and predictable, with no unresolved filing or submission issues." },
-      { id: "q20", title: "Tax Planning", text: "The approach to tax planning, tax minimization strategies, and estimated tax payments is intentional, proactive, and helps avoid year-end surprises." }
+      { id: "q19", title: "Tax Compliance", text: "Payroll, sales tax, and income tax filings are organized, timely, and predictable." },
+      { id: "q20", title: "Tax Planning", text: "Tax planning, minimization strategies, and estimated payments are intentional and proactive." }
+    ]
+  },
+  {
+    name: "Leadership and Alignment",
+    subtitle: "How does your team work with the numbers?",
+    questions: [
+      {
+        id: "q21",
+        title: "Leadership Access to Financials",
+        text: "How would you describe your leadership team's access to financial information?",
+        type: "choice",
+        options: [
+          "It is mostly in my head. I am the only one who really knows the numbers.",
+          "Key leaders get information when they ask, but there is no regular cadence.",
+          "We share financial reports with leadership monthly.",
+          "We have real-time dashboards and regular financial reviews across the team."
+        ]
+      },
+      {
+        id: "q22",
+        title: "Decision-Making Continuity",
+        text: "If you were unavailable for 30 days, how would financial decision-making continue?",
+        type: "choice",
+        options: [
+          "It would essentially stop. I am the only one who makes financial decisions.",
+          "Someone could handle day-to-day, but strategic decisions would wait.",
+          "A trusted leader could step in with some guidance.",
+          "The team has the information and authority to continue making sound decisions."
+        ]
+      },
+      {
+        id: "q23",
+        title: "Strategic Alignment",
+        text: "How well are your strategic and financial objectives communicated across the organization?",
+        type: "choice",
+        options: [
+          "We do not have clearly defined financial objectives.",
+          "I have objectives in mind, but they have not been formally shared.",
+          "Objectives are communicated, but execution does not consistently align.",
+          "Objectives are clear, shared, and team behaviors consistently support them."
+        ]
+      },
+      {
+        id: "q24",
+        title: "Concentration Risk",
+        text: "How would you describe your awareness of concentration risk (client, revenue, or vendor dependency)?",
+        type: "choice",
+        hint: '"What happens to our business if we lose our biggest client?"',
+        options: [
+          "I have not thought about it much.",
+          "I have a general sense but have not quantified it.",
+          "I know our largest client concentration but have not stress-tested it.",
+          "I actively monitor concentration and have a plan if a major client or revenue stream is lost."
+        ]
+      }
     ]
   }
 ];
 
-const CHOICE_QUESTIONS = [
-  {
-    id: "q21",
-    title: "Leadership Access to Financials",
-    text: "How would you describe your leadership team's access to financial information?",
-    options: [
-      "It is mostly in my head. I am the only one who really knows the numbers.",
-      "Key leaders get information when they ask, but there is no regular cadence.",
-      "We share financial reports with leadership monthly.",
-      "We have real-time dashboards and regular financial reviews across the team."
-    ]
-  },
-  {
-    id: "q22",
-    title: "Decision-Making Continuity",
-    text: "If you were unavailable for 30 days, how would financial decision-making continue?",
-    options: [
-      "It would essentially stop. I am the only one who makes financial decisions.",
-      "Someone could handle day-to-day, but strategic decisions would wait.",
-      "A trusted leader could step in with some guidance.",
-      "The team has the information and authority to continue making sound decisions."
-    ]
-  },
-  {
-    id: "q23",
-    title: "Strategic and Financial Objectives",
-    text: "How well are your strategic and financial objectives communicated across the organization?",
-    options: [
-      "We do not have clearly defined financial objectives.",
-      "I have objectives in mind, but they have not been formally shared.",
-      "Objectives are communicated, but execution does not consistently align.",
-      "Objectives are clear, shared, and team behaviors consistently support them."
-    ]
-  },
-  {
-    id: "q24",
-    title: "Concentration Risk Awareness",
-    text: "How would you describe your awareness of concentration risk (client, revenue, or vendor dependency)?",
-    hint: '"What happens to our business if we lose our biggest client?"',
-    options: [
-      "I have not thought about it much.",
-      "I have a general sense but have not quantified it.",
-      "I know our largest client/revenue concentration but have not stress-tested it.",
-      "I actively monitor concentration and have a plan if a major client or revenue stream is lost."
-    ]
-  }
+const SCALE = [
+  { val: 1, label: "Not in place",  desc: "Does not exist or is unreliable" },
+  { val: 2, label: "Inconsistent",  desc: "Exists but irregular or person-dependent" },
+  { val: 3, label: "Functional",    desc: "Works but informal or manual" },
+  { val: 4, label: "Consistent",    desc: "Well-defined and repeatable" },
+  { val: 5, label: "Embedded",      desc: "Fully integrated and relied upon" }
 ];
-
-const SCALE_LABELS = ["Not in place", "Inconsistent", "Functional", "Consistent", "Embedded"];
 
 const TIERS = [
-  { min: 0, max: 40, name: "Stabilization Needed",
+  { min: 0,  max: 40,  name: "Stabilization Needed",
     meaning: "Core financial processes need attention before strategic planning can be effective. The priority is building a reliable foundation: clean books, consistent reporting, and basic cash visibility. Advisory conversations become valuable once the fundamentals are in place." },
-  { min: 41, max: 60, name: "Foundation Building",
+  { min: 41, max: 60,  name: "Foundation Building",
     meaning: "The basics are in place but gaps remain in forward-looking visibility. You likely have functional accounting but limited forecasting, budgeting, or scenario planning. This is where CFO advisory begins to deliver immediate value, turning historical data into forward-looking decisions." },
-  { min: 61, max: 80, name: "Performance Optimization",
+  { min: 61, max: 80,  name: "Performance Optimization",
     meaning: "Your financial foundation is solid. The opportunity now is optimization: client profitability analysis, pricing refinement, capacity planning, and using financial models to drive growth decisions. You are ready for proactive, strategic financial leadership." },
   { min: 81, max: 100, name: "Strategic Readiness",
     meaning: "Your financial operations are mature and well-integrated. The focus shifts to high-level strategic initiatives: growth modeling, M&A readiness, compensation benchmarking, board-level reporting, and long-term value creation. You are positioned to use financial leadership as a competitive advantage." }
@@ -566,96 +638,89 @@ const state = {
 };
 
 /* ---------- BUILD ---------- */
-function buildQuestionSteps() {
+function buildSteps() {
   const host = document.getElementById('question-host');
   let qIndex = 0;
-  const totalQ = 24;
 
   SECTIONS.forEach((sec, sIdx) => {
+    /* Section divider */
+    const dividerId = `step-divider-${sIdx}`;
+    const dDiv = document.createElement('div');
+    dDiv.className = 'step';
+    dDiv.id = dividerId;
+    dDiv.innerHTML = `
+      <div class="section-divider">
+        <div class="num">0${sIdx + 1}</div>
+        <div class="name">${sec.name}</div>
+        <p class="desc">${sec.subtitle}</p>
+      </div>
+      <div class="actions">
+        <button class="btn btn-ghost" onclick="prevStep()">&larr; Back</button>
+        <button class="btn btn-primary" onclick="nextStep()">Continue &rarr;</button>
+      </div>
+    `;
+    host.appendChild(dDiv);
+    state.steps.push({ id: dividerId, type: 'divider', section: sec.name, sIdx });
+
+    /* Questions */
     sec.questions.forEach(q => {
       qIndex++;
       const stepId = `step-${q.id}`;
       const div = document.createElement('div');
       div.className = 'step';
       div.id = stepId;
-      div.dataset.section = sec.name;
-      div.dataset.qnum = qIndex;
-      div.dataset.qid = q.id;
-      div.dataset.type = 'scale';
-      div.innerHTML = `
-        <span class="section-label">${sec.name}</span>
-        <h2>${q.title}</h2>
-        <p class="question">${q.text}</p>
-        ${q.hint ? `<p class="question-hint">${q.hint}</p>` : '<div style="margin-bottom:16px"></div>'}
-        <div class="scale" role="radiogroup" aria-label="${q.title}">
-          ${[1,2,3,4,5].map(n => `
+
+      const isChoice = q.type === 'choice';
+      const optionsHtml = isChoice
+        ? q.options.map((opt, i) => `
+            <label class="choice">
+              <input type="radio" name="${q.id}" value="${i + 1}" onchange="onAnswer('${q.id}', ${i + 1})" />
+              <div class="row">${opt}</div>
+            </label>
+          `).join('')
+        : SCALE.map(s => `
             <label class="scale-option">
-              <input type="radio" name="${q.id}" value="${n}" onchange="onAnswer('${q.id}', ${n})" />
-              <div class="box">
-                <span class="num">${n}</span>
-                <span class="label">${SCALE_LABELS[n-1]}</span>
+              <input type="radio" name="${q.id}" value="${s.val}" onchange="onAnswer('${q.id}', ${s.val})" />
+              <div class="row">
+                <div class="num-pill">${s.val}</div>
+                <div>
+                  <div class="opt-label">${s.label}</div>
+                  <div class="opt-desc">${s.desc}</div>
+                </div>
               </div>
             </label>
-          `).join('')}
+          `).join('');
+
+      div.innerHTML = `
+        <div class="eyebrow">${sec.name} &nbsp;&middot;&nbsp; Question ${qIndex}</div>
+        <h2 class="q-heading">${q.text}</h2>
+        ${q.hint ? `<p class="q-hint">${q.hint}</p>` : '<div style="margin-bottom: 8px"></div>'}
+        <div class="${isChoice ? 'choices' : 'scale-list'}" role="radiogroup" aria-label="${q.title}">
+          ${optionsHtml}
         </div>
         <div class="actions">
-          <button class="btn-ghost" onclick="prevStep()">&larr; Back</button>
-          <button class="btn-primary" id="next-${q.id}" disabled onclick="nextStep()">Next &rarr;</button>
+          <button class="btn btn-ghost" onclick="prevStep()">&larr; Back</button>
+          <button class="btn btn-primary" id="next-${q.id}" disabled onclick="nextStep()">Next &rarr;</button>
         </div>
       `;
       host.appendChild(div);
-      state.steps.push({ id: stepId, type: 'scale', qid: q.id, section: sec.name, qnum: qIndex });
+      state.steps.push({ id: stepId, type: isChoice ? 'choice' : 'scale', qid: q.id, section: sec.name, qnum: qIndex });
     });
-  });
-
-  CHOICE_QUESTIONS.forEach(q => {
-    qIndex++;
-    const stepId = `step-${q.id}`;
-    const div = document.createElement('div');
-    div.className = 'step';
-    div.id = stepId;
-    div.dataset.section = 'Leadership and Alignment';
-    div.dataset.qnum = qIndex;
-    div.dataset.qid = q.id;
-    div.dataset.type = 'choice';
-    div.innerHTML = `
-      <span class="section-label">Leadership and Alignment</span>
-      <h2>${q.title}</h2>
-      <p class="question">${q.text}</p>
-      ${q.hint ? `<p class="question-hint">${q.hint}</p>` : '<div style="margin-bottom:16px"></div>'}
-      <div class="choices" role="radiogroup" aria-label="${q.title}">
-        ${q.options.map((opt, i) => `
-          <label class="choice">
-            <input type="radio" name="${q.id}" value="${i+1}" onchange="onAnswer('${q.id}', ${i+1})" />
-            <div class="box">${opt}</div>
-          </label>
-        `).join('')}
-      </div>
-      <div class="actions">
-        <button class="btn-ghost" onclick="prevStep()">&larr; Back</button>
-        <button class="btn-primary" id="next-${q.id}" disabled onclick="nextStep()">${qIndex === totalQ ? 'See My Score &rarr;' : 'Next &rarr;'}</button>
-      </div>
-    `;
-    host.appendChild(div);
-    state.steps.push({ id: stepId, type: 'choice', qid: q.id, section: 'Leadership and Alignment', qnum: qIndex });
   });
 }
 
 /* ---------- NAVIGATION ---------- */
 function showStep(idx) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-  if (idx === -2) {
-    document.getElementById('step-intro').classList.add('active');
-    document.getElementById('progressWrap').style.display = 'none';
-    return;
-  }
+
   if (idx === -1) {
-    document.getElementById('step-snapshot').classList.add('active');
-    document.getElementById('progressWrap').style.display = 'none';
+    document.getElementById('step-intro').classList.add('active');
+    document.getElementById('progressWrap').classList.remove('visible');
     return;
   }
   if (idx >= state.steps.length) {
-    submitAndShowResults();
+    document.getElementById('step-gate').classList.add('active');
+    document.getElementById('progressWrap').classList.remove('visible');
     return;
   }
   document.getElementById(state.steps[idx].id).classList.add('active');
@@ -664,31 +729,6 @@ function showStep(idx) {
 }
 
 function startQuiz() {
-  state.step = -1;
-  showStep(-1);
-}
-
-function advanceFromSnapshot() {
-  const snap = {
-    name: document.getElementById('f_name').value.trim(),
-    title: document.getElementById('f_title').value.trim(),
-    email: document.getElementById('f_email').value.trim(),
-    company: document.getElementById('f_company').value.trim(),
-    industry: document.getElementById('f_industry').value.trim(),
-    revenue: document.getElementById('f_revenue').value,
-    employees: document.getElementById('f_employees').value.trim(),
-    setup: document.getElementById('f_setup').value.trim(),
-    reason: document.getElementById('f_reason').value.trim()
-  };
-  if (!snap.name || !snap.email || !snap.company) {
-    alert('Please fill in name, email, and business name to continue.');
-    return;
-  }
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(snap.email)) {
-    alert('Please enter a valid email address.');
-    return;
-  }
-  state.snapshot = snap;
   state.step = 0;
   showStep(0);
 }
@@ -699,7 +739,8 @@ function nextStep() {
 }
 
 function prevStep() {
-  if (state.step === 0) {
+  if (state.step <= 0) {
+    state.step = -1;
     showStep(-1);
     return;
   }
@@ -715,20 +756,24 @@ function onAnswer(qid, val) {
 
 function updateProgress(idx) {
   const wrap = document.getElementById('progressWrap');
-  wrap.style.display = 'block';
-  const total = state.steps.length;
-  const pct = ((idx + 1) / total) * 100;
-  document.getElementById('progressFill').style.width = pct + '%';
   const cur = state.steps[idx];
+  if (cur.type === 'divider') {
+    wrap.classList.remove('visible');
+    return;
+  }
+  wrap.classList.add('visible');
+  const totalQ = 24;
+  const pct = (cur.qnum / totalQ) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressLabel').textContent = cur.section;
-  document.getElementById('progressCount').textContent = `Question ${idx + 1} of ${total}`;
+  document.getElementById('progressCount').textContent = `${cur.qnum} of ${totalQ}`;
 }
 
 /* ---------- SCORING ---------- */
 function computeScore() {
   let total = 0;
   const bySection = {};
-  SECTIONS.forEach(sec => {
+  SECTIONS.slice(0, 6).forEach(sec => {
     let sSum = 0;
     sec.questions.forEach(q => {
       const v = parseInt(state.answers[q.id] || 0, 10);
@@ -744,29 +789,33 @@ function tierFor(score) {
   return TIERS.find(t => score >= t.min && score <= t.max) || TIERS[0];
 }
 
-/* ---------- SUBMIT + RESULTS ---------- */
-function submitAndShowResults() {
+/* ---------- GATE + RESULTS ---------- */
+function submitGate() {
+  const name = document.getElementById('f_name').value.trim();
+  const email = document.getElementById('f_email').value.trim();
+  const company = document.getElementById('f_company').value.trim();
+  if (!name || !email || !company) {
+    alert('Please fill in all three fields to see your score.');
+    return;
+  }
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+  state.snapshot = { name, email, company };
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById('step-submitting').classList.add('active');
-  document.getElementById('progressWrap').style.display = 'none';
 
   const { total, bySection } = computeScore();
   const tier = tierFor(total);
 
-  /* Submit to FormSubmit. Whitney needs to approve once via the link sent to info@affinitymke.com on first submission. */
   const payload = {
-    _subject: `New FHA submission: ${state.snapshot.company} (Score ${total}/100, ${tier.name})`,
-    _replyto: state.snapshot.email,
+    _subject: `New FHA submission: ${company} (${total}/100 - ${tier.name})`,
+    _replyto: email,
     _template: 'table',
-    Name: state.snapshot.name,
-    Title: state.snapshot.title,
-    Email: state.snapshot.email,
-    Company: state.snapshot.company,
-    Industry: state.snapshot.industry,
-    Revenue: state.snapshot.revenue,
-    Employees: state.snapshot.employees,
-    AccountingSetup: state.snapshot.setup,
-    Reason: state.snapshot.reason,
+    Name: name,
+    Email: email,
+    Company: company,
     Score: total,
     Tier: tier.name,
     SectionScores: Object.entries(bySection).map(([k,v]) => `${k}: ${v.score}/${v.max}`).join(' | '),
@@ -792,16 +841,15 @@ function submitAndShowResults() {
     Q20_TaxPlanning: state.answers.q20,
     Q21_LeadershipAccess: state.answers.q21,
     Q22_DecisionContinuity: state.answers.q22,
-    Q23_ObjectivesAlignment: state.answers.q23,
+    Q23_StrategicAlignment: state.answers.q23,
     Q24_ConcentrationRisk: state.answers.q24
   };
 
-  const endpoint = 'https://formsubmit.co/ajax/info@affinitymke.com';
-  fetch(endpoint, {
+  fetch('https://formsubmit.co/ajax/info@affinitymke.com', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
     body: JSON.stringify(payload)
-  }).catch(() => { /* show results even if submit fails */ })
+  }).catch(() => { })
     .finally(() => renderResults(total, bySection, tier));
 }
 
@@ -812,7 +860,6 @@ function renderResults(total, bySection, tier) {
     document.getElementById('scoreNumber').textContent = total;
     document.getElementById('tierName').textContent = tier.name;
     document.getElementById('tierMeaning').textContent = tier.meaning;
-    document.getElementById('tierLabel').textContent = 'Your Financial Health Score';
 
     const host = document.getElementById('sectionBars');
     host.innerHTML = Object.entries(bySection).map(([name, v]) => {
@@ -820,18 +867,24 @@ function renderResults(total, bySection, tier) {
       return `
         <div class="section-row">
           <span class="name">${name}</span>
-          <div class="section-bar"><div class="section-bar-fill" style="width:${pct}%"></div></div>
+          <div class="section-bar"><div class="section-bar-fill" style="width: 0%" data-target="${pct}"></div></div>
           <span class="val">${v.score} / ${v.max}</span>
         </div>
       `;
     }).join('');
 
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.section-bar-fill').forEach(el => {
+        el.style.width = el.dataset.target + '%';
+      });
+    });
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, 900);
+  }, 1100);
 }
 
 /* ---------- INIT ---------- */
-buildQuestionSteps();
+buildSteps();
 </script>
 </body>
 </html>

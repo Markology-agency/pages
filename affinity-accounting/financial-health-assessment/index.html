@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Financial Health Assessment | Affinity Accounting</title>
+<meta name="description" content="A 20-question diagnostic across Accounting, Cash Flow, Profitability, Planning, Systems, and Tax. Get your Financial Health Score in under 5 minutes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --teal: #58A4AE;
+    --teal-dark: #3D7A82;
+    --teal-light: #E8F2F4;
+    --peach: #DBA69B;
+    --peach-light: #F8EDE9;
+    --ink: #1F2A2E;
+    --slate: #4A5A60;
+    --mute: #7B8A8F;
+    --line: #E2E8EA;
+    --bg: #FBF9F7;
+    --card: #FFFFFF;
+    --shadow: 0 8px 32px rgba(31, 42, 46, 0.06);
+    --shadow-lift: 0 16px 48px rgba(31, 42, 46, 0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  /* Header */
+  header { text-align: center; margin-bottom: 32px; }
+  .brand {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 14px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--teal-dark);
+    margin-bottom: 24px;
+  }
+  .brand-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--teal); }
+
+  /* Progress */
+  .progress-wrap { margin-bottom: 32px; }
+  .progress-bar {
+    height: 6px; background: var(--line); border-radius: 999px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: linear-gradient(90deg, var(--teal), var(--teal-dark));
+    width: 0%; transition: width 0.4s ease;
+  }
+  .progress-text {
+    display: flex; justify-content: space-between; font-size: 13px; color: var(--mute);
+    margin-top: 8px; font-weight: 500;
+  }
+
+  /* Card */
+  .card {
+    background: var(--card); border-radius: 20px; padding: 40px 40px;
+    box-shadow: var(--shadow); border: 1px solid var(--line);
+  }
+  @media (max-width: 600px) { .card { padding: 28px 22px; border-radius: 16px; } }
+
+  /* Steps */
+  .step { display: none; animation: fade 0.4s ease; }
+  .step.active { display: block; }
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Typography */
+  h1 {
+    font-size: 34px; font-weight: 800; line-height: 1.2;
+    letter-spacing: -0.02em; margin-bottom: 12px;
+  }
+  h2 {
+    font-size: 24px; font-weight: 700; line-height: 1.3;
+    letter-spacing: -0.01em; margin-bottom: 8px;
+  }
+  .section-label {
+    display: inline-block; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--teal); background: var(--teal-light);
+    padding: 6px 12px; border-radius: 999px; margin-bottom: 16px;
+  }
+  .lede { font-size: 17px; color: var(--slate); margin-bottom: 28px; }
+  .question {
+    font-size: 19px; font-weight: 600; line-height: 1.45;
+    color: var(--ink); margin-bottom: 6px;
+  }
+  .question-hint {
+    font-size: 14px; color: var(--mute); font-style: italic; margin-bottom: 20px;
+  }
+
+  /* Likert scale */
+  .scale {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px;
+    margin-bottom: 12px;
+  }
+  .scale-option {
+    cursor: pointer; position: relative;
+  }
+  .scale-option input { position: absolute; opacity: 0; pointer-events: none; }
+  .scale-option .box {
+    border: 2px solid var(--line); border-radius: 12px;
+    padding: 16px 10px; text-align: center; transition: all 0.2s ease;
+    background: var(--card);
+  }
+  .scale-option .num {
+    font-size: 24px; font-weight: 800; color: var(--slate);
+    display: block; margin-bottom: 4px; letter-spacing: -0.02em;
+  }
+  .scale-option .label {
+    font-size: 11px; font-weight: 600; color: var(--mute);
+    text-transform: uppercase; letter-spacing: 0.06em;
+  }
+  .scale-option:hover .box { border-color: var(--teal); transform: translateY(-2px); }
+  .scale-option input:checked + .box {
+    border-color: var(--teal); background: var(--teal);
+    box-shadow: 0 6px 20px rgba(88, 164, 174, 0.3);
+  }
+  .scale-option input:checked + .box .num,
+  .scale-option input:checked + .box .label {
+    color: #fff;
+  }
+  @media (max-width: 600px) {
+    .scale { grid-template-columns: repeat(5, 1fr); gap: 5px; }
+    .scale-option .box { padding: 12px 4px; }
+    .scale-option .num { font-size: 20px; }
+    .scale-option .label { font-size: 9px; }
+  }
+
+  /* Multiple choice */
+  .choices { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+  .choice { cursor: pointer; position: relative; }
+  .choice input { position: absolute; opacity: 0; pointer-events: none; }
+  .choice .box {
+    border: 2px solid var(--line); border-radius: 12px;
+    padding: 16px 18px; transition: all 0.2s ease; background: var(--card);
+    font-size: 15px; line-height: 1.4; color: var(--slate);
+  }
+  .choice:hover .box { border-color: var(--teal); }
+  .choice input:checked + .box {
+    border-color: var(--teal); background: var(--teal-light);
+    color: var(--ink); font-weight: 600;
+  }
+
+  /* Form fields */
+  .field { margin-bottom: 18px; }
+  .field label {
+    display: block; font-size: 14px; font-weight: 600;
+    color: var(--slate); margin-bottom: 6px;
+  }
+  .field input, .field select {
+    width: 100%; padding: 12px 14px; border: 2px solid var(--line);
+    border-radius: 10px; font-family: inherit; font-size: 15px;
+    color: var(--ink); background: var(--card); transition: border-color 0.2s;
+  }
+  .field input:focus, .field select:focus {
+    outline: none; border-color: var(--teal);
+  }
+  .field-hint { font-size: 13px; color: var(--mute); margin-top: 4px; }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 540px) { .field-row { grid-template-columns: 1fr; } }
+
+  /* Buttons */
+  .actions {
+    display: flex; gap: 12px; justify-content: space-between;
+    margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--line);
+  }
+  button {
+    font-family: inherit; cursor: pointer; border: none;
+    font-size: 15px; font-weight: 600; padding: 14px 28px;
+    border-radius: 10px; transition: all 0.2s ease;
+  }
+  .btn-primary {
+    background: var(--ink); color: #fff;
+  }
+  .btn-primary:hover { background: var(--teal-dark); transform: translateY(-1px); }
+  .btn-primary:disabled {
+    background: var(--line); color: var(--mute); cursor: not-allowed; transform: none;
+  }
+  .btn-ghost {
+    background: transparent; color: var(--slate); padding: 14px 18px;
+  }
+  .btn-ghost:hover { color: var(--ink); }
+  .btn-ghost:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* Results */
+  .score-card { text-align: center; padding: 8px 0 16px; }
+  .score-number {
+    font-size: 84px; font-weight: 800; line-height: 1;
+    letter-spacing: -0.04em; color: var(--teal-dark);
+    display: inline-block;
+  }
+  .score-out-of { font-size: 28px; color: var(--mute); font-weight: 600; }
+  .tier-name {
+    font-size: 26px; font-weight: 700; margin: 16px 0 8px;
+    letter-spacing: -0.01em;
+  }
+  .tier-meaning {
+    background: var(--peach-light); border-left: 4px solid var(--peach);
+    padding: 18px 22px; border-radius: 8px; text-align: left;
+    color: var(--ink); font-size: 15px; line-height: 1.6; margin: 24px 0;
+  }
+  .section-breakdown {
+    background: var(--bg); border-radius: 12px; padding: 22px;
+    margin: 24px 0;
+  }
+  .section-breakdown h3 {
+    font-size: 14px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--mute); margin-bottom: 14px;
+  }
+  .section-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 15px;
+  }
+  .section-row:last-child { border-bottom: none; }
+  .section-row .name { color: var(--slate); font-weight: 500; }
+  .section-row .val { font-weight: 700; color: var(--ink); }
+  .section-bar {
+    flex: 1; height: 6px; background: var(--line); border-radius: 999px;
+    margin: 0 14px; overflow: hidden; max-width: 140px;
+  }
+  .section-bar-fill { height: 100%; background: var(--teal); }
+
+  .cta-block {
+    background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+    color: #fff; border-radius: 14px; padding: 28px; margin-top: 28px;
+    text-align: center;
+  }
+  .cta-block h3 {
+    font-size: 22px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em;
+  }
+  .cta-block p { font-size: 15px; opacity: 0.92; margin-bottom: 18px; }
+  .cta-button {
+    display: inline-block; background: #fff; color: var(--teal-dark);
+    padding: 14px 32px; border-radius: 10px; text-decoration: none;
+    font-weight: 700; font-size: 15px; transition: transform 0.2s;
+  }
+  .cta-button:hover { transform: translateY(-2px); }
+
+  .footer-note {
+    text-align: center; font-size: 13px; color: var(--mute);
+    margin-top: 32px; padding-top: 24px;
+  }
+  .footer-note a { color: var(--teal-dark); text-decoration: none; font-weight: 600; }
+
+  /* Intro */
+  .intro-meta {
+    display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+    margin: 24px 0 8px; font-size: 14px; color: var(--mute);
+  }
+  .intro-meta span { display: inline-flex; align-items: center; gap: 6px; }
+  .intro-meta strong { color: var(--ink); font-weight: 700; }
+
+  .scale-legend {
+    background: var(--bg); border-radius: 10px; padding: 16px 20px;
+    margin: 24px 0; font-size: 13px; color: var(--slate);
+  }
+  .scale-legend strong { color: var(--ink); }
+  .scale-legend ul { list-style: none; margin-top: 8px; }
+  .scale-legend li { padding: 3px 0; }
+  .scale-legend li strong { color: var(--teal-dark); margin-right: 6px; }
+
+  .loading { text-align: center; padding: 40px; }
+  .spinner {
+    width: 36px; height: 36px; border: 3px solid var(--line);
+    border-top-color: var(--teal); border-radius: 50%;
+    animation: spin 0.8s linear infinite; margin: 0 auto 16px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">
+      <span class="brand-dot"></span>
+      <span>Affinity Accounting</span>
+    </div>
+  </header>
+
+  <div class="progress-wrap" id="progressWrap" style="display:none;">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-text">
+      <span id="progressLabel">Section 1 of 7</span>
+      <span id="progressCount">Question 1 of 24</span>
+    </div>
+  </div>
+
+  <div class="card">
+
+    <!-- INTRO -->
+    <div class="step active" id="step-intro">
+      <h1>Financial Health Assessment</h1>
+      <p class="lede">A clear, honest view of how well your financial information supports your day-to-day operations and your most important business decisions. Built for owner-led service businesses doing $1M to $15M in Milwaukee, Chicago, and beyond.</p>
+      <div class="intro-meta">
+        <span><strong>24</strong> questions</span>
+        <span><strong>5</strong> minutes</span>
+        <span><strong>Instant</strong> score</span>
+      </div>
+      <div class="scale-legend">
+        <strong>How the 1 to 5 scale works:</strong>
+        <ul>
+          <li><strong>1.</strong> Not in place</li>
+          <li><strong>2.</strong> Inconsistent</li>
+          <li><strong>3.</strong> Functional</li>
+          <li><strong>4.</strong> Consistent</li>
+          <li><strong>5.</strong> Embedded</li>
+        </ul>
+      </div>
+      <div class="actions" style="justify-content: flex-end; border: none; padding-top: 8px;">
+        <button class="btn-primary" onclick="startQuiz()">Begin Assessment &rarr;</button>
+      </div>
+    </div>
+
+    <!-- BUSINESS SNAPSHOT -->
+    <div class="step" id="step-snapshot">
+      <span class="section-label">Business Snapshot</span>
+      <h2>Tell us a bit about your business</h2>
+      <p class="lede">So we can tailor your results to your situation.</p>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="f_name">Your name</label>
+          <input type="text" id="f_name" required />
+        </div>
+        <div class="field">
+          <label for="f_title">Your title</label>
+          <input type="text" id="f_title" placeholder="Owner, CEO, etc." />
+        </div>
+      </div>
+      <div class="field">
+        <label for="f_email">Work email</label>
+        <input type="email" id="f_email" required />
+      </div>
+      <div class="field">
+        <label for="f_company">Business name</label>
+        <input type="text" id="f_company" required />
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="f_industry">Industry or service type</label>
+          <input type="text" id="f_industry" placeholder="Marketing agency, consulting, etc." />
+        </div>
+        <div class="field">
+          <label for="f_revenue">Annual revenue</label>
+          <select id="f_revenue">
+            <option value="">Select range</option>
+            <option>Under $1M</option>
+            <option>$1M to $3M</option>
+            <option>$3M to $5M</option>
+            <option>$5M to $10M</option>
+            <option>$10M to $15M</option>
+            <option>$15M+</option>
+          </select>
+        </div>
+      </div>
+      <div class="field-row">
+        <div class="field">
+          <label for="f_employees">Number of employees</label>
+          <input type="text" id="f_employees" placeholder="Full-time, part-time, contractors" />
+        </div>
+        <div class="field">
+          <label for="f_setup">Current accounting setup</label>
+          <input type="text" id="f_setup" placeholder="In-house, outsourced, owner-managed" />
+        </div>
+      </div>
+      <div class="field">
+        <label for="f_reason">What prompted you to take this assessment?</label>
+        <input type="text" id="f_reason" placeholder="Growth planning, tax concerns, better visibility, referral, etc." />
+      </div>
+
+      <div class="actions">
+        <button class="btn-ghost" disabled>&larr; Back</button>
+        <button class="btn-primary" onclick="advanceFromSnapshot()">Continue &rarr;</button>
+      </div>
+    </div>
+
+    <!-- DYNAMIC QUESTION STEPS get injected here -->
+    <div id="question-host"></div>
+
+    <!-- RESULTS -->
+    <div class="step" id="step-results">
+      <div class="score-card">
+        <span class="section-label" id="tierLabel">Your Tier</span>
+        <div>
+          <span class="score-number" id="scoreNumber">0</span>
+          <span class="score-out-of"> / 100</span>
+        </div>
+        <h2 class="tier-name" id="tierName"></h2>
+      </div>
+
+      <div class="tier-meaning" id="tierMeaning"></div>
+
+      <div class="section-breakdown">
+        <h3>Score by area</h3>
+        <div id="sectionBars"></div>
+      </div>
+
+      <div class="cta-block">
+        <h3>Want a focused conversation about your results?</h3>
+        <p>Book a no-obligation discovery call. We will walk through your assessment together and pinpoint the highest-leverage next move for your business.</p>
+        <a class="cta-button" href="https://affinitymke.com/contact/" target="_blank" rel="noopener">Book a Discovery Call</a>
+      </div>
+
+      <p class="footer-note">
+        Your responses have been sent to your Affinity team. Questions? Email <a href="mailto:info@affinitymke.com">info@affinitymke.com</a> or call (414) 533-8100.
+      </p>
+    </div>
+
+    <!-- SUBMITTING -->
+    <div class="step" id="step-submitting">
+      <div class="loading">
+        <div class="spinner"></div>
+        <p style="color: var(--slate); font-weight: 500;">Calculating your Financial Health Score...</p>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="footer-note">
+    Affinity Accounting &nbsp;&middot;&nbsp; Milwaukee &nbsp;&middot;&nbsp; Chicago &nbsp;&middot;&nbsp;
+    <a href="https://affinitymke.com/">affinitymke.com</a>
+  </p>
+
+</div>
+
+<script>
+/* ---------- DATA ---------- */
+const SECTIONS = [
+  {
+    name: "Accounting",
+    blurb: "The reliability of your core accounting function.",
+    questions: [
+      { id: "q1", title: "Financial Statements", text: "Financial statements are consistently produced, reviewed, and trusted on a monthly basis." },
+      { id: "q2", title: "Account Reconciliations", text: "Bank statements, credit card statements, accounts payable, accounts receivable, and fixed assets are reconciled and reviewed on a monthly basis." },
+      { id: "q3", title: "Invoices and Payments", text: "The system for tracking receivables and payables, issuing invoices, and following up on collections is reliable, accurate, and timely." },
+      { id: "q4", title: "Bookkeeping", text: "Day-to-day bookkeeping, including transaction review and categorization, is organized, consistent, and reliable." }
+    ]
+  },
+  {
+    name: "Cash Flow",
+    blurb: "Your visibility into current and future cash position.",
+    questions: [
+      { id: "q5", title: "Cash Flow Forecasting", text: "A rolling cash flow forecast is in place, starting from the current cash position and looking forward at least 90 days." },
+      { id: "q6", title: "Minimum Cash Target", text: "A defined minimum cash target has been established and is actively monitored." },
+      { id: "q7", title: "Cash Shortfall Visibility", text: "Cash shortfalls are anticipated in advance, not discovered as surprises." }
+    ]
+  },
+  {
+    name: "Profitability",
+    blurb: "How well you understand what drives profit in your business.",
+    questions: [
+      { id: "q8", title: "Margins", text: "Gross margins are known and understood by project, job, client, or service line." },
+      { id: "q9", title: "Pricing", text: "Pricing decisions are modeled for profitability, not just revenue.", hint: 'You can answer "What is our effective hourly rate after scope creep and write-offs?"' },
+      { id: "q10", title: "Breakeven", text: "A breakeven revenue model has been developed and is understood." }
+    ]
+  },
+  {
+    name: "Planning",
+    blurb: "Your ability to plan ahead and make confident financial decisions.",
+    questions: [
+      { id: "q11", title: "Budgeting and Forecasting", text: "Revenues, expenses, and cash flow are planned through an annual budgeting process, with expectations updated throughout the year using rolling forecasts.", hint: "You have a budget and you compare actual results to it regularly." },
+      { id: "q12", title: "Affordability and Decision Confidence", text: "Financial implications are evaluated and affordability is assessed before acting.", hint: 'You can answer "Can we afford this?" before committing.' },
+      { id: "q13", title: "Capacity, Productivity, and KPIs", text: "Labor productivity, capacity constraints, and key performance indicators are defined and used to anticipate bottlenecks, plan effectively, and maximize efficiency." },
+      { id: "q14", title: "Decision Modeling", text: "When making major business decisions (hiring, pricing changes, new investments), financial models or scenario analysis are used to evaluate the impact before committing.", hint: "Decisions are supported by data and projections, not just gut instinct." }
+    ]
+  },
+  {
+    name: "Systems and Reporting",
+    blurb: "Whether your financial systems produce useful, reliable information.",
+    questions: [
+      { id: "q15", title: "Chart of Accounts Structure", text: "The chart of accounts is simple, consistent, and structured to support meaningful reporting." },
+      { id: "q16", title: "Operational and Job-Level Reporting", text: "Reporting provides clear visibility into performance by job, project, service line, or client, where applicable." },
+      { id: "q17", title: "System Integration", text: "Core systems (accounting, payroll, CRM, and operational systems) are reasonably integrated and support reliable reporting without excessive manual effort." },
+      { id: "q18", title: "Internal Controls", text: "Sufficient internal controls are in place to ensure appropriate segregation of duties and protection of assets." }
+    ]
+  },
+  {
+    name: "Tax",
+    blurb: "The health and proactivity of your tax function.",
+    questions: [
+      { id: "q19", title: "Tax Compliance and Filing Discipline", text: "Tax filings for payroll, sales tax, and income tax are organized, timely, and predictable, with no unresolved filing or submission issues." },
+      { id: "q20", title: "Tax Planning", text: "The approach to tax planning, tax minimization strategies, and estimated tax payments is intentional, proactive, and helps avoid year-end surprises." }
+    ]
+  }
+];
+
+const CHOICE_QUESTIONS = [
+  {
+    id: "q21",
+    title: "Leadership Access to Financials",
+    text: "How would you describe your leadership team's access to financial information?",
+    options: [
+      "It is mostly in my head. I am the only one who really knows the numbers.",
+      "Key leaders get information when they ask, but there is no regular cadence.",
+      "We share financial reports with leadership monthly.",
+      "We have real-time dashboards and regular financial reviews across the team."
+    ]
+  },
+  {
+    id: "q22",
+    title: "Decision-Making Continuity",
+    text: "If you were unavailable for 30 days, how would financial decision-making continue?",
+    options: [
+      "It would essentially stop. I am the only one who makes financial decisions.",
+      "Someone could handle day-to-day, but strategic decisions would wait.",
+      "A trusted leader could step in with some guidance.",
+      "The team has the information and authority to continue making sound decisions."
+    ]
+  },
+  {
+    id: "q23",
+    title: "Strategic and Financial Objectives",
+    text: "How well are your strategic and financial objectives communicated across the organization?",
+    options: [
+      "We do not have clearly defined financial objectives.",
+      "I have objectives in mind, but they have not been formally shared.",
+      "Objectives are communicated, but execution does not consistently align.",
+      "Objectives are clear, shared, and team behaviors consistently support them."
+    ]
+  },
+  {
+    id: "q24",
+    title: "Concentration Risk Awareness",
+    text: "How would you describe your awareness of concentration risk (client, revenue, or vendor dependency)?",
+    hint: '"What happens to our business if we lose our biggest client?"',
+    options: [
+      "I have not thought about it much.",
+      "I have a general sense but have not quantified it.",
+      "I know our largest client/revenue concentration but have not stress-tested it.",
+      "I actively monitor concentration and have a plan if a major client or revenue stream is lost."
+    ]
+  }
+];
+
+const SCALE_LABELS = ["Not in place", "Inconsistent", "Functional", "Consistent", "Embedded"];
+
+const TIERS = [
+  { min: 0, max: 40, name: "Stabilization Needed",
+    meaning: "Core financial processes need attention before strategic planning can be effective. The priority is building a reliable foundation: clean books, consistent reporting, and basic cash visibility. Advisory conversations become valuable once the fundamentals are in place." },
+  { min: 41, max: 60, name: "Foundation Building",
+    meaning: "The basics are in place but gaps remain in forward-looking visibility. You likely have functional accounting but limited forecasting, budgeting, or scenario planning. This is where CFO advisory begins to deliver immediate value, turning historical data into forward-looking decisions." },
+  { min: 61, max: 80, name: "Performance Optimization",
+    meaning: "Your financial foundation is solid. The opportunity now is optimization: client profitability analysis, pricing refinement, capacity planning, and using financial models to drive growth decisions. You are ready for proactive, strategic financial leadership." },
+  { min: 81, max: 100, name: "Strategic Readiness",
+    meaning: "Your financial operations are mature and well-integrated. The focus shifts to high-level strategic initiatives: growth modeling, M&A readiness, compensation benchmarking, board-level reporting, and long-term value creation. You are positioned to use financial leadership as a competitive advantage." }
+];
+
+/* ---------- STATE ---------- */
+const state = {
+  snapshot: {},
+  answers: {},
+  step: 0,
+  steps: []
+};
+
+/* ---------- BUILD ---------- */
+function buildQuestionSteps() {
+  const host = document.getElementById('question-host');
+  let qIndex = 0;
+  const totalQ = 24;
+
+  SECTIONS.forEach((sec, sIdx) => {
+    sec.questions.forEach(q => {
+      qIndex++;
+      const stepId = `step-${q.id}`;
+      const div = document.createElement('div');
+      div.className = 'step';
+      div.id = stepId;
+      div.dataset.section = sec.name;
+      div.dataset.qnum = qIndex;
+      div.dataset.qid = q.id;
+      div.dataset.type = 'scale';
+      div.innerHTML = `
+        <span class="section-label">${sec.name}</span>
+        <h2>${q.title}</h2>
+        <p class="question">${q.text}</p>
+        ${q.hint ? `<p class="question-hint">${q.hint}</p>` : '<div style="margin-bottom:16px"></div>'}
+        <div class="scale" role="radiogroup" aria-label="${q.title}">
+          ${[1,2,3,4,5].map(n => `
+            <label class="scale-option">
+              <input type="radio" name="${q.id}" value="${n}" onchange="onAnswer('${q.id}', ${n})" />
+              <div class="box">
+                <span class="num">${n}</span>
+                <span class="label">${SCALE_LABELS[n-1]}</span>
+              </div>
+            </label>
+          `).join('')}
+        </div>
+        <div class="actions">
+          <button class="btn-ghost" onclick="prevStep()">&larr; Back</button>
+          <button class="btn-primary" id="next-${q.id}" disabled onclick="nextStep()">Next &rarr;</button>
+        </div>
+      `;
+      host.appendChild(div);
+      state.steps.push({ id: stepId, type: 'scale', qid: q.id, section: sec.name, qnum: qIndex });
+    });
+  });
+
+  CHOICE_QUESTIONS.forEach(q => {
+    qIndex++;
+    const stepId = `step-${q.id}`;
+    const div = document.createElement('div');
+    div.className = 'step';
+    div.id = stepId;
+    div.dataset.section = 'Leadership and Alignment';
+    div.dataset.qnum = qIndex;
+    div.dataset.qid = q.id;
+    div.dataset.type = 'choice';
+    div.innerHTML = `
+      <span class="section-label">Leadership and Alignment</span>
+      <h2>${q.title}</h2>
+      <p class="question">${q.text}</p>
+      ${q.hint ? `<p class="question-hint">${q.hint}</p>` : '<div style="margin-bottom:16px"></div>'}
+      <div class="choices" role="radiogroup" aria-label="${q.title}">
+        ${q.options.map((opt, i) => `
+          <label class="choice">
+            <input type="radio" name="${q.id}" value="${i+1}" onchange="onAnswer('${q.id}', ${i+1})" />
+            <div class="box">${opt}</div>
+          </label>
+        `).join('')}
+      </div>
+      <div class="actions">
+        <button class="btn-ghost" onclick="prevStep()">&larr; Back</button>
+        <button class="btn-primary" id="next-${q.id}" disabled onclick="nextStep()">${qIndex === totalQ ? 'See My Score &rarr;' : 'Next &rarr;'}</button>
+      </div>
+    `;
+    host.appendChild(div);
+    state.steps.push({ id: stepId, type: 'choice', qid: q.id, section: 'Leadership and Alignment', qnum: qIndex });
+  });
+}
+
+/* ---------- NAVIGATION ---------- */
+function showStep(idx) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  if (idx === -2) {
+    document.getElementById('step-intro').classList.add('active');
+    document.getElementById('progressWrap').style.display = 'none';
+    return;
+  }
+  if (idx === -1) {
+    document.getElementById('step-snapshot').classList.add('active');
+    document.getElementById('progressWrap').style.display = 'none';
+    return;
+  }
+  if (idx >= state.steps.length) {
+    submitAndShowResults();
+    return;
+  }
+  document.getElementById(state.steps[idx].id).classList.add('active');
+  updateProgress(idx);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function startQuiz() {
+  state.step = -1;
+  showStep(-1);
+}
+
+function advanceFromSnapshot() {
+  const snap = {
+    name: document.getElementById('f_name').value.trim(),
+    title: document.getElementById('f_title').value.trim(),
+    email: document.getElementById('f_email').value.trim(),
+    company: document.getElementById('f_company').value.trim(),
+    industry: document.getElementById('f_industry').value.trim(),
+    revenue: document.getElementById('f_revenue').value,
+    employees: document.getElementById('f_employees').value.trim(),
+    setup: document.getElementById('f_setup').value.trim(),
+    reason: document.getElementById('f_reason').value.trim()
+  };
+  if (!snap.name || !snap.email || !snap.company) {
+    alert('Please fill in name, email, and business name to continue.');
+    return;
+  }
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(snap.email)) {
+    alert('Please enter a valid email address.');
+    return;
+  }
+  state.snapshot = snap;
+  state.step = 0;
+  showStep(0);
+}
+
+function nextStep() {
+  state.step++;
+  showStep(state.step);
+}
+
+function prevStep() {
+  if (state.step === 0) {
+    showStep(-1);
+    return;
+  }
+  state.step--;
+  showStep(state.step);
+}
+
+function onAnswer(qid, val) {
+  state.answers[qid] = val;
+  const btn = document.getElementById(`next-${qid}`);
+  if (btn) btn.disabled = false;
+}
+
+function updateProgress(idx) {
+  const wrap = document.getElementById('progressWrap');
+  wrap.style.display = 'block';
+  const total = state.steps.length;
+  const pct = ((idx + 1) / total) * 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  const cur = state.steps[idx];
+  document.getElementById('progressLabel').textContent = cur.section;
+  document.getElementById('progressCount').textContent = `Question ${idx + 1} of ${total}`;
+}
+
+/* ---------- SCORING ---------- */
+function computeScore() {
+  let total = 0;
+  const bySection = {};
+  SECTIONS.forEach(sec => {
+    let sSum = 0;
+    sec.questions.forEach(q => {
+      const v = parseInt(state.answers[q.id] || 0, 10);
+      sSum += v;
+      total += v;
+    });
+    bySection[sec.name] = { score: sSum, max: sec.questions.length * 5 };
+  });
+  return { total, bySection };
+}
+
+function tierFor(score) {
+  return TIERS.find(t => score >= t.min && score <= t.max) || TIERS[0];
+}
+
+/* ---------- SUBMIT + RESULTS ---------- */
+function submitAndShowResults() {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-submitting').classList.add('active');
+  document.getElementById('progressWrap').style.display = 'none';
+
+  const { total, bySection } = computeScore();
+  const tier = tierFor(total);
+
+  /* Submit to FormSubmit. Whitney needs to approve once via the link sent to info@affinitymke.com on first submission. */
+  const payload = {
+    _subject: `New FHA submission: ${state.snapshot.company} (Score ${total}/100, ${tier.name})`,
+    _replyto: state.snapshot.email,
+    _template: 'table',
+    Name: state.snapshot.name,
+    Title: state.snapshot.title,
+    Email: state.snapshot.email,
+    Company: state.snapshot.company,
+    Industry: state.snapshot.industry,
+    Revenue: state.snapshot.revenue,
+    Employees: state.snapshot.employees,
+    AccountingSetup: state.snapshot.setup,
+    Reason: state.snapshot.reason,
+    Score: total,
+    Tier: tier.name,
+    SectionScores: Object.entries(bySection).map(([k,v]) => `${k}: ${v.score}/${v.max}`).join(' | '),
+    Q1_FinancialStatements: state.answers.q1,
+    Q2_Reconciliations: state.answers.q2,
+    Q3_InvoicesPayments: state.answers.q3,
+    Q4_Bookkeeping: state.answers.q4,
+    Q5_CashFlowForecasting: state.answers.q5,
+    Q6_MinCashTarget: state.answers.q6,
+    Q7_ShortfallVisibility: state.answers.q7,
+    Q8_Margins: state.answers.q8,
+    Q9_Pricing: state.answers.q9,
+    Q10_Breakeven: state.answers.q10,
+    Q11_Budgeting: state.answers.q11,
+    Q12_Affordability: state.answers.q12,
+    Q13_KPIs: state.answers.q13,
+    Q14_DecisionModeling: state.answers.q14,
+    Q15_ChartOfAccounts: state.answers.q15,
+    Q16_JobLevelReporting: state.answers.q16,
+    Q17_SystemIntegration: state.answers.q17,
+    Q18_InternalControls: state.answers.q18,
+    Q19_TaxCompliance: state.answers.q19,
+    Q20_TaxPlanning: state.answers.q20,
+    Q21_LeadershipAccess: state.answers.q21,
+    Q22_DecisionContinuity: state.answers.q22,
+    Q23_ObjectivesAlignment: state.answers.q23,
+    Q24_ConcentrationRisk: state.answers.q24
+  };
+
+  const endpoint = 'https://formsubmit.co/ajax/info@affinitymke.com';
+  fetch(endpoint, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify(payload)
+  }).catch(() => { /* show results even if submit fails */ })
+    .finally(() => renderResults(total, bySection, tier));
+}
+
+function renderResults(total, bySection, tier) {
+  setTimeout(() => {
+    document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+    document.getElementById('step-results').classList.add('active');
+    document.getElementById('scoreNumber').textContent = total;
+    document.getElementById('tierName').textContent = tier.name;
+    document.getElementById('tierMeaning').textContent = tier.meaning;
+    document.getElementById('tierLabel').textContent = 'Your Financial Health Score';
+
+    const host = document.getElementById('sectionBars');
+    host.innerHTML = Object.entries(bySection).map(([name, v]) => {
+      const pct = Math.round((v.score / v.max) * 100);
+      return `
+        <div class="section-row">
+          <span class="name">${name}</span>
+          <div class="section-bar"><div class="section-bar-fill" style="width:${pct}%"></div></div>
+          <span class="val">${v.score} / ${v.max}</span>
+        </div>
+      `;
+    }).join('');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 900);
+}
+
+/* ---------- INIT ---------- */
+buildQuestionSteps();
+</script>
+</body>
+</html>

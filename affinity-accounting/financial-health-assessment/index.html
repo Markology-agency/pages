@@ -7,13 +7,14 @@
 <meta name="description" content="A quick diagnostic for owner-led service businesses. Get your Financial Health Score in 5 minutes." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root {
     --navy: #363f51;
     --navy-soft: #4a5366;
     --teal: #58a4ae;
     --teal-soft: #e8f3f5;
+    --teal-mid: #c2dfe3;
     --pink: #dba69b;
     --pink-soft: #faf0ed;
     --blue: #aabace;
@@ -25,340 +26,248 @@
     --line-soft: #f3f5f8;
     --bg: #fafaf7;
     --card: #ffffff;
-    --shadow-sm: 0 2px 8px rgba(54, 63, 81, 0.04);
     --shadow: 0 8px 32px rgba(54, 63, 81, 0.06);
     --shadow-lift: 0 20px 56px rgba(54, 63, 81, 0.12);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.55;
-    min-height: 100vh;
-    -webkit-font-smoothing: antialiased;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg); color: var(--ink); line-height: 1.55;
+    min-height: 100vh; -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-  .serif { font-family: 'Cormorant Garamond', Georgia, serif; }
-
-  /* Layout */
-  .wrap { max-width: 680px; margin: 0 auto; padding: 28px 24px 80px; min-height: 100vh;
-    display: flex; flex-direction: column; }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 28px 24px 80px;
+    min-height: 100vh; display: flex; flex-direction: column; }
 
   /* Logo header */
-  .logo-bar {
-    display: flex; justify-content: center; padding: 4px 0 32px;
-  }
+  .logo-bar { display: flex; justify-content: center; padding: 4px 0 32px; }
   .logo-bar svg { height: 28px; width: auto; }
-  @media (max-width: 600px) { .logo-bar svg { height: 24px; } }
+  @media (max-width: 600px) { .logo-bar svg { height: 22px; } }
 
   /* Progress */
   .progress-wrap { margin-bottom: 28px; opacity: 0; transition: opacity 0.4s ease; }
   .progress-wrap.visible { opacity: 1; }
-  .progress-bar {
-    height: 3px; background: var(--line); border-radius: 999px; overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%; background: var(--teal);
-    width: 0%; transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: 999px;
-  }
-  .progress-text {
-    display: flex; justify-content: space-between; font-size: 12px; color: var(--mute);
-    margin-top: 10px; font-weight: 500; letter-spacing: 0.02em;
-  }
-  .progress-text .section-label {
-    color: var(--teal); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
-  }
+  .progress-bar { height: 3px; background: var(--line); border-radius: 999px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--teal); width: 0%;
+    transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 999px; }
+  .progress-text { display: flex; justify-content: space-between; font-size: 12px;
+    color: var(--mute); margin-top: 10px; font-weight: 500; letter-spacing: 0.02em; }
+  .progress-text .section-label { color: var(--teal); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.1em; }
 
   /* Card */
-  .card {
-    background: var(--card); border-radius: 18px; padding: 56px 56px;
+  .card { background: var(--card); border-radius: 18px; padding: 52px 56px;
     box-shadow: var(--shadow); border: 1px solid var(--line-soft);
-    flex: 1; display: flex; flex-direction: column;
-  }
-  @media (max-width: 640px) { .card { padding: 36px 26px; border-radius: 14px; } }
+    flex: 1; display: flex; flex-direction: column; }
+  @media (max-width: 640px) { .card { padding: 32px 22px; border-radius: 14px; } }
 
   /* Steps */
-  .step { display: none; animation: fade 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
+  .step { display: none; animation: fade 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
   .step.active { display: flex; flex-direction: column; flex: 1; }
-  @keyframes fade {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fade { from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); } }
 
   /* Typography */
-  h1.title {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 48px; font-weight: 600; line-height: 1.1;
-    color: var(--navy); letter-spacing: -0.01em;
-  }
-  h1.title .accent { color: var(--teal); font-style: italic; }
-  h2.q-heading {
-    font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: 30px; font-weight: 600; line-height: 1.25;
-    color: var(--navy); letter-spacing: -0.005em;
-    margin-bottom: 14px;
-  }
+  h1.title { font-size: 42px; font-weight: 800; line-height: 1.1;
+    color: var(--navy); letter-spacing: -0.025em; }
+  h1.title .accent { color: var(--teal); }
+  h2.q-heading { font-size: 26px; font-weight: 700; line-height: 1.3;
+    color: var(--navy); letter-spacing: -0.015em; margin-bottom: 8px; }
   @media (max-width: 600px) {
-    h1.title { font-size: 38px; }
-    h2.q-heading { font-size: 24px; }
+    h1.title { font-size: 32px; }
+    h2.q-heading { font-size: 21px; }
   }
+  .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 14px; }
+  .lede { font-size: 17px; color: var(--slate); line-height: 1.65;
+    margin-bottom: 28px; max-width: 540px; }
+  .q-hint { font-size: 14px; color: var(--mute); font-style: italic;
+    line-height: 1.5; margin-top: 6px; margin-bottom: 24px; }
 
-  .eyebrow {
-    font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-    text-transform: uppercase; color: var(--teal); margin-bottom: 14px;
-  }
-  .lede {
-    font-size: 17px; color: var(--slate); line-height: 1.65;
-    margin-bottom: 28px; max-width: 540px;
-  }
-  .q-hint {
-    font-size: 14px; color: var(--mute); font-style: italic;
-    line-height: 1.5; margin-bottom: 24px;
-  }
-
-  /* Intro page */
+  /* Intro */
   #step-intro { justify-content: center; min-height: 480px; }
-  .intro-meta {
-    display: flex; gap: 32px; flex-wrap: wrap;
+  .intro-meta { display: flex; gap: 32px; flex-wrap: wrap;
     margin: 8px 0 36px; font-size: 14px; color: var(--mute);
     border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
-    padding: 18px 0;
-  }
-  .intro-meta-item {
-    display: flex; align-items: baseline; gap: 8px;
-  }
-  .intro-meta-item strong {
-    color: var(--navy); font-weight: 700; font-size: 22px;
-    font-family: 'Cormorant Garamond', serif;
-  }
+    padding: 18px 0; }
+  .intro-meta-item { display: flex; align-items: baseline; gap: 8px; }
+  .intro-meta-item strong { color: var(--navy); font-weight: 800; font-size: 22px;
+    letter-spacing: -0.02em; }
   .intro-meta-item span { font-weight: 500; }
 
-  /* Likert scale - column layout for readability */
-  .scale-list {
-    display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px;
-  }
-  .scale-option {
-    cursor: pointer; position: relative; display: block;
-  }
+  /* HORIZONTAL Likert scale */
+  .scale-row { display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 10px; margin-top: 18px; }
+  .scale-option { cursor: pointer; position: relative; display: block; }
   .scale-option input { position: absolute; opacity: 0; pointer-events: none; }
-  .scale-option .row {
-    display: flex; align-items: center; gap: 16px;
-    padding: 16px 20px;
-    border: 1.5px solid var(--line);
-    border-radius: 12px; background: var(--card);
-    transition: all 0.18s ease;
+  .scale-option .tile {
+    border: 1.5px solid var(--line); border-radius: 12px;
+    padding: 18px 8px 14px; text-align: center; background: var(--card);
+    transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 100%; display: flex; flex-direction: column; gap: 6px;
+    align-items: center; justify-content: flex-start;
   }
-  .scale-option .num-pill {
-    flex-shrink: 0; width: 32px; height: 32px;
-    border-radius: 50%; background: var(--bg);
+  .scale-option .num {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--bg); color: var(--slate);
     display: flex; align-items: center; justify-content: center;
-    font-weight: 700; font-size: 15px; color: var(--slate);
-    transition: all 0.18s ease;
+    font-weight: 800; font-size: 16px; transition: all 0.18s ease;
+    letter-spacing: -0.02em;
   }
-  .scale-option .opt-label {
-    font-size: 16px; font-weight: 500; color: var(--ink);
-    line-height: 1.3;
+  .scale-option .lbl {
+    font-size: 12px; font-weight: 600; color: var(--ink);
+    line-height: 1.25; letter-spacing: -0.005em;
   }
-  .scale-option .opt-desc {
-    font-size: 13px; color: var(--mute); font-weight: 400;
-    margin-top: 2px; line-height: 1.4;
+  .scale-option .desc {
+    font-size: 11px; color: var(--mute); font-weight: 400;
+    line-height: 1.3; display: none;
   }
-  .scale-option:hover .row {
+  .scale-option:hover .tile { border-color: var(--teal); transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(88, 164, 174, 0.15); }
+  .scale-option:hover .tile .num { background: var(--teal-soft); color: var(--teal); }
+  .scale-option input:checked + .tile {
     border-color: var(--teal); background: var(--teal-soft);
-    transform: translateX(2px);
+    box-shadow: 0 6px 20px rgba(88, 164, 174, 0.25);
   }
-  .scale-option input:checked + .row {
-    border-color: var(--teal); background: var(--teal-soft);
-    box-shadow: 0 4px 16px rgba(88, 164, 174, 0.18);
-  }
-  .scale-option input:checked + .row .num-pill {
+  .scale-option input:checked + .tile .num {
     background: var(--teal); color: #fff;
   }
+  @media (max-width: 600px) {
+    .scale-row { gap: 6px; }
+    .scale-option .tile { padding: 12px 4px 10px; }
+    .scale-option .num { width: 30px; height: 30px; font-size: 14px; }
+    .scale-option .lbl { font-size: 10px; }
+  }
 
-  /* Multiple choice */
-  .choices { display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px; }
+  /* Multiple choice (stays vertical - options are long) */
+  .choices { display: flex; flex-direction: column; gap: 10px; margin-top: 18px; }
   .choice { cursor: pointer; position: relative; display: block; }
   .choice input { position: absolute; opacity: 0; pointer-events: none; }
-  .choice .row {
-    padding: 18px 22px;
-    border: 1.5px solid var(--line); border-radius: 12px;
-    background: var(--card); transition: all 0.18s ease;
-    font-size: 15px; line-height: 1.5; color: var(--ink);
-    font-weight: 500;
-  }
-  .choice:hover .row {
-    border-color: var(--teal); background: var(--teal-soft);
-    transform: translateX(2px);
-  }
-  .choice input:checked + .row {
-    border-color: var(--teal); background: var(--teal-soft);
-    box-shadow: 0 4px 16px rgba(88, 164, 174, 0.18);
-  }
+  .choice .row { padding: 17px 22px; border: 1.5px solid var(--line);
+    border-radius: 12px; background: var(--card);
+    transition: all 0.18s ease; font-size: 15px; line-height: 1.5;
+    color: var(--ink); font-weight: 500; }
+  .choice:hover .row { border-color: var(--teal); background: var(--teal-soft); transform: translateX(2px); }
+  .choice input:checked + .row { border-color: var(--teal); background: var(--teal-soft);
+    box-shadow: 0 4px 16px rgba(88, 164, 174, 0.18); }
 
-  /* Section divider page */
-  .section-divider {
-    text-align: center; padding: 60px 0;
-  }
+  /* Section divider */
+  .section-divider { text-align: center; padding: 50px 0; }
   .section-divider .num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 64px; color: var(--pink); font-weight: 500;
-    line-height: 1; margin-bottom: 8px; font-style: italic;
+    display: inline-block; padding: 6px 14px;
+    background: var(--pink-soft); color: var(--pink);
+    border-radius: 999px; font-size: 12px; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    margin-bottom: 18px;
   }
-  .section-divider .name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 38px; color: var(--navy); font-weight: 600;
-    line-height: 1.1; margin-bottom: 16px;
-  }
-  .section-divider .desc {
-    font-size: 16px; color: var(--slate); max-width: 420px; margin: 0 auto;
-  }
+  .section-divider .name { font-size: 36px; color: var(--navy);
+    font-weight: 800; line-height: 1.15; margin-bottom: 12px;
+    letter-spacing: -0.025em; }
+  .section-divider .desc { font-size: 16px; color: var(--slate);
+    max-width: 460px; margin: 0 auto 28px; }
 
-  /* Form fields */
+  /* Form */
   .field { margin-bottom: 18px; }
-  .field label {
-    display: block; font-size: 14px; font-weight: 600;
-    color: var(--slate); margin-bottom: 8px;
-  }
+  .field label { display: block; font-size: 14px; font-weight: 600;
+    color: var(--slate); margin-bottom: 8px; }
   .field input, .field select {
     width: 100%; padding: 14px 16px; border: 1.5px solid var(--line);
     border-radius: 10px; font-family: inherit; font-size: 16px;
-    color: var(--ink); background: var(--card); transition: border-color 0.2s, box-shadow 0.2s;
+    color: var(--ink); background: var(--card);
+    transition: border-color 0.2s, box-shadow 0.2s;
   }
-  .field input:focus, .field select:focus {
-    outline: none; border-color: var(--teal);
-    box-shadow: 0 0 0 4px rgba(88, 164, 174, 0.12);
-  }
+  .field input:focus, .field select:focus { outline: none; border-color: var(--teal);
+    box-shadow: 0 0 0 4px rgba(88, 164, 174, 0.12); }
 
   /* Buttons */
-  .actions {
-    display: flex; gap: 12px; justify-content: space-between; align-items: center;
-    margin-top: auto; padding-top: 28px;
-  }
-  button.btn {
-    font-family: inherit; cursor: pointer; border: none;
+  .actions { display: flex; gap: 12px; justify-content: space-between;
+    align-items: center; margin-top: auto; padding-top: 28px; }
+  .actions.center { justify-content: center; }
+  button.btn { font-family: inherit; cursor: pointer; border: none;
     font-size: 15px; font-weight: 600; padding: 14px 30px;
-    border-radius: 999px; transition: all 0.2s ease;
-    letter-spacing: 0.005em;
-  }
-  .btn-primary {
-    background: var(--navy); color: #fff;
-    box-shadow: 0 4px 14px rgba(54, 63, 81, 0.18);
-  }
-  .btn-primary:hover {
-    background: var(--ink); transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(54, 63, 81, 0.25);
-  }
-  .btn-primary:disabled {
-    background: var(--line); color: var(--mute); cursor: not-allowed;
-    transform: none; box-shadow: none;
-  }
-  .btn-ghost {
-    background: transparent; color: var(--slate); padding: 12px 16px;
-  }
+    border-radius: 999px; transition: all 0.2s ease; letter-spacing: -0.005em; }
+  .btn-primary { background: var(--navy); color: #fff;
+    box-shadow: 0 4px 14px rgba(54, 63, 81, 0.18); }
+  .btn-primary:hover { background: var(--ink); transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(54, 63, 81, 0.25); }
+  .btn-primary:disabled { background: var(--line); color: var(--mute);
+    cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-ghost { background: transparent; color: var(--slate); padding: 12px 16px; }
   .btn-ghost:hover { color: var(--navy); }
   .btn-ghost:disabled { opacity: 0.25; cursor: not-allowed; }
-  .btn-large {
-    padding: 17px 40px; font-size: 16px;
-  }
+  .btn-large { padding: 17px 40px; font-size: 16px; }
 
   /* Results */
-  .score-hero { text-align: center; padding: 16px 0 24px; }
-  .score-hero .eyebrow { margin-bottom: 16px; }
-  .score-number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 110px; font-weight: 600; line-height: 1;
-    letter-spacing: -0.03em; color: var(--navy);
-    display: inline-block;
-  }
-  .score-out-of {
-    font-size: 32px; color: var(--mute); font-weight: 500;
-    font-family: 'Cormorant Garamond', serif;
-  }
-  .tier-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 32px; font-weight: 600; margin: 20px 0 6px;
-    color: var(--teal); letter-spacing: -0.005em;
-  }
-  .tier-meaning {
-    background: var(--pink-soft); border-left: 3px solid var(--pink);
+  .score-hero { text-align: center; padding: 8px 0 18px; }
+  .score-hero .eyebrow { margin-bottom: 18px; }
+  .score-number { font-size: 96px; font-weight: 800; line-height: 1;
+    letter-spacing: -0.05em; color: var(--navy); display: inline-block; }
+  .score-out-of { font-size: 32px; color: var(--mute); font-weight: 600;
+    letter-spacing: -0.02em; }
+  .tier-name { font-size: 28px; font-weight: 700; margin: 18px 0 6px;
+    color: var(--teal); letter-spacing: -0.015em; }
+  .tier-meaning { background: var(--pink-soft); border-left: 3px solid var(--pink);
     padding: 22px 26px; border-radius: 6px; text-align: left;
-    color: var(--ink); font-size: 15px; line-height: 1.65; margin: 28px 0;
-  }
-  .section-breakdown {
-    border-top: 1px solid var(--line); padding-top: 28px; margin: 20px 0 0;
-  }
-  .section-breakdown h3 {
-    font-size: 12px; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.16em; color: var(--mute); margin-bottom: 18px;
-  }
-  .section-row {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 12px 0; font-size: 15px; gap: 14px;
-  }
+    color: var(--ink); font-size: 15px; line-height: 1.65; margin: 26px 0; }
+  .section-breakdown { border-top: 1px solid var(--line); padding-top: 26px; margin: 20px 0 0; }
+  .section-breakdown h3 { font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.16em; color: var(--mute); margin-bottom: 18px; }
+  .section-row { display: flex; justify-content: space-between; align-items: center;
+    padding: 12px 0; font-size: 15px; gap: 14px; }
   .section-row + .section-row { border-top: 1px solid var(--line-soft); }
   .section-row .name { color: var(--ink); font-weight: 500; flex-shrink: 0; min-width: 140px; }
   .section-row .val { font-weight: 700; color: var(--navy); font-variant-numeric: tabular-nums; }
-  .section-bar {
-    flex: 1; height: 5px; background: var(--line); border-radius: 999px;
-    overflow: hidden; max-width: 200px;
-  }
+  .section-bar { flex: 1; height: 5px; background: var(--line); border-radius: 999px;
+    overflow: hidden; max-width: 200px; }
   .section-bar-fill { height: 100%; background: var(--teal); border-radius: 999px;
     transition: width 1s cubic-bezier(0.4, 0, 0.2, 1); }
 
-  .cta-block {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
-    color: #fff; border-radius: 14px; padding: 32px; margin-top: 32px;
-    text-align: center; position: relative; overflow: hidden;
-  }
-  .cta-block::before {
-    content: ''; position: absolute; top: -40px; right: -40px;
-    width: 160px; height: 160px; background: var(--teal); opacity: 0.15;
-    border-radius: 50%;
-  }
-  .cta-block h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 26px; font-weight: 600; margin-bottom: 10px;
-    position: relative;
-  }
-  .cta-block p { font-size: 15px; opacity: 0.85; margin-bottom: 22px; position: relative; }
-  .cta-button {
-    display: inline-block; background: #fff; color: var(--navy);
+  .cta-block { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-soft) 100%);
+    color: #fff; border-radius: 14px; padding: 32px; margin-top: 30px;
+    text-align: center; position: relative; overflow: hidden; }
+  .cta-block::before { content: ''; position: absolute; top: -50px; right: -50px;
+    width: 180px; height: 180px; background: var(--teal); opacity: 0.18; border-radius: 50%; }
+  .cta-block h3 { font-size: 24px; font-weight: 700; margin-bottom: 10px;
+    letter-spacing: -0.015em; position: relative; }
+  .cta-block p { font-size: 15px; opacity: 0.88; margin-bottom: 22px; position: relative; }
+  .cta-button { display: inline-block; background: #fff; color: var(--navy);
     padding: 14px 36px; border-radius: 999px; text-decoration: none;
-    font-weight: 700; font-size: 15px; transition: all 0.2s;
-    position: relative;
-  }
+    font-weight: 700; font-size: 15px; transition: all 0.2s; position: relative; }
   .cta-button:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
 
-  .foot-note {
-    text-align: center; font-size: 12px; color: var(--mute);
-    margin-top: 24px; line-height: 1.6;
-  }
+  .foot-note { text-align: center; font-size: 12px; color: var(--mute);
+    margin-top: 24px; line-height: 1.6; }
   .foot-note a { color: var(--teal); text-decoration: none; font-weight: 600; }
 
-  /* Loading */
   .loading { text-align: center; padding: 80px 20px; }
-  .spinner {
-    width: 40px; height: 40px; border: 3px solid var(--line);
+  .spinner { width: 40px; height: 40px; border: 3px solid var(--line);
     border-top-color: var(--teal); border-radius: 50%;
-    animation: spin 0.9s linear infinite; margin: 0 auto 20px;
-  }
+    animation: spin 0.9s linear infinite; margin: 0 auto 20px; }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* Gate form */
-  .gate-intro {
-    text-align: center; margin-bottom: 32px;
-  }
+  .gate-intro { text-align: center; margin-bottom: 32px; }
   .gate-intro .eyebrow { color: var(--pink); }
+
+  /* Scale legend (under the row) */
+  .scale-legend { display: flex; justify-content: space-between;
+    margin-top: 8px; padding: 0 4px; font-size: 11px; color: var(--mute);
+    font-weight: 500; letter-spacing: 0.02em; }
+  @media (max-width: 600px) { .scale-legend { display: none; } }
+
+  /* Back link at top of question */
+  .back-link { background: none; border: none; cursor: pointer;
+    color: var(--mute); font-family: inherit; font-size: 13px;
+    font-weight: 500; padding: 0; margin-bottom: 18px;
+    display: inline-flex; align-items: center; gap: 4px;
+    transition: color 0.2s; }
+  .back-link:hover { color: var(--navy); }
 </style>
 </head>
 <body>
 <div class="wrap">
 
   <div class="logo-bar">
-    <!-- Affinity Accounting logo (inline SVG from brand kit) -->
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 481.5571 42.1063" aria-label="Affinity Accounting">
       <g>
         <path d="M69.1016,5.0942,80.0894,35.4424H76.1245L71.5483,22.8306H63.3022L58.6411,35.4424H54.6553L65.7905,5.0942Zm1.2446,14.4463-2.9107-8.0561-2.9311,8.0561Z" fill="#363f51"/>
@@ -399,90 +308,58 @@
 
   <div class="card">
 
-    <!-- INTRO -->
     <div class="step active" id="step-intro">
       <div class="eyebrow">Financial Health Assessment</div>
       <h1 class="title">How healthy<br><span class="accent">are your numbers?</span></h1>
-      <p class="lede">A quick diagnostic for owner-led service businesses. Answer 24 questions and we will show you exactly where your financial foundation is strong and where there is room to grow.</p>
-
+      <p class="lede">A quick diagnostic for owner-led service businesses. Answer 24 questions and we will show you exactly where your financial foundation is strong, and where there is room to grow.</p>
       <div class="intro-meta">
         <div class="intro-meta-item"><strong>24</strong><span>questions</span></div>
         <div class="intro-meta-item"><strong>5</strong><span>minutes</span></div>
         <div class="intro-meta-item"><strong>Instant</strong><span>score</span></div>
       </div>
-
       <div class="actions" style="justify-content: flex-end;">
         <button class="btn btn-primary btn-large" onclick="startQuiz()">Begin Assessment &rarr;</button>
       </div>
     </div>
 
-    <!-- DYNAMIC STEPS (section dividers + questions) -->
     <div id="question-host"></div>
 
-    <!-- GATE (capture before reveal) -->
     <div class="step" id="step-gate">
       <div class="gate-intro">
         <div class="eyebrow">Almost there</div>
         <h2 class="q-heading">Where should we send your score?</h2>
-        <p class="lede" style="margin: 0 auto 20px;">Add your details below to unlock your Financial Health Score and personalized breakdown.</p>
+        <p class="lede" style="margin: 0 auto 20px;">Add your details to unlock your Financial Health Score and personalized breakdown.</p>
       </div>
-
-      <div class="field">
-        <label for="f_name">Your name</label>
-        <input type="text" id="f_name" autocomplete="name" />
-      </div>
-      <div class="field">
-        <label for="f_email">Work email</label>
-        <input type="email" id="f_email" autocomplete="email" />
-      </div>
-      <div class="field">
-        <label for="f_company">Business name</label>
-        <input type="text" id="f_company" autocomplete="organization" />
-      </div>
-
+      <div class="field"><label for="f_name">Your name</label><input type="text" id="f_name" autocomplete="name" /></div>
+      <div class="field"><label for="f_email">Work email</label><input type="email" id="f_email" autocomplete="email" /></div>
+      <div class="field"><label for="f_company">Business name</label><input type="text" id="f_company" autocomplete="organization" /></div>
       <div class="actions">
         <button class="btn btn-ghost" onclick="prevStep()">&larr; Back</button>
         <button class="btn btn-primary btn-large" onclick="submitGate()">Show My Score &rarr;</button>
       </div>
-      <p class="foot-note" style="margin-top: 16px;">
-        Your results stay private. We will never share your information.
-      </p>
+      <p class="foot-note" style="margin-top: 16px;">Your results stay private. We will never share your information.</p>
     </div>
 
-    <!-- SUBMITTING -->
     <div class="step" id="step-submitting">
-      <div class="loading">
-        <div class="spinner"></div>
+      <div class="loading"><div class="spinner"></div>
         <p style="color: var(--slate); font-weight: 500;">Calculating your Financial Health Score...</p>
       </div>
     </div>
 
-    <!-- RESULTS -->
     <div class="step" id="step-results">
       <div class="score-hero">
         <div class="eyebrow">Your Financial Health Score</div>
-        <div>
-          <span class="score-number" id="scoreNumber">0</span><span class="score-out-of"> / 100</span>
-        </div>
+        <div><span class="score-number" id="scoreNumber">0</span><span class="score-out-of"> / 100</span></div>
         <h2 class="tier-name" id="tierName"></h2>
       </div>
-
       <div class="tier-meaning" id="tierMeaning"></div>
-
-      <div class="section-breakdown">
-        <h3>Score by Area</h3>
-        <div id="sectionBars"></div>
-      </div>
-
+      <div class="section-breakdown"><h3>Score by Area</h3><div id="sectionBars"></div></div>
       <div class="cta-block">
         <h3>Ready to dig deeper?</h3>
         <p>Book a no-obligation discovery call. We will walk through your assessment and pinpoint the single highest-leverage move for your business.</p>
         <a class="cta-button" href="https://affinitymke.com/contact/" target="_blank" rel="noopener">Book a Discovery Call</a>
       </div>
-
-      <p class="foot-note">
-        Questions? Email <a href="mailto:info@affinitymke.com">info@affinitymke.com</a> &nbsp;or call (414) 533-8100.
-      </p>
+      <p class="foot-note">Questions? Email <a href="mailto:info@affinitymke.com">info@affinitymke.com</a> &nbsp;or call (414) 533-8100.</p>
     </div>
 
   </div>
@@ -495,127 +372,64 @@
 </div>
 
 <script>
-/* ---------- DATA ---------- */
 const SECTIONS = [
-  {
-    name: "Accounting",
-    subtitle: "How reliable is your core accounting function?",
+  { name: "Accounting", subtitle: "How reliable is your core accounting function?",
     questions: [
       { id: "q1", title: "Financial Statements", text: "Financial statements are consistently produced, reviewed, and trusted on a monthly basis." },
       { id: "q2", title: "Account Reconciliations", text: "Bank, credit card, AP, AR, and fixed assets are reconciled and reviewed monthly." },
       { id: "q3", title: "Invoices and Payments", text: "Tracking receivables and payables, issuing invoices, and following up on collections is reliable and timely." },
       { id: "q4", title: "Bookkeeping", text: "Day-to-day bookkeeping (transaction review and categorization) is organized, consistent, and reliable." }
-    ]
-  },
-  {
-    name: "Cash Flow",
-    subtitle: "How clear is your view of current and future cash?",
+  ]},
+  { name: "Cash Flow", subtitle: "How clear is your view of current and future cash?",
     questions: [
       { id: "q5", title: "Cash Flow Forecasting", text: "A rolling cash flow forecast is in place, starting from current cash and looking forward at least 90 days." },
       { id: "q6", title: "Minimum Cash Target", text: "A defined minimum cash target has been established and is actively monitored." },
       { id: "q7", title: "Cash Shortfall Visibility", text: "Cash shortfalls are anticipated in advance, not discovered as surprises." }
-    ]
-  },
-  {
-    name: "Profitability",
-    subtitle: "How well do you understand what drives profit?",
+  ]},
+  { name: "Profitability", subtitle: "How well do you understand what drives profit?",
     questions: [
       { id: "q8", title: "Margins", text: "Gross margins are known and understood by project, job, client, or service line." },
       { id: "q9", title: "Pricing", text: "Pricing decisions are modeled for profitability, not just revenue.", hint: 'You can answer "What is our effective hourly rate after scope creep and write-offs?"' },
       { id: "q10", title: "Breakeven", text: "A breakeven revenue model has been developed and is understood." }
-    ]
-  },
-  {
-    name: "Planning",
-    subtitle: "How well can you plan ahead with confidence?",
+  ]},
+  { name: "Planning", subtitle: "How well can you plan ahead with confidence?",
     questions: [
       { id: "q11", title: "Budgeting and Forecasting", text: "Revenues, expenses, and cash flow are planned annually and updated with rolling forecasts.", hint: "You have a budget and you compare actual results to it regularly." },
       { id: "q12", title: "Affordability and Decision Confidence", text: "Financial implications are evaluated before acting.", hint: 'You can answer "Can we afford this?" before committing.' },
       { id: "q13", title: "Capacity, Productivity, and KPIs", text: "Labor productivity, capacity, and KPIs are defined and used to anticipate bottlenecks and plan effectively." },
       { id: "q14", title: "Decision Modeling", text: "Major decisions (hiring, pricing, investments) are evaluated with financial models or scenario analysis.", hint: "Decisions are supported by data and projections, not just gut instinct." }
-    ]
-  },
-  {
-    name: "Systems and Reporting",
-    subtitle: "Do your financial systems produce useful information?",
+  ]},
+  { name: "Systems and Reporting", subtitle: "Do your financial systems produce useful information?",
     questions: [
       { id: "q15", title: "Chart of Accounts", text: "The chart of accounts is simple, consistent, and structured to support meaningful reporting." },
       { id: "q16", title: "Job-Level Reporting", text: "Reporting provides clear visibility into performance by job, project, service line, or client." },
       { id: "q17", title: "System Integration", text: "Accounting, payroll, CRM, and operational systems are reasonably integrated and support reliable reporting." },
       { id: "q18", title: "Internal Controls", text: "Sufficient internal controls exist for segregation of duties and protection of assets." }
-    ]
-  },
-  {
-    name: "Tax",
-    subtitle: "How proactive is your tax function?",
+  ]},
+  { name: "Tax", subtitle: "How proactive is your tax function?",
     questions: [
       { id: "q19", title: "Tax Compliance", text: "Payroll, sales tax, and income tax filings are organized, timely, and predictable." },
       { id: "q20", title: "Tax Planning", text: "Tax planning, minimization strategies, and estimated payments are intentional and proactive." }
-    ]
-  },
-  {
-    name: "Leadership and Alignment",
-    subtitle: "How does your team work with the numbers?",
+  ]},
+  { name: "Leadership and Alignment", subtitle: "How does your team work with the numbers?",
     questions: [
-      {
-        id: "q21",
-        title: "Leadership Access to Financials",
-        text: "How would you describe your leadership team's access to financial information?",
-        type: "choice",
-        options: [
-          "It is mostly in my head. I am the only one who really knows the numbers.",
-          "Key leaders get information when they ask, but there is no regular cadence.",
-          "We share financial reports with leadership monthly.",
-          "We have real-time dashboards and regular financial reviews across the team."
-        ]
-      },
-      {
-        id: "q22",
-        title: "Decision-Making Continuity",
-        text: "If you were unavailable for 30 days, how would financial decision-making continue?",
-        type: "choice",
-        options: [
-          "It would essentially stop. I am the only one who makes financial decisions.",
-          "Someone could handle day-to-day, but strategic decisions would wait.",
-          "A trusted leader could step in with some guidance.",
-          "The team has the information and authority to continue making sound decisions."
-        ]
-      },
-      {
-        id: "q23",
-        title: "Strategic Alignment",
-        text: "How well are your strategic and financial objectives communicated across the organization?",
-        type: "choice",
-        options: [
-          "We do not have clearly defined financial objectives.",
-          "I have objectives in mind, but they have not been formally shared.",
-          "Objectives are communicated, but execution does not consistently align.",
-          "Objectives are clear, shared, and team behaviors consistently support them."
-        ]
-      },
-      {
-        id: "q24",
-        title: "Concentration Risk",
-        text: "How would you describe your awareness of concentration risk (client, revenue, or vendor dependency)?",
-        type: "choice",
-        hint: '"What happens to our business if we lose our biggest client?"',
-        options: [
-          "I have not thought about it much.",
-          "I have a general sense but have not quantified it.",
-          "I know our largest client concentration but have not stress-tested it.",
-          "I actively monitor concentration and have a plan if a major client or revenue stream is lost."
-        ]
-      }
-    ]
-  }
+      { id: "q21", title: "Leadership Access", text: "How would you describe your leadership team's access to financial information?", type: "choice",
+        options: ["It is mostly in my head. I am the only one who really knows the numbers.", "Key leaders get information when they ask, but there is no regular cadence.", "We share financial reports with leadership monthly.", "We have real-time dashboards and regular financial reviews across the team."] },
+      { id: "q22", title: "Decision-Making Continuity", text: "If you were unavailable for 30 days, how would financial decision-making continue?", type: "choice",
+        options: ["It would essentially stop. I am the only one who makes financial decisions.", "Someone could handle day-to-day, but strategic decisions would wait.", "A trusted leader could step in with some guidance.", "The team has the information and authority to continue making sound decisions."] },
+      { id: "q23", title: "Strategic Alignment", text: "How well are your strategic and financial objectives communicated across the organization?", type: "choice",
+        options: ["We do not have clearly defined financial objectives.", "I have objectives in mind, but they have not been formally shared.", "Objectives are communicated, but execution does not consistently align.", "Objectives are clear, shared, and team behaviors consistently support them."] },
+      { id: "q24", title: "Concentration Risk", text: "How would you describe your awareness of concentration risk (client, revenue, or vendor dependency)?", type: "choice", hint: '"What happens to our business if we lose our biggest client?"',
+        options: ["I have not thought about it much.", "I have a general sense but have not quantified it.", "I know our largest client concentration but have not stress-tested it.", "I actively monitor concentration and have a plan if a major client or revenue stream is lost."] }
+  ]}
 ];
 
 const SCALE = [
-  { val: 1, label: "Not in place",  desc: "Does not exist or is unreliable" },
-  { val: 2, label: "Inconsistent",  desc: "Exists but irregular or person-dependent" },
-  { val: 3, label: "Functional",    desc: "Works but informal or manual" },
-  { val: 4, label: "Consistent",    desc: "Well-defined and repeatable" },
-  { val: 5, label: "Embedded",      desc: "Fully integrated and relied upon" }
+  { val: 1, label: "Not in place" },
+  { val: 2, label: "Inconsistent" },
+  { val: 3, label: "Functional" },
+  { val: 4, label: "Consistent" },
+  { val: 5, label: "Embedded" }
 ];
 
 const TIERS = [
@@ -629,79 +443,65 @@ const TIERS = [
     meaning: "Your financial operations are mature and well-integrated. The focus shifts to high-level strategic initiatives: growth modeling, M&A readiness, compensation benchmarking, board-level reporting, and long-term value creation. You are positioned to use financial leadership as a competitive advantage." }
 ];
 
-/* ---------- STATE ---------- */
-const state = {
-  snapshot: {},
-  answers: {},
-  step: 0,
-  steps: []
-};
+const state = { snapshot: {}, answers: {}, step: 0, steps: [] };
 
-/* ---------- BUILD ---------- */
 function buildSteps() {
   const host = document.getElementById('question-host');
   let qIndex = 0;
-
   SECTIONS.forEach((sec, sIdx) => {
-    /* Section divider */
     const dividerId = `step-divider-${sIdx}`;
     const dDiv = document.createElement('div');
-    dDiv.className = 'step';
-    dDiv.id = dividerId;
+    dDiv.className = 'step'; dDiv.id = dividerId;
     dDiv.innerHTML = `
       <div class="section-divider">
-        <div class="num">0${sIdx + 1}</div>
+        <div class="num">Section ${sIdx + 1} of 7</div>
         <div class="name">${sec.name}</div>
         <p class="desc">${sec.subtitle}</p>
+        <button class="btn btn-primary btn-large" onclick="nextStep()">Continue &rarr;</button>
       </div>
-      <div class="actions">
+      <div class="actions" style="border-top: 1px solid var(--line-soft); padding-top: 18px; margin-top: 20px;">
         <button class="btn btn-ghost" onclick="prevStep()">&larr; Back</button>
-        <button class="btn btn-primary" onclick="nextStep()">Continue &rarr;</button>
-      </div>
-    `;
+        <span></span>
+      </div>`;
     host.appendChild(dDiv);
     state.steps.push({ id: dividerId, type: 'divider', section: sec.name, sIdx });
 
-    /* Questions */
     sec.questions.forEach(q => {
       qIndex++;
       const stepId = `step-${q.id}`;
       const div = document.createElement('div');
-      div.className = 'step';
-      div.id = stepId;
-
+      div.className = 'step'; div.id = stepId;
       const isChoice = q.type === 'choice';
+
       const optionsHtml = isChoice
-        ? q.options.map((opt, i) => `
-            <label class="choice">
-              <input type="radio" name="${q.id}" value="${i + 1}" onchange="onAnswer('${q.id}', ${i + 1})" />
-              <div class="row">${opt}</div>
-            </label>
-          `).join('')
-        : SCALE.map(s => `
-            <label class="scale-option">
-              <input type="radio" name="${q.id}" value="${s.val}" onchange="onAnswer('${q.id}', ${s.val})" />
-              <div class="row">
-                <div class="num-pill">${s.val}</div>
-                <div>
-                  <div class="opt-label">${s.label}</div>
-                  <div class="opt-desc">${s.desc}</div>
+        ? `<div class="choices" role="radiogroup" aria-label="${q.title}">
+            ${q.options.map((opt, i) => `
+              <label class="choice">
+                <input type="radio" name="${q.id}" value="${i + 1}" onchange="onAnswer('${q.id}', ${i + 1})" />
+                <div class="row">${opt}</div>
+              </label>`).join('')}
+           </div>`
+        : `<div class="scale-row" role="radiogroup" aria-label="${q.title}">
+            ${SCALE.map(s => `
+              <label class="scale-option">
+                <input type="radio" name="${q.id}" value="${s.val}" onchange="onAnswer('${q.id}', ${s.val})" />
+                <div class="tile">
+                  <div class="num">${s.val}</div>
+                  <div class="lbl">${s.label}</div>
                 </div>
-              </div>
-            </label>
-          `).join('');
+              </label>`).join('')}
+           </div>
+           <div class="scale-legend">
+             <span>Not in place</span>
+             <span>Fully embedded</span>
+           </div>`;
 
       div.innerHTML = `
-        <div class="eyebrow">${sec.name} &nbsp;&middot;&nbsp; Question ${qIndex}</div>
+        <button class="back-link" onclick="prevStep()">&larr; Back</button>
+        <div class="eyebrow">${sec.name} &nbsp;&middot;&nbsp; Question ${qIndex} of 24</div>
         <h2 class="q-heading">${q.text}</h2>
-        ${q.hint ? `<p class="q-hint">${q.hint}</p>` : '<div style="margin-bottom: 8px"></div>'}
-        <div class="${isChoice ? 'choices' : 'scale-list'}" role="radiogroup" aria-label="${q.title}">
-          ${optionsHtml}
-        </div>
-        <div class="actions">
-          <button class="btn btn-ghost" onclick="prevStep()">&larr; Back</button>
-          <button class="btn btn-primary" id="next-${q.id}" disabled onclick="nextStep()">Next &rarr;</button>
-        </div>
+        ${q.hint ? `<p class="q-hint">${q.hint}</p>` : ''}
+        ${optionsHtml}
       `;
       host.appendChild(div);
       state.steps.push({ id: stepId, type: isChoice ? 'choice' : 'scale', qid: q.id, section: sec.name, qnum: qIndex });
@@ -709,10 +509,8 @@ function buildSteps() {
   });
 }
 
-/* ---------- NAVIGATION ---------- */
 function showStep(idx) {
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-
   if (idx === -1) {
     document.getElementById('step-intro').classList.add('active');
     document.getElementById('progressWrap').classList.remove('visible');
@@ -728,80 +526,47 @@ function showStep(idx) {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-function startQuiz() {
-  state.step = 0;
-  showStep(0);
-}
-
-function nextStep() {
-  state.step++;
-  showStep(state.step);
-}
-
+function startQuiz() { state.step = 0; showStep(0); }
+function nextStep() { state.step++; showStep(state.step); }
 function prevStep() {
-  if (state.step <= 0) {
-    state.step = -1;
-    showStep(-1);
-    return;
-  }
-  state.step--;
-  showStep(state.step);
+  if (state.step <= 0) { state.step = -1; showStep(-1); return; }
+  state.step--; showStep(state.step);
 }
 
+/* Auto-advance on answer so no scroll-to-Next */
 function onAnswer(qid, val) {
   state.answers[qid] = val;
-  const btn = document.getElementById(`next-${qid}`);
-  if (btn) btn.disabled = false;
+  setTimeout(() => { nextStep(); }, 280);
 }
 
 function updateProgress(idx) {
   const wrap = document.getElementById('progressWrap');
   const cur = state.steps[idx];
-  if (cur.type === 'divider') {
-    wrap.classList.remove('visible');
-    return;
-  }
+  if (cur.type === 'divider') { wrap.classList.remove('visible'); return; }
   wrap.classList.add('visible');
-  const totalQ = 24;
-  const pct = (cur.qnum / totalQ) * 100;
+  const pct = (cur.qnum / 24) * 100;
   document.getElementById('progressFill').style.width = pct + '%';
   document.getElementById('progressLabel').textContent = cur.section;
-  document.getElementById('progressCount').textContent = `${cur.qnum} of ${totalQ}`;
+  document.getElementById('progressCount').textContent = `${cur.qnum} of 24`;
 }
 
-/* ---------- SCORING ---------- */
 function computeScore() {
-  let total = 0;
-  const bySection = {};
+  let total = 0; const bySection = {};
   SECTIONS.slice(0, 6).forEach(sec => {
     let sSum = 0;
-    sec.questions.forEach(q => {
-      const v = parseInt(state.answers[q.id] || 0, 10);
-      sSum += v;
-      total += v;
-    });
+    sec.questions.forEach(q => { const v = parseInt(state.answers[q.id] || 0, 10); sSum += v; total += v; });
     bySection[sec.name] = { score: sSum, max: sec.questions.length * 5 };
   });
   return { total, bySection };
 }
+function tierFor(score) { return TIERS.find(t => score >= t.min && score <= t.max) || TIERS[0]; }
 
-function tierFor(score) {
-  return TIERS.find(t => score >= t.min && score <= t.max) || TIERS[0];
-}
-
-/* ---------- GATE + RESULTS ---------- */
 function submitGate() {
   const name = document.getElementById('f_name').value.trim();
   const email = document.getElementById('f_email').value.trim();
   const company = document.getElementById('f_company').value.trim();
-  if (!name || !email || !company) {
-    alert('Please fill in all three fields to see your score.');
-    return;
-  }
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-    alert('Please enter a valid email address.');
-    return;
-  }
+  if (!name || !email || !company) { alert('Please fill in all three fields to see your score.'); return; }
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { alert('Please enter a valid email address.'); return; }
   state.snapshot = { name, email, company };
   document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
   document.getElementById('step-submitting').classList.add('active');
@@ -811,46 +576,27 @@ function submitGate() {
 
   const payload = {
     _subject: `New FHA submission: ${company} (${total}/100 - ${tier.name})`,
-    _replyto: email,
-    _template: 'table',
-    Name: name,
-    Email: email,
-    Company: company,
-    Score: total,
-    Tier: tier.name,
+    _replyto: email, _template: 'table',
+    Name: name, Email: email, Company: company,
+    Score: total, Tier: tier.name,
     SectionScores: Object.entries(bySection).map(([k,v]) => `${k}: ${v.score}/${v.max}`).join(' | '),
-    Q1_FinancialStatements: state.answers.q1,
-    Q2_Reconciliations: state.answers.q2,
-    Q3_InvoicesPayments: state.answers.q3,
-    Q4_Bookkeeping: state.answers.q4,
-    Q5_CashFlowForecasting: state.answers.q5,
-    Q6_MinCashTarget: state.answers.q6,
-    Q7_ShortfallVisibility: state.answers.q7,
-    Q8_Margins: state.answers.q8,
-    Q9_Pricing: state.answers.q9,
-    Q10_Breakeven: state.answers.q10,
-    Q11_Budgeting: state.answers.q11,
-    Q12_Affordability: state.answers.q12,
-    Q13_KPIs: state.answers.q13,
-    Q14_DecisionModeling: state.answers.q14,
-    Q15_ChartOfAccounts: state.answers.q15,
-    Q16_JobLevelReporting: state.answers.q16,
-    Q17_SystemIntegration: state.answers.q17,
-    Q18_InternalControls: state.answers.q18,
-    Q19_TaxCompliance: state.answers.q19,
-    Q20_TaxPlanning: state.answers.q20,
-    Q21_LeadershipAccess: state.answers.q21,
-    Q22_DecisionContinuity: state.answers.q22,
-    Q23_StrategicAlignment: state.answers.q23,
-    Q24_ConcentrationRisk: state.answers.q24
+    Q1_FinancialStatements: state.answers.q1, Q2_Reconciliations: state.answers.q2,
+    Q3_InvoicesPayments: state.answers.q3, Q4_Bookkeeping: state.answers.q4,
+    Q5_CashFlowForecasting: state.answers.q5, Q6_MinCashTarget: state.answers.q6,
+    Q7_ShortfallVisibility: state.answers.q7, Q8_Margins: state.answers.q8,
+    Q9_Pricing: state.answers.q9, Q10_Breakeven: state.answers.q10,
+    Q11_Budgeting: state.answers.q11, Q12_Affordability: state.answers.q12,
+    Q13_KPIs: state.answers.q13, Q14_DecisionModeling: state.answers.q14,
+    Q15_ChartOfAccounts: state.answers.q15, Q16_JobLevelReporting: state.answers.q16,
+    Q17_SystemIntegration: state.answers.q17, Q18_InternalControls: state.answers.q18,
+    Q19_TaxCompliance: state.answers.q19, Q20_TaxPlanning: state.answers.q20,
+    Q21_LeadershipAccess: state.answers.q21, Q22_DecisionContinuity: state.answers.q22,
+    Q23_StrategicAlignment: state.answers.q23, Q24_ConcentrationRisk: state.answers.q24
   };
-
   fetch('https://formsubmit.co/ajax/info@affinitymke.com', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
     body: JSON.stringify(payload)
-  }).catch(() => { })
-    .finally(() => renderResults(total, bySection, tier));
+  }).catch(() => { }).finally(() => renderResults(total, bySection, tier));
 }
 
 function renderResults(total, bySection, tier) {
@@ -860,30 +606,16 @@ function renderResults(total, bySection, tier) {
     document.getElementById('scoreNumber').textContent = total;
     document.getElementById('tierName').textContent = tier.name;
     document.getElementById('tierMeaning').textContent = tier.meaning;
-
     const host = document.getElementById('sectionBars');
     host.innerHTML = Object.entries(bySection).map(([name, v]) => {
       const pct = Math.round((v.score / v.max) * 100);
-      return `
-        <div class="section-row">
-          <span class="name">${name}</span>
-          <div class="section-bar"><div class="section-bar-fill" style="width: 0%" data-target="${pct}"></div></div>
-          <span class="val">${v.score} / ${v.max}</span>
-        </div>
-      `;
+      return `<div class="section-row"><span class="name">${name}</span><div class="section-bar"><div class="section-bar-fill" style="width: 0%" data-target="${pct}"></div></div><span class="val">${v.score} / ${v.max}</span></div>`;
     }).join('');
-
-    requestAnimationFrame(() => {
-      document.querySelectorAll('.section-bar-fill').forEach(el => {
-        el.style.width = el.dataset.target + '%';
-      });
-    });
-
+    requestAnimationFrame(() => { document.querySelectorAll('.section-bar-fill').forEach(el => { el.style.width = el.dataset.target + '%'; }); });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, 1100);
 }
 
-/* ---------- INIT ---------- */
 buildSteps();
 </script>
 </body>

@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>U-Nique Accounting — Keyword Recovery Audit (May 2026)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --paper: #F9F9FF; --navy: #070630; --blue: #3872EB; --lilac: #E6E9FF;
+    --mute: #6C6E8A; --hair: rgba(7,6,48,0.10); --ink: #070630;
+    --good: #10b981; --warn: #d97706; --bad: #c43a2a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--paper); font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink); line-height: 1.6; -webkit-font-smoothing: antialiased; font-size: 15px;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 48px 24px 80px; }
+  .crumb { font-size:12px; letter-spacing:0.18em; text-transform:uppercase; font-weight:700; color:var(--mute); margin-bottom:12px; }
+  .crumb a { color: var(--blue); text-decoration: none; }
+  .pill {
+    display: inline-block; background: var(--blue); color: white;
+    padding: 6px 14px; border-radius: 999px;
+    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+    font-weight: 700; border: 2px solid var(--navy); box-shadow: 4px 4px 0 var(--navy);
+  }
+  .pill.urgent { background: var(--bad); }
+  h1 {
+    font-family: Bangers, Impact, sans-serif;
+    font-size: clamp(36px, 6vw, 62px); line-height: 0.95;
+    color: var(--navy); margin: 20px 0 8px; letter-spacing: 0.02em;
+  }
+  h1 .accent { color: var(--blue); }
+  h2 {
+    font-family: Bangers, sans-serif; font-size: clamp(24px, 3.5vw, 34px);
+    color: var(--navy); margin: 52px 0 16px; letter-spacing: 0.04em;
+  }
+  h2 .num { color: var(--blue); margin-right: 8px; }
+  .lede { font-size: 17px; color: var(--mute); max-width: 760px; margin-top: 14px; }
+  .meta { color: var(--mute); font-size: 12px; margin-top: 12px; letter-spacing:0.08em; text-transform:uppercase; font-weight:600; }
+
+  .card {
+    background: white; border: 2px solid var(--navy); border-radius: 12px;
+    padding: 22px 24px; box-shadow: 5px 5px 0 var(--navy); margin-top: 16px;
+  }
+  .card h3 { font-family: Bangers, sans-serif; font-size: 22px; letter-spacing: 0.04em; color: var(--navy); margin-bottom: 10px; }
+  .card p { font-size: 15px; margin-bottom: 10px; }
+  .card p:last-child { margin-bottom: 0; }
+  .card.bad { border-color: var(--bad); box-shadow: 5px 5px 0 var(--bad); }
+  .card.good { border-color: var(--good); box-shadow: 5px 5px 0 var(--good); }
+  .card.warn { border-color: var(--warn); box-shadow: 5px 5px 0 var(--warn); }
+
+  .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 24px; }
+  @media (max-width: 720px) { .kpi-row { grid-template-columns: repeat(2,1fr); } }
+  .kpi {
+    background: white; border: 2px solid var(--navy); border-radius: 12px;
+    padding: 16px 18px; box-shadow: 5px 5px 0 var(--navy);
+  }
+  .kpi .label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mute); margin-bottom: 8px; font-weight:700; }
+  .kpi .value { font-family: Bangers, sans-serif; font-size: 30px; color: var(--navy); line-height: 1; }
+  .kpi .delta { margin-top: 6px; font-size: 12px; color: var(--blue); font-weight: 600; }
+  .kpi .delta.down { color: var(--bad); }
+  .kpi .delta.up { color: var(--good); }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 13px; }
+  th, td { padding: 10px 8px; text-align: left; border-bottom: 1px dashed var(--hair); vertical-align: top; }
+  th { background: var(--lilac); font-weight: 700; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy); }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  td.urlcell { font-family: monospace; font-size: 12px; }
+  tr.bad td.num { color: var(--bad); }
+
+  .tag {
+    display: inline-block; padding: 3px 10px; border-radius: 999px;
+    font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+    font-weight: 700; background: var(--lilac); color: var(--navy);
+    white-space: nowrap;
+  }
+  .tag.done { background: #d1fae5; color: #064e3b; }
+  .tag.queued { background: #fef3c7; color: #5b3905; }
+  .tag.blocked { background: #fee2e2; color: #7f1d1d; }
+  .tag.live { background: var(--good); color: white; }
+
+  .chart-wrap { background: white; border: 2px solid var(--navy); border-radius: 12px; padding: 22px 24px; box-shadow: 5px 5px 0 var(--navy); margin-top: 16px; }
+  .chart-wrap h4 { font-family: Bangers, sans-serif; font-size: 18px; letter-spacing: 0.04em; color: var(--navy); margin-bottom: 14px; }
+
+  .fix-list { list-style: none; padding: 0; }
+  .fix-list li {
+    padding: 14px 0; border-bottom: 1px dashed var(--hair);
+    display: grid; grid-template-columns: 30px 1fr auto; gap: 14px; align-items: start;
+  }
+  .fix-list li:last-child { border-bottom: none; }
+  .fix-list .step { font-family: Bangers, sans-serif; font-size: 22px; color: var(--blue); }
+  .fix-list strong { color: var(--navy); }
+  .fix-list .sub { color: var(--mute); font-size: 13px; margin-top: 4px; }
+
+  .footer-note {
+    margin-top: 64px; padding-top: 24px; border-top: 2px dashed var(--hair);
+    color: var(--mute); font-size: 12px; text-align: center;
+    letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
+  }
+  .footer-note a { color: var(--blue); text-decoration: none; }
+  a.link { color: var(--blue); text-decoration: none; }
+  a.link:hover { text-decoration: underline; }
+  .evidence { background: var(--lilac); padding: 12px 14px; border-radius: 8px; font-size: 13px; color: var(--navy); margin-top: 10px; }
+  .evidence strong { color: var(--navy); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="crumb"><a href="https://markology-agency.github.io/pages/u-nique-accounting/">U-Nique Accounting Hub</a> &rsaquo; Keyword Recovery Audit (May 2026)</div>
+  <span class="pill urgent">Recovery Audit</span>
+  <h1>KEYWORD RECOVERY<br/><span class="accent">DEC '25 → MAY '26.</span></h1>
+  <p class="lede">Diagnosis and recovery plan for the 70% tracked-keyword pullback. Root cause pinned via Google Search Console + SEMrush + page-level forensics. Markology-side fixes pushed today; client-blocked items queued in Asana for the May 27 call with Matt.</p>
+  <div class="meta">Built May 26, 2026 &middot; For meeting May 27, 2026</div>
+
+  <h2><span class="num">1.</span>The Numbers</h2>
+  <div class="kpi-row">
+    <div class="kpi">
+      <div class="label">Tracked Keywords</div>
+      <div class="value">322</div>
+      <div class="delta down">&darr; from 1,069 in Dec</div>
+    </div>
+    <div class="kpi">
+      <div class="label">GSC Impressions (May)</div>
+      <div class="value">6,934</div>
+      <div class="delta down">&darr; 70% vs Dec (22,811)</div>
+    </div>
+    <div class="kpi">
+      <div class="label">GSC Clicks (May)</div>
+      <div class="value">10</div>
+      <div class="delta down">&darr; 81% vs Dec (54)</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Avg Position</div>
+      <div class="value">40.6</div>
+      <div class="delta">vs 38.6 in Dec (held)</div>
+    </div>
+  </div>
+
+  <div class="chart-wrap">
+    <h4>6-MONTH IMPRESSIONS + KEYWORDS TRAJECTORY</h4>
+    <canvas id="trendChart" height="120"></canvas>
+  </div>
+
+  <h2><span class="num">2.</span>Root Cause</h2>
+  <div class="card bad">
+    <h3>Content Freshness Collapse + Missing Schema, NOT a Penalty</h3>
+    <p>This is not a Google manual action, not a noindex/canonical regression, not a site migration. Every one of the 15 top traffic pages still PASSES URL Inspection ("Submitted and indexed") and carries proper canonical tags. Average position barely moved (38.6 &rarr; 40.6).</p>
+    <p>What collapsed was <strong>impression-share for long-tail queries</strong>, not rank for held queries. Specifically:</p>
+    <div class="evidence">
+      <strong>The evidence:</strong>
+      <ul style="margin-top:8px; padding-left:20px;">
+        <li><code>/13-month-calendar-explained/</code> &mdash; position 14.2 &rarr; 13.0 (improved!), impressions 2,225 &rarr; 355 (-84%). Page held its top spots, lost long-tail coverage.</li>
+        <li><strong>22 high-volume queries (10+ impressions in Dec) disappeared entirely</strong> by May: "restaurant p&amp;l template", "13 month calendar", "bar bookkeeping software", "accounting software for cafes", "average restaurant labor cost", etc.</li>
+        <li>Last-modified dates are stale: <code>/13-month-calendar-explained/</code> = 2022-10-13, <code>/how-profitable-are-breweries/</code> = 2023-04-25, <code>/fica-tip-credit-2025/</code> = 2022-07-15, <code>/4-basic-aspects-business-revenue/</code> = 2021-10-18.</li>
+        <li><strong>NO page on the site carries FAQPage schema.</strong> Top 15 decayed pages have Article + BreadcrumbList only, missing the extractable Q&amp;A markup that 2025-26 Google increasingly favors for SERP feature inclusion (FAQ rich result + AI Overview citation).</li>
+        <li>Several pages have <strong>multiple URLs ranking for the same keyword</strong> (cannibalization): "brewery accounting" hits 3 URLs, "marginedge" hits 2, "13-month calendar" hits 5+. Internal cannibalization splits ranking signals.</li>
+        <li>One key page is <strong>"Crawled but not indexed"</strong>: <code>/cash-tips-versus-credit-card-tips/</code> (last crawled 2025-12-04, modified 2025-11-25, 5,962 words). Lost all 252 Dec impressions.</li>
+        <li>Several pages haven't been crawled by Google since Feb-Apr 2026 &mdash; crawl frequency is decaying alongside content freshness.</li>
+      </ul>
+    </div>
+    <p style="margin-top: 14px;"><strong>Mechanism, plain English.</strong> Google's 2026 SERPs have shifted hard toward AI Overviews and freshness-weighted SERP features. When a 2022-modified article competes with a 2025-26 article on a long-tail query like "13 month calendar", the older article loses impression share even when its core rank position holds. Add cannibalization splitting equity, and missing FAQ schema dropping the page out of feature-eligibility, and you get exactly this curve: <strong>flat-ish positions, collapsed impressions, evaporated long-tail queries</strong>.</p>
+  </div>
+
+  <h2><span class="num">3.</span>Top 10 Decayed Pages + Their Fix</h2>
+  <div class="card">
+    <table>
+      <thead>
+        <tr><th>Page</th><th>Dec Impr.</th><th>May Impr.</th><th>Pos Dec→May</th><th>Prescribed Fix</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr class="bad">
+          <td class="urlcell"><a class="link" href="https://u-niqueaccounting.com/13-month-calendar-explained/">/13-month-calendar-explained/</a></td>
+          <td class="num">2,225</td>
+          <td class="num">355</td>
+          <td class="num">14.2 → 13.0</td>
+          <td>Refresh body for 2026, add FAQPage schema, add dateModified bump. Consolidate the 5 cannibalizing URLs with 301 redirects to this one. Internal-link from <code>/restaurant-chart-of-accounts-2025/</code> using anchor "13-period calendar".</td>
+          <td><span class="tag queued">WP Pending</span></td>
+        </tr>
+        <tr class="bad">
+          <td class="urlcell"><a class="link" href="https://u-niqueaccounting.com/how-profitable-are-breweries/">/how-profitable-are-breweries/</a></td>
+          <td class="num">1,025</td>
+          <td class="num">223</td>
+          <td class="num">16.8 → 26.2</td>
+          <td>Full refresh with 2026 BLS + Brewers Association data. Add FAQPage schema (5 Q&amp;As: "How much do breweries make?", "How long to brewery profitability?", "What's a good brewery margin?"). dateModified bump.</td>
+          <td><span class="tag queued">WP Pending</span></td>
+        </tr>
+        <tr class="bad">
+          <td class="urlcell"><a class="link" href="https://u-niqueaccounting.com/fica-tip-credit-calculator/">/fica-tip-credit-calculator/</a></td>
+          <td class="num">742</td>
+          <td class="num">80</td>
+          <td class="num">12.4 → 31.1</td>
+          <td>Missing Article schema entirely (only has BreadcrumbList). Add full BlogPosting + FAQPage + SoftwareApplication schema. Add visible 2026 FICA wage-base callout below the calculator. Internal-link in from /fica-tip-credit-2025/.</td>
+          <td><span class="tag queued">WP Pending</span></td>
+        </tr>
+        <tr class="bad">
+          <td class="urlcell"><a class="link" href="https://u-niqueaccounting.com/cash-tips-versus-credit-card-tips/">/cash-tips-versus-credit-card-tips/</a></td>
+          <td class="num">252</td>
+          <td class="num">0</td>
+          <td class="num">22.8 → 100</td>
+          <td><strong>Currently "Crawled, not indexed."</strong> Indexing API URL_UPDATED ping submitted today. Add FAQPage schema. Inbound link from <code>/no-tax-on-tips-for-restaurant-owners/</code> using anchor "cash vs credit card tip reporting".</td>
+          <td><span class="tag done">Indexing pinged · WP edits pending</span></td>
+        </tr>
+        <tr class="bad">
+          <td class="urlcell"><a class="link" href="https://u-niqueaccounting.com/p-l-for-restaurant-template/">/p-l-for-restaurant-template/</a></td>
+          <td class="num">384</td>
+          <td class="num">0</td>
+          <td class="num">35.6 → 100</td>
+          <td><strong>Single H2 is "Enter Your Email To Download"</strong> &mdash; lead-magnet gate is hiding the entire article. Add 6 visible H2s answering "what should a restaurant P&amp;L include", "how to read a restaurant P&amp;L", etc. above the email gate. FAQPage schema.</td>
+          <td><span class="tag queued">WP Pending</span></td>
+        </tr>
+        <tr class="bad">
+          <td class="urlcell"><a class="link" href="https://u-niqueaccounting.com/create-restaurant-budget-2025/">/create-restaurant-budget-2025/</a></td>
+          <td class="num">372</td>
+          <td class="num">1</td>
+          <td class="num">56.6 → 63.0</td>
+          <td>Title says "in 2025" &mdash; rename slug + URL to <code>/create-restaurant-budget-2026/</code> with 301 from old. Refresh body for 2026 NRA figures. FAQPage schema.</td>
+          <td><span class="tag queued">WP Pending</span></td>
+        </tr>
+        <tr class="bad">
+          <td class="urlcell"><a class="link" href="https://u-niqueaccounting.com/ideal-restaurant-labor-costs/">/ideal-restaurant-labor-costs/</a></td>
+          <td class="num">527</td>
+          <td class="num">5</td>
+          <td class="num">74.9 → 42.6</td>
+          <td>Position recovered (-32 spots), impressions still gutted. Modified 2024-07. Refresh with 2026 labor-cost benchmarks (BLS QCEW restaurant industry data Q1 2026). Add LaborCostCalculator FAQ Q&amp;A pairs.</td>
+          <td><span class="tag queued">WP Pending</span></td>
+        </tr>
+        <tr class="bad">
+          <td class="urlcell"><a class="link" href="https://u-niqueaccounting.com/overhead-costs-for-restaurants/">/overhead-costs-for-restaurants/</a></td>
+          <td class="num">531</td>
+          <td class="num">105</td>
+          <td class="num">19.1 → 20.0</td>
+          <td>Best-modified page in the top 10 (2025-09). Just needs FAQPage schema + 2026 utility-cost benchmark refresh + an inbound link from /restaurant-chart-of-accounts-2025/.</td>
+          <td><span class="tag queued">WP Pending</span></td>
+        </tr>
+        <tr class="bad">
+          <td class="urlcell"><a class="link" href="https://u-niqueaccounting.com/best-restaurant-accounting-software-2025/">/best-restaurant-accounting-software-2025/</a></td>
+          <td class="num">434</td>
+          <td class="num">47</td>
+          <td class="num">59.9 → 29.0</td>
+          <td>Position recovered to 29 (huge!), impressions still suppressed. Modified 2024-03. Rename slug to <code>/best-restaurant-accounting-software-2026/</code> with 301. Refresh content for 2026, expand from 3 H2s to 7 (one per software). FAQPage schema. Already crawled 2026-05-13.</td>
+          <td><span class="tag queued">WP Pending</span></td>
+        </tr>
+        <tr class="bad">
+          <td class="urlcell"><a class="link" href="https://u-niqueaccounting.com/fica-tip-credit-2025/">/fica-tip-credit-2025/</a></td>
+          <td class="num">445</td>
+          <td class="num">81</td>
+          <td class="num">41.2 → 22.6</td>
+          <td>Position recovering. Modified 2022-07 (4 years stale!). Rename slug to <code>/fica-tip-credit-2026/</code> with 301. Refresh with 2026 FICA wage base ($176,100). FAQPage schema. Internal-link to /fica-tip-credit-calculator/ with anchor "FICA tip credit calculator".</td>
+          <td><span class="tag queued">WP Pending</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2><span class="num">4.</span>What Markology Pushed Today</h2>
+
+  <div class="card good">
+    <h3>Indexing API — 15 URLs Force-Pinged</h3>
+    <p>Submitted <code>URL_UPDATED</code> notifications via Google Indexing API for the 15 top decayed pages, including the "Crawled but not indexed" <code>/cash-tips-versus-credit-card-tips/</code>. All 15 returned HTTP 200. Google now has Markology's signal that these URLs should be re-crawled and re-evaluated.</p>
+    <div class="evidence"><strong>Done:</strong> 15/15 successful Indexing API publishes at 2026-05-26.</div>
+  </div>
+
+  <div class="card good">
+    <h3>Sitemap Resubmission via GSC API</h3>
+    <p>Force-resubmitted <code>https://u-niqueaccounting.com/sitemap_index.xml</code> via the Search Console API (PUT to /sitemaps endpoint). Last submission was 2026-03-26 &mdash; a 2-month gap. Returned HTTP 204 (accepted). This nudges Google's crawl scheduler to re-prioritize the 186 post URLs and 40 page URLs.</p>
+    <div class="evidence"><strong>Done:</strong> Sitemap PUT 2026-05-26 (HTTP 204).</div>
+  </div>
+
+  <div class="card good">
+    <h3>Diagnostic Trail Documented</h3>
+    <p>GSC search-analytics queries for Dec 25 + Jan-May 26 captured, page-level diffs cached, URL Inspection results cached, decayed-page schema inventory cached. Full diagnostic dataset stored at <code>/tmp/gsc_data.json</code> + <code>/tmp/page_scan.json</code> for the recovery sprint to reference.</p>
+    <div class="evidence"><strong>Done:</strong> Full forensic dataset captured for handoff to next sprint.</div>
+  </div>
+
+  <div class="card warn">
+    <h3>WP REST Writes — Blocked Pending App Password</h3>
+    <p>The on-page rewrites (FAQPage schema injection, dateModified bumps, body refreshes, internal-link injection, slug renames + 301s) require a WordPress Application Password for u-niqueaccounting.com that's owned by Markology. The agency creds in LastPass are the firm-admin login &mdash; not a Markology-owned App Password &mdash; so a sandboxed write would be high-risk in an automation context.</p>
+    <p><strong>Ask for Matt on the May 27 call:</strong> Issue a WP Application Password for <code>whitney@markology.io</code> (or a dedicated <code>markology@u-niqueaccounting.com</code> user) with Editor role. Once issued, the entire on-page recovery sprint ships within 24 hours.</p>
+  </div>
+
+  <h2><span class="num">5.</span>Fastest Path to Top 5 — June Wins</h2>
+  <div class="card">
+    <p>These keywords already rank close enough to top-10 that a focused refresh moves them onto page 1 within 30 days. Listed in order of ROI.</p>
+    <ol class="fix-list">
+      <li>
+        <span class="step">1</span>
+        <span>
+          <strong>"how much do breweries make"</strong> &mdash; currently pos 6 on <code>/how-profitable-are-breweries/</code>, 70 vol. <br/>
+          <span class="sub">One-off win. Refresh the lead paragraph with a direct dollar answer ("US breweries average $X-Y in annual revenue per..."), add FAQPage schema with this query as Q1, bump dateModified. Realistic move: pos 6 &rarr; pos 3-4.</span>
+        </span>
+        <span class="tag queued">Refresh</span>
+      </li>
+      <li>
+        <span class="step">2</span>
+        <span>
+          <strong>"xero for restaurants"</strong> &mdash; currently pos 9 on <code>/best-restaurant-accounting-software-2025/</code>, 30 vol. <br/>
+          <span class="sub">Slug rename to /best-restaurant-accounting-software-2026/. Add a dedicated H2 "Why Xero is the best accounting software for restaurants in 2026" with 250 words + internal-link to /xero/. Realistic move: pos 9 &rarr; pos 3.</span>
+        </span>
+        <span class="tag queued">Refresh + slug</span>
+      </li>
+      <li>
+        <span class="step">3</span>
+        <span>
+          <strong>"13 period calendar 2024"</strong> &mdash; currently pos 8 on <code>/13-month-calendar-explained/</code>, 50 vol. <br/>
+          <span class="sub">Add a "13-Period Calendar 2026 Reference" section (table of period start/end dates for restaurants), update title + H1 to reference 2026. Realistic move: pos 8 &rarr; pos 3-4.</span>
+        </span>
+        <span class="tag queued">Refresh</span>
+      </li>
+      <li>
+        <span class="step">4</span>
+        <span>
+          <strong>"unique accountants" / "unique accounting services"</strong> &mdash; currently pos 4 + pos 11 on homepage, 140 combined vol. <br/>
+          <span class="sub">Brand-adjacent keyword. Add an "Why we're called U-Nique" microcopy block on the homepage that naturally hits the phrase "unique accounting services". Realistic move: 11 &rarr; 5, 4 &rarr; 1-2.</span>
+        </span>
+        <span class="tag queued">Homepage edit</span>
+      </li>
+      <li>
+        <span class="step">5</span>
+        <span>
+          <strong>"fica tip credit calculator"</strong> &mdash; currently pos 18 on <code>/fica-tip-credit-calculator/</code>, 140 vol. <br/>
+          <span class="sub">Page is missing Article schema entirely. Add full BlogPosting + SoftwareApplication + FAQPage schema. Add visible 2026 FICA wage-base ($176,100) callout. Internal-link in from refreshed /fica-tip-credit-2026/. Realistic move: pos 18 &rarr; pos 5-8.</span>
+        </span>
+        <span class="tag queued">Schema + content</span>
+      </li>
+    </ol>
+  </div>
+
+  <h2><span class="num">6.</span>The 30 / 60 / 90 Day Plan</h2>
+  <div class="card">
+    <h3>Next 30 Days (June)</h3>
+    <ul class="fix-list">
+      <li><span class="step">+</span><span><strong>Get WP App Password from Matt</strong>, then ship the full 10-page on-page sprint within 72 hours of receipt: FAQPage schema, dateModified bumps, body refreshes, internal-link injection.</span><span class="tag blocked">Client</span></li>
+      <li><span class="step">+</span><span><strong>Consolidate 13-month-calendar cannibalization</strong>: 5 URLs splitting equity. 301 the weaker variants to /13-month-calendar-explained/.</span><span class="tag queued">Markology</span></li>
+      <li><span class="step">+</span><span><strong>Reconnect GA4</strong> in Composio so June EOM report shows real session data again.</span><span class="tag queued">Markology</span></li>
+      <li><span class="step">+</span><span><strong>Re-check URL Inspection</strong> 14 days post-Indexing-API ping. /cash-tips-versus-credit-card-tips/ should re-index.</span><span class="tag queued">Markology</span></li>
+    </ul>
+    <h3>60 Days (July)</h3>
+    <ul class="fix-list">
+      <li><span class="step">+</span><span>Audit the next 20 decayed pages (positions 11-30 by Dec impressions) and run the same fix sprint.</span><span class="tag queued">Markology</span></li>
+      <li><span class="step">+</span><span>Ship 8-10 new SEO blogs in restaurant + brewery rotation, each with FAQPage schema baked in by default going forward.</span><span class="tag queued">Markology</span></li>
+      <li><span class="step">+</span><span>Pull a fresh GSC + SEMrush snapshot. Target: keyword count climbs from 322 to 500+.</span><span class="tag queued">Markology</span></li>
+    </ul>
+    <h3>90 Days (August)</h3>
+    <ul class="fix-list">
+      <li><span class="step">+</span><span>Full re-audit. Compare August GSC impressions vs December baseline (22,811). Target: 60% recovery (~13,500 monthly impressions).</span><span class="tag queued">Markology</span></li>
+      <li><span class="step">+</span><span>E-E-A-T scorecard live at /pages/u-nique-accounting/eeat/ (requires WP App Password to ship the dev side).</span><span class="tag blocked">Client</span></li>
+    </ul>
+  </div>
+
+  <h2><span class="num">7.</span>Asana Trail</h2>
+  <div class="card">
+    <p>The three existing SEO tasks on the U-Nique May 2026 board have been updated with the diagnosis + recovery plan link, and net-new tasks have been opened for each Markology-executable sub-action. Permalinks in the Asana memo at <a class="link" href="https://markology-agency.github.io/pages/u-nique-accounting/meeting-2026-05-27/">/u-nique-accounting/meeting-2026-05-27/</a> (Section 4: Open Items).</p>
+  </div>
+
+  <div class="footer-note">
+    Built by <a href="https://markology.io">Markology</a> &middot; Keyword Recovery Audit &middot; May 26, 2026 &middot; For meeting May 27, 2026
+  </div>
+</div>
+
+<script>
+const ctx = document.getElementById('trendChart').getContext('2d');
+new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['Dec 2025','Jan 2026','Feb 2026','Mar 2026','Apr 2026','May 2026'],
+    datasets: [
+      {
+        label: 'GSC Impressions',
+        data: [22811, 16528, 8691, 12517, 10089, 6934],
+        borderColor: '#3872EB',
+        backgroundColor: 'rgba(56,114,235,0.15)',
+        borderWidth: 3,
+        tension: 0.3,
+        yAxisID: 'y',
+        fill: true,
+        pointBackgroundColor: '#3872EB',
+        pointBorderColor: '#070630',
+        pointBorderWidth: 2,
+        pointRadius: 5,
+      },
+      {
+        label: 'SEMrush Tracked Keywords',
+        data: [1069, 398, 328, 312, 322, 322],
+        borderColor: '#c43a2a',
+        backgroundColor: 'rgba(196,58,42,0.10)',
+        borderWidth: 3,
+        tension: 0.3,
+        yAxisID: 'y1',
+        borderDash: [6,4],
+        pointBackgroundColor: '#c43a2a',
+        pointBorderColor: '#070630',
+        pointBorderWidth: 2,
+        pointRadius: 5,
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    interaction: { mode: 'index', intersect: false },
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { family: 'Inter', size: 12, weight: '600' }, color: '#070630' } },
+      tooltip: { backgroundColor: '#070630', titleFont: { family: 'Inter', weight: '700' }, bodyFont: { family: 'Inter' } },
+    },
+    scales: {
+      y: { type: 'linear', position: 'left', title: { display: true, text: 'GSC Impressions', font: { family: 'Inter', weight: '700' }, color: '#3872EB' }, grid: { color: 'rgba(7,6,48,0.06)' } },
+      y1: { type: 'linear', position: 'right', title: { display: true, text: 'Keywords (SEMrush)', font: { family: 'Inter', weight: '700' }, color: '#c43a2a' }, grid: { drawOnChartArea: false } },
+      x: { grid: { display: false }, ticks: { font: { family: 'Inter', weight: '600' }, color: '#070630' } },
+    }
+  }
+});
+</script>
+</body>
+</html>

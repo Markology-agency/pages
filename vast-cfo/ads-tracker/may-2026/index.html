@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Vast CFO — Ad Performance · May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --paper: #F9F9FF;
+    --navy:  #070630;
+    --blue:  #3872EB;
+    --lilac: #E6E9FF;
+    --mute:  #6C6E8A;
+    --good:  #10b981;
+    --bad:   #ef4444;
+    --watch: #f59e0b;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); font-family: Inter, -apple-system, sans-serif; color: var(--navy); line-height: 1.55; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 48px 28px 96px; }
+  .pill { display: inline-block; background: var(--navy); color: #fff; padding: 6px 14px; border-radius: 999px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; }
+  .pill.blue { background: var(--blue); }
+  .pill.bad { background: var(--bad); }
+  .pill.watch { background: var(--watch); }
+
+  h1 { font-family: Bangers, Impact, sans-serif; font-size: clamp(48px, 8vw, 96px); line-height: 0.95; margin: 18px 0 6px; letter-spacing: 0.02em; }
+  h2 { font-family: Bangers, Impact, sans-serif; font-size: 34px; margin: 48px 0 16px; letter-spacing: 0.02em; }
+  h3 { font-size: 18px; margin: 18px 0 8px; font-weight: 700; }
+  .lede { font-size: 18px; color: var(--mute); max-width: 720px; margin-top: 16px; }
+  .meta { color: var(--mute); font-size: 13px; margin-top: 14px; }
+  .meta strong { color: var(--navy); }
+
+  .alert { background: #FEF3C7; border: 2px solid var(--watch); color: #78350F; padding: 14px 18px; border-radius: 8px; margin: 24px 0; font-weight: 500; }
+
+  .platform-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 32px 0; }
+  @media (max-width: 720px) { .platform-grid { grid-template-columns: 1fr; } }
+  .platform-card { background: #fff; border: 2px solid var(--navy); border-radius: 10px; padding: 24px; box-shadow: 6px 6px 0 var(--navy); }
+  .platform-card .ptag { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mute); font-weight: 700; }
+  .platform-card .ptitle { font-family: Bangers, Impact, sans-serif; font-size: 36px; color: var(--navy); margin: 4px 0 12px; }
+
+  .kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 16px; }
+  .kpi { background: var(--paper); border: 1.5px solid var(--navy); border-radius: 6px; padding: 12px 14px; }
+  .kpi .label { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--mute); font-weight: 600; }
+  .kpi .value { font-family: Bangers, Impact, sans-serif; font-size: 28px; color: var(--navy); line-height: 1; margin-top: 4px; }
+  .kpi .sub { color: var(--mute); font-size: 11px; margin-top: 2px; }
+  .kpi.highlight { background: var(--lilac); }
+  .kpi.bad { background: #FEE2E2; border-color: var(--bad); }
+  .kpi.good { background: #D1FAE5; border-color: var(--good); }
+
+  table { width: 100%; border-collapse: collapse; background: #fff; border: 2px solid var(--navy); border-radius: 8px; overflow: hidden; box-shadow: 5px 5px 0 var(--navy); margin: 16px 0; }
+  thead { background: var(--navy); color: #fff; }
+  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
+  th { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
+  tbody tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 11px; font-weight: 700; }
+  .badge.on { background: var(--good); color: #fff; }
+  .badge.off { background: var(--mute); color: #fff; }
+
+  footer { margin-top: 72px; color: var(--mute); font-size: 13px; text-align: center; }
+  footer a { color: var(--blue); text-decoration: none; }
+
+  .takeaways { background: #fff; border: 2px solid var(--navy); border-radius: 10px; padding: 24px 28px; box-shadow: 6px 6px 0 var(--navy); margin-top: 20px; }
+  .takeaways ul { margin: 12px 0 0 22px; }
+  .takeaways li { margin: 8px 0; font-size: 15px; }
+  .takeaways li strong { color: var(--blue); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="pill blue">Ad Performance · May 2026</span>
+    <h1>VAST CFO</h1>
+    <div class="lede">30-day ad-performance snapshot across Google Ads and Meta. Meta is generating leads; Google Search needs conversion-tracking attention.</div>
+    <div class="meta"><strong>vastcfo.com</strong> &middot; window: 2026-04-26 → 2026-05-26 &middot; data pulled 2026-05-26</div>
+  </header>
+
+  <div class="alert">
+    <strong>Watch:</strong> Google Ads has spent $177 across 274 impressions with zero recorded conversions. Either real conversion volume is low at this spend level, or the conversion action isn't firing on /thank-you/. Verify tracking before scaling budget.
+  </div>
+
+  <div class="platform-grid">
+    <div class="platform-card">
+      <div class="ptag">Google Ads · Last 30 days</div>
+      <div class="ptitle">GOOGLE SEARCH</div>
+      <div class="kpis">
+        <div class="kpi"><div class="label">Spend</div><div class="value">$177</div><div class="sub">3 active search campaigns</div></div>
+        <div class="kpi"><div class="label">Impressions</div><div class="value">274</div></div>
+        <div class="kpi"><div class="label">Clicks</div><div class="value">23</div><div class="sub">CTR 8.39%</div></div>
+        <div class="kpi"><div class="label">Avg CPC</div><div class="value">$7.70</div></div>
+        <div class="kpi bad"><div class="label">Conversions</div><div class="value">0</div><div class="sub">verify pixel</div></div>
+        <div class="kpi"><div class="label">Cost / Conv</div><div class="value">—</div></div>
+      </div>
+    </div>
+
+    <div class="platform-card">
+      <div class="ptag">Meta Ads · Last 30 days</div>
+      <div class="ptitle">META (FB/IG)</div>
+      <div class="kpis">
+        <div class="kpi"><div class="label">Spend</div><div class="value">$150</div><div class="sub">webinar lead-gen test</div></div>
+        <div class="kpi"><div class="label">Impressions</div><div class="value">2,696</div></div>
+        <div class="kpi"><div class="label">Clicks</div><div class="value">61</div><div class="sub">CTR 2.26%</div></div>
+        <div class="kpi"><div class="label">Avg CPC</div><div class="value">$2.46</div></div>
+        <div class="kpi good"><div class="label">Leads</div><div class="value">8</div><div class="sub">on-demand webinar</div></div>
+        <div class="kpi"><div class="label">Cost / Lead</div><div class="value">$18.77</div></div>
+      </div>
+    </div>
+  </div>
+
+  <h2>Google Ads — Campaign Detail</h2>
+  <table>
+    <thead>
+      <tr><th>Campaign</th><th>Type</th><th>Status</th><th>Impr</th><th>Clicks</th><th>Spend</th><th>Conv</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Leads-Search-Restaurant Accounting</td><td>Search</td><td><span class="badge on">ENABLED</span></td><td>241</td><td>18</td><td>$175.71</td><td>0</td></tr>
+      <tr><td>Leads-Search-Vast CFO Exp_ Max Conversions</td><td>Search</td><td><span class="badge on">ENABLED</span></td><td>0</td><td>0</td><td>$0</td><td>0</td></tr>
+      <tr><td>Leads-Search-Multi-Location Restaurant Expansion</td><td>Search</td><td><span class="badge on">ENABLED</span></td><td>2</td><td>0</td><td>$0</td><td>0</td></tr>
+      <tr><td>Performance Max - Vast CFO - Brand</td><td>PMax</td><td><span class="badge off">PAUSED</span></td><td>31</td><td>5</td><td>$1.35</td><td>0</td></tr>
+      <tr><td>May A/B Test (Maximize Conv)</td><td>Search</td><td><span class="badge off">PAUSED</span></td><td>0</td><td>0</td><td>$0</td><td>0</td></tr>
+      <tr><td>Leads-Search-Vast CFO (legacy)</td><td>Search</td><td><span class="badge off">PAUSED</span></td><td>0</td><td>0</td><td>$0</td><td>0</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Meta Ads — Campaign Detail</h2>
+  <table>
+    <thead>
+      <tr><th>Campaign</th><th>Objective</th><th>Status</th><th>Budget</th><th>Account Spend</th><th>Leads</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>On-Demand Webinar - May</td><td>OUTCOME_LEADS</td><td><span class="badge off">PAUSED (ended 5/19)</span></td><td>$355 lifetime</td><td colspan="2" style="text-align:center; color: var(--mute);">8 leads at $18.77 each across account</td></tr>
+      <tr><td>TESTING</td><td>OUTCOME_LEADS</td><td><span class="badge off">PAUSED</span></td><td>$25/day</td><td colspan="2" style="text-align:center; color: var(--mute);">—</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Takeaways</h2>
+  <div class="takeaways">
+    <ul>
+      <li><strong>Meta is the win this month.</strong> 8 webinar leads at $18.77/lead is strong for fractional-CFO B2B. Worth re-launching the webinar campaign or building a v2 evergreen ad set off the same offer.</li>
+      <li><strong>Google Ads needs a conversion-tracking check.</strong> 23 clicks at $7.70 avg CPC with zero recorded conversions is a data signal, not necessarily a performance problem. Confirm the Google Ads conversion pixel fires on /vast-client-quiz/ thank-you and /contact/ thank-you pages before judging the campaign.</li>
+      <li><strong>Restaurant Accounting search campaign is the workhorse.</strong> 241 of the 274 impressions came from this one campaign. Multi-Location and Max-Conv arms are barely getting served — check daily budget caps and quality score on those ad groups.</li>
+      <li><strong>PMax Brand pause was the right call.</strong> Already organic-dominant on brand terms; PMax was paying for clicks that would have been free.</li>
+    </ul>
+  </div>
+
+  <footer>
+    Generated by Markology · 2026-05-26 · <a href="https://markology.io">markology.io</a> · <a href="https://markology-agency.github.io/pages/vast-cfo/">Vast CFO hub</a>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Affinity Accounting — Strategic Refresh, May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--paper:#f7f4ee;--navy:#0b1b3a;--blue:#1f4fff;--lilac:#b9a8ff;--ink:#0b1b3a;--mute:#6a6a72;--hair:rgba(11,27,58,0.10);--good:#10b981;--warn:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:64px 0;}
+@media(max-width:720px){section{padding:40px 0;}.container{padding:0 20px;}}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}.pill.green{background:var(--good);}.pill.warn{background:var(--warn);}
+.hero{background:var(--paper);padding-top:72px;padding-bottom:60px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7vw,80px);line-height:0.95;letter-spacing:0.02em;color:var(--navy);margin:18px 0 0;}
+.hero .lede{font-size:18px;line-height:1.6;color:var(--mute);max-width:760px;margin-top:22px;}
+.hero .meta{margin-top:22px;display:flex;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:32px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+.kpi{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:20px 18px;box-shadow:5px 5px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:10px;text-transform:uppercase;letter-spacing:0.16em;color:var(--blue);font-weight:700;margin-bottom:8px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:38px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .explain{margin-top:8px;font-size:12px;color:var(--mute);line-height:1.5;}
+.section-head{margin-bottom:32px;max-width:820px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(30px,5vw,52px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:12px;}
+.section-head p{font-size:16px;color:var(--mute);margin-top:12px;line-height:1.6;}
+.diag{background:var(--paper);}
+.diag-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+@media(max-width:720px){.diag-grid{grid-template-columns:1fr;}}
+.finding{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:22px 24px;box-shadow:5px 5px 0 var(--navy);}
+.finding h4{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);margin-bottom:8px;}
+.finding .severity{display:inline-block;padding:3px 10px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;margin-bottom:10px;border:2px solid var(--navy);}
+.finding .severity.high{background:#fee2e2;color:#991b1b;}
+.finding .severity.med{background:#fef3c7;color:#92400e;}
+.finding p{font-size:14px;color:var(--mute);line-height:1.55;margin-bottom:8px;}
+.finding p strong{color:var(--navy);}
+.finding code{background:var(--lilac);padding:2px 6px;border-radius:4px;font-size:12px;font-family:'SF Mono','Menlo',monospace;}
+.shipped{background:#fff;}
+.shipped-list{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+@media(max-width:720px){.shipped-list{grid-template-columns:1fr;}}
+.ship{background:var(--lilac);border:2px solid var(--navy);border-radius:14px;padding:22px 24px;box-shadow:5px 5px 0 var(--navy);position:relative;}
+.ship .check{position:absolute;top:-12px;left:20px;background:var(--good);color:#fff;border:2px solid var(--navy);padding:4px 12px;border-radius:8px;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;}
+.ship h4{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);margin-bottom:8px;margin-top:6px;}
+.ship p{font-size:14px;color:var(--navy);line-height:1.55;margin-bottom:8px;}
+.ship .verify{margin-top:10px;font-size:12px;font-weight:600;}
+.ship .verify a{color:var(--blue);text-decoration:none;border-bottom:1.5px dashed var(--blue);}
+.queued{background:var(--paper);}
+.queued-list{display:flex;flex-direction:column;gap:14px;}
+.q{background:#fff;border:2px solid var(--navy);border-radius:12px;padding:18px 24px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;}
+.q .qnum{font-family:'Bangers',sans-serif;font-size:22px;color:var(--blue);min-width:32px;}
+.q h5{font-size:15px;color:var(--navy);font-weight:700;}
+.q p{font-size:13px;color:var(--mute);line-height:1.5;margin-top:4px;}
+.q .owner{font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:4px 10px;background:var(--navy);color:#fff;border-radius:6px;white-space:nowrap;}
+.q .owner.client{background:var(--blue);}.q .owner.markology{background:var(--good);}
+.callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:22px 26px;margin-top:28px;box-shadow:4px 4px 0 var(--navy);}
+.callout strong{color:var(--navy);font-weight:700;}
+.copy-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px;}
+@media(max-width:720px){.copy-grid{grid-template-columns:1fr;}}
+.col{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:22px 24px;}
+.col.before{background:#fee2e2;}
+.col.after{background:#d1fae5;}
+.col h5{font-family:'Bangers',sans-serif;font-size:18px;letter-spacing:0.04em;color:var(--navy);margin-bottom:14px;text-transform:uppercase;}
+.col ul{list-style:none;padding:0;}
+.col li{font-size:13px;color:var(--navy);padding:6px 0;border-bottom:1px dashed rgba(11,27,58,0.15);line-height:1.45;}
+.col li:last-child{border-bottom:none;}
+.directory-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px;}
+@media(max-width:720px){.directory-grid{grid-template-columns:1fr;}}
+.dir{background:#fff;border:2px solid var(--navy);border-radius:10px;padding:12px 16px;font-size:13px;color:var(--navy);}
+.dir .dn{font-weight:700;}
+.dir .du{font-size:11px;color:var(--mute);margin-top:3px;word-break:break-all;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:56px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(28px,4.5vw,44px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--lilac);}
+.footer p{color:#B4B6D6;margin-top:12px;font-size:14px;}
+.footer .built-by{margin-top:24px;padding-top:18px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <span class="pill warn">v1 — Diagnostic + 30-Day Plan</span>
+    <h1>AFFINITY ACCOUNTING<br/>STRATEGIC REFRESH<br/>MAY 2026.</h1>
+    <p class="lede">Affinity is shifting from transactional accounting to productized advisory for $1M–$15M owner-led service businesses in Milwaukee and Chicago. This memo audits where Markology executed in May, where the live channels are out of sync with that positioning, and what Markology is shipping next.</p>
+    <div class="meta">
+      <span><strong>Client:</strong> Affinity Accounting</span>
+      <span><strong>Domain:</strong> affinitymke.com</span>
+      <span><strong>Plan:</strong> Local Monthly</span>
+      <span><strong>Compliance:</strong> CPA / Accounting</span>
+      <span><strong>Owner:</strong> Victoria Haas</span>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi"><div class="label">Active Ad Spend / 30d</div><div class="value">$164</div><div class="explain">Single ENABLED Search campaign at $6/day. 74 clicks, 2,743 impressions, CTR 2.7%.</div></div>
+      <div class="kpi"><div class="label">Conversions / 30d</div><div class="value">0</div><div class="explain">Despite 11 conversion actions configured. Primary-for-goal mix is mis-prioritized. Live CTA "Book a Call" is not primary.</div></div>
+      <div class="kpi"><div class="label">Blog Posts Indexed</div><div class="value">30+</div><div class="explain">Strong content footprint. Author byline = generic "Affinity Accounting" with empty bio across all posts.</div></div>
+      <div class="kpi"><div class="label">May Content Shipped</div><div class="value">4</div><div class="explain">3 blogs to Client Review (Cash Flow, Pricing, FHA), May Newsletter, EOM SEO Report.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="diag">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Diagnostic</span>
+      <h2>What's broken under the hood.</h2>
+      <p>Four findings from the May 2026 audit. Two are conversion-tracking + ad-copy fixes (high impact, fast to ship). Two are E-E-A-T gaps that need WordPress Application Password access before Markology can deploy.</p>
+    </div>
+
+    <div class="diag-grid">
+      <div class="finding">
+        <h4>1. Google Ads conversion attribution is mis-configured</h4>
+        <span class="severity high">High — explains 0 conversions</span>
+        <p><strong>What's happening:</strong> 11 conversion actions exist in the account. The CTA Affinity actually optimizes for, <code>Book a Call (Button)</code>, is not marked <code>primaryForGoal</code>. Neither is <code>Contact form Submission</code>. The actions Google currently uses for bid optimization are <code>Local actions - Website visits</code> and <code>Local actions - Other engagements</code> — both inflate counts and don't represent leads.</p>
+        <p><strong>Why it matters:</strong> Google's Maximize Conversions algorithm is bidding for the wrong signal. Real leads (booked calls, form fills, phone clicks) aren't counted, so spend optimizes around website-visits noise.</p>
+        <p><strong>Fix (queued for Whitney auth):</strong> Demote <code>Local actions - Website visits</code> and <code>Local actions - Other engagements</code> from primary. Promote <code>Book a Call (Button)</code> and <code>Contact form Submission</code> to primary.</p>
+      </div>
+
+      <div class="finding">
+        <h4>2. Active campaign is bleeding budget to consumer tax-prep</h4>
+        <span class="severity high">High — 25%+ of spend is off-ICP</span>
+        <p><strong>Evidence (search terms, last 30d):</strong> 45 impressions on <code>tax preparers near me</code>, 47 on <code>cpa milwaukee</code>, queries for <code>hr block</code>, <code>jackson hewitt</code>, <code>tax preparer</code>, <code>where's my refund</code>. These are individual W-2 filers, not $1M–$15M owner-led businesses.</p>
+        <p><strong>Fix (queued for Whitney auth):</strong> Add 25 negative keywords at the campaign level — consumer tax-prep brands (TurboTax, H&amp;R Block, Jackson Hewitt, Liberty Tax, TaxAct), DIY intent (free file, tax software, where's my refund), job-search intent (jobs, career, internship), and tax-debt intent (tax resolution, back taxes, tax lien).</p>
+      </div>
+
+      <div class="finding">
+        <h4>3. Ad copy doesn't reflect the new $1M–$15M owner-led ICP</h4>
+        <span class="severity med">Medium — opportunity cost</span>
+        <p><strong>Current state (8 enabled RSAs):</strong> Generic headlines: "Accounting Services Milwaukee", "5-Star Rated On Google", "Trusted Milwaukee Accountants". Zero references to the brand's central differentiator (proactive-not-reactive), the productized-advisory shift, the $1M–$15M revenue band, or Chicago. Reads as a generic Milwaukee CPA, not Affinity.</p>
+        <p><strong>Fix (queued for Whitney auth):</strong> Add 2 new RSA variants per ad group that lead with proactive positioning, owner-led-business framing, and Chicago geo. See "Ad copy refresh" section below.</p>
+      </div>
+
+      <div class="finding">
+        <h4>4. E-E-A-T author signal is empty across 30+ blog posts</h4>
+        <span class="severity med">Medium — AI discovery + Google quality</span>
+        <p><strong>Evidence:</strong> The WordPress REST API returns 2 user accounts (<code>affinitymke</code>, <code>wpvalet</code>) both with empty <code>description</code> fields. Every blog post is bylined "Affinity Accounting" with no Person schema, no credential signals, no jobTitle, no knowsAbout fields. Same gap on /about/.</p>
+        <p><strong>Fix (blocked on WP App Password):</strong> Inject Person schema for Victoria Haas + team on each post, append visible Author Bio HTML, add Organization + Service schema enrichment, draft <code>llms.txt</code>. Same playbook Markology shipped on KB Financial Advisors May 12 — see <a href="https://markology-agency.github.io/pages/kb-financial-advisors/eeat/">KB scorecard</a>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="shipped">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill green">Shipped In May</span>
+      <h2>What Markology executed.</h2>
+      <p>Six deliverables landed in May. All content passed em-dash + AI-cliché preflight before flipping to Client Review.</p>
+    </div>
+    <div class="shipped-list">
+      <div class="ship">
+        <span class="check">Shipped</span>
+        <h4>Blog: Cash Flow Conversation</h4>
+        <p>Reframed per Victoria's May 18 edit (kill "every new client" framing; lean on general industry framework citing SBA, JPMorgan Chase Institute, Federal Reserve). Title updated. 0 em-dashes, 2 internal links.</p>
+        <p class="verify"><a href="https://docs.google.com/document/d/1CXoRk-yFWfle5O53bDZ2WGw7rnch82DKQ7HAylnRNKQ/edit">Read draft &rarr;</a></p>
+      </div>
+      <div class="ship">
+        <span class="check">Shipped</span>
+        <h4>Blog: Pricing Strategy for Marketing Agencies</h4>
+        <p>Reframed per Victoria's May 18 edit (removed all "we see everyone's books" framing; cites SoDA, Agency Management Institute, Fed Reserve). 0 em-dashes, 2 internal links (marketing-agencies + accounting-milwaukee).</p>
+        <p class="verify"><a href="https://docs.google.com/document/d/11BYHUXsJA65u2x7oUkqwxrVxPbBd0frJuFayILf5Q3k/edit">Read draft &rarr;</a></p>
+      </div>
+      <div class="ship">
+        <span class="check">Shipped</span>
+        <h4>Email: May Newsletter — Q2 Estimated Payments</h4>
+        <p>Milwaukee-local angle, Victoria-forward voice. Preview text revised — banned phrase "no fluff" replaced with "direct". 3 subject-line options. Paste-ready in task notes.</p>
+        <p class="verify"><a href="https://app.asana.com/1/1195948299032337/project/1214286915894662/task/1214286859671536">Open task &rarr;</a></p>
+      </div>
+      <div class="ship">
+        <span class="check">Shipped</span>
+        <h4>End of Month SEO Report</h4>
+        <p>YTD Jan 1 → May 26, 2026. Brand-templated GH Pages page. Filters branded keywords. Ready for client review.</p>
+        <p class="verify"><a href="https://markology-agency.github.io/pages/affinity-accounting/may-2026/">View report &rarr;</a></p>
+      </div>
+      <div class="ship">
+        <span class="check">Shipped</span>
+        <h4>Q3 Content Brainstorm</h4>
+        <p>8 topics aligned to LLC marketing cluster, owner-led $1M-$15M ICP, and seasonal triggers. Mix of S-corp election, Wisconsin MACT credit, mid-year tax, bookkeeping pricing, side-hustle-to-LLC, P&amp;L diagnostics, restaurant accounting.</p>
+        <p class="verify"><a href="https://app.asana.com/1/1195948299032337/project/1214286915894662/task/1214286915926426">Open task &rarr;</a></p>
+      </div>
+      <div class="ship">
+        <span class="check">Shipped</span>
+        <h4>Ads &amp; Site Diagnostic</h4>
+        <p>This memo. Conv-tracking misconfig identified. 25 negatives queued. 8 new RSA variants drafted. WP author/schema baseline pulled. Next steps blocked on Whitney auth + Vita's WP App Password.</p>
+        <p class="verify"><a href="#queued">Jump to queued work &rarr;</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="diag" id="copy-refresh">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Ad Copy Refresh</span>
+      <h2>Old generic → new ICP-aligned.</h2>
+      <p>Recommended headline rotation for each ad group. Drops generic local CPA framing in favor of the proactive-advisory positioning Victoria locked in her 2026 SamePager. Adds Chicago. Keeps "Book a Call" CTA per CLAUDE.md brand standard.</p>
+    </div>
+    <div class="copy-grid">
+      <div class="col before">
+        <h5>Current Headlines (sampled)</h5>
+        <ul>
+          <li>Accounting Services Milwaukee</li>
+          <li>Trusted Accounting Firm</li>
+          <li>Accounting Company Near You</li>
+          <li>5-Star Rated On Google</li>
+          <li>Trusted Milwaukee Accountants</li>
+          <li>Milwaukee CPA &amp; Advisory</li>
+          <li>KPI Tracking</li>
+          <li>Payroll Support</li>
+          <li>In-Depth Financial Analysis</li>
+          <li>Monthly Reporting</li>
+        </ul>
+      </div>
+      <div class="col after">
+        <h5>Proposed New Headlines</h5>
+        <ul>
+          <li>Proactive Milwaukee CPA Firm</li>
+          <li>For $1M–$15M Owner-Led Firms</li>
+          <li>Milwaukee + Chicago Advisory</li>
+          <li>Productized Accounting, Tax &amp; CFO</li>
+          <li>Numbers That Drive Decisions</li>
+          <li>Bring You The Numbers Early</li>
+          <li>Your Outsourced CFO Partner</li>
+          <li>Built For Service-Business Owners</li>
+          <li>Real-Time Financial Visibility</li>
+          <li>Book A No-Obligation Call</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout"><strong>Description copy reference (brand-aligned):</strong> "Proactive CPA firm for Milwaukee + Chicago service-business owners doing $1M–$15M. Real strategy, not just tax filing. Book a no-obligation call." | "We bring you the numbers before you ask. Productized monthly accounting + tax + CFO for owner-led firms." | "Tell-the-truth-kindly advisory. Cash visibility, pricing math, owner pay strategy." | "5-star Milwaukee + Chicago CPA. Same firm. Different conversation."</div>
+  </div>
+</section>
+
+<section class="queued" id="queued">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Queued — Whitney Auth Required</span>
+      <h2>Ad mutations + conv-tracking flips.</h2>
+      <p>Three Google Ads writes are drafted and ready. Sandbox blocked the bulk mutation without explicit per-action Whitney approval. Each is reversible.</p>
+    </div>
+    <div class="queued-list">
+      <div class="q">
+        <span class="qnum">A1</span>
+        <div>
+          <h5>Promote "Book a Call (Button)" + "Contact form Submission" to primaryForGoal=true</h5>
+          <p>Demote "Local actions - Website visits" + "Local actions - Other engagements" from primary. Search campaign optimizes for real leads, not click-throughs.</p>
+        </div>
+        <span class="owner">Whitney auth</span>
+      </div>
+      <div class="q">
+        <span class="qnum">A2</span>
+        <div>
+          <h5>Add 25 negative keywords to Search Campaign 23513402065</h5>
+          <p>turbotax, turbo tax, tax software, taxact, h&amp;r block, jackson hewitt, liberty tax, free tax, free file, irs gov, tax refund calculator, where's my refund, jobs, salary, career, internship, intern, tax resolution, back taxes, tax debt, irs problems, tax lien (BROAD/PHRASE mix).</p>
+        </div>
+        <span class="owner">Whitney auth</span>
+      </div>
+      <div class="q">
+        <span class="qnum">A3</span>
+        <div>
+          <h5>Add 8 new RSA variants (2 per ad group × 4 ad groups)</h5>
+          <p>Lead with proactive positioning, $1M–$15M ICP, Chicago geo. See "Ad Copy Refresh" section above for headline list. Description copy in the callout. Final URLs match existing service pages.</p>
+        </div>
+        <span class="owner">Whitney auth</span>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:48px;">
+      <span class="pill blue">Queued — Vita / Whitney</span>
+      <h2>WP Application Password — unlocks E-E-A-T sprint.</h2>
+      <p>Six Markology-side schema injections are scripted and ready. All blocked on the same single dependency: an Application Password for the Markology admin user on affinitymke.com. Onboarding subtask #2 already exists for this.</p>
+    </div>
+    <div class="queued-list">
+      <div class="q">
+        <span class="qnum">E1</span>
+        <div>
+          <h5>Inject Person schema for Victoria Haas + Renee + Hope</h5>
+          <p>jobTitle, description, knowsAbout, hasCredential properly typed on /about/. Pulls from existing site copy + CLAUDE.md.</p>
+        </div>
+        <span class="owner markology">Markology ship</span>
+      </div>
+      <div class="q">
+        <span class="qnum">E2</span>
+        <div>
+          <h5>Enrich Organization schema on homepage</h5>
+          <p>Add areaServed (Milwaukee + Chicago), sameAs links, knowsAbout, founder, foundingDate. Via Rank Math /rankmath/v1/updateMeta (rank_math_schema_Organization).</p>
+        </div>
+        <span class="owner markology">Markology ship</span>
+      </div>
+      <div class="q">
+        <span class="qnum">E3</span>
+        <div>
+          <h5>Inject Service schema on /accounting-milwaukee/, /bookkeepers-milwaukee/, /tax-services-milwaukee-wi/, /cfo-services-milwaukee/, /accounting-for-marketing-agencies/</h5>
+          <p>5 service pages × Service schema with areaServed, hasOfferCatalog, audience matching the $1M-$15M owner-led ICP.</p>
+        </div>
+        <span class="owner markology">Markology ship</span>
+      </div>
+      <div class="q">
+        <span class="qnum">E4</span>
+        <div>
+          <h5>Add author bylines + bios to recent blog posts</h5>
+          <p>Reassign post_author on 30 posts from generic id:1 to Victoria's author account. Add visible Author Bio HTML block. Inject Person schema per post. Note: Elementor pages won't render REST-injected HTML — service pages need Elementor template edits, blog posts (likely WP standard) should accept REST writes.</p>
+        </div>
+        <span class="owner markology">Markology ship</span>
+      </div>
+      <div class="q">
+        <span class="qnum">E5</span>
+        <div>
+          <h5>Inject FAQ schema + visible Q&amp;A on top 10 organic posts</h5>
+          <p>5 Q&amp;As per post, derived from existing content. Visible Common Questions HTML to match the schema (Google policy). Cache-bust check after deploy (Affinity uses no PageSpeed cache plugin per fingerprint).</p>
+        </div>
+        <span class="owner markology">Markology ship</span>
+      </div>
+      <div class="q">
+        <span class="qnum">E6</span>
+        <div>
+          <h5>Draft llms.txt + queue manual web-root upload</h5>
+          <p>llms.txt content drafted. No REST endpoint for /llms.txt at web root — Vita uploads via FTP or WP admin file manager.</p>
+        </div>
+        <span class="owner client">Vita upload</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="shipped" id="local-seo">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Local SEO — 15x Citations + Backlinks</span>
+      <h2>Milwaukee + Chicago directory plan.</h2>
+      <p>Recurring monthly local-SEO build. Markology drafts the target list, NAP spec, and outreach copy; Whitney executes submissions where forms can't be API-driven.</p>
+    </div>
+    <h3 style="font-family:'Bangers',sans-serif;color:var(--navy);font-size:22px;margin-bottom:14px;letter-spacing:0.04em;">15 May citation targets (Milwaukee + CPA niche)</h3>
+    <div class="directory-grid">
+      <div class="dir"><div class="dn">1. Milwaukee Business Journal</div><div class="du">bizjournals.com/milwaukee/directory</div></div>
+      <div class="dir"><div class="dn">2. BizTimes Milwaukee</div><div class="du">biztimes.com</div></div>
+      <div class="dir"><div class="dn">3. Wisconsin Society of CPAs</div><div class="du">wicpa.org (member directory — confirm Victoria membership)</div></div>
+      <div class="dir"><div class="dn">4. Metropolitan Milwaukee Chamber</div><div class="du">mmac.org</div></div>
+      <div class="dir"><div class="dn">5. AICPA Member Directory</div><div class="du">aicpa.org</div></div>
+      <div class="dir"><div class="dn">6. Yelp (Accounting, Milwaukee)</div><div class="du">yelp.com/biz/affinity-accounting-milwaukee</div></div>
+      <div class="dir"><div class="dn">7. BBB Milwaukee</div><div class="du">bbb.org/us/wi/milwaukee</div></div>
+      <div class="dir"><div class="dn">8. Manta</div><div class="du">manta.com</div></div>
+      <div class="dir"><div class="dn">9. CitySquares</div><div class="du">citysquares.com</div></div>
+      <div class="dir"><div class="dn">10. ChamberofCommerce.com</div><div class="du">chamberofcommerce.com</div></div>
+      <div class="dir"><div class="dn">11. Local.com</div><div class="du">local.com</div></div>
+      <div class="dir"><div class="dn">12. Hotfrog</div><div class="du">hotfrog.com</div></div>
+      <div class="dir"><div class="dn">13. eLocal</div><div class="du">elocal.com</div></div>
+      <div class="dir"><div class="dn">14. Brownbook</div><div class="du">brownbook.net</div></div>
+      <div class="dir"><div class="dn">15. Chicago Tribune Local Directory</div><div class="du">chicagotribune.com (Chicago footprint, supports geo expansion)</div></div>
+    </div>
+    <div class="callout"><strong>NAP source of truth:</strong> Pull from <a href="https://affinitymke.com/accounting-milwaukee/">/accounting-milwaukee/</a> footer. Confirm phone + email with Victoria before any submission — CLAUDE.md flags these as "Confirm with Victoria". Use the exact same NAP string across all 15 directories. Anchor text rotation: 60% brand ("Affinity Accounting"), 25% partial-match ("Milwaukee CPA Victoria Haas"), 15% exact-match ("Milwaukee accounting") for the priority service page.</div>
+
+    <h3 style="font-family:'Bangers',sans-serif;color:var(--navy);font-size:22px;margin-top:36px;margin-bottom:14px;letter-spacing:0.04em;">May backlink targets (2–4 quality links/month)</h3>
+    <div class="diag-grid">
+      <div class="finding">
+        <h4>Local / Milwaukee angle</h4>
+        <p><strong>Milwaukee Business Journal:</strong> Guest column pitch — "What Milwaukee service-business owners get wrong about owner pay past $2M revenue." Tied to the existing blog at /how-owner-pay-changes-past-2m-3m-5m/.</p>
+        <p><strong>BizTimes Milwaukee:</strong> Expert-source contributor pitch — Victoria as a recurring quote source for small-business finance stories.</p>
+        <p><strong>OnMilwaukee:</strong> Local business expert column on Wisconsin Manufacturing &amp; Ag Credit eligibility (Q3 brainstorm topic).</p>
+        <p><strong>WI SBDC:</strong> Resource link from the Small Business Development Center site, tied to the agency-pricing or financial-health-grade blog.</p>
+      </div>
+      <div class="finding">
+        <h4>Industry / niche angle</h4>
+        <p><strong>Marketing agency podcasts:</strong> Victoria as guest on shows in the $500K–$5M agency-owner orbit. Supports the LLC marketing cluster work. Pitch deck: "What I see in agency books most owners miss."</p>
+        <p><strong>HARO / Help A B2B Writer:</strong> Daily monitoring for tax / CPA / small-business-finance queries. Aim for 1 placement per week.</p>
+        <p><strong>AICPA / Accounting Today contributor:</strong> Longer lead-time. Draft pitch + 3 contributor topic ideas in next sprint.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="footer">
+  <div class="container">
+    <h2>30 days from now, we re-check <span class="accent">measurement.</span></h2>
+    <p>By 2026-06-26: ads converting to real leads, schema entities live across 5 service pages + 10 blog posts, 8 new citations submitted, 1 quality backlink placed.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> · May 26, 2026</div>
+  </div>
+</section>
+
+</body>
+</html>

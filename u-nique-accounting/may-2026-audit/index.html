@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>U-Nique Accounting — Diagnostic Audit (May 2026) | Markology</title>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0f1e3d; --blue:#2c4a8e; --lilac:#7b6fb8; --bg:#f5f6fb; --ink:#111827; --muted:#4b5563;
+    --good:#0f7a4a; --bad:#b91c1c; --warn:#a16207; --rule:#e5e7eb;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+  .wrap{max-width:920px;margin:0 auto;padding:48px 24px}
+  h1{font-family:'Bangers',cursive;font-size:48px;letter-spacing:1px;color:var(--navy);margin:0 0 8px;line-height:1.05}
+  h2{font-family:'Bangers',cursive;font-size:28px;letter-spacing:0.5px;color:var(--navy);margin:48px 0 12px;border-bottom:3px solid var(--lilac);padding-bottom:6px}
+  h3{font-family:'Inter',sans-serif;font-size:17px;font-weight:700;color:var(--blue);margin:24px 0 6px}
+  .sub{color:var(--muted);font-size:14px;margin-bottom:32px}
+  .verdict{background:#fff;border-left:5px solid var(--bad);padding:16px 20px;border-radius:6px;margin:24px 0;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+  .verdict.good{border-left-color:var(--good)}
+  .verdict.warn{border-left-color:var(--warn)}
+  .verdict strong{display:block;font-size:15px;color:var(--navy);margin-bottom:4px;font-family:'Bangers',cursive;letter-spacing:0.5px;font-size:18px}
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:6px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.04);margin:12px 0}
+  th{background:var(--navy);color:#fff;text-align:left;padding:10px 12px;font-size:13px;font-weight:600;letter-spacing:0.3px}
+  td{padding:9px 12px;border-top:1px solid var(--rule);font-size:14px;vertical-align:top}
+  tr:nth-child(even) td{background:#fafbff}
+  .num{font-variant-numeric:tabular-nums;text-align:right;white-space:nowrap}
+  .drop{color:var(--bad);font-weight:600}
+  .url{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12.5px;color:var(--blue);word-break:break-all}
+  .pill{display:inline-block;background:var(--lilac);color:#fff;padding:2px 10px;border-radius:12px;font-size:11px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase}
+  .pill.bad{background:var(--bad)}
+  .pill.good{background:var(--good)}
+  .pill.warn{background:var(--warn)}
+  .check{background:#fff;border:1px solid var(--rule);border-radius:6px;padding:14px 18px;margin:8px 0;display:flex;justify-content:space-between;align-items:center}
+  .check .label{font-weight:500}
+  ul{padding-left:22px;margin:8px 0}
+  li{margin:4px 0}
+  .footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--rule);color:var(--muted);font-size:13px;text-align:center}
+  .twocol{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:12px 0}
+  @media (max-width:640px){.twocol{grid-template-columns:1fr}}
+  code{background:#eef0f7;padding:1px 6px;border-radius:3px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>U-Nique Accounting<br>Diagnostic Audit</h1>
+<div class="sub">May 26, 2026 · Manual actions, indexing, migration, and traffic-loss root cause</div>
+
+<div class="verdict">
+  <strong>Headline finding</strong>
+  No manual action. No site migration. No indexing failure. The Sept 2025 and Dec 2025 traffic drops are caused by two consecutive Google Core Updates hitting U-Nique's top informational and template pages. This is a content authority problem, not a technical one.
+</div>
+
+<h2>Technical Health Checks</h2>
+
+<div class="check"><span class="label">Manual actions / security issues</span><span class="pill good">Clean</span></div>
+<div class="check"><span class="label">robots.txt status</span><span class="pill good">Allows all content</span></div>
+<div class="check"><span class="label">Sitemap submission</span><span class="pill good">234 URLs, 0 warnings, 0 errors</span></div>
+<div class="check"><span class="label">Sample URLs indexed (10 spot-checked)</span><span class="pill good">10/10 PASS · Submitted &amp; indexed</span></div>
+<div class="check"><span class="label">Canonical conflicts</span><span class="pill good">All userCanonical = googleCanonical</span></div>
+<div class="check"><span class="label">Page fetch state</span><span class="pill good">SUCCESSFUL across sample</span></div>
+<div class="check"><span class="label">URL structure / migration (sitemap vs Wayback Oct 2025)</span><span class="pill good">No migration detected</span></div>
+
+<p class="sub" style="margin-top:14px">Wayback diff showed 8 "removed" URLs vs the current sitemap. All 8 are paginated blog index URLs (<code>/blog/2</code>, <code>/blog/13</code>, etc.) and three category archives (<code>/category/taxes</code>, <code>/category/organization</code>, <code>/category/banking-lending</code>) — natural Wayback coverage gaps and category-archive consolidation. No actual content pages have been removed or renamed.</p>
+
+<h2>When Did Traffic Collapse?</h2>
+
+<p>Search Console weekly data, Sep 2025 through Apr 2026, shows two distinct drop events — not a single cliff:</p>
+
+<table>
+  <thead><tr><th>Week</th><th class="num">Impressions</th><th class="num">Clicks</th><th>Event</th></tr></thead>
+  <tbody>
+    <tr><td>2025-W36 (Sep 1–7)</td><td class="num">23,133</td><td class="num">39</td><td>Last full-strength week</td></tr>
+    <tr><td>2025-W37</td><td class="num">15,445</td><td class="num">29</td><td class="drop">Phase 1 begins (-33%)</td></tr>
+    <tr><td>2025-W38</td><td class="num">9,343</td><td class="num">33</td><td class="drop">Phase 1 bottom (-40% more)</td></tr>
+    <tr><td>2025-W39 – W47</td><td class="num">~8,000 avg</td><td class="num">~30/wk</td><td>Plateau ~9 weeks</td></tr>
+    <tr><td>2025-W51</td><td class="num">3,682</td><td class="num">9</td><td class="drop">Phase 2 (-50%)</td></tr>
+    <tr><td>2026-W04 (late Jan)</td><td class="num">3,853</td><td class="num">12</td><td>Stabilization at lower floor</td></tr>
+    <tr><td>2026-W18 (early May)</td><td class="num">1,233</td><td class="num">1</td><td class="drop">Continued slow decline</td></tr>
+  </tbody>
+</table>
+
+<div class="twocol">
+  <div class="verdict warn">
+    <strong>Phase 1 · Sept 8–21, 2025</strong>
+    Impressions fell from 23,133 to 9,343 in two weeks. Timing matches <strong>Google August 2025 Core Update</strong> (rollout: Aug 18 – early Sept 2025). U-Nique's calendar / informational / template content was the primary casualty.
+  </div>
+  <div class="verdict warn">
+    <strong>Phase 2 · Dec 12–18, 2025</strong>
+    Impressions fell from ~7,000/wk to ~3,500/wk. Timing matches <strong>Google December 2025 Core Update</strong> (Dec 12–18). Brewery and restaurant comparison content took the second hit.
+  </div>
+</div>
+
+<h2>Where the Traffic Went</h2>
+
+<p>These eight pages account for the majority of the impression loss between Sept 2025 and April 2026:</p>
+
+<table>
+  <thead><tr><th>URL</th><th class="num">Sep 2025</th><th class="num">Apr 2026</th><th class="num">Δ</th><th>Movement</th></tr></thead>
+  <tbody>
+    <tr><td><span class="url">/13-month-calendar-explained/</span></td><td class="num">6,283</td><td class="num">552</td><td class="num drop">-5,731</td><td>Pos 13 → 10 (lost long-tail volume)</td></tr>
+    <tr><td><span class="url">/how-profitable-are-breweries/</span></td><td class="num">4,979</td><td class="num">387</td><td class="num drop">-4,592</td><td>Pos 16 → 37 (real ranking loss)</td></tr>
+    <tr><td><span class="url">/brewery-equipment-costs/</span></td><td class="num">2,270</td><td class="num">142</td><td class="num drop">-2,128</td><td>Pos 21 → 26</td></tr>
+    <tr><td><span class="url">/ebitda-multiple-for-restaurants/</span></td><td class="num">2,460</td><td class="num">393</td><td class="num drop">-2,067</td><td>Pos 14 → 32 (page-2 drop)</td></tr>
+    <tr><td><span class="url">/good-brewery-profit-margin/</span></td><td class="num">2,086</td><td class="num">106</td><td class="num drop">-1,980</td><td>Pos 9 → 49 (page-1 fall-off)</td></tr>
+    <tr><td><span class="url">/p-l-for-restaurants/</span></td><td class="num">1,627</td><td class="num">0</td><td class="num drop">-1,627</td><td>Pos 50 → 100+ (off SERP)</td></tr>
+    <tr><td><span class="url">/free-restaurant-labor-cost-calculator/</span></td><td class="num">1,661</td><td class="num">142</td><td class="num drop">-1,519</td><td>Pos 63 → 59</td></tr>
+    <tr><td><span class="url">/s-corp-vs-llc-for-restaurants/</span></td><td class="num">1,416</td><td class="num">0</td><td class="num drop">-1,416</td><td>Pos 14 → 100+ (off SERP)</td></tr>
+  </tbody>
+</table>
+
+<p class="sub">All "off SERP" pages are still indexed and crawlable. They simply ranked below position 100 in April, which Search Console reports as zero impressions.</p>
+
+<h2>Queries That Disappeared</h2>
+
+<p>Top Sept 2025 queries with zero impressions in April 2026:</p>
+
+<table>
+  <thead><tr><th>Query</th><th class="num">Sep impr</th><th class="num">Sep pos</th></tr></thead>
+  <tbody>
+    <tr><td>fica tip credit calculator</td><td class="num">215</td><td class="num">9.3</td></tr>
+    <tr><td>brewery accountant</td><td class="num">162</td><td class="num">8.6</td></tr>
+    <tr><td>restaurant tax credit</td><td class="num">58</td><td class="num">8.3</td></tr>
+    <tr><td>unique accounting (brand)</td><td class="num">57</td><td class="num">5.4</td></tr>
+    <tr><td>tax credits for restaurants</td><td class="num">52</td><td class="num">4.8</td></tr>
+    <tr><td>are microbreweries profitable</td><td class="num">30</td><td class="num">7.3</td></tr>
+    <tr><td>beer profit margins</td><td class="num">23</td><td class="num">3.9</td></tr>
+  </tbody>
+</table>
+
+<p class="sub">The brand query loss ("unique accounting" — 57 impressions at pos 5.4 in Sept) is the most concerning signal. Pure brand queries collapsing usually means the homepage is being outranked by a third-party listing or directory page.</p>
+
+<h2>What This Means for Recovery</h2>
+
+<p>This is the type of decline that core updates produce when content lacks demonstrable expertise signals (author identity, original data, recency, depth). The fact that two consecutive core updates hit means Google is consistently scoring this content lower than competitors.</p>
+
+<h3>Recovery levers in order of impact</h3>
+
+<ul>
+  <li><strong>E-E-A-T sprint on the top 8 losing pages.</strong> Author bylines with credentials, real client examples, original data points, last-updated dates, link to the U-Nique team page. These are the highest-impression pages currently still indexed. Recovering even 30% of Sept levels on these 8 pages restores roughly 4,000 weekly impressions.</li>
+  <li><strong>Investigate the brand-query loss.</strong> Search "unique accounting" and "u-nique accounting" in incognito and document who is outranking the homepage. If the SERP shows a directory listing, GBP, or a third-party review site above u-niqueaccounting.com, that's a separate fix (homepage SEO refresh + branded backlink plan).</li>
+  <li><strong>Refresh /p-l-for-restaurants/ and /s-corp-vs-llc-for-restaurants/.</strong> Both fell from page 1–2 to position 100+. These are recoverable with a content depth + keyword refresh, but they need to climb back into the top 100 first to start collecting impressions again.</li>
+  <li><strong>Retire bottom-decile content.</strong> Pages still indexed but never receiving impressions are net-negative for site quality scoring. Identify and either consolidate or 301 to a stronger sibling page.</li>
+</ul>
+
+<h3>What is NOT the problem</h3>
+
+<ul>
+  <li>No manual action (sample URL inspection clean across the board).</li>
+  <li>No robots.txt or noindex blocks.</li>
+  <li>No site migration or URL structure change between October 2025 and now.</li>
+  <li>No canonical conflicts (Google's chosen canonical matches the declared canonical on every spot-checked URL).</li>
+  <li>No sitemap submission errors or warnings.</li>
+</ul>
+
+<div class="verdict good">
+  <strong>Next steps</strong>
+  Markology side: build the E-E-A-T recovery sprint targeting the top 8 losing pages. The diagnostic confirms no client decision or website change is needed before that work begins — this is on-page optimization Markology can execute end-to-end.
+</div>
+
+<div class="footer">
+  Diagnostic prepared by Markology · May 26, 2026<br>
+  Data sources: Google Search Console API (Search Analytics + URL Inspection + Sitemaps), Wayback Machine CDX API, u-niqueaccounting.com sitemap
+</div>
+
+</div>
+</body>
+</html>

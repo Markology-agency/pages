@@ -3,265 +3,226 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>TL;DR: Accounting — SEO Progress · May 2026</title>
+<title>TL;DR: Accounting · SEO Progress · May 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
   :root {
-    --paper: #f7f4ee;
-    --navy:  #0b1b3a;
-    --blue:  #1f4fff;
-    --lilac: #b9a8ff;
-    --mute:  #6a6a72;
-    --hair:  #1f1f24;
+    --paper: #F9F9FF;
+    --navy:  #070630;
+    --blue:  #3872EB;
+    --lilac: #E6E9FF;
+    --mute:  #6C6E8A;
+    --hair:  #070630;
+    --good:  #10b981;
+    --warn:  #d23a2a;
   }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--paper);
-    font-family: Inter, system-ui, sans-serif;
-    color: var(--hair);
-    line-height: 1.5;
-  }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
-
-  header.hero { margin-bottom: 32px; }
-  .pill {
-    display: inline-block;
-    background: var(--navy);
-    color: white;
-    padding: 4px 14px;
-    border-radius: 999px;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-  h1 {
-    font-family: Bangers, Inter, sans-serif;
-    font-size: 64px;
-    line-height: 1;
-    color: var(--navy);
-    margin: 8px 0 4px;
-    letter-spacing: 0.02em;
-  }
-  h2 {
-    font-family: Bangers, Inter, sans-serif;
-    font-size: 32px;
-    color: var(--navy);
-    margin: 40px 0 16px;
-    letter-spacing: 0.02em;
-  }
-  .lede {
-    font-size: 18px;
-    color: var(--hair);
-    max-width: 720px;
-  }
-  .meta {
-    color: var(--mute);
-    font-size: 14px;
-    margin-top: 12px;
-  }
-
-  .alert {
-    background: #fff0ee;
-    border: 2px solid #d23a2a;
-    color: #6f1e14;
-    padding: 14px 18px;
-    border-radius: 8px;
-    margin-bottom: 24px;
-    font-weight: 500;
-  }
-
-  .kpis {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin: 24px 0 40px;
-  }
-  @media (max-width: 720px) {
-    .kpis { grid-template-columns: repeat(2, 1fr); }
-    h1 { font-size: 44px; }
-  }
-  .kpi {
-    background: white;
-    border: 2px solid var(--navy);
-    border-radius: 6px;
-    padding: 18px 16px;
-    box-shadow: 5px 5px 0 var(--navy);
-  }
-  .kpi .label {
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--mute);
-    margin-bottom: 6px;
-  }
-  .kpi .value {
-    font-family: Bangers, Inter, sans-serif;
-    font-size: 36px;
-    color: var(--navy);
-    line-height: 1;
-  }
-  .kpi .delta {
-    margin-top: 6px;
-    font-size: 13px;
-    color: var(--blue);
-    font-weight: 600;
-  }
-
-  .chart-wrap {
-    background: white;
-    border: 2px solid var(--navy);
-    border-radius: 6px;
-    padding: 16px;
-    box-shadow: 5px 5px 0 var(--navy);
-  }
-  canvas { max-width: 100%; }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border: 2px solid var(--navy);
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 5px 5px 0 var(--navy);
-  }
-  thead { background: var(--navy); color: white; }
-  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #eee; }
-  th { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
-  tbody tr:last-child td { border-bottom: none; }
-  td.empty { text-align: center; color: var(--mute); padding: 32px; }
-  .delta-up { color: #2a8a3a; font-weight: 600; }
-  .delta-down { color: #c43a2a; font-weight: 600; }
-
-  .notes {
-    background: white;
-    border-left: 4px solid var(--blue);
-    padding: 14px 18px;
-    margin-top: 24px;
-    border-radius: 4px;
-  }
-  .notes ul { margin: 8px 0 0 0; padding-left: 20px; }
-
-  footer {
-    margin-top: 64px;
-    color: var(--mute);
-    font-size: 13px;
-    text-align: center;
-  }
-  footer a { color: var(--blue); text-decoration: none; }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);font-family:Inter,system-ui,sans-serif;color:var(--hair);line-height:1.55;font-size:15px;}
+  .wrap{max-width:1080px;margin:0 auto;padding:48px 24px 80px;}
+  header.hero{margin-bottom:32px;}
+  .crumb{margin-bottom:12px;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--mute);}
+  .crumb a{color:var(--blue);text-decoration:none;}
+  .pill{display:inline-block;background:var(--blue);color:#fff;padding:5px 14px;border-radius:999px;font-size:11px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);margin-bottom:18px;}
+  h1{font-family:Bangers,Inter,sans-serif;font-size:clamp(42px,7vw,72px);line-height:0.95;color:var(--navy);margin:8px 0 14px;letter-spacing:0.02em;}
+  h2{font-family:Bangers,Inter,sans-serif;font-size:32px;color:var(--navy);margin:48px 0 16px;letter-spacing:0.02em;}
+  .lede{font-size:18px;color:var(--hair);max-width:760px;}
+  .meta{color:var(--mute);font-size:13px;margin-top:14px;letter-spacing:0.04em;}
+  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:28px 0 40px;}
+  @media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr);}h1{font-size:42px;}}
+  .kpi{background:#fff;border:2px solid var(--navy);border-radius:6px;padding:18px 16px;box-shadow:5px 5px 0 var(--navy);}
+  .kpi .label{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--mute);margin-bottom:6px;}
+  .kpi .value{font-family:Bangers,Inter,sans-serif;font-size:36px;color:var(--navy);line-height:1;}
+  .kpi .delta{margin-top:6px;font-size:13px;color:var(--blue);font-weight:600;}
+  .kpi .delta.down{color:var(--warn);}
+  .kpi .delta.up{color:var(--good);}
+  .chart-wrap{background:#fff;border:2px solid var(--navy);border-radius:6px;padding:16px;box-shadow:5px 5px 0 var(--navy);}
+  canvas{max-width:100%;}
+  table{width:100%;border-collapse:collapse;background:#fff;border:2px solid var(--navy);border-radius:6px;overflow:hidden;box-shadow:5px 5px 0 var(--navy);}
+  thead{background:var(--navy);color:#fff;}
+  th,td{padding:11px 14px;text-align:left;border-bottom:1px solid #eee;font-size:14px;}
+  th{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;font-weight:700;}
+  tbody tr:last-child td{border-bottom:none;}
+  .alert{background:#fff0ee;border:2px solid var(--warn);color:#6f1e14;padding:14px 18px;border-radius:8px;margin-bottom:24px;font-weight:500;}
+  .priority{background:var(--lilac);border:2px solid var(--navy);border-radius:6px;padding:20px 22px;margin-bottom:14px;box-shadow:5px 5px 0 var(--navy);}
+  .priority .ptag{display:inline-block;background:var(--navy);color:#fff;padding:3px 10px;border-radius:4px;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;font-weight:700;margin-bottom:8px;}
+  .priority h3{font-family:Bangers,Inter,sans-serif;font-size:22px;color:var(--navy);margin:6px 0 8px;letter-spacing:0.02em;}
+  .priority p{margin:6px 0;}
+  .footer{margin-top:64px;padding-top:24px;border-top:2px dashed rgba(7,6,48,0.15);color:var(--mute);font-size:12px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;}
+  .footer a{color:var(--blue);text-decoration:none;}
+  .num-pos{color:var(--good);font-weight:700;}
+  .num-neg{color:var(--warn);font-weight:700;}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
-    
+    <div class="crumb"><a href="https://markology-agency.github.io/pages/tldr-accounting/">TL;DR Accounting</a> &rsaquo; May 2026 SEO Report</div>
     <span class="pill">Monthly SEO Progress</span>
-    <h1>TL;DR: ACCOUNTING</h1>
-    <div class="lede">SEO performance snapshot for May 2026. Tracked keyword counts, organic sessions, and the top-ranking terms driving the domain.</div>
-    <div class="meta">tldraccounting.com &middot; report covers May 2026</div>
+    <h1>MAY 2026.</h1>
+    <div class="lede">Therapist-niche keyword footprint held at 2,516 tracked terms after the April pullback. Search Console pulled real clicks and impressions for the first time, replacing SEMrush estimates. May position slipped to 16.2 from 10.8 in April as Google rolled changes, but click volume is tracking near 700 for the month with a salary-page refresh shipped to recover the highest-leverage page.</div>
+    <div class="meta">tldraccounting.com &middot; report covers May 2026 &middot; data sources: SEMrush, Google Search Console</div>
   </header>
 
   <section class="kpis">
     <div class="kpi">
-      <div class="label">Total Keywords</div>
-      <div class="value">0</div>
-      <div class="delta">— vs. start of period</div>
+      <div class="label">Tracked Keywords</div>
+      <div class="value">2,516</div>
+      <div class="delta down">-209 vs. March peak</div>
     </div>
     <div class="kpi">
-      <div class="label">May 2026 Sessions</div>
-      <div class="value">0</div>
-      <div class="delta">organic search</div>
+      <div class="label">GSC Clicks (Apr)</div>
+      <div class="value">1,277</div>
+      <div class="delta up">+43% vs. Dec</div>
     </div>
     <div class="kpi">
-      <div class="label">Domain Rank</div>
-      <div class="value">N/A</div>
-      <div class="delta">SEMrush authority</div>
+      <div class="label">Avg Position (Apr)</div>
+      <div class="value">10.75</div>
+      <div class="delta up">+7.1 spots vs. Dec</div>
     </div>
     <div class="kpi">
       <div class="label">Top-3 Rankings</div>
-      <div class="value">0</div>
-      <div class="delta">non-branded</div>
+      <div class="value">17</div>
+      <div class="delta">non-branded therapist niche</div>
     </div>
   </section>
 
-  <h2>Trajectory</h2>
+  <h2>Six-Month Trajectory</h2>
   <div class="chart-wrap">
     <canvas id="trajectoryChart" height="120"></canvas>
   </div>
+  <p style="color:var(--mute);font-size:13px;margin-top:10px;">GSC clicks and impressions are the real measurement now that Search Console pulls work. SEMrush estimated traffic ran 30-50% lower than real GSC clicks all six months, so we have switched the report to GSC as the primary truth and kept SEMrush for keyword position tracking.</p>
 
-  <h2>Top Performers</h2>
+  <h2>Top Performers (Non-Brand)</h2>
   <table>
     <thead>
       <tr>
         <th>Keyword</th>
         <th>Position</th>
         <th>Monthly Volume</th>
-        <th>Change</th>
+        <th>Page</th>
       </tr>
     </thead>
     <tbody>
-      <tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
+      <tr><td>starting salary of a therapist</td><td><span class="num-pos">1</span></td><td>110</td><td>/starting-salary-for-therapists-by-state-2024/</td></tr>
+      <tr><td>best accounting software for therapists</td><td><span class="num-pos">1</span></td><td>30</td><td>/accounting-software-for-therapists/</td></tr>
+      <tr><td>bookkeeping for small seattle businesses</td><td><span class="num-pos">1</span></td><td>50</td><td>/bookkeeping-services-in-seattle/</td></tr>
+      <tr><td>starting salary for a therapist</td><td><span class="num-pos">1</span></td><td>50</td><td>/starting-salary-for-therapists-by-state-2024/</td></tr>
+      <tr><td>small business accountant seattle</td><td><span class="num-pos">1</span></td><td>90</td><td>/accounting-services-seattle/</td></tr>
+      <tr><td>small business cpa seattle</td><td><span class="num-pos">1</span></td><td>90</td><td>/accounting-services-seattle/</td></tr>
+      <tr><td>quickbooks for therapists</td><td><span class="num-pos">2</span></td><td>30</td><td>/quickbooks-version-for-therapists-2024/</td></tr>
+      <tr><td>psychotherapist accountant</td><td><span class="num-pos">2</span></td><td>260</td><td>/accounting-for-therapists/</td></tr>
+      <tr><td>therapist salary by state</td><td><span class="num-pos">2</span></td><td>50</td><td>/starting-salary-for-therapists-by-state-2024/</td></tr>
+      <tr><td>accountant for therapists</td><td><span class="num-pos">2</span></td><td>50</td><td>/accounting-for-therapists/</td></tr>
+      <tr><td>accounting for private practice therapists</td><td><span class="num-pos">2</span></td><td>30</td><td>/accounting-for-therapists/</td></tr>
+      <tr><td>bookkeeping for therapists</td><td>3</td><td>110</td><td>/bookkeeping-for-therapists/</td></tr>
+      <tr><td>therapist pay</td><td>3</td><td>880</td><td>/starting-salary-for-therapists-by-state-2024/</td></tr>
+      <tr><td>average income of a therapist</td><td>3</td><td>880</td><td>/starting-salary-for-therapists-by-state-2024/</td></tr>
+      <tr><td>bookkeeping for therapist</td><td>3</td><td>40</td><td>/bookkeeping-for-therapists/</td></tr>
     </tbody>
   </table>
+  <p style="color:var(--mute);font-size:13px;margin-top:10px;">Brand keywords (tldr accounting, tl;dr accounting, tl dr accounting) filtered out per agency rule. Therapist niche owns 13 of the top 15 non-brand positions.</p>
 
-  
+  <h2>Top Pages by GSC Clicks (Apr 1 - May 25)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Page</th>
+        <th>Clicks</th>
+        <th>Impressions</th>
+        <th>Avg Position</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>/starting-salary-for-therapists-by-state-2024/</td><td>263</td><td>93,044</td><td>9.0</td></tr>
+      <tr><td>/ (homepage)</td><td>115</td><td>2,069</td><td>15.0</td></tr>
+      <tr><td>/accounting-for-therapists/</td><td>81</td><td>5,078</td><td>11.7</td></tr>
+      <tr><td>/start-a-therapy-practice-in-washington-2024/</td><td>79</td><td>5,053</td><td>22.7</td></tr>
+      <tr><td>/restricted-stock-unit-taxes-and-your-w-2/</td><td>74</td><td>44,169</td><td>5.9</td></tr>
+      <tr><td>/profit-loss-statement-for-therapists/</td><td>69</td><td>1,336</td><td>5.5</td></tr>
+      <tr><td>/washington-state-taxes-for-therapists/</td><td>58</td><td>2,561</td><td>6.2</td></tr>
+      <tr><td>/cash-vs-accrual-accounting-for-therapists/</td><td>48</td><td>30,158</td><td>5.2</td></tr>
+      <tr><td>/therapy-tax-deductible/</td><td>40</td><td>14,395</td><td>8.3</td></tr>
+      <tr><td>/how-long-until-my-therapy-practice-is-profitable/</td><td>39</td><td>4,327</td><td>7.2</td></tr>
+    </tbody>
+  </table>
+  <p style="color:var(--mute);font-size:13px;margin-top:10px;">The salary page alone owns 35% of total organic clicks. That is why it was the first refresh target of May's session-decline sprint.</p>
 
-  <footer>
-    Generated by Markology &middot; 2026 &middot; <a href="https://markology.io">markology.io</a>
-  </footer>
+  <h2>May/June Game Plan</h2>
+
+  <div class="priority">
+    <span class="ptag">Priority 1 &middot; SEO</span>
+    <h3>Defend the salary-page recovery</h3>
+    <p>The May 20 refresh of /starting-salary-for-therapists-by-state-2024/ stripped the dated "2024" stamp from the title, added 6 new H2s, FAQ schema, and 5 internal links to commercial pages (accounting-for-therapists, bookkeeping-for-therapists, the pay-yourself page, /lets-chat/). Projected lift: 300-500 monthly clicks if position recovers to top-7 for "therapist salary" (8,796 impressions, currently averaging position 10.0). Track weekly in GSC.</p>
+  </div>
+
+  <div class="priority">
+    <span class="ptag">Priority 2 &middot; SEO</span>
+    <h3>Ship the Seattle Eastside city-page cluster</h3>
+    <p>Internal-Review plan now staged: Bellevue, Redmond, Tacoma, Bothell, Kirkland. Neighborhood-level Seattle terms (Capitol Hill, Ballard, West Seattle) returned 0 search volume per SEMrush, so we pivot to suburb-level service pages. Internal linking diagram and seed content blocks ready. Three blocking asks queued for Khaled. Production order: 3 sprints over June.</p>
+  </div>
+
+  <div class="priority">
+    <span class="ptag">Priority 3 &middot; SEO</span>
+    <h3>Close the May position slip on top therapist queries</h3>
+    <p>Average position dropped from 10.75 in April to 16.22 in May month-to-date across the full domain. The drop is concentrated on therapist-niche queries that lost 5-8 positions after Google's May core update. June plan: re-check the seven highest-impression therapist queries weekly, retrofit two thin pages with FAQ schema and additional H2 coverage, and run the E-E-A-T scorecard sprint queued for W4.</p>
+  </div>
+
+  <h2>Notes</h2>
+  <ul style="margin:0;padding-left:20px;color:var(--hair);">
+    <li>Search Console API is now wired into the report. Going forward all monthly KPIs run from real GSC clicks and impressions, not SEMrush traffic estimates.</li>
+    <li>GA4 Data API access on the underlying Cloud project is still pending. Sessions chart will switch to GA the month it is enabled.</li>
+    <li>2 monthly blogs were published in May (Cancellations, Rate Raises). 3 more drafts sit in Client Review with Khaled.</li>
+  </ul>
+
+  <div class="footer">
+    Generated by <a href="https://markology.io">Markology</a> &middot; May 2026
+  </div>
 </div>
 
 <script>
-  const trendData = {"labels": ["Jan", "Feb", "Mar", "Apr", "May"], "keywords": [null, null, null, null, null], "sessions": [0, 0, 0, 0, 0]};
+  const trendData = {
+    labels: ["Dec", "Jan", "Feb", "Mar", "Apr", "May MTD"],
+    keywords: [2282, 2478, 2731, 2725, 2516, 2516],
+    clicks: [891, 1218, 1342, 1368, 1277, 578],
+    position: [17.88, 15.84, 12.10, 11.44, 10.75, 16.22]
+  };
   const ctx = document.getElementById('trajectoryChart').getContext('2d');
-
-  const datasets = [{
-    label: 'Tracked Keywords',
-    data: trendData.keywords,
-    borderColor: '#0b1b3a',
-    backgroundColor: 'rgba(11, 27, 58, 0.1)',
-    yAxisID: 'y',
-    tension: 0.3,
-    spanGaps: true,
-  }];
-
-  const hasSessions = trendData.sessions.some(v => v !== null && v !== undefined);
-  if (hasSessions) {
-    datasets.push({
-      label: 'Organic Sessions',
-      data: trendData.sessions,
-      borderColor: '#1f4fff',
-      borderDash: [6, 4],
-      backgroundColor: 'rgba(31, 79, 255, 0.05)',
-      yAxisID: 'y1',
-      tension: 0.3,
-      spanGaps: true,
-    });
-  }
-
   new Chart(ctx, {
     type: 'line',
-    data: { labels: trendData.labels, datasets: datasets },
+    data: {
+      labels: trendData.labels,
+      datasets: [
+        {
+          label: 'Tracked Keywords',
+          data: trendData.keywords,
+          borderColor: '#070630',
+          backgroundColor: 'rgba(7,6,48,0.08)',
+          yAxisID: 'y',
+          tension: 0.3,
+          fill: true,
+        },
+        {
+          label: 'GSC Clicks',
+          data: trendData.clicks,
+          borderColor: '#3872EB',
+          borderDash: [6, 4],
+          backgroundColor: 'rgba(56,114,235,0.05)',
+          yAxisID: 'y1',
+          tension: 0.3,
+        }
+      ]
+    },
     options: {
       responsive: true,
+      maintainAspectRatio: true,
       interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { position: 'bottom' } },
       scales: {
-        y:  { position: 'left',  title: { display: true, text: 'Keywords' } },
-        y1: { position: 'right', title: { display: true, text: 'Sessions' }, grid: { drawOnChartArea: false }, display: hasSessions }
+        y: { type: 'linear', position: 'left', title: { display: true, text: 'Keywords' } },
+        y1: { type: 'linear', position: 'right', title: { display: true, text: 'GSC Clicks' }, grid: { drawOnChartArea: false } }
       }
     }
   });

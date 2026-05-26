@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Adam Traywick - Ads Tracker · May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.container{max-width:1080px;margin:0 auto;padding:64px 32px;}
+@media(max-width:720px){.container{padding:40px 20px;}}
+.crumb{font-size:12px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--mute);margin-bottom:14px;}
+.crumb a{color:var(--blue);text-decoration:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--blue);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);}
+.pill.tier{background:var(--navy);}
+.pill.live{background:var(--good);}
+.pill.warn{background:var(--warn);color:#3a2400;}
+.pill.bad{background:var(--bad);}
+h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7vw,80px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:18px 0 0;}
+h1 .accent{color:var(--blue);}
+h2{font-family:'Bangers',sans-serif;font-size:clamp(28px,4vw,42px);letter-spacing:0.04em;color:var(--navy);margin:56px 0 14px;}
+h3{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin:0 0 8px;}
+.lede{font-size:18px;color:var(--mute);max-width:680px;margin-top:18px;}
+.section-sub{font-size:14px;color:var(--mute);margin-bottom:24px;}
+.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px;}
+@media(max-width:720px){.kpi-strip{grid-template-columns:repeat(2,1fr);}}
+.kpi{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:18px 20px;box-shadow:5px 5px 0 var(--navy);}
+.kpi .lbl{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:var(--mute);}
+.kpi .val{font-family:'Bangers',sans-serif;font-size:42px;letter-spacing:0.02em;color:var(--navy);line-height:1;margin-top:6px;}
+.kpi .delta{font-size:12px;font-weight:600;margin-top:6px;color:var(--mute);}
+.kpi .delta.up{color:var(--good);}
+.kpi .delta.dn{color:var(--bad);}
+.chart-wrap{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:24px;box-shadow:5px 5px 0 var(--navy);margin-top:20px;}
+.chart-wrap canvas{max-height:320px;}
+table{width:100%;background:#fff;border:2px solid var(--navy);border-radius:14px;border-collapse:separate;border-spacing:0;overflow:hidden;box-shadow:5px 5px 0 var(--navy);margin-top:8px;}
+thead{background:var(--navy);color:#fff;}
+th{padding:12px 14px;text-align:left;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;}
+td{padding:11px 14px;font-size:14px;border-bottom:1px solid var(--hair);}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:rgba(230,233,255,0.4);}
+.priority{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:22px 26px;box-shadow:5px 5px 0 var(--navy);margin-top:16px;display:flex;gap:18px;align-items:flex-start;}
+.priority .num{font-family:'Bangers',sans-serif;font-size:54px;line-height:1;color:var(--blue);flex-shrink:0;}
+.priority .body{flex:1;}
+.priority .tag{display:inline-block;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--blue);background:var(--lilac);padding:3px 10px;border-radius:999px;margin-bottom:6px;}
+.priority p{font-size:14px;color:var(--ink);}
+.shipped-card{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:18px 22px;box-shadow:5px 5px 0 var(--navy);margin-top:14px;}
+.shipped-card .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;}
+.shipped-card .name{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);}
+.shipped-card .when{font-size:11px;color:var(--mute);letter-spacing:0.1em;text-transform:uppercase;font-weight:700;}
+.shipped-card .desc{font-size:14px;color:var(--ink);margin-top:6px;}
+.shipped-card a{color:var(--blue);text-decoration:none;font-weight:600;}
+.alert{background:var(--lilac);border:2px solid var(--navy);border-radius:14px;padding:18px 22px;box-shadow:5px 5px 0 var(--navy);margin-top:20px;font-size:14px;color:var(--ink);}
+.alert.warn{background:#fef3c7;}
+.alert strong{color:var(--navy);}
+.foot{margin-top:72px;padding-top:22px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);letter-spacing:0.08em;text-transform:uppercase;font-weight:600;}
+.foot a{color:var(--blue);text-decoration:none;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.meta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;}
+.zero-state{background:#fff;border:2px dashed var(--navy);border-radius:14px;padding:24px 28px;color:var(--mute);font-size:14px;}
+.zero-state strong{color:var(--navy);}
+ul.bullets{margin:8px 0 0 22px;}
+ul.bullets li{margin:4px 0;font-size:14px;}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="crumb"><a href="https://markology-agency.github.io/pages/adam-traywick/">Adam Traywick hub</a> &rsaquo; Ads Tracker &rsaquo; May 2026</div>
+  <span class="pill">Ad Performance Tracker</span>
+  <h1>ADS TRACKER<br/><span class="accent">MAY 2026.</span></h1>
+  <p class="lede">Live snapshot of Adam Traywick's Google Ads account (ID 9313119576). Pulled 2026-05-26. All campaigns currently paused or zero-spend — this report is the staging snapshot before relaunch under the home-services trades focus.</p>
+  <div class="meta-row">
+    <span class="pill tier">Google Ads</span>
+    <span class="pill warn">All paused / $0 spend</span>
+  </div>
+
+  <div class="kpi-strip">
+    <div class="kpi"><div class="lbl">Spend (30d)</div><div class="val">$0</div><div class="delta">All campaigns paused</div></div>
+    <div class="kpi"><div class="lbl">Clicks (30d)</div><div class="val">0</div><div class="delta">No active delivery</div></div>
+    <div class="kpi"><div class="lbl">Conversions (30d)</div><div class="val">0</div><div class="delta">No active delivery</div></div>
+    <div class="kpi"><div class="lbl">Active Campaigns</div><div class="val">1</div><div class="delta">"Search Campaign - Adam Traywick Exp"</div></div>
+  </div>
+
+  <div class="alert"><strong>Account state:</strong> 7 of 8 campaigns sit in PAUSED. The lone ENABLED campaign ("Search Campaign - Adam Traywick Exp", $10/day, Search + Search Partners) shows zero impressions over the last 30 days — likely zero bid coverage on the live ad group keywords, or the campaign was enabled too recently to deliver. Action: confirm bid strategy + ad group keywords before this report's next refresh.</div>
+
+  <h2>CAMPAIGN INVENTORY.</h2>
+  <p class="section-sub">All 8 campaigns in the account, with current status and budget.</p>
+  <table>
+    <thead><tr><th>Campaign</th><th>Type</th><th>Status</th><th>Daily Budget</th><th>30d Spend</th></tr></thead>
+    <tbody>
+      <tr><td>Search Campaign - Adam Traywick Exp</td><td>Search</td><td><span class="pill live" style="font-size:9px;padding:3px 8px;box-shadow:none;">Enabled</span></td><td>$10</td><td>$0</td></tr>
+      <tr><td>Search Campaign - Adam Traywick</td><td>Search</td><td>Paused</td><td>$10</td><td>$0</td></tr>
+      <tr><td>Performance Max Brand Campaign</td><td>PMax</td><td>Paused</td><td>$3</td><td>$0</td></tr>
+      <tr><td>HVAC - National</td><td>Search</td><td>Paused</td><td>$10</td><td>$0</td></tr>
+      <tr><td>Hair Salons - National</td><td>Search</td><td>Paused</td><td>$10</td><td>$0</td></tr>
+      <tr><td>October Campaign</td><td>Search</td><td>Paused</td><td>$4</td><td>$0</td></tr>
+      <tr><td>December Campaign</td><td>Search</td><td>Paused</td><td>$10</td><td>$0</td></tr>
+      <tr><td>December Campaign #2</td><td>Search</td><td>Paused</td><td>$10</td><td>$0</td></tr>
+    </tbody>
+  </table>
+
+  <h2>CREATIVE INVENTORY.</h2>
+  <p class="section-sub">19 responsive search ads live across ad groups. Highlights below — the trades-vertical creative is fully built and ready to relaunch.</p>
+
+  <div class="two-col">
+    <div class="shipped-card">
+      <div class="head"><span class="name">HVAC vertical</span><span class="when">Ready</span></div>
+      <p class="desc">15 headlines + 4 descriptions ready. Landing page: <a href="https://adamtraywick.com/hvac-accountants/">/hvac-accountants/</a>. Hooks: "We're Expert HVAC Accountants", "#1 Accountants for HVAC", "Save Thousands in HVAC Taxes".</p>
+    </div>
+    <div class="shipped-card">
+      <div class="head"><span class="name">Plumbers vertical</span><span class="when">Ready</span></div>
+      <p class="desc">15 headlines + 4 descriptions ready. Landing page: <a href="https://adamtraywick.com/accountants-for-plumbers/">/accountants-for-plumbers/</a>. Hooks: "#1 Accountants for Plumbers", "Save Thousands in Plumbing Tax", "Top Rated CPAs For Plumbers".</p>
+    </div>
+    <div class="shipped-card">
+      <div class="head"><span class="name">Hair Salons vertical</span><span class="when">Ready</span></div>
+      <p class="desc">15 headlines + 4 descriptions. Landing page: <a href="https://adamtraywick.com/start">/start</a> (note: not a vertical-specific landing page — flag for fix). Hooks: "#1 Accountants for Hair Salons", "Hair Stylist Accountants".</p>
+    </div>
+    <div class="shipped-card">
+      <div class="head"><span class="name">Real Estate vertical</span><span class="when">Ready</span></div>
+      <p class="desc">15 headlines + 4 descriptions ready. Landing page: <a href="https://adamtraywick.com/accountants-for-real-estate/">/accountants-for-real-estate/</a>. Hooks: "The #1 Real Estate Accountants", "Fort Worth's Real Estate CPAs".</p>
+    </div>
+    <div class="shipped-card">
+      <div class="head"><span class="name">Brand / Fort Worth CPA</span><span class="when">Ready</span></div>
+      <p class="desc">Multiple RSAs across "cpa services", "tax services", "bookkeeping service", "accounting firms" ad groups. Landing pages: homepage + /fort-worth-accounting-firm/ + /fort-worth-tax-preparation/ + /fort-worth-bookkeeping/.</p>
+    </div>
+    <div class="shipped-card">
+      <div class="head"><span class="name">Cleanup needed</span><span class="when">Action</span></div>
+      <p class="desc">One paused RSA in HVAC has placeholder headlines ("TESTING", "Testing Here") that should be removed before relaunch. One RSA in Hair Salons has only 5 short headlines + 3 descriptions — under-built vs the 15/4 standard.</p>
+    </div>
+  </div>
+
+  <h2>SEARCH TERMS / KEYWORDS.</h2>
+  <p class="section-sub">No search term or keyword performance data available — zero spend means zero delivery in the last 30 days.</p>
+  <div class="zero-state"><strong>Once the Adam Traywick Exp campaign starts delivering,</strong> this section auto-fills with: top converting search terms, negative keyword candidates, quality score by keyword, CPL by ad group. Recommend pulling this report 14 days after first ad delivery.</div>
+
+  <h2>NEXT 30 DAYS — ADS PLAYBOOK.</h2>
+
+  <div class="priority">
+    <div class="num">1</div>
+    <div class="body">
+      <span class="tag">Diagnose</span>
+      <h3>WHY THE ENABLED CAMPAIGN ISN'T DELIVERING.</h3>
+      <p>"Search Campaign - Adam Traywick Exp" is ENABLED at $10/day but shows zero impressions for 30 days. Check: bid strategy (Maximize Conversions needs conversion tracking working), keyword bids, ad strength, geographic targeting (is it targeting Fort Worth at all?), and final URL approvals. This is the entry-point campaign — it has to work before the trades verticals can be unpaused.</p>
+    </div>
+  </div>
+
+  <div class="priority">
+    <div class="num">2</div>
+    <div class="body">
+      <span class="tag">Trades pivot</span>
+      <h3>UNPAUSE THE HVAC + PLUMBERS CAMPAIGNS AT $15-20/DAY.</h3>
+      <p>The home-services trades focus is the May 2026 strategic direction (Whitney's call). Both ad groups have production-ready creative pointing at vertical-specific landing pages. Refresh keywords against the SEMrush winners ("plumbers accounting software" #3, "HVAC accountants" content already strong organically), set Conversions bid strategy, layer in negative keywords from the older paused campaigns, and turn on. Two weeks of data tells us whether to scale or kill.</p>
+    </div>
+  </div>
+
+  <div class="priority">
+    <div class="num">3</div>
+    <div class="body">
+      <span class="tag">Cleanup</span>
+      <h3>RETIRE THE OCTOBER + DECEMBER CAMPAIGNS, FIX HAIR SALONS LP.</h3>
+      <p>"October Campaign", "December Campaign", "December Campaign #2" are stale — remove (not just pause) to keep the account inventory clean. Build /accounting-for-hair-salons/ landing page so the Hair Salons campaign points at a vertical LP instead of /start. Then the relaunch can include 3 trade verticals (HVAC, plumbers, hair salons) on parallel structure.</p>
+    </div>
+  </div>
+  <div class="foot">Built by <a href="https://markology.io">Markology</a> &middot; <a href="https://markology-agency.github.io/pages/adam-traywick/">Adam Traywick report hub</a> &middot; Refreshed 2026-05-26</div>
+</div>
+</body>
+</html>

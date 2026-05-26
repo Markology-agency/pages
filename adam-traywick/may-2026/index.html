@@ -1,270 +1,184 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Adam Traywick — SEO Progress · May 2026</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Adam Traywick - SEO Progress · May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-  :root {
-    --paper: #f7f4ee;
-    --navy:  #0b1b3a;
-    --blue:  #1f4fff;
-    --lilac: #b9a8ff;
-    --mute:  #6a6a72;
-    --hair:  #1f1f24;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--paper);
-    font-family: Inter, system-ui, sans-serif;
-    color: var(--hair);
-    line-height: 1.5;
-  }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
-
-  header.hero { margin-bottom: 32px; }
-  .pill {
-    display: inline-block;
-    background: var(--navy);
-    color: white;
-    padding: 4px 14px;
-    border-radius: 999px;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-  h1 {
-    font-family: Bangers, Inter, sans-serif;
-    font-size: 64px;
-    line-height: 1;
-    color: var(--navy);
-    margin: 8px 0 4px;
-    letter-spacing: 0.02em;
-  }
-  h2 {
-    font-family: Bangers, Inter, sans-serif;
-    font-size: 32px;
-    color: var(--navy);
-    margin: 40px 0 16px;
-    letter-spacing: 0.02em;
-  }
-  .lede {
-    font-size: 18px;
-    color: var(--hair);
-    max-width: 720px;
-  }
-  .meta {
-    color: var(--mute);
-    font-size: 14px;
-    margin-top: 12px;
-  }
-
-  .alert {
-    background: #fff0ee;
-    border: 2px solid #d23a2a;
-    color: #6f1e14;
-    padding: 14px 18px;
-    border-radius: 8px;
-    margin-bottom: 24px;
-    font-weight: 500;
-  }
-
-  .kpis {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin: 24px 0 40px;
-  }
-  @media (max-width: 720px) {
-    .kpis { grid-template-columns: repeat(2, 1fr); }
-    h1 { font-size: 44px; }
-  }
-  .kpi {
-    background: white;
-    border: 2px solid var(--navy);
-    border-radius: 6px;
-    padding: 18px 16px;
-    box-shadow: 5px 5px 0 var(--navy);
-  }
-  .kpi .label {
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--mute);
-    margin-bottom: 6px;
-  }
-  .kpi .value {
-    font-family: Bangers, Inter, sans-serif;
-    font-size: 36px;
-    color: var(--navy);
-    line-height: 1;
-  }
-  .kpi .delta {
-    margin-top: 6px;
-    font-size: 13px;
-    color: var(--blue);
-    font-weight: 600;
-  }
-
-  .chart-wrap {
-    background: white;
-    border: 2px solid var(--navy);
-    border-radius: 6px;
-    padding: 16px;
-    box-shadow: 5px 5px 0 var(--navy);
-  }
-  canvas { max-width: 100%; }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border: 2px solid var(--navy);
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 5px 5px 0 var(--navy);
-  }
-  thead { background: var(--navy); color: white; }
-  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #eee; }
-  th { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
-  tbody tr:last-child td { border-bottom: none; }
-  td.empty { text-align: center; color: var(--mute); padding: 32px; }
-  .delta-up { color: #2a8a3a; font-weight: 600; }
-  .delta-down { color: #c43a2a; font-weight: 600; }
-
-  .notes {
-    background: white;
-    border-left: 4px solid var(--blue);
-    padding: 14px 18px;
-    margin-top: 24px;
-    border-radius: 4px;
-  }
-  .notes ul { margin: 8px 0 0 0; padding-left: 20px; }
-
-  footer {
-    margin-top: 64px;
-    color: var(--mute);
-    font-size: 13px;
-    text-align: center;
-  }
-  footer a { color: var(--blue); text-decoration: none; }
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.container{max-width:1080px;margin:0 auto;padding:64px 32px;}
+@media(max-width:720px){.container{padding:40px 20px;}}
+.crumb{font-size:12px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--mute);margin-bottom:14px;}
+.crumb a{color:var(--blue);text-decoration:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--blue);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);}
+.pill.tier{background:var(--navy);}
+.pill.live{background:var(--good);}
+.pill.warn{background:var(--warn);color:#3a2400;}
+.pill.bad{background:var(--bad);}
+h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7vw,80px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:18px 0 0;}
+h1 .accent{color:var(--blue);}
+h2{font-family:'Bangers',sans-serif;font-size:clamp(28px,4vw,42px);letter-spacing:0.04em;color:var(--navy);margin:56px 0 14px;}
+h3{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin:0 0 8px;}
+.lede{font-size:18px;color:var(--mute);max-width:680px;margin-top:18px;}
+.section-sub{font-size:14px;color:var(--mute);margin-bottom:24px;}
+.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px;}
+@media(max-width:720px){.kpi-strip{grid-template-columns:repeat(2,1fr);}}
+.kpi{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:18px 20px;box-shadow:5px 5px 0 var(--navy);}
+.kpi .lbl{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:var(--mute);}
+.kpi .val{font-family:'Bangers',sans-serif;font-size:42px;letter-spacing:0.02em;color:var(--navy);line-height:1;margin-top:6px;}
+.kpi .delta{font-size:12px;font-weight:600;margin-top:6px;color:var(--mute);}
+.kpi .delta.up{color:var(--good);}
+.kpi .delta.dn{color:var(--bad);}
+.chart-wrap{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:24px;box-shadow:5px 5px 0 var(--navy);margin-top:20px;}
+.chart-wrap canvas{max-height:320px;}
+table{width:100%;background:#fff;border:2px solid var(--navy);border-radius:14px;border-collapse:separate;border-spacing:0;overflow:hidden;box-shadow:5px 5px 0 var(--navy);margin-top:8px;}
+thead{background:var(--navy);color:#fff;}
+th{padding:12px 14px;text-align:left;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;}
+td{padding:11px 14px;font-size:14px;border-bottom:1px solid var(--hair);}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:rgba(230,233,255,0.4);}
+.priority{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:22px 26px;box-shadow:5px 5px 0 var(--navy);margin-top:16px;display:flex;gap:18px;align-items:flex-start;}
+.priority .num{font-family:'Bangers',sans-serif;font-size:54px;line-height:1;color:var(--blue);flex-shrink:0;}
+.priority .body{flex:1;}
+.priority .tag{display:inline-block;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--blue);background:var(--lilac);padding:3px 10px;border-radius:999px;margin-bottom:6px;}
+.priority p{font-size:14px;color:var(--ink);}
+.shipped-card{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:18px 22px;box-shadow:5px 5px 0 var(--navy);margin-top:14px;}
+.shipped-card .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;}
+.shipped-card .name{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);}
+.shipped-card .when{font-size:11px;color:var(--mute);letter-spacing:0.1em;text-transform:uppercase;font-weight:700;}
+.shipped-card .desc{font-size:14px;color:var(--ink);margin-top:6px;}
+.shipped-card a{color:var(--blue);text-decoration:none;font-weight:600;}
+.alert{background:var(--lilac);border:2px solid var(--navy);border-radius:14px;padding:18px 22px;box-shadow:5px 5px 0 var(--navy);margin-top:20px;font-size:14px;color:var(--ink);}
+.alert.warn{background:#fef3c7;}
+.alert strong{color:var(--navy);}
+.foot{margin-top:72px;padding-top:22px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);letter-spacing:0.08em;text-transform:uppercase;font-weight:600;}
+.foot a{color:var(--blue);text-decoration:none;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.meta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;}
+.zero-state{background:#fff;border:2px dashed var(--navy);border-radius:14px;padding:24px 28px;color:var(--mute);font-size:14px;}
+.zero-state strong{color:var(--navy);}
+ul.bullets{margin:8px 0 0 22px;}
+ul.bullets li{margin:4px 0;font-size:14px;}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header class="hero">
-    
-    <span class="pill">Monthly SEO Progress</span>
-    <h1>ADAM TRAYWICK</h1>
-    <div class="lede">SEO performance snapshot for May 2026. Tracked keyword counts, organic sessions, and the top-ranking terms driving the domain.</div>
-    <div class="meta">adamtraywick.com &middot; report covers May 2026</div>
-  </header>
-
-  <section class="kpis">
-    <div class="kpi">
-      <div class="label">Total Keywords</div>
-      <div class="value">0</div>
-      <div class="delta">— vs. start of period</div>
-    </div>
-    <div class="kpi">
-      <div class="label">May 2026 Sessions</div>
-      <div class="value">0</div>
-      <div class="delta">organic search</div>
-    </div>
-    <div class="kpi">
-      <div class="label">Domain Rank</div>
-      <div class="value">N/A</div>
-      <div class="delta">SEMrush authority</div>
-    </div>
-    <div class="kpi">
-      <div class="label">Top-3 Rankings</div>
-      <div class="value">0</div>
-      <div class="delta">non-branded</div>
-    </div>
-  </section>
-
-  <h2>Trajectory</h2>
-  <div class="chart-wrap">
-    <canvas id="trajectoryChart" height="120"></canvas>
+<div class="container">
+  <div class="crumb"><a href="https://markology-agency.github.io/pages/adam-traywick/">Adam Traywick hub</a> &rsaquo; May 2026</div>
+  <span class="pill">Monthly SEO Report</span>
+  <h1>MAY 2026<br/><span class="accent">SEO PROGRESS.</span></h1>
+  <p class="lede">Year-over-year, organic keywords are up <strong>211%</strong>. Position Tracking shows Fort Worth dominance holding strong, the home-services trades pivot is producing rankings (plumbers, HVAC, barbers, hair salons), and a SEMrush traffic dip in April warrants investigation — covered in the priority actions below.</p>
+  <div class="meta-row">
+    <span class="pill tier">Local Monthly</span>
+    <span class="pill live">Live</span>
   </div>
 
-  <h2>Top Performers</h2>
+  <div class="kpi-strip">
+    <div class="kpi"><div class="lbl">Total Keywords</div><div class="val">841</div><div class="delta up">+571 YoY (211%)</div></div>
+    <div class="kpi"><div class="lbl">Apr 2026 Traffic</div><div class="val">153</div><div class="delta dn">Off Dec peak of 434</div></div>
+    <div class="kpi"><div class="lbl">Domain Authority Rank</div><div class="val">3.1M</div><div class="delta up">Top 3M sites globally</div></div>
+    <div class="kpi"><div class="lbl">Top-3 Keywords</div><div class="val">7+</div><div class="delta up">Fort Worth + trades</div></div>
+  </div>
+
+  <div class="alert warn"><strong>Heads up:</strong> The Apr 2026 SEMrush traffic number (153) is well off the Dec 2025 peak (434). Keyword count keeps climbing (675 &rarr; 841 over the same span), which means impressions are still growing — what dropped is high-traffic top-3 rankings on individual queries. The QBI cluster losing top spots is the most likely culprit. Action plan in the priorities below.</div>
+
+  <h2>SIX-MONTH TRAJECTORY.</h2>
+  <p class="section-sub">SEMrush organic keywords + estimated organic traffic, month over month.</p>
+  <div class="chart-wrap"><canvas id="kwChart"></canvas></div>
+  <div class="chart-wrap"><canvas id="trChart"></canvas></div>
+
+  <h2>TOP PERFORMERS.</h2>
+  <p class="section-sub">Highest-ranking non-brand keywords on adamtraywick.com (SEMrush US, May 2026). Brand terms filtered out.</p>
   <table>
-    <thead>
-      <tr>
-        <th>Keyword</th>
-        <th>Position</th>
-        <th>Monthly Volume</th>
-        <th>Change</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-    </tbody>
+    <thead><tr><th>Keyword</th><th>Pos</th><th>Monthly Volume</th><th>Ranking URL</th></tr></thead>
+    <tbody><tr><td><a href="https://adamtraywick.com/" style="color:var(--blue);text-decoration:none;">accountant fort worth</a></td><td>1</td><td>260</td><td>/</td></tr><tr><td><a href="https://adamtraywick.com/" style="color:var(--blue);text-decoration:none;">accountants fort worth</a></td><td>1</td><td>50</td><td>/</td></tr><tr><td><a href="https://adamtraywick.com/" style="color:var(--blue);text-decoration:none;">fort worth accountants</a></td><td>1</td><td>260</td><td>/</td></tr><tr><td><a href="https://adamtraywick.com/qbi-deduction-2025/" style="color:var(--blue);text-decoration:none;">2025 qbi deduction phase out thresholds single filer</a></td><td>2</td><td>40</td><td>/qbi-deduction-2025/</td></tr><tr><td><a href="https://adamtraywick.com/qbi-deduction-2025/" style="color:var(--blue);text-decoration:none;">qbi limits 2025</a></td><td>3</td><td>40</td><td>/qbi-deduction-2025/</td></tr><tr><td><a href="https://adamtraywick.com/best-accounting-software-for-plumbers-2025/" style="color:var(--blue);text-decoration:none;">plumbers accounting software</a></td><td>3</td><td>90</td><td>/best-accounting-software-for-plumbers-2025/</td></tr><tr><td><a href="https://adamtraywick.com/barber-tax-write-offs-2025/" style="color:var(--blue);text-decoration:none;">barber expenses list for taxes</a></td><td>3</td><td>40</td><td>/barber-tax-write-offs-2025/</td></tr><tr><td><a href="https://adamtraywick.com/best-accounting-software-for-plumbers-2025/" style="color:var(--blue);text-decoration:none;">plumber accounting software</a></td><td>4</td><td>30</td><td>/best-accounting-software-for-plumbers-2025/</td></tr><tr><td><a href="https://adamtraywick.com/fort-worth-bookkeeping/" style="color:var(--blue);text-decoration:none;">fort worth bookkeeping services</a></td><td>4</td><td>50</td><td>/fort-worth-bookkeeping/</td></tr><tr><td><a href="https://adamtraywick.com/" style="color:var(--blue);text-decoration:none;">top fort worth tax services</a></td><td>4</td><td>50</td><td>/</td></tr><tr><td><a href="https://adamtraywick.com/fort-worth-bookkeeping/" style="color:var(--blue);text-decoration:none;">fort worth bookkeeping</a></td><td>5</td><td>210</td><td>/fort-worth-bookkeeping/</td></tr><tr><td><a href="https://adamtraywick.com/s-corp-vs-llc-in-texas/" style="color:var(--blue);text-decoration:none;">texas s corp vs llc</a></td><td>5</td><td>70</td><td>/s-corp-vs-llc-in-texas/</td></tr><tr><td><a href="https://adamtraywick.com/fort-worth-tax-preparation/" style="color:var(--blue);text-decoration:none;">top fort worth tax preparer</a></td><td>5</td><td>50</td><td>/fort-worth-tax-preparation/</td></tr><tr><td><a href="https://adamtraywick.com/fort-worth-bookkeeping/" style="color:var(--blue);text-decoration:none;">bookkeeping fort worth tx</a></td><td>5</td><td>50</td><td>/fort-worth-bookkeeping/</td></tr><tr><td><a href="https://adamtraywick.com/" style="color:var(--blue);text-decoration:none;">fort worth cpa</a></td><td>5</td><td>140</td><td>/</td></tr></tbody>
   </table>
 
-  
+  <h2>WHAT SHIPPED IN MAY.</h2>
+  <p class="section-sub">Live, verified on-page work from this month.</p>
 
-  <footer>
-    Generated by Markology &middot; 2026 &middot; <a href="https://markology.io">markology.io</a>
-  </footer>
-</div>
+  <div class="shipped-card">
+    <div class="head"><span class="name">FAQPage schema retrofit</span><span class="when">May 18</span></div>
+    <p class="desc">Added FAQPage JSON-LD to the top 10 organic blog and content URLs (QBI 2025, Fort Worth bookkeeping, barber tax, plumbers software, S-corp vs LLC, California vs Texas, Fort Worth tax prep, full-time alternatives, HELOC interest, switch to S-corp). All 10 verified rendering live in &lt;head&gt;. <a href="https://adamtraywick.com/qbi-deduction-2025/">Example: /qbi-deduction-2025/</a></p>
+  </div>
+  <div class="shipped-card">
+    <div class="head"><span class="name">Internal link sprint — 11 contextual links</span><span class="when">May 18</span></div>
+    <p class="desc">Shipped 11 contextual internal links across 9 recent pages to break the homepage cannibalization fight on /fort-worth-tax-preparation/ and /small-business-accounting/. Boosted /how-much-does-a-cpa-cost-in-fort-worth/, /fort-worth-cpa-vs-accountant/, /lower-tax-bill-over-150k-revenue/, /when-should-you-switch-cpas/, /60k-income-to-switch-to-s-corporation/.</p>
+  </div>
+  <div class="shipped-card">
+    <div class="head"><span class="name">Team bios + Person schema on /about-us/</span><span class="when">May 18</span></div>
+    <p class="desc">Six team bios drafted (Adam, Colleen, Matt, Nikki, Riley, Elizabeth) with parallel Person schemas pushed to /about-us/ via Rank Math API. Paste-ready HTML in the SEO folder for Elementor install. E-E-A-T baseline lift.</p>
+  </div>
+  <div class="shipped-card">
+    <div class="head"><span class="name">Plumber service page boost work</span><span class="when">May 15</span></div>
+    <p class="desc">/accountants-for-plumbers/ targeted for a top-15 push in 60 days. Already producing rankings: "plumbers accounting software" #3, "plumber accounting software" #4, "best accounting software for small plumbing business" #3, "best accountants for plumbing businesses" #7.</p>
+  </div>
+  <div class="shipped-card">
+    <div class="head"><span class="name">Three new SEO blogs published</span><span class="when">May 5 - May 15</span></div>
+    <p class="desc">"How Profitable Should an HVAC Business Be?", "What Happens If You Don't Pay Estimated Taxes in 2026?", and "How Much Cash Should You Keep in Your Business?" — all live, all leaning into the home-services trades pivot.</p>
+  </div>
+  <div class="shipped-card">
+    <div class="head"><span class="name">Schema + redirect cleanup</span><span class="when">May 12 - 13</span></div>
+    <p class="desc">Resolved duplicate Organization schema on homepage. Activated 2 Rank Math 301 redirects for the HSA cluster. Rebuilt /health-savings-accounts-2/ in Elementor template.</p>
+  </div>
 
-<script>
-  const trendData = {"labels": ["Jan", "Feb", "Mar", "Apr", "May"], "keywords": [null, null, null, null, null], "sessions": [0, 0, 0, 0, 0]};
-  const ctx = document.getElementById('trajectoryChart').getContext('2d');
+  <h2>JUNE GAME PLAN.</h2>
+  <p class="section-sub">Three priorities for the next 30 days, sized to ship.</p>
 
-  const datasets = [{
-    label: 'Tracked Keywords',
-    data: trendData.keywords,
-    borderColor: '#0b1b3a',
-    backgroundColor: 'rgba(11, 27, 58, 0.1)',
-    yAxisID: 'y',
-    tension: 0.3,
-    spanGaps: true,
-  }];
+  <div class="priority">
+    <div class="num">1</div>
+    <div class="body">
+      <span class="tag">Diagnose &amp; defend</span>
+      <h3>FIGURE OUT THE QBI CLUSTER TRAFFIC DROP.</h3>
+      <p>SEMrush estimated traffic fell from 434 (Dec) to 153 (Apr) while keyword count went from 549 to 841. That points to position decay on the high-traffic queries, not loss of indexed pages. The QBI 2025 cluster is the biggest single contributor and the most likely culprit. Pull GSC top-pages for /qbi-deduction-2025/ over the same window, identify the queries that lost top-3, refresh the page content around them, and re-submit to Google. Re-pull SEMrush in 14 days to confirm lift.</p>
+    </div>
+  </div>
 
-  const hasSessions = trendData.sessions.some(v => v !== null && v !== undefined);
-  if (hasSessions) {
-    datasets.push({
-      label: 'Organic Sessions',
-      data: trendData.sessions,
-      borderColor: '#1f4fff',
-      borderDash: [6, 4],
-      backgroundColor: 'rgba(31, 79, 255, 0.05)',
-      yAxisID: 'y1',
-      tension: 0.3,
-      spanGaps: true,
-    });
-  }
+  <div class="priority">
+    <div class="num">2</div>
+    <div class="body">
+      <span class="tag">Trades expansion</span>
+      <h3>SHIP /accountants-for-electricians/ + COMPLETE THE TRADES CLUSTER.</h3>
+      <p>Plumbers ranking #3-7 nationally is the proof case. Electricians is the next obvious vertical — same buyer profile, same pain points, same content angles. Build the service page, retrofit FAQPage schema on day one, internal-link from the HVAC, plumbers, and home-services blogs. Layer in the missing Payroll + Accounting Services local pages already queued (Local SEO build task on the board, due May 27).</p>
+    </div>
+  </div>
 
-  new Chart(ctx, {
-    type: 'line',
-    data: { labels: trendData.labels, datasets: datasets },
-    options: {
-      responsive: true,
-      interaction: { mode: 'index', intersect: false },
-      scales: {
-        y:  { position: 'left',  title: { display: true, text: 'Keywords' } },
-        y1: { position: 'right', title: { display: true, text: 'Sessions' }, grid: { drawOnChartArea: false }, display: hasSessions }
-      }
-    }
+  <div class="priority">
+    <div class="num">3</div>
+    <div class="body">
+      <span class="tag">Local pack</span>
+      <h3>WIN THE TOP-3 LOCAL PACK FOR "cpa fort worth".</h3>
+      <p>Currently #5 organic on the SERP, but the Local Pack is the conversion path for Fort Worth searches. Citation cleanup (Bing Places + BBB + standardize NAP) is already on the board. Layer in: claim/verify GBP, push 5-8 fresh Google reviews via the footer review link (blocked on Adam pasting the GBP CID — see open items), and add LocalBusiness schema to the homepage. 30-day target: defended #1 on "fort worth accountants" + new Local Pack appearance on "cpa fort worth".</p>
+    </div>
+  </div>
+
+  <script>
+  const navy='#070630',blue='#3872EB',lilac='#E6E9FF';
+  Chart.defaults.font.family="Inter, system-ui, sans-serif";
+  Chart.defaults.color=navy;
+  new Chart(document.getElementById('kwChart'),{
+    type:'line',
+    data:{labels:["05/25", "06/25", "07/25", "08/25", "09/25", "10/25", "11/25", "12/25", "01/26", "02/26", "03/26", "04/26"],datasets:[{
+      label:'Organic Keywords',data:[270, 324, 413, 500, 449, 430, 430, 549, 675, 798, 837, 841],
+      borderColor:blue,backgroundColor:lilac,borderWidth:3,fill:true,tension:0.3,pointRadius:5,pointBackgroundColor:navy
+    }]},
+    options:{plugins:{title:{display:true,text:'Organic Keywords (last 12 months)',font:{size:14,weight:'bold'}}}}
   });
-</script>
+  new Chart(document.getElementById('trChart'),{
+    type:'bar',
+    data:{labels:["05/25", "06/25", "07/25", "08/25", "09/25", "10/25", "11/25", "12/25", "01/26", "02/26", "03/26", "04/26"],datasets:[{
+      label:'Est. Organic Traffic',data:[49, 54, 65, 100, 74, 97, 94, 434, 345, 231, 203, 153],backgroundColor:blue,borderColor:navy,borderWidth:2
+    }]},
+    options:{plugins:{title:{display:true,text:'SEMrush Est. Organic Traffic (last 12 months)',font:{size:14,weight:'bold'}}}}
+  });
+  </script>
+  <div class="foot">Built by <a href="https://markology.io">Markology</a> &middot; <a href="https://markology-agency.github.io/pages/adam-traywick/">Adam Traywick report hub</a> &middot; Refreshed 2026-05-26</div>
+</div>
 </body>
 </html>

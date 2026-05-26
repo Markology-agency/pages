@@ -2,815 +2,266 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Adam Traywick CPA — May 2026 SEO Update by Markology</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Adam Traywick — SEO Progress · May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-  /* Markology brand palette */
   :root {
-    --paper: #F9F9FF;
-    --navy:  #070630;
-    --blue:  #3872EB;
-    --lilac: #E6E9FF;
-    --ink:   #070630;
-    --mute:  #6C6E8A;
-    --hair:  rgba(7,6,48,0.10);
-    --good:  #10b981;
-    --good-soft: #d1fae5;
-    --watch: #f59e0b;
-    --watch-soft: #fef3c7;
-    --bad:   #ef4444;
-    --bad-soft: #fee2e2;
+    --paper: #f7f4ee;
+    --navy:  #0b1b3a;
+    --blue:  #1f4fff;
+    --lilac: #b9a8ff;
+    --mute:  #6a6a72;
+    --hair:  #1f1f24;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  * { box-sizing: border-box; }
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #fff;
-    color: var(--ink);
-    line-height: 1.6;
-    font-size: 15px;
-    -webkit-font-smoothing: antialiased;
-  }
-  .bangers {
-    font-family: 'Bangers', 'Impact', sans-serif;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    text-transform: uppercase;
-  }
-  .accent { color: var(--blue); }
-  .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
-  section { padding: 80px 0; position: relative; overflow: hidden; }
-  @media (max-width: 720px) {
-    section { padding: 56px 0; }
-    .container { padding: 0 20px; }
-  }
-
-  /* Decorative stars */
-  .star { position: absolute; pointer-events: none; }
-
-  /* Pills */
-  .pill {
-    display: inline-block;
-    padding: 6px 14px;
-    background: var(--navy);
-    color: #fff;
-    font-size: 11px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    font-weight: 700;
-    border-radius: 999px;
-  }
-  .pill.blue { background: var(--blue); }
-  .pill.outlined { background: #fff; color: var(--navy); border: 2px solid var(--navy); }
-
-  /* ====== HERO ====== */
-  .hero { background: var(--paper); padding-top: 100px; padding-bottom: 80px; }
-  .hero h1 {
-    font-family: 'Bangers', 'Impact', sans-serif;
-    font-size: clamp(56px, 9vw, 120px);
-    line-height: 0.92;
-    letter-spacing: 0.02em;
-    color: var(--navy);
-    margin: 24px 0 0;
-  }
-  .hero .lede {
-    font-size: 19px;
-    line-height: 1.6;
-    color: var(--mute);
-    max-width: 620px;
-    margin-top: 28px;
-  }
-  .hero .meta {
-    margin-top: 28px;
-    display: flex;
-    gap: 28px;
-    flex-wrap: wrap;
-    font-size: 13px;
-    color: var(--mute);
-  }
-  .hero .meta strong { color: var(--navy); font-weight: 600; }
-
-  /* ====== KPI STRIP ====== */
-  .kpi-section { background: #fff; padding: 64px 0; }
-  .kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-  }
-  @media (max-width: 900px) { .kpi-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 540px) { .kpi-grid { grid-template-columns: 1fr; } }
-  .kpi {
+    margin: 0;
     background: var(--paper);
-    border: 2px solid var(--navy);
-    border-radius: 16px;
-    padding: 24px 22px;
-    box-shadow: 5px 5px 0 var(--navy);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-  .kpi:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--navy); }
-  .kpi:nth-child(2) { background: var(--lilac); }
-  .kpi .label {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--blue);
-    font-weight: 700;
-    margin-bottom: 12px;
-  }
-  .kpi .value {
-    font-family: 'Bangers', sans-serif;
-    font-size: 48px;
-    line-height: 1;
-    letter-spacing: 0.02em;
-    color: var(--navy);
-  }
-  .kpi .delta {
-    margin-top: 10px;
-    font-size: 13px;
-    font-weight: 600;
-  }
-  .kpi .delta.good { color: #047857; }
-  .kpi .delta.watch { color: #b45309; }
-  .kpi .explain {
-    margin-top: 14px;
-    padding-top: 14px;
-    border-top: 2px dashed var(--hair);
-    font-size: 12px;
-    color: var(--mute);
+    font-family: Inter, system-ui, sans-serif;
+    color: var(--hair);
     line-height: 1.5;
   }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
 
-  /* ====== SECTION HEADS ====== */
-  .section-head { margin-bottom: 48px; max-width: 800px; }
-  .section-head h2 {
-    font-family: 'Bangers', sans-serif;
-    font-size: clamp(40px, 5.5vw, 68px);
-    line-height: 0.98;
-    letter-spacing: 0.02em;
-    color: var(--navy);
-    margin-top: 16px;
-  }
-  .section-head p {
-    font-size: 17px;
-    color: var(--mute);
-    margin-top: 16px;
-    line-height: 1.6;
-  }
-
-  /* ====== CHART CARDS ====== */
-  .charts-section { background: #fff; }
-  .chart-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
-  }
-  @media (max-width: 900px) { .chart-row { grid-template-columns: 1fr; } }
-  .chart-card {
-    background: var(--paper);
-    border: 2px solid var(--navy);
-    border-radius: 20px;
-    padding: 28px;
-    box-shadow: 6px 6px 0 var(--navy);
-  }
-  .chart-card h4 {
-    font-family: 'Bangers', sans-serif;
-    font-size: 22px;
-    letter-spacing: 0.04em;
-    color: var(--navy);
-    margin-bottom: 4px;
-  }
-  .chart-card .chart-sub {
-    font-size: 13px;
-    color: var(--mute);
-    margin-bottom: 20px;
-  }
-  .chart-container { position: relative; height: 280px; }
-
-  /* ====== TABLES ====== */
-  .table-section { background: var(--paper); }
-  .table-card {
-    background: #fff;
-    border: 2px solid var(--navy);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 6px 6px 0 var(--navy);
-  }
-  table { width: 100%; border-collapse: collapse; font-size: 14px; }
-  thead { background: var(--navy); }
-  th {
-    text-align: left;
-    padding: 14px 18px;
-    font-size: 11px;
-    font-weight: 700;
+  header.hero { margin-bottom: 32px; }
+  .pill {
+    display: inline-block;
+    background: var(--navy);
+    color: white;
+    padding: 4px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
-    color: var(--blue);
+    margin-bottom: 16px;
   }
-  th.num, td.num { text-align: right; }
-  td {
-    padding: 14px 18px;
-    border-bottom: 1px solid var(--hair);
-  }
-  tr:last-child td { border-bottom: none; }
-  tbody tr:nth-child(even) { background: var(--paper); }
-  .move {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    font-weight: 700;
-    font-size: 13px;
-  }
-  .move.up { color: var(--good); }
-  .move.down { color: var(--bad); }
-  .move.new { background: var(--blue); color: #fff; padding: 3px 10px; border-radius: 6px; font-size: 11px; letter-spacing: 0.08em; border: 2px solid var(--navy); }
-
-  /* ====== PRIORITIES ====== */
-  .priorities-section { background: #fff; }
-  .priority-list { display: flex; flex-direction: column; gap: 16px; }
-  .priority {
-    background: var(--paper);
-    border: 2px solid var(--navy);
-    border-radius: 16px;
-    padding: 24px 28px;
-    display: grid;
-    grid-template-columns: 56px 1fr;
-    gap: 20px;
-    align-items: start;
-    box-shadow: 5px 5px 0 var(--navy);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
-  }
-  .priority:hover { transform: translate(-2px, -2px); box-shadow: 7px 7px 0 var(--navy); }
-  .priority:nth-child(2n) { background: var(--lilac); }
-  .priority .pnum {
-    width: 56px;
-    height: 56px;
-    border-radius: 14px;
-    background: var(--blue);
-    color: #fff;
-    border: 2px solid var(--navy);
-    font-family: 'Bangers', sans-serif;
-    font-size: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .priority h4 {
-    font-family: 'Bangers', sans-serif;
-    font-size: 22px;
-    letter-spacing: 0.04em;
+  h1 {
+    font-family: Bangers, Inter, sans-serif;
+    font-size: 64px;
+    line-height: 1;
     color: var(--navy);
+    margin: 8px 0 4px;
+    letter-spacing: 0.02em;
+  }
+  h2 {
+    font-family: Bangers, Inter, sans-serif;
+    font-size: 32px;
+    color: var(--navy);
+    margin: 40px 0 16px;
+    letter-spacing: 0.02em;
+  }
+  .lede {
+    font-size: 18px;
+    color: var(--hair);
+    max-width: 720px;
+  }
+  .meta {
+    color: var(--mute);
+    font-size: 14px;
+    margin-top: 12px;
+  }
+
+  .alert {
+    background: #fff0ee;
+    border: 2px solid #d23a2a;
+    color: #6f1e14;
+    padding: 14px 18px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-weight: 500;
+  }
+
+  .kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin: 24px 0 40px;
+  }
+  @media (max-width: 720px) {
+    .kpis { grid-template-columns: repeat(2, 1fr); }
+    h1 { font-size: 44px; }
+  }
+  .kpi {
+    background: white;
+    border: 2px solid var(--navy);
+    border-radius: 6px;
+    padding: 18px 16px;
+    box-shadow: 5px 5px 0 var(--navy);
+  }
+  .kpi .label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--mute);
     margin-bottom: 6px;
   }
-  .priority p {
-    font-size: 14px;
-    color: var(--mute);
-    line-height: 1.55;
-  }
-  .priority .tag {
-    display: inline-block;
-    margin-top: 10px;
-    padding: 4px 10px;
-    background: var(--navy);
-    color: #fff;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    border-radius: 6px;
-    text-transform: uppercase;
-  }
-
-  /* ====== FOOTER ====== */
-  .footer {
-    background: var(--navy);
-    color: #fff;
-    text-align: center;
-    padding: 80px 0;
-  }
-  .footer h2 {
-    font-family: 'Bangers', sans-serif;
-    font-size: clamp(36px, 5vw, 56px);
+  .kpi .value {
+    font-family: Bangers, Inter, sans-serif;
+    font-size: 36px;
+    color: var(--navy);
     line-height: 1;
-    letter-spacing: 0.02em;
   }
-  .footer h2 .accent { color: var(--blue); }
-  .footer p { color: #B4B6D6; margin-top: 16px; font-size: 14px; }
-  .footer .built-by {
-    margin-top: 32px;
-    padding-top: 24px;
-    border-top: 2px dashed rgba(255,255,255,0.2);
-    color: #8A8DB8;
-    font-size: 12px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+  .kpi .delta {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--blue);
     font-weight: 600;
   }
-  .footer .built-by a { color: var(--blue); text-decoration: none; }
+
+  .chart-wrap {
+    background: white;
+    border: 2px solid var(--navy);
+    border-radius: 6px;
+    padding: 16px;
+    box-shadow: 5px 5px 0 var(--navy);
+  }
+  canvas { max-width: 100%; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border: 2px solid var(--navy);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 5px 5px 0 var(--navy);
+  }
+  thead { background: var(--navy); color: white; }
+  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #eee; }
+  th { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
+  tbody tr:last-child td { border-bottom: none; }
+  td.empty { text-align: center; color: var(--mute); padding: 32px; }
+  .delta-up { color: #2a8a3a; font-weight: 600; }
+  .delta-down { color: #c43a2a; font-weight: 600; }
+
+  .notes {
+    background: white;
+    border-left: 4px solid var(--blue);
+    padding: 14px 18px;
+    margin-top: 24px;
+    border-radius: 4px;
+  }
+  .notes ul { margin: 8px 0 0 0; padding-left: 20px; }
+
+  footer {
+    margin-top: 64px;
+    color: var(--mute);
+    font-size: 13px;
+    text-align: center;
+  }
+  footer a { color: var(--blue); text-decoration: none; }
 </style>
 </head>
 <body>
+<div class="wrap">
+  <header class="hero">
+    
+    <span class="pill">Monthly SEO Progress</span>
+    <h1>ADAM TRAYWICK</h1>
+    <div class="lede">SEO performance snapshot for May 2026. Tracked keyword counts, organic sessions, and the top-ranking terms driving the domain.</div>
+    <div class="meta">adamtraywick.com &middot; report covers May 2026</div>
+  </header>
 
-<!-- ====== HERO ====== -->
-<section class="hero">
-  <svg class="star" style="top: 80px; left: 80px; transform: rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
-  <svg class="star" style="top: 200px; right: 120px; transform: rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
-  <svg class="star" style="bottom: 60px; left: 50%; transform: rotate(8deg);" width="20" height="20" viewBox="0 0 24 24" fill="#E6E9FF" stroke="#070630" stroke-width="1.5"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
-
-  <div class="container">
-    <span class="pill blue" style="border: 2px solid var(--navy); box-shadow: 4px 4px 0 var(--navy);">May 2026 &middot; Monthly Update + Strategy Pivot</span>
-    <h1>ADAM TRAYWICK.<br />THE CLIMB IS <span class="accent">REAL.</span></h1>
-    <p class="lede">
-      841 keywords ranking in April, up 95% from November. Google Analytics shows 2,319 sessions in April, a normal post-tax dip from the December peak of 3,522. Two keywords sitting at #1, three big movers, three new entries. Starting June 1, the next chapter: a deliberate pivot toward home-services trades &mdash; HVAC, plumbing, electrical &mdash; to shift the inbound mix away from individual returns toward niche SMB clients.
-    </p>
-    <div class="meta">
-      <span><strong>Period:</strong> November 2025 to April 2026</span>
-      <span><strong>Reporting date:</strong> May 4, 2026</span>
-      <span><strong>Prepared by:</strong> Markology</span>
+  <section class="kpis">
+    <div class="kpi">
+      <div class="label">Total Keywords</div>
+      <div class="value">0</div>
+      <div class="delta">— vs. start of period</div>
     </div>
+    <div class="kpi">
+      <div class="label">May 2026 Sessions</div>
+      <div class="value">0</div>
+      <div class="delta">organic search</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Domain Rank</div>
+      <div class="value">N/A</div>
+      <div class="delta">SEMrush authority</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Top-3 Rankings</div>
+      <div class="value">0</div>
+      <div class="delta">non-branded</div>
+    </div>
+  </section>
+
+  <h2>Trajectory</h2>
+  <div class="chart-wrap">
+    <canvas id="trajectoryChart" height="120"></canvas>
   </div>
-</section>
 
-<!-- ====== KPI STRIP ====== -->
-<section class="kpi-section">
-  <div class="container">
-    <div class="kpi-grid">
-      <div class="kpi">
-        <div class="label">Total Keywords Ranking</div>
-        <div class="value">841</div>
-        <div class="delta good">&uarr; 95% since Nov 2025</div>
-        <div class="explain">
-          Total URLs from adamtraywick.com appearing anywhere in Google organic results. Started at 430 in November and has nearly doubled. Source: SEMrush domain_organic.
-        </div>
-      </div>
-      <div class="kpi">
-        <div class="label">April Sessions</div>
-        <div class="value">2,319</div>
-        <div class="delta watch">Seasonal dip, post-tax season</div>
-        <div class="explain">
-          Real sessions from Google Analytics. April always dips for accounting firms after tax season wraps. Peaked at 3,522 sessions in December and will rebuild through summer.
-        </div>
-      </div>
-      <div class="kpi">
-        <div class="label">Domain Rank</div>
-        <div class="value">3.1<span style="font-size: 28px;">M</span></div>
-        <div class="delta good">&uarr; Gaining authority</div>
-        <div class="explain">
-          SEMrush Authority Rank (lower number = stronger domain). Was 3,089,005 in April. Domain authority has been building steadily as content and links compound.
-        </div>
-      </div>
-      <div class="kpi">
-        <div class="label">Tracked Top 3</div>
-        <div class="value">4</div>
-        <div class="delta good">2 at #1, 1 at #2, 1 at #3</div>
-        <div class="explain">Strategically tracked non-brand keywords holding a top-3 position in April 2026. From the SEMrush tracking project of 40 monitored keywords; 25 currently ranking.</div>
-      </div>
-    </div>
-  </div>
-</section>
+  <h2>Top Performers</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Keyword</th>
+        <th>Position</th>
+        <th>Monthly Volume</th>
+        <th>Change</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td></td><td>999</td><td>0</td><td>—</td></tr>
+<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
+<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
+<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
+<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
+<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
+<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
+<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
+<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
+<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
+    </tbody>
+  </table>
 
-<!-- ====== TRAJECTORY CHARTS ====== -->
-<section class="charts-section" style="background: var(--paper);">
-  <div class="container">
-    <div class="section-head">
-      <span class="pill">The Receipts</span>
-      <h2>SIX MONTHS<br /><span class="accent">OF GROWTH.</span></h2>
-      <p>Keywords ranking have nearly doubled since November. Google Analytics shows 2,319 sessions in April, a normal post-tax-season dip from the December peak of 3,522. The keyword base is at its highest ever, so next busy season will hit harder.</p>
-    </div>
-    <div style="margin-bottom: 24px;">
-      <div class="chart-card">
-        <h4>Domain Trajectory: Nov 2025 to Apr 2026</h4>
-        <div class="chart-sub">Total organic ranking keywords (SEMrush) and monthly sessions (Google Analytics).</div>
-        <div class="chart-container"><canvas id="trajectoryChart"></canvas></div>
-      </div>
-    </div>
-    <div class="chart-row">
-      <div class="chart-card">
-        <h4>Keywords by Month</h4>
-        <div class="chart-sub">Total organic keywords ranking each month.</div>
-        <div class="chart-container"><canvas id="kwChart"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <h4>Sessions by Month</h4>
-        <div class="chart-sub">Google Analytics sessions. Post-tax dip is normal for accounting firms.</div>
-        <div class="chart-container"><canvas id="trafficChart"></canvas></div>
-      </div>
-    </div>
-  </div>
-</section>
+  
 
-<!-- ====== TOP PERFORMERS ====== -->
-<section class="table-section">
-  <div class="container">
-    <div class="section-head">
-      <span class="pill blue">Top Performers</span>
-      <h2>WHERE WE<br /><span class="accent">OWN IT.</span></h2>
-      <p>The highest-value keywords with current positions. Two at #1, three more in the top 5. These are the terms that drive real local calls.</p>
-    </div>
-    <div class="table-card">
-      <table>
-<thead><tr><th>Keyword</th><th class="num">Volume</th><th class="num">Position</th><th class="num">30-Day Change</th></tr></thead>
-<tbody>
-<tr><td>accountants for real estate</td><td class='num'>10</td><td class='num'><strong>#1</strong></td><td class='num'>0</td></tr>
-<tr><td>accounting for hair salons</td><td class='num'>10</td><td class='num'><strong>#1</strong></td><td class='num'>+7</td></tr>
-<tr><td>small business tax advisor</td><td class='num'>10</td><td class='num'><strong>#2</strong></td><td class='num'>0</td></tr>
-<tr><td>fort worth bookkeeping</td><td class='num'>0</td><td class='num'><strong>#3</strong></td><td class='num'>+7</td></tr>
-<tr><td>fort worth accountants</td><td class='num'>390</td><td class='num'>#4</td><td class='num'>-1</td></tr>
-<tr><td>small business cpa near me</td><td class='num'>10</td><td class='num'>#5</td><td class='num'>+1</td></tr>
-<tr><td>accountant fort worth</td><td class='num'>390</td><td class='num'>#6</td><td class='num'>-2</td></tr>
-<tr><td>barber tax deductions</td><td class='num'>10</td><td class='num'>#6</td><td class='num'>-5</td></tr>
-<tr><td>small business tax accountant near me</td><td class='num'>10</td><td class='num'>#6</td><td class='num'>+2</td></tr>
-<tr><td>fort worth accounting</td><td class='num'>0</td><td class='num'>#6</td><td class='num'>-3</td></tr>
-<tr><td>small business accountant</td><td class='num'>30</td><td class='num'>#7</td><td class='num'>-1</td></tr>
-<tr><td>bookkeeper fort worth</td><td class='num'>30</td><td class='num'>#8</td><td class='num'>0</td></tr>
-</tbody>
-</table>
-    </div>
-  </div>
-</section>
-
-<!-- ====== KEYWORD MOVERS ====== -->
-<section class="table-section" style="background: #fff;">
-  <div class="container">
-    <div class="section-head">
-      <span class="pill blue">Big Movers</span>
-      <h2>KEYWORDS<br />ON THE <span class="accent">MOVE.</span></h2>
-      <p>These three made the biggest jumps over the past 30 days. The local intent keywords are climbing fast, and the niche keyword for plumbers is now in the top 3.</p>
-    </div>
-    <div class="table-card">
-      <table>
-        <thead>
-          <tr>
-            <th>Keyword</th>
-            <th class="num">Volume</th>
-            <th class="num">Prior Position</th>
-            <th class="num">Current Position</th>
-            <th class="num">Move</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>fort worth accounting firms</td>
-            <td class="num">210</td>
-            <td class="num">#65</td>
-            <td class="num">#27</td>
-            <td class="num"><span class="move up">&uarr; 38</span></td>
-          </tr>
-          <tr>
-            <td>qbi limitations 2024</td>
-            <td class="num">590</td>
-            <td class="num">#73</td>
-            <td class="num">#36</td>
-            <td class="num"><span class="move up">&uarr; 37</span></td>
-          </tr>
-          <tr>
-            <td>plumbers accounting software</td>
-            <td class="num">170</td>
-            <td class="num">#7</td>
-            <td class="num">#3</td>
-            <td class="num"><span class="move up">&uarr; 4</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- ====== NEW KEYWORDS ====== -->
-<section class="table-section">
-  <div class="container">
-    <div class="section-head">
-      <span class="pill">New Entries</span>
-      <h2>FRESH ON<br /><span class="accent">THE MAP.</span></h2>
-      <p>Keywords that entered the rankings recently. These are the seeds that become top-10 keywords over the next few months.</p>
-    </div>
-    <div class="table-card">
-      <table>
-        <thead>
-          <tr>
-            <th>Keyword</th>
-            <th class="num">Monthly Volume</th>
-            <th class="num">Current Position</th>
-            <th class="num">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>small business accountant near me</td>
-            <td class="num">3,600</td>
-            <td class="num">#95</td>
-            <td class="num"><span class="move new">NEW</span></td>
-          </tr>
-          <tr>
-            <td>cpa specializing in real estate</td>
-            <td class="num">320</td>
-            <td class="num">#80</td>
-            <td class="num"><span class="move new">NEW</span></td>
-          </tr>
-          <tr>
-            <td>qbi limit</td>
-            <td class="num">1,000</td>
-            <td class="num">#10</td>
-            <td class="num"><span class="move new">NEW</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
-<!-- ====== PIVOT TO HOME SERVICES ====== -->
-<section style="background: #fff; padding: 80px 0;">
-  <div class="container">
-    <div class="section-head" style="margin-bottom: 36px; max-width: 820px;">
-      <span class="pill blue">Summer 2026 Strategy</span>
-      <h2 style="margin-top: 14px;">THE PIVOT TO<br /><span class="accent">HOME SERVICES.</span></h2>
-      <p style="margin-top: 14px;">May's individual-return flood made it clear: Adam attracts both the ideal client and a long tail of one-off filers. From June 1, content, paid, and partnerships narrow to home-services trades &mdash; HVAC, plumbing, electrical, anyone who rolls up to a job in a service truck or van.</p>
-    </div>
-
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;">
-      <div style="background: var(--paper); border: 2px solid var(--navy); border-radius: 14px; padding: 24px; box-shadow: 5px 5px 0 var(--navy);">
-        <span class="pill" style="background: var(--good); font-size: 10px;">HVAC &middot; 6 Keywords Ranking</span>
-        <h4 class="bangers" style="font-size: 22px; color: var(--navy); margin-top: 14px; margin-bottom: 8px;">FOUNDATION IS THERE.</h4>
-        <p style="font-size: 12px; color: var(--mute); line-height: 1.5;">Top win: <strong style="color: var(--navy);">"bookkeeping services for hvac businesses" at #9</strong> (vol 70). Highest-volume keyword: "hvac business owner salary" at #27 (vol 480). Best CPC opportunity: "hvac accounting" at #26 (vol 260, CPC $13.81).</p>
-        <p style="font-size: 12px; color: var(--navy); font-weight: 700; margin-top: 14px; letter-spacing: 0.08em; text-transform: uppercase;">Next moves</p>
-        <p style="font-size: 13px; color: var(--mute); line-height: 1.55; margin-top: 4px;">HVAC owner take-home (revenue-tiered &mdash; targets "hvac business owner salary" at vol 480) &middot; Section 179 for service vans &middot; seasonal cash flow piece.</p>
-      </div>
-      <div style="background: var(--paper); border: 2px solid var(--navy); border-radius: 14px; padding: 24px; box-shadow: 5px 5px 0 var(--navy);">
-        <span class="pill" style="background: var(--watch); color: var(--navy); font-size: 10px;">Plumbers &middot; 11+ Keywords Ranking</span>
-        <h4 class="bangers" style="font-size: 22px; color: var(--navy); margin-top: 14px; margin-bottom: 8px;">STRONGEST VERTICAL.</h4>
-        <p style="font-size: 12px; color: var(--mute); line-height: 1.5;">Four keywords in the top 10. Top win: <strong style="color: var(--navy);">"plumbers accounting software" at #3</strong> (vol 90, CPC $116.00). Plus "plumbing accounting" at #8 and "bookkeeping for plumbing business" at #9 (CPC $109.10). High-CPC commercial intent.</p>
-        <p style="font-size: 12px; color: var(--navy); font-weight: 700; margin-top: 14px; letter-spacing: 0.08em; text-transform: uppercase;">Next moves</p>
-        <p style="font-size: 13px; color: var(--mute); line-height: 1.55; margin-top: 4px;">Push "accountants for plumbers" from #29 to top 20 (vol 90, direct service intent). "Plumber switch to S-corp in Texas" pillar drop June 2.</p>
-      </div>
-      <div style="background: var(--paper); border: 2px solid var(--navy); border-radius: 14px; padding: 24px; box-shadow: 5px 5px 0 var(--navy);">
-        <span class="pill" style="background: var(--bad); font-size: 10px;">Electricians &middot; 0 Keywords Ranking</span>
-        <h4 class="bangers" style="font-size: 22px; color: var(--navy); margin-top: 14px; margin-bottom: 8px;">BUILD FROM SCRATCH.</h4>
-        <p style="font-size: 12px; color: var(--mute); line-height: 1.5;">SEMrush confirms zero ranking keywords for any electrician-specific term. No service page exists. Vertical wide open in DFW with low competitive content density &mdash; mirror the plumber playbook that's already producing 4 top-10 rankings.</p>
-        <p style="font-size: 12px; color: var(--navy); font-weight: 700; margin-top: 14px; letter-spacing: 0.08em; text-transform: uppercase;">Required by June 30</p>
-        <p style="font-size: 13px; color: var(--mute); line-height: 1.55; margin-top: 4px;">New <code>/accountants-for-electricians/</code> service page + S-corp pillar + "8 deductions" listicle. Target seed keywords: "accountants for electricians," "electrical contractor cpa," "electrician tax deductions."</p>
-      </div>
-    </div>
-
-    <!-- Service vertical full rankings -->
-    <div style="margin-top: 56px;">
-      <h3 style="font-family:'Bangers',sans-serif;font-size:32px;letter-spacing:0.04em;color:var(--navy);margin-bottom:8px;">TRADE VERTICAL RANKINGS.</h3>
-      <p style="font-size: 14px; color: var(--mute); margin-bottom: 24px;">Every adamtraywick.com ranking on a HVAC, plumbing, or electrician keyword. Source: SEMrush domain organic research, May 2026.</p>
-
-      <h4 class="bangers" style="font-size: 20px; color: var(--navy); margin-top: 28px; margin-bottom: 12px;">HVAC keywords ranking.</h4>
-      <div class="table-card">
-        <table>
-          <thead><tr><th>Keyword</th><th class="num">Volume</th><th class="num">CPC</th><th class="num">Position</th><th>Ranking URL</th></tr></thead>
-          <tbody>
-            <tr><td>bookkeeping services for hvac businesses</td><td class="num">70</td><td class="num">&mdash;</td><td class="num"><strong>#9</strong></td><td><code>/5-best-hvac-accounting-firms/</code></td></tr>
-            <tr><td>are hvac companies profitable</td><td class="num">50</td><td class="num">&mdash;</td><td class="num">#13</td><td><code>/how-profitable-should-an-hvac-business-be/</code></td></tr>
-            <tr><td>hvac accounting</td><td class="num">260</td><td class="num">$13.81</td><td class="num">#26</td><td><code>/5-best-hvac-accounting-firms/</code></td></tr>
-            <tr><td>hvac business owner salary</td><td class="num">480</td><td class="num">$1.77</td><td class="num">#27</td><td><code>/how-profitable-should-an-hvac-business-be/</code></td></tr>
-            <tr><td>bookkeeping services for hvac contractors</td><td class="num">70</td><td class="num">&mdash;</td><td class="num">#28</td><td><code>/5-best-hvac-accounting-firms/</code></td></tr>
-            <tr><td>bookkeeping services for hvac</td><td class="num">50</td><td class="num">&mdash;</td><td class="num">#28</td><td><code>/5-best-hvac-accounting-firms/</code></td></tr>
-            <tr><td>best hvac bookkeeping software 2025</td><td class="num">50</td><td class="num">&mdash;</td><td class="num">#45</td><td><code>/best-accounting-software-for-plumbers-2025/</code></td></tr>
-            <tr><td>best accounting software for hvac companies 2025</td><td class="num">50</td><td class="num">&mdash;</td><td class="num">#54</td><td><code>/best-accounting-software-for-plumbers-2025/</code></td></tr>
-            <tr><td>accounting for residential hvac companies</td><td class="num">50</td><td class="num">&mdash;</td><td class="num">#88</td><td><code>/5-best-hvac-accounting-firms/</code></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p style="font-size: 12px; color: var(--mute); margin-top: 8px; font-style: italic;">Note: a dedicated HVAC software comparison article would split traffic from the plumber post (currently ranking for HVAC software queries at #45 and #54) onto its own page.</p>
-
-      <h4 class="bangers" style="font-size: 20px; color: var(--navy); margin-top: 36px; margin-bottom: 12px;">Plumber keywords ranking.</h4>
-      <div class="table-card">
-        <table>
-          <thead><tr><th>Keyword</th><th class="num">Volume</th><th class="num">CPC</th><th class="num">Position</th><th>Ranking URL</th></tr></thead>
-          <tbody>
-            <tr><td>plumbers accounting software</td><td class="num">90</td><td class="num">$116.00</td><td class="num"><strong>#3</strong></td><td><code>/best-accounting-software-for-plumbers-2025/</code></td></tr>
-            <tr><td>best accounting software for small plumbing business</td><td class="num">50</td><td class="num">&mdash;</td><td class="num"><strong>#3</strong></td><td><code>/best-accounting-software-for-plumbers-2025/</code></td></tr>
-            <tr><td>plumber accounting software</td><td class="num">30</td><td class="num">$116.00</td><td class="num"><strong>#4</strong></td><td><code>/best-accounting-software-for-plumbers-2025/</code></td></tr>
-            <tr><td>plumbing accounting</td><td class="num">90</td><td class="num">$13.36</td><td class="num"><strong>#8</strong></td><td><code>/best-accounting-software-for-plumbers-2025/</code></td></tr>
-            <tr><td>bookkeeping for plumbing business</td><td class="num">110</td><td class="num">$109.10</td><td class="num"><strong>#9</strong></td><td><code>/best-accounting-software-for-plumbers-2025/</code></td></tr>
-            <tr><td>plumbing business accounting software</td><td class="num">110</td><td class="num">$218.22</td><td class="num">#11</td><td><code>/best-accounting-software-for-plumbers-2025/</code></td></tr>
-            <tr><td>accounting for plumbing business</td><td class="num">110</td><td class="num">&mdash;</td><td class="num">#13</td><td><code>/best-accounting-software-for-plumbers-2025/</code></td></tr>
-            <tr><td>plumbing accounting software</td><td class="num">170</td><td class="num">$116.00</td><td class="num">#14</td><td><code>/best-accounting-software-for-plumbers-2025/</code></td></tr>
-            <tr><td>bookkeeping for plumbers</td><td class="num">140</td><td class="num">$127.40</td><td class="num">#16</td><td><code>/best-accounting-software-for-plumbers-2025/</code></td></tr>
-            <tr><td>accounting for plumbers</td><td class="num">320</td><td class="num">&mdash;</td><td class="num">#16</td><td><code>/best-accounting-software-for-plumbers-2025/</code></td></tr>
-            <tr><td>quickbooks for plumbers</td><td class="num">90</td><td class="num">&mdash;</td><td class="num">#16</td><td><code>/best-accounting-software-for-plumbers-2025/</code></td></tr>
-            <tr><td>plumbing business expenses</td><td class="num">210</td><td class="num">&mdash;</td><td class="num">#26</td><td><code>/8-plumbing-tax-deductions-2025/</code></td></tr>
-            <tr><td>accountants for plumbers</td><td class="num">90</td><td class="num">&mdash;</td><td class="num">#29</td><td><code>/accountants-for-plumbers/</code></td></tr>
-            <tr><td>tax planning strategies for plumbing companies</td><td class="num">40</td><td class="num">&mdash;</td><td class="num">#38</td><td><code>/8-plumbing-tax-deductions-2025/</code></td></tr>
-            <tr><td>best software for plumbers</td><td class="num">210</td><td class="num">$228.00</td><td class="num">#73</td><td><code>/best-accounting-software-for-plumbers-2025/</code></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p style="font-size: 12px; color: var(--mute); margin-top: 8px; font-style: italic;">CPC averages $100+ on the top-ranking commercial-intent terms &mdash; high purchase intent for accounting buyers.</p>
-
-      <h4 class="bangers" style="font-size: 20px; color: var(--navy); margin-top: 36px; margin-bottom: 12px;">Electrician keywords ranking.</h4>
-      <div class="table-card" style="background: var(--bad-soft); border: 2px solid var(--bad); border-radius: 12px; padding: 28px; text-align: center;">
-        <p style="font-family: 'Bangers', sans-serif; font-size: 48px; color: var(--bad); letter-spacing: 0.02em; line-height: 1;">0</p>
-        <p style="font-size: 14px; color: var(--navy); margin-top: 12px; font-weight: 600;">No adamtraywick.com URLs ranking for any electrician-specific keyword.</p>
-        <p style="font-size: 13px; color: var(--mute); margin-top: 8px; max-width: 600px; margin-left: auto; margin-right: auto;">Confirmed via SEMrush domain organic filtered on "electric" &mdash; zero results. Pure greenfield. Same playbook that put 4 plumber keywords into the top 10 can be replicated here, starting with the service page + S-corp pillar.</p>
-      </div>
-    </div>
-
-    <div class="kpi-grid" style="margin-top: 36px;">
-      <div class="kpi">
-        <div class="label">Content Gaps Identified</div>
-        <div class="value">7</div>
-        <div class="explain">TX contractor sales tax (high TX search volume), plumber S-corp, electrician S-corp, seasonal cash flow, flat-rate pricing, job costing, electrician deductions.</div>
-      </div>
-      <div class="kpi">
-        <div class="label">Blogs Planned May-Aug</div>
-        <div class="value">12</div>
-        <div class="explain">12 new posts + 5 refreshes of existing pieces. Cadence: one drop per week from late May through mid-August.</div>
-      </div>
-      <div class="kpi">
-        <div class="label">Sponsorship Targets</div>
-        <div class="value">20</div>
-        <div class="explain">ACCA-DFW, PHCC FW, IEC FW trade associations + Ferguson/Lennox supply houses + TCC/TSTC trade schools + 3 credit unions + equipment finance brokers.</div>
-      </div>
-      <div class="kpi">
-        <div class="label">Channel Levers Active</div>
-        <div class="value">6</div>
-        <div class="explain">Google Ads 60-day test, Reddit niche shift (already live), GBP refresh, sponsorship outreach, email drips on calculator tools, intake form filter.</div>
-      </div>
-    </div>
-
-    <div style="background: var(--lilac); border: 2px solid var(--navy); border-left: 8px solid var(--blue); border-radius: 12px; padding: 22px 26px; margin-top: 32px; box-shadow: 4px 4px 0 var(--navy);">
-      <strong>Full execution checklist:</strong> All 60 specific actions (owner, due date, status) live on the <a href="https://docs.google.com/spreadsheets/d/1L67Qjn9e6NCR92olKZaHo6VoRIsif5xiUWPJdygTImc/edit" target="_blank" style="color: var(--blue);">Summer Home-Services Pivot Sheet</a> in Adam's Drive folder, with companion tabs for the content gap analysis and 20-target sponsorship list.
-    </div>
-  </div>
-</section>
-
-<!-- ====== PRIORITIES ====== -->
-<section class="priorities-section">
-  <div class="container">
-    <div class="section-head">
-      <span class="pill blue">June / July Game Plan</span>
-      <h2>WHAT WE<br /><span class="accent">WORK NEXT.</span></h2>
-      <p>Three focuses for the next 60 days &mdash; all anchored on the home-services pivot, with Fort Worth local authority defended in parallel.</p>
-    </div>
-    <div class="priority-list">
-      <div class="priority">
-        <div class="pnum">01</div>
-        <div>
-          <h4>Ship the electrician vertical from scratch</h4>
-          <p>Electricians are the widest-open vertical in DFW with the lowest competitive density. Build <code>/accountants-for-electricians/</code> service page mirroring the plumber page, drop "When should an electrician switch to S-corp in Texas" pillar in June, and ship the "8 deductions Texas electricians miss" listicle in August. Pattern-matches the existing plumber + HVAC vertical builds that are already ranking.</p>
-          <span class="tag">Vertical Build</span>
-        </div>
-      </div>
-      <div class="priority">
-        <div class="pnum">02</div>
-        <div>
-          <h4>Drop the highest-leverage content gaps</h4>
-          <p>"Texas sales tax for contractors (labor vs parts)" is a true gap with high TX search volume and direct relevance to every trade business &mdash; targeting July 7 drop. Plumber-specific S-corp pillar in early June fills the missing piece in the otherwise-strong plumbing cluster. HVAC owner take-home (revenue-tiered) in mid-July rounds out the HVAC stack.</p>
-          <span class="tag">Content</span>
-        </div>
-      </div>
-      <div class="priority">
-        <div class="pnum">03</div>
-        <div>
-          <h4>Defend Fort Worth local while pivoting</h4>
-          <p>"Fort worth cpa" at #5 (720 monthly searches) and "fort worth accounting firms" jumping #65 to #27 are real wins that feed every vertical page underneath. Refresh the HVAC profitability article, "5 Best HVAC Accounting Firms" listicle, and "Buying a Truck" post with stronger internal links to the trade service pages. Local authority compounds into each new vertical drop.</p>
-          <span class="tag">Local Defense</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ====== FOOTER ====== -->
-<footer class="footer">
-  <div class="container">
-    <h2>MOMENTUM<br /><span class="accent">KEEPS BUILDING.</span></h2>
-    <p>Questions or want to dig into any number? Reach out.</p>
-    <div class="built-by">
-      Built by <a href="https://markology.io">Markology</a> &middot; Published May 4, 2026 &middot; Pivot section added May 13, 2026
-    </div>
-  </div>
-</footer>
+  <footer>
+    Generated by Markology &middot; 2026 &middot; <a href="https://markology.io">markology.io</a>
+  </footer>
+</div>
 
 <script>
-  Chart.defaults.font.family = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif";
-  Chart.defaults.font.size = 12;
-  Chart.defaults.color = '#6C6E8A';
-  Chart.defaults.borderColor = 'rgba(7,6,48,0.10)';
+  const trendData = {"labels": ["Jan", "Feb", "Mar", "Apr", "May"], "keywords": [null, null, null, null, null], "sessions": [0, 0, 0, 0, 0]};
+  const ctx = document.getElementById('trajectoryChart').getContext('2d');
 
-  const navy = '#070630';
-  const blue = '#3872EB';
-  const lilac = '#E6E9FF';
+  const datasets = [{
+    label: 'Tracked Keywords',
+    data: trendData.keywords,
+    borderColor: '#0b1b3a',
+    backgroundColor: 'rgba(11, 27, 58, 0.1)',
+    yAxisID: 'y',
+    tension: 0.3,
+    spanGaps: true,
+  }];
 
-  const months = ['Nov 2025', 'Dec 2025', 'Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026'];
-  const kwData   = [430, 549, 675, 798, 837, 841];
-  const traffData = [2841, 3522, 3368, 2813, 2813, 2319]; // Google Analytics sessions
+  const hasSessions = trendData.sessions.some(v => v !== null && v !== undefined);
+  if (hasSessions) {
+    datasets.push({
+      label: 'Organic Sessions',
+      data: trendData.sessions,
+      borderColor: '#1f4fff',
+      borderDash: [6, 4],
+      backgroundColor: 'rgba(31, 79, 255, 0.05)',
+      yAxisID: 'y1',
+      tension: 0.3,
+      spanGaps: true,
+    });
+  }
 
-  // Combined trajectory chart
-  new Chart(document.getElementById('trajectoryChart'), {
+  new Chart(ctx, {
     type: 'line',
-    data: {
-      labels: months,
-      datasets: [
-        {
-          label: 'Total ranking keywords',
-          data: kwData,
-          borderColor: navy,
-          backgroundColor: 'rgba(7,6,48,0.06)',
-          tension: 0.35,
-          borderWidth: 3,
-          pointRadius: 6,
-          pointBackgroundColor: navy,
-          pointBorderColor: '#fff',
-          pointBorderWidth: 2,
-          fill: true,
-          yAxisID: 'y',
-        },
-        {
-          label: 'Est. monthly traffic',
-          data: traffData,
-          borderColor: blue,
-          backgroundColor: 'rgba(56,114,235,0.08)',
-          tension: 0.35,
-          borderWidth: 3,
-          pointRadius: 6,
-          pointBackgroundColor: blue,
-          pointBorderColor: '#fff',
-          pointBorderWidth: 2,
-          fill: true,
-          yAxisID: 'y1',
-        }
-      ]
-    },
+    data: { labels: trendData.labels, datasets: datasets },
     options: {
       responsive: true,
-      maintainAspectRatio: false,
       interaction: { mode: 'index', intersect: false },
-      plugins: {
-        legend: { position: 'bottom', labels: { boxWidth: 14, padding: 16, font: { size: 12, weight: '600' } } }
-      },
       scales: {
-        y: {
-          type: 'linear',
-          position: 'left',
-          beginAtZero: true,
-          grid: { color: 'rgba(7,6,48,0.06)' },
-          title: { display: true, text: 'Keywords', color: '#6C6E8A', font: { size: 11 } }
-        },
-        y1: {
-          type: 'linear',
-          position: 'right',
-          beginAtZero: true,
-          grid: { drawOnChartArea: false },
-          title: { display: true, text: 'Traffic', color: '#6C6E8A', font: { size: 11 } }
-        },
-        x: { grid: { display: false } }
-      }
-    }
-  });
-
-  // Keywords bar chart
-  new Chart(document.getElementById('kwChart'), {
-    type: 'bar',
-    data: {
-      labels: months,
-      datasets: [{
-        label: 'Keywords ranking',
-        data: kwData,
-        backgroundColor: navy,
-        borderColor: navy,
-        borderWidth: 2,
-        borderRadius: 4,
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: { beginAtZero: true, grid: { color: 'rgba(7,6,48,0.06)' } },
-        x: { grid: { display: false } }
-      }
-    }
-  });
-
-  // Traffic bar chart
-  new Chart(document.getElementById('trafficChart'), {
-    type: 'bar',
-    data: {
-      labels: months,
-      datasets: [{
-        label: 'Est. monthly traffic',
-        data: traffData,
-        backgroundColor: blue,
-        borderColor: navy,
-        borderWidth: 2,
-        borderRadius: 4,
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: { legend: { display: false } },
-      scales: {
-        y: { beginAtZero: true, grid: { color: 'rgba(7,6,48,0.06)' } },
-        x: { grid: { display: false } }
+        y:  { position: 'left',  title: { display: true, text: 'Keywords' } },
+        y1: { position: 'right', title: { display: true, text: 'Sessions' }, grid: { drawOnChartArea: false }, display: hasSessions }
       }
     }
   });

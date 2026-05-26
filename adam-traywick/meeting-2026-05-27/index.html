@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Adam Traywick - Meeting Memo · May 27 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.container{max-width:1080px;margin:0 auto;padding:64px 32px;}
+@media(max-width:720px){.container{padding:40px 20px;}}
+.crumb{font-size:12px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--mute);margin-bottom:14px;}
+.crumb a{color:var(--blue);text-decoration:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--blue);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);}
+.pill.tier{background:var(--navy);}
+.pill.live{background:var(--good);}
+.pill.warn{background:var(--warn);color:#3a2400;}
+.pill.bad{background:var(--bad);}
+h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7vw,80px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:18px 0 0;}
+h1 .accent{color:var(--blue);}
+h2{font-family:'Bangers',sans-serif;font-size:clamp(28px,4vw,42px);letter-spacing:0.04em;color:var(--navy);margin:56px 0 14px;}
+h3{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin:0 0 8px;}
+.lede{font-size:18px;color:var(--mute);max-width:680px;margin-top:18px;}
+.section-sub{font-size:14px;color:var(--mute);margin-bottom:24px;}
+.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px;}
+@media(max-width:720px){.kpi-strip{grid-template-columns:repeat(2,1fr);}}
+.kpi{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:18px 20px;box-shadow:5px 5px 0 var(--navy);}
+.kpi .lbl{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:var(--mute);}
+.kpi .val{font-family:'Bangers',sans-serif;font-size:42px;letter-spacing:0.02em;color:var(--navy);line-height:1;margin-top:6px;}
+.kpi .delta{font-size:12px;font-weight:600;margin-top:6px;color:var(--mute);}
+.kpi .delta.up{color:var(--good);}
+.kpi .delta.dn{color:var(--bad);}
+.chart-wrap{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:24px;box-shadow:5px 5px 0 var(--navy);margin-top:20px;}
+.chart-wrap canvas{max-height:320px;}
+table{width:100%;background:#fff;border:2px solid var(--navy);border-radius:14px;border-collapse:separate;border-spacing:0;overflow:hidden;box-shadow:5px 5px 0 var(--navy);margin-top:8px;}
+thead{background:var(--navy);color:#fff;}
+th{padding:12px 14px;text-align:left;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;}
+td{padding:11px 14px;font-size:14px;border-bottom:1px solid var(--hair);}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:rgba(230,233,255,0.4);}
+.priority{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:22px 26px;box-shadow:5px 5px 0 var(--navy);margin-top:16px;display:flex;gap:18px;align-items:flex-start;}
+.priority .num{font-family:'Bangers',sans-serif;font-size:54px;line-height:1;color:var(--blue);flex-shrink:0;}
+.priority .body{flex:1;}
+.priority .tag{display:inline-block;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--blue);background:var(--lilac);padding:3px 10px;border-radius:999px;margin-bottom:6px;}
+.priority p{font-size:14px;color:var(--ink);}
+.shipped-card{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:18px 22px;box-shadow:5px 5px 0 var(--navy);margin-top:14px;}
+.shipped-card .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;}
+.shipped-card .name{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);}
+.shipped-card .when{font-size:11px;color:var(--mute);letter-spacing:0.1em;text-transform:uppercase;font-weight:700;}
+.shipped-card .desc{font-size:14px;color:var(--ink);margin-top:6px;}
+.shipped-card a{color:var(--blue);text-decoration:none;font-weight:600;}
+.alert{background:var(--lilac);border:2px solid var(--navy);border-radius:14px;padding:18px 22px;box-shadow:5px 5px 0 var(--navy);margin-top:20px;font-size:14px;color:var(--ink);}
+.alert.warn{background:#fef3c7;}
+.alert strong{color:var(--navy);}
+.foot{margin-top:72px;padding-top:22px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);letter-spacing:0.08em;text-transform:uppercase;font-weight:600;}
+.foot a{color:var(--blue);text-decoration:none;}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+.meta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;}
+.zero-state{background:#fff;border:2px dashed var(--navy);border-radius:14px;padding:24px 28px;color:var(--mute);font-size:14px;}
+.zero-state strong{color:var(--navy);}
+ul.bullets{margin:8px 0 0 22px;}
+ul.bullets li{margin:4px 0;font-size:14px;}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="crumb"><a href="https://markology-agency.github.io/pages/adam-traywick/">Adam Traywick hub</a> &rsaquo; Meeting Memo &rsaquo; May 27 2026</div>
+  <span class="pill">Meeting Memo</span>
+  <h1>MEETING<br/><span class="accent">MAY 27, 2026.</span></h1>
+  <p class="lede">Pre-call snapshot for the Tuesday check-in with Adam. Covers what shipped in the last 30 days, where performance stands today, the open decisions to surface on the call, and the next 30-day plan leaning hard into the home-services trades pivot.</p>
+  <div class="meta-row">
+    <span class="pill tier">Local Monthly</span>
+    <span class="pill live">Prep complete</span>
+  </div>
+
+  <h2>HEADLINE.</h2>
+  <div class="alert"><strong>Top-line story:</strong> Year-over-year, organic keywords are up 212% (270 &rarr; 841). The home-services trades pivot is working — plumbers, HVAC, barbers, and hair salons are all producing rankings. The one shadow on the report is a SEMrush traffic drop from 434 (Dec) to 153 (Apr) even as keyword count keeps climbing, which points to position decay on a small number of high-volume queries (likely the QBI 2025 cluster). Diagnosis + content refresh is priority 1 for June. Ads account is fully paused — relaunching the trades verticals is priority 2.</div>
+
+  <h2>WHAT SHIPPED — LAST 30 DAYS.</h2>
+  <p class="section-sub">Live, verifiable work tied to May 2026 board tasks. All URLs verified before this memo was published.</p>
+
+  <div class="shipped-card">
+    <div class="head"><span class="name">FAQPage schema retrofit — top 10 organic URLs</span><span class="when">May 18</span></div>
+    <p class="desc">FAQPage JSON-LD pushed to the 10 highest-traffic organic pages via Rank Math REST. All 10 verified live in &lt;head&gt;. Single biggest E-E-A-T + AI-discovery lift of the month. Includes QBI 2025 (14.5% of traffic), Fort Worth bookkeeping (3.34%), barber tax write-offs (2.77%). <a href="https://adamtraywick.com/qbi-deduction-2025/">Example: /qbi-deduction-2025/</a></p>
+  </div>
+
+  <div class="shipped-card">
+    <div class="head"><span class="name">Internal link sprint — 11 contextual links</span><span class="when">May 18</span></div>
+    <p class="desc">Broke the homepage cannibalization on /fort-worth-tax-preparation/ and /small-business-accounting/. Five target service pages now carry 2-3 new inbound contextual links each. Monitor rankings on the Fort Worth tracking campaign over the next 14 days.</p>
+  </div>
+
+  <div class="shipped-card">
+    <div class="head"><span class="name">Team bios + Person schema on /about-us/</span><span class="when">May 18</span></div>
+    <p class="desc">Six team bios drafted (Adam, Colleen, Matt, Nikki, Riley, Elizabeth). Person schemas pushed to /about-us/ via Rank Math API. Bios in the SEO folder as paste-ready HTML for Elementor. <strong>Open item:</strong> Adam to confirm or refine bios — 30-day no-edit auto-canonical clock started May 18.</p>
+  </div>
+
+  <div class="shipped-card">
+    <div class="head"><span class="name">Footer Google review link — paste-ready blocks</span><span class="when">May 18</span></div>
+    <p class="desc">Two paste-ready HTML blocks (plain text + column-style) built for the Elementor footer. <strong>Blocked on:</strong> Adam to paste the GBP listing URL so we can extract the CID and finalize the review URL. Yelp + BBB review URLs already prepped.</p>
+  </div>
+
+  <div class="shipped-card">
+    <div class="head"><span class="name">Three SEO blogs published</span><span class="when">May 5 - May 15</span></div>
+    <p class="desc">"How Profitable Should an HVAC Business Be?", "What Happens If You Don't Pay Estimated Taxes in 2026?", "How Much Cash Should You Keep in Your Business?" — all live, all aligned to the home-services trades pivot.</p>
+  </div>
+
+  <div class="shipped-card">
+    <div class="head"><span class="name">Schema + redirect cleanup</span><span class="when">May 12 - 13</span></div>
+    <p class="desc">Resolved duplicate Organization schema on homepage. Activated 2 Rank Math 301 redirects for the HSA cluster. Rebuilt /health-savings-accounts-2/ in Elementor template.</p>
+  </div>
+
+  <div class="shipped-card">
+    <div class="head"><span class="name">Plumber service page push initiated</span><span class="when">May 15</span></div>
+    <p class="desc">/accountants-for-plumbers/ flagged for top-15 in 60 days. Early signal: "plumbers accounting software" #3, "best accountants for plumbing businesses" #7, "plumber accounting software" #4. The trade-vertical play is producing.</p>
+  </div>
+
+  <h2>PERFORMANCE SNAPSHOT.</h2>
+  <p class="section-sub">Three windows: SEO trajectory, Google Ads state, leads pipeline.</p>
+
+  <div class="kpi-strip">
+    <div class="kpi"><div class="lbl">Organic KW (YoY)</div><div class="val">+212%</div><div class="delta up">270 &rarr; 841</div></div>
+    <div class="kpi"><div class="lbl">Apr 2026 Traffic</div><div class="val">153</div><div class="delta dn">Off Dec peak of 434</div></div>
+    <div class="kpi"><div class="lbl">Top-3 KW (May)</div><div class="val">7+</div><div class="delta up">Fort Worth + trades</div></div>
+    <div class="kpi"><div class="lbl">Ads Spend (30d)</div><div class="val">$0</div><div class="delta dn">All campaigns paused</div></div>
+  </div>
+
+  <div class="alert warn"><strong>Traffic-vs-keywords divergence — needs a call.</strong> Keywords keep climbing (675 &rarr; 841 over Jan-Apr) but SEMrush estimated traffic dropped (345 &rarr; 153). That's not a content problem — that's position decay on a small number of high-volume queries. The QBI cluster (14.5% of site traffic when at top-3) is the most likely culprit, especially with the 2025 tax law transition. Plan: pull GSC top-pages on /qbi-deduction-2025/ for Dec vs Apr, identify the lost queries, refresh the page, re-submit. Re-pull SEMrush in 14 days.</div>
+
+  <h2>OPEN ITEMS &amp; DECISIONS FOR THE CALL.</h2>
+  <p class="section-sub">Items where we need Adam's input, approval, or paste-back.</p>
+
+  <div class="priority">
+    <div class="num">1</div>
+    <div class="body">
+      <span class="tag">Need from Adam</span>
+      <h3>GBP LISTING URL (FOR THE FOOTER REVIEW LINK).</h3>
+      <p>We can't auto-pull Adam Traywick's GBP CID — the GBP API quota is at 0 and Maps doesn't expose place IDs to scrapers. Ask Adam to open the GBP listing in his browser and paste the URL. Once we have it, the footer review block ships same-day. This is the single fastest move on Local Pack visibility.</p>
+    </div>
+  </div>
+
+  <div class="priority">
+    <div class="num">2</div>
+    <div class="body">
+      <span class="tag">Need from Adam</span>
+      <h3>TEAM BIOS — CONFIRM OR EDIT WITHIN 30 DAYS.</h3>
+      <p>Bios for Colleen, Matt, Nikki, Riley, and Elizabeth were drafted from public titles + Adam's Voyage Dallas interview. We've started the 30-day no-edit auto-canonical clock (started May 18 - ends June 17). Adam can either send refinements or accept as-is. Also still outstanding from the May board: headshots for Nikki, Riley, and Elizabeth.</p>
+    </div>
+  </div>
+
+  <div class="priority">
+    <div class="num">3</div>
+    <div class="body">
+      <span class="tag">Weekly SEO this week</span>
+      <h3>QBI CLUSTER REFRESH — POSITION DECAY DIAGNOSIS.</h3>
+      <p>This is the week's Weekly SEO Optimization work (referenced in the 2026-05-26 process incident — Weekly SEO must ship live edits, not a recs list). Diagnosis path: pull GSC top-pages for /qbi-deduction-2025/, /qbi-deduction-2026/ (if exists), and the related cluster URLs for Dec vs Apr. Identify queries that lost top-3. Refresh page content around them with 2026 thresholds and any new IRS guidance. Re-submit to Google. Whitney to flag if anything needs Adam's CPA review before going live.</p>
+    </div>
+  </div>
+
+  <div class="priority">
+    <div class="num">4</div>
+    <div class="body">
+      <span class="tag">Decision</span>
+      <h3>ADS BUDGET — RELAUNCH HVAC + PLUMBERS AT $15-20/DAY EACH?</h3>
+      <p>Adam Traywick Exp campaign sits ENABLED but undelivering. HVAC, Hair Salons, and trades verticals all sit PAUSED with production-ready creative. The home-services pivot is the strategic call from May — does Adam want to relaunch HVAC + Plumbers at $15-20/day each (total ~$30-40/day) for a 14-day proof window? Markology can ship the unpause + bid + negative-keyword refresh in one session if Adam greenlights.</p>
+    </div>
+  </div>
+
+  <div class="priority">
+    <div class="num">5</div>
+    <div class="body">
+      <span class="tag">FYI</span>
+      <h3>POSTCARDS + LANDING PAGES STILL ON THE BOARD.</h3>
+      <p>"Design 4X Postcards" + "Design 4X Landing Pages to Match Postcards" are sitting in WEEK 4 (due May 26). These were the home-services direct-mail push. Confirm Adam still wants these for June, and what 4 verticals to feature (suggested: HVAC, plumbers, electricians, real estate). If yes, push to a June kickoff — postcards through a print partner take ~10 days lead time.</p>
+    </div>
+  </div>
+
+  <h2>NEXT 30 DAYS.</h2>
+  <p class="section-sub">Markology-side deliverables for the June check-in. All items already on the May board or queued for June.</p>
+
+  <div class="priority">
+    <div class="num">1</div>
+    <div class="body">
+      <span class="tag">SEO defense</span>
+      <h3>FIX THE QBI CLUSTER + RE-PULL SEMrush ON JUNE 9.</h3>
+      <p>14-day window to diagnose, refresh, and confirm lift. If traffic recovers, this becomes the playbook for any 2025-tax-year cluster that decays as 2026 guidance rolls out.</p>
+    </div>
+  </div>
+
+  <div class="priority">
+    <div class="num">2</div>
+    <div class="body">
+      <span class="tag">Trades expansion</span>
+      <h3>SHIP /accountants-for-electricians/ + COMPLETE THE LOCAL SERVICE PAGES.</h3>
+      <p>Electricians page is on the May board (due May 25). Plus the queued Local SEO build for missing /payroll/ + /accounting-services/ pages (due May 27). Three new high-intent service URLs by June 30.</p>
+    </div>
+  </div>
+
+  <div class="priority">
+    <div class="num">3</div>
+    <div class="body">
+      <span class="tag">Local pack</span>
+      <h3>10X CITATIONS (HVAC-FOCUSED) + BING / BBB CLAIM + GBP REVIEW PUSH.</h3>
+      <p>Citations task on the May board (due May 22). Bing Places + BBB claim + standardize NAP (May 30). With the GBP CID from Adam, we can ship the footer review link the same day. Goal for June: visible Local Pack appearance on "cpa fort worth" + at least 5 fresh Google reviews.</p>
+    </div>
+  </div>
+
+  <div class="priority">
+    <div class="num">4</div>
+    <div class="body">
+      <span class="tag">Ads (if greenlit)</span>
+      <h3>HVAC + PLUMBERS GOOGLE ADS RELAUNCH, 14-DAY PROOF WINDOW.</h3>
+      <p>Pending Adam's call on budget (priority 4 in open items). Bid strategy: Maximize Conversions. Daily budget: $15-20/campaign. Geo: Fort Worth + DFW metro. Negative keywords pulled from the older paused campaigns. Tracking: confirm conversion action is wired before unpause.</p>
+    </div>
+  </div>
+
+  <h2>LINKS.</h2>
+  <div class="two-col">
+    <a class="shipped-card" href="https://markology-agency.github.io/pages/adam-traywick/may-2026/" style="text-decoration:none;color:inherit;">
+      <div class="head"><span class="name">May 2026 SEO Report</span><span class="when">Refreshed</span></div>
+      <p class="desc">Full keyword trajectory, top performers, June game plan.</p>
+    </a>
+    <a class="shipped-card" href="https://markology-agency.github.io/pages/adam-traywick/ads-tracker/may-2026/" style="text-decoration:none;color:inherit;">
+      <div class="head"><span class="name">Ads Tracker (May 2026)</span><span class="when">New</span></div>
+      <p class="desc">8 campaigns, 19 RSAs, $0 spend - relaunch playbook inside.</p>
+    </a>
+    <a class="shipped-card" href="https://markology-agency.github.io/pages/adam-traywick/eeat/" style="text-decoration:none;color:inherit;">
+      <div class="head"><span class="name">E-E-A-T Audit</span><span class="when">May 12</span></div>
+      <p class="desc">AI-visibility scorecard + 30/90-day plan.</p>
+    </a>
+    <a class="shipped-card" href="https://app.asana.com/1/1195948299032337/project/1214285184204062" style="text-decoration:none;color:inherit;">
+      <div class="head"><span class="name">Asana board (May 2026)</span><span class="when">Live</span></div>
+      <p class="desc">38 tasks, 22 done, 16 in flight or queued for end of month.</p>
+    </a>
+  </div>
+  <div class="foot">Built by <a href="https://markology.io">Markology</a> &middot; <a href="https://markology-agency.github.io/pages/adam-traywick/">Adam Traywick report hub</a> &middot; Refreshed 2026-05-26</div>
+</div>
+</body>
+</html>

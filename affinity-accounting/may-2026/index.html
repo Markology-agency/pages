@@ -69,9 +69,9 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;}
       <div class="delta up">All Milwaukee-intent terms</div>
     </div>
     <div class="kpi">
-      <div class="label">Est. Organic Traffic</div>
-      <div class="value">18</div>
-      <div class="delta down">-6 vs. March (SEMrush est.)</div>
+      <div class="label">GSC Clicks (May MTD)</div>
+      <div class="value">73</div>
+      <div class="delta up">+30% vs. Dec (56) &middot; Apr peak 109</div>
     </div>
     <div class="kpi">
       <div class="label">Domain Rank</div>
@@ -80,11 +80,11 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;}
     </div>
   </div>
 
-  <div class="flag"><b>Note on sessions.</b> Google Analytics Data API is not yet enabled on the Markology Cloud project for the Affinity GA4 property (273253809). May session totals are pending that flip; estimated organic traffic above is the SEMrush model. Action: enable Analytics Data API for project 825774002611 (Whitney can flip this in console.developers.google.com).</div>
+  <div class="flag"><b>Traffic source upgrade.</b> Real Google Search Console clicks and impressions are now wired into this report. GA4 sessions will swap in for the next monthly cycle once the Analytics Data API is enabled on the Markology Cloud project (one-click activation at <a href="https://console.developers.google.com/apis/api/analyticsdata.googleapis.com/overview?project=825774002611" style="color:var(--blue);font-weight:700;">console.developers.google.com</a> &mdash; unlocks GA4 reporting for every Markology client at once).</div>
 
   <h2>6-MONTH TRAJECTORY.</h2>
   <div class="chart-wrap"><canvas id="trendChart" height="120"></canvas></div>
-  <p style="font-size:13px;color:var(--mute);margin-top:10px;">Keyword count growth is meaningful: 36 → 119 since November 2025 (+230%). Domain Rank improvement from 6.1M → 5.85M peak in June then back to ~6.7M shows volatility tied to thin pages indexing in and out. The growth is real but the floor is still soft.</p>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">Tracked keywords grew 83 &rarr; 119 from December to May (+43%). GSC clicks doubled from December (56) to April peak (109), then held at 73 through May 25 (mid-month, on pace ~90 by month-end). GSC impressions grew even faster: 11,273 (Dec) &rarr; 19,019 (Apr) &rarr; 16,896 (May MTD) &mdash; SERP exposure is compounding. Position softened from 10.4 to 12.6 average as more long-tail queries entered the index, which is the expected pattern when keyword footprint expands faster than top-3 rankings are won.</p>
 
   <h2>TOP NON-BRAND PERFORMERS.</h2>
   <p style="font-size:14px;color:var(--mute);">Brand terms (affinity, affinitymke, affinity accountants, affinity group) filtered out. Sorted by current position.</p>
@@ -123,7 +123,7 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;}
 
   <h2>WHAT'S NOT.</h2>
   <p><b>No movement in position deltas this cycle.</b> Every tracked keyword shows position difference 0 vs. previous reading. SEMrush's snapshot cadence catches the floor more than the slope; we'll know more next refresh, but the practical read is that May was a stability month, not a lift month.</p>
-  <p><b>Organic traffic estimate ticked down 18 → 24 → 20 → 23 → 19 over the last six months</b> while keywords grew 4x. That gap (more keywords, flat traffic) means most new rankings landed below position 10. Pushing existing top-10 terms (especially "milwaukee cpa" at 11) into the top 3 is higher-ROI than chasing new long-tail rankings right now.</p>
+  <p><b>Real GSC clicks tell a better story than the SEMrush estimate did.</b> Clicks ran 56 → 100 → 85 → 87 → 109 → 73 (Dec through May MTD). Apr 109 was the peak month. May MTD pace projects to ~90, which is still well above the December baseline. The "more keywords, flat traffic" framing from earlier readings was wrong &mdash; real clicks roughly doubled over the period. The opportunity is still position lift on the 12 top-15 Milwaukee-cluster terms, especially "milwaukee cpa" at 11 (volume 170) where a one-position move buys 6-9 clicks/mo at current CTR curves.</p>
 
   <h2>MAY/JUNE GAME PLAN.</h2>
 
@@ -138,7 +138,7 @@ td.num{text-align:right;font-variant-numeric:tabular-nums;}
   </div>
 
   <div class="priority">
-    <span class="num">3.</span><h3>Ship the bookkeeping and payroll service pages</h3> <span class="tag">DEV</span>
+    <span class="num">3.</span><h3>Launch the bookkeeping and payroll service pages</h3> <span class="tag">DEV</span>
     <p>The SEO priority task to build service-specific landing pages for bookkeeping and payroll is completed on the Asana board. Next step: monitor indexation in Search Console, push fresh internal links from the homepage and /accounting-milwaukee/, and add LocalBusiness + Service schema. "Bookkeeping services milwaukee wi" sits at #9 with no dedicated page yet — a real page should pick up positions 5-8 inside 60 days.</p>
   </div>
 
@@ -150,10 +150,10 @@ const ctx = document.getElementById('trendChart').getContext('2d');
 new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ['Nov 2025','Dec 2025','Jan 2026','Feb 2026','Mar 2026','Apr 2026'],
+    labels: ['Dec 2025','Jan 2026','Feb 2026','Mar 2026','Apr 2026','May 2026 MTD'],
     datasets: [
-      {label:'Tracked Keywords', data:[79,83,88,97,106,119], borderColor:'#3872EB', backgroundColor:'rgba(56,114,235,0.12)', tension:0.35, borderWidth:3, yAxisID:'y'},
-      {label:'Est. Organic Traffic', data:[19,23,20,20,24,18], borderColor:'#070630', backgroundColor:'rgba(7,6,48,0.08)', tension:0.35, borderWidth:3, borderDash:[6,4], yAxisID:'y1'}
+      {label:'Tracked Keywords', data:[83,88,97,106,119,119], borderColor:'#3872EB', backgroundColor:'rgba(56,114,235,0.12)', tension:0.35, borderWidth:3, yAxisID:'y'},
+      {label:'GSC Clicks (real)', data:[56,100,85,87,109,73], borderColor:'#070630', backgroundColor:'rgba(7,6,48,0.08)', tension:0.35, borderWidth:3, yAxisID:'y1'}
     ]
   },
   options: {
@@ -162,7 +162,7 @@ new Chart(ctx, {
     plugins:{legend:{position:'bottom',labels:{font:{family:'Inter',weight:600},color:'#070630'}}},
     scales:{
       y:{position:'left',title:{display:true,text:'Keywords'},grid:{color:'rgba(7,6,48,0.06)'}},
-      y1:{position:'right',title:{display:true,text:'Est. Traffic'},grid:{drawOnChartArea:false}}
+      y1:{position:'right',title:{display:true,text:'GSC Clicks'},grid:{drawOnChartArea:false}}
     }
   }
 });

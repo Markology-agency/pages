@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#d97706;--bad:#dc2626;}
 *{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
@@ -52,7 +53,6 @@ section{padding:72px 0;position:relative;overflow:hidden;}
 .status-card li .tag.good{background:var(--good);}
 .status-card li .tag.warn{background:var(--warn);}
 .status-card li .tag.bad{background:var(--bad);}
-.table-section{background:var(--paper);}
 .table-card{background:#fff;border:2px solid var(--navy);border-radius:20px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);}
 table{width:100%;border-collapse:collapse;font-size:13px;}
 thead{background:var(--navy);}
@@ -63,9 +63,6 @@ tr:last-child td{border-bottom:none;}
 tbody tr:nth-child(even){background:var(--paper);}
 .badge{display:inline-block;padding:3px 9px;border-radius:6px;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;border:1.5px solid var(--navy);}
 .badge.done{background:var(--good);color:#fff;border-color:var(--good);}
-.badge.review{background:var(--lilac);color:var(--navy);}
-.badge.notst{background:#fff;color:var(--mute);}
-.badge.waiting{background:#fef3c7;color:var(--warn);border-color:var(--warn);}
 .badge.prog{background:var(--blue);color:#fff;border-color:var(--blue);}
 .badge.paused{background:#fff;color:var(--mute);}
 .callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:18px 22px;margin-top:24px;box-shadow:4px 4px 0 var(--navy);font-size:14px;line-height:1.6;}
@@ -74,7 +71,7 @@ tbody tr:nth-child(even){background:var(--paper);}
 .callout.danger{background:#fee2e2;border-left-color:var(--bad);}
 .tracking-info{background:var(--navy);color:#fff;border-radius:16px;padding:24px 28px;font-size:13px;line-height:1.7;box-shadow:5px 5px 0 var(--blue);}
 .tracking-info h4{font-family:'Bangers',sans-serif;font-size:20px;color:#fff;letter-spacing:0.04em;margin-bottom:10px;}
-.tracking-info .row{display:grid;grid-template-columns:180px 1fr;gap:14px;padding:5px 0;border-bottom:1px dashed rgba(255,255,255,0.15);font-family:'JetBrains Mono','Menlo',monospace;}
+.tracking-info .row{display:grid;grid-template-columns:200px 1fr;gap:14px;padding:5px 0;border-bottom:1px dashed rgba(255,255,255,0.15);font-family:'JetBrains Mono','Menlo',monospace;}
 .tracking-info .row:last-child{border-bottom:none;}
 .tracking-info .row strong{color:var(--lilac);font-family:'Inter',sans-serif;font-weight:600;letter-spacing:0.04em;}
 .action-list{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:28px;box-shadow:5px 5px 0 var(--navy);}
@@ -84,6 +81,10 @@ tbody tr:nth-child(even){background:var(--paper);}
 .action-body h5{font-family:'Inter',sans-serif;font-size:14px;font-weight:700;color:var(--navy);margin-bottom:4px;}
 .action-body p{font-size:13px;color:var(--mute);line-height:1.5;}
 .action-meta{text-align:right;font-size:11px;color:var(--mute);font-weight:600;letter-spacing:0.04em;}
+.chart-card{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:22px;box-shadow:5px 5px 0 var(--navy);margin-top:20px;}
+.chart-card h4{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);margin-bottom:8px;}
+.chart-card .sub{font-size:12px;color:var(--mute);margin-bottom:16px;}
+.chart-card canvas{max-height:260px;}
 .footer{background:var(--navy);color:#fff;text-align:center;padding:64px 0;}
 .footer h2{font-family:'Bangers',sans-serif;font-size:clamp(30px,4vw,46px);line-height:1;letter-spacing:0.02em;}
 .footer h2 .accent{color:var(--blue);}
@@ -101,9 +102,9 @@ a.task-link:hover{text-decoration:underline;}
   <svg class="star" style="top:60px;left:60px;transform:rotate(-12deg);" width="28" height="28" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
   <svg class="star" style="top:180px;right:100px;transform:rotate(18deg);" width="22" height="22" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
   <div class="container">
-    <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">Run date 2026-05-20 &middot; 30-day window 2026-04-20 &rarr; 2026-05-20</span>
+    <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">Refreshed 2026-05-26 &middot; 30-day window 2026-04-26 &rarr; 2026-05-25</span>
     <h1>ASHFORD SKY.<br/>GOOGLE ADS<br/><span class="accent">TRACKER.</span></h1>
-    <p class="lede">Live tracker for customer ID 2490937870. Two Salt Lake City campaigns are paused per Whitney&rsquo;s 2026-05-19 call &mdash; foundation rebuild ships before more spend. Acquisition Entrepreneur national is the only active campaign. It was running blind on conversion data until 2026-05-19 when the AW gtag + Calendly &rarr; /thank-you/ bridge shipped. The next read on whether the rebuild moved CPL happens at 7 tracked days (2026-05-26).</p>
+    <p class="lede">Live tracker for customer ID 2490937870. Two Salt Lake City campaigns are paused per Whitney&rsquo;s 2026-05-19 call &mdash; foundation rebuild ships before more spend. Acquisition Entrepreneur national is the only active campaign. Conversion tracking went live 2026-05-19 (AW gtag + Calendly bridge). Seven tracked days are now in the dataset, and the campaign has produced zero logged conversions on $43.61 of tracked spend &mdash; this is the first real signal we can act on.</p>
     <div class="meta">
       <span><strong>Account:</strong> 2490937870</span>
       <span><strong>Plan:</strong> Local Monthly</span>
@@ -118,27 +119,27 @@ a.task-link:hover{text-decoration:underline;}
     <div class="kpi-grid">
       <div class="kpi">
         <div class="label">30-Day Spend</div>
-        <div class="value">$106</div>
-        <div class="delta">$106.05 actual</div>
-        <div class="explain">Acquisition Entrepreneur national only. 25 days blind ($91.57) + 1 day tracked since conv bridge ($14.48).</div>
+        <div class="value">$189</div>
+        <div class="delta">$188.96 actual</div>
+        <div class="explain">Acquisition Entrepreneur national only. Held at $15/day, 12 actual delivery days inside the window. Avg daily delivery ~$15.70.</div>
       </div>
       <div class="kpi">
         <div class="label">Clicks</div>
-        <div class="value">22</div>
-        <div class="delta">355 impressions</div>
-        <div class="explain">6.2% CTR. Avg CPC $4.82 &mdash; squarely in market for buy-side / QoE intent. Expect click vol to drop short-term as 40 new bottom-funnel keywords gain rank.</div>
+        <div class="value">39</div>
+        <div class="delta">627 impressions &middot; 6.22% CTR</div>
+        <div class="explain">Avg CPC $4.85 &mdash; in market for buy-side / QoE intent ($3&ndash;$11 band). Click volume rose since the 2026-05-19 keyword rebuild.</div>
       </div>
       <div class="kpi">
         <div class="label">Logged Conversions</div>
         <div class="value">0</div>
-        <div class="delta">tracking live 2026-05-19</div>
-        <div class="explain">Zero is the measurement artifact, not the truth. Conversion firing only became possible on day 26 of the 30-day window.</div>
+        <div class="delta">7 tracked days, 0 conv</div>
+        <div class="explain">First real signal. Tracking is firing on /thank-you/. Either nobody is converting OR the landing page funnel is leaking. Decision tree below.</div>
       </div>
       <div class="kpi">
-        <div class="label">Next Re-Eval</div>
-        <div class="value">05-26</div>
-        <div class="delta">7 days of tracked spend</div>
-        <div class="explain">First clean read on whether the rebuilt campaign + tracking is converting at $15/day. Decision point on landing page audit.</div>
+        <div class="label">Cost / Conv</div>
+        <div class="value">&mdash;</div>
+        <div class="delta">untestable until 1+ conv</div>
+        <div class="explain">Budget caps spend before statistical significance arrives. Recommendation in Action 01 below.</div>
       </div>
     </div>
   </div>
@@ -147,64 +148,91 @@ a.task-link:hover{text-decoration:underline;}
 <section style="background:var(--paper);">
   <div class="container">
     <div class="section-head">
-      <span class="pill">Campaign Performance</span>
-      <h2>ONE ACTIVE.<br/><span class="accent">TWO PAUSED.</span></h2>
-      <p>Last 30 days on customer ID 2490937870. The two SLC search campaigns were paused 2026-05-19 to give the foundation rebuild (schema, pages, GBP, conversion tracking) room to ship before more dollars chase a half-broken funnel.</p>
+      <span class="pill">Daily Trajectory</span>
+      <h2>WHERE THE<br/><span class="accent">$189 WENT.</span></h2>
+      <p>Daily spend and clicks on Acquisition Entrepreneur for the last 11 active delivery days inside the 30-day window. Conversion bridge live since 2026-05-19. The dip in clicks May 20&ndash;24 is the negative-keywords sweep filtering out the checklist-seeker traffic that dominated the first 5 days.</p>
     </div>
-    <div class="table-card">
-      <table>
-        <thead><tr><th>Campaign</th><th>Status</th><th class="num">Impr.</th><th class="num">Clicks</th><th class="num">Spend</th><th class="num">Avg CPC</th><th class="num">Conv.</th></tr></thead>
-        <tbody>
-          <tr><td>Search &mdash; Acquisition Entrepreneur &mdash; National</td><td><span class="badge prog">Enabled</span></td><td class="num">355</td><td class="num">22</td><td class="num">$106.05</td><td class="num">$4.82</td><td class="num">0*</td></tr>
-          <tr><td>Search Campaign &mdash; Ashford Sky_Salt Lake City</td><td><span class="badge paused">Paused</span></td><td class="num">0</td><td class="num">0</td><td class="num">$0.00</td><td class="num">&mdash;</td><td class="num">0</td></tr>
-          <tr><td>Search Campaign &mdash; Bookkeeping &amp; Accounting_Salt Lake City</td><td><span class="badge paused">Paused</span></td><td class="num">0</td><td class="num">0</td><td class="num">$0.00</td><td class="num">&mdash;</td><td class="num">0</td></tr>
-        </tbody>
-      </table>
+    <div class="chart-card">
+      <h4>SPEND + CLICKS BY DAY</h4>
+      <p class="sub">Acquisition Entrepreneur national. Conversion tracking shipped 2026-05-19.</p>
+      <canvas id="dailyChart"></canvas>
     </div>
-    <div class="callout warn"><strong>*Why zero logged conversions:</strong> the AW conversion gtag and Calendly &rarr; /thank-you/ redirect bridge only shipped 2026-05-19. The 30-day window includes 25 days of blind spend ($91.57 over 5 active days from launch to fix) plus 1 day of tracked spend ($14.48 since the fix). The campaign was not non-converting &mdash; it was untracked. Re-evaluate at 7 tracked days (2026-05-26).</div>
   </div>
 </section>
 
 <section style="background:#fff;">
   <div class="container">
     <div class="section-head">
-      <span class="pill blue">Acquisition Entrepreneur Rebuild</span>
-      <h2>50 NEGATIVES.<br/><span class="accent">40 NEW BOTTOM-FUNNEL KW.</span></h2>
-      <p>Campaign overhaul shipped 2026-05-19 (<a class="task-link" href="https://app.asana.com/0/0/1214792805166975">Asana task</a>). Goal: trade click volume for click quality. The old keyword set was a mix of CPA jargon (zero search volume) and broad-match consultancy terms that pulled non-buyers. New set is buy-side / QoE / financial due diligence at $3&ndash;$11 market CPC.</p>
+      <span class="pill">Campaign Performance</span>
+      <h2>ONE ACTIVE.<br/><span class="accent">TWO PAUSED.</span></h2>
+      <p>Last 30 days on customer ID 2490937870, refreshed live from Google Ads API. The two SLC search campaigns are still paused. Re-launch is a Foundation Sprint exit step, not a W4 step.</p>
     </div>
-    <div class="split-3">
-      <div class="status-card ship">
-        <h4>Keywords Added (40)</h4>
-        <ul>
-          <li><span class="tag good">New</span>buy-side financial due diligence</li>
-          <li><span class="tag good">New</span>quality of earnings analysis</li>
-          <li><span class="tag good">New</span>QoE for SMB acquisition</li>
-          <li><span class="tag good">New</span>acquisition CPA services</li>
-          <li><span class="tag good">New</span>small business acquisition advisor</li>
-          <li><span class="tag good">New</span>+34 more bottom-funnel terms ($3&ndash;$11 CPC band)</li>
-        </ul>
-      </div>
-      <div class="status-card pend">
-        <h4>Negatives Added (50)</h4>
-        <ul>
-          <li><span class="tag warn">Neg</span>consultancy / management consulting</li>
-          <li><span class="tag warn">Neg</span>checklist / template / pdf / free</li>
-          <li><span class="tag warn">Neg</span>vendor due diligence / supplier audit</li>
-          <li><span class="tag warn">Neg</span>video QoE / streaming quality</li>
-          <li><span class="tag warn">Neg</span>job / hiring / salary / career</li>
-          <li><span class="tag warn">Neg</span>+44 more across waste themes</li>
-        </ul>
-      </div>
-      <div class="status-card block">
-        <h4>Keywords Paused (37)</h4>
-        <ul>
-          <li><span class="tag bad">Off</span>Zero-volume CPA-jargon keywords across both ad groups</li>
-          <li><span class="tag bad">Off</span>Broad-match consultancy terms that pulled non-buyers</li>
-          <li><span class="tag bad">Off</span>Generic "small business acquisition" without buy-side modifiers</li>
-        </ul>
-      </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Campaign</th><th>Status</th><th class="num">Impr.</th><th class="num">Clicks</th><th class="num">CTR</th><th class="num">Spend</th><th class="num">Avg CPC</th><th class="num">Conv.</th></tr></thead>
+        <tbody>
+          <tr><td>Search &mdash; Acquisition Entrepreneur &mdash; National</td><td><span class="badge prog">Enabled</span></td><td class="num">627</td><td class="num">39</td><td class="num">6.22%</td><td class="num">$188.96</td><td class="num">$4.85</td><td class="num">0</td></tr>
+          <tr><td>Search Campaign &mdash; Ashford Sky_Salt Lake City</td><td><span class="badge paused">Paused</span></td><td class="num">0</td><td class="num">0</td><td class="num">&mdash;</td><td class="num">$0.00</td><td class="num">&mdash;</td><td class="num">0</td></tr>
+          <tr><td>Search Campaign &mdash; Bookkeeping &amp; Accounting_Salt Lake City</td><td><span class="badge paused">Paused</span></td><td class="num">0</td><td class="num">0</td><td class="num">&mdash;</td><td class="num">$0.00</td><td class="num">&mdash;</td><td class="num">0</td></tr>
+        </tbody>
+      </table>
     </div>
-    <div class="callout"><strong>Expected outcome:</strong> click volume drops short-term (smaller, tighter keyword set), click quality rises sharply (intent-matched bottom-funnel terms only). Budget held at $15/day. CPL becomes legible at the 2026-05-26 re-eval because every booking now logs as a conversion. If CPL still doesn&rsquo;t move at 7 tracked days, next step is auditing /acquisition-entrepreneur/ for above-fold offer clarity and a second CTA beyond Calendly.</div>
+    <div class="callout warn"><strong>Read on the 0:</strong> Conversion firing has been live since 2026-05-19. Of the 39 clicks in the 30-day window, ~24 happened with tracking ON. Spending $43.61 of tracked dollars with no booking is now a real signal &mdash; either intent is right but the landing page isn&rsquo;t closing, or intent is still slightly off. Action items below propose both A and B tests.</div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Top Keywords (Live)</span>
+      <h2>WHAT&rsquo;S DRIVING<br/><span class="accent">THE CLICKS.</span></h2>
+      <p>Acquisition Entrepreneur campaign, last 30 days. Pulled fresh from Google Ads keyword_view. The top keyword is doing 51% of campaign clicks but converting at 0%. That&rsquo;s the lever for the next 7 days.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Keyword</th><th>Match</th><th>Ad Group</th><th class="num">Impr.</th><th class="num">Clicks</th><th class="num">Spend</th><th class="num">CTR</th><th class="num">Conv.</th></tr></thead>
+        <tbody>
+          <tr><td>buying a business due diligence</td><td>PHRASE</td><td>QoE &amp; Due Diligence</td><td class="num">291</td><td class="num">20</td><td class="num">$96.25</td><td class="num">6.87%</td><td class="num">0</td></tr>
+          <tr><td>CPA for buying a business</td><td>PHRASE</td><td>Acquisition CPA &mdash; ETA</td><td class="num">31</td><td class="num">6</td><td class="num">$28.82</td><td class="num">19.35%</td><td class="num">0</td></tr>
+          <tr><td>financial due diligence consulting</td><td>PHRASE</td><td>QoE &amp; Due Diligence</td><td class="num">24</td><td class="num">4</td><td class="num">$19.72</td><td class="num">16.67%</td><td class="num">0</td></tr>
+          <tr><td>small business due diligence</td><td>PHRASE</td><td>QoE &amp; Due Diligence</td><td class="num">40</td><td class="num">2</td><td class="num">$9.80</td><td class="num">5.00%</td><td class="num">0</td></tr>
+          <tr><td>buying a business due diligence</td><td>EXACT</td><td>QoE &amp; Due Diligence</td><td class="num">25</td><td class="num">2</td><td class="num">$9.79</td><td class="num">8.00%</td><td class="num">0</td></tr>
+          <tr><td>quality of earnings report</td><td>EXACT</td><td>QoE &amp; Due Diligence</td><td class="num">24</td><td class="num">2</td><td class="num">$9.97</td><td class="num">8.33%</td><td class="num">0</td></tr>
+          <tr><td>financial due diligence services</td><td>EXACT</td><td>QoE &amp; Due Diligence</td><td class="num">5</td><td class="num">1</td><td class="num">$4.89</td><td class="num">20.00%</td><td class="num">0</td></tr>
+          <tr><td>CPA for buying a business</td><td>EXACT</td><td>Acquisition CPA &mdash; ETA</td><td class="num">8</td><td class="num">1</td><td class="num">$4.79</td><td class="num">12.50%</td><td class="num">0</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>What this says:</strong> "Buying a business due diligence" is doing the heavy lifting on click volume but the searcher behind that phrase wants a checklist or a list of questions, not a CPA engagement. CTR is high (19% on "CPA for buying a business") on the tighter-intent terms, suggesting the ad copy resonates with people closer to actually hiring. Reweighting bid toward the "CPA for buying a business" and "financial due diligence services" terms (and adding more checklist-blocking negatives) is the next move.</div>
+  </div>
+</section>
+
+<section style="background:#fff;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Search Term Leakage</span>
+      <h2>WHAT&rsquo;S<br/><span class="accent">SNEAKING THROUGH.</span></h2>
+      <p>Top 10 search terms by clicks in the last 30 days, after the 2026-05-19 negative-keywords sweep. The "checklist" phrases are still leaking through PHRASE match &mdash; those need to be added as exact-match negatives this week. Each is a wasted click at $4&ndash;$5.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Search Term</th><th>Ad Group</th><th class="num">Impr.</th><th class="num">Clicks</th><th class="num">Spend</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td>quality of earnings report</td><td>QoE &amp; Due Diligence</td><td class="num">19</td><td class="num">2</td><td class="num">$9.97</td><td>Keep &mdash; bottom-funnel buyer</td></tr>
+          <tr><td>acquisitions and due diligence</td><td>QoE &amp; Due Diligence</td><td class="num">1</td><td class="num">1</td><td class="num">$4.94</td><td>Keep</td></tr>
+          <tr><td>business acquisition checklist</td><td>QoE &amp; Due Diligence</td><td class="num">3</td><td class="num">1</td><td class="num">$3.85</td><td><strong style="color:var(--bad);">Block</strong> &mdash; checklist seeker</td></tr>
+          <tr><td>due diligence checklist for business acquisition</td><td>QoE &amp; Due Diligence</td><td class="num">2</td><td class="num">1</td><td class="num">$4.47</td><td><strong style="color:var(--bad);">Block</strong></td></tr>
+          <tr><td>due diligence checklist for buying a business</td><td>QoE &amp; Due Diligence</td><td class="num">3</td><td class="num">1</td><td class="num">$4.99</td><td><strong style="color:var(--bad);">Block</strong></td></tr>
+          <tr><td>due diligence checklist for buying a business pdf</td><td>QoE &amp; Due Diligence</td><td class="num">3</td><td class="num">1</td><td class="num">$4.89</td><td><strong style="color:var(--bad);">Block</strong></td></tr>
+          <tr><td>due diligence in m&amp;a</td><td>QoE &amp; Due Diligence</td><td class="num">1</td><td class="num">1</td><td class="num">$4.94</td><td>Keep &mdash; researcher</td></tr>
+          <tr><td>due diligence list for acquiring a company</td><td>QoE &amp; Due Diligence</td><td class="num">1</td><td class="num">1</td><td class="num">$4.89</td><td><strong style="color:var(--bad);">Block</strong> &mdash; list seeker</td></tr>
+          <tr><td>due diligence questions to ask when investing in a business</td><td>QoE &amp; Due Diligence</td><td class="num">3</td><td class="num">1</td><td class="num">$4.96</td><td><strong style="color:var(--bad);">Block</strong> &mdash; investor not buyer</td></tr>
+          <tr><td>due diligence services</td><td>QoE &amp; Due Diligence</td><td class="num">1</td><td class="num">1</td><td class="num">$4.89</td><td>Keep</td></tr>
+          <tr><td>due diligence when buying a business</td><td>QoE &amp; Due Diligence</td><td class="num">4</td><td class="num">1</td><td class="num">$5.00</td><td>Keep &mdash; intent-aligned</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout warn"><strong>Wasted spend recovery:</strong> Blocking the 5 "checklist / list / questions to ask" terms above as exact-match negatives recovers $23.20 of the next $189 cycle. That spend redirects to the "CPA for buying a business" / "financial due diligence services" terms that are showing 12&ndash;20% CTR.</div>
   </div>
 </section>
 
@@ -223,7 +251,8 @@ a.task-link:hover{text-decoration:underline;}
       <div class="row"><strong>Trigger page</strong><span>/thank-you/ (page view)</span></div>
       <div class="row"><strong>Bridge</strong><span>Calendly event_scheduled &rarr; window redirect</span></div>
       <div class="row"><strong>Elementor snippets</strong><span>2587 (gtag) + 2588 (Calendly redirect)</span></div>
-      <div class="row"><strong>GA4 path status</strong><span>Blocked &mdash; Markology has Viewer on property 431730405</span></div>
+      <div class="row"><strong>Days tracked</strong><span>7 (since 2026-05-19)</span></div>
+      <div class="row"><strong>GA4 path status</strong><span>BLOCKED &mdash; Markology has Viewer on property 431730405</span></div>
     </div>
   </div>
 </section>
@@ -233,33 +262,38 @@ a.task-link:hover{text-decoration:underline;}
     <div class="section-head">
       <span class="pill blue">Open Action Items</span>
       <h2>WHAT&rsquo;S NEXT<br/><span class="accent">ON ADS.</span></h2>
-      <p>Live action queue for Google Ads work across the Foundation Sprint. Re-eval gate is 7 tracked days, not 7 calendar days.</p>
+      <p>Live action queue for Google Ads work across the Foundation Sprint. The 7-day re-eval gate has now passed with zero logged conversions, which moves the queue from "wait and watch" to "audit the landing page + tighten the keyword set."</p>
     </div>
     <div class="action-list">
       <div class="action-row">
         <div class="action-num">01</div>
-        <div class="action-body"><h5>7-day re-eval at 2026-05-26</h5><p>First clean read on CPL with conversion tracking firing. Decision tree: if logged conv = 0 still, audit landing page offer + add second CTA. If logged conv &ge; 1, raise budget to $25/day and re-eval at 14 tracked days.</p></div>
-        <div class="action-meta">2026-05-26<br/>Markology executes</div>
+        <div class="action-body"><h5>Audit /acquisition-entrepreneur/ landing page (TODAY)</h5><p>7 tracked days, $43.61 in tracked spend, 0 conversions. Intent is correct (CTR 6&ndash;19% on bottom-funnel terms). The funnel from click to Calendly slot needs review: above-fold offer clarity, social proof, secondary CTA beyond Calendly, page speed. Add a phone-call CTA as a second conversion path before adding more spend.</p></div>
+        <div class="action-meta">Markology executes<br/>2026-05-26</div>
       </div>
       <div class="action-row">
         <div class="action-num">02</div>
-        <div class="action-body"><h5>Confirm SLC campaign re-launch trigger</h5><p>Both SLC search campaigns stay paused until (a) GBP verification completes, (b) the 6 drafted city + service pages publish, and (c) Acquisition Entrepreneur shows positive CPL on tracked spend. Re-launch is a Foundation Sprint exit step, not a W3 step.</p></div>
-        <div class="action-meta">Post 2026-06-12<br/>Whitney decides</div>
+        <div class="action-body"><h5>Block 5 leaking checklist/list/questions search terms</h5><p>Add exact-match negatives: "business acquisition checklist", "due diligence checklist for business acquisition", "due diligence checklist for buying a business", "due diligence checklist for buying a business pdf", "due diligence list for acquiring a company", "due diligence questions to ask when investing in a business". Recovers ~$23 per 30-day cycle.</p></div>
+        <div class="action-meta">Markology executes<br/>2026-05-26</div>
       </div>
       <div class="action-row">
         <div class="action-num">03</div>
-        <div class="action-body"><h5>GA4 Editor access for Markology</h5><p>Once Darin grants Editor on property 431730405, migrate from direct AW gtag to GA4 &rarr; Ads import (same pattern shipped on KB Financial). Cleaner conversion attribution and enables audience segments for retargeting.</p></div>
-        <div class="action-meta">Blocked on Darin<br/>2026-05-21 call</div>
+        <div class="action-body"><h5>Reweight bid toward high-CTR ETA keywords</h5><p>"CPA for buying a business" (PHRASE) is doing 19% CTR but only 6 clicks. "Financial due diligence services" (EXACT) at 20% CTR, 1 click. These are the highest-intent terms in the campaign &mdash; raise bids 15&ndash;25% to capture more share while traffic on "buying a business due diligence" (which is 51% of clicks but lowest-intent of the top set) drops.</p></div>
+        <div class="action-meta">Markology executes<br/>This week</div>
       </div>
       <div class="action-row">
         <div class="action-num">04</div>
-        <div class="action-body"><h5>Pair SaaS Scorecard with Acquisition Entrepreneur</h5><p>Once the scorecard ships from Client Review (<a class="task-link" href="https://app.asana.com/0/0/1214203213492102">task link</a>), layer a SaaS-founder targeted ad group inside Acquisition Entrepreneur pointing at /saas/ + scorecard. Second conversion path beyond Calendly.</p></div>
-        <div class="action-meta">Post scorecard ship<br/>Markology executes</div>
+        <div class="action-body"><h5>14-day re-eval on 2026-06-02</h5><p>By June 2 the LP audit + tightened keyword set should be live for ~7 tracked days. If conversions still zero, the offer needs rework (case study, gated PDF, free 30-min QoE diagnostic call). If 1+ conversion, raise budget to $25/day and re-eval at 21 tracked days.</p></div>
+        <div class="action-meta">Markology executes<br/>2026-06-02</div>
       </div>
       <div class="action-row">
         <div class="action-num">05</div>
-        <div class="action-body"><h5>A/B test ad copy variant on Acquisition Entrepreneur</h5><p>Per <a class="task-link" href="https://app.asana.com/0/0/1214287040759743">W3 task</a>. Current ad headlines lean educational ("Acquisition Entrepreneurs: Your CPA"). Test bottom-funnel variant focused on QoE delivery time + buy-side specialization. Run for 14 tracked days minimum.</p></div>
-        <div class="action-meta">Post 2026-05-26<br/>Markology executes</div>
+        <div class="action-body"><h5>GA4 Editor access for Markology (Darin ask)</h5><p>Once Darin grants Editor on property 431730405, migrate from direct AW gtag to GA4 &rarr; Ads import (same pattern shipped on KB Financial). Cleaner conversion attribution and enables audience segments for retargeting + a 6-month sessions trend pull for the monthly SEO reports.</p></div>
+        <div class="action-meta">Blocked on Darin<br/>2026-05-27 call</div>
+      </div>
+      <div class="action-row">
+        <div class="action-num">06</div>
+        <div class="action-body"><h5>SLC campaign re-launch trigger</h5><p>Both SLC search campaigns stay paused until (a) GBP verification completes, (b) homepage rewrite ships, (c) Acquisition Entrepreneur shows positive CPL on tracked spend. Re-launch is a Foundation Sprint exit step, not a W4 step.</p></div>
+        <div class="action-meta">Post 2026-06-12<br/>Whitney decides</div>
       </div>
     </div>
   </div>
@@ -267,11 +301,28 @@ a.task-link:hover{text-decoration:underline;}
 
 <footer class="footer">
   <div class="container">
-    <h2>TRACKING&rsquo;S ON.<br/>NEXT READ <span class="accent">MAY 26.</span></h2>
-    <p>7 tracked days from conversion bridge. Decision point on landing page audit.</p>
-    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; May 20, 2026</div>
+    <h2>TRACKING&rsquo;S ON.<br/>FIRST READ <span class="accent">SAYS AUDIT THE LP.</span></h2>
+    <p>Refreshed 2026-05-26. Next re-eval 2026-06-02 (14 tracked days).</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; May 26, 2026</div>
   </div>
 </footer>
 
+<script>
+const navy='#070630',blue='#3872EB';
+const dailyLabels=['May 14','May 15','May 16','May 17','May 18','May 19','May 20','May 21','May 22','May 23','May 24'];
+const dailySpend=[4.93,34.53,14.54,9.99,23.00,19.05,19.64,18.89,14.80,14.71,14.87];
+const dailyClicks=[1,7,3,2,5,4,4,4,3,3,3];
+new Chart(document.getElementById('dailyChart'),{
+  data:{labels:dailyLabels,datasets:[
+    {type:'bar',label:'Spend ($)',data:dailySpend,backgroundColor:'rgba(56,114,235,0.7)',borderColor:blue,borderWidth:1,yAxisID:'y'},
+    {type:'line',label:'Clicks',data:dailyClicks,borderColor:navy,backgroundColor:'rgba(7,6,48,0.10)',borderWidth:3,fill:false,tension:0.3,pointBackgroundColor:blue,pointRadius:5,yAxisID:'y1'}
+  ]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{
+    y:{position:'left',beginAtZero:true,title:{display:true,text:'Spend ($)',color:'#6C6E8A'},ticks:{color:'#6C6E8A',callback:v=>'$'+v},grid:{color:'rgba(7,6,48,0.08)'}},
+    y1:{position:'right',beginAtZero:true,title:{display:true,text:'Clicks',color:'#6C6E8A'},ticks:{color:'#6C6E8A'},grid:{display:false}},
+    x:{ticks:{color:'#6C6E8A'},grid:{display:false}}
+  }}
+});
+</script>
 </body>
 </html>

@@ -80,7 +80,7 @@
     <span class="pill blue">Monthly SEO Progress · May 2026</span>
     <h1>VAST CFO</h1>
     <div class="lede">From 8 tracked keywords last summer to 43 today. The restaurant + winery CFO content engine is finally breaking through, and the next two months are about defending top-5 territory and pushing the rest into the click zone.</div>
-    <div class="meta"><strong>vastcfo.com</strong> &middot; report covers May 2026 &middot; data pulled 2026-05-26</div>
+    <div class="meta"><strong>vastcfo.com</strong> &middot; report covers May 2026 &middot; data pulled 2026-05-26 &middot; GA4 wired (property 479037858)</div>
   </header>
 
   <div class="alert">
@@ -94,9 +94,9 @@
       <div class="delta good">+34% vs. March (32)</div>
     </div>
     <div class="kpi">
-      <div class="label">May 2026 Sessions</div>
-      <div class="value">—</div>
-      <div class="delta mute">GA pull pending</div>
+      <div class="label">GA4 Sessions (May)</div>
+      <div class="value">701</div>
+      <div class="delta good">+232% vs. April (211)</div>
     </div>
     <div class="kpi">
       <div class="label">Domain Rank</div>
@@ -111,8 +111,33 @@
   </section>
 
   <h2>Trajectory</h2>
+  <p style="color: var(--mute); margin-bottom: 14px; font-size: 14px;">Real GA4 sessions overlaid on SEMrush tracked-keyword growth. Sessions climbed from 504 in June 2025 to a peak of 1,550 in November 2025, dipped through the Feb/Mar tracking gap, and rebounded to 701 in May 2026 (+232% vs. April's 211).</p>
   <div class="chart-wrap">
     <canvas id="trajectoryChart" height="110"></canvas>
+  </div>
+
+  <h2>GA4 Channel Breakdown</h2>
+  <p style="color: var(--mute); margin-bottom: 14px; font-size: 14px;">May 2026 sessions by acquisition channel (GA4 property 479037858, 2026-05-01 to 2026-05-28).</p>
+  <table>
+    <thead>
+      <tr>
+        <th>Channel</th>
+        <th>Sessions</th>
+        <th>Share</th>
+        <th>Read</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Direct</td><td>377</td><td>53.8%</td><td>Heavy direct share = brand recall + AI/LLM-as-Direct attribution. ChatGPT, Perplexity, and Google AI Overview citations land here when users paste the URL or strip referrers.</td></tr>
+      <tr><td>Organic Search</td><td>205</td><td>29.2%</td><td>The 43-keyword cluster doing its job. Restaurant accounting + EBITDA + CFO terms are the primary engines.</td></tr>
+      <tr><td>Organic Social</td><td>78</td><td>11.1%</td><td>LinkedIn + Instagram organic. Strong for a CFO services site, suggests the personal-brand content is moving.</td></tr>
+      <tr><td>Referral</td><td>22</td><td>3.1%</td><td>Inbound from partner sites + industry directories.</td></tr>
+      <tr><td>Paid Search</td><td>18</td><td>2.6%</td><td>May was a teardown month for Google Ads (Maximize Conv. paused, brand PMax killed). Low paid volume reflects the campaign reset, not weak demand.</td></tr>
+      <tr><td>Unassigned</td><td>1</td><td>0.1%</td><td>Untagged session, ignore.</td></tr>
+    </tbody>
+  </table>
+  <div class="alert" style="background: #EEF1FF; border-color: var(--blue); color: var(--navy);">
+    <strong>AI/LLM-as-Direct read:</strong> for B2B service-firm sites like Vast CFO, a 50%+ Direct share is the modern signature of AI-engine discovery. Users see the firm cited inside ChatGPT/Perplexity/Google AIO answers, then paste the URL or type the domain — and GA4 logs the visit as Direct because the referrer is stripped. The restaurant CFO content cluster is being extracted by AI answer engines and converting to Direct visits.
   </div>
 
   <h2>Top Performers</h2>
@@ -186,29 +211,53 @@
 </div>
 
 <script>
+  // Real GA4 sessions (property 479037858). Feb/Mar 2026 = null (tracking gap).
   const trendData = {
-    labels: ["Nov '25", "Dec '25", "Jan '26", "Feb '26", "Mar '26", "Apr '26"],
-    keywords: [14, 11, 16, 24, 32, 43]
+    labels: ["Jun '25", "Jul '25", "Aug '25", "Sep '25", "Oct '25", "Nov '25", "Dec '25", "Jan '26", "Feb '26", "Mar '26", "Apr '26", "May '26"],
+    sessions: [504, 455, 640, 840, 1157, 1550, 1240, 1052, null, null, 211, 701],
+    keywords: [null, null, null, null, null, 14, 11, 16, 24, 32, null, 43]
   };
   const ctx = document.getElementById('trajectoryChart').getContext('2d');
   new Chart(ctx, {
     type: 'line',
-    data: { labels: trendData.labels, datasets: [{
-      label: 'Tracked Keywords (SEMrush)',
-      data: trendData.keywords,
-      borderColor: '#070630',
-      backgroundColor: 'rgba(56, 114, 235, 0.15)',
-      tension: 0.3,
-      fill: true,
-      pointRadius: 5,
-      pointBackgroundColor: '#3872EB',
-      pointBorderColor: '#070630',
-      pointBorderWidth: 2,
-    }] },
+    data: { labels: trendData.labels, datasets: [
+      {
+        label: 'GA4 Sessions',
+        data: trendData.sessions,
+        borderColor: '#3872EB',
+        backgroundColor: 'rgba(56, 114, 235, 0.15)',
+        tension: 0.3,
+        fill: true,
+        pointRadius: 5,
+        pointBackgroundColor: '#3872EB',
+        pointBorderColor: '#070630',
+        pointBorderWidth: 2,
+        spanGaps: true,
+        yAxisID: 'y',
+      },
+      {
+        label: 'Tracked Keywords (SEMrush)',
+        data: trendData.keywords,
+        borderColor: '#070630',
+        backgroundColor: 'transparent',
+        borderDash: [6, 4],
+        tension: 0.3,
+        fill: false,
+        pointRadius: 4,
+        pointBackgroundColor: '#070630',
+        pointBorderColor: '#070630',
+        spanGaps: true,
+        yAxisID: 'y1',
+      }
+    ] },
     options: {
       responsive: true,
+      interaction: { mode: 'index', intersect: false },
       plugins: { legend: { display: true, position: 'bottom' } },
-      scales: { y: { beginAtZero: true, title: { display: true, text: 'Keywords' } } }
+      scales: {
+        y:  { beginAtZero: true, position: 'left',  title: { display: true, text: 'GA4 Sessions' } },
+        y1: { beginAtZero: true, position: 'right', title: { display: true, text: 'Tracked Keywords' }, grid: { drawOnChartArea: false } }
+      }
     }
   });
 </script>

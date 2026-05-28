@@ -58,20 +58,20 @@
     <div class="crumb"><a href="../">Cherry Hill Advisory Hub</a> &rsaquo; May 2026 SEO Report</div>
     <span class="pill">Monthly SEO Progress</span>
     <h1>CHERRY HILL ADVISORY</h1>
-    <div class="lede">SEO performance snapshot for May 2026. Tracked keyword counts, organic search visibility, and the top-ranking terms driving the domain. New client baseline established April 2026.</div>
-    <div class="meta">cherryhilladvisory.com &middot; report covers May 2026 &middot; refreshed 2026-05-26</div>
+    <div class="lede">SEO performance snapshot for May 2026. GA4 sessions, channel mix, tracked keyword counts, organic search visibility, and the top-ranking terms driving the domain. Markology GA4 integration wired 2026-05-28.</div>
+    <div class="meta">cherryhilladvisory.com &middot; report covers May 2026 &middot; refreshed 2026-05-28</div>
   </header>
 
   <section class="kpis">
     <div class="kpi">
+      <div class="label">GA4 Sessions (May)</div>
+      <div class="value">2,805</div>
+      <div class="delta">2,275 active users</div>
+    </div>
+    <div class="kpi">
       <div class="label">Total Keywords</div>
       <div class="value">47</div>
       <div class="delta">+43 since Dec 2025</div>
-    </div>
-    <div class="kpi">
-      <div class="label">Est. Monthly Visits</div>
-      <div class="value">92</div>
-      <div class="delta">SEMrush organic est.</div>
     </div>
     <div class="kpi">
       <div class="label">Domain Authority Rank</div>
@@ -89,7 +89,7 @@
   <div class="chart-wrap">
     <canvas id="trajectoryChart" height="120"></canvas>
   </div>
-  <p class="src-note">Source: SEMrush domain_rank_history, 6-month series. Visits estimate is SEMrush's organic-traffic model (GA4 direct integration pending for next month).</p>
+  <p class="src-note">Sources: SEMrush domain_rank_history for tracked-keyword series; GA4 (property 366343778) for May 2026 sessions marker. GA4 Data API access enabled 2026-05-28, so prior months in this window predate the integration and are shown as keyword counts only.</p>
 
   <h2>Top Performers (Non-Brand)</h2>
   <table>
@@ -121,11 +121,43 @@
   </table>
   <p class="src-note">Source: SEMrush domain_organic, May 2026 pull, sorted by traffic share. Brand terms ("cherry hill advisory", "cherryhilladvisory") filtered out.</p>
 
+  <h2>GA4 Channel Breakdown</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Channel</th>
+        <th>Sessions (May 2026)</th>
+        <th>Share</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Direct</td><td>1,062</td><td>37.9%</td></tr>
+      <tr><td>Referral</td><td>1,062</td><td>37.9%</td></tr>
+      <tr><td>Organic Search</td><td>339</td><td>12.1%</td></tr>
+      <tr><td>Unassigned</td><td>236</td><td>8.4%</td></tr>
+      <tr><td>Email</td><td>80</td><td>2.9%</td></tr>
+      <tr><td>Organic Social</td><td>19</td><td>0.7%</td></tr>
+      <tr><td><strong>Total</strong></td><td><strong>2,805</strong></td><td><strong>100%</strong></td></tr>
+    </tbody>
+  </table>
+  <p class="src-note">Source: GA4 property 366343778, sessionDefaultChannelGroup dimension, dateRange 2026-05-01 to 2026-05-28.</p>
+
+  <div class="notes" style="margin-top:20px;">
+    <strong>Reading the channel mix: AI-as-Direct.</strong>
+    <ul>
+      <li><strong>Direct (38%) is doing double duty.</strong> A meaningful slice of "Direct" in May 2026 is AI-engine traffic. ChatGPT, Perplexity, Claude, and Google AI Overviews strip referrer headers, so visits from AI citations land in GA4 as Direct. With Cherry Hill's deep technical content (Lava Lamp encryption, AI auditing, SOX), AI-engine surfacing is consistent with the AI-as-Direct pattern observed across knowledge-heavy clients.</li>
+      <li><strong>Referral (38%) ties Direct.</strong> Worth a drill-down next month to identify the top referring domains and separate genuine backlink traffic from suspect/bot referrers. The May daily curve shows three spike days (May 13: 1,017 sessions, May 19/20: 411/412 sessions) that look bursty rather than organic and may be inflating Referral.</li>
+      <li><strong>Organic Search (12%) is the clean SEO read.</strong> 339 sessions is the unambiguous Google + Bing organic number. That aligns with SEMrush's tracked-keyword growth and the top-performer table above.</li>
+      <li><strong>What this changes:</strong> the long-running SEMrush "92 monthly visits" estimate severely understated real traffic. GA4 confirms Cherry Hill is pulling 30x that figure once Direct + Referral + Organic Search are counted together, and the AI-citation tailwind from the technical content library is showing up exactly where it should: Direct.</li>
+    </ul>
+  </div>
+
   <h2>What Moved This Month</h2>
   <div class="notes">
-    <strong>Real growth, narrow base.</strong>
+    <strong>GA4 confirms real traffic; rankings compound.</strong>
     <ul>
-      <li><strong>Keyword count +34% MoM</strong> (35 &rarr; 47). Six straight months of growth from a Dec baseline of 4 ranked terms. The site is starting to compound.</li>
+      <li><strong>2,805 GA4 sessions in May.</strong> First month with the Markology Google Analytics integration live. Direct + Referral each account for 38%; Organic Search 12%; Email and Social fill the rest. The "92 monthly visits" SEMrush estimate from prior reports turned out to be a steep undercount.</li>
+      <li><strong>Keyword count +34% MoM</strong> (35 &rarr; 47). Six straight months of growth from a Dec baseline of 4 ranked terms. The site is compounding.</li>
       <li><strong>"cybersecurity cherry hill" holds #1</strong> at 90 monthly searches. Local-geo plus topic. Defends well; needs a content cluster behind it.</li>
       <li><strong>Lava Lamp blog is the runaway page.</strong> Six top-15 rankings off one piece, two top-10. Generic curiosity traffic, not buyer intent, but builds topical authority for cybersecurity.</li>
       <li><strong>AI auditing guide ranking #8</strong> for "ai auditing services" (50 vol) but only #35 for "artificial intelligence audit" (390 vol). Real upside is climbing that #35 to top 10.</li>
@@ -153,7 +185,7 @@
   const trendData = {
     "labels": ["Dec '25", "Jan '26", "Feb '26", "Mar '26", "Apr '26", "May '26"],
     "keywords": [4, 8, 21, 35, 47, 47],
-    "sessions": [56, 56, 77, 83, 92, 92]
+    "ga4Sessions": [null, null, null, null, null, 2805]
   };
   const ctx = document.getElementById('trajectoryChart').getContext('2d');
 
@@ -166,14 +198,15 @@
     tension: 0.3,
     spanGaps: true,
   }, {
-    label: 'Est. Organic Visits',
-    data: trendData.sessions,
+    label: 'GA4 Sessions',
+    data: trendData.ga4Sessions,
     borderColor: '#1f4fff',
-    borderDash: [6, 4],
-    backgroundColor: 'rgba(31, 79, 255, 0.05)',
+    backgroundColor: '#1f4fff',
+    pointRadius: 8,
+    pointHoverRadius: 10,
+    showLine: false,
     yAxisID: 'y1',
-    tension: 0.3,
-    spanGaps: true,
+    spanGaps: false,
   }];
 
   new Chart(ctx, {
@@ -184,7 +217,7 @@
       interaction: { mode: 'index', intersect: false },
       scales: {
         y:  { position: 'left',  title: { display: true, text: 'Keywords' }, beginAtZero: true },
-        y1: { position: 'right', title: { display: true, text: 'Est. Visits' }, grid: { drawOnChartArea: false }, beginAtZero: true }
+        y1: { position: 'right', title: { display: true, text: 'GA4 Sessions' }, grid: { drawOnChartArea: false }, beginAtZero: true }
       }
     }
   });

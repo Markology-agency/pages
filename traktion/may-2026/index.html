@@ -24,7 +24,8 @@
   h2{font-family:Bangers,Inter,sans-serif;font-size:32px;color:var(--navy);margin:48px 0 16px;letter-spacing:0.02em;}
   .lede{font-size:18px;color:var(--hair);max-width:760px;}
   .meta{color:var(--mute);font-size:13px;margin-top:14px;letter-spacing:0.04em;}
-  .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:28px 0 40px;}
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:28px 0 40px;}
+  @media(max-width:980px){.kpis{grid-template-columns:repeat(3,1fr);}}
   @media(max-width:720px){.kpis{grid-template-columns:repeat(2,1fr);}h1{font-size:42px;}}
   .kpi{background:#fff;border:2px solid var(--navy);border-radius:6px;padding:18px 16px;box-shadow:5px 5px 0 var(--navy);}
   .kpi .label{font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--mute);margin-bottom:6px;}
@@ -62,6 +63,11 @@
 
   <section class="kpis">
     <div class="kpi">
+      <div class="label">GA4 Sessions (May)</div>
+      <div class="value">596</div>
+      <div class="delta up">12-mo trend &middot; peak 1,566 (Nov)</div>
+    </div>
+    <div class="kpi">
       <div class="label">Tracked Keywords</div>
       <div class="value">122</div>
       <div class="delta up">+60% vs. May 2025 (76)</div>
@@ -83,13 +89,35 @@
     </div>
   </section>
 
-  <div class="flag"><b>Traffic source.</b> GA4 sessions for Traktion (property 455267990) are pending the Google Analytics Data API being enabled on the Markology Cloud project. Real Google Search Console clicks are wired in this report as the truth source. SEMrush traffic estimates are no longer used. To unlock GA4 reporting across every Markology client at once, enable Analytics Data API at <a href="https://console.developers.google.com/apis/api/analyticsdata.googleapis.com/overview?project=825774002611" style="color:var(--blue);font-weight:700;">console.developers.google.com</a>.</div>
+  <div class="flag"><b>Traffic source.</b> GA4 sessions for Traktion (property 455267990) are now wired into this report alongside Google Search Console clicks. GA4 reads as truth on traffic volume + channel mix; GSC reads as truth on non-brand search demand. SEMrush traffic estimates are not used.</div>
 
   <h2>Six-Month Trajectory</h2>
   <div class="chart-wrap">
     <canvas id="trajectoryChart" height="120"></canvas>
   </div>
   <p style="color:var(--mute);font-size:13px;margin-top:10px;">Tracked keywords climbed 116 &rarr; 135 (+16%) Dec &rarr; Jan, then settled around 122-132 for the remainder of the window. Real GSC clicks doubled Dec (110) &rarr; Jan (186), held at 186-187 through March, then drifted to 161 in April and 109 May MTD (on pace ~120). Position lift is the headline: 17.8 average in December to 8.8 in March is a near-9-spot improvement across the whole footprint. May softening to 11.9 is the signal to defend.</p>
+
+  <h2>GA4 Channel Breakdown (May 2026)</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Channel</th>
+        <th>Sessions</th>
+        <th>Share</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Direct</td><td>371</td><td>62.2%</td></tr>
+      <tr><td>Organic Search</td><td>169</td><td>28.4%</td></tr>
+      <tr><td>Referral</td><td>22</td><td>3.7%</td></tr>
+      <tr><td>Paid Search</td><td>20</td><td>3.4%</td></tr>
+      <tr><td>Organic Social</td><td>10</td><td>1.7%</td></tr>
+      <tr><td>Unassigned</td><td>3</td><td>0.5%</td></tr>
+      <tr><td>Cross-network</td><td>1</td><td>0.2%</td></tr>
+      <tr><td><strong>Total</strong></td><td><strong>596</strong></td><td><strong>100%</strong></td></tr>
+    </tbody>
+  </table>
+  <p style="color:var(--mute);font-size:13px;margin-top:10px;">Organic Search at 28.4% (169 sessions) is the channel SEO directly owns &mdash; this lines up with the May GSC clicks pace (~120) once you account for sessions counted once per source vs. multi-click GSC behavior. Direct at 62.2% (371 sessions) is unusually heavy for a top-of-funnel-driven therapist site; a portion is likely AI-engine referrals (ChatGPT, Perplexity, Claude) landing without UTM tags, plus untagged dark-social shares of the therapist-niche content. Paid Search at 20 sessions is light and confirms the prior diagnostic that the Google Ads conversion pixel is not firing on /thank-you/ &mdash; Ads-driven traffic exists but cannot be attributed to outcomes until the pixel is fixed. Organic Social (10) is a tiny but real signal; Referral (22) is mostly the Heard-interception page picking up directory-style backlinks.</p>
 
   <h2>Top Performers (Therapist-Niche, Non-Brand)</h2>
   <table>
@@ -161,7 +189,7 @@
     <li><strong>Therapist-niche focus is the entire strategy.</strong> Dallas-CFO services (positions 22, 27) and Texas-business-entity content (positions 11-46) still rank from legacy work but are not being expanded. Decision open on whether to redirect these pages into the therapist focus, rewrite them as therapist-relevant ("CFO services for therapy practices nationwide"), or let them decay.</li>
     <li><strong>Conversion-tracking blocker.</strong> Google Ads conversion pixel on /thank-you/ is not firing per prior diagnostic (AW-16677612852/_rz_CMja980ZELTawJA-). Search appears non-converting because measurement is broken. CF WAF blocks REST writes &mdash; pixel needs installation via Elementor Custom Code or GTM UI. Worth completing before any Ads campaign changes.</li>
     <li>Search Console is wired in. SEMrush traffic estimates are no longer used per the 2026-05-26 agency rule (estimates run 2-5x off real measurement).</li>
-    <li>GA4 sessions will swap in for the June report once the Analytics Data API is enabled on the Markology Cloud project.</li>
+    <li><strong>GA4 is now wired.</strong> Sessions + channel breakdown pulled live from GA4 property 455267990 via the Analytics Data API (enabled 2026-05-28 on the Markology Cloud project). 12-month sessions trajectory shows the Nov 2025 peak (1,566) followed by a Jan dip (517) then a steady Feb-Apr recovery (780, 916, 748) and May settling at 596. GA4 will be the default traffic source on every Traktion monthly report going forward.</li>
   </ul>
 
   <div class="footer">

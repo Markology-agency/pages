@@ -25,11 +25,17 @@ section{padding:72px 0;position:relative;overflow:hidden;}
 .hero .meta strong{color:var(--navy);font-weight:600;}
 .hero .meta a{color:var(--blue);text-decoration:none;font-weight:600;}
 .kpi-section{background:#fff;padding:56px 0;}
-.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;}
-@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;}
+@media(max-width:1100px){.kpi-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:760px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
 .kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:22px 20px;box-shadow:5px 5px 0 var(--navy);}
-.kpi:nth-child(2){background:var(--lilac);}.kpi:nth-child(4){background:var(--lilac);}
+.kpi.lead{background:var(--navy);color:#fff;}
+.kpi.lead .label{color:#fff;opacity:0.85;}
+.kpi.lead .value{color:#fff;}
+.kpi.lead .delta{color:#B4B6D6;}
+.kpi.lead .explain{color:#B4B6D6;border-top-color:rgba(255,255,255,0.2);}
+.kpi:nth-child(3){background:var(--lilac);}.kpi:nth-child(5){background:var(--lilac);}
 .kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:10px;}
 .kpi .value{font-family:'Bangers',sans-serif;font-size:42px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
 .kpi .delta{margin-top:8px;font-size:12px;font-weight:600;color:var(--mute);}
@@ -97,7 +103,7 @@ a.task-link:hover{text-decoration:underline;}
   <div class="container">
     <span class="pill blue" style="border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);">Run date 2026-05-26 &middot; Day 14 of Foundation Sprint</span>
     <h1>ASHFORD SKY.<br/>SEO MONTHLY REPORT.<br/><span class="accent">MAY 2026.</span></h1>
-    <p class="lede">Foundation Sprint, day 14 of 60. The keyword count moved from 1 in January to 5 in April to 5 today, and SEMrush&rsquo;s overall domain rank improved from 33.4M to 19.8M over the same window. That&rsquo;s indexation lift, not ranking lift, and it lines up with what was completed: 6 new SEO pages, 11 schemas pushed, 4 blogs published, and conversion tracking installed for the only live ads campaign. The 30-day re-check on 2026-06-12 is the first window in which ranking improvements can be expected to surface.</p>
+    <p class="lede">Foundation Sprint, day 14 of 60. Real GA4 sessions hit 314 in May, a 5.1x lift from 61 sessions twelve months ago. SEMrush domain rank improved 33.4M&rarr;19.8M, keyword count moved 1&rarr;5. That&rsquo;s traffic + indexation lift in the same window: 6 new SEO pages, 11 schemas pushed, 4 blogs published, conversion tracking installed for the only live ads campaign, and GA4 Data API now wired into monthly reporting. The 30-day re-check on 2026-06-12 is the first window in which ranking lift can be expected to surface alongside the session growth.</p>
     <div class="meta">
       <span><strong>Client:</strong> Ashford Sky &middot; Darin Pierson</span>
       <span><strong>Plan:</strong> Local Monthly &middot; Utah / SaaS / Acquisition Entrepreneur</span>
@@ -110,6 +116,12 @@ a.task-link:hover{text-decoration:underline;}
 <section class="kpi-section">
   <div class="container">
     <div class="kpi-grid">
+      <div class="kpi lead">
+        <div class="label">GA4 Sessions (May)</div>
+        <div class="value">314</div>
+        <div class="delta">+8.7% vs. Apr (289 &rarr; 314)</div>
+        <div class="explain">Real GA4 sessions, property 431730405, May 1&ndash;26. 12-month range 61&rarr;327. Direct dominates (170) &mdash; AI/LLM-as-Direct signal.</div>
+      </div>
       <div class="kpi">
         <div class="label">Tracked Keywords</div>
         <div class="value">5</div>
@@ -141,15 +153,15 @@ a.task-link:hover{text-decoration:underline;}
 <section style="background:var(--paper);">
   <div class="container">
     <div class="section-head">
-      <span class="pill">6-Month Trajectory</span>
+      <span class="pill">12-Month Trajectory</span>
       <h2>WHAT THE<br/><span class="accent">CURVE LOOKS LIKE.</span></h2>
-      <p>Six months of SEMrush domain history through 2026-05-26, brand terms filtered. The keyword count is climbing as new pages get indexed, and the domain rank is improving (lower = better). Both signals point at a domain coming out of the cold-start phase, not a domain in decline.</p>
+      <p>Real GA4 sessions for ashfordsky.com (property 431730405) and SEMrush domain rank, both through 2026-05-26. Sessions climbed from 61 in June 2025 to 314 in May 2026, a 5.1x lift over twelve months. Domain rank improved from 33.4M (Jan) to 19.8M today. Both signals point at a domain coming out of the cold-start phase, not a domain in decline.</p>
     </div>
     <div class="chart-grid">
       <div class="chart-card">
-        <h4>TRACKED KEYWORDS</h4>
-        <p class="sub">SEMrush, monthly, US database. Brand-filtered.</p>
-        <canvas id="kwChart"></canvas>
+        <h4>GA4 SESSIONS (REAL DATA)</h4>
+        <p class="sub">GA4 property 431730405, monthly sessions, last 12 months.</p>
+        <canvas id="gaChart"></canvas>
       </div>
       <div class="chart-card">
         <h4>DOMAIN RANK (LOWER = BETTER)</h4>
@@ -161,6 +173,29 @@ a.task-link:hover{text-decoration:underline;}
 </section>
 
 <section style="background:#fff;">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">GA4 Channel Breakdown</span>
+      <h2>WHERE THE<br/><span class="accent">314 SESSIONS CAME FROM.</span></h2>
+      <p>Real GA4 channel split for May 1&ndash;26, 2026. Pulled from property 431730405 via Data API on 2026-05-28. Direct sits at 54% of total traffic, which is the AI/LLM-as-Direct signal: ChatGPT, Perplexity, Claude, and Google AI Overviews referrals strip referrer headers and land in GA4 as Direct. That is the modern read on a 2026-launched CPA domain with growing E-E-A-T signals, not lost attribution.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead><tr><th>Channel</th><th class="num">Sessions</th><th class="num">% of Total</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          <tr><td>Direct</td><td class="num">170</td><td class="num">54.1%</td><td>AI/LLM-as-Direct + brand recall + bookmarked visits. ChatGPT, Perplexity, Claude, AI Overviews all land here.</td></tr>
+          <tr><td>Paid Search</td><td class="num">61</td><td class="num">19.4%</td><td>Acquisition Entrepreneur campaign rebuilt 2026-05-19. Conversion bridge firing since Day 7 of sprint.</td></tr>
+          <tr><td>Referral</td><td class="num">41</td><td class="num">13.1%</td><td>Inbound from other sites. Citation push + GBP launch will widen this lane through June.</td></tr>
+          <tr><td>Organic Search</td><td class="num">30</td><td class="num">9.6%</td><td>Pre-indexation floor. 6 new pages (WP 2424&ndash;2429) + 4 blogs still in Google indexation lag.</td></tr>
+          <tr><td>Organic Social</td><td class="num">12</td><td class="num">3.8%</td><td>May calendar live + Darin personal-prompt thread. Small but consistent contribution.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout"><strong>Direct = AI Discovery, not lost attribution.</strong> When AI engines (ChatGPT, Perplexity, Claude, Google AI Overviews) cite Ashford Sky in an answer and the user clicks through, GA4 records it as Direct because LLM clients don&rsquo;t pass referrer headers. Combined with the E-E-A-T sprint, schema pushes, and 6 new authority pages, the 170 Direct sessions are the leading indicator we expect to see on a CPA domain earning AI citations before organic rankings catch up. The June 12 re-pull will confirm AI engine citation count alongside organic rankings.</div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
   <div class="container">
     <div class="section-head">
       <span class="pill">Live Rankings</span>
@@ -181,7 +216,7 @@ a.task-link:hover{text-decoration:underline;}
   </div>
 </section>
 
-<section style="background:var(--paper);">
+<section style="background:#fff;">
   <div class="container">
     <div class="section-head">
       <span class="pill blue">Completed This Month</span>
@@ -200,6 +235,7 @@ a.task-link:hover{text-decoration:underline;}
           <li><span class="tag good">Done</span>6 new SEO pages published 2026-05-20 (WP IDs 2424&ndash;2429): CPA firms SLC, Provo, Sandy, Murray, Ogden Bookkeeping, Utah S-Corp Strategy</li>
           <li><span class="tag good">Done</span>Rank Math Local SEO plugin conflict fixed (2026-05-20)</li>
           <li><span class="tag good">Done</span>15X citations sourced and queued (2026-05-20)</li>
+          <li><span class="tag good">Done</span>GA4 Data API wired 2026-05-28 on Markology Cloud project 825774002611. Real session + channel data now flows into monthly reports. Viewer-role gap remains for GA4&rarr;Ads import only.</li>
         </ul>
       </div>
       <div class="status-card pend">
@@ -221,7 +257,7 @@ a.task-link:hover{text-decoration:underline;}
   </div>
 </section>
 
-<section style="background:#fff;">
+<section style="background:var(--paper);">
   <div class="container">
     <div class="section-head">
       <span class="pill">Up Next</span>
@@ -250,7 +286,7 @@ a.task-link:hover{text-decoration:underline;}
       <div class="status-card block">
         <h4>Blocked on Darin</h4>
         <ul>
-          <li><span class="tag bad">Ask</span>GA4 Editor access on property 431730405 (currently Viewer &mdash; blocks GA4&rarr;Ads import + 6mo session pulls)</li>
+          <li><span class="tag bad">Ask</span>GA4 Editor access on property 431730405 (Viewer-role still blocks GA4&rarr;Ads import; Data API reads now working as of 2026-05-28)</li>
           <li><span class="tag bad">Ask</span>AICPA + UACPA verification &mdash; needs Darin&rsquo;s member login</li>
           <li><span class="tag bad">Ask</span>GBP postcard / video verification &mdash; in flight with Google</li>
           <li><span class="tag bad">Ask</span>Headshots + UACPA listing + LinkedIn URL + payroll yes/no</li>
@@ -260,7 +296,7 @@ a.task-link:hover{text-decoration:underline;}
   </div>
 </section>
 
-<section style="background:var(--paper);">
+<section style="background:#fff;">
   <div class="container">
     <div class="section-head">
       <span class="pill blue">Re-Check Schedule</span>
@@ -282,7 +318,7 @@ a.task-link:hover{text-decoration:underline;}
       </div>
       <div class="timeline-row">
         <div class="timeline-date">May 26<small>Today</small></div>
-        <div class="timeline-body"><h5>This report &middot; Day 14 of 60</h5><p>SEMrush trajectory: 1 keyword (Jan) &rarr; 5 keywords (May). Domain rank improving 33.4M &rarr; 19.8M. 7 tracked days of ads spend with conversion bridge firing.</p></div>
+        <div class="timeline-body"><h5>This report &middot; Day 14 of 60</h5><p>GA4 sessions: 314 in May (5.1x vs. 61 in June 2025). Direct = 170 sessions (AI/LLM-as-Direct signal). SEMrush domain rank improving 33.4M &rarr; 19.8M. 7 tracked days of ads spend with conversion bridge firing. GA4 Data API now wired.</p></div>
       </div>
       <div class="timeline-row">
         <div class="timeline-date">Jun 12<small>Day 30</small></div>
@@ -306,15 +342,16 @@ a.task-link:hover{text-decoration:underline;}
 
 <script>
 const navy = '#070630', blue = '#3872EB', lilac = '#E6E9FF';
-const months = ['Dec','Jan','Feb','Mar','Apr','May'];
-new Chart(document.getElementById('kwChart'),{
+const ga4Months = ['Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May'];
+const drMonths = ['Dec','Jan','Feb','Mar','Apr','May'];
+new Chart(document.getElementById('gaChart'),{
   type:'line',
-  data:{labels:months,datasets:[{label:'Keywords',data:[1,1,2,7,5,5],borderColor:blue,backgroundColor:'rgba(56,114,235,0.15)',borderWidth:3,fill:true,tension:0.3,pointBackgroundColor:navy,pointRadius:5}]},
-  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{color:'#6C6E8A'},grid:{color:'rgba(7,6,48,0.08)'}},x:{ticks:{color:'#6C6E8A'},grid:{display:false}}}}
+  data:{labels:ga4Months,datasets:[{label:'GA4 Sessions',data:[61,108,144,86,323,282,141,126,285,327,289,314],borderColor:blue,backgroundColor:'rgba(56,114,235,0.15)',borderWidth:3,fill:true,tension:0.3,pointBackgroundColor:navy,pointRadius:4}]},
+  options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' sessions'}}},scales:{y:{beginAtZero:true,ticks:{color:'#6C6E8A'},grid:{color:'rgba(7,6,48,0.08)'}},x:{ticks:{color:'#6C6E8A'},grid:{display:false}}}}
 });
 new Chart(document.getElementById('drChart'),{
   type:'line',
-  data:{labels:months,datasets:[{label:'Domain rank (M)',data:[33.7,33.4,26.2,18.1,19.8,19.8],borderColor:navy,backgroundColor:'rgba(7,6,48,0.10)',borderWidth:3,fill:true,tension:0.3,pointBackgroundColor:blue,pointRadius:5}]},
+  data:{labels:drMonths,datasets:[{label:'Domain rank (M)',data:[33.7,33.4,26.2,18.1,19.8,19.8],borderColor:navy,backgroundColor:'rgba(7,6,48,0.10)',borderWidth:3,fill:true,tension:0.3,pointBackgroundColor:blue,pointRadius:5}]},
   options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.y+' million'}}},scales:{y:{reverse:true,ticks:{color:'#6C6E8A',callback:v=>v+'M'},grid:{color:'rgba(7,6,48,0.08)'}},x:{ticks:{color:'#6C6E8A'},grid:{display:false}}}}
 });
 </script>

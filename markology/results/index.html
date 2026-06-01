@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Markology Client Results — v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --paper: #F9F9FF;
+    --navy: #070630;
+    --blue: #3872EB;
+    --lilac: #E6E9FF;
+    --ink: #1a1a2e;
+    --muted: #6b6b8a;
+    --accent2: #8A7CF0;
+    --accent3: #1FB6A8;
+    --accent4: #F26B6B;
+    --accent5: #F5A623;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--paper);
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--navy);
+    padding: 60px 24px;
+  }
+  .container { max-width: 1180px; margin: 0 auto; }
+
+  .eyebrow {
+    color: var(--blue);
+    font-weight: 600;
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  h1 {
+    font-family: 'Bangers', sans-serif;
+    font-size: 72px;
+    line-height: 1;
+    letter-spacing: 1.5px;
+    color: var(--navy);
+    margin-bottom: 20px;
+  }
+  .lede {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--ink);
+    max-width: 720px;
+    margin-bottom: 56px;
+  }
+  .lede strong { color: var(--navy); }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .card {
+    background: white;
+    border: 2px solid var(--navy);
+    border-radius: 12px;
+    padding: 28px 28px 24px;
+    box-shadow: 6px 6px 0 var(--navy);
+    display: flex;
+    flex-direction: column;
+  }
+  .card .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 5px 11px;
+    border-radius: 4px;
+    align-self: flex-start;
+    margin-bottom: 14px;
+  }
+  .card .descriptor {
+    font-family: 'Bangers', sans-serif;
+    font-size: 30px;
+    letter-spacing: 0.8px;
+    color: var(--navy);
+    line-height: 1.05;
+    margin-bottom: 6px;
+  }
+  .card .subhead {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 22px;
+    line-height: 1.45;
+  }
+  .card .chart-area {
+    flex: 1;
+    min-height: 180px;
+    margin-bottom: 18px;
+    position: relative;
+  }
+  .card .stat-row {
+    display: flex;
+    gap: 18px;
+    padding-top: 18px;
+    border-top: 1px solid var(--lilac);
+  }
+  .card .stat-block { flex: 1; }
+  .card .stat-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.3px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .card .stat-big {
+    font-family: 'Bangers', sans-serif;
+    font-size: 38px;
+    line-height: 1;
+    letter-spacing: 0.5px;
+  }
+  .card .stat-sub {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--navy);
+    margin-top: 4px;
+  }
+
+  /* Card-specific tag colors + grid spans */
+  .c1 { grid-column: span 4; }
+  .c1 .tag { background: var(--lilac); color: var(--blue); }
+  .c1 .stat-big { color: var(--blue); }
+
+  .c2 { grid-column: span 2; }
+  .c2 .tag { background: #DCFCF7; color: var(--accent3); }
+  .c2 .stat-big { color: var(--accent3); }
+
+  .c3 { grid-column: span 3; }
+  .c3 .tag { background: #EFE9FF; color: var(--accent2); }
+  .c3 .stat-big { color: var(--accent2); }
+
+  .c4 { grid-column: span 3; }
+  .c4 .tag { background: #FFE5D9; color: var(--accent5); }
+  .c4 .stat-big { color: var(--accent5); }
+
+  .c5 { grid-column: span 6; }
+  .c5 .tag { background: #FDE0E0; color: var(--accent4); }
+  .c5 .stat-big { color: var(--accent4); }
+  .c5 .chart-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 32px;
+    align-items: center;
+  }
+
+  @media (max-width: 920px) {
+    .grid { grid-template-columns: 1fr; }
+    .c1, .c2, .c3, .c4, .c5 { grid-column: span 1; }
+    .c5 .chart-grid { grid-template-columns: 1fr; }
+  }
+
+  .footnote {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 36px;
+    line-height: 1.55;
+    max-width: 920px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="eyebrow">Real firms. Real growth.</div>
+  <h1>The work, in numbers.</h1>
+  <p class="lede">Five engagements from the past twelve months. <strong>Every figure below is verified</strong> from Google Analytics 4 organic-search sessions or the client's own lead tracker. No paid traffic, no estimates.</p>
+
+  <div class="grid">
+
+    <!-- CARD 1: Traktion - dual bar chart (leads + organic sessions Q1 YoY) -->
+    <div class="card c1">
+      <span class="tag">Therapist-niche Bookkeeping Firm</span>
+      <div class="descriptor">From 16 leads a quarter to 76.</div>
+      <div class="subhead">A national bookkeeping firm serving private-practice therapists. Both organic sessions and discovery-call leads grew sharply year-over-year.</div>
+      <div class="chart-area"><canvas id="ch1"></canvas></div>
+      <div class="stat-row">
+        <div class="stat-block">
+          <div class="stat-label">Net new discovery calls, Q1</div>
+          <div class="stat-big">+375%</div>
+          <div class="stat-sub">16 in Q1 2025, 76 in Q1 2026</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-label">Organic sessions, May YoY</div>
+          <div class="stat-big">+170%</div>
+          <div class="stat-sub">69 sessions to 186</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 2: Virjee Dental - radial / progress-style stat -->
+    <div class="card c2">
+      <span class="tag">Dental CPA Practice</span>
+      <div class="descriptor">A 5x keyword footprint in fourteen months.</div>
+      <div class="subhead">SEMrush ranking keywords on a single dental-niche domain.</div>
+      <div class="chart-area"><canvas id="ch2"></canvas></div>
+      <div class="stat-row">
+        <div class="stat-block">
+          <div class="stat-label">Ranking keywords</div>
+          <div class="stat-big">84 → 416</div>
+          <div class="stat-sub">+395% at peak month</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 3: Adam Traywick - line chart of keyword footprint -->
+    <div class="card c3">
+      <span class="tag">Texas CPA Serving Trades</span>
+      <div class="descriptor">A keyword footprint that just kept climbing.</div>
+      <div class="subhead">Ranking keyword count by month, SEMrush US database, February 2025 through April 2026.</div>
+      <div class="chart-area"><canvas id="ch3"></canvas></div>
+      <div class="stat-row">
+        <div class="stat-block">
+          <div class="stat-label">Ranking keywords</div>
+          <div class="stat-big">+184%</div>
+          <div class="stat-sub">296 to 841 in 14 months</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-label">Organic sessions, peak month</div>
+          <div class="stat-big">+410%</div>
+          <div class="stat-sub">173 to 883 (Jan 2026)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 4: Tarleton - ramp chart from zero -->
+    <div class="card c4">
+      <span class="tag">Estate-planning Law Firm</span>
+      <div class="descriptor">From zero to 365 organic sessions a month.</div>
+      <div class="subhead">A new estate-planning practice ramped from a flat-line launch to a steady book of organic traffic in five months.</div>
+      <div class="chart-area"><canvas id="ch4"></canvas></div>
+      <div class="stat-row">
+        <div class="stat-block">
+          <div class="stat-label">Organic sessions, peak month</div>
+          <div class="stat-big">365</div>
+          <div class="stat-sub">Month five since launch</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-label">Months to first 100/mo</div>
+          <div class="stat-big">2</div>
+          <div class="stat-sub">December launch, January at 241</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD 5: Steve Ellard - bar chart of keyword footprint growth May-Sept -->
+    <div class="card c5">
+      <span class="tag">Cape Cod Multi-location CPA</span>
+      <div class="descriptor">Doubled the ranking-keyword footprint in four months.</div>
+      <div class="subhead">A regional New England CPA firm with a payroll arm. Markology shipped content velocity that moved the firm from 41 ranking keywords to 92 between May and September 2025.</div>
+      <div class="chart-grid">
+        <div style="position:relative;height:240px;">
+          <canvas id="ch5a"></canvas>
+        </div>
+        <div style="position:relative;height:240px;">
+          <canvas id="ch5b"></canvas>
+        </div>
+      </div>
+      <div class="stat-row" style="margin-top: 24px;">
+        <div class="stat-block">
+          <div class="stat-label">Ranking keywords, May to Sept</div>
+          <div class="stat-big">+124%</div>
+          <div class="stat-sub">41 in May 2025, 92 in September</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-label">SEMrush domain rank improvement</div>
+          <div class="stat-big">~60%</div>
+          <div class="stat-sub">7.6M to 3.1M, lower is better</div>
+        </div>
+        <div class="stat-block">
+          <div class="stat-label">Estimated organic traffic value</div>
+          <div class="stat-big">14×</div>
+          <div class="stat-sub">$5 to $76 monthly equivalent</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <p class="footnote">All organic-session figures are pulled directly from each client's Google Analytics 4 property, filtered to <em>sessionDefaultChannelGroup = Organic Search</em>. Ranking-keyword counts are SEMrush US-database month-end snapshots. Lead figures come from each client's own intake tracker, not modeled. Many accounting firms see seasonal peaks during Q1 tax season; year-over-year comparisons use matched months.</p>
+
+</div>
+
+<script>
+const navy='#070630', blue='#3872EB', lilac='#E6E9FF', muted='#6b6b8a';
+const accent2='#8A7CF0', accent3='#1FB6A8', accent4='#F26B6B', accent5='#F5A623';
+
+Chart.defaults.font.family = 'Inter';
+Chart.defaults.color = navy;
+
+// CARD 1: Grouped bar — Q1 2025 vs Q1 2026 leads + sessions
+new Chart(document.getElementById('ch1'), {
+  type: 'bar',
+  data: {
+    labels: ['Net new discovery calls (Q1)', 'Organic sessions (May)'],
+    datasets: [
+      { label: '2025', data: [16, 69], backgroundColor: lilac, borderColor: navy, borderWidth: 2, borderRadius: 4, barPercentage: 0.55 },
+      { label: '2026', data: [76, 186], backgroundColor: blue, borderColor: navy, borderWidth: 2, borderRadius: 4, barPercentage: 0.55 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'top', align: 'end', labels: { boxWidth: 14, font: { weight: '600', size: 12 }, padding: 12 } },
+      tooltip: { backgroundColor: navy, padding: 10 }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { font: { weight: '600', size: 12 } } },
+      y: { grid: { color: lilac }, ticks: { color: muted, font: { size: 11 } } }
+    }
+  }
+});
+
+// CARD 2: Radial donut showing 84 → 416 progress
+new Chart(document.getElementById('ch2'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Keywords gained', 'Starting footprint'],
+    datasets: [{
+      data: [416-84, 84],
+      backgroundColor: [accent2, lilac],
+      borderColor: navy,
+      borderWidth: 2
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '68%',
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: navy, padding: 10 }
+    }
+  },
+  plugins: [{
+    id: 'centerText',
+    afterDraw(chart) {
+      const {ctx, chartArea: {width, height, top, left}} = chart;
+      ctx.save();
+      ctx.font = '700 32px Bangers';
+      ctx.fillStyle = accent2;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('+395%', left + width/2, top + height/2 - 8);
+      ctx.font = '500 11px Inter';
+      ctx.fillStyle = muted;
+      ctx.fillText('at peak', left + width/2, top + height/2 + 14);
+      ctx.restore();
+    }
+  }]
+});
+
+// CARD 3: Line chart — Adam Traywick organic keyword count
+new Chart(document.getElementById('ch3'), {
+  type: 'line',
+  data: {
+    labels: ['Feb 25','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan 26','Feb','Mar','Apr'],
+    datasets: [{
+      label: 'Ranking keywords',
+      data: [296,265,260,270,324,413,500,449,430,430,549,675,798,837,841],
+      borderColor: accent2,
+      backgroundColor: 'rgba(138,124,240,0.12)',
+      borderWidth: 3,
+      tension: 0.32,
+      fill: true,
+      pointBackgroundColor: accent2,
+      pointBorderColor: 'white',
+      pointBorderWidth: 2,
+      pointRadius: 0,
+      pointHoverRadius: 5
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: navy, padding: 10 }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: muted, font: { size: 11 }, maxRotation: 0, autoSkipPadding: 8 } },
+      y: { beginAtZero: true, grid: { color: lilac }, ticks: { color: muted, font: { size: 11 } } }
+    }
+  }
+});
+
+// CARD 4: Stepped/area ramp — Tarleton from zero
+new Chart(document.getElementById('ch4'), {
+  type: 'line',
+  data: {
+    labels: ['Pre-launch','Dec 25','Jan 26','Feb','Mar','Apr','May'],
+    datasets: [{
+      label: 'Organic sessions',
+      data: [0, 45, 241, 264, 337, 365, 281],
+      borderColor: accent5,
+      backgroundColor: 'rgba(245,166,35,0.18)',
+      borderWidth: 3,
+      tension: 0,
+      fill: true,
+      pointBackgroundColor: accent5,
+      pointBorderColor: 'white',
+      pointBorderWidth: 2,
+      pointRadius: 4,
+      pointHoverRadius: 6
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: navy, padding: 10 }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: muted, font: { size: 11 } } },
+      y: { beginAtZero: true, grid: { color: lilac }, ticks: { color: muted, font: { size: 11 } } }
+    }
+  }
+});
+
+// CARD 5a: Bar — Steve Ellard ranking keyword count, May to September 2025
+new Chart(document.getElementById('ch5a'), {
+  type: 'bar',
+  data: {
+    labels: ['May 25','Jun','Jul','Aug','Sep'],
+    datasets: [{
+      label: 'Ranking keywords',
+      data: [41, 65, 65, 81, 92],
+      backgroundColor: [lilac, '#F26B6B40', '#F26B6B66', '#F26B6BCC', accent4],
+      borderColor: navy,
+      borderWidth: 2,
+      borderRadius: 6,
+      barPercentage: 0.7
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: navy, padding: 10, callbacks: { label: ctx => `${ctx.parsed.y} ranking keywords` } },
+      title: { display: true, text: 'Ranking keywords, May to September 2025', font: { weight: '700', size: 13 }, color: navy, padding: { bottom: 12 } }
+    },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: muted, font: { size: 12, weight: '600' } } },
+      y: { beginAtZero: true, grid: { color: lilac }, ticks: { color: muted, font: { size: 11 } } }
+    }
+  }
+});
+
+// CARD 5b: Horizontal bar — domain rank improvement (lower is better)
+new Chart(document.getElementById('ch5b'), {
+  type: 'bar',
+  data: {
+    labels: ['May 2025', 'Feb 2026'],
+    datasets: [{
+      label: 'SEMrush domain rank (millions, lower is better)',
+      data: [7.6, 3.1],
+      backgroundColor: [lilac, accent4],
+      borderColor: navy,
+      borderWidth: 2,
+      borderRadius: 6,
+      barPercentage: 0.55
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true, maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: { backgroundColor: navy, padding: 10, callbacks: { label: ctx => `${ctx.parsed.x}M (lower is stronger)` } },
+      title: { display: true, text: 'Domain rank, lower is stronger', font: { weight: '700', size: 13 }, color: navy, padding: { bottom: 12 } }
+    },
+    scales: {
+      x: { beginAtZero: true, grid: { color: lilac }, ticks: { color: muted, font: { size: 11 }, callback: v => v + 'M' } },
+      y: { grid: { display: false }, ticks: { color: navy, font: { size: 13, weight: '600' } } }
+    }
+  }
+});
+</script>
+</body>
+</html>

@@ -9,183 +9,64 @@
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-  :root {
-    --paper: #f7f4ee;
-    --navy:  #0b1b3a;
-    --blue:  #1f4fff;
-    --lilac: #b9a8ff;
-    --mute:  #6a6a72;
-    --hair:  #1f1f24;
-  }
+  :root { --paper:#f7f4ee; --navy:#0b1b3a; --blue:#1f4fff; --lilac:#b9a8ff; --mute:#6a6a72; --hair:#1f1f24; }
   * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--paper);
-    font-family: Inter, system-ui, sans-serif;
-    color: var(--hair);
-    line-height: 1.5;
-  }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
-
-  header.hero { margin-bottom: 32px; }
-  .pill {
-    display: inline-block;
-    background: var(--navy);
-    color: white;
-    padding: 4px 14px;
-    border-radius: 999px;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-  h1 {
-    font-family: Bangers, Inter, sans-serif;
-    font-size: 64px;
-    line-height: 1;
-    color: var(--navy);
-    margin: 8px 0 4px;
-    letter-spacing: 0.02em;
-  }
-  h2 {
-    font-family: Bangers, Inter, sans-serif;
-    font-size: 32px;
-    color: var(--navy);
-    margin: 40px 0 16px;
-    letter-spacing: 0.02em;
-  }
-  .lede {
-    font-size: 18px;
-    color: var(--hair);
-    max-width: 720px;
-  }
-  .meta {
-    color: var(--mute);
-    font-size: 14px;
-    margin-top: 12px;
-  }
-
-  .alert {
-    background: #fff0ee;
-    border: 2px solid #d23a2a;
-    color: #6f1e14;
-    padding: 14px 18px;
-    border-radius: 8px;
-    margin-bottom: 24px;
-    font-weight: 500;
-  }
-
-  .kpis {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin: 24px 0 40px;
-  }
-  @media (max-width: 720px) {
-    .kpis { grid-template-columns: repeat(2, 1fr); }
-    h1 { font-size: 44px; }
-  }
-  .kpi {
-    background: white;
-    border: 2px solid var(--navy);
-    border-radius: 6px;
-    padding: 18px 16px;
-    box-shadow: 5px 5px 0 var(--navy);
-  }
-  .kpi .label {
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--mute);
-    margin-bottom: 6px;
-  }
-  .kpi .value {
-    font-family: Bangers, Inter, sans-serif;
-    font-size: 36px;
-    color: var(--navy);
-    line-height: 1;
-  }
-  .kpi .delta {
-    margin-top: 6px;
-    font-size: 13px;
-    color: var(--blue);
-    font-weight: 600;
-  }
-
-  .chart-wrap {
-    background: white;
-    border: 2px solid var(--navy);
-    border-radius: 6px;
-    padding: 16px;
-    box-shadow: 5px 5px 0 var(--navy);
-  }
-  canvas { max-width: 100%; }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border: 2px solid var(--navy);
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 5px 5px 0 var(--navy);
-  }
-  thead { background: var(--navy); color: white; }
-  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #eee; }
-  th { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
-  tbody tr:last-child td { border-bottom: none; }
-  td.empty { text-align: center; color: var(--mute); padding: 32px; }
-  .delta-up { color: #2a8a3a; font-weight: 600; }
-  .delta-down { color: #c43a2a; font-weight: 600; }
-
-  .notes {
-    background: white;
-    border-left: 4px solid var(--blue);
-    padding: 14px 18px;
-    margin-top: 24px;
-    border-radius: 4px;
-  }
-  .notes ul { margin: 8px 0 0 0; padding-left: 20px; }
-
-  footer {
-    margin-top: 64px;
-    color: var(--mute);
-    font-size: 13px;
-    text-align: center;
-  }
-  footer a { color: var(--blue); text-decoration: none; }
+  body { margin:0; background:var(--paper); font-family:Inter,system-ui,sans-serif; color:var(--hair); line-height:1.5; }
+  .wrap { max-width:1080px; margin:0 auto; padding:32px 24px 80px; }
+  header.hero { margin-bottom:32px; }
+  .pill { display:inline-block; background:var(--navy); color:white; padding:4px 14px; border-radius:999px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; }
+  h1 { font-family:Bangers,Inter,sans-serif; font-size:64px; line-height:1; color:var(--navy); margin:8px 0 4px; letter-spacing:0.02em; }
+  h2 { font-family:Bangers,Inter,sans-serif; font-size:32px; color:var(--navy); margin:40px 0 16px; letter-spacing:0.02em; }
+  .lede { font-size:18px; color:var(--hair); max-width:720px; }
+  .meta { color:var(--mute); font-size:14px; margin-top:12px; }
+  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:24px 0 40px; }
+  @media (max-width:720px) { .kpis { grid-template-columns:repeat(2,1fr); } h1 { font-size:44px; } }
+  .kpi { background:white; border:2px solid var(--navy); border-radius:6px; padding:18px 16px; box-shadow:5px 5px 0 var(--navy); }
+  .kpi .label { font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-bottom:6px; }
+  .kpi .value { font-family:Bangers,Inter,sans-serif; font-size:36px; color:var(--navy); line-height:1; }
+  .kpi .delta { margin-top:6px; font-size:13px; color:var(--blue); font-weight:600; }
+  .chart-wrap { background:white; border:2px solid var(--navy); border-radius:6px; padding:16px; box-shadow:5px 5px 0 var(--navy); }
+  canvas { max-width:100%; }
+  table { width:100%; border-collapse:collapse; background:white; border:2px solid var(--navy); border-radius:6px; overflow:hidden; box-shadow:5px 5px 0 var(--navy); }
+  thead { background:var(--navy); color:white; }
+  th,td { padding:12px 14px; text-align:left; border-bottom:1px solid #eee; }
+  th { font-size:12px; letter-spacing:0.06em; text-transform:uppercase; }
+  tbody tr:last-child td { border-bottom:none; }
+  .notes { background:white; border-left:4px solid var(--blue); padding:14px 18px; margin-top:24px; border-radius:4px; }
+  .notes ul { margin:8px 0 0 0; padding-left:20px; }
+  footer { margin-top:64px; color:var(--mute); font-size:13px; text-align:center; }
+  footer a { color:var(--blue); text-decoration:none; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
-    
     <span class="pill">Monthly SEO Progress</span>
     <h1>TARLETON ESTATE ATTORNEY</h1>
-    <div class="lede">SEO performance snapshot for May 2026. Tracked keyword counts, organic sessions, and the top-ranking terms driving the domain.</div>
-    <div class="meta">tarletonfirm.com &middot; report covers May 2026</div>
+    <div class="lede">SEO snapshot for May 2026. Dallas-area estate-planning law firm in month six post-launch. Ranking keywords nearly 5x from December baseline.</div>
+    <div class="meta">tarletonfirm.com &middot; Dallas estate planning + Texas wills &amp; trusts &middot; covers May 2026</div>
   </header>
 
   <section class="kpis">
     <div class="kpi">
-      <div class="label">Total Keywords</div>
-      <div class="value">0</div>
-      <div class="delta">— vs. start of period</div>
+      <div class="label">Queries Earning Impressions</div>
+      <div class="value">1,535</div>
+      <div class="delta">Google Search Console, May 2026</div>
     </div>
     <div class="kpi">
-      <div class="label">May 2026 Sessions</div>
-      <div class="value">0</div>
-      <div class="delta">organic search</div>
+      <div class="label">Queries Ranking Top 10</div>
+      <div class="value">402</div>
+      <div class="delta">680 ranking in top 20</div>
     </div>
     <div class="kpi">
-      <div class="label">Domain Rank</div>
-      <div class="value">N/A</div>
-      <div class="delta">SEMrush authority</div>
+      <div class="label">May 2026 Search Impressions</div>
+      <div class="value">31,276</div>
+      <div class="delta">248 clicks · 0.79% CTR · avg pos 14.9</div>
     </div>
     <div class="kpi">
-      <div class="label">Top-3 Rankings</div>
-      <div class="value">0</div>
-      <div class="delta">non-branded</div>
+      <div class="label">Organic Sessions (GA4)</div>
+      <div class="value">281</div>
+      <div class="delta">organic search, all engines</div>
     </div>
   </section>
 
@@ -194,31 +75,61 @@
     <canvas id="trajectoryChart" height="120"></canvas>
   </div>
 
-  <h2>Top Performers</h2>
+  <div class="notes">
+    <strong>Reading the chart:</strong>
+    <ul>
+      <li>SEMrush ranking keywords climbed from 66 (Dec 2025 launch baseline) to 298 in May — a 4.5x lift in five months. Domain rank improved from 13.7M to 7.98M, roughly 42% authority gain.</li>
+      <li>Organic sessions ramped from 45 in December (launch) to 281 in May, peaking at 365 in April.</li>
+    </ul>
+  </div>
+
+  <h2>Top Non-Brand Performers (Google Search Console)</h2>
   <table>
     <thead>
       <tr>
-        <th>Keyword</th>
+        <th>Query</th>
         <th>Position</th>
-        <th>Monthly Volume</th>
-        <th>Change</th>
+        <th>May Impressions</th>
+        <th>Vertical</th>
       </tr>
     </thead>
     <tbody>
-      <tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
+      <tr><td>what are examples of non probate assets</td><td>5.0</td><td>131</td><td>Probate — top of page</td></tr>
+      <tr><td>non probate assets examples</td><td>6.7</td><td>139</td><td>Probate — top of page</td></tr>
+      <tr><td>probate assets</td><td>10.2</td><td>212</td><td>Probate — page 1 edge</td></tr>
+      <tr><td>probate vs non probate</td><td>11.5</td><td>132</td><td>Probate</td></tr>
+      <tr><td>revocable living trust texas</td><td>13.0</td><td>103</td><td>Texas trusts</td></tr>
+      <tr><td>estate attorney dallas</td><td>15.0</td><td>106</td><td>Local — Dallas (1 click)</td></tr>
+      <tr><td>do i need a will in texas</td><td>15.3</td><td>134</td><td>Texas wills</td></tr>
+      <tr><td>will attorney dallas</td><td>20.6</td><td>108</td><td>Local — Dallas</td></tr>
+      <tr><td>texas estate planning lawyer</td><td>26.8</td><td>113</td><td>Texas estate planning</td></tr>
+      <tr><td>life insurance after divorce</td><td>38.2</td><td>115</td><td>Life insurance + estate</td></tr>
+      <tr><td>documentation of incapacity</td><td>42.7</td><td>154</td><td>Incapacity planning</td></tr>
+      <tr><td>do i need a will</td><td>30.9</td><td>249</td><td>National will query — highest imp</td></tr>
     </tbody>
   </table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">Of 1,535 GSC queries in May, 402 rank top 10 and 680 rank top 20. The probate-assets cluster (top 12 above) earned 1,792 impressions but only 1 click — the title-tag and meta-description audit on those pages is the single biggest May-to-June lever.</p>
 
-  
+  <h2>What Moved in May</h2>
+  <div class="notes">
+    <ul>
+      <li><strong>Ranking-keyword footprint grew from 271 (April) to 298 (May)</strong> on SEMrush. Five-month launch trajectory: 66 → 127 → 187 → 232 → 271 → 298.</li>
+      <li><strong>1,535 GSC queries earning impressions, 402 in top 10.</strong> 31,276 monthly impressions, 248 clicks.</li>
+      <li><strong>Probate cluster owning top 12 positions.</strong> "What are examples of non probate assets" #5, "non probate assets examples" #6.7, "probate assets" #10. Combined: 482 May impressions, 0 clicks. CTR fix is the biggest unlock available.</li>
+      <li><strong>Dallas local rankings building.</strong> "Estate attorney dallas" #15 (earning the only May click in this cluster), "will attorney dallas" #20.6, "will lawyer dallas" #11. Cluster needs 1-2 outbound authority links to break into top 10.</li>
+      <li><strong>"Do i need a will" #30.9 with 249 May impressions.</strong> Highest single-query impression count in the footprint, currently parked on page 3. National will-shopping query — strong intent.</li>
+    </ul>
+  </div>
+
+  <h2>June Priorities</h2>
+  <div class="notes">
+    <ul>
+      <li><strong>CTR audit on the probate cluster.</strong> 482 May impressions with 0 clicks on the top-10 probate queries. Rewrite title tags + meta descriptions on /probate-in-texas/ and the non-probate-assets posts. Target 1% CTR floor — that single fix turns 0 clicks into 5+ this month.</li>
+      <li><strong>Push Dallas estate-attorney cluster into top 10.</strong> "Estate attorney dallas" #15 (320 vol), "will attorney dallas" #20.6 (140 vol), "wills lawyer dallas" #20 (30 vol). One service-page rewrite plus 2 local citations targets all three.</li>
+      <li><strong>Refresh "do i need a will" content for national-intent capture.</strong> 249 May impressions at #30.9 — needs a national-angle rewrite plus FAQ schema to push toward page 2.</li>
+      <li><strong>Build incapacity-planning content.</strong> "Documentation of incapacity" at #42.7 with 154 impressions surfacing organically — opportunity for a dedicated /power-of-attorney-texas/ or /incapacity-planning/ page.</li>
+    </ul>
+  </div>
 
   <footer>
     Generated by Markology &middot; 2026 &middot; <a href="https://markology.io">markology.io</a>
@@ -226,42 +137,28 @@
 </div>
 
 <script>
-  const trendData = {"labels": ["Jan", "Feb", "Mar", "Apr", "May"], "keywords": [null, null, null, null, null], "sessions": [0, 0, 0, 0, 0]};
+  const trendData = {
+    labels: ["Dec 25 (launch)","Jan 26","Feb","Mar","Apr","May"],
+    keywords: [66, 127, 187, 232, 271, 298],
+    sessions: [45, 241, 264, 337, 365, 281]
+  };
   const ctx = document.getElementById('trajectoryChart').getContext('2d');
-
-  const datasets = [{
-    label: 'Tracked Keywords',
-    data: trendData.keywords,
-    borderColor: '#0b1b3a',
-    backgroundColor: 'rgba(11, 27, 58, 0.1)',
-    yAxisID: 'y',
-    tension: 0.3,
-    spanGaps: true,
-  }];
-
-  const hasSessions = trendData.sessions.some(v => v !== null && v !== undefined);
-  if (hasSessions) {
-    datasets.push({
-      label: 'Organic Sessions',
-      data: trendData.sessions,
-      borderColor: '#1f4fff',
-      borderDash: [6, 4],
-      backgroundColor: 'rgba(31, 79, 255, 0.05)',
-      yAxisID: 'y1',
-      tension: 0.3,
-      spanGaps: true,
-    });
-  }
-
   new Chart(ctx, {
     type: 'line',
-    data: { labels: trendData.labels, datasets: datasets },
+    data: {
+      labels: trendData.labels,
+      datasets: [
+        { label: 'Ranking Keywords (SEMrush)', data: trendData.keywords, borderColor: '#0b1b3a', backgroundColor: 'rgba(11,27,58,0.12)', yAxisID: 'y', tension: 0.3, fill: true, pointRadius: 4, pointBackgroundColor: '#0b1b3a' },
+        { label: 'Organic Sessions (GA4)', data: trendData.sessions, borderColor: '#1f4fff', borderDash: [6,4], backgroundColor: 'rgba(31,79,255,0.05)', yAxisID: 'y1', tension: 0.3, pointRadius: 4, pointBackgroundColor: '#1f4fff' }
+      ]
+    },
     options: {
       responsive: true,
       interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { position: 'bottom', labels: { font: { weight: '600' } } } },
       scales: {
-        y:  { position: 'left',  title: { display: true, text: 'Keywords' } },
-        y1: { position: 'right', title: { display: true, text: 'Sessions' }, grid: { drawOnChartArea: false }, display: hasSessions }
+        y:  { position: 'left',  beginAtZero: true, title: { display: true, text: 'Ranking Keywords' } },
+        y1: { position: 'right', beginAtZero: true, title: { display: true, text: 'Organic Sessions' }, grid: { drawOnChartArea: false } }
       }
     }
   });

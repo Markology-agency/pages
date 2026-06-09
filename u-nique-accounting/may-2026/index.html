@@ -5,282 +5,102 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>U-Nique Accounting — SEO Progress · May 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-  :root {
-    --paper: #F9F9FF;
-    --navy:  #070630;
-    --blue:  #3872EB;
-    --lilac: #E6E9FF;
-    --mute:  #6C6E8A;
-    --hair:  rgba(7,6,48,0.10);
-    --ink:   #070630;
-    --warn:  #d23a2a;
-    --good:  #10b981;
-  }
-  * { box-sizing: border-box; margin:0; padding:0; }
-  body {
-    background: var(--paper);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
-    color: var(--ink);
-    line-height: 1.55;
-    -webkit-font-smoothing: antialiased;
-  }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 48px 24px 80px; }
-  .crumb { font-size:12px; letter-spacing:0.18em; text-transform:uppercase; font-weight:700; color:var(--mute); margin-bottom:12px; }
-  .crumb a { color: var(--blue); text-decoration: none; }
-
-  header.hero { margin-bottom: 32px; }
-  .pill {
-    display: inline-block; background: var(--blue); color: white;
-    padding: 6px 14px; border-radius: 999px;
-    font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
-    font-weight: 700; border: 2px solid var(--navy);
-    box-shadow: 4px 4px 0 var(--navy);
-  }
-  h1 {
-    font-family: Bangers, Impact, sans-serif;
-    font-size: clamp(40px, 7vw, 72px); line-height: 0.95;
-    color: var(--navy); margin: 20px 0 8px; letter-spacing: 0.02em;
-  }
-  h1 .accent { color: var(--blue); }
-  h2 {
-    font-family: Bangers, sans-serif; font-size: clamp(26px, 4vw, 36px);
-    color: var(--navy); margin: 48px 0 16px; letter-spacing: 0.04em;
-  }
-  .lede { font-size: 17px; color: var(--mute); max-width: 720px; margin-top: 14px; }
-  .meta { color: var(--mute); font-size: 13px; margin-top: 12px; letter-spacing:0.06em; text-transform:uppercase; font-weight:600; }
-
-  .alert {
-    background: #fff5e6; border: 2px solid #d97706; color: #5b3905;
-    padding: 14px 18px; border-radius: 10px; margin: 24px 0;
-    font-size: 14px;
-  }
-  .alert strong { color: #5b3905; }
-
-  .kpis {
-    display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
-    margin: 32px 0 8px;
-  }
-  @media (max-width: 720px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
-  .kpi {
-    background: white; border: 2px solid var(--navy); border-radius: 12px;
-    padding: 18px 18px; box-shadow: 5px 5px 0 var(--navy);
-  }
-  .kpi .label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mute); margin-bottom: 8px; font-weight:700; }
-  .kpi .value { font-family: Bangers, sans-serif; font-size: 40px; color: var(--navy); line-height: 1; letter-spacing:0.04em; }
-  .kpi .delta { margin-top: 8px; font-size: 12px; color: var(--blue); font-weight: 600; }
-  .kpi .delta.down { color: var(--warn); }
-  .kpi .delta.up { color: var(--good); }
-
-  .chart-wrap {
-    background: white; border: 2px solid var(--navy); border-radius: 12px;
-    padding: 20px; box-shadow: 5px 5px 0 var(--navy);
-  }
-  canvas { max-width: 100%; }
-
-  table {
-    width: 100%; border-collapse: collapse; background: white;
-    border: 2px solid var(--navy); border-radius: 12px; overflow: hidden;
-    box-shadow: 5px 5px 0 var(--navy);
-  }
-  thead { background: var(--navy); color: white; }
-  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
-  th { font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700; }
-  tbody tr:last-child td { border-bottom: none; }
-  td.url { color: var(--mute); font-size: 12px; }
-  td.url a { color: var(--blue); text-decoration: none; }
-
-  .priorities { display: grid; gap: 18px; margin-top: 8px; }
-  .priority {
-    background: white; border: 2px solid var(--navy); border-radius: 12px;
-    padding: 20px 22px; box-shadow: 5px 5px 0 var(--navy);
-    display: grid; grid-template-columns: 56px 1fr; gap: 18px; align-items:start;
-  }
-  .priority .num {
-    font-family: Bangers, sans-serif; font-size: 44px;
-    color: var(--blue); line-height: 1;
-  }
-  .priority .tag {
-    display: inline-block; background: var(--lilac); color: var(--navy);
-    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
-    padding: 3px 10px; border-radius: 999px; font-weight: 700;
-    margin-bottom: 8px;
-  }
-  .priority h3 { font-family: Bangers, sans-serif; font-size: 22px; letter-spacing: 0.03em; color: var(--navy); margin-bottom: 8px; }
-  .priority p { font-size: 14px; color: var(--ink); }
-
-  .footer-note {
-    margin-top: 64px; padding-top: 24px; border-top: 2px dashed var(--hair);
-    color: var(--mute); font-size: 12px; text-align: center;
-    letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600;
-  }
-  .footer-note a { color: var(--blue); text-decoration: none; }
+  :root { --paper:#f7f4ee; --navy:#0b1b3a; --blue:#1f4fff; --lilac:#b9a8ff; --mute:#6a6a72; --hair:#1f1f24; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--paper); font-family:Inter,system-ui,sans-serif; color:var(--hair); line-height:1.5; }
+  .wrap { max-width:1080px; margin:0 auto; padding:32px 24px 80px; }
+  header.hero { margin-bottom:32px; }
+  .pill { display:inline-block; background:var(--navy); color:white; padding:4px 14px; border-radius:999px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; }
+  h1 { font-family:Bangers,Inter,sans-serif; font-size:64px; line-height:1; color:var(--navy); margin:8px 0 4px; letter-spacing:0.02em; }
+  h2 { font-family:Bangers,Inter,sans-serif; font-size:32px; color:var(--navy); margin:40px 0 16px; letter-spacing:0.02em; }
+  .lede { font-size:18px; color:var(--hair); max-width:720px; }
+  .meta { color:var(--mute); font-size:14px; margin-top:12px; }
+  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:24px 0 40px; }
+  @media (max-width:720px) { .kpis { grid-template-columns:repeat(2,1fr); } h1 { font-size:44px; } }
+  .kpi { background:white; border:2px solid var(--navy); border-radius:6px; padding:18px 16px; box-shadow:5px 5px 0 var(--navy); }
+  .kpi .label { font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-bottom:6px; }
+  .kpi .value { font-family:Bangers,Inter,sans-serif; font-size:36px; color:var(--navy); line-height:1; }
+  .kpi .delta { margin-top:6px; font-size:13px; color:var(--blue); font-weight:600; }
+  .chart-wrap { background:white; border:2px solid var(--navy); border-radius:6px; padding:16px; box-shadow:5px 5px 0 var(--navy); }
+  canvas { max-width:100%; }
+  table { width:100%; border-collapse:collapse; background:white; border:2px solid var(--navy); border-radius:6px; overflow:hidden; box-shadow:5px 5px 0 var(--navy); }
+  thead { background:var(--navy); color:white; }
+  th,td { padding:12px 14px; text-align:left; border-bottom:1px solid #eee; font-size:14px; }
+  th { font-size:12px; letter-spacing:0.06em; text-transform:uppercase; }
+  tbody tr:last-child td { border-bottom:none; }
+  .notes { background:white; border-left:4px solid var(--blue); padding:14px 18px; margin-top:24px; border-radius:4px; }
+  footer { margin-top:64px; color:var(--mute); font-size:13px; text-align:center; }
+  footer a { color:var(--blue); text-decoration:none; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="crumb"><a href="https://markology-agency.github.io/pages/u-nique-accounting/">U-Nique Accounting Hub</a> &rsaquo; May 2026 SEO Report</div>
   <header class="hero">
     <span class="pill">Monthly SEO Progress</span>
-    <h1>U-NIQUE ACCOUNTING<br/><span class="accent">MAY 2026.</span></h1>
-    <div class="lede">Tracked keyword footprint stabilized in April after a sharp Q1 dip. Non-branded restaurant and brewery terms continue to deliver page-1 and page-2 rankings, but the broader keyword count is still well below the Nov/Dec peak.</div>
-    <div class="meta">u-niqueaccounting.com &middot; report period Dec 2025 to May 2026</div>
+    <h1>U-NIQUE ACCOUNTING</h1>
+    <div class="lede">SEO snapshot for May 2026. Family office and HNW accounting.</div>
+    <div class="meta">u-niqueaccounting.com &middot; covers May 2026</div>
   </header>
-
-  <div class="alert">
-    <strong>Heads up.</strong> Tracked keyword count dropped roughly 70% from the December peak (1,069 to 322 by mid-April). Cause looks like a SERP feature / algorithm shift on low-volume restaurant terms rather than a manual action, but the EOM SEO update queued in Asana confirms GSC coverage and recovery plan.
-  </div>
-
-  <div class="alert" style="background:#eef4ff; border-color:#3872EB; color:#070630;">
-    <strong>GA4 access pending.</strong> The GA4 property (289261993) lives under the whitney8138 Google account, not the Markology Cloud project. Direct API pull returned 403 PERMISSION_DENIED. To wire May session + channel data into next month's report, add the Markology service account or whitney@markology.io as a Viewer on the U-Nique Accounting GA4 property. Same pattern as the URL-prefix GSC property: separate auth surface from the rest of the roster.
-  </div>
 
   <section class="kpis">
     <div class="kpi">
-      <div class="label">Tracked Keywords</div>
-      <div class="value">322</div>
-      <div class="delta down">↓ from 1,069 (Dec '25)</div>
+      <div class="label">SEMrush Ranking Keywords</div>
+      <div class="value">279</div>
+      <div class="delta">-43 MoM (-13%)</div>
     </div>
     <div class="kpi">
-      <div class="label">May Sessions (GA4)</div>
-      <div class="value">N/A</div>
-      <div class="delta down">whitney8138 viewer add needed</div>
+      <div class="label">GSC Queries · Top 10 / Top 20</div>
+      <div class="value">37</div>
+      <div class="delta">100 in top 20 · 1,015 total queries</div>
     </div>
     <div class="kpi">
-      <div class="label">Domain Rank</div>
-      <div class="value">13.7M</div>
-      <div class="delta down">slipped from 4.0M (Oct)</div>
+      <div class="label">May 2026 Search Impressions</div>
+      <div class="value">9,861</div>
+      <div class="delta">14 clicks · 0.14% CTR · avg pos 43.2</div>
     </div>
     <div class="kpi">
-      <div class="label">Top-20 Non-Brand</div>
-      <div class="value">5</div>
-      <div class="delta">page-2 holds</div>
+      <div class="label">Organic Sessions (GA4)</div>
+      <div class="value">0</div>
+      <div class="delta">GA4 access pending</div>
     </div>
   </section>
 
-  <h2>Six-Month Trajectory</h2>
-  <div class="chart-wrap">
-    <canvas id="trajectoryChart" height="120"></canvas>
-  </div>
+  <h2>Trajectory</h2>
+  <div class="chart-wrap"><canvas id="trajectoryChart" height="120"></canvas></div>
 
-  <h2>Keyword Recovery Audit</h2>
-  <div class="chart-wrap" style="padding:22px 24px;">
-    <p style="font-size:15px; color:var(--ink); margin-bottom:10px;">Full diagnosis + recovery plan for the Dec-to-April pullback published May 26, 2026. Root cause pinned (content freshness collapse + missing FAQ schema + cannibalization on long-tail queries, NOT a manual action). Indexing API pings + sitemap resubmit complete; on-page rewrites blocked pending WP App Password from Matt.</p>
-    <p style="font-size:14px; margin-bottom:0;">Read the full audit: <a href="https://markology-agency.github.io/pages/u-nique-accounting/keyword-recovery-2026-05/" style="color:var(--blue); font-weight:600;">u-nique-accounting/keyword-recovery-2026-05/</a></p>
-  </div>
+  <h2>Top SEMrush Rankings (Non-Brand)</h2>
+  <table><thead><tr><th>Keyword</th><th>Position</th><th>Volume</th><th>Landing URL</th></tr></thead><tbody><tr><td>restaurant compliance software tip reporting 2025</td><td>7</td><td>50</td><td></td></tr><tr><td>what is margin edge</td><td>15</td><td>30</td><td></td></tr><tr><td>fica tip credit calculator</td><td>18</td><td>140</td><td></td></tr><tr><td>restaurant chart of accounts xls</td><td>19</td><td>30</td><td></td></tr><tr><td>margin edge reviews</td><td>22</td><td>90</td><td></td></tr><tr><td>margins edge</td><td>24</td><td>1000</td><td></td></tr><tr><td>restaurant tax credits</td><td>24</td><td>30</td><td></td></tr><tr><td>restaurant valuation ebitda multiple</td><td>25</td><td>50</td><td></td></tr><tr><td>margin edge</td><td>25</td><td>9900</td><td></td></tr><tr><td>marginedge reviews</td><td>25</td><td>110</td><td></td></tr><tr><td>how to measure company growth</td><td>28</td><td>70</td><td></td></tr><tr><td>restaurant accounting chicago</td><td>29</td><td>40</td><td></td></tr></tbody></table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">SEMrush US database, end of May 2026. Brand queries excluded.</p>
 
-  <h2>Top Non-Branded Performers</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Keyword</th>
-        <th>Position</th>
-        <th>Monthly Volume</th>
-        <th>Landing URL</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>restaurant compliance software tip reporting 2025</td>
-        <td>7</td>
-        <td>50</td>
-        <td class="url"><a href="https://u-niqueaccounting.com/restaurant-tip-law-changes-2025/">/restaurant-tip-law-changes-2025/</a></td>
-      </tr>
-      <tr>
-        <td>13 period calendar 2025</td>
-        <td>15</td>
-        <td>70</td>
-        <td class="url"><a href="https://u-niqueaccounting.com/13-month-calendar-explained/">/13-month-calendar-explained/</a></td>
-      </tr>
-      <tr>
-        <td>what is margin edge</td>
-        <td>15</td>
-        <td>30</td>
-        <td class="url"><a href="https://u-niqueaccounting.com/marginedge-for-restaurants-review/">/marginedge-for-restaurants-review/</a></td>
-      </tr>
-      <tr>
-        <td>fica tip credit calculator</td>
-        <td>18</td>
-        <td>140</td>
-        <td class="url"><a href="https://u-niqueaccounting.com/fica-tip-credit-calculator/">/fica-tip-credit-calculator/</a></td>
-      </tr>
-      <tr>
-        <td>restaurant chart of accounts xls</td>
-        <td>19</td>
-        <td>30</td>
-        <td class="url"><a href="https://u-niqueaccounting.com/restaurant-chart-of-accounts-2025/">/restaurant-chart-of-accounts-2025/</a></td>
-      </tr>
-    </tbody>
-  </table>
-  <p style="font-size:12px; color:var(--mute); margin-top:10px;">Branded terms (unique accounting / unique accountants) filtered out. Volume + position pulled live from SEMrush US database.</p>
+  <h2>Top GSC Queries by Impressions (Non-Brand)</h2>
+  <table><thead><tr><th>Query</th><th>Position</th><th>Impressions</th><th>Clicks</th></tr></thead><tbody><tr><td>cash flow forecasting</td><td>75.6</td><td>256</td><td>0</td></tr><tr><td>restaurant industry valuation multiples</td><td>39.5</td><td>125</td><td>0</td></tr><tr><td>restaurant p&l</td><td>49.1</td><td>122</td><td>0</td></tr><tr><td>restaurant p&l template</td><td>50.1</td><td>120</td><td>0</td></tr><tr><td>cash forecasting</td><td>82.2</td><td>117</td><td>0</td></tr><tr><td>cash flow forecast</td><td>82.0</td><td>113</td><td>0</td></tr><tr><td>restaurant profit margin</td><td>57.0</td><td>111</td><td>0</td></tr><tr><td>how to forecast cash flow</td><td>83.0</td><td>107</td><td>0</td></tr><tr><td>restaurant startup checklist</td><td>94.0</td><td>69</td><td>0</td></tr><tr><td>restaurant accounting chicago</td><td>31.5</td><td>66</td><td>0</td></tr><tr><td>forecasting cash</td><td>77.7</td><td>64</td><td>0</td></tr><tr><td>forecasting cash flow</td><td>72.5</td><td>59</td><td>0</td></tr></tbody></table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">Google Search Console, May 2026. Brand queries excluded.</p>
 
-  <h2>May / June Game Plan</h2>
-  <div class="priorities">
-    <div class="priority">
-      <div class="num">1</div>
-      <div>
-        <span class="tag">Diagnose</span>
-        <h3>Pin the cause of the December-to-April keyword drop</h3>
-        <p>1,069 → 322 tracked keywords in four months is a real signal, not noise. Asana ticket already queued to check GSC for manual actions, coverage errors, and any URL changes or site migration events. Run the audit in WEEK 2, build the recovery plan in WEEK 4. The 5 non-branded performers still holding page 2 suggest core authority is intact; the loss looks concentrated in long-tail tip-law and restaurant-software pages.</p>
-      </div>
-    </div>
-    <div class="priority">
-      <div class="num">2</div>
-      <div>
-        <span class="tag">Push to Page 1</span>
-        <h3>Convert 3 page-2 holds into top-5 positions</h3>
-        <p>"fica tip credit calculator" (pos 18, vol 140), "13 period calendar 2025" (pos 15, vol 70), and "restaurant compliance software tip reporting 2025" (pos 7, vol 50) are the highest-leverage moves. Each has an existing landing page that needs a content refresh: updated benchmarks, an FAQ block, 2 internal links to /restaurant-accountants/, and a Syft or Xero mention naturally inline. The May SEO blog roster (delivery margin erosion, second location readiness, brewery production growth) supports the restaurant cluster topically.</p>
-      </div>
-    </div>
-    <div class="priority">
-      <div class="num">3</div>
-      <div>
-        <span class="tag">Authority</span>
-        <h3>Run the E-E-A-T audit + close the GA4 access gap</h3>
-        <p>U-Nique is in the May E-E-A-T sprint queue (KB + Adam Traywick + BizBud already completed). Action items: scorecard at /pages/u-nique-accounting/eeat/, then the Markology-side dev sprint to address gaps. Separately, the GA4 property (289261993) sits under the whitney8138 Google account rather than the Markology Cloud project, so the Data API call returned 403 PERMISSION_DENIED on the standard refresh-token route. Fix is a one-time add of whitney@markology.io (or the Markology service account) as a Viewer on the U-Nique GA4 property. Once granted, the June report KPI strip and a full channel breakdown will populate automatically.</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="footer-note">
-    Built by <a href="https://markology.io">Markology</a> &middot; Data from SEMrush US database &middot; Period covered: Dec 2025 - May 2026
-  </div>
+  <footer>Generated by Markology &middot; auto-build · 2026-06-09 &middot; <a href="https://markology.io">markology.io</a></footer>
 </div>
 
 <script>
-  const trendData = {
-    labels: ["Sep '25","Oct '25","Nov '25","Dec '25","Jan '26","Feb '26","Mar '26","Apr '26"],
-    keywords: [654, 625, 1188, 1069, 398, 328, 312, 322],
-    sessions: [null, null, null, null, null, null, null, null]
-  };
+  const trendData = {"labels": ["Jan 26", "Jan 26", "Mar 26", "Apr 26", "May 26"], "keywords": [0, 0, 0, 0, 0], "sessions": [0, 0, 0, 0, 0]};
   const ctx = document.getElementById('trajectoryChart').getContext('2d');
-  const datasets = [{
-    label: 'Tracked Keywords',
-    data: trendData.keywords,
-    borderColor: '#070630',
-    backgroundColor: 'rgba(7,6,48,0.08)',
-    yAxisID: 'y',
-    tension: 0.3,
-    fill: true,
-    borderWidth: 2.5,
-    pointBackgroundColor: '#3872EB',
-    pointBorderColor: '#070630',
-    pointRadius: 5,
-  }];
-  const hasSessions = trendData.sessions.some(v => v !== null && v !== undefined);
   new Chart(ctx, {
     type: 'line',
-    data: { labels: trendData.labels, datasets: datasets },
+    data: {
+      labels: trendData.labels,
+      datasets: [
+        { label: 'Ranking Keywords (SEMrush)', data: trendData.keywords, borderColor: '#0b1b3a', backgroundColor: 'rgba(11,27,58,0.12)', yAxisID: 'y', tension: 0.3, fill: true, pointRadius: 4, pointBackgroundColor: '#0b1b3a' },
+        { label: 'Organic Sessions (GA4)', data: trendData.sessions, borderColor: '#1f4fff', borderDash: [6,4], backgroundColor: 'rgba(31,79,255,0.05)', yAxisID: 'y1', tension: 0.3, pointRadius: 4, pointBackgroundColor: '#1f4fff' }
+      ]
+    },
     options: {
       responsive: true,
       interaction: { mode: 'index', intersect: false },
-      plugins: { legend: { position: 'bottom' } },
+      plugins: { legend: { position: 'bottom', labels: { font: { weight: '600' } } } },
       scales: {
-        y: { position: 'left', title: { display: true, text: 'Tracked Keywords' }, beginAtZero: true },
-        y1: { position: 'right', title: { display: true, text: 'Sessions' }, grid: { drawOnChartArea: false }, display: hasSessions }
+        y:  { position: 'left',  beginAtZero: true, title: { display: true, text: 'Ranking Keywords' } },
+        y1: { position: 'right', beginAtZero: true, title: { display: true, text: 'Organic Sessions' }, grid: { drawOnChartArea: false } }
       }
     }
   });

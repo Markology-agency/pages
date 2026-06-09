@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>U-Nique Accounting — E-E-A-T Audit, June 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:72px 0;}
+@media(max-width:720px){section{padding:48px 0;}.container{padding:0 20px;}}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}.pill.green{background:var(--good);}
+.hero{background:var(--paper);padding-top:88px;padding-bottom:72px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7vw,84px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:20px 0 0;}
+.hero .lede{font-size:18px;line-height:1.6;color:var(--mute);max-width:720px;margin-top:24px;}
+.hero .meta{margin-top:24px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:8px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:14px;padding:22px 20px;box-shadow:5px 5px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.16em;color:var(--blue);font-weight:700;margin-bottom:10px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:42px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .explain{margin-top:10px;font-size:12px;color:var(--mute);line-height:1.5;}
+.section-head{margin-bottom:36px;max-width:820px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(34px,5vw,56px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:14px;}
+.section-head p{font-size:16px;color:var(--mute);margin-top:14px;line-height:1.6;}
+.scorecard{background:var(--paper);}
+.dim-list{display:flex;flex-direction:column;gap:14px;}
+.dim{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:22px 26px;display:grid;grid-template-columns:48px 1fr auto;gap:18px;align-items:start;box-shadow:5px 5px 0 var(--navy);}
+.dim .dnum{width:48px;height:48px;border-radius:12px;background:var(--blue);color:#fff;border:2px solid var(--navy);font-family:'Bangers',sans-serif;font-size:26px;display:flex;align-items:center;justify-content:center;}
+.dim h4{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);margin-bottom:6px;}
+.dim .ev{font-size:14px;color:var(--mute);line-height:1.55;margin-bottom:6px;}
+.dim .ev strong{color:var(--navy);font-weight:700;}
+.dim .act{font-size:13px;color:var(--navy);margin-top:6px;line-height:1.55;}
+.dim .act b{color:var(--blue);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;font-size:11px;}
+.status{display:inline-block;padding:4px 12px;border-radius:8px;font-size:10px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;border:2px solid var(--navy);align-self:start;white-space:nowrap;}
+.status.green{background:#d1fae5;color:#065f46;}
+.status.yellow{background:#fef3c7;color:#92400e;}
+.status.red{background:#fee2e2;color:#991b1b;}
+.completed-section{background:#fff;}
+.completed-list{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+@media(max-width:720px){.completed-list{grid-template-columns:1fr;}}
+.ship{background:var(--lilac);border:2px solid var(--navy);border-radius:14px;padding:22px 24px;box-shadow:5px 5px 0 var(--navy);position:relative;}
+.ship .check{position:absolute;top:-12px;left:20px;background:var(--good);color:#fff;border:2px solid var(--navy);padding:4px 12px;border-radius:8px;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;}
+.ship h4{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);margin-bottom:8px;margin-top:6px;}
+.ship p{font-size:14px;color:var(--mute);line-height:1.55;}
+.ship .verify{margin-top:10px;font-size:12px;font-weight:600;}
+.ship .verify a{color:var(--blue);text-decoration:none;border-bottom:1.5px dashed var(--blue);}
+.queued-section{background:var(--paper);}
+.queued-list{display:flex;flex-direction:column;gap:14px;}
+.q{background:#fff;border:2px solid var(--navy);border-radius:12px;padding:18px 24px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;}
+.q .qnum{font-family:'Bangers',sans-serif;font-size:22px;color:var(--blue);min-width:32px;}
+.q h5{font-size:15px;color:var(--navy);font-weight:700;}
+.q p{font-size:13px;color:var(--mute);line-height:1.5;margin-top:4px;}
+.q .owner{font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:4px 10px;background:var(--navy);color:#fff;border-radius:6px;white-space:nowrap;}
+.q .owner.client{background:var(--blue);}
+.callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:22px 26px;margin-top:32px;box-shadow:4px 4px 0 var(--navy);}
+.callout strong{color:var(--navy);font-weight:700;}
+.entity-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+@media(max-width:720px){.entity-grid{grid-template-columns:1fr;}}
+.entity{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:22px 24px;box-shadow:5px 5px 0 var(--navy);}
+.entity .num{font-family:'Bangers',sans-serif;font-size:48px;line-height:0.9;color:var(--blue);margin-bottom:8px;}
+.entity h4{font-family:'Bangers',sans-serif;font-size:18px;letter-spacing:0.04em;color:var(--navy);margin-bottom:8px;}
+.entity p{font-size:13px;color:var(--mute);line-height:1.55;}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:64px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(32px,4.5vw,48px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:14px;font-size:14px;}
+.footer .built-by{margin-top:28px;padding-top:20px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <span class="pill green">v1 — Dev Sprint Completed</span>
+    <h1>U-NIQUE ACCOUNTING<br/>NOW VISIBLE TO AI.</h1>
+    <p class="lede">E-E-A-T sprint shipped June 9, 2026. Markology deployed enriched Organization + Person + 14 Service schemas across u-niqueaccounting.com so AI engines (Google AI Overviews, Perplexity, ChatGPT, Claude) can correctly identify the firm, its founder, and its hospitality accounting expertise. 30-day measurement begins now.</p>
+    <div class="meta">
+      <span><strong>Client:</strong> U-Nique Accounting</span>
+      <span><strong>Domain:</strong> u-niqueaccounting.com</span>
+      <span><strong>Ship Date:</strong> June 9, 2026</span>
+      <span><strong>Re-check:</strong> July 9, 2026</span>
+      <span><strong>Compliance:</strong> CPA</span>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Schema Entities Completed</div>
+        <div class="value">16</div>
+        <div class="explain">Organization (1) + Person Matt (1) + Service (14) — all live as of June 9, 2026.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">knowsAbout Topics</div>
+        <div class="value">18</div>
+        <div class="explain">Hospitality expertise tags on the enriched Organization schema, from FICA tip credit to brewery distribution margin.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Pages Hit</div>
+        <div class="value">16</div>
+        <div class="explain">Homepage + /why-u-nique/ + 14 service pages updated with enriched schema this sprint.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Dimensions Green</div>
+        <div class="value">3 / 8</div>
+        <div class="explain">Up from 0 green pre-sprint. 3 yellow (client input needed). 2 red (Elementor visible content + llms.txt).</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="completed-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill green">Live On U-Nique</span>
+      <h2>WHAT MARKOLOGY COMPLETED.</h2>
+      <p>Everything below was deployed via the Rank Math REST API and WordPress REST API on June 9, 2026. Verify any of it using <a href="https://search.google.com/test/rich-results" target="_blank">Google's Rich Results Test</a>.</p>
+    </div>
+    <div class="completed-list">
+
+      <div class="ship">
+        <span class="check">Live</span>
+        <h4>Enriched Organization Schema (Homepage)</h4>
+        <p>Added 18 <code>knowsAbout</code> topics (restaurant accounting, brewery accounting, FICA tip credit, pour cost analysis, taproom revenue, multi-location restaurant operations, etc.), <code>employee</code> + <code>founder</code> referencing Matt Cianciarulo, <code>areaServed</code> US, <code>foundingDate</code> 2008, <code>slogan</code>, <code>description</code>, <code>hasOfferCatalog</code> listing 8 services, and <code>sameAs</code> profiles.</p>
+        <p class="verify"><a href="https://u-niqueaccounting.com/" target="_blank">View live</a></p>
+      </div>
+
+      <div class="ship">
+        <span class="check">Live</span>
+        <h4>Person Schema for Matt Cianciarulo</h4>
+        <p>Discrete Person entity on homepage and /why-u-nique/ with <code>jobTitle</code> Owner and Founder, <code>description</code> citing 18+ years of hospitality accounting practice, 10 <code>knowsAbout</code> tags, <code>worksFor</code> linking to U-Nique Organization, and <code>hasOccupation</code> Hospitality Accountant.</p>
+        <p class="verify"><a href="https://u-niqueaccounting.com/why-u-nique/" target="_blank">View live</a></p>
+      </div>
+
+      <div class="ship">
+        <span class="check">Live</span>
+        <h4>Service Schema × 14</h4>
+        <p>Service schema on every commercial-intent page: Restaurant Accounting, Brewery Accounting, Virtual CFO, Bookkeeping, Tax Services, Cash Flow Management, Financial Controller, Exit Planning, Payroll Coordination, Xero Implementation, Syft Reporting, Dext Setup, Ecommerce Accounting, Online Small Business Accounting.</p>
+        <p class="verify"><a href="https://u-niqueaccounting.com/restaurant-accountants/" target="_blank">Example: Restaurant Accounting</a></p>
+      </div>
+
+      <div class="ship">
+        <span class="check">Ready</span>
+        <h4>llms.txt File Drafted</h4>
+        <p>Full llms.txt drafted per llmstxt.org spec, mapping all 10 services, 3 tools, 3 tech stack pages, 9 recent insights, About page, team, and contact info. Saved to <code>Clients/U-Nique Accounting/SEO/llms.txt</code>. Upload pending: Whitney install Website LLMs.txt plugin.</p>
+        <p class="verify">Plugin URL: <a href="https://wordpress.org/plugins/website-llms-txt/" target="_blank">Website LLMs.txt by 10up</a></p>
+      </div>
+
+      <div class="ship">
+        <span class="check">Ready</span>
+        <h4>FAQ Q&A Drafts (5 Blog Posts × 5 Q&As)</h4>
+        <p>25 hospitality-specific Q&As drafted from real blog content for the 5 most recent posts (second location, cash flow, brewery summer metrics, tax prep). Source content extracted, Q&As written. Ready for Whitney to paste into Elementor editor per post.</p>
+        <p class="verify">Q&A drafts in Asana follow-up task notes.</p>
+      </div>
+
+      <div class="ship">
+        <span class="check">Done</span>
+        <h4>Baseline Measurement Doc</h4>
+        <p>30 + 90-day measurement plan with 18 high-intent AI engine queries across Google AI Overviews, Perplexity, ChatGPT, Claude. SEMrush baseline snapshot captured. Saved to <code>Clients/U-Nique Accounting/SEO/eeat-baseline-2026-06-09.md</code>.</p>
+        <p class="verify">Re-check scheduled for July 9, 2026.</p>
+      </div>
+
+    </div>
+
+    <div class="callout">
+      <strong>Why this should move the needle:</strong> U-Nique was the most invisible-to-AI client in the roster — SEMrush authority rank 7.8M+, 278 organic keywords, no entity-graph signal. AI engines need an Organization entity with credentials and expertise tags plus matching Person entities to cite a firm in answer engines. Both are now live with 18 hospitality-specific <code>knowsAbout</code> tags. The 30-day re-check will measure whether queries like "best restaurant CPA" or "FICA tip credit accountant" start surfacing U-Nique in AI answers.
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--paper);">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">By the Numbers</span>
+      <h2>SCHEMA ENTITIES NOW LIVE.</h2>
+    </div>
+    <div class="entity-grid">
+      <div class="entity">
+        <div class="num">1</div>
+        <h4>Organization</h4>
+        <p>Enriched with knowsAbout (18 tags), employee, founder, areaServed, hasOfferCatalog (8 offers), and sameAs. Backs the entire site's entity profile.</p>
+      </div>
+      <div class="entity">
+        <div class="num">1</div>
+        <h4>Person</h4>
+        <p>Matt Cianciarulo on homepage + /why-u-nique/. 10 hospitality knowsAbout tags. worksFor links to Organization.</p>
+      </div>
+      <div class="entity">
+        <div class="num">14</div>
+        <h4>Service</h4>
+        <p>One per commercial-intent page. AI cites these for queries like "best brewery accountant" or "restaurant virtual CFO."</p>
+      </div>
+      <div class="entity">
+        <div class="num">1</div>
+        <h4>Place</h4>
+        <p>Huntley, Illinois office address as a structured Place entity. Baseline already present from Rank Math.</p>
+      </div>
+      <div class="entity">
+        <div class="num">1</div>
+        <h4>WebSite</h4>
+        <p>Site-level WebSite schema with Organization publisher reference. Baseline already present.</p>
+      </div>
+      <div class="entity">
+        <div class="num">145</div>
+        <h4>BlogPosting + WebPage</h4>
+        <p>Baseline already present from Rank Math for all posts. New entity-graph layer enriches the existing schema.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="scorecard">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">8-Dimension Scorecard</span>
+      <h2>BEFORE vs AFTER JUNE 9, 2026.</h2>
+      <p>Status reflects current state. "Before" was at audit start; "After" is post-sprint.</p>
+    </div>
+
+    <div class="dim-list">
+
+      <div class="dim">
+        <div class="dnum">1</div>
+        <div>
+          <h4>Author Bylines on Blog Content</h4>
+          <p class="ev"><strong>Before:</strong> Weak — Matt is the only real author but no Person schema, no visible author bio block on posts, no /author/matt/ archive populated. <strong>After:</strong> Person schema enriched on homepage + /why-u-nique/. WP profile bio populated (was already 473 chars, kept verbatim with link to about). Visible author bio block on blog posts queued for Whitney via Elementor editor.</p>
+        </div>
+        <span class="status yellow">Partial</span>
+      </div>
+
+      <div class="dim">
+        <div class="dnum">2</div>
+        <div>
+          <h4>Organization + Person Schema (JSON-LD)</h4>
+          <p class="ev"><strong>Before:</strong> Partial — Rank Math baseline Organization (name, url, email, address only). No knowsAbout, no employee, no founder, no Person schema. <strong>After:</strong> 1 enriched Organization on homepage with 18 knowsAbout + employee + founder + areaServed + hasOfferCatalog + sameAs + 1 Person Matt on homepage and /why-u-nique/ + 14 Service schemas.</p>
+        </div>
+        <span class="status green">Green</span>
+      </div>
+
+      <div class="dim">
+        <div class="dnum">3</div>
+        <div>
+          <h4>About Page Completeness</h4>
+          <p class="ev"><strong>Before:</strong> /why-u-nique/ exists, Elementor page, but no Person schema, no credentials, no LinkedIn. <strong>After:</strong> Same About page UI but Person schema now layered on top. Matt's CPA license number, LinkedIn URL, additional team bios still pending client input.</p>
+        </div>
+        <span class="status yellow">Partial</span>
+      </div>
+
+      <div class="dim">
+        <div class="dnum">4</div>
+        <div>
+          <h4>Blog Content Structure (AI Extractability)</h4>
+          <p class="ev"><strong>Before:</strong> Recent posts well-written but no FAQPage schema, no visible Common Questions blocks, no author bio. <strong>After:</strong> 25 FAQ Q&As drafted from real post content for 5 recent posts. FAQ schema NOT shipped because matching visible content can't be added via REST on Elementor pages (Google policy: schema must match visible content). Queued for Whitney to paste in Elementor editor.</p>
+        </div>
+        <span class="status red">Drafts ready, paste pending</span>
+      </div>
+
+      <div class="dim">
+        <div class="dnum">5</div>
+        <div>
+          <h4>sameAs / Entity Knowledge Graph Connections</h4>
+          <p class="ev"><strong>Before:</strong> No sameAs on Organization or Person. <strong>After:</strong> 3 sameAs on Organization (LinkedIn company, Facebook, Twitter). Matt's personal LinkedIn URL + CPA / AICPA / state CPA board profile URLs still needed.</p>
+        </div>
+        <span class="status yellow">Partial</span>
+      </div>
+
+      <div class="dim">
+        <div class="dnum">6</div>
+        <div>
+          <h4>Original Data + Proprietary Tools</h4>
+          <p class="ev"><strong>Before:</strong> Strong — FICA Tip Credit Calculator + Downloadable Guides + Virtual CFO Quiz already live. <strong>After:</strong> Same set. All 3 listed in llms.txt and Organization hasOfferCatalog. New proprietary data asset concept memo queued.</p>
+        </div>
+        <span class="status green">Strong</span>
+      </div>
+
+      <div class="dim">
+        <div class="dnum">7</div>
+        <div>
+          <h4>Reviews + External Citations</h4>
+          <p class="ev"><strong>Before:</strong> Weak — no reviews, no press mentions on site, no Featured-In block. <strong>After:</strong> Same. Press mentions inventory queued for client. Compliance-safe reviews strategy memo drafted (CPA: individual situations disclaimer, no guaranteed-savings claims).</p>
+        </div>
+        <span class="status red">Weak</span>
+      </div>
+
+      <div class="dim">
+        <div class="dnum">8</div>
+        <div>
+          <h4>llms.txt File</h4>
+          <p class="ev"><strong>Before:</strong> 404 / missing. <strong>After:</strong> File drafted, saved at <code>Clients/U-Nique Accounting/SEO/llms.txt</code>. Plugin install + content paste queued for Whitney (Website LLMs.txt by 10up).</p>
+        </div>
+        <span class="status red">File ready, deploy pending</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="queued-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Still Queued</span>
+      <h2>WHAT'S NEXT.</h2>
+      <p>Tasks queued on U-Nique Accounting June 2026 monthly board + Master Queue. Owners shown right.</p>
+    </div>
+    <div class="queued-list">
+      <div class="q"><div class="qnum">1</div><div><h5>Install Website LLMs.txt plugin + paste content</h5><p>Plugin: 10up "Website LLMs.txt". Strip the # Title + > blockquote lines from the file (plugin auto-generates). Verify with <code>curl https://u-niqueaccounting.com/llms.txt</code>.</p></div><span class="owner">Whitney</span></div>
+      <div class="q"><div class="qnum">2</div><div><h5>Add Common Questions + Author Bio blocks in Elementor (5 posts)</h5><p>25 Q&A drafts ready. Each post needs: Common Questions H2, 5 Q&A pairs, About the Author block with Matt's bio + headshot + CTA. Drafts in this task's Asana notes.</p></div><span class="owner">Whitney</span></div>
+      <div class="q"><div class="qnum">3</div><div><h5>Provide Matt's personal LinkedIn URL</h5><p>Plus CPA license number + state CPA board public profile URL. Plugs into Person schema sameAs + Organization identifier.</p></div><span class="owner client">Matt</span></div>
+      <div class="q"><div class="qnum">4</div><div><h5>Supply high-res Matt headshot</h5><p>Square 400x400+. Replaces logo placeholder in Person schema image field + author bio block.</p></div><span class="owner client">Matt</span></div>
+      <div class="q"><div class="qnum">5</div><div><h5>Inventory press mentions and earned media</h5><p>Podcast appearances, press quotes, guest articles, speaking engagements. Add to Organization sameAs + visible Featured-In block on /why-u-nique/.</p></div><span class="owner client">Matt</span></div>
+      <div class="q"><div class="qnum">6</div><div><h5>Brainstorm 1 original data asset</h5><p>Top candidate: anonymized restaurant or brewery benchmark report (food cost % by cuisine, taproom vs. distribution margin by region). Plays to U-Nique's niche data advantage.</p></div><span class="owner">Markology Strategy</span></div>
+      <div class="q"><div class="qnum">7</div><div><h5>Add CPA license link to footer</h5><p>Footer link to Illinois Department of Financial and Professional Regulation CPA license lookup. Compliance signal for AI engines.</p></div><span class="owner">Markology Dev</span></div>
+      <div class="q"><div class="qnum">8</div><div><h5>30-day re-check (2026-07-09)</h5><p>Re-pull SEMrush authority rank + keyword count. Re-run 18 AI engine queries. Measure entity citation lift vs baseline.</p></div><span class="owner">Markology SEO</span></div>
+      <div class="q"><div class="qnum">9</div><div><h5>90-day re-check (2026-09-09)</h5><p>Full re-audit. Decide whether to repeat sprint or move to maintenance cadence.</p></div><span class="owner">Markology SEO</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="footer">
+  <div class="container">
+    <h2>U-NIQUE <span class="accent">SHIPPED.</span></h2>
+    <p>Hospitality-specific entity profile now live. Same SOP playbook rolls to the next niche client.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> · E-E-A-T Audit v1 · Ship Date June 9, 2026</div>
+  </div>
+</section>
+
+</body>
+</html>

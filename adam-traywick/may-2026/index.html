@@ -1,264 +1,109 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Adam Traywick - SEO Progress · May 2026</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Adam Traywick CPA — SEO Progress · May 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#f59e0b;--bad:#ef4444;}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
-.container{max-width:1080px;margin:0 auto;padding:64px 32px;}
-@media(max-width:720px){.container{padding:40px 20px;}}
-.crumb{font-size:12px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--mute);margin-bottom:14px;}
-.crumb a{color:var(--blue);text-decoration:none;}
-.pill{display:inline-block;padding:6px 14px;background:var(--blue);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);}
-.pill.tier{background:var(--navy);}
-.pill.live{background:var(--good);}
-.pill.warn{background:var(--warn);color:#3a2400;}
-.pill.bad{background:var(--bad);}
-h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7vw,80px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:18px 0 0;}
-h1 .accent{color:var(--blue);}
-h2{font-family:'Bangers',sans-serif;font-size:clamp(28px,4vw,42px);letter-spacing:0.04em;color:var(--navy);margin:56px 0 14px;}
-h3{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin:0 0 8px;}
-.lede{font-size:18px;color:var(--mute);max-width:680px;margin-top:18px;}
-.section-sub{font-size:14px;color:var(--mute);margin-bottom:24px;}
-.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px;}
-@media(max-width:720px){.kpi-strip{grid-template-columns:repeat(2,1fr);}}
-.kpi{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:18px 20px;box-shadow:5px 5px 0 var(--navy);}
-.kpi .lbl{font-size:10px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;color:var(--mute);}
-.kpi .val{font-family:'Bangers',sans-serif;font-size:42px;letter-spacing:0.02em;color:var(--navy);line-height:1;margin-top:6px;}
-.kpi .delta{font-size:12px;font-weight:600;margin-top:6px;color:var(--mute);}
-.kpi .delta.up{color:var(--good);}
-.kpi .delta.dn{color:var(--bad);}
-.chart-wrap{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:24px;box-shadow:5px 5px 0 var(--navy);margin-top:20px;}
-.chart-wrap canvas{max-height:320px;}
-table{width:100%;background:#fff;border:2px solid var(--navy);border-radius:14px;border-collapse:separate;border-spacing:0;overflow:hidden;box-shadow:5px 5px 0 var(--navy);margin-top:8px;}
-thead{background:var(--navy);color:#fff;}
-th{padding:12px 14px;text-align:left;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;}
-td{padding:11px 14px;font-size:14px;border-bottom:1px solid var(--hair);}
-tbody tr:last-child td{border-bottom:none;}
-tbody tr:nth-child(even){background:rgba(230,233,255,0.4);}
-.priority{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:22px 26px;box-shadow:5px 5px 0 var(--navy);margin-top:16px;display:flex;gap:18px;align-items:flex-start;}
-.priority .num{font-family:'Bangers',sans-serif;font-size:54px;line-height:1;color:var(--blue);flex-shrink:0;}
-.priority .body{flex:1;}
-.priority .tag{display:inline-block;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--blue);background:var(--lilac);padding:3px 10px;border-radius:999px;margin-bottom:6px;}
-.priority p{font-size:14px;color:var(--ink);}
-.completed-card{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:18px 22px;box-shadow:5px 5px 0 var(--navy);margin-top:14px;}
-.completed-card .head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;}
-.completed-card .name{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);}
-.completed-card .when{font-size:11px;color:var(--mute);letter-spacing:0.1em;text-transform:uppercase;font-weight:700;}
-.completed-card .desc{font-size:14px;color:var(--ink);margin-top:6px;}
-.completed-card a{color:var(--blue);text-decoration:none;font-weight:600;}
-.alert{background:var(--lilac);border:2px solid var(--navy);border-radius:14px;padding:18px 22px;box-shadow:5px 5px 0 var(--navy);margin-top:20px;font-size:14px;color:var(--ink);}
-.alert.warn{background:#fef3c7;}
-.alert strong{color:var(--navy);}
-.foot{margin-top:72px;padding-top:22px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);letter-spacing:0.08em;text-transform:uppercase;font-weight:600;}
-.foot a{color:var(--blue);text-decoration:none;}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
-@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
-.meta-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;}
-.zero-state{background:#fff;border:2px dashed var(--navy);border-radius:14px;padding:24px 28px;color:var(--mute);font-size:14px;}
-.zero-state strong{color:var(--navy);}
-ul.bullets{margin:8px 0 0 22px;}
-ul.bullets li{margin:4px 0;font-size:14px;}
+  :root { --paper:#f7f4ee; --navy:#0b1b3a; --blue:#1f4fff; --lilac:#b9a8ff; --mute:#6a6a72; --hair:#1f1f24; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--paper); font-family:Inter,system-ui,sans-serif; color:var(--hair); line-height:1.5; }
+  .wrap { max-width:1080px; margin:0 auto; padding:32px 24px 80px; }
+  header.hero { margin-bottom:32px; }
+  .pill { display:inline-block; background:var(--navy); color:white; padding:4px 14px; border-radius:999px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; }
+  h1 { font-family:Bangers,Inter,sans-serif; font-size:64px; line-height:1; color:var(--navy); margin:8px 0 4px; letter-spacing:0.02em; }
+  h2 { font-family:Bangers,Inter,sans-serif; font-size:32px; color:var(--navy); margin:40px 0 16px; letter-spacing:0.02em; }
+  .lede { font-size:18px; color:var(--hair); max-width:720px; }
+  .meta { color:var(--mute); font-size:14px; margin-top:12px; }
+  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:24px 0 40px; }
+  @media (max-width:720px) { .kpis { grid-template-columns:repeat(2,1fr); } h1 { font-size:44px; } }
+  .kpi { background:white; border:2px solid var(--navy); border-radius:6px; padding:18px 16px; box-shadow:5px 5px 0 var(--navy); }
+  .kpi .label { font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-bottom:6px; }
+  .kpi .value { font-family:Bangers,Inter,sans-serif; font-size:36px; color:var(--navy); line-height:1; }
+  .kpi .delta { margin-top:6px; font-size:13px; color:var(--blue); font-weight:600; }
+  .chart-wrap { background:white; border:2px solid var(--navy); border-radius:6px; padding:16px; box-shadow:5px 5px 0 var(--navy); }
+  canvas { max-width:100%; }
+  table { width:100%; border-collapse:collapse; background:white; border:2px solid var(--navy); border-radius:6px; overflow:hidden; box-shadow:5px 5px 0 var(--navy); }
+  thead { background:var(--navy); color:white; }
+  th,td { padding:12px 14px; text-align:left; border-bottom:1px solid #eee; font-size:14px; }
+  th { font-size:12px; letter-spacing:0.06em; text-transform:uppercase; }
+  tbody tr:last-child td { border-bottom:none; }
+  .notes { background:white; border-left:4px solid var(--blue); padding:14px 18px; margin-top:24px; border-radius:4px; }
+  footer { margin-top:64px; color:var(--mute); font-size:13px; text-align:center; }
+  footer a { color:var(--blue); text-decoration:none; }
 </style>
 </head>
 <body>
-<div class="container">
-  <div class="crumb"><a href="https://markology-agency.github.io/pages/adam-traywick/">Adam Traywick hub</a> &rsaquo; May 2026</div>
-  <span class="pill">Monthly SEO Report</span>
-  <h1>MAY 2026<br/><span class="accent">SEO PROGRESS.</span></h1>
-  <p class="lede">Year-over-year, organic keywords are up <strong>211%</strong> and Position Tracking shows Fort Worth dominance holding strong. The home-services trades pivot is producing real rankings &mdash; <strong>"accountants for plumbers" is now ranking #1</strong>, plus the existing #3 holds on "plumbers accounting software" (CPC $116) and "barber expenses list for taxes." The electricians service page went live this week to round out the trades cluster. <strong>The flag for the meeting:</strong> real Google Search Console clicks show a sharp May decline (152 MTD on pace ~190, down from a 626 Dec peak and 458 in April) &mdash; the QBI cluster decay covered in Priority 1 is the most likely culprit. <strong>GA4 is now wired</strong> (Markology Cloud project, enabled 2026-05-28): May sessions through 5/28 = <strong>1,242</strong> vs April 2,319 (full month), and the channel mix below tells a real story about where AI/LLM traffic is flowing.</p>
-  <div class="meta-row">
-    <span class="pill tier">Local Monthly</span>
-    <span class="pill live">Live</span>
-  </div>
+<div class="wrap">
+  <header class="hero">
+    <span class="pill">Monthly SEO Progress</span>
+    <h1>ADAM TRAYWICK CPA</h1>
+    <div class="lede">SEO snapshot for May 2026. Fort Worth CPA. Small-business + trades-niche tax and accounting.</div>
+    <div class="meta">adamtraywick.com &middot; covers May 2026</div>
+  </header>
 
-  <div class="kpi-strip">
-    <div class="kpi"><div class="lbl">GA4 Sessions (May 1-28)</div><div class="val">1,242</div><div class="delta dn">vs April 2,319 full month &middot; -46% partial</div></div>
-    <div class="kpi"><div class="lbl">Total Keywords</div><div class="val">841</div><div class="delta up">+571 YoY (211%)</div></div>
-    <div class="kpi"><div class="lbl">GSC Clicks (May MTD)</div><div class="val">152</div><div class="delta dn">On pace ~190 &middot; off Dec peak 626</div></div>
-    <div class="kpi"><div class="lbl">Top-3 Keywords</div><div class="val">8+</div><div class="delta up">Fort Worth + plumbers #1</div></div>
-    <div class="kpi"><div class="lbl">Trades Cluster Pages</div><div class="val">4</div><div class="delta up">Plumbers, HVAC, Electricians, Software</div></div>
-  </div>
-
-  <div class="alert warn"><strong>Heads up &mdash; real GSC data confirms the decline is bigger than SEMrush suggested.</strong> Search Console clicks: Dec 626 &rarr; Jan 608 &rarr; Feb 621 &rarr; Mar 550 &rarr; Apr 458 &rarr; <strong>May MTD 152 (on pace ~190)</strong>. Impressions are still climbing (237K in April, all-time high), so the site is being shown more &mdash; clicks are dropping because top-3 rankings on high-traffic queries are softening. QBI cluster decay is the most likely single cause. Diagnosis plan in Priority 1 below.</div>
-
-  <h2>TWELVE-MONTH TRAJECTORY.</h2>
-  <p class="section-sub">SEMrush tracked keywords + real Google Search Console clicks + real GA4 sessions, month over month. GA4 is now the primary traffic measurement (enabled 2026-05-28). SEMrush traffic estimates are not used.</p>
-  <div class="chart-wrap"><canvas id="kwChart"></canvas></div>
-  <div class="chart-wrap"><canvas id="trChart"></canvas></div>
-
-  <h2>GA4 CHANNEL BREAKDOWN.</h2>
-  <p class="section-sub">May 1-28 sessions by default channel group (Google Analytics 4, real measurement). The Direct number is the headline finding &mdash; read the callout below the table.</p>
-  <table>
-    <thead><tr><th>Channel</th><th>Sessions</th><th>Share</th><th>What It Means</th></tr></thead>
-    <tbody>
-      <tr><td><strong>Direct</strong></td><td>905</td><td>72.9%</td><td>Typed-in URL, bookmark, or stripped referrer (AI/LLM citations land here)</td></tr>
-      <tr><td>Organic Search</td><td>274</td><td>22.1%</td><td>Google + Bing organic &mdash; matches the GSC clicks trendline</td></tr>
-      <tr><td>Organic Social</td><td>36</td><td>2.9%</td><td>LinkedIn, Facebook, IG (non-paid)</td></tr>
-      <tr><td>Referral</td><td>16</td><td>1.3%</td><td>Backlinks + Reddit + niche directories</td></tr>
-      <tr><td>Unassigned</td><td>5</td><td>0.4%</td><td>Untagged or pre-consent sessions</td></tr>
-      <tr><td>Paid Search</td><td>4</td><td>0.3%</td><td>Negligible &mdash; no active Google Ads campaign</td></tr>
-    </tbody>
-  </table>
-  <div class="alert"><strong>Why Direct is 73% of sessions:</strong> when ChatGPT, Perplexity, Claude, Gemini, and Google AI Overviews cite a page, the click usually arrives without a referrer header. GA4 has nowhere to attribute it, so it gets bucketed as Direct. A Direct share this high on a CPA site that doesn't run brand campaigns or send mass email is almost always AI-engine traffic plus typed-in / bookmarked visits from repeat clients. The E-E-A-T sprint that went live in early May (Person schemas + team bios + FAQPage retrofits) is the most likely catalyst &mdash; AI engines need structured author/entity data to cite confidently. Next step: stand up a UTM-tagged short link or branded URL parameter on any AI-aware content so we can split true Direct from AI-citation Direct.</div>
-
-  <h2>TOP PERFORMERS.</h2>
-  <p class="section-sub">Highest-ranking non-brand keywords on adamtraywick.com (SEMrush US, May 2026). Brand terms filtered out.</p>
-  <table>
-    <thead><tr><th>Keyword</th><th>Pos</th><th>Monthly Volume</th><th>Ranking URL</th></tr></thead>
-    <tbody><tr><td><a href="https://adamtraywick.com/accountants-for-plumbers/" style="color:var(--blue);text-decoration:none;">accountants for plumbers</a></td><td>1</td><td>90</td><td>/accountants-for-plumbers/</td></tr><tr><td><a href="https://adamtraywick.com/" style="color:var(--blue);text-decoration:none;">accountant fort worth</a></td><td>1</td><td>260</td><td>/</td></tr><tr><td><a href="https://adamtraywick.com/" style="color:var(--blue);text-decoration:none;">accountants fort worth</a></td><td>1</td><td>50</td><td>/</td></tr><tr><td><a href="https://adamtraywick.com/" style="color:var(--blue);text-decoration:none;">fort worth accountants</a></td><td>1</td><td>260</td><td>/</td></tr><tr><td><a href="https://adamtraywick.com/qbi-deduction-2025/" style="color:var(--blue);text-decoration:none;">2025 qbi deduction phase out thresholds single filer</a></td><td>2</td><td>40</td><td>/qbi-deduction-2025/</td></tr><tr><td><a href="https://adamtraywick.com/qbi-deduction-2025/" style="color:var(--blue);text-decoration:none;">qbi limits 2025</a></td><td>3</td><td>40</td><td>/qbi-deduction-2025/</td></tr><tr><td><a href="https://adamtraywick.com/best-accounting-software-for-plumbers-2025/" style="color:var(--blue);text-decoration:none;">plumbers accounting software</a></td><td>3</td><td>90</td><td>/best-accounting-software-for-plumbers-2025/</td></tr><tr><td><a href="https://adamtraywick.com/barber-tax-write-offs-2025/" style="color:var(--blue);text-decoration:none;">barber expenses list for taxes</a></td><td>3</td><td>40</td><td>/barber-tax-write-offs-2025/</td></tr><tr><td><a href="https://adamtraywick.com/best-accounting-software-for-plumbers-2025/" style="color:var(--blue);text-decoration:none;">plumber accounting software</a></td><td>4</td><td>30</td><td>/best-accounting-software-for-plumbers-2025/</td></tr><tr><td><a href="https://adamtraywick.com/fort-worth-bookkeeping/" style="color:var(--blue);text-decoration:none;">fort worth bookkeeping services</a></td><td>4</td><td>50</td><td>/fort-worth-bookkeeping/</td></tr><tr><td><a href="https://adamtraywick.com/" style="color:var(--blue);text-decoration:none;">top fort worth tax services</a></td><td>4</td><td>50</td><td>/</td></tr><tr><td><a href="https://adamtraywick.com/fort-worth-bookkeeping/" style="color:var(--blue);text-decoration:none;">fort worth bookkeeping</a></td><td>5</td><td>210</td><td>/fort-worth-bookkeeping/</td></tr><tr><td><a href="https://adamtraywick.com/s-corp-vs-llc-in-texas/" style="color:var(--blue);text-decoration:none;">texas s corp vs llc</a></td><td>5</td><td>70</td><td>/s-corp-vs-llc-in-texas/</td></tr><tr><td><a href="https://adamtraywick.com/fort-worth-tax-preparation/" style="color:var(--blue);text-decoration:none;">top fort worth tax preparer</a></td><td>5</td><td>50</td><td>/fort-worth-tax-preparation/</td></tr><tr><td><a href="https://adamtraywick.com/fort-worth-bookkeeping/" style="color:var(--blue);text-decoration:none;">bookkeeping fort worth tx</a></td><td>5</td><td>50</td><td>/fort-worth-bookkeeping/</td></tr><tr><td><a href="https://adamtraywick.com/" style="color:var(--blue);text-decoration:none;">fort worth cpa</a></td><td>5</td><td>140</td><td>/</td></tr></tbody>
-  </table>
-
-  <h2>TRADES CLUSTER.</h2>
-  <p class="section-sub">The home-services trades pivot now covers four service pages and is producing real rankings across plumbing, HVAC, and (as of this week) electricians. Brand-search-volume terms below are the strategic targets being moved into SEMrush Position Tracking for ongoing monitoring.</p>
-
-  <h3 style="font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;margin-top:24px;margin-bottom:8px;">Plumbing &mdash; live rankings</h3>
-  <table>
-    <thead><tr><th>Keyword</th><th>Pos</th><th>Monthly Volume</th><th>Ranking URL</th></tr></thead>
-    <tbody>
-      <tr><td><a href="https://adamtraywick.com/best-accounting-software-for-plumbers-2025/" style="color:var(--blue);text-decoration:none;">plumbers accounting software</a></td><td>3</td><td>90</td><td>/best-accounting-software-for-plumbers-2025/</td></tr>
-      <tr><td><a href="https://adamtraywick.com/best-accounting-software-for-plumbers-2025/" style="color:var(--blue);text-decoration:none;">plumber accounting software</a></td><td>4</td><td>30</td><td>/best-accounting-software-for-plumbers-2025/</td></tr>
-      <tr><td><a href="https://adamtraywick.com/best-accounting-software-for-plumbers-2025/" style="color:var(--blue);text-decoration:none;">bookkeeping for plumbing business</a></td><td>9</td><td>110</td><td>/best-accounting-software-for-plumbers-2025/</td></tr>
-      <tr><td><a href="https://adamtraywick.com/accountants-for-plumbers/" style="color:var(--blue);text-decoration:none;">accountants for plumbers</a></td><td>1</td><td>90</td><td>/accountants-for-plumbers/</td></tr>
-    </tbody>
-  </table>
-
-  <h3 style="font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;margin-top:32px;margin-bottom:8px;">HVAC &mdash; live rankings</h3>
-  <table>
-    <thead><tr><th>Keyword</th><th>Pos</th><th>Monthly Volume</th><th>Ranking URL</th></tr></thead>
-    <tbody>
-      <tr><td><a href="https://adamtraywick.com/5-best-hvac-accounting-firms/" style="color:var(--blue);text-decoration:none;">bookkeeping services for hvac contractors</a></td><td>16</td><td>70</td><td>/5-best-hvac-accounting-firms/</td></tr>
-      <tr><td><a href="https://adamtraywick.com/best-accounting-software-for-plumbers-2025/" style="color:var(--blue);text-decoration:none;">best accounting software for hvac companies 2025</a></td><td>18</td><td>50</td><td>/best-accounting-software-for-plumbers-2025/</td></tr>
-    </tbody>
-  </table>
-
-  <h3 style="font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;margin-top:32px;margin-bottom:8px;">Electricians &mdash; new this week</h3>
-  <table>
-    <thead><tr><th>Keyword</th><th>Pos</th><th>Monthly Volume</th><th>Ranking URL</th></tr></thead>
-    <tbody>
-      <tr><td><a href="https://adamtraywick.com/accountants-for-electricians/" style="color:var(--blue);text-decoration:none;">accountants for electricians</a></td><td>Indexing</td><td>50</td><td>/accountants-for-electricians/</td></tr>
-      <tr><td><a href="https://adamtraywick.com/accountants-for-electricians/" style="color:var(--blue);text-decoration:none;">accounting for electricians</a></td><td>Indexing</td><td>50</td><td>/accountants-for-electricians/</td></tr>
-      <tr><td><a href="https://adamtraywick.com/accountants-for-electricians/" style="color:var(--blue);text-decoration:none;">cpa for electrical contractors</a></td><td>Indexing</td><td>20</td><td>/accountants-for-electricians/</td></tr>
-    </tbody>
-  </table>
-
-  <div class="alert" style="background:var(--lilac);border-left:4px solid var(--blue);padding:16px 20px;margin-top:20px;border-radius:0 8px 8px 0;font-size:14px;line-height:1.6;"><strong>Note on Electricians:</strong> Page published 2026-05-26, submitted to Google Indexing API same day. Expect first rankings inside 30 days based on the plumbers timeline (first rankings hit at day 28 on that page). Internal cross-links from /accountants-for-plumbers/, /hvac-accountants/, /fort-worth-accounting-firm/, /buying-a-truck-for-your-business-tax-write-off/ are all live and verified.</div>
-
-  <h3 style="font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;margin-top:32px;margin-bottom:8px;">Queued for SEMrush Position Tracking</h3>
-  <p class="section-sub" style="margin-bottom:12px;">16 strategic trades keywords being added to Adam Traywick's USA Position Tracking campaign (project 25224429) so we can track week-over-week movement instead of relying on monthly broad pulls.</p>
-  <table>
-    <thead><tr><th>Keyword</th><th>Vol</th><th>CPC</th><th>Why It Matters</th></tr></thead>
-    <tbody>
-      <tr><td>accountants for plumbers</td><td>90</td><td>$0</td><td>Now #1 &mdash; defend with FAQPage refresh + monthly content additions</td></tr>
-      <tr><td>accounting for plumbers</td><td>320</td><td>$0</td><td>Highest plumbing volume, page-1 target</td></tr>
-      <tr><td>bookkeeping for plumbers</td><td>140</td><td>$127</td><td>Highest plumbing CPC, money keyword</td></tr>
-      <tr><td>plumber accounting software</td><td>30</td><td>$116</td><td>Already #4, lock in top-3</td></tr>
-      <tr><td>best accounting software for plumbers</td><td>30</td><td>$0</td><td>Cluster term, already producing</td></tr>
-      <tr><td>accounting for hvac</td><td>110</td><td>$14</td><td>Highest HVAC volume, no page-1 ranking yet</td></tr>
-      <tr><td>hvac accountants</td><td>20</td><td>$14</td><td>Service-page target, currently weak</td></tr>
-      <tr><td>bookkeeping for hvac</td><td>70</td><td>$0</td><td>Cluster expansion</td></tr>
-      <tr><td>bookkeeping for hvac contractors</td><td>70</td><td>$0</td><td>Currently #16, page-1 target</td></tr>
-      <tr><td>best accounting software for hvac companies</td><td>50</td><td>$0</td><td>Currently #18, page-1 target</td></tr>
-      <tr><td>accountants for electricians</td><td>50</td><td>$0</td><td>New service page, indexing now</td></tr>
-      <tr><td>accounting for electricians</td><td>50</td><td>$0</td><td>New service page, indexing now</td></tr>
-      <tr><td>bookkeeping for electricians</td><td>140</td><td>$0</td><td>Highest electrician volume, content gap to fill in Q3</td></tr>
-      <tr><td>accountant for contractors</td><td>110</td><td>$21</td><td>Generalist trades term, page-build candidate</td></tr>
-      <tr><td>cpa for contractors</td><td>110</td><td>$15</td><td>Generalist trades term, page-build candidate</td></tr>
-      <tr><td>contractor accountant</td><td>170</td><td>$21</td><td>Highest generalist trades volume</td></tr>
-    </tbody>
-  </table>
-
-  <h2>WHAT COMPLETED IN MAY.</h2>
-  <p class="section-sub">Live, verified on-page work from this month.</p>
-
-  <div class="completed-card">
-    <div class="head"><span class="name">FAQPage schema retrofit</span><span class="when">May 18</span></div>
-    <p class="desc">Added FAQPage JSON-LD to the top 10 organic blog and content URLs (QBI 2025, Fort Worth bookkeeping, barber tax, plumbers software, S-corp vs LLC, California vs Texas, Fort Worth tax prep, full-time alternatives, HELOC interest, switch to S-corp). All 10 verified rendering live in &lt;head&gt;. <a href="https://adamtraywick.com/qbi-deduction-2025/">Example: /qbi-deduction-2025/</a></p>
-  </div>
-  <div class="completed-card">
-    <div class="head"><span class="name">Internal link sprint — 11 contextual links</span><span class="when">May 18</span></div>
-    <p class="desc">Completed 11 contextual internal links across 9 recent pages to break the homepage cannibalization fight on /fort-worth-tax-preparation/ and /small-business-accounting/. Boosted /how-much-does-a-cpa-cost-in-fort-worth/, /fort-worth-cpa-vs-accountant/, /lower-tax-bill-over-150k-revenue/, /when-should-you-switch-cpas/, /60k-income-to-switch-to-s-corporation/.</p>
-  </div>
-  <div class="completed-card">
-    <div class="head"><span class="name">Team bios + Person schema on /about-us/</span><span class="when">May 18</span></div>
-    <p class="desc">Six team bios drafted (Adam, Colleen, Matt, Nikki, Riley, Elizabeth) with parallel Person schemas pushed to /about-us/ via Rank Math API. Paste-ready HTML in the SEO folder for Elementor install. E-E-A-T baseline lift.</p>
-  </div>
-  <div class="completed-card">
-    <div class="head"><span class="name">Electricians service page launched</span><span class="when">May 26</span></div>
-    <p class="desc">/accountants-for-electricians/ is now live. Full page with H1, 6 H2 sections (scope of work, deductions, cost, profit margins, when to hire, what to look for), 4-question FAQPage schema, 6 internal links (Section 179 truck, CPA cost, S-corp calculator, plumbers, HVAC, Fort Worth accounting firm), and Rank Math auto-injected AccountingService + Service + WebPage schema. Cross-links from /accountants-for-plumbers/, /hvac-accountants/, /fort-worth-accounting-firm/, /buying-a-truck-for-your-business-tax-write-off/ all live and verified. Submitted to Google Indexing API (200 OK).</p>
-  </div>
-  <div class="completed-card">
-    <div class="head"><span class="name">Plumber service page boost work</span><span class="when">May 15</span></div>
-    <p class="desc">/accountants-for-plumbers/ targeted for a top-15 push in 60 days. Already producing rankings: "plumbers accounting software" #3, "plumber accounting software" #4, "best accounting software for small plumbing business" #3, "best accountants for plumbing businesses" #7.</p>
-  </div>
-  <div class="completed-card">
-    <div class="head"><span class="name">Three new SEO blogs published</span><span class="when">May 5 - May 15</span></div>
-    <p class="desc">"How Profitable Should an HVAC Business Be?", "What Happens If You Don't Pay Estimated Taxes in 2026?", and "How Much Cash Should You Keep in Your Business?" — all live, all leaning into the home-services trades pivot.</p>
-  </div>
-  <div class="completed-card">
-    <div class="head"><span class="name">Schema + redirect cleanup</span><span class="when">May 12 - 13</span></div>
-    <p class="desc">Resolved duplicate Organization schema on homepage. Activated 2 Rank Math 301 redirects for the HSA cluster. Rebuilt /health-savings-accounts-2/ in Elementor template.</p>
-  </div>
-
-  <h2>JUNE GAME PLAN.</h2>
-  <p class="section-sub">Three priorities for the next 30 days, sized to complete in-month.</p>
-
-  <div class="priority">
-    <div class="num">1</div>
-    <div class="body">
-      <span class="tag">Diagnose &amp; defend</span>
-      <h3>FIGURE OUT THE QBI CLUSTER TRAFFIC DROP.</h3>
-      <p>Real Google Search Console clicks fell from 626 (Dec) to 458 (Apr) to <strong>152 May MTD on pace ~190</strong> &mdash; while keyword count climbed 549 &rarr; 841 and impressions hit an all-time high 237K in April. That mismatch (more keywords, more impressions, fewer clicks) confirms position decay on the high-traffic queries, not a deindexation event. The QBI 2025 cluster is the biggest single contributor and the most likely culprit. Action: pull GSC top-pages for /qbi-deduction-2025/ over Dec&rarr;May, identify the queries that lost top-3, refresh the page content with current-year (2026) data and tax-law references, re-submit to Google Indexing API. Re-pull GSC at +14 days to confirm lift.</p>
+  <section class="kpis">
+    <div class="kpi">
+      <div class="label">SEMrush Ranking Keywords</div>
+      <div class="value">956</div>
+      <div class="delta">+115 MoM (+14%)</div>
     </div>
-  </div>
-
-  <div class="priority">
-    <div class="num">2</div>
-    <div class="body">
-      <span class="tag">Trades expansion</span>
-      <h3>EXTEND THE TRADES CLUSTER PAST THE FOUR SERVICE PAGES.</h3>
-      <p>Electricians page is live as of May 26 — that completes the plumbers / HVAC / electricians / accounting-software quartet. The next plays in June: (1) build a dedicated /bookkeeping-for-electricians/ page targeting the 140-vol head term; (2) add a generalist /accountant-for-contractors/ or /contractor-cpa/ page targeting the 4 cluster terms above 100 monthly volume; (3) layer FAQPage schema onto /accountants-for-electricians/ in its first month (already in the initial publish); (4) push internal links from any new trades blog posts into the four cluster pages so PageRank flows. Plumbers ranking #3-7 nationally is the proof case the cluster strategy works.</p>
+    <div class="kpi">
+      <div class="label">GSC Queries · Top 10 / Top 20</div>
+      <div class="value">1,521</div>
+      <div class="delta">2,265 in top 20 · 4,164 total queries</div>
     </div>
-  </div>
-
-  <div class="priority">
-    <div class="num">3</div>
-    <div class="body">
-      <span class="tag">Local pack</span>
-      <h3>WIN THE TOP-3 LOCAL PACK FOR "cpa fort worth".</h3>
-      <p>Currently #5 organic on the SERP, but the Local Pack is the conversion path for Fort Worth searches. Citation cleanup (Bing Places + BBB + standardize NAP) is already on the board. Layer in: claim/verify GBP, push 5-8 fresh Google reviews via the footer review link (blocked on Adam pasting the GBP CID — see open items), and add LocalBusiness schema to the homepage. 30-day target: defended #1 on "fort worth accountants" + new Local Pack appearance on "cpa fort worth".</p>
+    <div class="kpi">
+      <div class="label">May 2026 Search Impressions</div>
+      <div class="value">94,423</div>
+      <div class="delta">183 clicks · 0.19% CTR · avg pos 14.5</div>
     </div>
-  </div>
+    <div class="kpi">
+      <div class="label">Organic Sessions (GA4)</div>
+      <div class="value">303</div>
+      <div class="delta">organic search, all engines</div>
+    </div>
+  </section>
 
-  <script>
-  const navy='#070630',blue='#3872EB',lilac='#E6E9FF';
-  Chart.defaults.font.family="Inter, system-ui, sans-serif";
-  Chart.defaults.color=navy;
-  new Chart(document.getElementById('kwChart'),{
-    type:'line',
-    data:{labels:["05/25", "06/25", "07/25", "08/25", "09/25", "10/25", "11/25", "12/25", "01/26", "02/26", "03/26", "04/26"],datasets:[{
-      label:'Organic Keywords',data:[270, 324, 413, 500, 449, 430, 430, 549, 675, 798, 837, 841],
-      borderColor:blue,backgroundColor:lilac,borderWidth:3,fill:true,tension:0.3,pointRadius:5,pointBackgroundColor:navy
-    }]},
-    options:{plugins:{title:{display:true,text:'Organic Keywords (last 12 months)',font:{size:14,weight:'bold'}}}}
-  });
-  new Chart(document.getElementById('trChart'),{
-    type:'bar',
-    data:{labels:["06/25", "07/25", "08/25", "09/25", "10/25", "11/25", "12/25", "01/26", "02/26", "03/26", "04/26", "05/26 MTD"],datasets:[
-      {type:'bar',label:'GSC Clicks',data:[63, 67, 86, 99, 253, 335, 626, 608, 621, 550, 458, 152],backgroundColor:lilac,borderColor:navy,borderWidth:2,order:2},
-      {type:'line',label:'GA4 Sessions',data:[600, 596, 601, 679, 1256, 2841, 3522, 3368, 2813, 2813, 2319, 1242],borderColor:blue,backgroundColor:blue,borderWidth:3,tension:0.3,pointRadius:5,pointBackgroundColor:navy,fill:false,order:1}
-    ]},
-    options:{plugins:{title:{display:true,text:'GA4 Sessions vs GSC Clicks (last 12 months) — both are real measurement, not SEMrush model',font:{size:14,weight:'bold'}}}}
-  });
-  </script>
-  <div class="foot">Built by <a href="https://markology.io">Markology</a> &middot; <a href="https://markology-agency.github.io/pages/adam-traywick/">Adam Traywick report hub</a> &middot; Refreshed 2026-05-28 (GA4 sessions + channel breakdown wired in)</div>
+  <h2>Trajectory</h2>
+  <div class="chart-wrap"><canvas id="trajectoryChart" height="120"></canvas></div>
+
+  <h2>Top SEMrush Rankings (Non-Brand)</h2>
+  <table><thead><tr><th>Keyword</th><th>Position</th><th>Volume</th><th>Landing URL</th></tr></thead><tbody><tr><td>accountant fort worth</td><td>1</td><td>260</td><td></td></tr><tr><td>fort worth accountants</td><td>1</td><td>260</td><td></td></tr><tr><td>adam fort worth</td><td>2</td><td>90</td><td></td></tr><tr><td>fort worth tax accountant</td><td>2</td><td>40</td><td></td></tr><tr><td>2025 qbi deduction phase out thresholds single filer</td><td>2</td><td>40</td><td></td></tr><tr><td>qbi limits 2025</td><td>3</td><td>40</td><td></td></tr><tr><td>plumbers accounting software</td><td>3</td><td>90</td><td></td></tr><tr><td>barber expenses list for taxes</td><td>3</td><td>40</td><td></td></tr><tr><td>2025 mixed-use property depreciation recapture irs regulations</td><td>3</td><td>40</td><td></td></tr><tr><td>best accounting software for small plumbing business</td><td>3</td><td>50</td><td></td></tr><tr><td>plumber accounting software</td><td>4</td><td>30</td><td></td></tr><tr><td>fort worth bookkeeping services</td><td>4</td><td>50</td><td></td></tr></tbody></table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">SEMrush US database, end of May 2026. Brand queries excluded.</p>
+
+  <h2>Top GSC Queries by Impressions (Non-Brand)</h2>
+  <table><thead><tr><th>Query</th><th>Position</th><th>Impressions</th><th>Clicks</th></tr></thead><tbody><tr><td>texas state income tax 2026</td><td>7.0</td><td>2526</td><td>0</td></tr><tr><td>does texas have state income tax 2026</td><td>8.5</td><td>679</td><td>0</td></tr><tr><td>texas state income tax rate 2026</td><td>9.5</td><td>571</td><td>0</td></tr><tr><td>plumbing accounting software</td><td>22.8</td><td>524</td><td>0</td></tr><tr><td>accounting software for plumbers</td><td>16.5</td><td>504</td><td>0</td></tr><tr><td>texas no state income tax 2026</td><td>9.7</td><td>500</td><td>0</td></tr><tr><td>texas no state income tax official 2026</td><td>8.5</td><td>435</td><td>0</td></tr><tr><td>texas income tax rate 2026</td><td>2.5</td><td>395</td><td>0</td></tr><tr><td>accounting for plumbers</td><td>16.9</td><td>374</td><td>0</td></tr><tr><td>plumbing business accounting software</td><td>11.7</td><td>373</td><td>0</td></tr><tr><td>quickbooks cleanup services</td><td>58.5</td><td>295</td><td>0</td></tr><tr><td>07811 bookkeeping services</td><td>9.6</td><td>288</td><td>0</td></tr></tbody></table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">Google Search Console, May 2026. Brand queries excluded.</p>
+
+  <footer>Generated by Markology &middot; auto-build · 2026-06-09 &middot; <a href="https://markology.io">markology.io</a></footer>
 </div>
+
+<script>
+  const trendData = {"labels": ["Jan 26", "Jan 26", "Mar 26", "Apr 26", "May 26"], "keywords": [0, 0, 0, 0, 0], "sessions": [883, 883, 783, 688, 303]};
+  const ctx = document.getElementById('trajectoryChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: trendData.labels,
+      datasets: [
+        { label: 'Ranking Keywords (SEMrush)', data: trendData.keywords, borderColor: '#0b1b3a', backgroundColor: 'rgba(11,27,58,0.12)', yAxisID: 'y', tension: 0.3, fill: true, pointRadius: 4, pointBackgroundColor: '#0b1b3a' },
+        { label: 'Organic Sessions (GA4)', data: trendData.sessions, borderColor: '#1f4fff', borderDash: [6,4], backgroundColor: 'rgba(31,79,255,0.05)', yAxisID: 'y1', tension: 0.3, pointRadius: 4, pointBackgroundColor: '#1f4fff' }
+      ]
+    },
+    options: {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { position: 'bottom', labels: { font: { weight: '600' } } } },
+      scales: {
+        y:  { position: 'left',  beginAtZero: true, title: { display: true, text: 'Ranking Keywords' } },
+        y1: { position: 'right', beginAtZero: true, title: { display: true, text: 'Organic Sessions' }, grid: { drawOnChartArea: false } }
+      }
+    }
+  });
+</script>
 </body>
 </html>

@@ -16,6 +16,7 @@
   .pill { display:inline-block; background:var(--navy); color:white; padding:4px 14px; border-radius:999px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; }
   h1 { font-family:Bangers,Inter,sans-serif; font-size:56px; line-height:1; color:var(--navy); margin:8px 0 4px; letter-spacing:0.02em; }
   h2 { font-family:Bangers,Inter,sans-serif; font-size:28px; color:var(--navy); margin:36px 0 14px; letter-spacing:0.02em; }
+  h3 { font-family:Inter,sans-serif; font-size:15px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--navy); margin:18px 0 8px; }
   .lede { font-size:17px; color:var(--hair); max-width:720px; }
   .meta { color:var(--mute); font-size:13px; margin-top:10px; }
   .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:22px 0 36px; }
@@ -23,10 +24,10 @@
   .kpi { background:white; border:2px solid var(--navy); border-radius:6px; padding:16px 14px; box-shadow:5px 5px 0 var(--navy); }
   .kpi .label { font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-bottom:6px; }
   .kpi .value { font-family:Bangers,Inter,sans-serif; font-size:30px; color:var(--navy); line-height:1; }
-  .kpi .delta { margin-top:6px; font-size:12px; color:var(--blue); font-weight:600; }
-  .kpi .wow { font-size:13px; font-weight:700; margin-top:4px; }
-  .kpi .wow.up { color:var(--up); }
-  .kpi .wow.down { color:var(--down); }
+  .kpi .yoy { font-size:13px; font-weight:700; margin-top:6px; }
+  .kpi .yoy.up { color:var(--up); }
+  .kpi .yoy.down { color:var(--down); }
+  .kpi .yoy.flat { color:var(--mute); }
   .chart-wrap { background:white; border:2px solid var(--navy); border-radius:6px; padding:14px; box-shadow:5px 5px 0 var(--navy); }
   canvas { max-width:100%; }
   table { width:100%; border-collapse:collapse; background:white; border:2px solid var(--navy); border-radius:6px; overflow:hidden; box-shadow:5px 5px 0 var(--navy); }
@@ -44,34 +45,37 @@
     <span class="pill">Weekly SEO Snapshot</span>
     <h1>ADAM TRAYWICK CPA</h1>
     <div class="lede">Week of Jun 1 – Jun 7, 2026. Fort Worth CPA. Small-business + trades-niche tax and accounting.</div>
-    <div class="meta">adamtraywick.com &middot; pulled 2026-06-09</div>
+    <div class="meta">adamtraywick.com &middot; YoY comparison against week of Jun 2 – Jun 8, 2025 &middot; pulled 2026-06-09</div>
   </header>
 
   <section class="kpis">
     <div class="kpi">
       <div class="label">SEMrush Ranking Keywords</div>
       <div class="value">956</div>
-      <div class="delta">+115 vs prior snapshot</div>
+      <div class="yoy flat">+115 vs last month</div>
     </div>
     <div class="kpi">
       <div class="label">Week Impressions</div>
       <div class="value">12,915</div>
-      <div class="wow down">-21% WoW</div>
+      <div class="yoy up">+122% vs same week 2025</div>
     </div>
     <div class="kpi">
       <div class="label">Week Clicks</div>
       <div class="value">30</div>
-      <div class="wow down">-3% WoW · 0.23% CTR</div>
+      <div class="yoy up">+88% YoY &middot; 0.23% CTR</div>
     </div>
     <div class="kpi">
       <div class="label">Week Organic Sessions</div>
       <div class="value">52</div>
-      <div class="wow down">-4% WoW</div>
+      <div class="yoy up">+24% YoY</div>
     </div>
   </section>
 
-  <h2>8-Week Trajectory</h2>
-  <div class="chart-wrap"><canvas id="trajectoryChart" height="110"></canvas></div>
+  <h2>Year-over-Year</h2>
+  <div class="chart-wrap"><canvas id="yoyChart" height="110"></canvas></div>
+  <p style="font-size:13px;color:#6a6a72;margin-top:10px;">Direct comparison of this week vs the same calendar week one year earlier — neutralizes the Q1 tax-season cycle.</p>
+
+  <h2>Niche Verticals (SEMrush)</h2><p style='font-size:14px;color:#6a6a72;margin-bottom:14px;'>Top ranking keywords per niche cluster.</p><div style='display:flex;flex-direction:column;gap:18px;'><h3>HVAC</h3><table><thead><tr><th>Keyword</th><th>Position</th><th>Volume</th><th>Landing URL</th></tr></thead><tbody><tr><td>bookkeeping services for hvac</td><td>9</td><td>40</td><td></td></tr><tr><td>bookkeeping services for hvac businesses</td><td>9</td><td>70</td><td></td></tr><tr><td>hvac revenue per truck</td><td>11</td><td>50</td><td></td></tr><tr><td>are hvac companies profitable</td><td>13</td><td>50</td><td></td></tr></tbody></table><h3>Plumbing</h3><table><thead><tr><th>Keyword</th><th>Position</th><th>Volume</th><th>Landing URL</th></tr></thead><tbody><tr><td>plumbers accounting software</td><td>3</td><td>90</td><td></td></tr><tr><td>best accounting software for small plumbing business</td><td>3</td><td>50</td><td></td></tr><tr><td>plumber accounting software</td><td>4</td><td>30</td><td></td></tr><tr><td>best accountants for plumbing businesses</td><td>7</td><td>40</td><td></td></tr><tr><td>plumbing accounting</td><td>8</td><td>90</td><td></td></tr></tbody></table><h3>Electricians</h3><p style='font-size:13px;color:#6a6a72;'>No ranking keywords contain &ldquo;electric&rdquo; this week.</p><h3>Hair / Beauty Salons</h3><table><thead><tr><th>Keyword</th><th>Position</th><th>Volume</th><th>Landing URL</th></tr></thead><tbody><tr><td>hair salon accounting</td><td>17</td><td>70</td><td></td></tr><tr><td>accounting for beauty salon</td><td>20</td><td>70</td><td></td></tr><tr><td>bookkeeping for beauty salon</td><td>54</td><td>40</td><td></td></tr></tbody></table><h3>Roofing</h3><p style='font-size:13px;color:#6a6a72;'>No ranking keywords contain &ldquo;roof&rdquo; this week.</p><h3>Auto / Trucking</h3><table><thead><tr><th>Keyword</th><th>Position</th><th>Volume</th><th>Landing URL</th></tr></thead><tbody><tr><td>hvac revenue per truck</td><td>11</td><td>50</td><td></td></tr><tr><td>buying a truck for business</td><td>35</td><td>110</td><td></td></tr><tr><td>purchase a truck for business</td><td>36</td><td>70</td><td></td></tr><tr><td>buying a truck for business write-off</td><td>53</td><td>30</td><td></td></tr><tr><td>buying a company truck</td><td>56</td><td>70</td><td></td></tr></tbody></table></div>
 
   <h2>Top SEMrush Rankings (Non-Brand)</h2>
   <table><thead><tr><th>Keyword</th><th>Position</th><th>Volume</th><th>Landing URL</th></tr></thead><tbody><tr><td>accountant fort worth</td><td>1</td><td>260</td><td></td></tr><tr><td>fort worth accountants</td><td>1</td><td>260</td><td></td></tr><tr><td>adam fort worth</td><td>2</td><td>90</td><td></td></tr><tr><td>fort worth tax accountant</td><td>2</td><td>40</td><td></td></tr><tr><td>2025 qbi deduction phase out thresholds single filer</td><td>2</td><td>40</td><td></td></tr><tr><td>qbi limits 2025</td><td>3</td><td>40</td><td></td></tr><tr><td>plumbers accounting software</td><td>3</td><td>90</td><td></td></tr><tr><td>barber expenses list for taxes</td><td>3</td><td>40</td><td></td></tr><tr><td>2025 mixed-use property depreciation recapture irs regulations</td><td>3</td><td>40</td><td></td></tr><tr><td>best accounting software for small plumbing business</td><td>3</td><td>50</td><td></td></tr><tr><td>plumber accounting software</td><td>4</td><td>30</td><td></td></tr><tr><td>fort worth bookkeeping services</td><td>4</td><td>50</td><td></td></tr></tbody></table>
@@ -83,16 +87,15 @@
 </div>
 
 <script>
-  const trendData = {"labels": ["Apr 19", "Apr 26", "May 3", "May 10", "May 17", "May 24", "May 31", "Jun 7"], "impressions": [69591, 36558, 31937, 24991, 25429, 15035, 16357, 12915], "clicks": [130, 67, 65, 48, 44, 39, 31, 30], "sessions": [193, 106, 92, 74, 79, 72, 54, 52]};
-  const ctx = document.getElementById('trajectoryChart').getContext('2d');
+  const yoyData = {"prev": [5811, 16, 42], "cur": [12915, 30, 52]};
+  const ctx = document.getElementById('yoyChart').getContext('2d');
   new Chart(ctx, {
-    type: 'line',
+    type: 'bar',
     data: {
-      labels: trendData.labels,
+      labels: ['Impressions', 'Clicks', 'Organic Sessions'],
       datasets: [
-        { label: 'Impressions', data: trendData.impressions, borderColor: '#0b1b3a', backgroundColor: 'rgba(11,27,58,0.10)', yAxisID: 'y', tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: '#0b1b3a' },
-        { label: 'Clicks', data: trendData.clicks, borderColor: '#c43a2a', backgroundColor: 'transparent', yAxisID: 'y1', tension: 0.3, pointRadius: 3, pointBackgroundColor: '#c43a2a' },
-        { label: 'Organic Sessions (GA4)', data: trendData.sessions, borderColor: '#1f4fff', borderDash: [6,4], backgroundColor: 'transparent', yAxisID: 'y1', tension: 0.3, pointRadius: 3, pointBackgroundColor: '#1f4fff' }
+        { label: 'Week of Jun 8, 2025', data: yoyData.prev, backgroundColor: 'rgba(11,27,58,0.55)', borderColor: '#0b1b3a', borderWidth: 2, borderRadius: 4 },
+        { label: 'Week of Jun 7', data: yoyData.cur, backgroundColor: 'rgba(31,79,255,0.85)', borderColor: '#0b1b3a', borderWidth: 2, borderRadius: 4 }
       ]
     },
     options: {
@@ -100,8 +103,7 @@
       interaction: { mode: 'index', intersect: false },
       plugins: { legend: { position: 'bottom', labels: { font: { weight: '600' } } } },
       scales: {
-        y:  { position: 'left',  beginAtZero: true, title: { display: true, text: 'Impressions' } },
-        y1: { position: 'right', beginAtZero: true, title: { display: true, text: 'Clicks / Sessions' }, grid: { drawOnChartArea: false } }
+        y: { beginAtZero: true }
       }
     }
   });

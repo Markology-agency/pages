@@ -5,219 +5,102 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Cherry Hill Advisory — SEO Progress · May 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-  :root {
-    --paper: #f7f4ee;
-    --navy:  #0b1b3a;
-    --blue:  #1f4fff;
-    --lilac: #b9a8ff;
-    --mute:  #6a6a72;
-    --hair:  #1f1f24;
-  }
+  :root { --paper:#f7f4ee; --navy:#0b1b3a; --blue:#1f4fff; --lilac:#b9a8ff; --mute:#6a6a72; --hair:#1f1f24; }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--paper); font-family: Inter, system-ui, sans-serif; color: var(--hair); line-height: 1.5; }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
-  header.hero { margin-bottom: 32px; }
-  .crumb { font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; font-weight: 700; color: var(--mute); margin-bottom: 12px; }
-  .crumb a { color: var(--blue); text-decoration: none; }
-  .pill { display: inline-block; background: var(--navy); color: white; padding: 4px 14px; border-radius: 999px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
-  h1 { font-family: Bangers, Inter, sans-serif; font-size: 64px; line-height: 1; color: var(--navy); margin: 8px 0 4px; letter-spacing: 0.02em; }
-  h2 { font-family: Bangers, Inter, sans-serif; font-size: 32px; color: var(--navy); margin: 40px 0 16px; letter-spacing: 0.02em; }
-  .lede { font-size: 18px; color: var(--hair); max-width: 720px; }
-  .meta { color: var(--mute); font-size: 14px; margin-top: 12px; }
-  .alert { background: #fff0ee; border: 2px solid #d23a2a; color: #6f1e14; padding: 14px 18px; border-radius: 8px; margin-bottom: 24px; font-weight: 500; }
-  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 24px 0 40px; }
-  @media (max-width: 720px) { .kpis { grid-template-columns: repeat(2, 1fr); } h1 { font-size: 44px; } }
-  .kpi { background: white; border: 2px solid var(--navy); border-radius: 6px; padding: 18px 16px; box-shadow: 5px 5px 0 var(--navy); }
-  .kpi .label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute); margin-bottom: 6px; }
-  .kpi .value { font-family: Bangers, Inter, sans-serif; font-size: 36px; color: var(--navy); line-height: 1; }
-  .kpi .delta { margin-top: 6px; font-size: 13px; color: var(--blue); font-weight: 600; }
-  .chart-wrap { background: white; border: 2px solid var(--navy); border-radius: 6px; padding: 16px; box-shadow: 5px 5px 0 var(--navy); }
-  canvas { max-width: 100%; }
-  table { width: 100%; border-collapse: collapse; background: white; border: 2px solid var(--navy); border-radius: 6px; overflow: hidden; box-shadow: 5px 5px 0 var(--navy); }
-  thead { background: var(--navy); color: white; }
-  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #eee; }
-  th { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
-  tbody tr:last-child td { border-bottom: none; }
-  .delta-up { color: #2a8a3a; font-weight: 600; }
-  .delta-flat { color: var(--mute); font-weight: 600; }
-  .delta-down { color: #c43a2a; font-weight: 600; }
-  .notes { background: white; border-left: 4px solid var(--blue); padding: 14px 18px; margin-top: 24px; border-radius: 4px; }
-  .notes ul { margin: 8px 0 0 0; padding-left: 20px; }
-  .src-note { font-size: 12px; color: var(--mute); margin-top: 8px; font-style: italic; }
-  footer { margin-top: 64px; color: var(--mute); font-size: 13px; text-align: center; }
-  footer a { color: var(--blue); text-decoration: none; }
+  body { margin:0; background:var(--paper); font-family:Inter,system-ui,sans-serif; color:var(--hair); line-height:1.5; }
+  .wrap { max-width:1080px; margin:0 auto; padding:32px 24px 80px; }
+  header.hero { margin-bottom:32px; }
+  .pill { display:inline-block; background:var(--navy); color:white; padding:4px 14px; border-radius:999px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; }
+  h1 { font-family:Bangers,Inter,sans-serif; font-size:64px; line-height:1; color:var(--navy); margin:8px 0 4px; letter-spacing:0.02em; }
+  h2 { font-family:Bangers,Inter,sans-serif; font-size:32px; color:var(--navy); margin:40px 0 16px; letter-spacing:0.02em; }
+  .lede { font-size:18px; color:var(--hair); max-width:720px; }
+  .meta { color:var(--mute); font-size:14px; margin-top:12px; }
+  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:24px 0 40px; }
+  @media (max-width:720px) { .kpis { grid-template-columns:repeat(2,1fr); } h1 { font-size:44px; } }
+  .kpi { background:white; border:2px solid var(--navy); border-radius:6px; padding:18px 16px; box-shadow:5px 5px 0 var(--navy); }
+  .kpi .label { font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-bottom:6px; }
+  .kpi .value { font-family:Bangers,Inter,sans-serif; font-size:36px; color:var(--navy); line-height:1; }
+  .kpi .delta { margin-top:6px; font-size:13px; color:var(--blue); font-weight:600; }
+  .chart-wrap { background:white; border:2px solid var(--navy); border-radius:6px; padding:16px; box-shadow:5px 5px 0 var(--navy); }
+  canvas { max-width:100%; }
+  table { width:100%; border-collapse:collapse; background:white; border:2px solid var(--navy); border-radius:6px; overflow:hidden; box-shadow:5px 5px 0 var(--navy); }
+  thead { background:var(--navy); color:white; }
+  th,td { padding:12px 14px; text-align:left; border-bottom:1px solid #eee; font-size:14px; }
+  th { font-size:12px; letter-spacing:0.06em; text-transform:uppercase; }
+  tbody tr:last-child td { border-bottom:none; }
+  .notes { background:white; border-left:4px solid var(--blue); padding:14px 18px; margin-top:24px; border-radius:4px; }
+  footer { margin-top:64px; color:var(--mute); font-size:13px; text-align:center; }
+  footer a { color:var(--blue); text-decoration:none; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
-    <div class="crumb"><a href="../">Cherry Hill Advisory Hub</a> &rsaquo; May 2026 SEO Report</div>
     <span class="pill">Monthly SEO Progress</span>
     <h1>CHERRY HILL ADVISORY</h1>
-    <div class="lede">SEO performance snapshot for May 2026. GA4 sessions, channel mix, tracked keyword counts, organic search visibility, and the top-ranking terms driving the domain. Markology GA4 integration wired 2026-05-28.</div>
-    <div class="meta">cherryhilladvisory.com &middot; report covers May 2026 &middot; refreshed 2026-05-28</div>
+    <div class="lede">SEO snapshot for May 2026. Risk advisory and AI governance for internal audit.</div>
+    <div class="meta">cherryhilladvisory.com &middot; covers May 2026</div>
   </header>
 
   <section class="kpis">
     <div class="kpi">
-      <div class="label">GA4 Sessions (May)</div>
-      <div class="value">2,805</div>
-      <div class="delta">2,275 active users</div>
+      <div class="label">SEMrush Ranking Keywords</div>
+      <div class="value">61</div>
+      <div class="delta">+14 MoM (+30%)</div>
     </div>
     <div class="kpi">
-      <div class="label">Total Keywords</div>
-      <div class="value">47</div>
-      <div class="delta">+43 since Dec 2025</div>
+      <div class="label">GSC Queries · Top 10 / Top 20</div>
+      <div class="value">109</div>
+      <div class="delta">181 in top 20 · 372 total queries</div>
     </div>
     <div class="kpi">
-      <div class="label">Domain Authority Rank</div>
-      <div class="value">3.87M</div>
-      <div class="delta">up from 6.25M (Jan)</div>
+      <div class="label">May 2026 Search Impressions</div>
+      <div class="value">8,859</div>
+      <div class="delta">337 clicks · 3.80% CTR · avg pos 14.4</div>
     </div>
     <div class="kpi">
-      <div class="label">Top-3 Rankings</div>
-      <div class="value">3</div>
-      <div class="delta">non-branded</div>
+      <div class="label">Organic Sessions (GA4)</div>
+      <div class="value">381</div>
+      <div class="delta">organic search, all engines</div>
     </div>
   </section>
 
   <h2>Trajectory</h2>
-  <div class="chart-wrap">
-    <canvas id="trajectoryChart" height="120"></canvas>
-  </div>
-  <p class="src-note">Sources: SEMrush domain_rank_history for tracked-keyword series; GA4 (property 366343778) for May 2026 sessions marker. GA4 Data API access enabled 2026-05-28, so prior months in this window predate the integration and are shown as keyword counts only.</p>
+  <div class="chart-wrap"><canvas id="trajectoryChart" height="120"></canvas></div>
 
-  <h2>Top Performers (Non-Brand)</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Keyword</th>
-        <th>Position</th>
-        <th>Monthly Volume</th>
-        <th>Landing Page</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>cybersecurity cherry hill</td><td>1</td><td>90</td><td>/core-services/cybersecurity</td></tr>
-      <tr><td>lava lamp wall encryption</td><td>5</td><td>40</td><td>/risk-register-blog/lava-lamps</td></tr>
-      <tr><td>wall of lava lamps encryption</td><td>7</td><td>40</td><td>/risk-register-blog/lava-lamps</td></tr>
-      <tr><td>lava lamp security wall</td><td>8</td><td>70</td><td>/risk-register-blog/lava-lamps</td></tr>
-      <tr><td>ai auditing services</td><td>8</td><td>50</td><td>/library-and-tools/ai-auditing-guide</td></tr>
-      <tr><td>lava lamp security</td><td>8</td><td>170</td><td>/risk-register-blog/lava-lamps</td></tr>
-      <tr><td>expert witness sourcing ai support</td><td>9</td><td>40</td><td>/expert-witness-litigation-support</td></tr>
-      <tr><td>lava lamp wall</td><td>9</td><td>480</td><td>/risk-register-blog/lava-lamps</td></tr>
-      <tr><td>auditboard training</td><td>10</td><td>40</td><td>/on-demand-webinars-and-training</td></tr>
-      <tr><td>auditboard webinars</td><td>11</td><td>170</td><td>/on-demand-webinars-and-training</td></tr>
-      <tr><td>lava lamp internet security</td><td>13</td><td>40</td><td>/risk-register-blog/lava-lamps</td></tr>
-      <tr><td>wall of lava lamps</td><td>14</td><td>390</td><td>/risk-register-blog/lava-lamps</td></tr>
-      <tr><td>cybersecurity company cherry hill nj</td><td>15</td><td>70</td><td>/</td></tr>
-      <tr><td>artificial intelligence audit</td><td>35</td><td>390</td><td>/library-and-tools/ai-auditing-guide</td></tr>
-      <tr><td>sarbanes oxley and internal controls</td><td>38</td><td>90</td><td>/sarbanes-oxley-sox-compliance</td></tr>
-    </tbody>
-  </table>
-  <p class="src-note">Source: SEMrush domain_organic, May 2026 pull, sorted by traffic share. Brand terms ("cherry hill advisory", "cherryhilladvisory") filtered out.</p>
+  <h2>Top SEMrush Rankings (Non-Brand)</h2>
+  <table><thead><tr><th>Keyword</th><th>Position</th><th>Volume</th><th>Landing URL</th></tr></thead><tbody><tr><td>cybersecurity+cherry+hill</td><td>1</td><td>90</td><td></td></tr><tr><td>lava lamp wall encryption</td><td>5</td><td>40</td><td></td></tr><tr><td>lava lamp security wall</td><td>7</td><td>50</td><td></td></tr><tr><td>wall of lava lamps encryption</td><td>7</td><td>40</td><td></td></tr><tr><td>lava lamp wall security</td><td>8</td><td>70</td><td></td></tr><tr><td>ai auditing services</td><td>8</td><td>50</td><td></td></tr><tr><td>lava lamp security</td><td>8</td><td>170</td><td></td></tr><tr><td>lava lamp wall</td><td>9</td><td>480</td><td></td></tr><tr><td>expert witness sourcing ai support services</td><td>9</td><td>40</td><td></td></tr><tr><td>auditboard training</td><td>10</td><td>40</td><td></td></tr><tr><td>auditboard webinars</td><td>11</td><td>170</td><td></td></tr><tr><td>san francisco lava lamp</td><td>13</td><td>40</td><td></td></tr></tbody></table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">SEMrush US database, end of May 2026. Brand queries excluded.</p>
 
-  <h2>GA4 Channel Breakdown</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Channel</th>
-        <th>Sessions (May 2026)</th>
-        <th>Share</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>Direct</td><td>1,062</td><td>37.9%</td></tr>
-      <tr><td>Referral</td><td>1,062</td><td>37.9%</td></tr>
-      <tr><td>Organic Search</td><td>339</td><td>12.1%</td></tr>
-      <tr><td>Unassigned</td><td>236</td><td>8.4%</td></tr>
-      <tr><td>Email</td><td>80</td><td>2.9%</td></tr>
-      <tr><td>Organic Social</td><td>19</td><td>0.7%</td></tr>
-      <tr><td><strong>Total</strong></td><td><strong>2,805</strong></td><td><strong>100%</strong></td></tr>
-    </tbody>
-  </table>
-  <p class="src-note">Source: GA4 property 366343778, sessionDefaultChannelGroup dimension, dateRange 2026-05-01 to 2026-05-28.</p>
+  <h2>Top GSC Queries by Impressions (Non-Brand)</h2>
+  <table><thead><tr><th>Query</th><th>Position</th><th>Impressions</th><th>Clicks</th></tr></thead><tbody><tr><td>sarbanes oxley internal controls</td><td>24.5</td><td>179</td><td>0</td></tr><tr><td>lava lamp security wall</td><td>9.3</td><td>90</td><td>0</td></tr><tr><td>iia ai auditing framework</td><td>9.9</td><td>80</td><td>0</td></tr><tr><td>sox advisory services</td><td>26.7</td><td>68</td><td>0</td></tr><tr><td>lava lamp wall</td><td>10.8</td><td>67</td><td>0</td></tr><tr><td>lava lamp security</td><td>11.4</td><td>62</td><td>0</td></tr><tr><td>sox advisory</td><td>17.0</td><td>61</td><td>0</td></tr><tr><td>sox compliance consulting</td><td>41.5</td><td>57</td><td>0</td></tr><tr><td>sox consulting firms</td><td>40.6</td><td>55</td><td>0</td></tr><tr><td>ai auditing framework</td><td>15.4</td><td>52</td><td>0</td></tr><tr><td>ai audit</td><td>50.6</td><td>51</td><td>0</td></tr><tr><td>auditboard webinars</td><td>10.2</td><td>51</td><td>0</td></tr></tbody></table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">Google Search Console, May 2026. Brand queries excluded.</p>
 
-  <div class="notes" style="margin-top:20px;">
-    <strong>Reading the channel mix: AI-as-Direct.</strong>
-    <ul>
-      <li><strong>Direct (38%) is doing double duty.</strong> A meaningful slice of "Direct" in May 2026 is AI-engine traffic. ChatGPT, Perplexity, Claude, and Google AI Overviews strip referrer headers, so visits from AI citations land in GA4 as Direct. With Cherry Hill's deep technical content (Lava Lamp encryption, AI auditing, SOX), AI-engine surfacing is consistent with the AI-as-Direct pattern observed across knowledge-heavy clients.</li>
-      <li><strong>Referral (38%) ties Direct.</strong> Worth a drill-down next month to identify the top referring domains and separate genuine backlink traffic from suspect/bot referrers. The May daily curve shows three spike days (May 13: 1,017 sessions, May 19/20: 411/412 sessions) that look bursty rather than organic and may be inflating Referral.</li>
-      <li><strong>Organic Search (12%) is the clean SEO read.</strong> 339 sessions is the unambiguous Google + Bing organic number. That aligns with SEMrush's tracked-keyword growth and the top-performer table above.</li>
-      <li><strong>What this changes:</strong> the long-running SEMrush "92 monthly visits" estimate severely understated real traffic. GA4 confirms Cherry Hill is pulling 30x that figure once Direct + Referral + Organic Search are counted together, and the AI-citation tailwind from the technical content library is showing up exactly where it should: Direct.</li>
-    </ul>
-  </div>
-
-  <h2>What Moved This Month</h2>
-  <div class="notes">
-    <strong>GA4 confirms real traffic; rankings compound.</strong>
-    <ul>
-      <li><strong>2,805 GA4 sessions in May.</strong> First month with the Markology Google Analytics integration live. Direct + Referral each account for 38%; Organic Search 12%; Email and Social fill the rest. The "92 monthly visits" SEMrush estimate from prior reports turned out to be a steep undercount.</li>
-      <li><strong>Keyword count +34% MoM</strong> (35 &rarr; 47). Six straight months of growth from a Dec baseline of 4 ranked terms. The site is compounding.</li>
-      <li><strong>"cybersecurity cherry hill" holds #1</strong> at 90 monthly searches. Local-geo plus topic. Defends well; needs a content cluster behind it.</li>
-      <li><strong>Lava Lamp blog is the runaway page.</strong> Six top-15 rankings off one piece, two top-10. Generic curiosity traffic, not buyer intent, but builds topical authority for cybersecurity.</li>
-      <li><strong>AI auditing guide ranking #8</strong> for "ai auditing services" (50 vol) but only #35 for "artificial intelligence audit" (390 vol). Real upside is climbing that #35 to top 10.</li>
-      <li><strong>AuditBoard training/webinar cluster</strong> sits at #10/#11 for branded auditboard queries. Big opportunity if Cherry Hill positions as the senior-led training partner.</li>
-      <li><strong>Domain authority rank improved 38%</strong> (6.25M &rarr; 3.87M) in 4 months. Index-page authority is compounding even before content velocity ramps.</li>
-    </ul>
-  </div>
-
-  <h2>June Game Plan</h2>
-  <div class="notes">
-    <strong>Three priorities going into June.</strong>
-    <ul>
-      <li><strong>Push "artificial intelligence audit" #35 &rarr; top 10.</strong> Already completed E-E-A-T work and internal-link build. Add a service-page (dedicated AI auditing services page is in flight per Asana). Currently #8 for the smaller variant; the 390-vol head term is reachable.</li>
-      <li><strong>Build the AuditBoard training cluster.</strong> Three branded queries already in the top 25. Asana task already queued. Target: position Cherry Hill as the senior-led training partner on AuditBoard-adjacent topics.</li>
-      <li><strong>Risk Register content section build-out.</strong> Lava Lamp piece proves the format works. Three more risk-register posts in the next 60 days targeting fraud + AI governance + SOX.</li>
-    </ul>
-  </div>
-
-  <footer>
-    Generated by Markology &middot; 2026 &middot; <a href="https://markology.io">markology.io</a> &middot; <a href="../">Back to Cherry Hill hub</a>
-  </footer>
+  <footer>Generated by Markology &middot; auto-build · 2026-06-09 &middot; <a href="https://markology.io">markology.io</a></footer>
 </div>
 
 <script>
-  const trendData = {
-    "labels": ["Dec '25", "Jan '26", "Feb '26", "Mar '26", "Apr '26", "May '26"],
-    "keywords": [4, 8, 21, 35, 47, 47],
-    "ga4Sessions": [null, null, null, null, null, 2805]
-  };
+  const trendData = {"labels": ["Jan 26", "Jan 26", "Mar 26", "Apr 26", "May 26"], "keywords": [0, 0, 0, 0, 0], "sessions": [0, 0, 0, 0, 381]};
   const ctx = document.getElementById('trajectoryChart').getContext('2d');
-
-  const datasets = [{
-    label: 'Tracked Keywords',
-    data: trendData.keywords,
-    borderColor: '#0b1b3a',
-    backgroundColor: 'rgba(11, 27, 58, 0.1)',
-    yAxisID: 'y',
-    tension: 0.3,
-    spanGaps: true,
-  }, {
-    label: 'GA4 Sessions',
-    data: trendData.ga4Sessions,
-    borderColor: '#1f4fff',
-    backgroundColor: '#1f4fff',
-    pointRadius: 8,
-    pointHoverRadius: 10,
-    showLine: false,
-    yAxisID: 'y1',
-    spanGaps: false,
-  }];
-
   new Chart(ctx, {
     type: 'line',
-    data: { labels: trendData.labels, datasets: datasets },
+    data: {
+      labels: trendData.labels,
+      datasets: [
+        { label: 'Ranking Keywords (SEMrush)', data: trendData.keywords, borderColor: '#0b1b3a', backgroundColor: 'rgba(11,27,58,0.12)', yAxisID: 'y', tension: 0.3, fill: true, pointRadius: 4, pointBackgroundColor: '#0b1b3a' },
+        { label: 'Organic Sessions (GA4)', data: trendData.sessions, borderColor: '#1f4fff', borderDash: [6,4], backgroundColor: 'rgba(31,79,255,0.05)', yAxisID: 'y1', tension: 0.3, pointRadius: 4, pointBackgroundColor: '#1f4fff' }
+      ]
+    },
     options: {
       responsive: true,
       interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { position: 'bottom', labels: { font: { weight: '600' } } } },
       scales: {
-        y:  { position: 'left',  title: { display: true, text: 'Keywords' }, beginAtZero: true },
-        y1: { position: 'right', title: { display: true, text: 'GA4 Sessions' }, grid: { drawOnChartArea: false }, beginAtZero: true }
+        y:  { position: 'left',  beginAtZero: true, title: { display: true, text: 'Ranking Keywords' } },
+        y1: { position: 'right', beginAtZero: true, title: { display: true, text: 'Organic Sessions' }, grid: { drawOnChartArea: false } }
       }
     }
   });

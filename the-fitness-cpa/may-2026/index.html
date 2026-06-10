@@ -5,263 +5,107 @@
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>The Fitness CPA — SEO Progress · May 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-  :root {
-    --paper: #f7f4ee;
-    --navy:  #0b1b3a;
-    --blue:  #1f4fff;
-    --lilac: #b9a8ff;
-    --mute:  #6a6a72;
-    --hair:  #1f1f24;
-  }
+  :root { --paper:#f7f4ee; --navy:#0b1b3a; --blue:#1f4fff; --lilac:#b9a8ff; --mute:#6a6a72; --hair:#1f1f24; }
   * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--paper);
-    font-family: Inter, system-ui, sans-serif;
-    color: var(--hair);
-    line-height: 1.5;
-  }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
-
-  header.hero { margin-bottom: 32px; }
-  .pill {
-    display: inline-block;
-    background: var(--navy);
-    color: white;
-    padding: 4px 14px;
-    border-radius: 999px;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-  h1 {
-    font-family: Bangers, Inter, sans-serif;
-    font-size: 64px;
-    line-height: 1;
-    color: var(--navy);
-    margin: 8px 0 4px;
-    letter-spacing: 0.02em;
-  }
-  h2 {
-    font-family: Bangers, Inter, sans-serif;
-    font-size: 32px;
-    color: var(--navy);
-    margin: 40px 0 16px;
-    letter-spacing: 0.02em;
-  }
-  .lede {
-    font-size: 18px;
-    color: var(--hair);
-    max-width: 720px;
-  }
-  .meta {
-    color: var(--mute);
-    font-size: 14px;
-    margin-top: 12px;
-  }
-
-  .alert {
-    background: #fff0ee;
-    border: 2px solid #d23a2a;
-    color: #6f1e14;
-    padding: 14px 18px;
-    border-radius: 8px;
-    margin-bottom: 24px;
-    font-weight: 500;
-  }
-
-  .kpis {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    margin: 24px 0 40px;
-  }
-  @media (max-width: 720px) {
-    .kpis { grid-template-columns: repeat(2, 1fr); }
-    h1 { font-size: 44px; }
-  }
-  .kpi {
-    background: white;
-    border: 2px solid var(--navy);
-    border-radius: 6px;
-    padding: 18px 16px;
-    box-shadow: 5px 5px 0 var(--navy);
-  }
-  .kpi .label {
-    font-size: 11px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--mute);
-    margin-bottom: 6px;
-  }
-  .kpi .value {
-    font-family: Bangers, Inter, sans-serif;
-    font-size: 36px;
-    color: var(--navy);
-    line-height: 1;
-  }
-  .kpi .delta {
-    margin-top: 6px;
-    font-size: 13px;
-    color: var(--blue);
-    font-weight: 600;
-  }
-
-  .chart-wrap {
-    background: white;
-    border: 2px solid var(--navy);
-    border-radius: 6px;
-    padding: 16px;
-    box-shadow: 5px 5px 0 var(--navy);
-  }
-  canvas { max-width: 100%; }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border: 2px solid var(--navy);
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 5px 5px 0 var(--navy);
-  }
-  thead { background: var(--navy); color: white; }
-  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #eee; }
-  th { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
-  tbody tr:last-child td { border-bottom: none; }
-  td.empty { text-align: center; color: var(--mute); padding: 32px; }
-  .delta-up { color: #2a8a3a; font-weight: 600; }
-  .delta-down { color: #c43a2a; font-weight: 600; }
-
-  .notes {
-    background: white;
-    border-left: 4px solid var(--blue);
-    padding: 14px 18px;
-    margin-top: 24px;
-    border-radius: 4px;
-  }
-  .notes ul { margin: 8px 0 0 0; padding-left: 20px; }
-
-  footer {
-    margin-top: 64px;
-    color: var(--mute);
-    font-size: 13px;
-    text-align: center;
-  }
-  footer a { color: var(--blue); text-decoration: none; }
+  body { margin:0; background:var(--paper); font-family:Inter,system-ui,sans-serif; color:var(--hair); line-height:1.5; }
+  .wrap { max-width:1080px; margin:0 auto; padding:32px 24px 80px; }
+  header.hero { margin-bottom:32px; }
+  .pill { display:inline-block; background:var(--navy); color:white; padding:4px 14px; border-radius:999px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; }
+  h1 { font-family:Bangers,Inter,sans-serif; font-size:64px; line-height:1; color:var(--navy); margin:8px 0 4px; letter-spacing:0.02em; }
+  h2 { font-family:Bangers,Inter,sans-serif; font-size:32px; color:var(--navy); margin:40px 0 16px; letter-spacing:0.02em; }
+  .lede { font-size:18px; color:var(--hair); max-width:720px; }
+  .meta { color:var(--mute); font-size:14px; margin-top:12px; }
+  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:24px 0 40px; }
+  @media (max-width:720px) { .kpis { grid-template-columns:repeat(2,1fr); } h1 { font-size:44px; } }
+  .kpi { background:white; border:2px solid var(--navy); border-radius:6px; padding:18px 16px; box-shadow:5px 5px 0 var(--navy); }
+  .kpi .label { font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-bottom:6px; }
+  .kpi .value { font-family:Bangers,Inter,sans-serif; font-size:36px; color:var(--navy); line-height:1; }
+  .kpi .delta { margin-top:6px; font-size:13px; color:var(--blue); font-weight:600; }
+  .chart-wrap { background:white; border:2px solid var(--navy); border-radius:6px; padding:16px; box-shadow:5px 5px 0 var(--navy); }
+  canvas { max-width:100%; }
+  table { width:100%; border-collapse:collapse; background:white; border:2px solid var(--navy); border-radius:6px; overflow:hidden; box-shadow:5px 5px 0 var(--navy); }
+  thead { background:var(--navy); color:white; }
+  th,td { padding:12px 14px; text-align:left; border-bottom:1px solid #eee; font-size:14px; }
+  th { font-size:12px; letter-spacing:0.06em; text-transform:uppercase; }
+  tbody tr:last-child td { border-bottom:none; }
+  .notes { background:white; border-left:4px solid var(--blue); padding:14px 18px; margin-top:24px; border-radius:4px; }
+  footer { margin-top:64px; color:var(--mute); font-size:13px; text-align:center; }
+  footer a { color:var(--blue); text-decoration:none; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
-    
     <span class="pill">Monthly SEO Progress</span>
     <h1>THE FITNESS CPA</h1>
-    <div class="lede">SEO performance snapshot for May 2026. Tracked keyword counts, organic sessions, and the top-ranking terms driving the domain.</div>
-    <div class="meta">thefitnesscpa.com &middot; report covers May 2026</div>
+    <div class="lede">SEO snapshot for May 2026. Niche CPA for fitness studio and gym owners. Maintenance tier.</div>
+    <div class="meta">thefitnesscpa.com &middot; covers May 2026</div>
   </header>
 
   <section class="kpis">
     <div class="kpi">
-      <div class="label">Total Keywords</div>
+      <div class="label">SEMrush Ranking Keywords</div>
+      <div class="value">334</div>
+      <div class="delta">-23 MoM (-6%)</div>
+    </div>
+    <div class="kpi">
+      <div class="label">GSC Queries · Top 10 / Top 20</div>
       <div class="value">0</div>
-      <div class="delta">— vs. start of period</div>
+      <div class="delta">0 in top 20 · 0 total queries</div>
     </div>
     <div class="kpi">
-      <div class="label">May 2026 Sessions</div>
-      <div class="value">N/A</div>
-      <div class="delta">organic search</div>
-    </div>
-    <div class="kpi">
-      <div class="label">Domain Rank</div>
-      <div class="value">N/A</div>
-      <div class="delta">SEMrush authority</div>
-    </div>
-    <div class="kpi">
-      <div class="label">Top-3 Rankings</div>
+      <div class="label">May 2026 Search Impressions</div>
       <div class="value">0</div>
-      <div class="delta">non-branded</div>
+      <div class="delta">0 clicks &middot; 0.00% CTR &middot; avg pos 0.0</div>
+      <div class="delta" style="margin-top:4px;font-size:12px;color:var(--mute);font-weight:500;">0 brand &middot; 0 non-brand</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Organic Sessions (GA4)</div>
+      <div class="value">0</div>
+      <div class="delta">GA4 access pending</div>
     </div>
   </section>
 
   <h2>Trajectory</h2>
-  <div class="chart-wrap">
-    <canvas id="trajectoryChart" height="120"></canvas>
-  </div>
+  <div class="chart-wrap"><canvas id="trajectoryChart" height="120"></canvas></div>
 
-  <h2>Top Performers</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Keyword</th>
-        <th>Position</th>
-        <th>Monthly Volume</th>
-        <th>Change</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-<tr><td></td><td>999</td><td>0</td><td>—</td></tr>
-    </tbody>
-  </table>
+  <h2>Top SEMrush Rankings (Non-Brand)</h2>
+  <table><thead><tr><th>Keyword</th><th>Position</th><th>Volume</th><th>Landing URL</th></tr></thead><tbody><tr><td>accountants for gyms</td><td>1</td><td>40</td><td></td></tr><tr><td>health and fitness accounting services</td><td>1</td><td>50</td><td></td></tr><tr><td>bookkeeping for personal trainers</td><td>2</td><td>40</td><td></td></tr><tr><td>recovery startup business credit</td><td>3</td><td>40</td><td></td></tr><tr><td>fit accounting</td><td>4</td><td>40</td><td></td></tr><tr><td>home gym tax deduction december 2025</td><td>4</td><td>50</td><td></td></tr><tr><td>buying a gym</td><td>5</td><td>30</td><td></td></tr><tr><td>what is a direct deposit supporting document</td><td>5</td><td>40</td><td></td></tr><tr><td>recovery startup business employee retention credit</td><td>5</td><td>70</td><td></td></tr><tr><td>recovery startup business ertc</td><td>5</td><td>110</td><td></td></tr><tr><td>tax deductible home gyms december 2025</td><td>5</td><td>140</td><td></td></tr><tr><td>recovery startup business erc</td><td>5</td><td>70</td><td></td></tr></tbody></table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">SEMrush US database, end of May 2026. Brand queries excluded.</p>
 
-  <div class="notes"><strong>Notes</strong><ul><li>Google Analytics not connected for this property — sessions shown as N/A.</li></ul></div>
+  <h2>What Earned Clicks This Month (Non-Brand)</h2>
+  <table><thead><tr><th>Query</th></tr></thead><tbody><tr><td style="color:#6a6a72;">No non-brand queries earned clicks in this window. All search traffic this period came from brand queries or queries below the reporting cutoff.</td></tr></tbody></table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">Google Search Console, May 2026. Non-brand queries that actually drove search traffic, sorted by clicks.</p>
 
-  <footer>
-    Generated by Markology &middot; 2026 &middot; <a href="https://markology.io">markology.io</a>
-  </footer>
+  <h2>Ranking but Not Yet Clicked &mdash; Optimization Opportunities</h2>
+  <table><thead><tr><th>Query</th></tr></thead><tbody><tr><td style="color:#6a6a72;">No notable optimization opportunities — every ranking query with meaningful impressions is also earning clicks.</td></tr></tbody></table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">Non-brand queries with 20+ impressions and zero clicks. These rank but the title/meta isn't earning the click yet &mdash; each row is a content or metadata fix that could unlock traffic.</p>
+
+  <footer>Generated by Markology &middot; auto-build · 2026-06-10 &middot; <a href="https://markology.io">markology.io</a></footer>
 </div>
 
 <script>
-  const trendData = {"labels": ["Jan", "Feb", "Mar", "Apr", "May"], "keywords": [null, null, null, null, null], "sessions": [null, null, null, null, null]};
+  const trendData = {"labels": ["Jan 26", "Jan 26", "Mar 26", "Apr 26", "May 26"], "keywords": [0, 0, 0, 0, 0], "sessions": [0, 0, 0, 0, 0]};
   const ctx = document.getElementById('trajectoryChart').getContext('2d');
-
-  const datasets = [{
-    label: 'Tracked Keywords',
-    data: trendData.keywords,
-    borderColor: '#0b1b3a',
-    backgroundColor: 'rgba(11, 27, 58, 0.1)',
-    yAxisID: 'y',
-    tension: 0.3,
-    spanGaps: true,
-  }];
-
-  const hasSessions = trendData.sessions.some(v => v !== null && v !== undefined);
-  if (hasSessions) {
-    datasets.push({
-      label: 'Organic Sessions',
-      data: trendData.sessions,
-      borderColor: '#1f4fff',
-      borderDash: [6, 4],
-      backgroundColor: 'rgba(31, 79, 255, 0.05)',
-      yAxisID: 'y1',
-      tension: 0.3,
-      spanGaps: true,
-    });
-  }
-
   new Chart(ctx, {
     type: 'line',
-    data: { labels: trendData.labels, datasets: datasets },
+    data: {
+      labels: trendData.labels,
+      datasets: [
+        { label: 'Ranking Keywords (SEMrush)', data: trendData.keywords, borderColor: '#0b1b3a', backgroundColor: 'rgba(11,27,58,0.12)', yAxisID: 'y', tension: 0.3, fill: true, pointRadius: 4, pointBackgroundColor: '#0b1b3a' },
+        { label: 'Organic Sessions (GA4)', data: trendData.sessions, borderColor: '#1f4fff', borderDash: [6,4], backgroundColor: 'rgba(31,79,255,0.05)', yAxisID: 'y1', tension: 0.3, pointRadius: 4, pointBackgroundColor: '#1f4fff' }
+      ]
+    },
     options: {
       responsive: true,
       interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { position: 'bottom', labels: { font: { weight: '600' } } } },
       scales: {
-        y:  { position: 'left',  title: { display: true, text: 'Keywords' } },
-        y1: { position: 'right', title: { display: true, text: 'Sessions' }, grid: { drawOnChartArea: false }, display: hasSessions }
+        y:  { position: 'left',  beginAtZero: true, title: { display: true, text: 'Ranking Keywords' } },
+        y1: { position: 'right', beginAtZero: true, title: { display: true, text: 'Organic Sessions' }, grid: { drawOnChartArea: false } }
       }
     }
   });

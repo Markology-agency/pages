@@ -16,6 +16,7 @@
   .pill { display:inline-block; background:var(--navy); color:white; padding:4px 14px; border-radius:999px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; }
   h1 { font-family:Bangers,Inter,sans-serif; font-size:56px; line-height:1; color:var(--navy); margin:8px 0 4px; letter-spacing:0.02em; }
   h2 { font-family:Bangers,Inter,sans-serif; font-size:28px; color:var(--navy); margin:36px 0 14px; letter-spacing:0.02em; }
+  h3 { font-family:Inter,sans-serif; font-size:15px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--navy); margin:18px 0 8px; }
   .lede { font-size:17px; color:var(--hair); max-width:720px; }
   .meta { color:var(--mute); font-size:13px; margin-top:10px; }
   .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:22px 0 36px; }
@@ -23,10 +24,10 @@
   .kpi { background:white; border:2px solid var(--navy); border-radius:6px; padding:16px 14px; box-shadow:5px 5px 0 var(--navy); }
   .kpi .label { font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-bottom:6px; }
   .kpi .value { font-family:Bangers,Inter,sans-serif; font-size:30px; color:var(--navy); line-height:1; }
-  .kpi .delta { margin-top:6px; font-size:12px; color:var(--blue); font-weight:600; }
-  .kpi .wow { font-size:13px; font-weight:700; margin-top:4px; }
-  .kpi .wow.up { color:var(--up); }
-  .kpi .wow.down { color:var(--down); }
+  .kpi .yoy { font-size:13px; font-weight:700; margin-top:6px; }
+  .kpi .yoy.up { color:var(--up); }
+  .kpi .yoy.down { color:var(--down); }
+  .kpi .yoy.flat { color:var(--mute); }
   .chart-wrap { background:white; border:2px solid var(--navy); border-radius:6px; padding:14px; box-shadow:5px 5px 0 var(--navy); }
   canvas { max-width:100%; }
   table { width:100%; border-collapse:collapse; background:white; border:2px solid var(--navy); border-radius:6px; overflow:hidden; box-shadow:5px 5px 0 var(--navy); }
@@ -44,55 +45,65 @@
     <span class="pill">Weekly SEO Snapshot</span>
     <h1>STEVEN M. ELLARD CPA</h1>
     <div class="lede">Week of Jun 1 – Jun 7, 2026. Cape Cod CPA plus Atlantic Payroll arm. South Coast expansion 2026.</div>
-    <div class="meta">stevenmellardcpa.com &middot; pulled 2026-06-09</div>
+    <div class="meta">stevenmellardcpa.com &middot; YoY comparison against week of Jun 2 – Jun 8, 2025 &middot; pulled 2026-06-10</div>
   </header>
 
   <section class="kpis">
     <div class="kpi">
       <div class="label">SEMrush Ranking Keywords</div>
       <div class="value">47</div>
-      <div class="delta">-2 vs prior snapshot</div>
+      <div class="yoy flat">-2 vs last month</div>
     </div>
     <div class="kpi">
       <div class="label">Week Impressions</div>
-      <div class="value">1,867</div>
-      <div class="wow up">+11% WoW</div>
+      <div class="value">2,109</div>
+      <div class="yoy up">+97% vs same week 2025</div>
     </div>
     <div class="kpi">
       <div class="label">Week Clicks</div>
-      <div class="value">27</div>
-      <div class="wow down">-21% WoW · 1.45% CTR</div>
+      <div class="value">28</div>
+      <div class="yoy up">+75% YoY &middot; 1.33% CTR</div>
+      <div class="yoy flat" style="font-size:11px;margin-top:4px;font-weight:500;">6 brand &middot; 4 non-brand</div>
     </div>
     <div class="kpi">
       <div class="label">Week Organic Sessions</div>
       <div class="value">49</div>
-      <div class="wow down">-25% WoW</div>
+      <div class="yoy up">+26% YoY</div>
     </div>
   </section>
 
-  <h2>8-Week Trajectory</h2>
-  <div class="chart-wrap"><canvas id="trajectoryChart" height="110"></canvas></div>
+  <h2>Year-over-Year</h2>
+  <div class="chart-wrap"><canvas id="yoyChart" height="110"></canvas></div>
+  <p style="font-size:13px;color:#6a6a72;margin-top:10px;">Direct comparison of this week vs the same calendar week one year earlier — neutralizes the Q1 tax-season cycle.</p>
+
+  
+
+  
 
   <h2>Top SEMrush Rankings (Non-Brand)</h2>
   <table><thead><tr><th>Keyword</th><th>Position</th><th>Volume</th><th>Landing URL</th></tr></thead><tbody><tr><td>small business accounting company cape cod</td><td>4</td><td>40</td><td></td></tr><tr><td>payroll service company cape cod ma</td><td>4</td><td>50</td><td></td></tr><tr><td>cpa cape cod</td><td>6</td><td>70</td><td></td></tr><tr><td>tax prep services for businesses in cape cod</td><td>7</td><td>40</td><td></td></tr><tr><td>tax prep for small businesses in cape cod</td><td>7</td><td>40</td><td></td></tr><tr><td>cpa cape cod ma</td><td>7</td><td>40</td><td></td></tr><tr><td>tax preparation services cape cod</td><td>7</td><td>50</td><td></td></tr><tr><td>tax preparation company in cape cod</td><td>8</td><td>40</td><td></td></tr><tr><td>tax prep for individuals cape cod</td><td>9</td><td>40</td><td></td></tr><tr><td>atlantic payroll</td><td>11</td><td>590</td><td></td></tr><tr><td>thiel accounting</td><td>29</td><td>40</td><td></td></tr><tr><td>atlantic payroll login</td><td>31</td><td>210</td><td></td></tr></tbody></table>
 
-  <h2>Top GSC Queries This Week (Non-Brand)</h2>
-  <table><thead><tr><th>Query</th><th>Position</th><th>Impressions</th><th>Clicks</th></tr></thead><tbody><tr><td>payroll service company cape cod ma</td><td>1.4</td><td>36</td><td>0</td></tr><tr><td>business expense calculator</td><td>16.2</td><td>31</td><td>0</td></tr><tr><td>small business accounting services cape cod</td><td>7.3</td><td>31</td><td>0</td></tr><tr><td>small business tax prep services cape cod</td><td>5.7</td><td>31</td><td>0</td></tr><tr><td>tax prep services for businesses in cape cod</td><td>8.0</td><td>31</td><td>0</td></tr><tr><td>tax prep for small businesses in cape cod</td><td>3.7</td><td>30</td><td>0</td></tr><tr><td>small business accounting company cape cod</td><td>4.9</td><td>28</td><td>0</td></tr><tr><td>personal accounting services cape cod</td><td>6.7</td><td>26</td><td>0</td></tr><tr><td>atlantic payroll</td><td>3.6</td><td>25</td><td>3</td></tr><tr><td>tax preparation company in cape cod</td><td>9.5</td><td>25</td><td>0</td></tr><tr><td>small business accountant cape cod</td><td>7.0</td><td>24</td><td>0</td></tr><tr><td>tax prep for individuals cape cod</td><td>12.3</td><td>24</td><td>0</td></tr></tbody></table>
+  <h2>What Earned Clicks This Week (Non-Brand)</h2>
+  <table><thead><tr><th>Query</th><th>Position</th><th>Clicks</th><th>Impressions</th><th>CTR</th></tr></thead><tbody><tr><td>atlantic payroll</td><td>3.6</td><td><strong>3</strong></td><td>26</td><td>11.5%</td></tr><tr><td>atlantic payroll partners</td><td>9.0</td><td><strong>1</strong></td><td>1</td><td>100.0%</td></tr></tbody></table>
+  <p style="font-size:13px;color:#6a6a72;margin-top:10px;">Non-brand queries that actually drove search traffic this week, sorted by clicks.</p>
 
-  <footer>Generated by Markology &middot; weekly auto-build · 2026-06-09 &middot; <a href="https://markology.io">markology.io</a></footer>
+  <h2>Ranking but Not Yet Clicked &mdash; Optimization Opportunities</h2>
+  <table><thead><tr><th>Query</th><th>Position</th><th>Impressions</th><th>Opportunity</th></tr></thead><tbody><tr><td>payroll service company cape cod ma</td><td>1.4</td><td>40</td><td style='color:#6a6a72;font-size:13px;'>Top 3 with 0 clicks — title/meta likely off-topic</td></tr><tr><td>small business accounting services cape cod</td><td>7.0</td><td>37</td><td style='color:#6a6a72;font-size:13px;'>Page 1 with 0 clicks — sharpen title + meta CTA</td></tr><tr><td>small business tax prep services cape cod</td><td>5.6</td><td>37</td><td style='color:#6a6a72;font-size:13px;'>Page 1 with 0 clicks — sharpen title + meta CTA</td></tr><tr><td>business expense calculator</td><td>16.8</td><td>36</td><td style='color:#6a6a72;font-size:13px;'>Page 2 — push to page 1 to start converting</td></tr><tr><td>tax prep for small businesses in cape cod</td><td>3.6</td><td>36</td><td style='color:#6a6a72;font-size:13px;'>Page 1 with 0 clicks — sharpen title + meta CTA</td></tr><tr><td>tax prep services for businesses in cape cod</td><td>7.9</td><td>35</td><td style='color:#6a6a72;font-size:13px;'>Page 1 with 0 clicks — sharpen title + meta CTA</td></tr></tbody></table>
+  <p style="font-size:13px;color:#6a6a72;margin-top:10px;">Non-brand queries with 20+ impressions and zero clicks. These rank but the title/meta isn't earning the click yet &mdash; each row is a content or metadata fix that could unlock traffic.</p>
+
+  <footer>Generated by Markology &middot; weekly auto-build · 2026-06-10 &middot; <a href="https://markology.io">markology.io</a></footer>
 </div>
 
 <script>
-  const trendData = {"labels": ["Apr 19", "Apr 26", "May 3", "May 10", "May 17", "May 24", "May 31", "Jun 7"], "impressions": [1655, 1562, 1275, 1377, 1408, 1213, 1681, 1867], "clicks": [66, 34, 20, 27, 15, 21, 34, 27], "sessions": [126, 60, 45, 59, 45, 49, 65, 49]};
-  const ctx = document.getElementById('trajectoryChart').getContext('2d');
+  const yoyData = {"prev": [1071, 16, 39], "cur": [2109, 28, 49]};
+  const ctx = document.getElementById('yoyChart').getContext('2d');
   new Chart(ctx, {
-    type: 'line',
+    type: 'bar',
     data: {
-      labels: trendData.labels,
+      labels: ['Impressions', 'Clicks', 'Organic Sessions'],
       datasets: [
-        { label: 'Impressions', data: trendData.impressions, borderColor: '#0b1b3a', backgroundColor: 'rgba(11,27,58,0.10)', yAxisID: 'y', tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: '#0b1b3a' },
-        { label: 'Clicks', data: trendData.clicks, borderColor: '#c43a2a', backgroundColor: 'transparent', yAxisID: 'y1', tension: 0.3, pointRadius: 3, pointBackgroundColor: '#c43a2a' },
-        { label: 'Organic Sessions (GA4)', data: trendData.sessions, borderColor: '#1f4fff', borderDash: [6,4], backgroundColor: 'transparent', yAxisID: 'y1', tension: 0.3, pointRadius: 3, pointBackgroundColor: '#1f4fff' }
+        { label: 'Week of Jun 8, 2025', data: yoyData.prev, backgroundColor: 'rgba(11,27,58,0.55)', borderColor: '#0b1b3a', borderWidth: 2, borderRadius: 4 },
+        { label: 'Week of Jun 7', data: yoyData.cur, backgroundColor: 'rgba(31,79,255,0.85)', borderColor: '#0b1b3a', borderWidth: 2, borderRadius: 4 }
       ]
     },
     options: {
@@ -100,8 +111,7 @@
       interaction: { mode: 'index', intersect: false },
       plugins: { legend: { position: 'bottom', labels: { font: { weight: '600' } } } },
       scales: {
-        y:  { position: 'left',  beginAtZero: true, title: { display: true, text: 'Impressions' } },
-        y1: { position: 'right', beginAtZero: true, title: { display: true, text: 'Clicks / Sessions' }, grid: { drawOnChartArea: false } }
+        y: { beginAtZero: true }
       }
     }
   });

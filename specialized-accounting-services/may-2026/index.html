@@ -3,191 +3,106 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Specialized Accounting Services — SEO Progress · May 2026</title>
+<title>Specialized Accounting Services (SAS) — SEO Progress · May 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-  :root {
-    --paper: #f7f4ee;
-    --navy:  #0b1b3a;
-    --blue:  #1f4fff;
-    --lilac: #b9a8ff;
-    --mute:  #6a6a72;
-    --hair:  #1f1f24;
-  }
+  :root { --paper:#f7f4ee; --navy:#0b1b3a; --blue:#1f4fff; --lilac:#b9a8ff; --mute:#6a6a72; --hair:#1f1f24; }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--paper); font-family: Inter, system-ui, sans-serif; color: var(--hair); line-height: 1.5; }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
-  header.hero { margin-bottom: 32px; }
-  .pill { display: inline-block; background: var(--navy); color: white; padding: 4px 14px; border-radius: 999px; font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 16px; }
-  h1 { font-family: Bangers, Inter, sans-serif; font-size: 64px; line-height: 1; color: var(--navy); margin: 8px 0 4px; letter-spacing: 0.02em; }
-  h2 { font-family: Bangers, Inter, sans-serif; font-size: 32px; color: var(--navy); margin: 40px 0 16px; letter-spacing: 0.02em; }
-  .lede { font-size: 18px; color: var(--hair); max-width: 720px; }
-  .meta { color: var(--mute); font-size: 14px; margin-top: 12px; }
-  .kpis { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin: 24px 0 40px; }
-  @media (max-width: 720px) { .kpis { grid-template-columns: repeat(2, 1fr); } h1 { font-size: 44px; } }
-  .kpi { background: white; border: 2px solid var(--navy); border-radius: 6px; padding: 18px 16px; box-shadow: 5px 5px 0 var(--navy); }
-  .kpi .label { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--mute); margin-bottom: 6px; }
-  .kpi .value { font-family: Bangers, Inter, sans-serif; font-size: 36px; color: var(--navy); line-height: 1; }
-  .kpi .delta { margin-top: 6px; font-size: 13px; color: var(--blue); font-weight: 600; }
-  .chart-wrap { background: white; border: 2px solid var(--navy); border-radius: 6px; padding: 16px; box-shadow: 5px 5px 0 var(--navy); }
-  canvas { max-width: 100%; }
-  table { width: 100%; border-collapse: collapse; background: white; border: 2px solid var(--navy); border-radius: 6px; overflow: hidden; box-shadow: 5px 5px 0 var(--navy); }
-  thead { background: var(--navy); color: white; }
-  th, td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #eee; }
-  th { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
-  tbody tr:last-child td { border-bottom: none; }
-  td.empty { text-align: center; color: var(--mute); padding: 32px; }
-  .delta-up { color: #2a8a3a; font-weight: 600; }
-  .delta-down { color: #c43a2a; font-weight: 600; }
-  .notes { background: white; border-left: 4px solid var(--blue); padding: 14px 18px; margin-top: 24px; border-radius: 4px; }
-  .notes ul { margin: 8px 0 0 0; padding-left: 20px; }
-  footer { margin-top: 64px; color: var(--mute); font-size: 13px; text-align: center; }
-  footer a { color: var(--blue); text-decoration: none; }
+  body { margin:0; background:var(--paper); font-family:Inter,system-ui,sans-serif; color:var(--hair); line-height:1.5; }
+  .wrap { max-width:1080px; margin:0 auto; padding:32px 24px 80px; }
+  header.hero { margin-bottom:32px; }
+  .pill { display:inline-block; background:var(--navy); color:white; padding:4px 14px; border-radius:999px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; }
+  h1 { font-family:Bangers,Inter,sans-serif; font-size:64px; line-height:1; color:var(--navy); margin:8px 0 4px; letter-spacing:0.02em; }
+  h2 { font-family:Bangers,Inter,sans-serif; font-size:32px; color:var(--navy); margin:40px 0 16px; letter-spacing:0.02em; }
+  .lede { font-size:18px; color:var(--hair); max-width:720px; }
+  .meta { color:var(--mute); font-size:14px; margin-top:12px; }
+  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:24px 0 40px; }
+  @media (max-width:720px) { .kpis { grid-template-columns:repeat(2,1fr); } h1 { font-size:44px; } }
+  .kpi { background:white; border:2px solid var(--navy); border-radius:6px; padding:18px 16px; box-shadow:5px 5px 0 var(--navy); }
+  .kpi .label { font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-bottom:6px; }
+  .kpi .value { font-family:Bangers,Inter,sans-serif; font-size:36px; color:var(--navy); line-height:1; }
+  .kpi .delta { margin-top:6px; font-size:13px; color:var(--blue); font-weight:600; }
+  .chart-wrap { background:white; border:2px solid var(--navy); border-radius:6px; padding:16px; box-shadow:5px 5px 0 var(--navy); }
+  canvas { max-width:100%; }
+  table { width:100%; border-collapse:collapse; background:white; border:2px solid var(--navy); border-radius:6px; overflow:hidden; box-shadow:5px 5px 0 var(--navy); }
+  thead { background:var(--navy); color:white; }
+  th,td { padding:12px 14px; text-align:left; border-bottom:1px solid #eee; font-size:14px; }
+  th { font-size:12px; letter-spacing:0.06em; text-transform:uppercase; }
+  tbody tr:last-child td { border-bottom:none; }
+  .notes { background:white; border-left:4px solid var(--blue); padding:14px 18px; margin-top:24px; border-radius:4px; }
+  footer { margin-top:64px; color:var(--mute); font-size:13px; text-align:center; }
+  footer a { color:var(--blue); text-decoration:none; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
     <span class="pill">Monthly SEO Progress</span>
-    <h1>SPECIALIZED ACCOUNTING SERVICES</h1>
-    <div class="lede">SEO performance snapshot for May 2026. Tracked keyword counts, organic sessions, and the top-ranking terms driving the domain.</div>
-    <div class="meta">sas-acct.com &middot; report covers May 2026</div>
+    <h1>SPECIALIZED ACCOUNTING SERVICES (SAS)</h1>
+    <div class="lede">SEO snapshot for May 2026. Franchise + ROBS accounting. Migrated to sas-acct.com March 2026.</div>
+    <div class="meta">sas-acct.com &middot; covers May 2026</div>
   </header>
 
   <section class="kpis">
     <div class="kpi">
-      <div class="label">Total Ranking Keywords</div>
+      <div class="label">SEMrush Ranking Keywords</div>
       <div class="value">32</div>
-      <div class="delta">+9 vs. April (23)</div>
+      <div class="delta">+9 MoM (+39%)</div>
     </div>
     <div class="kpi">
-      <div class="label">May 2026 Organic Sessions</div>
+      <div class="label">GSC Queries · Top 10 / Top 20</div>
+      <div class="value">46</div>
+      <div class="delta">80 in top 20 · 202 total queries</div>
+    </div>
+    <div class="kpi">
+      <div class="label">May 2026 Search Impressions</div>
+      <div class="value">4,864</div>
+      <div class="delta">110 clicks &middot; 2.26% CTR &middot; avg pos 11.4</div>
+      <div class="delta" style="margin-top:4px;font-size:12px;color:var(--mute);font-weight:500;">65 brand &middot; 0 non-brand</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Organic Sessions (GA4)</div>
       <div class="value">222</div>
-      <div class="delta">organic search, GA4</div>
-    </div>
-    <div class="kpi">
-      <div class="label">Domain Rank</div>
-      <div class="value">2.56M</div>
-      <div class="delta">+4% vs. April (2.66M, lower is better)</div>
-    </div>
-    <div class="kpi">
-      <div class="label">Non-Brand Keywords</div>
-      <div class="value">14</div>
-      <div class="delta">franchise, restaurant, SaaS, local verticals</div>
+      <div class="delta">organic search, all engines</div>
     </div>
   </section>
 
   <h2>Trajectory</h2>
-  <div class="chart-wrap">
-    <canvas id="trajectoryChart" height="120"></canvas>
-  </div>
+  <div class="chart-wrap"><canvas id="trajectoryChart" height="120"></canvas></div>
 
-  <div class="notes">
-    <strong>Reading the chart:</strong>
-    <ul>
-      <li>Ranking keywords climbed from 0 in February to 32 in May (sas-acct.com indexed and gaining authority steadily).</li>
-      <li>Organic sessions are still rebuilding from a Q1 peak. May 2026 came in at 222 sessions, with the keyword surge expected to lift sessions next.</li>
-    </ul>
-  </div>
+  <h2>Top SEMrush Rankings (Non-Brand)</h2>
+  <table><thead><tr><th>Keyword</th><th>Position</th><th>Volume</th><th>Landing URL</th></tr></thead><tbody><tr><td>sa pays</td><td>15</td><td>50</td><td></td></tr><tr><td>franchise accountant near me</td><td>16</td><td>30</td><td></td></tr><tr><td>specialty accounting</td><td>17</td><td>110</td><td></td></tr><tr><td>wisconsin restaurant franchise accounting</td><td>23</td><td>40</td><td></td></tr><tr><td>specialty accounting cartersville ga</td><td>28</td><td>50</td><td></td></tr><tr><td>state of ohio commercial activity tax</td><td>28</td><td>140</td><td></td></tr><tr><td>specialty accounting cartersville georgia</td><td>30</td><td>50</td><td></td></tr><tr><td>accounting for coffee shop</td><td>33</td><td>50</td><td></td></tr><tr><td>business accounting service tarpon springs</td><td>36</td><td>50</td><td></td></tr><tr><td>abc accounting kenosha</td><td>36</td><td>50</td><td></td></tr><tr><td>accounting menomonee falls</td><td>37</td><td>40</td><td></td></tr><tr><td>sun prairie tax and accounting</td><td>43</td><td>30</td><td></td></tr></tbody></table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">SEMrush US database, end of May 2026. Brand queries excluded.</p>
 
-  <h2>Top Non-Brand Performers</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Keyword</th>
-        <th>Position</th>
-        <th>Monthly Volume</th>
-        <th>Vertical</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr><td>franchise accountant near me</td><td>16</td><td>30</td><td>Franchise</td></tr>
-      <tr><td>wisconsin restaurant franchise accounting</td><td>23</td><td>40</td><td>Franchise + Restaurant</td></tr>
-      <tr><td>accounting for coffee shop</td><td>33</td><td>50</td><td>Restaurant / coffee</td></tr>
-      <tr><td>accountants in kenosha wi</td><td>42</td><td>50</td><td>Local — Kenosha</td></tr>
-      <tr><td>cpa kenosha</td><td>43</td><td>30</td><td>Local — Kenosha</td></tr>
-      <tr><td>cpa saas</td><td>47</td><td>40</td><td>SaaS</td></tr>
-      <tr><td>speciality accounting cartersville ga</td><td>47</td><td>40</td><td>Local — Cartersville GA</td></tr>
-      <tr><td>accounting services for franchisees</td><td>48</td><td>40</td><td>Franchise</td></tr>
-      <tr><td>spv accountants</td><td>58</td><td>50</td><td>SPV / investment</td></tr>
-      <tr><td>accounting shared services</td><td>94</td><td>170</td><td>Shared services</td></tr>
-    </tbody>
-  </table>
-  <p style="font-size:13px;color:var(--mute);margin-top:10px;">Brand queries excluded. The full non-brand list includes 14 keywords across franchise accounting, restaurant and coffee, SaaS accounting, and local search in Kenosha WI plus Cartersville GA.</p>
+  <h2>What Earned Clicks This Month (Non-Brand)</h2>
+  <table><thead><tr><th>Query</th></tr></thead><tbody><tr><td style="color:#6a6a72;">No non-brand queries earned clicks in this window. All search traffic this period came from brand queries or queries below the reporting cutoff.</td></tr></tbody></table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">Google Search Console, May 2026. Non-brand queries that actually drove search traffic, sorted by clicks.</p>
 
-  <h2>What Moved in May</h2>
-  <div class="notes">
-    <ul>
-      <li><strong>Total keyword footprint climbed from 23 to 32.</strong> Of those 32, fourteen are non-brand — across franchise, restaurant, SaaS, and local search.</li>
-      <li><strong>Franchise vertical breaking out.</strong> Three franchise-intent queries now ranking ("franchise accountant near me" #16, "wisconsin restaurant franchise accounting" #23, "accounting services for franchisees" #48).</li>
-      <li><strong>Local search surfacing in two metros.</strong> "accountants in kenosha wi" #42, "cpa kenosha" #43, and "speciality accounting cartersville ga" #47 all entered the index this quarter.</li>
-      <li><strong>SaaS vertical showing.</strong> Four SaaS-accounting queries ranking, top one at #47 ("cpa saas"). Pure greenfield, no competing brand pages.</li>
-      <li><strong>Domain rank improved from 2.66M to 2.56M.</strong> SEMrush authority signal continues to consolidate on sas-acct.com.</li>
-      <li><strong>Sessions trail keywords by one to two months.</strong> May 2026 at 222 organic sessions, with the April and May keyword surge expected to lift sessions through June.</li>
-    </ul>
-  </div>
+  <h2>Ranking but Not Yet Clicked &mdash; Optimization Opportunities</h2>
+  <table><thead><tr><th>Query</th><th>Position</th><th>Impressions</th><th>Opportunity</th></tr></thead><tbody><tr><td>franchise accounting services</td><td>35.2</td><td>82</td><td style='color:#6a6a72;font-size:13px;'>Ranking but not yet visible — content depth needed</td></tr><tr><td>succession planning franchise</td><td>10.9</td><td>56</td><td style='color:#6a6a72;font-size:13px;'>Page 2 — push to page 1 to start converting</td></tr><tr><td>robs accounting services</td><td>5.1</td><td>49</td><td style='color:#6a6a72;font-size:13px;'>Page 1 with 0 clicks — sharpen title + meta CTA</td></tr><tr><td>hardware accounting</td><td>15.3</td><td>42</td><td style='color:#6a6a72;font-size:13px;'>Page 2 — push to page 1 to start converting</td></tr><tr><td>vending machine accounting</td><td>13.8</td><td>40</td><td style='color:#6a6a72;font-size:13px;'>Page 2 — push to page 1 to start converting</td></tr><tr><td>hardware accountant</td><td>5.4</td><td>29</td><td style='color:#6a6a72;font-size:13px;'>Page 1 with 0 clicks — sharpen title + meta CTA</td></tr></tbody></table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">Non-brand queries with 20+ impressions and zero clicks. These rank but the title/meta isn't earning the click yet &mdash; each row is a content or metadata fix that could unlock traffic.</p>
 
-  <h2>June Priorities</h2>
-  <div class="notes">
-    <ul>
-      <li><strong>Move franchise queries into the top 10.</strong> "Franchise accountant near me" at #16 is one or two strong internal links and a couple of fresh franchise-vertical posts from cracking the first page. Same play for "wisconsin restaurant franchise accounting" at #23.</li>
-      <li><strong>Lock in Kenosha and Cartersville local rankings.</strong> Both cities have multiple SAS queries surfacing in the 40s. GBP optimization + city-page schema + 2 to 3 local citations to push these into the top 20.</li>
-      <li><strong>Stand up the SaaS vertical content.</strong> Four SaaS queries ranking with zero dedicated content cluster. A /saas-accounting/ landing page plus two pillar posts captures intent already searching for SAS.</li>
-      <li><strong>Accelerate top-referring domain outreach.</strong> Targeted outreach to the top 25 pre-migration referrers is queued for June.</li>
-    </ul>
-  </div>
-
-  <footer>
-    Generated by Markology &middot; 2026 &middot; <a href="https://markology.io">markology.io</a>
-  </footer>
+  <footer>Generated by Markology &middot; auto-build · 2026-06-10 &middot; <a href="https://markology.io">markology.io</a></footer>
 </div>
 
 <script>
-  const trendData = {
-    labels: ["Jan 26","Feb","Mar","Apr","May"],
-    keywords: [0, 0, 6, 23, 32],
-    sessions: [462, 539, 492, 314, 222]
-  };
+  const trendData = {"labels": ["Jan 26", "Jan 26", "Mar 26", "Apr 26", "May 26"], "keywords": [0, 0, 0, 0, 0], "sessions": [462, 462, 492, 314, 222]};
   const ctx = document.getElementById('trajectoryChart').getContext('2d');
-
   new Chart(ctx, {
     type: 'line',
     data: {
       labels: trendData.labels,
       datasets: [
-        {
-          label: 'Ranking Keywords',
-          data: trendData.keywords,
-          borderColor: '#0b1b3a',
-          backgroundColor: 'rgba(11, 27, 58, 0.12)',
-          yAxisID: 'y',
-          tension: 0.3,
-          fill: true,
-          pointRadius: 4,
-          pointBackgroundColor: '#0b1b3a'
-        },
-        {
-          label: 'Organic Sessions',
-          data: trendData.sessions,
-          borderColor: '#1f4fff',
-          borderDash: [6, 4],
-          backgroundColor: 'rgba(31, 79, 255, 0.05)',
-          yAxisID: 'y1',
-          tension: 0.3,
-          pointRadius: 4,
-          pointBackgroundColor: '#1f4fff'
-        }
+        { label: 'Ranking Keywords (SEMrush)', data: trendData.keywords, borderColor: '#0b1b3a', backgroundColor: 'rgba(11,27,58,0.12)', yAxisID: 'y', tension: 0.3, fill: true, pointRadius: 4, pointBackgroundColor: '#0b1b3a' },
+        { label: 'Organic Sessions (GA4)', data: trendData.sessions, borderColor: '#1f4fff', borderDash: [6,4], backgroundColor: 'rgba(31,79,255,0.05)', yAxisID: 'y1', tension: 0.3, pointRadius: 4, pointBackgroundColor: '#1f4fff' }
       ]
     },
     options: {
       responsive: true,
       interaction: { mode: 'index', intersect: false },
-      plugins: {
-        legend: { position: 'bottom', labels: { font: { weight: '600' } } }
-      },
+      plugins: { legend: { position: 'bottom', labels: { font: { weight: '600' } } } },
       scales: {
         y:  { position: 'left',  beginAtZero: true, title: { display: true, text: 'Ranking Keywords' } },
         y1: { position: 'right', beginAtZero: true, title: { display: true, text: 'Organic Sessions' }, grid: { drawOnChartArea: false } }

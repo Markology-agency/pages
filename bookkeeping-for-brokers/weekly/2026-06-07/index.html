@@ -16,6 +16,7 @@
   .pill { display:inline-block; background:var(--navy); color:white; padding:4px 14px; border-radius:999px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; }
   h1 { font-family:Bangers,Inter,sans-serif; font-size:56px; line-height:1; color:var(--navy); margin:8px 0 4px; letter-spacing:0.02em; }
   h2 { font-family:Bangers,Inter,sans-serif; font-size:28px; color:var(--navy); margin:36px 0 14px; letter-spacing:0.02em; }
+  h3 { font-family:Inter,sans-serif; font-size:15px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--navy); margin:18px 0 8px; }
   .lede { font-size:17px; color:var(--hair); max-width:720px; }
   .meta { color:var(--mute); font-size:13px; margin-top:10px; }
   .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:22px 0 36px; }
@@ -23,10 +24,10 @@
   .kpi { background:white; border:2px solid var(--navy); border-radius:6px; padding:16px 14px; box-shadow:5px 5px 0 var(--navy); }
   .kpi .label { font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-bottom:6px; }
   .kpi .value { font-family:Bangers,Inter,sans-serif; font-size:30px; color:var(--navy); line-height:1; }
-  .kpi .delta { margin-top:6px; font-size:12px; color:var(--blue); font-weight:600; }
-  .kpi .wow { font-size:13px; font-weight:700; margin-top:4px; }
-  .kpi .wow.up { color:var(--up); }
-  .kpi .wow.down { color:var(--down); }
+  .kpi .yoy { font-size:13px; font-weight:700; margin-top:6px; }
+  .kpi .yoy.up { color:var(--up); }
+  .kpi .yoy.down { color:var(--down); }
+  .kpi .yoy.flat { color:var(--mute); }
   .chart-wrap { background:white; border:2px solid var(--navy); border-radius:6px; padding:14px; box-shadow:5px 5px 0 var(--navy); }
   canvas { max-width:100%; }
   table { width:100%; border-collapse:collapse; background:white; border:2px solid var(--navy); border-radius:6px; overflow:hidden; box-shadow:5px 5px 0 var(--navy); }
@@ -44,55 +45,65 @@
     <span class="pill">Weekly SEO Snapshot</span>
     <h1>BOOKKEEPING FOR BROKERS (BFB)</h1>
     <div class="lede">Week of Jun 1 – Jun 7, 2026. Niche bookkeeping for mortgage and insurance brokers.</div>
-    <div class="meta">bookkeepingforbrokers.com &middot; pulled 2026-06-09</div>
+    <div class="meta">bookkeepingforbrokers.com &middot; YoY comparison against week of Jun 2 – Jun 8, 2025 &middot; pulled 2026-06-10</div>
   </header>
 
   <section class="kpis">
     <div class="kpi">
       <div class="label">SEMrush Ranking Keywords</div>
       <div class="value">66</div>
-      <div class="delta">+2 vs prior snapshot</div>
+      <div class="yoy flat">+2 vs last month</div>
     </div>
     <div class="kpi">
       <div class="label">Week Impressions</div>
-      <div class="value">9,175</div>
-      <div class="wow up">+69% WoW</div>
+      <div class="value">9,967</div>
+      <div class="yoy up">+69% vs same week 2025</div>
     </div>
     <div class="kpi">
       <div class="label">Week Clicks</div>
-      <div class="value">29</div>
-      <div class="wow flat">+0% WoW · 0.32% CTR</div>
+      <div class="value">32</div>
+      <div class="yoy down">-24% YoY &middot; 0.32% CTR</div>
+      <div class="yoy flat" style="font-size:11px;margin-top:4px;font-weight:500;">0 brand &middot; 2 non-brand</div>
     </div>
     <div class="kpi">
       <div class="label">Week Organic Sessions</div>
       <div class="value">34</div>
-      <div class="wow down">-8% WoW</div>
+      <div class="yoy down">-26% YoY</div>
     </div>
   </section>
 
-  <h2>8-Week Trajectory</h2>
-  <div class="chart-wrap"><canvas id="trajectoryChart" height="110"></canvas></div>
+  <h2>Year-over-Year</h2>
+  <div class="chart-wrap"><canvas id="yoyChart" height="110"></canvas></div>
+  <p style="font-size:13px;color:#6a6a72;margin-top:10px;">Direct comparison of this week vs the same calendar week one year earlier — neutralizes the Q1 tax-season cycle.</p>
+
+  
+
+  
 
   <h2>Top SEMrush Rankings (Non-Brand)</h2>
   <table><thead><tr><th>Keyword</th><th>Position</th><th>Volume</th><th>Landing URL</th></tr></thead><tbody><tr><td>loan officer commission calculator</td><td>1</td><td>70</td><td></td></tr><tr><td>best accounting software for insurance companies 2025</td><td>6</td><td>40</td><td></td></tr><tr><td>insurance accounting firm</td><td>6</td><td>40</td><td></td></tr><tr><td>quickbooks for insurance agency</td><td>6</td><td>70</td><td></td></tr><tr><td>accounting software for insurance agencies</td><td>7</td><td>140</td><td></td></tr><tr><td>mortgage specialist commission</td><td>7</td><td>110</td><td></td></tr><tr><td>accounting software for insurance agency</td><td>7</td><td>30</td><td></td></tr><tr><td>best accounting software for insurance brokers</td><td>7</td><td>40</td><td></td></tr><tr><td>accounting software for insurance brokers</td><td>7</td><td>90</td><td></td></tr><tr><td>do loan officers make commission</td><td>8</td><td>140</td><td></td></tr><tr><td>loan agent commission</td><td>8</td><td>90</td><td></td></tr><tr><td>accounting software for insurance</td><td>8</td><td>320</td><td></td></tr></tbody></table>
 
-  <h2>Top GSC Queries This Week (Non-Brand)</h2>
-  <table><thead><tr><th>Query</th><th>Position</th><th>Impressions</th><th>Clicks</th></tr></thead><tbody><tr><td>what accounting software do mortgage brokers use?</td><td>7.3</td><td>280</td><td>0</td></tr><tr><td>what accounting software for insurance has the best functionality?</td><td>8.7</td><td>217</td><td>0</td></tr><tr><td>can you tell me which accounting software options for insurance have good functionality?</td><td>9.3</td><td>183</td><td>0</td></tr><tr><td>what accounting software for insurance has the best usability?</td><td>8.2</td><td>179</td><td>0</td></tr><tr><td>can you tell me which accounting software for insurance has good integration options?</td><td>9.3</td><td>178</td><td>0</td></tr><tr><td>i want accounting software for insurance with great usability.</td><td>10.2</td><td>175</td><td>0</td></tr><tr><td>what should i get if i’m looking for accounting software tailored to insurance?</td><td>9.6</td><td>156</td><td>0</td></tr><tr><td>what accounting software for insurance has the best integrations?</td><td>7.9</td><td>151</td><td>0</td></tr><tr><td>what accounting software for insurance has the best scalability?</td><td>10.3</td><td>139</td><td>0</td></tr><tr><td>what accounting software for insurance has the best customer service?</td><td>7.2</td><td>132</td><td>0</td></tr><tr><td>what are some accounting software products for insurance that you’d recommend?</td><td>11.3</td><td>131</td><td>0</td></tr><tr><td>i need accounting software for an insurance company—what are my best options?</td><td>9.8</td><td>129</td><td>0</td></tr></tbody></table>
+  <h2>What Earned Clicks This Week (Non-Brand)</h2>
+  <table><thead><tr><th>Query</th><th>Position</th><th>Clicks</th><th>Impressions</th><th>CTR</th></tr></thead><tbody><tr><td>real estate chart of accounts excel</td><td>5.4</td><td><strong>1</strong></td><td>5</td><td>20.0%</td></tr><tr><td>mortgage broker commission calculator</td><td>7.3</td><td><strong>1</strong></td><td>3</td><td>33.3%</td></tr></tbody></table>
+  <p style="font-size:13px;color:#6a6a72;margin-top:10px;">Non-brand queries that actually drove search traffic this week, sorted by clicks.</p>
 
-  <footer>Generated by Markology &middot; weekly auto-build · 2026-06-09 &middot; <a href="https://markology.io">markology.io</a></footer>
+  <h2>Ranking but Not Yet Clicked &mdash; Optimization Opportunities</h2>
+  <table><thead><tr><th>Query</th><th>Position</th><th>Impressions</th><th>Opportunity</th></tr></thead><tbody><tr><td>what accounting software do mortgage brokers use?</td><td>7.2</td><td>285</td><td style='color:#6a6a72;font-size:13px;'>Page 1 with 0 clicks — sharpen title + meta CTA</td></tr><tr><td>what accounting software for insurance has the best functionality?</td><td>8.7</td><td>217</td><td style='color:#6a6a72;font-size:13px;'>Page 1 with 0 clicks — sharpen title + meta CTA</td></tr><tr><td>can you tell me which accounting software options for insurance have good functionality?</td><td>9.3</td><td>183</td><td style='color:#6a6a72;font-size:13px;'>Page 1 with 0 clicks — sharpen title + meta CTA</td></tr><tr><td>what accounting software for insurance has the best usability?</td><td>8.2</td><td>179</td><td style='color:#6a6a72;font-size:13px;'>Page 1 with 0 clicks — sharpen title + meta CTA</td></tr><tr><td>can you tell me which accounting software for insurance has good integration options?</td><td>9.3</td><td>178</td><td style='color:#6a6a72;font-size:13px;'>Page 1 with 0 clicks — sharpen title + meta CTA</td></tr><tr><td>i want accounting software for insurance with great usability.</td><td>10.2</td><td>175</td><td style='color:#6a6a72;font-size:13px;'>Page 2 — push to page 1 to start converting</td></tr></tbody></table>
+  <p style="font-size:13px;color:#6a6a72;margin-top:10px;">Non-brand queries with 20+ impressions and zero clicks. These rank but the title/meta isn't earning the click yet &mdash; each row is a content or metadata fix that could unlock traffic.</p>
+
+  <footer>Generated by Markology &middot; weekly auto-build · 2026-06-10 &middot; <a href="https://markology.io">markology.io</a></footer>
 </div>
 
 <script>
-  const trendData = {"labels": ["Apr 19", "Apr 26", "May 3", "May 10", "May 17", "May 24", "May 31", "Jun 7"], "impressions": [4474, 4335, 12698, 8528, 8264, 4603, 5445, 9175], "clicks": [24, 34, 31, 29, 31, 32, 29, 29], "sessions": [37, 38, 39, 42, 38, 51, 37, 34]};
-  const ctx = document.getElementById('trajectoryChart').getContext('2d');
+  const yoyData = {"prev": [5903, 42, 46], "cur": [9967, 32, 34]};
+  const ctx = document.getElementById('yoyChart').getContext('2d');
   new Chart(ctx, {
-    type: 'line',
+    type: 'bar',
     data: {
-      labels: trendData.labels,
+      labels: ['Impressions', 'Clicks', 'Organic Sessions'],
       datasets: [
-        { label: 'Impressions', data: trendData.impressions, borderColor: '#0b1b3a', backgroundColor: 'rgba(11,27,58,0.10)', yAxisID: 'y', tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: '#0b1b3a' },
-        { label: 'Clicks', data: trendData.clicks, borderColor: '#c43a2a', backgroundColor: 'transparent', yAxisID: 'y1', tension: 0.3, pointRadius: 3, pointBackgroundColor: '#c43a2a' },
-        { label: 'Organic Sessions (GA4)', data: trendData.sessions, borderColor: '#1f4fff', borderDash: [6,4], backgroundColor: 'transparent', yAxisID: 'y1', tension: 0.3, pointRadius: 3, pointBackgroundColor: '#1f4fff' }
+        { label: 'Week of Jun 8, 2025', data: yoyData.prev, backgroundColor: 'rgba(11,27,58,0.55)', borderColor: '#0b1b3a', borderWidth: 2, borderRadius: 4 },
+        { label: 'Week of Jun 7', data: yoyData.cur, backgroundColor: 'rgba(31,79,255,0.85)', borderColor: '#0b1b3a', borderWidth: 2, borderRadius: 4 }
       ]
     },
     options: {
@@ -100,8 +111,7 @@
       interaction: { mode: 'index', intersect: false },
       plugins: { legend: { position: 'bottom', labels: { font: { weight: '600' } } } },
       scales: {
-        y:  { position: 'left',  beginAtZero: true, title: { display: true, text: 'Impressions' } },
-        y1: { position: 'right', beginAtZero: true, title: { display: true, text: 'Clicks / Sessions' }, grid: { drawOnChartArea: false } }
+        y: { beginAtZero: true }
       }
     }
   });

@@ -16,6 +16,7 @@
   .pill { display:inline-block; background:var(--navy); color:white; padding:4px 14px; border-radius:999px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; }
   h1 { font-family:Bangers,Inter,sans-serif; font-size:56px; line-height:1; color:var(--navy); margin:8px 0 4px; letter-spacing:0.02em; }
   h2 { font-family:Bangers,Inter,sans-serif; font-size:28px; color:var(--navy); margin:36px 0 14px; letter-spacing:0.02em; }
+  h3 { font-family:Inter,sans-serif; font-size:15px; font-weight:700; text-transform:uppercase; letter-spacing:0.06em; color:var(--navy); margin:18px 0 8px; }
   .lede { font-size:17px; color:var(--hair); max-width:720px; }
   .meta { color:var(--mute); font-size:13px; margin-top:10px; }
   .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:22px 0 36px; }
@@ -23,10 +24,10 @@
   .kpi { background:white; border:2px solid var(--navy); border-radius:6px; padding:16px 14px; box-shadow:5px 5px 0 var(--navy); }
   .kpi .label { font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-bottom:6px; }
   .kpi .value { font-family:Bangers,Inter,sans-serif; font-size:30px; color:var(--navy); line-height:1; }
-  .kpi .delta { margin-top:6px; font-size:12px; color:var(--blue); font-weight:600; }
-  .kpi .wow { font-size:13px; font-weight:700; margin-top:4px; }
-  .kpi .wow.up { color:var(--up); }
-  .kpi .wow.down { color:var(--down); }
+  .kpi .yoy { font-size:13px; font-weight:700; margin-top:6px; }
+  .kpi .yoy.up { color:var(--up); }
+  .kpi .yoy.down { color:var(--down); }
+  .kpi .yoy.flat { color:var(--mute); }
   .chart-wrap { background:white; border:2px solid var(--navy); border-radius:6px; padding:14px; box-shadow:5px 5px 0 var(--navy); }
   canvas { max-width:100%; }
   table { width:100%; border-collapse:collapse; background:white; border:2px solid var(--navy); border-radius:6px; overflow:hidden; box-shadow:5px 5px 0 var(--navy); }
@@ -44,55 +45,65 @@
     <span class="pill">Weekly SEO Snapshot</span>
     <h1>THE FITNESS CPA</h1>
     <div class="lede">Week of Jun 1 – Jun 7, 2026. Niche CPA for fitness studio and gym owners. Maintenance tier.</div>
-    <div class="meta">thefitnesscpa.com &middot; pulled 2026-06-09</div>
+    <div class="meta">thefitnesscpa.com &middot; YoY comparison against week of Jun 2 – Jun 8, 2025 &middot; pulled 2026-06-10</div>
   </header>
 
   <section class="kpis">
     <div class="kpi">
       <div class="label">SEMrush Ranking Keywords</div>
       <div class="value">334</div>
-      <div class="delta">-23 vs prior snapshot</div>
+      <div class="yoy flat">-23 vs last month</div>
     </div>
     <div class="kpi">
       <div class="label">Week Impressions</div>
       <div class="value">0</div>
-      <div class="wow flat">0% WoW</div>
+      <div class="yoy flat">0% vs same week 2025</div>
     </div>
     <div class="kpi">
       <div class="label">Week Clicks</div>
       <div class="value">0</div>
-      <div class="wow flat">0% WoW · 0.00% CTR</div>
+      <div class="yoy flat">0% YoY &middot; 0.00% CTR</div>
+      <div class="yoy flat" style="font-size:11px;margin-top:4px;font-weight:500;">0 brand &middot; 0 non-brand</div>
     </div>
     <div class="kpi">
       <div class="label">Week Organic Sessions</div>
       <div class="value">n/a</div>
-      <div class="wow flat">n/a WoW</div>
+      <div class="yoy flat">GA4 not configured YoY</div>
     </div>
   </section>
 
-  <h2>8-Week Trajectory</h2>
-  <div class="chart-wrap"><canvas id="trajectoryChart" height="110"></canvas></div>
+  <h2>Year-over-Year</h2>
+  <div class="chart-wrap"><canvas id="yoyChart" height="110"></canvas></div>
+  <p style="font-size:13px;color:#6a6a72;margin-top:10px;">Direct comparison of this week vs the same calendar week one year earlier — neutralizes the Q1 tax-season cycle.</p>
+
+  
+
+  
 
   <h2>Top SEMrush Rankings (Non-Brand)</h2>
   <table><thead><tr><th>Keyword</th><th>Position</th><th>Volume</th><th>Landing URL</th></tr></thead><tbody><tr><td>accountants for gyms</td><td>1</td><td>40</td><td></td></tr><tr><td>health and fitness accounting services</td><td>1</td><td>50</td><td></td></tr><tr><td>bookkeeping for personal trainers</td><td>2</td><td>40</td><td></td></tr><tr><td>recovery startup business credit</td><td>3</td><td>40</td><td></td></tr><tr><td>fit accounting</td><td>4</td><td>40</td><td></td></tr><tr><td>home gym tax deduction december 2025</td><td>4</td><td>50</td><td></td></tr><tr><td>buying a gym</td><td>5</td><td>30</td><td></td></tr><tr><td>what is a direct deposit supporting document</td><td>5</td><td>40</td><td></td></tr><tr><td>recovery startup business employee retention credit</td><td>5</td><td>70</td><td></td></tr><tr><td>recovery startup business ertc</td><td>5</td><td>110</td><td></td></tr><tr><td>tax deductible home gyms december 2025</td><td>5</td><td>140</td><td></td></tr><tr><td>recovery startup business erc</td><td>5</td><td>70</td><td></td></tr></tbody></table>
 
-  <h2>Top GSC Queries This Week (Non-Brand)</h2>
-  <table><thead><tr><th>Query</th></tr></thead><tbody><tr><td>No non-brand GSC queries with impressions this month.</td></tr></tbody></table>
+  <h2>What Earned Clicks This Week (Non-Brand)</h2>
+  <table><thead><tr><th>Query</th></tr></thead><tbody><tr><td style="color:#6a6a72;">No non-brand queries earned clicks in this window. All search traffic this period came from brand queries or queries below the reporting cutoff.</td></tr></tbody></table>
+  <p style="font-size:13px;color:#6a6a72;margin-top:10px;">Non-brand queries that actually drove search traffic this week, sorted by clicks.</p>
 
-  <footer>Generated by Markology &middot; weekly auto-build · 2026-06-09 &middot; <a href="https://markology.io">markology.io</a></footer>
+  <h2>Ranking but Not Yet Clicked &mdash; Optimization Opportunities</h2>
+  <table><thead><tr><th>Query</th></tr></thead><tbody><tr><td style="color:#6a6a72;">No notable optimization opportunities — every ranking query with meaningful impressions is also earning clicks.</td></tr></tbody></table>
+  <p style="font-size:13px;color:#6a6a72;margin-top:10px;">Non-brand queries with 20+ impressions and zero clicks. These rank but the title/meta isn't earning the click yet &mdash; each row is a content or metadata fix that could unlock traffic.</p>
+
+  <footer>Generated by Markology &middot; weekly auto-build · 2026-06-10 &middot; <a href="https://markology.io">markology.io</a></footer>
 </div>
 
 <script>
-  const trendData = {"labels": [], "impressions": [], "clicks": [], "sessions": []};
-  const ctx = document.getElementById('trajectoryChart').getContext('2d');
+  const yoyData = {"prev": [0, 0, 0], "cur": [0, 0, 0]};
+  const ctx = document.getElementById('yoyChart').getContext('2d');
   new Chart(ctx, {
-    type: 'line',
+    type: 'bar',
     data: {
-      labels: trendData.labels,
+      labels: ['Impressions', 'Clicks', 'Organic Sessions'],
       datasets: [
-        { label: 'Impressions', data: trendData.impressions, borderColor: '#0b1b3a', backgroundColor: 'rgba(11,27,58,0.10)', yAxisID: 'y', tension: 0.3, fill: true, pointRadius: 3, pointBackgroundColor: '#0b1b3a' },
-        { label: 'Clicks', data: trendData.clicks, borderColor: '#c43a2a', backgroundColor: 'transparent', yAxisID: 'y1', tension: 0.3, pointRadius: 3, pointBackgroundColor: '#c43a2a' },
-        { label: 'Organic Sessions (GA4)', data: trendData.sessions, borderColor: '#1f4fff', borderDash: [6,4], backgroundColor: 'transparent', yAxisID: 'y1', tension: 0.3, pointRadius: 3, pointBackgroundColor: '#1f4fff' }
+        { label: 'Week of Jun 8, 2025', data: yoyData.prev, backgroundColor: 'rgba(11,27,58,0.55)', borderColor: '#0b1b3a', borderWidth: 2, borderRadius: 4 },
+        { label: 'Week of Jun 7', data: yoyData.cur, backgroundColor: 'rgba(31,79,255,0.85)', borderColor: '#0b1b3a', borderWidth: 2, borderRadius: 4 }
       ]
     },
     options: {
@@ -100,8 +111,7 @@
       interaction: { mode: 'index', intersect: false },
       plugins: { legend: { position: 'bottom', labels: { font: { weight: '600' } } } },
       scales: {
-        y:  { position: 'left',  beginAtZero: true, title: { display: true, text: 'Impressions' } },
-        y1: { position: 'right', beginAtZero: true, title: { display: true, text: 'Clicks / Sessions' }, grid: { drawOnChartArea: false } }
+        y: { beginAtZero: true }
       }
     }
   });

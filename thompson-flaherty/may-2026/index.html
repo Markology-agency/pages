@@ -3,252 +3,112 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Thompson Flaherty CPA · SEO Progress · May 2026</title>
+<title>Thompson Flaherty CPA — SEO Progress · May 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-  :root { --paper:#F9F9FF; --navy:#070630; --blue:#3872EB; --lilac:#E6E9FF; --mute:#6C6E8A; --hair:#070630; --good:#10b981; --watch:#f59e0b; --bad:#ef4444; }
-  * { box-sizing:border-box; } body { margin:0; background:var(--paper); font-family:Inter,system-ui,sans-serif; color:var(--hair); line-height:1.55; font-size:15px; }
-  .wrap { max-width:1080px; margin:0 auto; padding:48px 24px 80px; }
+  :root { --paper:#f7f4ee; --navy:#0b1b3a; --blue:#1f4fff; --lilac:#b9a8ff; --mute:#6a6a72; --hair:#1f1f24; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--paper); font-family:Inter,system-ui,sans-serif; color:var(--hair); line-height:1.5; }
+  .wrap { max-width:1080px; margin:0 auto; padding:32px 24px 80px; }
   header.hero { margin-bottom:32px; }
-  .crumb { margin-bottom:12px; font-size:12px; letter-spacing:0.18em; text-transform:uppercase; font-weight:700; color:var(--mute); }
-  .pill { display:inline-block; background:var(--blue); color:#fff; padding:5px 14px; border-radius:999px; font-size:11px; letter-spacing:0.18em; text-transform:uppercase; font-weight:700; border:2px solid var(--navy); box-shadow:4px 4px 0 var(--navy); margin-bottom:18px; }
-  .pill.lilac { background:var(--lilac); color:var(--navy); }
-  h1 { font-family:Bangers,Inter,sans-serif; font-size:clamp(42px,7vw,72px); line-height:0.95; color:var(--navy); margin:8px 0 14px; letter-spacing:0.02em; }
-  h2 { font-family:Bangers,Inter,sans-serif; font-size:32px; color:var(--navy); margin:48px 0 16px; letter-spacing:0.02em; }
-  h2 .accent { color:var(--blue); }
-  .lede { font-size:18px; color:var(--hair); max-width:760px; }
-  .meta { color:var(--mute); font-size:13px; margin-top:14px; letter-spacing:0.02em; }
-  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:28px 0 40px; }
-  @media(max-width:720px) { .kpis { grid-template-columns:repeat(2,1fr); } h1 { font-size:42px; } }
-  .kpi { background:#fff; border:2px solid var(--navy); border-radius:6px; padding:18px 16px; box-shadow:5px 5px 0 var(--navy); }
+  .pill { display:inline-block; background:var(--navy); color:white; padding:4px 14px; border-radius:999px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; }
+  h1 { font-family:Bangers,Inter,sans-serif; font-size:64px; line-height:1; color:var(--navy); margin:8px 0 4px; letter-spacing:0.02em; }
+  h2 { font-family:Bangers,Inter,sans-serif; font-size:32px; color:var(--navy); margin:40px 0 16px; letter-spacing:0.02em; }
+  .lede { font-size:18px; color:var(--hair); max-width:720px; }
+  .meta { color:var(--mute); font-size:14px; margin-top:12px; }
+  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:24px 0 40px; }
+  @media (max-width:720px) { .kpis { grid-template-columns:repeat(2,1fr); } h1 { font-size:44px; } }
+  .kpi { background:white; border:2px solid var(--navy); border-radius:6px; padding:18px 16px; box-shadow:5px 5px 0 var(--navy); }
   .kpi .label { font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-bottom:6px; }
-  .kpi .value { font-family:Bangers,Inter,sans-serif; font-size:38px; color:var(--navy); line-height:1; }
-  .kpi .delta { margin-top:6px; font-size:12px; font-weight:600; line-height:1.4; }
-  .kpi .delta.up { color:#047857; }
-  .kpi .delta.down { color:#b91c1c; }
-  .kpi .delta.flat { color:var(--mute); }
-  table { width:100%; border-collapse:collapse; background:#fff; border:2px solid var(--navy); border-radius:6px; overflow:hidden; box-shadow:5px 5px 0 var(--navy); margin-top:14px; }
-  thead { background:var(--navy); color:#fff; }
-  th,td { padding:11px 14px; text-align:left; border-bottom:1px solid #eee; font-size:14px; }
-  th { font-size:11px; letter-spacing:0.08em; text-transform:uppercase; font-weight:700; }
-  td.num { text-align:right; font-variant-numeric:tabular-nums; }
-  th.num { text-align:right; }
+  .kpi .value { font-family:Bangers,Inter,sans-serif; font-size:36px; color:var(--navy); line-height:1; }
+  .kpi .delta { margin-top:6px; font-size:13px; color:var(--blue); font-weight:600; }
+  .chart-wrap { background:white; border:2px solid var(--navy); border-radius:6px; padding:16px; box-shadow:5px 5px 0 var(--navy); }
+  canvas { max-width:100%; }
+  table { width:100%; border-collapse:collapse; background:white; border:2px solid var(--navy); border-radius:6px; overflow:hidden; box-shadow:5px 5px 0 var(--navy); }
+  thead { background:var(--navy); color:white; }
+  th,td { padding:12px 14px; text-align:left; border-bottom:1px solid #eee; font-size:14px; }
+  th { font-size:12px; letter-spacing:0.06em; text-transform:uppercase; }
   tbody tr:last-child td { border-bottom:none; }
-  .delta-up { color:#047857; font-weight:700; }
-  .delta-down { color:#b91c1c; font-weight:700; }
-  .delta-flat { color:var(--mute); font-weight:600; }
-  .callout { background:var(--lilac); border:2px solid var(--navy); border-radius:8px; padding:18px 22px; margin:18px 0; box-shadow:5px 5px 0 var(--navy); }
-  .callout strong { color:var(--navy); }
-  .priority { background:var(--lilac); border:2px solid var(--navy); border-radius:6px; padding:20px 22px; margin-bottom:14px; box-shadow:5px 5px 0 var(--navy); }
-  .priority .ptag { display:inline-block; background:var(--navy); color:#fff; padding:3px 10px; border-radius:4px; font-size:11px; letter-spacing:0.06em; text-transform:uppercase; font-weight:700; margin-bottom:8px; }
-  .priority h3 { font-family:Bangers,Inter,sans-serif; font-size:22px; color:var(--navy); margin:6px 0 8px; letter-spacing:0.02em; }
-  .priority p { margin:6px 0; }
-  .footer { margin-top:64px; padding-top:24px; border-top:2px dashed rgba(7,6,48,0.15); color:var(--mute); font-size:12px; letter-spacing:0.06em; text-transform:uppercase; font-weight:600; }
-  .footer a { color:var(--blue); text-decoration:none; }
-  .movement-box { background:#fff; border:2px solid var(--navy); border-radius:6px; padding:24px; box-shadow:5px 5px 0 var(--navy); margin-top:14px; }
-  .movement-row { display:grid; grid-template-columns:120px 1fr 100px; gap:16px; align-items:center; padding:12px 0; border-bottom:1px dashed rgba(7,6,48,0.12); }
-  .movement-row:last-child { border-bottom:none; }
-  .movement-row .when { font-size:11px; letter-spacing:0.1em; text-transform:uppercase; font-weight:700; color:var(--mute); }
-  .movement-row .what { font-size:14px; color:var(--hair); }
-  .movement-row .what strong { color:var(--navy); }
-  .movement-row .delta { font-family:Bangers,Inter,sans-serif; font-size:22px; text-align:right; }
+  .notes { background:white; border-left:4px solid var(--blue); padding:14px 18px; margin-top:24px; border-radius:4px; }
+  footer { margin-top:64px; color:var(--mute); font-size:13px; text-align:center; }
+  footer a { color:var(--blue); text-decoration:none; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="hero">
-    <div class="crumb"><a href="https://markology-agency.github.io/pages/thompson-flaherty/" style="color:var(--blue);text-decoration:none;">Thompson Flaherty</a> &rsaquo; May 2026 SEO Report</div>
-    <span class="pill">Monthly SEO Progress &middot; May 2026</span>
-    <h1>FIRST FULL MONTH<br/>IN <span style="color:var(--blue);">SEARCH CONSOLE.</span></h1>
-    <p class="lede">May was the launch month. GA4 logged <strong>891 sessions from 755 users</strong> (up from 8 sessions in April when the property was barely tracking). Search Console clocked <strong>51 clicks and 2,476 impressions</strong> &mdash; an <strong>825x impression jump month-over-month</strong>. The May 17 Local SEO + E-E-A-T sprint dropped five service pages that are now indexed and pulling first signals. Brand search holds clean ("thompson flaherty" #1.6 avg, "cpa edwardsville il" #1). The channel mix is striking: 73% of sessions came in as Direct, which in a newly-tracked property usually means a mix of bookmarked brand visits, AI-engine referrals (LLMs strip referrers and show as Direct), and untagged paid links from the May 17 ads launch.</p>
-    <div class="meta">Domain: thompsonflaherty.com &middot; Data sources: GA4 (property 528758117, real sessions) · Google Search Console (real clicks + impressions, URL-prefix property) · SEMrush (keyword positions only) · Google Ads (customer 2110746337) &middot; Refreshed 2026-05-28</div>
+    <span class="pill">Monthly SEO Progress</span>
+    <h1>THOMPSON FLAHERTY CPA</h1>
+    <div class="lede">SEO snapshot for May 2026. Metro East accounting firm. Chicago + St Louis expansion 2026.</div>
+    <div class="meta">thompsonflaherty.com &middot; covers May 2026</div>
   </header>
 
   <section class="kpis">
     <div class="kpi">
-      <div class="label">GA4 Sessions · May</div>
-      <div class="value">891</div>
-      <div class="delta up">+883 vs Apr (8) &middot; 755 unique users</div>
+      <div class="label">SEMrush Ranking Keywords</div>
+      <div class="value">46</div>
+      <div class="delta">+8 MoM (+21%)</div>
     </div>
     <div class="kpi">
-      <div class="label">GSC Clicks · May MTD</div>
-      <div class="value">51</div>
-      <div class="delta up">+51 vs Apr (0)</div>
+      <div class="label">GSC Queries · Top 10 / Top 20</div>
+      <div class="value">0</div>
+      <div class="delta">0 in top 20 · 0 total queries</div>
     </div>
     <div class="kpi">
-      <div class="label">GSC Impressions · May MTD</div>
-      <div class="value">2,476</div>
-      <div class="delta up">+82,400% vs Apr (3)</div>
+      <div class="label">May 2026 Search Impressions</div>
+      <div class="value">0</div>
+      <div class="delta">0 clicks &middot; 0.00% CTR &middot; avg pos 0.0</div>
+      <div class="delta" style="margin-top:4px;font-size:12px;color:var(--mute);font-weight:500;">0 brand &middot; 0 non-brand</div>
     </div>
     <div class="kpi">
-      <div class="label">Brand Rankings #1</div>
-      <div class="value">2</div>
-      <div class="delta flat">thompson flaherty · cpa edwardsville il</div>
+      <div class="label">Organic Sessions (GA4)</div>
+      <div class="value">158</div>
+      <div class="delta">organic search, all engines</div>
     </div>
   </section>
 
-  <h2>WHAT MOVED <span class="accent">IN MAY.</span></h2>
-  <p style="max-width:780px;">Movement framed honestly. The site only had 3 impressions in April (GSC property just verified), so every May number is a first-time signal rather than a year-over-year comparison.</p>
+  <h2>Trajectory</h2>
+  <div class="chart-wrap"><canvas id="trajectoryChart" height="120"></canvas></div>
 
-  <div class="movement-box">
-    <div class="movement-row">
-      <div class="when">Apr 2026</div>
-      <div class="what"><strong>GSC verification window.</strong> Property verified mid-April. 0 clicks / 3 impressions logged before the indexing window opened.</div>
-      <div class="delta delta-flat">—</div>
-    </div>
-    <div class="movement-row">
-      <div class="when">May 1–16</div>
-      <div class="what"><strong>Pre-sprint baseline.</strong> Homepage and legacy .php pages indexed. 40 clicks / 1,302 impressions / avg position 20.7 / CTR 3.07%. Brand search ("thompson flaherty," "cpa edwardsville il") drove almost all clicks.</div>
-      <div class="delta delta-up">+40c</div>
-    </div>
-    <div class="movement-row">
-      <div class="when">May 17</div>
-      <div class="what"><strong>Local SEO + E-E-A-T sprint launched.</strong> LocalBusiness schema with 13 areaServed entries on homepage. Person schemas for Kelly Flaherty and Christian Kimble on /about/. Five new service pages live: /locations/, /accounting/, /tax-individual/, /about/, /exit-planning/.</div>
-      <div class="delta delta-up">+5 pages</div>
-    </div>
-    <div class="movement-row">
-      <div class="when">May 17–28</div>
-      <div class="what"><strong>Post-sprint indexing phase.</strong> 11 clicks / 1,174 impressions / avg position 24.6. The five new pages picked up impressions but enter at deeper positions (typical 30–90 day climb). Position drift from 20.7 to 24.6 reflects new pages entering at positions 20+, not a decline on existing rankings.</div>
-      <div class="delta delta-up">+1,174i</div>
-    </div>
-    <div class="movement-row">
-      <div class="when">May total</div>
-      <div class="what"><strong>51 clicks / 2,476 impressions.</strong> First measurable month in Google Search Console. The five new pages from the May 17 sprint each registered first impressions this window. Top page-level wins below.</div>
-      <div class="delta delta-up">+2,473i</div>
-    </div>
-  </div>
+  <h2>Top SEMrush Rankings (Non-Brand)</h2>
+  <table><thead><tr><th>Keyword</th><th>Position</th><th>Volume</th><th>Landing URL</th></tr></thead><tbody><tr><td>cpa edwardsville il</td><td>1</td><td>40</td><td></td></tr><tr><td>karla moye accounting</td><td>16</td><td>90</td><td></td></tr><tr><td>loy miller talley</td><td>17</td><td>40</td><td></td></tr><tr><td>january accounting</td><td>21</td><td>40</td><td></td></tr><tr><td>best tax accountant weston</td><td>23</td><td>50</td><td></td></tr><tr><td>best tax cpa weston</td><td>26</td><td>70</td><td></td></tr><tr><td>trenary cpa</td><td>32</td><td>40</td><td></td></tr><tr><td>terry harper albion il</td><td>33</td><td>40</td><td></td></tr><tr><td>businesses in edwardsville il</td><td>34</td><td>70</td><td></td></tr><tr><td>tax accountant weston</td><td>35</td><td>50</td><td></td></tr><tr><td>illinois accountant</td><td>39</td><td>30</td><td></td></tr><tr><td>accounting portfolios</td><td>39</td><td>110</td><td></td></tr></tbody></table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">SEMrush US database, end of May 2026. Brand queries excluded.</p>
 
-  <h2>GA4 CHANNEL <span class="accent">BREAKDOWN.</span></h2>
-  <p style="max-width:780px;">Where the 891 May sessions came from. Direct dominating at 73% in a property's first real month is the AI / LLM signature: large language models strip referrer headers, so traffic from ChatGPT, Perplexity, Claude, and Google Gemini citations all appear as Direct in GA4.</p>
-  <table>
-    <thead>
-      <tr><th>Channel</th><th class="num">Sessions</th><th class="num">% of total</th><th>Interpretation</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>Direct</td><td class="num">648</td><td class="num">72.7%</td><td>Brand visits + AI engine referrals (LLMs strip referrer) + untagged campaign links</td></tr>
-      <tr><td>Organic Search</td><td class="num">132</td><td class="num">14.8%</td><td>Google + Bing + other search engines (matches GSC 51 clicks; GA4 counts session-level)</td></tr>
-      <tr><td>Referral</td><td class="num">36</td><td class="num">4.0%</td><td>Inbound links from other domains</td></tr>
-      <tr><td>Organic Social</td><td class="num">31</td><td class="num">3.5%</td><td>LinkedIn + other social platforms (no paid spend)</td></tr>
-      <tr><td>Paid Search</td><td class="num">30</td><td class="num">3.4%</td><td>The May 17 Google Ads launch — 12 days of attribution</td></tr>
-      <tr><td>Unassigned</td><td class="num">15</td><td class="num">1.7%</td><td>Missing UTM tags or fragmented sessions</td></tr>
-      <tr><td>Cross-network &amp; Email</td><td class="num">8</td><td class="num">0.9%</td><td>PMax + email broadcasts</td></tr>
-    </tbody>
-  </table>
-  <div class="callout"><strong>The Direct number is the one to watch.</strong> A 73% Direct share in a brand-new GA4 property is unusual. Two plausible explanations: (1) AI engines are citing TF's pages and the resulting traffic shows as Direct because LLMs strip referrers, or (2) the May 17 Google Ads launch is sending un-UTM'd traffic that GA4 cannot attribute to Paid Search. Action: audit the Google Ads final URLs for UTM parameters before next month so we can split the two cleanly.</div>
+  <h2>What Earned Clicks This Month (Non-Brand)</h2>
+  <table><thead><tr><th>Query</th></tr></thead><tbody><tr><td style="color:#6a6a72;">No non-brand queries earned clicks in this window. All search traffic this period came from brand queries or queries below the reporting cutoff.</td></tr></tbody></table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">Google Search Console, May 2026. Non-brand queries that actually drove search traffic, sorted by clicks.</p>
 
-  <h2>NEW PAGES <span class="accent">NOW INDEXED.</span></h2>
-  <p style="max-width:780px;">Pages launched in the May 17 sprint, now pulling their first GSC signals. Position 20+ is normal for the first 30 days post-launch; the climb to top-10 takes 60–90 days with ongoing internal-link and content reinforcement.</p>
-  <table>
-    <thead>
-      <tr><th>Page</th><th class="num">Clicks (May)</th><th class="num">Impressions (May)</th><th class="num">Avg Position</th><th>Status</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>/ (homepage)</td><td class="num">46</td><td class="num">2,226</td><td class="num">22.6</td><td><span class="delta-up">Carrying the site</span></td></tr>
-      <tr><td>/locations/</td><td class="num">3</td><td class="num">391</td><td class="num">10.2</td><td><span class="delta-up">First impressions ✓</span></td></tr>
-      <tr><td>/accounting/</td><td class="num">1</td><td class="num">387</td><td class="num">6.1</td><td><span class="delta-up">Best new position (#6)</span></td></tr>
-      <tr><td>/about/</td><td class="num">0</td><td class="num">126</td><td class="num">5.2</td><td><span class="delta-up">Person schema indexing</span></td></tr>
-      <tr><td>/tax-individual/</td><td class="num">1</td><td class="num">86</td><td class="num">3.3</td><td><span class="delta-up">Strongest position of all new pages</span></td></tr>
-      <tr><td>/exit-planning/</td><td class="num">0</td><td class="num">28</td><td class="num">3.2</td><td><span class="delta-up">Early signal</span></td></tr>
-      <tr><td>/contact/thank-you/</td><td class="num">0</td><td class="num">21</td><td class="num">6.5</td><td><span class="delta-flat">Form conversions firing</span></td></tr>
-    </tbody>
-  </table>
-  <div class="callout"><strong>Read of the table.</strong> /tax-individual/ at avg position 3.3 with 86 impressions is the standout — a brand-new page entering at top-3 means the schema + Person credentials + Kelly's credential signals are doing the work. /accounting/ ranks well (pos 6.1) but the title/meta is not pulling clicks at 387 impressions; rewrite queued for June. /locations/ is currently placeholder content — the St Louis pilot replacement is drafted and waiting on WordPress write access.</div>
+  <h2>Ranking but Not Yet Clicked &mdash; Optimization Opportunities</h2>
+  <table><thead><tr><th>Query</th></tr></thead><tbody><tr><td style="color:#6a6a72;">No notable optimization opportunities — every ranking query with meaningful impressions is also earning clicks.</td></tr></tbody></table>
+  <p style="font-size:13px;color:var(--mute);margin-top:10px;">Non-brand queries with 20+ impressions and zero clicks. These rank but the title/meta isn't earning the click yet &mdash; each row is a content or metadata fix that could unlock traffic.</p>
 
-  <h2>KEYWORDS <span class="accent">CURRENTLY OWNED.</span></h2>
-  <p style="max-width:780px;">Non-brand keywords driving organic visibility, sorted by position. Movement column compares to the prior SEMrush reading; all currently tracked rankings held position month-over-month (no decay observed). New entries are pages and queries that did not register in earlier readings.</p>
-  <table>
-    <thead>
-      <tr><th>Keyword</th><th class="num">Position</th><th class="num">Volume</th><th>Page</th><th>Movement</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>cpa edwardsville il</td><td class="num">1</td><td class="num">40</td><td>homepage</td><td><span class="delta-flat">Hold #1</span></td></tr>
-      <tr><td>thompson flaherty</td><td class="num">1</td><td class="num">70</td><td>homepage</td><td><span class="delta-flat">Hold #1 (brand)</span></td></tr>
-      <tr><td>tax professionals thompson</td><td class="num">6</td><td class="num">50</td><td>homepage</td><td><span class="delta-flat">Hold top-10</span></td></tr>
-      <tr><td>kelly flaherty</td><td class="num">9</td><td class="num">90</td><td>/ourstaff.php (legacy)</td><td><span class="delta-down">Legacy URL — redirect to /about/ queued</span></td></tr>
-      <tr><td>loy miller talley</td><td class="num">17</td><td class="num">40</td><td>homepage</td><td><span class="delta-flat">Page 2</span></td></tr>
-      <tr><td>thompson cpa</td><td class="num">18</td><td class="num">50</td><td>homepage</td><td><span class="delta-flat">Page 2</span></td></tr>
-      <tr><td>marge's tax service</td><td class="num">19</td><td class="num">50</td><td>homepage</td><td><span class="delta-flat">Page 2</span></td></tr>
-      <tr><td>accounting firms in dupage county illinois</td><td class="num">41</td><td class="num">50</td><td>homepage</td><td><span class="delta-up">New entry (Chicago metro)</span></td></tr>
-      <tr><td>accountants glen ellyn il</td><td class="num">44</td><td class="num">40</td><td>homepage</td><td><span class="delta-up">New entry (Chicago metro)</span></td></tr>
-      <tr><td>illinois accountant</td><td class="num">39</td><td class="num">30</td><td>homepage</td><td><span class="delta-flat">Page 4</span></td></tr>
-    </tbody>
-  </table>
-
-  <h2>EMERGING QUERIES <span class="accent">(GSC, FIRST IMPRESSIONS).</span></h2>
-  <p style="max-width:780px;">Search queries that appeared in GSC this month with no historical baseline. These are the next-30-day position-lift targets — most are sitting at positions 4–24 and a few small content reinforcements move them onto page 1.</p>
-  <table>
-    <thead>
-      <tr><th>Query</th><th class="num">Impressions</th><th class="num">Avg Position</th><th>Why it matters</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>thompson flaherty edwardsville il</td><td class="num">14</td><td class="num">1.1</td><td>Brand+geo combo — direct lookup, holding top</td></tr>
-      <tr><td>accountant near me</td><td class="num">16</td><td class="num">5.9</td><td>High-intent local; one position move into top-3</td></tr>
-      <tr><td>accountant for small business near me</td><td class="num">1</td><td class="num">4</td><td>Service-page intent — /accounting/ is the target</td></tr>
-      <tr><td>account firms dupage county</td><td class="num">5</td><td class="num">57</td><td>Chicago expansion signal — page 6 entry, needs /cpa-dupage-county/</td></tr>
-      <tr><td>accountant lyons il</td><td class="num">8</td><td class="num">42.1</td><td>Chicago suburb signal — page 5, needs city-page build</td></tr>
-      <tr><td>accountant belleville il</td><td class="num">1</td><td class="num">20</td><td>Metro East expansion — page 2 entry</td></tr>
-      <tr><td>accountant chester il</td><td class="num">1</td><td class="num">14</td><td>Metro East expansion — page 2 entry</td></tr>
-    </tbody>
-  </table>
-
-  <h2>METRO EAST <span class="accent">CANONICAL FIX.</span></h2>
-  <p style="max-width:780px;">"cpa edwardsville il" has 13 different URLs indexed on the domain. Homepage holds #1. The other 12 legacy .php pages dilute authority and sit at positions 12–96. June priority: 301-redirect each legacy URL to its topic-matched modern destination so the homepage stops splitting authority with itself.</p>
-  <table>
-    <thead>
-      <tr><th>Legacy URL</th><th class="num">Current Position</th><th>301 destination</th></tr>
-    </thead>
-    <tbody>
-      <tr><td>thompsonflaherty.com/ (homepage)</td><td class="num">1</td><td><span class="delta-up">Hold</span></td></tr>
-      <tr><td>/contact.php</td><td class="num">12</td><td>/contact/</td></tr>
-      <tr><td>/clientportal.php</td><td class="num">23</td><td>Verify portal URL</td></tr>
-      <tr><td>/calc-section.php</td><td class="num">28, 30</td><td>/</td></tr>
-      <tr><td>/ourstaff.php</td><td class="num">35, 40</td><td>/about/</td></tr>
-      <tr><td>/taxprep.php</td><td class="num">51</td><td>/tax-business/</td></tr>
-      <tr><td>/quote.php</td><td class="num">73</td><td>/contact/</td></tr>
-      <tr><td>/services.php, /payrollservice.php, /auditing.php, /bizservices.php, /about.php</td><td class="num">76–96</td><td>Service-matched URLs</td></tr>
-    </tbody>
-  </table>
-
-  <h2>JUNE <span class="accent">GAME PLAN.</span></h2>
-
-  <div class="priority">
-    <span class="ptag">Priority 1 &middot; Chicago</span>
-    <h3>Ship the Chicago pilot batch (4 city pages).</h3>
-    <p>Build /cpa-chicago/, /cpa-naperville/, /cpa-northbrook/, /cpa-dupage-county/. Each follows the Service+City pattern from the St Louis pilot. Internal-link them up to a shared /chicago/ hub. The two newly-ranking DuPage County keywords (positions 41 and 44) plus the emerging "accountant lyons il" / "account firms dupage county" queries get dedicated destinations to consolidate the homepage's accidental rankings. Target: 4 pages live by June 30, first impressions by July 7.</p>
-  </div>
-
-  <div class="priority">
-    <span class="ptag">Priority 2 &middot; Metro East defense</span>
-    <h3>Fix the 12 legacy .php URLs (canonical sprint).</h3>
-    <p>All 12 legacy .php pages currently catch-all to the homepage as 301s, which is why 12 different URLs all rank for "cpa edwardsville il." Map each one to its topic-matched destination (contact.php → /contact/, ourstaff.php → /about/, services.php → /tax-business/, etc.). Reclaims relevance signal currently lost to URL splintering. Single sprint, no content build required.</p>
-  </div>
-
-  <div class="priority">
-    <span class="ptag">Priority 3 &middot; Quick win</span>
-    <h3>Rewrite /accounting/ title + meta to capture its 387 impressions.</h3>
-    <p>/accounting/ is ranking at average position 6.1 with 387 impressions in May but only 1 click. Either the title is not matching searcher intent or the meta description is weak. Title rewrite to include "Edwardsville" + "Small Business" framing, meta description rewrite around the actual /accounting/ scope (bookkeeping, payroll, monthly close). Adds an internal link from the homepage hero. Target: CTR from 0.26% to 3%+, which alone would 10x the page's clicks at current impression volume.</p>
-  </div>
-
-  <h2>WHAT WE <span class="accent">COMPLETED IN MAY.</span></h2>
-  <div class="callout">
-    <p><strong>Local SEO + E-E-A-T sprint (May 17).</strong> LocalBusiness schema with geo coordinates, opening hours, and 13 areaServed entries deployed to homepage. Person schemas for Kelly Flaherty CPA and Christian Kimble CPA deployed to /about/ with credentials, alumniOf, and Kelly's St Louis Small Business Monthly recognition. Local SEO audit scorecard published live. E-E-A-T scorecard published live. St Louis page architecture documented + 1,600-word /cpa-st-louis/ draft built. llms.txt drafted (pending WordPress write toggle).</p>
-    <p><strong>Five new service pages live.</strong> /locations/, /accounting/, /tax-individual/, /about/, /exit-planning/ — all indexed, all pulling first-month GSC impressions (see "New Pages Now Indexed" table above).</p>
-    <p><strong>Paid search opened (May 17).</strong> Two Search campaigns live (Metro East & STL Metro + Chicago Metro). $20/day total budget, MANUAL_CPC, 7 ad groups, 85 keywords. Conversion action live (Form Submission → Thank You). 2 conversions registered last 30 days. 5 of 7 ad groups bid-corrected to market CPC; 2 STL groups still pending TB approval.</p>
-  </div>
-
-  <h2>NOTES.</h2>
-  <ul style="margin:0;padding-left:20px;color:var(--hair);">
-    <li><strong>Traffic sources.</strong> GA4 (property 528758117) is now wired into this report — sessions are real GA4 numbers. Google Search Console is wired separately for clicks + impressions + position data. SEMrush is used for keyword positions only; traffic estimates are no longer surfaced per agency rule.</li>
-    <li><strong>GSC verification timing.</strong> The property was verified mid-April 2026, which is why year-over-year comparisons are not yet available. June will be the first true month-over-month comparison.</li>
-    <li><strong>SEMrush position deltas.</strong> All currently tracked keyword positions held month-over-month with zero decay. The movement in this report comes from new page launches and new query entries (GSC), not position changes on existing rankings.</li>
-  </ul>
-
-  <div class="footer">
-    Generated by <a href="https://markology.io">Markology</a> &middot; May 2026 &middot; Refreshed 2026-05-28<br/>
-    Related: <a href="https://markology-agency.github.io/pages/thompson-flaherty/ads-tracker/may-2026/">Ads tracker (May 2026)</a> &middot; <a href="https://markology-agency.github.io/pages/thompson-flaherty/local-seo-audit/">Local SEO audit</a> &middot; <a href="https://markology-agency.github.io/pages/thompson-flaherty/eeat/">E-E-A-T scorecard</a>
-  </div>
+  <footer>Generated by Markology &middot; auto-build · 2026-06-10 &middot; <a href="https://markology.io">markology.io</a></footer>
 </div>
+
+<script>
+  const trendData = {"labels": ["Jan 26", "Jan 26", "Mar 26", "Apr 26", "May 26"], "keywords": [0, 0, 0, 0, 0], "sessions": [0, 0, 0, 1, 158]};
+  const ctx = document.getElementById('trajectoryChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: trendData.labels,
+      datasets: [
+        { label: 'Ranking Keywords (SEMrush)', data: trendData.keywords, borderColor: '#0b1b3a', backgroundColor: 'rgba(11,27,58,0.12)', yAxisID: 'y', tension: 0.3, fill: true, pointRadius: 4, pointBackgroundColor: '#0b1b3a' },
+        { label: 'Organic Sessions (GA4)', data: trendData.sessions, borderColor: '#1f4fff', borderDash: [6,4], backgroundColor: 'rgba(31,79,255,0.05)', yAxisID: 'y1', tension: 0.3, pointRadius: 4, pointBackgroundColor: '#1f4fff' }
+      ]
+    },
+    options: {
+      responsive: true,
+      interaction: { mode: 'index', intersect: false },
+      plugins: { legend: { position: 'bottom', labels: { font: { weight: '600' } } } },
+      scales: {
+        y:  { position: 'left',  beginAtZero: true, title: { display: true, text: 'Ranking Keywords' } },
+        y1: { position: 'right', beginAtZero: true, title: { display: true, text: 'Organic Sessions' }, grid: { drawOnChartArea: false } }
+      }
+    }
+  });
+</script>
 </body>
 </html>

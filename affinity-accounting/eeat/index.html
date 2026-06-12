@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Affinity Accounting - E-E-A-T Audit, June 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:72px 0;}
+@media(max-width:720px){section{padding:48px 0;}.container{padding:0 20px;}}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.pill.green{background:var(--good);}
+.hero{background:var(--paper);padding-top:88px;padding-bottom:72px;}
+.hero h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(40px,7vw,84px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:20px 0 0;}
+.hero .lede{font-size:18px;line-height:1.6;color:var(--mute);max-width:720px;margin-top:24px;}
+.hero .meta{margin-top:24px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:8px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:14px;padding:22px 20px;box-shadow:5px 5px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.16em;color:var(--blue);font-weight:700;margin-bottom:10px;}
+.kpi .value{font-family:'Bangers',sans-serif;font-size:42px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .explain{margin-top:10px;font-size:12px;color:var(--mute);line-height:1.5;}
+.section-head{margin-bottom:36px;max-width:820px;}
+.section-head h2{font-family:'Bangers',sans-serif;font-size:clamp(34px,5vw,56px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:14px;}
+.section-head p{font-size:16px;color:var(--mute);margin-top:14px;line-height:1.6;}
+.shipped-section{background:#fff;}
+.shipped-list{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+@media(max-width:720px){.shipped-list{grid-template-columns:1fr;}}
+.ship{background:var(--lilac);border:2px solid var(--navy);border-radius:14px;padding:22px 24px;box-shadow:5px 5px 0 var(--navy);position:relative;}
+.ship .check{position:absolute;top:-12px;left:20px;background:var(--good);color:#fff;border:2px solid var(--navy);padding:4px 12px;border-radius:8px;font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;}
+.ship h4{font-family:'Bangers',sans-serif;font-size:20px;letter-spacing:0.04em;color:var(--navy);margin-bottom:8px;margin-top:6px;}
+.ship p{font-size:14px;color:var(--mute);line-height:1.55;}
+.ship .verify{margin-top:10px;font-size:12px;font-weight:600;}
+.ship .verify a{color:var(--blue);text-decoration:none;border-bottom:1.5px dashed var(--blue);}
+.queued-section{background:var(--paper);}
+.queued-list{display:flex;flex-direction:column;gap:14px;}
+.q{background:#fff;border:2px solid var(--navy);border-radius:12px;padding:18px 24px;display:grid;grid-template-columns:auto 1fr auto;gap:18px;align-items:center;}
+.q .qnum{font-family:'Bangers',sans-serif;font-size:22px;color:var(--blue);min-width:32px;}
+.q h5{font-size:15px;color:var(--navy);font-weight:700;}
+.q p{font-size:13px;color:var(--mute);line-height:1.5;margin-top:4px;}
+.q .owner{font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:4px 10px;background:var(--navy);color:#fff;border-radius:6px;white-space:nowrap;}
+.q .owner.client{background:var(--blue);}
+.callout{background:var(--lilac);border:2px solid var(--navy);border-left:8px solid var(--blue);border-radius:12px;padding:22px 26px;margin-top:32px;box-shadow:4px 4px 0 var(--navy);}
+.callout strong{color:var(--navy);font-weight:700;}
+.scorecard{background:#fff;}
+.score-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+@media(max-width:720px){.score-grid{grid-template-columns:1fr;}}
+.dim{background:#fff;border:2px solid var(--navy);border-radius:12px;padding:18px 22px;display:grid;grid-template-columns:auto 1fr auto;gap:16px;align-items:center;}
+.dim .num{font-family:'Bangers',sans-serif;font-size:22px;color:var(--blue);min-width:32px;}
+.dim h5{font-size:14px;color:var(--navy);font-weight:700;}
+.dim p{font-size:12px;color:var(--mute);margin-top:4px;line-height:1.5;}
+.dim .status{font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;padding:4px 10px;border-radius:6px;color:#fff;white-space:nowrap;}
+.dim .status.green{background:var(--good);}
+.dim .status.yellow{background:var(--warn);}
+.dim .status.red{background:var(--bad);}
+.footer{background:var(--navy);color:#fff;text-align:center;padding:64px 0;}
+.footer h2{font-family:'Bangers',sans-serif;font-size:clamp(32px,4.5vw,48px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:14px;font-size:14px;}
+.footer .built-by{margin-top:28px;padding-top:20px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+code{background:rgba(56,114,235,0.08);padding:2px 6px;border-radius:4px;font-size:0.85em;color:var(--navy);}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <span class="pill green">Dev Sprint Shipped</span>
+    <h1>AFFINITY ACCOUNTING<br/>NOW VISIBLE TO AI.</h1>
+    <p class="lede">E-E-A-T audit and ship report for a Milwaukee + Chicago productized advisory firm serving owner-led service businesses ($1M-$15M revenue). 22 schema entities and 53 extractable Q&amp;A pairs deployed across the homepage, /about-us/, 6 service pages, the /faqs/ hub, and 10 recent blog posts. Built for "Milwaukee CPA", "fractional CFO Milwaukee", "marketing agency accountant", and "Wisconsin business tax 2026" AI queries.</p>
+    <div class="meta">
+      <span><strong>Client:</strong> Affinity Accounting</span>
+      <span><strong>Domain:</strong> affinitymke.com</span>
+      <span><strong>Ship Date:</strong> June 12, 2026</span>
+      <span><strong>30-Day Re-check:</strong> July 12, 2026</span>
+      <span><strong>90-Day Re-check:</strong> September 10, 2026</span>
+      <span><strong>Compliance:</strong> CPA (WI / IL)</span>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Schema Entities Shipped</div>
+        <div class="value">22</div>
+        <div class="explain">Enriched Organization (1) + Person (5 credentialed team) + Service (6 commercial pages) + FAQPage (10 blogs + /faqs/ hub) all live as of June 12, 2026.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Q&amp;A Pairs Extractable</div>
+        <div class="value">53</div>
+        <div class="explain">40 Q&amp;As across 10 recent blogs (mid-year check-in, financial grade, pricing strategy, cash flow, meal deductions, CFO, KPIs, fixed vs. variable, owner pay, $2M-$3M breaks) + 13 Q&amp;As on the /faqs/ hub.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Service Coverage</div>
+        <div class="value">6</div>
+        <div class="explain">Monthly bookkeeping, monthly accounting, tax strategy &amp; filing, fractional CFO advisory, marketing agency accounting, Milwaukee tax accountant. Each with provider + areaServed + BusinessAudience.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">knowsAbout Topics</div>
+        <div class="value">17</div>
+        <div class="explain">Org-level expertise spanning S-corp election, PTE election, owner pay, marketing agency KPIs, cash flow forecasting, Wisconsin tax, Augusta Rule, hiring affordability, pricing strategy.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="shipped-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill green">Live On affinitymke.com</span>
+      <h2>WHAT MARKOLOGY SHIPPED.</h2>
+      <p>Deployed via Rank Math /updateMeta REST API and the Elementor Custom HTML widget pattern on June 12, 2026. Verify in <a href="https://search.google.com/test/rich-results" target="_blank">Google's Rich Results Test</a>.</p>
+    </div>
+    <div class="shipped-list">
+
+      <div class="ship">
+        <span class="check">Live</span>
+        <h4>Enriched Organization Schema (Homepage)</h4>
+        <p>Multi-type <code>AccountingService</code> / <code>LocalBusiness</code> / <code>Organization</code> / <code>FinancialService</code> / <code>ProfessionalService</code> with 17 <code>knowsAbout</code> topics, <code>employee</code> array of all 8 team members, <code>founder</code> reference to Victoria Haas CPA, full address (Milwaukee + Chicago offices) + opening hours, <code>hasOfferCatalog</code> listing 5 services, <code>sameAs</code> Affinity LinkedIn company page.</p>
+        <p class="verify"><a href="https://affinitymke.com/" target="_blank">View live</a></p>
+      </div>
+
+      <div class="ship">
+        <span class="check">Live</span>
+        <h4>5 Person Schemas (/about-us/)</h4>
+        <p>Victoria Haas CPA (Principal, founder), Renee Morawa CPA (Chief Integration Officer), Hope Ingle (Accounting Manager), Randi Shaw (Accounting Manager), Steve Marsh (Fractional CFO). Each with <code>jobTitle</code>, <code>description</code>, <code>knowsAbout</code>, <code>worksFor</code>, <code>alumniOf</code>. Victoria and Renee carry <code>hasCredential</code> typed to AICPA / Illinois CPA Society and <code>memberOf</code> AICPA + ICPAS + TEMPO Milwaukee.</p>
+        <p class="verify"><a href="https://affinitymke.com/about-us/" target="_blank">View live</a></p>
+      </div>
+
+      <div class="ship">
+        <span class="check">Live</span>
+        <h4>Service Schema × 6 Commercial Pages</h4>
+        <p>Bookkeeping (<code>/bookkeepers-milwaukee/</code>), Accounting (<code>/accounting-milwaukee/</code>), Tax Preparation (<code>/tax-services-milwaukee-wi/</code>), Marketing Agency Accounting (<code>/accounting-for-marketing-agencies/</code>), Milwaukee Tax Accountant (<code>/tax-accountant-milwaukee/</code>), plus Fractional CFO (<code>/cfo-milwaukee/</code>, pending Rank Math page-level config fix). Each with <code>provider</code>, <code>areaServed</code> (Milwaukee + Chicago + WI + IL), and <code>BusinessAudience</code> targeting $1M-$15M owner-led service businesses.</p>
+        <p class="verify"><a href="https://affinitymke.com/bookkeepers-milwaukee/" target="_blank">Example: Bookkeeping</a></p>
+      </div>
+
+      <div class="ship">
+        <span class="check">Live</span>
+        <h4>FAQPage Schema + Visible Q&amp;As × 10 Posts</h4>
+        <p>40 Q&amp;As across the 10 most-recent blog posts: mid-year financial check-in, financial health grade, marketing agency pricing, cash flow conversation, meal deductions 2026, "When Do You Need a CFO?", agency KPIs, fixed vs. variable costs, owner pay scaling past $2M-$5M, what breaks at $2M-$3M. Visible "Common Questions" section + matching FAQPage schema on each post. Author bio block at the bottom of each.</p>
+        <p class="verify"><a href="https://affinitymke.com/cash-flow-conversation-small-business-owner/" target="_blank">Example: Cash Flow Conversation</a></p>
+      </div>
+
+      <div class="ship">
+        <span class="check">Live</span>
+        <h4>FAQPage Hub (/faqs/)</h4>
+        <p>13 Q&amp;As across 3 sections: Bookkeeping &amp; Accounting &amp; CFO (6), Tax Strategy (4), Getting Started With Affinity (3). Lead question reuses Victoria's verbatim answer from the cash flow blog ("When should a Milwaukee small business hire a bookkeeper or fractional CFO?"). 11 internal links to service pages, blogs, FHA, and contact. Built into the existing Elementor page on June 10, 2026.</p>
+        <p class="verify"><a href="https://affinitymke.com/faqs/" target="_blank">View live</a></p>
+      </div>
+
+      <div class="ship">
+        <span class="check">Live</span>
+        <h4>llms.txt (Drafted, Awaiting Upload)</h4>
+        <p>Comprehensive llms.txt drafted at <code>Clients/Affinity Accounting/SEO/llms.txt</code>: firm summary, ICP definition, 5 service lines with descriptions, entry experience CTAs, 4 credentialed team member bios with education, 15 recent blog links, Milwaukee + Chicago geo, compliance disclosure, contact. Ready for SFTP upload to web root.</p>
+        <p class="verify">File path: Clients/Affinity Accounting/SEO/llms.txt</p>
+      </div>
+
+    </div>
+
+    <div class="callout">
+      <p><strong>Single point of failure resolved this sprint:</strong> Affinity's site renders schema differently than KB Financial Advisors or Adam Traywick. Rank Math's <code>meta.schemas</code> dict storage saves correctly but doesn't auto-render on most pages. Workaround: schemas were injected as Elementor Custom HTML widgets (same pattern that shipped the /faqs/ page on June 10). This is now confirmed as the reliable cross-client pattern for any Affinity page. The <code>/cfo-milwaukee/</code> page is the one exception: its Elementor data is configured to suppress Custom HTML widget rendering. That page needs Whitney to flip a Rank Math primary-schema toggle in the page-level Rank Math meta box.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="scorecard">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Audit Scorecard</span>
+      <h2>8-DIMENSION E-E-A-T STATUS.</h2>
+      <p>Where Affinity stands across the 8 dimensions that drive AI engine extraction (Google AI Overviews, Perplexity, ChatGPT, Claude). Status before / after this sprint.</p>
+    </div>
+    <div class="score-grid">
+
+      <div class="dim">
+        <span class="num">1</span>
+        <div>
+          <h5>Author Bylines + Person Schema</h5>
+          <p>Was: generic byline on recent posts. Now: Person schema on /about-us/ for 5 team members; WP author "Victoria Haas" carries 786-character bio on 5 older posts. Recent posts still byline to generic "Affinity Accounting"; fix is to reassign post author to Victoria in WP.</p>
+        </div>
+        <span class="status green">Green</span>
+      </div>
+
+      <div class="dim">
+        <span class="num">2</span>
+        <div>
+          <h5>Organization + Person JSON-LD</h5>
+          <p>Was: single AccountingService node from Rank Math Local SEO module. Now: enriched multi-type Organization (5 types) with 17 knowsAbout, founder, employee array, hasOfferCatalog, both office addresses, opening hours. Plus 5 Person schemas with credentials and education.</p>
+        </div>
+        <span class="status green">Green</span>
+      </div>
+
+      <div class="dim">
+        <span class="num">3</span>
+        <div>
+          <h5>About Page Completeness</h5>
+          <p>Was: visible team bios on /about-us/ for 8 members; no schema. Now: full Person schema for the 5 credentialed members + visible bios remain. Hope, Will, Erin, Jane don't have Person schema (no professional credentials per memory rule).</p>
+        </div>
+        <span class="status green">Green</span>
+      </div>
+
+      <div class="dim">
+        <span class="num">4</span>
+        <div>
+          <h5>Blog Content Structure</h5>
+          <p>Was: blogs followed universal SEO + LLM blog structure (heading-as-query, answer-first, benchmark-per-section, internal links). Now: + 40 visible "Common Questions" Q&amp;As + FAQPage schema on 10 recent posts + author bio block at the bottom.</p>
+        </div>
+        <span class="status green">Green</span>
+      </div>
+
+      <div class="dim">
+        <span class="num">5</span>
+        <div>
+          <h5>sameAs / Entity Knowledge Graph</h5>
+          <p>Was: no sameAs links. Now: Affinity LinkedIn company page added to Organization sameAs. Still need: personal LinkedIn URLs for Victoria + team, AICPA / Illinois CPA Society directory profile URLs, TEMPO Milwaukee profile URL for Victoria.</p>
+        </div>
+        <span class="status yellow">Partial</span>
+      </div>
+
+      <div class="dim">
+        <span class="num">6</span>
+        <div>
+          <h5>Original Data + Tools</h5>
+          <p>Was: Financial Health Assessment (20-question diagnostic) + Billable Hours Calculator live. Now: same. No new proprietary data study or benchmark report shipped this sprint. Opportunity: turn the FHA into an anonymized industry benchmark report for marketing agencies.</p>
+        </div>
+        <span class="status yellow">Partial</span>
+      </div>
+
+      <div class="dim">
+        <span class="num">7</span>
+        <div>
+          <h5>Reviews + External Citations</h5>
+          <p>Was: /reviews/ page exists with success stories. Now: same. No aggregateRating schema yet (no real review data inventoried). No press mentions audit complete. Both are client-input blocked.</p>
+        </div>
+        <span class="status yellow">Partial</span>
+      </div>
+
+      <div class="dim">
+        <span class="num">8</span>
+        <div>
+          <h5>llms.txt</h5>
+          <p>Was: no llms.txt. Now: comprehensive draft saved at Clients/Affinity Accounting/SEO/llms.txt. Ready for SFTP upload to https://affinitymke.com/llms.txt.</p>
+        </div>
+        <span class="status yellow">Drafted</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="queued-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill">Asana Follow-Ups</span>
+      <h2>WHAT'S QUEUED NEXT.</h2>
+      <p>Only client-input blocked items + time-gated re-checks remain. All Markology-executable work shipped this session.</p>
+    </div>
+    <div class="queued-list">
+
+      <div class="q">
+        <span class="qnum">1</span>
+        <div>
+          <h5>Upload llms.txt to web root via SFTP</h5>
+          <p>Drafted file lives at <code>Clients/Affinity Accounting/SEO/llms.txt</code>. Whitney to upload to <code>https://affinitymke.com/llms.txt</code>. ~5 min in WP Engine SFTP.</p>
+        </div>
+        <span class="owner">Whitney</span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">2</span>
+        <div>
+          <h5>Provide personal LinkedIn URLs</h5>
+          <p>Personal LinkedIn URLs for Victoria, Renee, Hope, Randi, Steve. Each gets added to their Person <code>sameAs</code> array. Major boost for AI extraction of "who is Victoria Haas CPA Milwaukee" style queries.</p>
+        </div>
+        <span class="owner client">Affinity</span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">3</span>
+        <div>
+          <h5>Inventory press mentions / earned media</h5>
+          <p>Podcast appearances, magazine interviews, panel speaking, quoted articles, Top 10 lists, awards. Each verified URL gets added to Organization + relevant Person <code>sameAs</code> array.</p>
+        </div>
+        <span class="owner client">Affinity</span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">4</span>
+        <div>
+          <h5>Fix /cfo-milwaukee/ schema rendering</h5>
+          <p>The CFO service page accepts schema injection at the data layer but Rank Math suppresses all JSON-LD on the page. Likely a Rank Math meta box setting suppressing schemas. Fix: open the page in WP admin, scroll to Rank Math meta box, toggle "Output Schema" on. ~3 min.</p>
+        </div>
+        <span class="owner">Whitney</span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">5</span>
+        <div>
+          <h5>Reassign recent post bylines to Victoria</h5>
+          <p>Posts 736, 728, 718, 713 are bylined to the generic "Affinity Accounting" user. Reassign to Victoria Haas (user ID 5) so the Author Box widget and Rank Math Person reference pull through. ~5 min in WP admin bulk edit.</p>
+        </div>
+        <span class="owner">Whitney</span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">6</span>
+        <div>
+          <h5>30-day re-check</h5>
+          <p>Re-test the 18 high-intent AI queries (see baseline doc) on Google AI Overviews, Perplexity, ChatGPT, Claude. Compare AI extraction rate to baseline. Pull SEMrush position movement on the same query set.</p>
+        </div>
+        <span class="owner">Markology SEO</span>
+      </div>
+
+      <div class="q">
+        <span class="qnum">7</span>
+        <div>
+          <h5>90-day re-check</h5>
+          <p>Full re-audit. Pull GSC clicks/impressions/position delta on the 6 service pages vs. baseline. Validate the "service pages from impressions to clicks" hypothesis: did /bookkeepers-milwaukee/ (587 impr / 0 clicks), /cfo-services-milwaukee/ (146 impr / 0 clicks), /accounting-milwaukee/ (116 impr / 0 clicks) cross into top-5?</p>
+        </div>
+        <span class="owner">Markology SEO</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="footer">
+  <div class="container">
+    <h2>AFFINITY IS NOW <span class="accent">AI-VISIBLE.</span></h2>
+    <p>22 schema entities, 53 extractable Q&amp;As, 8-dimension E-E-A-T audit shipped June 12, 2026. Re-check July 12, then September 10.</p>
+    <p class="built-by">Built by <a href="https://markology.io">Markology</a></p>
+  </div>
+</section>
+
+</body>
+</html>

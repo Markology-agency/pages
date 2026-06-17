@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Core Advisors: June 2026 Strategy Memo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --navy: #070630;
+    --blue: #3872EB;
+    --lilac: #E6E9FF;
+    --paper: #F9F9FF;
+    --ink: #1a1a2e;
+    --muted: #5d5d78;
+    --green: #16a34a;
+    --amber: #d97706;
+    --rose: #be123c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--paper); color: var(--ink); line-height: 1.6; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  .hero { background: var(--navy); color: #fff; padding: 80px 0 100px; position: relative; overflow: hidden; }
+  .hero::after { content: ""; position: absolute; right: -120px; top: -120px; width: 480px; height: 480px; background: radial-gradient(circle, rgba(56,114,235,0.4), transparent 70%); }
+  .hero .eyebrow { font-family: 'Bangers', sans-serif; letter-spacing: 3px; color: var(--blue); font-size: 18px; margin-bottom: 16px; }
+  .hero h1 { font-family: 'Bangers', sans-serif; font-size: 64px; letter-spacing: 1px; line-height: 1.05; margin-bottom: 24px; max-width: 880px; }
+  .hero .lede { font-size: 19px; max-width: 760px; color: #cdd1f5; }
+  .section { padding: 72px 0; }
+  .section h2 { font-family: 'Bangers', sans-serif; font-size: 38px; letter-spacing: 1.5px; margin-bottom: 12px; color: var(--navy); }
+  .section .sub { color: var(--muted); margin-bottom: 36px; max-width: 720px; }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: -56px; position: relative; z-index: 2; }
+  .kpi { background: #fff; border-radius: 14px; padding: 22px; box-shadow: 0 8px 24px rgba(7,6,48,0.10); }
+  .kpi .label { font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 8px; }
+  .kpi .value { font-family: 'Bangers', sans-serif; font-size: 38px; color: var(--navy); letter-spacing: 1px; line-height: 1; }
+  .kpi .delta { font-size: 13px; color: var(--green); font-weight: 600; margin-top: 6px; }
+  .kpi .delta.amber { color: var(--amber); }
+  .charts { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .chart-card { background: #fff; border-radius: 14px; padding: 24px; box-shadow: 0 4px 14px rgba(7,6,48,0.06); }
+  .chart-card h3 { font-size: 16px; margin-bottom: 12px; color: var(--navy); }
+  .chart-card .ctx { font-size: 13px; color: var(--muted); margin-bottom: 16px; }
+  canvas { max-height: 280px; }
+  .stories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 24px; }
+  .story { background: #fff; border-radius: 14px; padding: 28px; border-top: 4px solid var(--blue); box-shadow: 0 4px 14px rgba(7,6,48,0.06); }
+  .story .big { font-family: 'Bangers', sans-serif; font-size: 42px; color: var(--blue); letter-spacing: 1px; line-height: 1; margin-bottom: 8px; }
+  .story h3 { font-size: 17px; margin-bottom: 8px; color: var(--navy); }
+  .story p { font-size: 14px; color: var(--muted); }
+  table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 14px rgba(7,6,48,0.06); }
+  th { background: var(--navy); color: #fff; text-align: left; padding: 14px 16px; font-size: 13px; letter-spacing: 0.5px; text-transform: uppercase; }
+  td { padding: 14px 16px; border-top: 1px solid #eef0fb; font-size: 14px; }
+  td.move-up { color: var(--green); font-weight: 700; }
+  td.move-flat { color: var(--muted); }
+  td.move-new { color: var(--blue); font-weight: 700; }
+  td.move-down { color: var(--amber); font-weight: 600; }
+  .leak-box { background: linear-gradient(135deg, #fff5f1, #fffaf3); border-left: 6px solid var(--rose); padding: 28px; border-radius: 12px; margin: 24px 0; }
+  .leak-box h3 { color: var(--rose); font-size: 17px; margin-bottom: 12px; letter-spacing: 1px; text-transform: uppercase; }
+  .leak-box p { color: #4a2a1a; }
+  .leak-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-top: 18px; }
+  .leak-cell { background: #fff; padding: 18px; border-radius: 10px; }
+  .leak-cell .num { font-family: 'Bangers', sans-serif; font-size: 32px; color: var(--rose); letter-spacing: 1px; }
+  .leak-cell .lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .priority { background: #fff; border-radius: 12px; padding: 24px 28px; margin-bottom: 14px; display: grid; grid-template-columns: 60px 1fr 140px; gap: 20px; align-items: start; box-shadow: 0 3px 10px rgba(7,6,48,0.05); }
+  .priority.alt { background: var(--lilac); }
+  .priority .num { font-family: 'Bangers', sans-serif; font-size: 48px; color: var(--blue); letter-spacing: 1px; line-height: 1; }
+  .priority h3 { font-size: 18px; color: var(--navy); margin-bottom: 8px; }
+  .priority p { font-size: 14px; color: var(--ink); }
+  .priority .tag { background: var(--navy); color: #fff; padding: 6px 14px; border-radius: 999px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; text-align: center; justify-self: end; }
+  .priority .tag.thirty { background: var(--blue); }
+  .priority .tag.sixty { background: var(--muted); }
+  .plays { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .play { background: #fff; border-radius: 14px; padding: 28px; border-left: 4px solid var(--blue); box-shadow: 0 3px 10px rgba(7,6,48,0.05); }
+  .play h3 { font-size: 17px; color: var(--navy); margin-bottom: 8px; }
+  .play p { font-size: 14px; color: var(--muted); }
+  .measure { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .mcard { background: #fff; border-radius: 14px; padding: 26px; box-shadow: 0 3px 10px rgba(7,6,48,0.05); border-top: 4px solid var(--blue); }
+  .mcard h3 { font-size: 16px; color: var(--navy); margin-bottom: 10px; }
+  .mcard .now { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+  .mcard .target { font-family: 'Bangers', sans-serif; font-size: 22px; color: var(--blue); letter-spacing: 1px; }
+  footer { background: var(--navy); color: #cdd1f5; padding: 50px 0; text-align: center; font-size: 14px; }
+  footer .signoff { font-family: 'Bangers', sans-serif; font-size: 22px; color: #fff; letter-spacing: 2px; margin-bottom: 8px; }
+  @media (max-width: 900px) {
+    .hero h1 { font-size: 42px; }
+    .kpi-grid, .stories, .charts, .plays, .measure { grid-template-columns: 1fr; }
+    .priority { grid-template-columns: 50px 1fr; }
+    .priority .tag { grid-column: 1 / -1; justify-self: start; }
+    .leak-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="eyebrow">CORE ADVISORS // JUNE 2026 STRATEGY MEMO</div>
+    <h1>The rankings have arrived. Now we close the gap to leads.</h1>
+    <p class="lede">Twelve months of SEO work has tripled the keyword universe and pulled average position from #41 to #14. The next move is converting those rankings into clicks, and those clicks into form submits. This memo lays out where the leak is and the seven plays that close it.</p>
+  </div>
+</section>
+
+<section style="padding: 0 0 60px;">
+  <div class="wrap">
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Keywords Ranking (SEMrush)</div>
+        <div class="value">154</div>
+        <div class="delta">+95 YoY (from 59)</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Avg Position (GSC, 30d)</div>
+        <div class="value">17.5</div>
+        <div class="delta">from 41.8 a year ago</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Organic Clicks (GSC, May)</div>
+        <div class="value">120</div>
+        <div class="delta">+41% YoY (from 85)</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Lead-Form Submits (Ads, 90d)</div>
+        <div class="value">6</div>
+        <div class="delta amber">the bottleneck</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top: 30px;">
+  <div class="wrap">
+    <h2>Trajectory: rankings up, position up, CTR flat</h2>
+    <p class="sub">Position dropped from #41 to #14 on average across all queries. Impressions grew 40%. Clicks grew 41%. Click-through rate held flat at 0.9%, which is the leak.</p>
+    <div class="charts">
+      <div class="chart-card">
+        <h3>Organic clicks per month (GSC)</h3>
+        <p class="ctx">Climbed from 85 in May 2025 to a peak of 138 in January 2026, holding steady at 120+ through Q2.</p>
+        <canvas id="clicksChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Average ranking position (GSC)</h3>
+        <p class="ctx">Compounding SEO work pulled average position from #42 (May 2025) into the mid-teens by March, where it has stabilized.</p>
+        <canvas id="positionChart"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: var(--lilac);">
+  <div class="wrap">
+    <h2>What's working</h2>
+    <p class="sub">Three signals prove the strategy is compounding. These are the foundation we build on.</p>
+    <div class="stories">
+      <div class="story">
+        <div class="big">+29</div>
+        <h3>"dental cfo" #48 → #19</h3>
+        <p>The single biggest YoY move. A bottom-funnel commercial term moving 29 spots in twelve months. One more push gets it onto page 1.</p>
+      </div>
+      <div class="story">
+        <div class="big">7 NEW</div>
+        <h3>Strategic terms entered top 50</h3>
+        <p>"how much does a dental practice cost" (#3), "financial planner dentist" (#10), "practice cfo" (#16), "payroll for dentists" (#19), "retirement plans for dentists" (#25), "dental payroll" (#26), "dentist tax deduction checklist" (#38).</p>
+      </div>
+      <div class="story">
+        <div class="big">2.6x</div>
+        <h3>Keyword universe expansion</h3>
+        <p>SEMrush counts 154 ranking keywords vs. 59 a year ago. SEMrush domain rank improved from 4.5M to 4.1M, reflecting steady authority gains.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2>Year-over-year movement on strategic keywords</h2>
+    <p class="sub">Strongest gains and new entries on the dental-specific commercial intent set. Every spot of movement compounds over time.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Keyword</th>
+          <th>Volume</th>
+          <th>June 2025</th>
+          <th>Today</th>
+          <th>Movement</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>dental cfo</td><td>170</td><td>#48</td><td>#19</td><td class="move-up">+29 spots</td></tr>
+        <tr><td>financial advisors for dentists</td><td>140</td><td>#35</td><td>#13</td><td class="move-up">+22 spots</td></tr>
+        <tr><td>dental financial advisor</td><td>110</td><td>#30</td><td>#9</td><td class="move-up">+21 spots</td></tr>
+        <tr><td>how much does a dental practice cost</td><td>90</td><td>not ranking</td><td>#3</td><td class="move-new">NEW</td></tr>
+        <tr><td>how much does it cost to buy a dental practice</td><td>170</td><td>not in top 50</td><td>#6</td><td class="move-new">NEW</td></tr>
+        <tr><td>dental practice value calculator</td><td>170</td><td>#13</td><td>#6</td><td class="move-up">+7 spots</td></tr>
+        <tr><td>financial planner dentist</td><td>30</td><td>not ranking</td><td>#10</td><td class="move-new">NEW</td></tr>
+        <tr><td>dentist advisors</td><td>210</td><td>#13</td><td>#9</td><td class="move-up">+4 spots</td></tr>
+        <tr><td>practice cfo</td><td>140</td><td>not ranking</td><td>#16</td><td class="move-new">NEW</td></tr>
+        <tr><td>payroll for dentists</td><td>40</td><td>not ranking</td><td>#19</td><td class="move-new">NEW</td></tr>
+        <tr><td>dental payroll</td><td>90</td><td>not ranking</td><td>#26</td><td class="move-new">NEW</td></tr>
+        <tr><td>retirement plans for dentists</td><td>170</td><td>not ranking</td><td>#25</td><td class="move-new">NEW</td></tr>
+        <tr><td>core advisors</td><td>110</td><td>#2</td><td>#3</td><td class="move-flat">held</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" style="background: var(--lilac);">
+  <div class="wrap">
+    <h2>Where the leads are leaking</h2>
+    <p class="sub">The keyword work is doing its job. The conversion path from impression to form submit is not. Three breakpoints, in order of leverage.</p>
+
+    <div class="leak-box">
+      <h3>Breakpoint 1: CTR is the wall</h3>
+      <p>The top five lead-relevant pages get 24,011 impressions every 90 days and convert 24 of them to clicks. The average is 0.10%. Title and meta description rewrites can plausibly take this to 1.5% to 3.0% within four to six weeks. That alone produces an extra 280 to 700 organic clicks per quarter, on top of what is happening today.</p>
+      <div class="leak-grid">
+        <div class="leak-cell">
+          <div class="num">8,003</div>
+          <div class="lbl">Impressions on "best dental financial advisors" blog @ pos 13.3, 0.12% CTR</div>
+        </div>
+        <div class="leak-cell">
+          <div class="num">4,187</div>
+          <div class="lbl">Impressions on the dental practice valuation calculator @ pos 22, 0.21% CTR</div>
+        </div>
+        <div class="leak-cell">
+          <div class="num">3,485</div>
+          <div class="lbl">Impressions on "cost to buy a dental practice" @ pos 17, 0.11% CTR</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="leak-box">
+      <h3>Breakpoint 2: PMax is paying for button clicks, not leads</h3>
+      <p>In the last 90 days, the PMax campaign drove 24 "Schedule a Call" button clicks but only 6 actual lead-form submits. That is a 4-to-1 ratio of intent to completion. The button-click tracking is correctly excluded from the primary conversions metric, so PMax is not optimizing against those button clicks. But the gap itself tells us the form is the friction: people click the CTA, see what the form asks for, and bail. Trimming the form fields or moving to an embedded scheduler is the move.</p>
+    </div>
+
+    <div class="leak-box">
+      <h3>Breakpoint 3: Search ads are off, so the high-intent terms are unfunded</h3>
+      <p>Search campaigns are all paused after CPCs ran $7.18 average last cycle. Meanwhile PMax holds only 9.99% Search impression share with 90% lost to ad rank. That means the bottom-funnel terms ("dental cfo", "financial advisor for dentists", "wealth management for dentists") get almost no paid pickup, and the SEO traffic has to do all the conversion work. A tightly scoped exact-match Search campaign with a $5 CPC ceiling on a $300 monthly cap reopens that lane.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2>The highest-leverage pages to fix</h2>
+    <p class="sub">Sorted by impression volume. Each row is an existing rankings asset that is leaking clicks at the headline. Title and meta rewrites are the single highest-ROI lever for the next 30 days.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Page</th>
+          <th>90d Impressions</th>
+          <th>Clicks</th>
+          <th>CTR</th>
+          <th>Avg Position</th>
+          <th>Upside @ 2% CTR</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>/post/best-dental-financial-advisors/</td><td>8,003</td><td>10</td><td>0.12%</td><td>13.3</td><td class="move-up">+150 clicks/qtr</td></tr>
+        <tr><td>/free-dental-practice-valuation-calculator/</td><td>4,187</td><td>9</td><td>0.21%</td><td>22.1</td><td class="move-up">+75 clicks/qtr</td></tr>
+        <tr><td>/post/cost-to-buy-dental-practice/</td><td>3,485</td><td>4</td><td>0.11%</td><td>17.4</td><td class="move-up">+66 clicks/qtr</td></tr>
+        <tr><td>/post/profit-margin-for-dentists/</td><td>3,597</td><td>5</td><td>0.14%</td><td>10.3</td><td class="move-up">+67 clicks/qtr</td></tr>
+        <tr><td>/post/qbi-deduction-for-dentists/</td><td>3,035</td><td>14</td><td>0.46%</td><td>5.6</td><td class="move-up">+47 clicks/qtr</td></tr>
+        <tr><td>/post/dentist-tax-deduction/</td><td>1,937</td><td>28</td><td>1.45%</td><td>8.2</td><td class="move-flat">strong CTR, hold</td></tr>
+        <tr><td>/post/dental-practice-profit-sharing/</td><td>1,466</td><td>16</td><td>1.09%</td><td>6.9</td><td class="move-flat">strong CTR, hold</td></tr>
+        <tr><td>/post/dental-chart-of-accounts-2024/</td><td>1,441</td><td>71</td><td>4.93%</td><td>6.5</td><td class="move-flat">benchmark performer</td></tr>
+        <tr><td>/dental-cfo/ (service page)</td><td>1,334</td><td>0</td><td>0.00%</td><td>26.1</td><td class="move-up">page rewrite needed</td></tr>
+        <tr><td>/wealth-management-for-dentists/</td><td>1,330</td><td>1</td><td>0.08%</td><td>15.5</td><td class="move-up">+25 clicks/qtr</td></tr>
+        <tr><td>/dental-payroll/ (service page)</td><td>1,317</td><td>1</td><td>0.08%</td><td>22.5</td><td class="move-up">page rewrite needed</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" style="background: var(--lilac);">
+  <div class="wrap">
+    <h2>The game plan</h2>
+    <p class="sub">Seven plays. Sequenced by leverage and dependency. Each one is also queued in Asana on the Core Advisors June board.</p>
+
+    <div class="priority">
+      <div class="num">01</div>
+      <div>
+        <h3>Title-rewrite sweep on the top six leaking pages</h3>
+        <p>Rewrite the title tag and meta description for /best-dental-financial-advisors, /cost-to-buy-dental-practice, /free-dental-practice-valuation-calculator, /profit-margin-for-dentists, /dental-cfo service page, and /dental-payroll service page. New titles lead with the search term, include the year, end with the value promise. Conservative model: 1.5% CTR lifts these six pages from 29 clicks per quarter to 360. Even at half that we are adding 50 organic clicks per month immediately.</p>
+      </div>
+      <div class="tag">This Week</div>
+    </div>
+
+    <div class="priority alt">
+      <div class="num">02</div>
+      <div>
+        <h3>Audit and simplify the lead-form fields</h3>
+        <p>In 90 days PMax sent 24 people to click "Schedule a Call" but only 6 finished the form. That is a 75% drop after click. Audit Gravity Form #1 (homepage / contact) for field count, conditional logic, and validation friction. Hypothesis: cutting from current state down to name, email, dentist-or-not, and one open question moves completion rate from 25% to 50%-plus. Test it on the homepage CTA for two weeks before rolling out.</p>
+      </div>
+      <div class="tag">This Week</div>
+    </div>
+
+    <div class="priority">
+      <div class="num">03</div>
+      <div>
+        <h3>Rebuild the calculator's conversion path</h3>
+        <p>Calculator page gets 4,187 impressions per quarter and almost no leads. Add a soft email capture before the result reveal ("get your benchmark range emailed plus a one-page interpretation"), trigger a three-email follow-up sequence, and only ask for a Calendly booking after step three. The result is a calculator that captures most of the visitors and warms them before the call ask.</p>
+      </div>
+      <div class="tag thirty">30 Days</div>
+    </div>
+
+    <div class="priority alt">
+      <div class="num">04</div>
+      <div>
+        <h3>Re-author the "best dental financial advisors" blog as the Core Advisors POV</h3>
+        <p>The current page is a listicle that ranks competitors next to Core. With 8,003 impressions per quarter at position 13.3 it is the single biggest organic asset. Rewrite as "How dentists should evaluate a financial advisor" with the Core integrated-team thesis as the spine and the comparative table as supporting context. Goal: move from 0.12% CTR to 1.5%, capture the click, and convert at the page's CTA.</p>
+      </div>
+      <div class="tag thirty">30 Days</div>
+    </div>
+
+    <div class="priority">
+      <div class="num">05</div>
+      <div>
+        <h3>Reactivate Search ads on three exact-match terms only</h3>
+        <p>Relaunch a single Search campaign with three keywords on exact match: [dental cfo], [financial advisor for dentists], [wealth management for dentists]. Max CPC bid $5.00 with a $300 monthly cap. Tight ad copy that names dentists in the H1 and points to a dedicated landing page (not the homepage). This reopens the high-intent lane without the $7 CPC bleed that paused the old campaign.</p>
+      </div>
+      <div class="tag thirty">30 Days</div>
+    </div>
+
+    <div class="priority alt">
+      <div class="num">06</div>
+      <div>
+        <h3>Rewrite the three service pages that already rank but never click</h3>
+        <p>/dental-cfo (1,334 impressions, 0 clicks at position 26), /wealth-management-for-dentists (1,330 impressions, 1 click), and /dental-payroll (1,317 impressions, 1 click). All three rank but the pages are not converting attention to clicks or clicks to leads. Rewrite each opener with a direct one-sentence answer to "why dentists choose Core for X", add an above-fold lead form, and use the new content to inform the Search ad landing pages from play 5.</p>
+      </div>
+      <div class="tag sixty">60 Days</div>
+    </div>
+
+    <div class="priority">
+      <div class="num">07</div>
+      <div>
+        <h3>Set up monthly tracking on real lead-form submits, not button clicks</h3>
+        <p>Build a single Looker Studio dashboard that pulls real lead-form completions (Submit lead form_Form 1 + Form 2 in Google Ads, plus any organic-attributed submits from GA4) into one view, segmented by source. This becomes the lead-volume number we report on monthly. Without this we keep flying blind on whether the seven plays are working.</p>
+      </div>
+      <div class="tag sixty">60 Days</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <h2>New plays worth testing</h2>
+    <p class="sub">Four ideas outside the core remediation track. Each one targets a gap the current funnel has.</p>
+    <div class="plays">
+      <div class="play">
+        <h3>Dentist-specific city pages</h3>
+        <p>"Dental CFO Phoenix", "Dental CFO Austin", "Dental CFO Charlotte" templated pages targeting the top 10 dental-density US metros. Each page localized with state-specific tax notes and a city-tagged form. Pure long-tail capture play that the integrated-team positioning is unusually well-suited for.</p>
+      </div>
+      <div class="play">
+        <h3>The "DSO vs solo" calculator</h3>
+        <p>A second interactive tool: input practice revenue and EBITDA, get an estimate of what a DSO offer might be vs. holding for an independent sale. This is a buyer-magnet for the practice-owner audience Core most wants to reach, and there is no good free tool in market.</p>
+      </div>
+      <div class="play">
+        <h3>Quarterly dental finance email digest</h3>
+        <p>A four-page PDF every quarter: industry margin benchmarks, tax law updates, one practice owner case study, one investment positioning note. Email-gated download. Pulls the long-tail "average dental practice profit margin" / "best banks for retirement planning for dentists" searches that today get zero clicks.</p>
+      </div>
+      <div class="play">
+        <h3>LinkedIn outreach against the calculator</h3>
+        <p>Once the calculator is gated, run a LinkedIn DM sequence to dental practice owners offering the "12-point dental practice valuation" as a no-pitch resource. Brand-aligned with the integrated-team thesis and converts the calculator's discoverability into a sales channel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="background: var(--lilac);">
+  <div class="wrap">
+    <h2>How we measure this</h2>
+    <p class="sub">Three forward-looking metrics. Reviewed monthly against the trajectory we are setting today.</p>
+    <div class="measure">
+      <div class="mcard">
+        <h3>Organic non-brand clicks per month</h3>
+        <div class="now">Today: ~18 (May 2026)</div>
+        <div class="target">90-day target: 80+</div>
+      </div>
+      <div class="mcard">
+        <h3>Lead-form submits per quarter</h3>
+        <div class="now">Today: 6 (last 90 days, paid only)</div>
+        <div class="target">90-day target: 25+</div>
+      </div>
+      <div class="mcard">
+        <h3>Top-5 lead-page CTR average</h3>
+        <div class="now">Today: 0.21% (top 5 pages)</div>
+        <div class="target">90-day target: 1.5%+</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="signoff">CORE ADVISORS // JUNE 2026</div>
+    <p>The work is compounding. The next 90 days are about closing the gap between ranking and revenue.</p>
+  </div>
+</footer>
+
+<script>
+const months = ['May 25','Jun 25','Jul 25','Aug 25','Sep 25','Oct 25','Nov 25','Dec 25','Jan 26','Feb 26','Mar 26','Apr 26','May 26'];
+const clicks = [85,88,102,103,71,92,76,95,138,127,137,131,120];
+const positions = [41.76,42.44,40.18,40.03,31.24,19.46,19.64,24.00,21.92,15.04,14.59,14.41,17.51];
+
+new Chart(document.getElementById('clicksChart'), {
+  type: 'bar',
+  data: {
+    labels: months,
+    datasets: [{
+      data: clicks,
+      backgroundColor: '#3872EB',
+      borderRadius: 6,
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, grid: { color: '#eef0fb' }, ticks: { color: '#5d5d78' } },
+      x: { grid: { display: false }, ticks: { color: '#5d5d78' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('positionChart'), {
+  type: 'line',
+  data: {
+    labels: months,
+    datasets: [{
+      data: positions,
+      borderColor: '#3872EB',
+      backgroundColor: 'rgba(56,114,235,0.15)',
+      tension: 0.35,
+      fill: true,
+      pointRadius: 4,
+      pointBackgroundColor: '#070630',
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { reverse: true, grid: { color: '#eef0fb' }, ticks: { color: '#5d5d78' } },
+      x: { grid: { display: false }, ticks: { color: '#5d5d78' } }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

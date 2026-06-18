@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Llamas Financial — Hub-and-Spoke Topic Cluster Plan (2026-06-19)</title>
+<meta name="description" content="Markology's hub-and-spoke topic cluster plan for Llamas Financial. Two-tier model: homepage as master hub, six winery service pages as sub-hubs, blog clusters mapped to each.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #14213d;
+  --blue: #4361ee;
+  --lilac: #b5b3ff;
+  --gold: #d4a017;
+  --grey: #6b7280;
+  --grey-light: #f3f4f6;
+  --bg: #fafafa;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --pro: #10b981;
+  --con: #ef4444;
+  --warn: #f59e0b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--navy);
+  line-height: 1.55;
+}
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+
+/* Header */
+.site-header {
+  background: var(--navy);
+  color: white;
+  padding: 48px 0 56px;
+  text-align: center;
+}
+.site-header .eyebrow {
+  display: inline-block;
+  background: var(--lilac);
+  color: var(--navy);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.site-header h1 {
+  font-size: 44px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+}
+.site-header .sub {
+  font-size: 17px;
+  font-weight: 400;
+  opacity: 0.85;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.site-header .meta {
+  margin-top: 22px;
+  display: inline-flex;
+  gap: 22px;
+  font-size: 13px;
+  opacity: 0.7;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.site-header .meta b { color: var(--lilac); font-weight: 600; }
+
+/* Section */
+section { padding: 56px 0; }
+section.alt { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+section h2 {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  margin-bottom: 8px;
+}
+section .lede {
+  color: var(--grey);
+  font-size: 15px;
+  margin-bottom: 28px;
+  max-width: 820px;
+}
+
+/* Alert */
+.alert {
+  background: rgba(245, 158, 11, 0.12);
+  border-left: 4px solid var(--warn);
+  border-radius: 8px;
+  padding: 18px 22px;
+  margin: 24px 0;
+}
+.alert h3 { color: #92400e; font-size: 15px; margin-bottom: 4px; }
+.alert p { color: #78350f; font-size: 14px; }
+
+/* KPI strip */
+.kpis {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.kpi {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+.kpi .v { font-size: 32px; font-weight: 800; color: var(--blue); }
+.kpi .l { font-size: 12px; color: var(--grey); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+
+/* Hub-and-spoke visual */
+.hub-tree {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px 24px;
+  margin: 28px 0;
+}
+.hub-master {
+  text-align: center;
+  margin-bottom: 14px;
+}
+.node-home {
+  display: inline-block;
+  background: var(--navy);
+  color: white;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 700;
+}
+.node-home small {
+  display: block;
+  font-weight: 400;
+  font-size: 11px;
+  opacity: 0.7;
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
+.connector-line {
+  width: 2px;
+  height: 24px;
+  background: var(--border);
+  margin: 0 auto;
+}
+.sub-hubs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.sub-hub {
+  background: #f8f9fc;
+  border-radius: 10px;
+  padding: 14px;
+  border-top: 4px solid var(--blue);
+}
+.sub-hub.orphan { border-top-color: var(--con); background: rgba(239, 68, 68, 0.04); }
+.sub-hub h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--blue);
+  margin-bottom: 2px;
+}
+.sub-hub.orphan h4 { color: var(--con); }
+.sub-hub .anchor {
+  font-size: 11px;
+  color: var(--grey);
+  font-style: italic;
+  margin-bottom: 8px;
+}
+.sub-hub .stat {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: var(--grey);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed var(--border);
+}
+.sub-hub .stat b { color: var(--navy); font-weight: 700; }
+.sub-hub .stat .orphan-tag { color: var(--con); font-weight: 700; }
+.sub-hub ul {
+  list-style: none;
+  font-size: 11.5px;
+}
+.sub-hub ul li {
+  padding: 3px 0 3px 12px;
+  position: relative;
+  color: var(--navy);
+}
+.sub-hub ul li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--lilac);
+  font-weight: 700;
+}
+
+/* Action plan */
+.phases { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.phase {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+}
+.phase .num {
+  display: inline-block;
+  background: var(--blue);
+  color: white;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  border-radius: 50%;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.phase h3 { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+.phase .timeline { font-size: 11px; color: var(--grey); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+.phase ul { list-style: none; font-size: 13px; }
+.phase ul li {
+  padding: 5px 0 5px 18px;
+  position: relative;
+  color: var(--navy);
+}
+.phase ul li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--pro);
+  font-weight: 700;
+}
+
+/* Tables */
+.table-wrap {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+th {
+  background: #f8f9fc;
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 600;
+  color: var(--grey);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--grey-light);
+  color: var(--navy);
+}
+tr:last-child td { border-bottom: none; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+td .anchor-suggest {
+  display: inline-block;
+  background: var(--lilac);
+  color: var(--navy);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  margin: 2px 4px 2px 0;
+}
+.status-good { color: var(--pro); font-weight: 700; }
+.status-bad { color: var(--con); font-weight: 700; }
+
+/* Footer */
+.site-footer {
+  background: var(--navy);
+  color: white;
+  padding: 32px 0;
+  text-align: center;
+  font-size: 13px;
+  opacity: 0.85;
+}
+.site-footer a { color: var(--lilac); }
+
+@media (max-width: 900px) {
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+  .sub-hubs, .phases { grid-template-columns: 1fr; }
+  .site-header h1 { font-size: 32px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="eyebrow">Markology · Hub-and-Spoke Plan</div>
+    <h1>Llamas Financial Topic Cluster</h1>
+    <p class="sub">Two-tier hub-and-spoke model. Homepage as master hub for "winery accountant." Six winery service pages as sub-hubs. Blog cluster assignments and a corrective action plan.</p>
+    <div class="meta">
+      <span><b>Domain:</b> llamasfinancial.com</span>
+      <span><b>Audit date:</b> 2026-06-19</span>
+      <span><b>Model:</b> Option B (Two-Tier)</span>
+      <span><b>Status:</b> Diagnostic + Action Plan</span>
+    </div>
+  </div>
+</header>
+
+<!-- Section 1: Inventory snapshot -->
+<section>
+  <div class="container">
+    <h2>Site inventory snapshot</h2>
+    <p class="lede">Pulled live from the WordPress sitemap (page-sitemap + post-sitemap). This is the ground-truth URL inventory, not a curated list.</p>
+    <div class="kpis">
+      <div class="kpi"><div class="v">35</div><div class="l">Blog posts</div></div>
+      <div class="kpi"><div class="v">6</div><div class="l">Service pages</div></div>
+      <div class="kpi"><div class="v">1</div><div class="l">Homepage hub</div></div>
+      <div class="kpi"><div class="v">/pillar/</div><div class="l">Dormant slug</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2: The chosen model -->
+<section class="alt">
+  <div class="container">
+    <h2>Chosen model: Option B — Two-Tier Hub-and-Spoke</h2>
+    <p class="lede">Homepage is the master hub for "winery accountant." Each /winery-*/ service page is a sub-hub owning a topic cluster of blogs. Every blog spokes into its assigned service page using the exact service keyword as anchor text AND links back to the homepage.</p>
+
+    <div class="hub-tree">
+      <div class="hub-master">
+        <div class="node-home">
+          HOMEPAGE
+          <small>target keyword: "winery accountant"</small>
+        </div>
+        <div class="connector-line"></div>
+      </div>
+
+      <div class="sub-hubs">
+        <div class="sub-hub">
+          <h4>/winery-accounting/</h4>
+          <div class="anchor">anchor: "winery accounting"</div>
+          <div class="stat"><span>Blog inbound:</span> <b>6 blogs assigned</b></div>
+          <ul>
+            <li>basics-of-winery-accounting</li>
+            <li>top-4-winery-accountants</li>
+            <li>financial-checklist-for-wineries</li>
+            <li>financial-lessons-from-napa</li>
+            <li>common-financial-mistakes</li>
+            <li>winery-accountant-avoid-expensive-mistakes</li>
+          </ul>
+        </div>
+        <div class="sub-hub">
+          <h4>/winery-tax/</h4>
+          <div class="anchor">anchor: "winery tax services"</div>
+          <div class="stat"><span>Blog inbound:</span> <b>7 blogs assigned</b></div>
+          <ul>
+            <li>how-to-structure-a-winery-for-taxes</li>
+            <li>excise-taxes-for-wineries</li>
+            <li>sales-tax-for-wineries</li>
+            <li>winery-tax-deadlines-2026</li>
+            <li>do-wineries-pay-tax-on-free-wine</li>
+            <li>winery-tax-deductions</li>
+            <li>winery-taxes-and-reports-year-one</li>
+          </ul>
+        </div>
+        <div class="sub-hub">
+          <h4>/winery-cfo/</h4>
+          <div class="anchor">anchor: "winery CFO services"</div>
+          <div class="stat"><span>Blog inbound:</span> <b>6 blogs assigned</b></div>
+          <ul>
+            <li>how-to-value-a-winery</li>
+            <li>profitable-on-paper-no-cash</li>
+            <li>whats-a-good-profit-margin</li>
+            <li>numbers-that-matter</li>
+            <li>manage-winery-cash-flow</li>
+            <li>cash-flow-in-a-winery</li>
+          </ul>
+        </div>
+        <div class="sub-hub">
+          <h4>/winery-bookkeeping/</h4>
+          <div class="anchor">anchor: "winery bookkeeping"</div>
+          <div class="stat"><span>Blog inbound:</span> <b>4 blogs assigned</b></div>
+          <ul>
+            <li>right-chart-of-accounts</li>
+            <li>how-to-read-a-winery-pl</li>
+            <li>need-a-bookkeeper-year-one</li>
+            <li>how-to-track-wine-inventory</li>
+          </ul>
+        </div>
+        <div class="sub-hub">
+          <h4>/winery-payroll/</h4>
+          <div class="anchor">anchor: "winery payroll"</div>
+          <div class="stat"><span>Blog inbound:</span> <b>0 blogs (content gap)</b></div>
+          <ul>
+            <li>No existing blog overlap — flag as Q3 content opportunity</li>
+            <li>Suggested blogs: "Tipped wages for tasting rooms," "Seasonal harvest crew payroll"</li>
+          </ul>
+        </div>
+        <div class="sub-hub orphan">
+          <h4>/winery-consulting/ — ORPHAN</h4>
+          <div class="anchor">anchor: "winery consulting"</div>
+          <div class="stat"><span>Blog inbound:</span> <span class="orphan-tag">0 (FULLY ORPHANED)</span></div>
+          <ul>
+            <li>wholesale-vs-dtc-for-wineries</li>
+            <li>when-wine-clubs-stop-being-profitable</li>
+            <li>how-to-price-wine-for-profit</li>
+            <li>how-to-evaluate-winery-pricing</li>
+            <li>top-wine-costing-mistakes</li>
+            <li>how-much-does-it-cost-to-produce-a-bottle</li>
+            <li>winery-cost-of-goods-sold</li>
+            <li>where-does-all-the-money-go-first-vintage</li>
+            <li>must-have-vineyard-and-winery-software</li>
+            <li>how-long-before-a-winery-becomes-profitable</li>
+            <li>what-happens-if-your-wine-doesnt-sell</li>
+            <li>how-to-pay-for-barrels-bottles-grapes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 3: The critical finding -->
+<section>
+  <div class="container">
+    <h2>Critical finding</h2>
+    <p class="lede">The audit pulled every blog and service page, parsed every internal link, and built the directed link graph. Two structural problems jumped out.</p>
+
+    <div class="alert">
+      <h3>1. /winery-consulting/ is fully orphaned</h3>
+      <p>Zero pages on the site link to it: not the homepage, not the global nav, not any blog. The other five service pages each get 75-169 blog inbound links (mostly via nav). winery-consulting gets nothing. Twelve blogs that should be in its cluster currently have no path to it.</p>
+    </div>
+
+    <div class="alert">
+      <h3>2. Service-page equity is nav-driven, not body-driven</h3>
+      <p>Blogs show 18-21 inbound links per service page — but those are the same five nav links repeated three times (header, footer, secondary footer). Outside of nav, almost no blog has a contextual body anchor pointing into its topically-relevant service page. Nav links carry diluted weight; Google reads body anchors as the stronger relevance signal.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: Action plan -->
+<section class="alt">
+  <div class="container">
+    <h2>Three-phase action plan</h2>
+    <p class="lede">Sequenced for impact. Phase 1 is the one-day structural fix. Phase 2 is the content-anchor rebuild. Phase 3 is the optional cross-link breadth pass.</p>
+
+    <div class="phases">
+      <div class="phase">
+        <div class="num">1</div>
+        <div class="timeline">Day 1 — Structural</div>
+        <h3>Add /winery-consulting/ to nav</h3>
+        <ul>
+          <li>Add menu entry to header (Elementor or theme menu)</li>
+          <li>Add to footer service column</li>
+          <li>Add to mobile menu</li>
+          <li>Confirm Rank Math schema graph clean on /winery-consulting/ (Service only, no Article or FAQPage)</li>
+          <li>Add contextual link from homepage hero or services grid</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="num">2</div>
+        <div class="timeline">Week 1 — Content anchors</div>
+        <h3>Insert contextual body anchors</h3>
+        <ul>
+          <li>12 winery-consulting cluster blogs get a contextual paragraph link to /winery-consulting/</li>
+          <li>Anchor = exact service keyword ("winery consulting" / "winery business consulting")</li>
+          <li>23 other blogs get a contextual body anchor to their assigned service hub (currently only have nav links)</li>
+          <li>All anchors injected via WP REST API + Rank Math; Elementor cache flushed via DELETE /elementor/v1/cache</li>
+        </ul>
+      </div>
+      <div class="phase">
+        <div class="num">3</div>
+        <div class="timeline">Week 2 — Breadth</div>
+        <h3>Cross-cluster + homepage reinforcement</h3>
+        <ul>
+          <li>Each blog gets one secondary internal link to a related blog in a different cluster (topical breadth)</li>
+          <li>Each blog confirms homepage link via "winery accountant" anchor in body</li>
+          <li>Service pages get a "Related insights" block linking 3-4 cluster blogs</li>
+          <li>Pillar slug /pillar/ either repurposed as cluster hub or 301'd</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 5: 12 blogs requiring immediate anchor work -->
+<section>
+  <div class="container">
+    <h2>Phase 2A — The 12 immediate anchor injections</h2>
+    <p class="lede">These twelve blogs need a contextual body link to /winery-consulting/ using the exact service keyword. None currently have any path to that service page.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Blog</th>
+            <th>Assigned hub</th>
+            <th>Anchor options</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>top-wine-costing-mistakes</td><td>/winery-consulting/</td><td><span class="anchor-suggest">winery consulting</span><span class="anchor-suggest">winery business consulting</span></td><td class="status-bad">No link</td></tr>
+          <tr><td>winery-cost-of-goods-sold</td><td>/winery-consulting/</td><td><span class="anchor-suggest">winery consulting</span></td><td class="status-bad">No link</td></tr>
+          <tr><td>how-much-does-it-cost-to-produce-a-bottle-of-wine</td><td>/winery-consulting/</td><td><span class="anchor-suggest">winery business consulting</span></td><td class="status-bad">No link</td></tr>
+          <tr><td>how-to-price-wine-for-profit</td><td>/winery-consulting/</td><td><span class="anchor-suggest">winery consulting</span></td><td class="status-bad">No link</td></tr>
+          <tr><td>how-to-evaluate-winery-pricing</td><td>/winery-consulting/</td><td><span class="anchor-suggest">winery consulting</span></td><td class="status-bad">No link</td></tr>
+          <tr><td>when-wine-clubs-stop-being-profitable</td><td>/winery-consulting/</td><td><span class="anchor-suggest">winery business consulting</span></td><td class="status-bad">No link</td></tr>
+          <tr><td>wholesale-vs-direct-to-consumer-for-wineries</td><td>/winery-consulting/</td><td><span class="anchor-suggest">winery consulting</span></td><td class="status-bad">No link</td></tr>
+          <tr><td>what-happens-if-your-wine-doesnt-sell</td><td>/winery-consulting/</td><td><span class="anchor-suggest">winery business consulting</span></td><td class="status-bad">No link</td></tr>
+          <tr><td>how-long-before-a-winery-becomes-profitable</td><td>/winery-consulting/</td><td><span class="anchor-suggest">winery consulting</span></td><td class="status-bad">No link</td></tr>
+          <tr><td>where-does-all-the-money-go-in-my-first-vintage</td><td>/winery-consulting/</td><td><span class="anchor-suggest">winery consulting</span></td><td class="status-bad">No link</td></tr>
+          <tr><td>how-to-pay-for-barrels-bottles-and-grapes-before-revenue</td><td>/winery-consulting/</td><td><span class="anchor-suggest">winery business consulting</span></td><td class="status-bad">No link</td></tr>
+          <tr><td>must-have-vineyard-and-winery-software</td><td>/winery-consulting/</td><td><span class="anchor-suggest">winery consulting</span></td><td class="status-bad">No link</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Section 6: Service equity table -->
+<section class="alt">
+  <div class="container">
+    <h2>Service-page equity before fixes</h2>
+    <p class="lede">Total inbound includes nav/footer links. Blog inbound is the headline number — what we use to measure cluster strength.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Service page</th>
+            <th>Title (live)</th>
+            <th class="num">Total inbound</th>
+            <th class="num">Blog inbound</th>
+            <th>Cluster status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><b>/winery-accounting/</b></td><td>Specialized Winery Accounting Services</td><td class="num">197</td><td class="num">169</td><td class="status-good">Healthy nav presence</td></tr>
+          <tr><td><b>/winery-bookkeeping/</b></td><td>Vineyard &amp; Winery Bookkeeping Services</td><td class="num">181</td><td class="num">150</td><td class="status-good">Healthy nav presence</td></tr>
+          <tr><td><b>/winery-cfo/</b></td><td>Specialized Winery CFO Services</td><td class="num">173</td><td class="num">145</td><td class="status-good">Healthy nav presence</td></tr>
+          <tr><td><b>/winery-payroll/</b></td><td>Expert Winery Payroll Services</td><td class="num">168</td><td class="num">140</td><td class="status-good">Healthy nav presence</td></tr>
+          <tr><td><b>/winery-tax/</b></td><td>Specialized Winery Tax Experts</td><td class="num">89</td><td class="num">75</td><td class="status-good">Healthy nav presence</td></tr>
+          <tr style="background:rgba(239,68,68,0.05)"><td><b>/winery-consulting/</b></td><td>Specialized Winery Accounting Services <small>(title needs rewrite)</small></td><td class="num">0</td><td class="num">0</td><td class="status-bad">FULLY ORPHANED</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="lede" style="margin-top:18px">Footnote: <b>winery-consulting's title tag still reads "Specialized Winery Accounting Services."</b> That's a duplicate of /winery-accounting/'s title — fix during Phase 1 so Google can disambiguate the two pages.</p>
+  </div>
+</section>
+
+<!-- Section 7: Target metrics -->
+<section>
+  <div class="container">
+    <h2>Target metrics — 90-day re-audit window</h2>
+    <p class="lede">Llamas SEO memory targets 700-1,100 clicks / 1.5-2.5% CTR / position 5.5-6.5 / 8-10 commercial pages in top-10 by 2026-09-19. The hub-and-spoke completion supports those targets.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th class="num">Current (2026-06-19)</th>
+            <th class="num">Target (2026-09-19)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Service pages with body anchor inbound from cluster blogs</td><td class="num">0 of 6</td><td class="num">6 of 6</td></tr>
+          <tr><td>Service pages in GSC top 10 for their primary keyword</td><td class="num">0-1</td><td class="num">4-6</td></tr>
+          <tr><td>Homepage CTR site-wide</td><td class="num">0.47%</td><td class="num">1.5-2.5%</td></tr>
+          <tr><td>Average position site-wide</td><td class="num">6.8</td><td class="num">5.5-6.5</td></tr>
+          <tr><td>Total GSC clicks / 28 days</td><td class="num">~120-200</td><td class="num">700-1,100</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>Built by Markology · Audit date 2026-06-19 · Hub-and-spoke methodology: <a href="https://markology-agency.github.io/pages/">markology-agency.github.io</a></p>
+    <p style="margin-top:6px; opacity:0.7; font-size:12px">Audit data: live sitemap pull + 43 page fetches + 35 blog link graphs.</p>
+  </div>
+</footer>
+
+</body>
+</html>

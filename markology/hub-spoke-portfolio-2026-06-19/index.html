@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Markology — Hub-and-Spoke Portfolio Analysis (2026-06-19)</title>
+<meta name="description" content="Per-client hub-and-spoke topic cluster recommendation across all 20 active Markology clients. Two-tier (B) vs multi-pillar (C) decision logic with rationale.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #14213d;
+  --blue: #4361ee;
+  --lilac: #b5b3ff;
+  --gold: #d4a017;
+  --grey: #6b7280;
+  --grey-light: #f3f4f6;
+  --bg: #fafafa;
+  --card: #ffffff;
+  --border: #e5e7eb;
+  --pro: #10b981;
+  --con: #ef4444;
+  --warn: #f59e0b;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--navy);
+  line-height: 1.55;
+}
+.container { max-width: 1400px; margin: 0 auto; padding: 0 24px; }
+
+.site-header {
+  background: var(--navy);
+  color: white;
+  padding: 48px 0 56px;
+  text-align: center;
+}
+.site-header .eyebrow {
+  display: inline-block;
+  background: var(--lilac);
+  color: var(--navy);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.site-header h1 {
+  font-size: 42px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 12px;
+}
+.site-header .sub {
+  font-size: 16px;
+  opacity: 0.85;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+section { padding: 48px 0; }
+section.alt { background: white; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+section h2 {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  margin-bottom: 8px;
+}
+section .lede { color: var(--grey); font-size: 15px; margin-bottom: 24px; max-width: 840px; }
+
+.kpis {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+  margin-bottom: 32px;
+}
+.kpi { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 18px; text-align: center; }
+.kpi .v { font-size: 30px; font-weight: 800; color: var(--blue); }
+.kpi .l { font-size: 11px; color: var(--grey); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+
+.compare {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  margin: 24px 0;
+}
+.compare-card {
+  background: white; border: 1px solid var(--border); border-radius: 12px; padding: 22px;
+}
+.compare-card.b { border-top: 5px solid var(--blue); }
+.compare-card.c { border-top: 5px solid var(--gold); }
+.compare-card h3 { font-size: 18px; font-weight: 800; margin-bottom: 6px; }
+.compare-card.b h3 { color: var(--blue); }
+.compare-card.c h3 { color: var(--gold); }
+.compare-card .meta { color: var(--grey); font-size: 12px; margin-bottom: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+.compare-card p { font-size: 14px; color: var(--navy); margin-bottom: 10px; }
+.compare-card ul { list-style: none; }
+.compare-card li {
+  font-size: 13px; padding: 4px 0 4px 18px; position: relative; color: var(--navy);
+}
+.compare-card li::before { content: '→'; position: absolute; left: 0; color: var(--lilac); font-weight: 700; }
+
+.table-wrap {
+  background: white; border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+}
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th {
+  background: #f8f9fc; text-align: left; padding: 12px 14px;
+  font-weight: 700; color: var(--grey); font-size: 11px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border);
+}
+td {
+  padding: 14px; border-bottom: 1px solid var(--grey-light);
+  color: var(--navy); vertical-align: top;
+}
+tr:last-child td { border-bottom: none; }
+.client-name { font-weight: 700; color: var(--navy); font-size: 14px; }
+.client-domain { font-size: 11px; color: var(--grey); font-family: monospace; margin-top: 2px; }
+.kw { font-size: 12px; color: var(--grey); max-width: 220px; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; }
+.tier-pill {
+  display: inline-block; padding: 3px 8px; border-radius: 10px;
+  font-size: 10.5px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.tier-local { background: rgba(67, 97, 238, 0.12); color: var(--blue); }
+.tier-national { background: rgba(212, 160, 23, 0.16); color: var(--gold); }
+.tier-maint { background: rgba(107, 114, 128, 0.16); color: var(--grey); }
+.rec-pill {
+  display: inline-block; padding: 6px 12px; border-radius: 8px;
+  font-size: 12px; font-weight: 800; letter-spacing: 0.5px;
+}
+.rec-b { background: var(--blue); color: white; }
+.rec-c { background: var(--gold); color: white; }
+.reasoning { list-style: none; }
+.reasoning li {
+  font-size: 12px; line-height: 1.5; color: var(--navy);
+  padding: 3px 0 3px 14px; position: relative; max-width: 540px;
+}
+.reasoning li::before {
+  content: '•'; position: absolute; left: 0; color: var(--lilac); font-weight: 800;
+}
+
+.site-footer {
+  background: var(--navy); color: white; padding: 32px 0;
+  text-align: center; font-size: 13px; opacity: 0.9;
+}
+.site-footer a { color: var(--lilac); }
+
+@media (max-width: 1000px) {
+  .kpis { grid-template-columns: repeat(2, 1fr); }
+  .compare { grid-template-columns: 1fr; }
+  table { font-size: 12px; }
+  th, td { padding: 10px; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="eyebrow">Markology · Cross-Portfolio Plan</div>
+    <h1>Hub-and-Spoke Portfolio Analysis</h1>
+    <p class="sub">B or C decision for every active Markology client, with reasoning. The model is the same one shipped to Llamas Financial on 2026-06-19. This is the playbook to roll across the rest of the book.</p>
+  </div>
+</header>
+
+<section>
+  <div class="container">
+    <h2>Snapshot</h2>
+    <p class="lede">Live sitemap pull across all 20 active clients. Service-page count is heuristic (any single-level path) so absolute numbers vary by CMS shape — directional only.</p>
+    <div class="kpis">
+      <div class="kpi"><div class="v">20</div><div class="l">Active clients</div></div>
+      <div class="kpi"><div class="v">20</div><div class="l">B recommended</div></div>
+      <div class="kpi"><div class="v">0</div><div class="l">C recommended</div></div>
+      <div class="kpi"><div class="v">3</div><div class="l">C-eligible in Phase 2</div></div>
+      <div class="kpi"><div class="v">1</div><div class="l">Already executing (Llamas)</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <h2>The two options, restated</h2>
+    <p class="lede">B and C share the same homepage-as-master-hub spine. They differ on how many sub-hubs sit underneath.</p>
+    <div class="compare">
+      <div class="compare-card b">
+        <h3>Option B — Two-Tier</h3>
+        <div class="meta">Default · Recommended for all 20</div>
+        <p>Homepage as master hub for the head keyword. Service pages as sub-hubs. Each blog spokes into its one most-relevant service page using the exact service keyword as anchor text, plus links up to homepage.</p>
+        <ul>
+          <li>Concentrates equity on the pages that convert</li>
+          <li>Matches Markology's link-equity ladder exactly</li>
+          <li>Templates cleanly across 20 clients</li>
+          <li>Per-blog decision is binary: which service page is most relevant?</li>
+          <li>Lower writing budget required</li>
+        </ul>
+      </div>
+      <div class="compare-card c">
+        <h3>Option C — Multi-Pillar</h3>
+        <div class="meta">Phase-2 promotion for select clients</div>
+        <p>Same spine as B PLUS 2-4 long-form pillar guides as additional non-commercial hubs. Blogs cluster under whichever hub fits — service or pillar. More ranking surface area, more writing work.</p>
+        <ul>
+          <li>Activates info-intent search demand</li>
+          <li>Pillar pages are great LLM extraction targets</li>
+          <li>Needs service pages already ranking top-5 to justify spread</li>
+          <li>Requires 2-4 net-new long-form pages first</li>
+          <li>National-tier budget only</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Per-client recommendation</h2>
+    <p class="lede">Phase 1 = ship B. Re-evaluate for C promotion at the 90-day re-audit. The reasoning column shows the exact factors that drove each call.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Tier</th>
+            <th>Homepage target keyword</th>
+            <th class="num">Sub-hub candidates</th>
+            <th class="num">Blog inventory</th>
+            <th>Recommendation</th>
+            <th>Reasoning</th>
+          </tr>
+        </thead>
+        <tbody>
+          
+      <tr>
+        <td>
+          <div class="client-name">Adam Traywick CPA</div>
+          <div class="client-domain">adamtraywick.com</div>
+        </td>
+        <td><span class="tier-pill tier-local">Local Monthly</span></td>
+        <td class="kw">Fort Worth CPAs Who Actually Respond | Adam Traywick</td>
+        <td class="num">26</td>
+        <td class="num">0</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = Local Monthly: geo-focused service pages are the conversion engine. B concentrates equity on those. Pillar pages over-extend for a local audience.</li><li>Service pages: 26 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 0 posts (low). B only. Content sprint needed before any cluster maps to a hub.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">Affinity Accounting</div>
+          <div class="client-domain">affinitymke.com</div>
+        </td>
+        <td><span class="tier-pill tier-local">Local Monthly</span></td>
+        <td class="kw">Affinity Accounting - Your Trusted Milwaukee Accountants</td>
+        <td class="num">51</td>
+        <td class="num">0</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = Local Monthly: geo-focused service pages are the conversion engine. B concentrates equity on those. Pillar pages over-extend for a local audience.</li><li>Service pages: 51 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 0 posts (low). B only. Content sprint needed before any cluster maps to a hub.</li><li>Existing /pillar/ or /guide/ slug detected — option C could reuse it as a hub if Phase 1 shows service pages top-5.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">Ashford Sky</div>
+          <div class="client-domain">ashfordsky.com</div>
+        </td>
+        <td><span class="tier-pill tier-local">Local Monthly</span></td>
+        <td class="kw">CPA Salt Lake City | Ashford Sky Accounting Firm Utah Expert</td>
+        <td class="num">36</td>
+        <td class="num">1</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = Local Monthly: geo-focused service pages are the conversion engine. B concentrates equity on those. Pillar pages over-extend for a local audience.</li><li>Service pages: 36 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 1 posts (low). B only. Content sprint needed before any cluster maps to a hub.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">Steven M. Ellard CPA</div>
+          <div class="client-domain">stevenmellardcpa.com</div>
+        </td>
+        <td><span class="tier-pill tier-local">Local Monthly</span></td>
+        <td class="kw">Cape Cod CPA | Expert Tax & Accounting Services</td>
+        <td class="num">21</td>
+        <td class="num">5</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = Local Monthly: geo-focused service pages are the conversion engine. B concentrates equity on those. Pillar pages over-extend for a local audience.</li><li>Service pages: 21 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 5 posts (low). B only. Content sprint needed before any cluster maps to a hub.</li><li>Existing /pillar/ or /guide/ slug detected — option C could reuse it as a hub if Phase 1 shows service pages top-5.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">Tarleton Estate Attorney</div>
+          <div class="client-domain">tarletonfirm.com</div>
+        </td>
+        <td><span class="tier-pill tier-local">Local Monthly</span></td>
+        <td class="kw">Estate Attorney Dallas | Will & Probate Tarleton Law Firm</td>
+        <td class="num">41</td>
+        <td class="num">21</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = Local Monthly: geo-focused service pages are the conversion engine. B concentrates equity on those. Pillar pages over-extend for a local audience.</li><li>Service pages: 41 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 21 posts. Sufficient for B; not enough yet to support C pillars meaningfully.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">Virjee Consulting (Local)</div>
+          <div class="client-domain">virjeecpa.com</div>
+        </td>
+        <td><span class="tier-pill tier-local">Local Monthly</span></td>
+        <td class="kw">Houston Accounting Firm | Reduce Tax | Virjee Consulting</td>
+        <td class="num">38</td>
+        <td class="num">76</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = Local Monthly: geo-focused service pages are the conversion engine. B concentrates equity on those. Pillar pages over-extend for a local audience.</li><li>Service pages: 38 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 76 posts. Enough material to fill clusters under each sub-hub.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">Cherry Hill Advisory</div>
+          <div class="client-domain">cherryhilladvisory.com</div>
+        </td>
+        <td><span class="tier-pill tier-national">National Monthly</span></td>
+        <td class="kw">Cherry Hill Advisory | Internal Audit & Risk Advisory</td>
+        <td class="num">23</td>
+        <td class="num">97</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = National Monthly: budget supports pillars IF service pages are already ranking. Phase 1 = B; promote to C only if service pages are top-5.</li><li>Service pages: 23 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 97 posts. Enough material to fill clusters under each sub-hub.</li><li>Existing /pillar/ or /guide/ slug detected — option C could reuse it as a hub if Phase 1 shows service pages top-5.</li><li>Note: CHA is Webflow-hosted (different cache strategy than WP). Anchor injection via CMS API. Mike's audience is info-heavy — eligible for C in Phase 2.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">Core Advisors</div>
+          <div class="client-domain">coreadvisors.com</div>
+        </td>
+        <td><span class="tier-pill tier-national">National Monthly</span></td>
+        <td class="kw">Dental CPA & Financial Advisors | Core Advisors</td>
+        <td class="num">11</td>
+        <td class="num">32</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = National Monthly: budget supports pillars IF service pages are already ranking. Phase 1 = B; promote to C only if service pages are top-5.</li><li>Service pages: 11 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 32 posts. Enough material to fill clusters under each sub-hub.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">KB Financial Advisors</div>
+          <div class="client-domain">kbfinancialadvisors.com</div>
+        </td>
+        <td><span class="tier-pill tier-national">National Monthly</span></td>
+        <td class="kw">San Francisco Financial Advisor for Tech, Equity & RSUs | KB Financial Advisors</td>
+        <td class="num">27</td>
+        <td class="num">21</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = National Monthly: budget supports pillars IF service pages are already ranking. Phase 1 = B; promote to C only if service pages are top-5.</li><li>Service pages: 27 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 21 posts. Sufficient for B; not enough yet to support C pillars meaningfully.</li><li>KB: high-volume blog library covering tax + equity comp + AI-search topics. C-eligible in Phase 2 (Databricks tender offer page is essentially a pillar). Phase 1 = B.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">Keen Capital</div>
+          <div class="client-domain">keeninvestors.com</div>
+        </td>
+        <td><span class="tier-pill tier-national">National Monthly</span></td>
+        <td class="kw">Keen Capital | Chapin SC Fee-Only Fiduciary Wealth Advisor for HNW Investors</td>
+        <td class="num">55</td>
+        <td class="num">1</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = National Monthly: budget supports pillars IF service pages are already ranking. Phase 1 = B; promote to C only if service pages are top-5.</li><li>Service pages: 55 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 1 posts (low). B only. Content sprint needed before any cluster maps to a hub.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">Traktion</div>
+          <div class="client-domain">traktionaccounting.com</div>
+        </td>
+        <td><span class="tier-pill tier-national">National Monthly</span></td>
+        <td class="kw">Real Human Accountants for Therapists (Yes, Really!) | Traktion</td>
+        <td class="num">64</td>
+        <td class="num">7</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = National Monthly: budget supports pillars IF service pages are already ranking. Phase 1 = B; promote to C only if service pages are top-5.</li><li>Service pages: 64 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 7 posts (low). B only. Content sprint needed before any cluster maps to a hub.</li><li>Existing /pillar/ or /guide/ slug detected — option C could reuse it as a hub if Phase 1 shows service pages top-5.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">TL;DR Accounting</div>
+          <div class="client-domain">tldraccounting.com</div>
+        </td>
+        <td><span class="tier-pill tier-national">National Monthly</span></td>
+        <td class="kw">Private Practice Accountants | TL;DR: Accounting Firm</td>
+        <td class="num">0</td>
+        <td class="num">0</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = National Monthly: budget supports pillars IF service pages are already ranking. Phase 1 = B; promote to C only if service pages are top-5.</li><li>Service pages: only 0 found. Either site is small or sitemap parsing missed pages. B works on any shape — verify manually.</li><li>Blog inventory: 0 posts (low). B only. Content sprint needed before any cluster maps to a hub.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">U-Nique Accounting</div>
+          <div class="client-domain">u-niqueaccounting.com</div>
+        </td>
+        <td><span class="tier-pill tier-national">National Monthly</span></td>
+        <td class="kw">Restaurant & Brewery Accounting | U-Nique Accounting</td>
+        <td class="num">180</td>
+        <td class="num">0</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = National Monthly: budget supports pillars IF service pages are already ranking. Phase 1 = B; promote to C only if service pages are top-5.</li><li>Service pages: 180 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 0 posts (low). B only. Content sprint needed before any cluster maps to a hub.</li><li>Existing /pillar/ or /guide/ slug detected — option C could reuse it as a hub if Phase 1 shows service pages top-5.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">Vast CFO</div>
+          <div class="client-domain">vastcfo.com</div>
+        </td>
+        <td><span class="tier-pill tier-national">National Monthly</span></td>
+        <td class="kw">Specialized Restaurant Accountants - Vast CFO</td>
+        <td class="num">64</td>
+        <td class="num">3</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = National Monthly: budget supports pillars IF service pages are already ranking. Phase 1 = B; promote to C only if service pages are top-5.</li><li>Service pages: 64 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 3 posts (low). B only. Content sprint needed before any cluster maps to a hub.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">Virjee Consulting (Dental)</div>
+          <div class="client-domain">dentalcpausa.com</div>
+        </td>
+        <td><span class="tier-pill tier-national">National Monthly</span></td>
+        <td class="kw">Dental CPA for Dental Practice Owners | Virjee Consulting</td>
+        <td class="num">115</td>
+        <td class="num">27</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = National Monthly: budget supports pillars IF service pages are already ranking. Phase 1 = B; promote to C only if service pages are top-5.</li><li>Service pages: 115 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 27 posts. Sufficient for B; not enough yet to support C pillars meaningfully.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">Thompson Flaherty CPA</div>
+          <div class="client-domain">thompsonflaherty.com</div>
+        </td>
+        <td><span class="tier-pill tier-national">National Monthly</span></td>
+        <td class="kw">Metro East Accountants, CPAs & Bookkeepers | Thompson Flaherty</td>
+        <td class="num">21</td>
+        <td class="num">3</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = National Monthly: budget supports pillars IF service pages are already ranking. Phase 1 = B; promote to C only if service pages are top-5.</li><li>Service pages: 21 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 3 posts (low). B only. Content sprint needed before any cluster maps to a hub.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">Specialized Accounting Services (SAS)</div>
+          <div class="client-domain">sas-acct.com</div>
+        </td>
+        <td><span class="tier-pill tier-maint">Maintenance (was National)</span></td>
+        <td class="kw">Franchise Accountants, Tax & Advisory Services | SAS CPAs</td>
+        <td class="num">85</td>
+        <td class="num">19</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = Maintenance (was National): limited writing budget, can't absorb 3-4 net-new pillar pages. B keeps work focused on equity rebuild.</li><li>Service pages: 85 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 19 posts. Sufficient for B; not enough yet to support C pillars meaningfully.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">Bookkeeping for Brokers (BFB)</div>
+          <div class="client-domain">bookkeepingforbrokers.com</div>
+        </td>
+        <td><span class="tier-pill tier-maint">Maintenance</span></td>
+        <td class="kw">Expert Bookkeeping for Brokers | Better Financial Insights</td>
+        <td class="num">18</td>
+        <td class="num">34</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = Maintenance: limited writing budget, can't absorb 3-4 net-new pillar pages. B keeps work focused on equity rebuild.</li><li>Service pages: 18 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 34 posts. Enough material to fill clusters under each sub-hub.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">The Fitness CPA</div>
+          <div class="client-domain">thefitnesscpa.com</div>
+        </td>
+        <td><span class="tier-pill tier-maint">Maintenance</span></td>
+        <td class="kw">Fitness Center Accounting Experts - Fitness CPA</td>
+        <td class="num">126</td>
+        <td class="num">73</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = Maintenance: limited writing budget, can't absorb 3-4 net-new pillar pages. B keeps work focused on equity rebuild.</li><li>Service pages: 126 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 73 posts. Enough material to fill clusters under each sub-hub.</li><li>Existing /pillar/ or /guide/ slug detected — option C could reuse it as a hub if Phase 1 shows service pages top-5.</li></ul>
+        </td>
+      </tr>
+    
+      <tr>
+        <td>
+          <div class="client-name">Llamas Financial</div>
+          <div class="client-domain">llamasfinancial.com</div>
+        </td>
+        <td><span class="tier-pill tier-maint">Maintenance</span></td>
+        <td class="kw">Winery Accountants in Napa Valley | Llamas Financial</td>
+        <td class="num">43</td>
+        <td class="num">0</td>
+        <td class="rec-cell"><span class="rec-pill rec-b">Option B</span></td>
+        <td>
+          <ul class="reasoning"><li>Default model: Two-tier hub-and-spoke (B) per Markology's link-equity ladder.</li><li>Tier = Maintenance: limited writing budget, can't absorb 3-4 net-new pillar pages. B keeps work focused on equity rebuild.</li><li>Service pages: 43 (high). Equity may already be spread thin; B with consolidation is the play.</li><li>Blog inventory: 0 posts (low). B only. Content sprint needed before any cluster maps to a hub.</li><li>Existing /pillar/ or /guide/ slug detected — option C could reuse it as a hub if Phase 1 shows service pages top-5.</li><li>OVERRIDE: B confirmed — June 1 service-page recovery already attempted B; Phase 1+2A shipped 2026-06-19. Re-audit 2026-09-19.</li></ul>
+        </td>
+      </tr>
+    
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <h2>Phase-2 C-promotion candidates</h2>
+    <p class="lede">Three clients are positioned to graduate from B to C after their Phase 1 service-page equity rebuild stabilizes. Watch list, not action list — execute B everywhere first.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Client</th>
+            <th>Why C-eligible</th>
+            <th>Suggested pillar topics</th>
+            <th>Earliest C window</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="client-name">KB Financial Advisors</div><div class="client-domain">kbfinancialadvisors.com</div></td>
+            <td>High blog volume on equity comp + tax + AI-discoverability. Databricks tender offer page already functions as a pillar (16,853 imps, 23.5% CTR).</td>
+            <td>"Tech IPO Equity Comp Playbook," "RSU Tax Decision Tree," "Founder Liquidity Event Sequence"</td>
+            <td>2026-09 (after KB Phase 1 ships)</td>
+          </tr>
+          <tr>
+            <td><div class="client-name">Cherry Hill Advisory</div><div class="client-domain">cherryhilladvisory.com</div></td>
+            <td>Info-heavy audience (search fund LPs + internal audit). Webflow site supports rich-text pillar pages cleanly. Mike's voice = thought leadership.</td>
+            <td>"Internal Audit Playbook for SaaS," "SEC Cyber Rule Compliance Hub," "Search Fund Diligence Stack"</td>
+            <td>2026-10 (after CHA Phase 1 ships)</td>
+          </tr>
+          <tr>
+            <td><div class="client-name">Vast CFO</div><div class="client-domain">vastcfo.com</div></td>
+            <td>Restaurant + winery vertical depth. Foundational Webinar Series already exists as anchor content for pillar repurposing.</td>
+            <td>"Restaurant P&amp;L Mastery Guide," "Winery COGS Playbook," "Prime Cost Optimization Hub"</td>
+            <td>2026-11 (after Vast Phase 1 ships)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <h2>Roll-out sequence</h2>
+    <p class="lede">Twenty clients is too many to ship in one sprint. The order below prioritizes (1) clients with active SEO problems, (2) clients with the most service-page equity to rebuild, (3) clients where the data is freshest.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th class="num">Week</th><th>Clients</th><th>Why this batch</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">Now</td><td><b>Llamas Financial</b> (Phase 1+2A shipped 2026-06-19)</td><td>Cannibalization re-audit revealed orphan + nav-only equity. Prototype done.</td></tr>
+          <tr><td class="num">Week 26</td><td>Adam Traywick, Steve Ellard, Affinity Accounting</td><td>Local tier; service pages well-indexed in GSC; nav structure simple. Fast wins.</td></tr>
+          <tr><td class="num">Week 27</td><td>Tarleton Estate Attorney, Ashford Sky, Virjee Local</td><td>Local tier; finish the Local batch first to lock the templating.</td></tr>
+          <tr><td class="num">Week 28</td><td>KB Financial Advisors, Cherry Hill, Core Advisors</td><td>National tier; high-value clients; data already pulled for monthly reports.</td></tr>
+          <tr><td class="num">Week 29</td><td>Keen Capital, Traktion, TL;DR Accounting, U-Nique</td><td>National tier; second batch.</td></tr>
+          <tr><td class="num">Week 30</td><td>Vast CFO, Virjee Dental, Thompson Flaherty</td><td>National tier; finish the National batch.</td></tr>
+          <tr><td class="num">Week 31</td><td>SAS, BFB, The Fitness CPA</td><td>Maintenance tier last; lighter touch.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <p>Built by Markology · Portfolio audit date 2026-06-19 · Methodology lives at <a href="https://github.com/Markology-agency">github.com/Markology-agency</a></p>
+    <p style="margin-top:6px; opacity:0.7; font-size:12px">Per-client deep audit: <a href="https://markology-agency.github.io/pages/llamas-financial/hub-spoke-2026-06-19/">Llamas Financial example</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

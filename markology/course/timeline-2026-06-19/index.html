@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Claude Marketing Course, Timeline + Production Schedule</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #070630;
+    --navy-2: #0C0A47;
+    --blue: #3872EB;
+    --blue-light: #7DA4F4;
+    --paper: #F9F9FF;
+    --lilac: #E6E9FF;
+    --line: #D7D8EF;
+    --ink-muted: #5B5D78;
+    --warn: #FFB37A;
+    --green: #6FE3B4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--navy); line-height: 1.55; }
+  .display { font-family: 'Anton', sans-serif; text-transform: uppercase; line-height: 1.02; letter-spacing: 0.01em; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+  a { color: var(--blue); }
+
+  /* HERO */
+  .hero { background: var(--navy); color: var(--paper); padding: 80px 0 64px; }
+  .hero h1 { font-size: clamp(48px, 7vw, 116px); }
+  .eyebrow { color: var(--blue-light); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+  .promise { font-size: clamp(20px, 2.5vw, 28px); color: var(--blue-light); max-width: 920px; margin-top: 24px; line-height: 1.4; }
+  .target-banner { display: inline-block; background: var(--blue); color: var(--paper); padding: 14px 24px; border-radius: 8px; font-size: 16px; font-weight: 600; margin-top: 32px; }
+  .target-banner strong { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 22px; letter-spacing: 0.05em; }
+
+  /* SECTION */
+  .section { padding: 80px 0; }
+  .section-eyebrow { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--blue); margin-bottom: 12px; }
+  .section-title { font-size: clamp(36px, 5vw, 64px); margin-bottom: 16px; }
+  .section-lede { font-size: 17px; color: var(--ink-muted); max-width: 800px; margin-bottom: 32px; }
+
+  /* WEEKS GANTT */
+  .weeks { background: var(--paper); }
+  .gantt { display: grid; grid-template-columns: 200px repeat(3, 1fr); gap: 2px; margin-top: 32px; background: var(--line); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .gantt-cell { background: var(--paper); padding: 16px 18px; }
+  .gantt-header { background: var(--navy); color: var(--paper); font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 18px; letter-spacing: 0.05em; }
+  .gantt-row-label { background: var(--lilac); font-weight: 700; font-size: 14px; align-self: center; }
+  .gantt-task { font-size: 14px; line-height: 1.45; min-height: 64px; }
+  .gantt-task .pill { display: inline-block; background: var(--blue); color: var(--paper); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 6px; }
+  .gantt-task.face .pill { background: var(--warn); color: var(--navy); }
+  .gantt-task.skill-build .pill { background: var(--green); color: var(--navy); }
+  .gantt-task.platform .pill { background: var(--blue-light); color: var(--navy); }
+  .gantt-task.launch .pill { background: var(--navy); }
+  @media (max-width: 800px) { .gantt { grid-template-columns: 100px repeat(3, 1fr); } .gantt-cell { padding: 10px; } }
+
+  /* FORMAT BREAKDOWN */
+  .format { background: var(--navy); color: var(--paper); }
+  .format .section-eyebrow { color: var(--blue-light); }
+  .format .section-title { color: var(--paper); }
+  .format .section-lede { color: rgba(255,255,255,0.7); }
+  .format-table { background: rgba(255,255,255,0.045); border-radius: 12px; padding: 8px; margin-top: 32px; overflow: hidden; }
+  .format-row { display: grid; grid-template-columns: 120px 1fr 200px; gap: 16px; padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); align-items: center; }
+  .format-row:last-child { border-bottom: none; }
+  .format-row.header { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 14px; letter-spacing: 0.1em; color: var(--blue-light); }
+  .format-tag { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+  .format-tag.face { background: var(--warn); color: var(--navy); }
+  .format-tag.screen { background: var(--blue); color: var(--paper); }
+  .format-tag.mixed { background: var(--blue-light); color: var(--navy); }
+  .why { font-size: 13px; color: rgba(255,255,255,0.65); }
+  @media (max-width: 800px) { .format-row { grid-template-columns: 1fr; } }
+
+  /* DECISION BOARD */
+  .decisions { background: var(--paper); }
+  .decision-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-top: 32px; }
+  .decision-card { background: var(--lilac); border: 1px solid var(--line); border-radius: 12px; padding: 20px; border-left: 4px solid var(--blue); }
+  .decision-card.locked { border-left-color: var(--green); }
+  .decision-card.open { border-left-color: var(--warn); }
+  .decision-card .status { font-size: 10px; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 8px; }
+  .decision-card.locked .status { color: #2D8F66; }
+  .decision-card.open .status { color: #C97A3F; }
+  .decision-card h4 { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 22px; margin-bottom: 8px; }
+  .decision-card p { font-size: 14px; color: var(--ink-muted); line-height: 1.5; }
+  .decision-card .rec { font-size: 13px; font-weight: 600; color: var(--navy); margin-top: 8px; }
+
+  /* WHITNEY TIME BUDGET */
+  .time-budget { background: var(--lilac); }
+  .budget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 32px; }
+  .budget-card { background: var(--paper); border-radius: 16px; padding: 28px; border: 1px solid var(--line); }
+  .budget-card h4 { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 26px; margin-bottom: 4px; }
+  .budget-card .hours { font-family: 'Anton', sans-serif; font-size: 64px; line-height: 1; color: var(--blue); margin: 12px 0; }
+  .budget-card p { font-size: 14px; color: var(--ink-muted); line-height: 1.5; }
+  @media (max-width: 800px) { .budget-grid { grid-template-columns: 1fr; } }
+
+  /* POST-BETA CADENCE */
+  .cadence { background: var(--navy-2); color: var(--paper); }
+  .cadence .section-eyebrow { color: var(--blue-light); }
+  .cadence .section-title { color: var(--paper); }
+  .cadence .section-lede { color: rgba(255,255,255,0.7); }
+  .cadence-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 16px; margin-top: 32px; }
+  .cadence-card { background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 20px; }
+  .cadence-card .num { font-family: 'Anton', sans-serif; font-size: 44px; line-height: 1; color: var(--blue-light); }
+  .cadence-card h5 { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 16px; margin-top: 8px; color: var(--paper); }
+  .cadence-card p { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.45; margin-top: 8px; }
+  @media (max-width: 800px) { .cadence-row { grid-template-columns: 1fr 1fr; } }
+
+  /* MARKETING CHECKLIST */
+  .marketing { background: var(--paper); }
+  .marketing-list { list-style: none; max-width: 900px; margin-top: 24px; }
+  .marketing-list li { padding: 14px 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: 40px 1fr; gap: 16px; align-items: start; }
+  .marketing-list li:first-child { border-top: none; }
+  .marketing-list .check { width: 24px; height: 24px; border: 2px solid var(--blue); border-radius: 4px; margin-top: 2px; }
+  .marketing-list .text strong { display: block; margin-bottom: 4px; font-size: 15px; }
+  .marketing-list .text span { font-size: 14px; color: var(--ink-muted); }
+
+  /* FOOTER */
+  footer { padding: 32px 0; text-align: center; background: var(--navy); color: rgba(255,255,255,0.55); font-size: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
+  footer a { color: var(--blue-light); }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Markology Course · Timeline + Production Schedule · 2026-06-19</div>
+    <h1 class="display">2 to 3 Weeks to Beta.</h1>
+    <p class="promise">Month 1 (8 sub-modules) ships first. Beta cohort tests the promise. Months 2 through 12 drip out monthly post-beta as you have time.</p>
+    <div class="target-banner">Beta launch target: <strong>2026-07-10</strong> (3 weeks from today)</div>
+  </div>
+</section>
+
+<section class="section weeks">
+  <div class="container">
+    <div class="section-eyebrow">The 3-week build</div>
+    <h2 class="display section-title">Week-by-Week to Beta</h2>
+    <p class="section-lede">What gets done each week. Colored by category: orange = on-camera, blue = screen-record + voiceover, green = skill build, light blue = platform setup, dark = launch.</p>
+    <div class="gantt">
+      <div class="gantt-cell gantt-header">Track</div>
+      <div class="gantt-cell gantt-header">Week 1 (this week)</div>
+      <div class="gantt-cell gantt-header">Week 2</div>
+      <div class="gantt-cell gantt-header">Week 3</div>
+
+      <div class="gantt-cell gantt-row-label">Lock decisions</div>
+      <div class="gantt-cell gantt-task platform">
+        <span class="pill">Setup</span>
+        Lock name, price, platform. Sign up for Skool. Stand up one-page sales page on Webflow.
+      </div>
+      <div class="gantt-cell gantt-task platform">
+        <span class="pill">Setup</span>
+        Configure drip in Skool. Set up Stripe billing. Build beta-cohort onboarding email.
+      </div>
+      <div class="gantt-cell gantt-task launch">
+        <span class="pill">Launch</span>
+        Open Skool to 30 to 50 invited beta accountants. Schedule first live Q&A 3 weeks out.
+      </div>
+
+      <div class="gantt-cell gantt-row-label">Whitney filming</div>
+      <div class="gantt-cell gantt-task face">
+        <span class="pill">Face</span>
+        Draft welcome (1.1) script using outline + Will's spine quotes. List 30 to 50 beta invitees.
+      </div>
+      <div class="gantt-cell gantt-task">
+        <span class="pill">Screen</span>
+        Record 1.1 (face video, ~6 min). Record 1.2 through 1.5 as screen + voiceover (Loom or ScreenFlow), ~10 min each.
+      </div>
+      <div class="gantt-cell gantt-task">
+        <span class="pill">Screen</span>
+        Record 1.6, 1.7, 1.8 (screen + voiceover). 1.7 + 1.8 are mixed: short face intro + screen demo.
+      </div>
+
+      <div class="gantt-cell gantt-row-label">Skills build (Will)</div>
+      <div class="gantt-cell gantt-task">
+        <span class="pill">Plan</span>
+        Spec the 8 skills. Decide which already exist in the Markology dept folders vs net-new.
+      </div>
+      <div class="gantt-cell gantt-task skill-build">
+        <span class="pill">Build</span>
+        Ship /build-knowledge-base, /setup-departments, /monthly-report, /website-audit. Each tested on Markology's own data first.
+      </div>
+      <div class="gantt-cell gantt-task skill-build">
+        <span class="pill">Build</span>
+        Ship /icp-research, /positioning + the Real Ideal Client Questionnaire + the Different from Generic Worksheet. Pre-stuff with 5 sample firms.
+      </div>
+
+      <div class="gantt-cell gantt-row-label">Beta marketing</div>
+      <div class="gantt-cell gantt-task">
+        <span class="pill">List</span>
+        Pull Markology email list. Identify 3 to 5 accountant influencers for honest-feedback DMs (Jason Staats, Logan Graf, etc.)
+      </div>
+      <div class="gantt-cell gantt-task">
+        <span class="pill">Tease</span>
+        LinkedIn personal posts from Whitney + Will. No selling, just "we are testing this thing, want in?"
+      </div>
+      <div class="gantt-cell gantt-task launch">
+        <span class="pill">Invite</span>
+        Send beta invites. Decision: free first 30 days for beta cohort OR paid from day 1. No public ads yet.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section format">
+  <div class="container">
+    <div class="section-eyebrow">Filming format breakdown</div>
+    <h2 class="display section-title">Face vs Screen, Module by Module</h2>
+    <p class="section-lede">You are a mom of a 1-year-old. Face video needs childcare windows + lighting + clean takes. Voiceover screen-record fits nap windows in 30-min blocks. Lean voiceover-heavy on purpose.</p>
+    <div class="format-table">
+      <div class="format-row header">
+        <div>Module</div>
+        <div>Why this format</div>
+        <div>Format</div>
+      </div>
+      <div class="format-row">
+        <div><strong>1.1 Welcome</strong></div>
+        <div class="why">First impression. Trust anchor. Worth the production effort.</div>
+        <div><span class="format-tag face">Face</span></div>
+      </div>
+      <div class="format-row">
+        <div><strong>1.2 Set up Claude Code</strong></div>
+        <div class="why">Pure tutorial. Screen is the content. Face adds nothing.</div>
+        <div><span class="format-tag screen">Screen + voiceover</span></div>
+      </div>
+      <div class="format-row">
+        <div><strong>1.3 Connect data</strong></div>
+        <div class="why">Walkthrough of Drive, email, Canopy, Carbon, Karbon. Screen-heavy.</div>
+        <div><span class="format-tag screen">Screen + voiceover</span></div>
+      </div>
+      <div class="format-row">
+        <div><strong>1.4 Knowledge base</strong></div>
+        <div class="why">Tutorial. Build alongside Whitney's voice. Screen-heavy.</div>
+        <div><span class="format-tag screen">Screen + voiceover</span></div>
+      </div>
+      <div class="format-row">
+        <div><strong>1.5 Set up departments</strong></div>
+        <div class="why">Tutorial. Screen-heavy.</div>
+        <div><span class="format-tag screen">Screen + voiceover</span></div>
+      </div>
+      <div class="format-row">
+        <div><strong>1.6 Reporting</strong></div>
+        <div class="why">GA4 + GSC walkthrough. Screen is the content.</div>
+        <div><span class="format-tag screen">Screen + voiceover</span></div>
+      </div>
+      <div class="format-row">
+        <div><strong>1.7 Website audit</strong></div>
+        <div class="why">Strategy + demo. Face intro frames the 5-tab test. Screen demos the audit.</div>
+        <div><span class="format-tag mixed">Mixed (face + screen)</span></div>
+      </div>
+      <div class="format-row">
+        <div><strong>1.8 ICP + positioning</strong></div>
+        <div class="why">Strategy module. Anti-jargon coaching benefits from Whitney's energy on-camera.</div>
+        <div><span class="format-tag mixed">Mixed (face + screen)</span></div>
+      </div>
+      <div class="format-row">
+        <div><strong>Monthly Q&A</strong></div>
+        <div class="why">Live, recorded. Face by default.</div>
+        <div><span class="format-tag face">Face (live)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section decisions">
+  <div class="container">
+    <div class="section-eyebrow">Decision board</div>
+    <h2 class="display section-title">What's Locked vs Open</h2>
+    <p class="section-lede">Green = locked. Orange = needs your call this week.</p>
+    <div class="decision-grid">
+      <div class="decision-card locked">
+        <div class="status">Locked</div>
+        <h4>Name</h4>
+        <p>The Claude Marketing Course for Accountants. Canonical since 2026-06-17. SEO clarity + audience match in one line.</p>
+      </div>
+      <div class="decision-card open">
+        <div class="status">Needs decision</div>
+        <h4>Price</h4>
+        <p>You said $2.99/mo today. Memory has $199/mo as canonical (set 2026-06-17). Confirm $2.99 is the new direction and I will update memory.</p>
+        <div class="rec">Recommended: confirm $2.99</div>
+      </div>
+      <div class="decision-card open">
+        <div class="status">Needs decision</div>
+        <h4>Platform</h4>
+        <p>Skool wins on speed (community + drip + payment + group calls in one tool, 1-day setup). Kajabi for v2 if you want a pro look.</p>
+        <div class="rec">Recommended: Skool for beta</div>
+      </div>
+      <div class="decision-card open">
+        <div class="status">Needs decision</div>
+        <h4>Beta pricing model</h4>
+        <p>Free first 30 days for the 30 to 50 beta cohort OR paid from day 1. Free reduces feedback bias toward "great!"; paid filters for serious users.</p>
+        <div class="rec">Recommended: paid from day 1, $2.99 absorbs trivially</div>
+      </div>
+      <div class="decision-card locked">
+        <div class="status">Locked</div>
+        <h4>Format</h4>
+        <p>Mostly voiceover screen-record. Face for Welcome (1.1), Q&A, and strategy intros (1.7, 1.8). Fits nap-window production.</p>
+      </div>
+      <div class="decision-card locked">
+        <div class="status">Locked</div>
+        <h4>Beta scope</h4>
+        <p>Month 1 only. 8 sub-modules + 1 group Q&A. Months 2 through 12 drip out monthly post-beta.</p>
+      </div>
+      <div class="decision-card open">
+        <div class="status">Needs decision</div>
+        <h4>Sales page</h4>
+        <p>Webflow on markology.io/course (already live waitlist form 9540545) OR Skool's own sales page.</p>
+        <div class="rec">Recommended: keep Webflow /course (better SEO + branded look) and link to Skool checkout</div>
+      </div>
+      <div class="decision-card open">
+        <div class="status">Needs decision</div>
+        <h4>Who builds the skills</h4>
+        <p>Will Ziada (2ic, AI-fluent) OR Whitney + Claude Code session-by-session.</p>
+        <div class="rec">Recommended: Will builds. Whitney films + does the welcome.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section time-budget">
+  <div class="container">
+    <div class="section-eyebrow">Whitney's time budget</div>
+    <h2 class="display section-title">What This Asks Of You</h2>
+    <p class="section-lede">Mom of a 1-year-old. This has to fit nap windows. Here is the honest weekly ask.</p>
+    <div class="budget-grid">
+      <div class="budget-card">
+        <h4>Weeks 1 to 3 (beta build)</h4>
+        <div class="hours">12-16</div>
+        <p><strong>Hours per week.</strong> Welcome script (2h), filming Month 1 (6-8h spread across nap windows), platform setup (2h), beta list outreach (2h). Will absorbs the skill-build hours.</p>
+      </div>
+      <div class="budget-card">
+        <h4>Month 2 onward (steady state)</h4>
+        <div class="hours">3-5</div>
+        <p><strong>Hours per month.</strong> One skill drop with a 5-10 min Loom (1h record + 1h prep). One monthly group Q&A (1h live + 0.5h prep). Drop everything else on Will + Claude.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section cadence">
+  <div class="container">
+    <div class="section-eyebrow">Post-beta production cadence</div>
+    <h2 class="display section-title">After Beta, Months 2 Through 12</h2>
+    <p class="section-lede">Once the beta is live, the structure is monthly NEW skill drops. NOT 11 more full filming sprints. Honest tradeoff: less course, more longevity.</p>
+    <div class="cadence-row">
+      <div class="cadence-card">
+        <div class="num">01</div>
+        <h5>Pick the skill</h5>
+        <p>One skill per month. Picked from the curriculum + community Q&A patterns.</p>
+      </div>
+      <div class="cadence-card">
+        <div class="num">02</div>
+        <h5>Build + test</h5>
+        <p>Will builds the skill. Whitney tests it on Markology's own marketing first.</p>
+      </div>
+      <div class="cadence-card">
+        <div class="num">03</div>
+        <h5>Record</h5>
+        <p>One 5 to 10 min Loom. Voiceover + screen. ~1 hour Whitney time.</p>
+      </div>
+      <div class="cadence-card">
+        <div class="num">04</div>
+        <h5>Drop + Q&A</h5>
+        <p>Skill goes live in Skool. Monthly group Q&A covers it + member questions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section marketing">
+  <div class="container">
+    <div class="section-eyebrow">Beta marketing checklist</div>
+    <h2 class="display section-title">How We Get The First 30 to 50</h2>
+    <p class="section-lede">Soft launch only. No paid ads in beta. Reach + honest feedback first; public ad spend later.</p>
+    <ul class="marketing-list">
+      <li>
+        <div class="check"></div>
+        <div class="text">
+          <strong>Markology's existing email list</strong>
+          <span>Single email: "We built a thing. Want in for $2.99/mo while we beta it?"</span>
+        </div>
+      </li>
+      <li>
+        <div class="check"></div>
+        <div class="text">
+          <strong>Whitney's direct accountant relationships</strong>
+          <span>The 10 to 15 accountants you know personally. DM, not mass message.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check"></div>
+        <div class="text">
+          <strong>LinkedIn personal posts (Whitney + Will)</strong>
+          <span>3 to 4 posts each over 2 weeks. Behind-the-scenes building, not selling.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check"></div>
+        <div class="text">
+          <strong>3 to 5 accountant-influencer DMs</strong>
+          <span>Jason Staats, Logan Graf, Sean Duncan, etc. Ask for honest feedback, not promotion yet.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check"></div>
+        <div class="text">
+          <strong>Markology client list (Lite + agency)</strong>
+          <span>Optional opt-in invite for current clients to peek. Builds advocacy.</span>
+        </div>
+      </li>
+      <li>
+        <div class="check"></div>
+        <div class="text">
+          <strong>NO paid ads in beta</strong>
+          <span>Wait until Month 1 content is iterated post-beta. Then run paid Meta + Google.</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    Timeline v1 · 2026-06-19 · Companion: <a href="../outline-2026-06-19/">Course Outline</a>
+  </div>
+</footer>
+
+</body>
+</html>

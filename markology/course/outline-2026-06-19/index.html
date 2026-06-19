@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Claude Marketing Course for Accountants, Outline v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #070630;
+    --navy-2: #0C0A47;
+    --blue: #3872EB;
+    --blue-light: #7DA4F4;
+    --paper: #F9F9FF;
+    --lilac: #E6E9FF;
+    --line: #D7D8EF;
+    --ink-muted: #5B5D78;
+    --warn: #FFB37A;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--paper); color: var(--navy); line-height: 1.55; }
+  .display { font-family: 'Anton', sans-serif; text-transform: uppercase; line-height: 1.02; letter-spacing: 0.01em; }
+  .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+  a { color: var(--blue); }
+
+  /* HERO */
+  .hero { background: var(--navy); color: var(--paper); padding: 80px 0 64px; position: relative; }
+  .hero h1 { font-size: clamp(48px, 7vw, 116px); }
+  .eyebrow { color: var(--blue-light); font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 600; margin-bottom: 16px; }
+  .promise { font-size: clamp(20px, 2.5vw, 28px); color: var(--blue-light); max-width: 920px; margin-top: 24px; line-height: 1.4; }
+  .hero-meta { display: flex; gap: 16px; margin-top: 32px; flex-wrap: wrap; }
+  .meta-item { background: rgba(255,255,255,0.06); padding: 14px 20px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.12); min-width: 180px; }
+  .meta-item .label { font-size: 11px; color: var(--blue-light); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+  .meta-item .value { font-size: 16px; font-weight: 600; margin-top: 4px; }
+  .meta-item.needs-decision { border-color: var(--warn); background: rgba(255,179,122,0.08); }
+  .meta-item.needs-decision .label { color: var(--warn); }
+  .meta-item .needs-flag { display: inline-block; background: var(--warn); color: var(--navy); font-size: 9px; padding: 2px 6px; border-radius: 3px; font-weight: 800; letter-spacing: 0.1em; margin-top: 6px; text-transform: uppercase; }
+
+  /* QUOTES */
+  .quotes { background: var(--navy-2); color: var(--paper); padding: 60px 0; border-top: 1px solid rgba(255,255,255,0.08); }
+  .quotes .section-eyebrow { color: var(--blue-light); }
+  .quotes h2 { color: var(--paper); font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 36px; line-height: 1; margin-bottom: 32px; }
+  .quote-stack { display: flex; flex-direction: column; gap: 18px; max-width: 1040px; }
+  blockquote { font-size: clamp(20px, 2.2vw, 28px); font-weight: 500; line-height: 1.35; padding-left: 24px; border-left: 3px solid var(--blue); color: var(--paper); }
+  .voice-note { font-size: 12px; color: var(--blue-light); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 28px; font-weight: 600; }
+
+  /* SHARED SECTION */
+  .section { padding: 80px 0; }
+  .section-eyebrow { font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; color: var(--blue); margin-bottom: 12px; }
+  .section-title { font-size: clamp(36px, 5vw, 64px); margin-bottom: 16px; }
+  .section-lede { font-size: 17px; color: var(--ink-muted); max-width: 800px; margin-bottom: 32px; }
+
+  /* TRACKS */
+  .tracks { background: var(--paper); }
+  .tracks-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 16px; }
+  .track-card { background: var(--lilac); border-radius: 16px; padding: 32px; border: 1px solid var(--line); }
+  .track-card .label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 700; color: var(--blue); margin-bottom: 8px; }
+  .track-card h3 { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 32px; line-height: 1; margin-bottom: 16px; }
+  .track-card p { font-size: 16px; color: var(--ink-muted); margin-bottom: 16px; }
+  .track-card .who { font-size: 14px; font-weight: 600; color: var(--navy); }
+  @media (max-width: 800px) { .tracks-grid { grid-template-columns: 1fr; } }
+
+  /* MONTHS */
+  .months { background: var(--navy); color: var(--paper); }
+  .months .section-eyebrow { color: var(--blue-light); }
+  .months .section-title { color: var(--paper); }
+  .months .section-lede { color: rgba(255,255,255,0.7); }
+  .months-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)); gap: 20px; margin-top: 16px; }
+  .month-card { background: rgba(255,255,255,0.045); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; }
+  .month-card.foundation { background: var(--blue); border-color: var(--blue-light); }
+  .month-card.optional { border-style: dashed; opacity: 0.92; }
+  .month-card .month-num { font-family: 'Anton', sans-serif; font-size: 56px; line-height: 1; color: var(--blue-light); }
+  .month-card.foundation .month-num { color: var(--paper); }
+  .month-card .month-theme { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 22px; margin: 4px 0 4px; color: var(--paper); }
+  .month-card .month-sub { font-size: 13px; color: rgba(255,255,255,0.65); margin-bottom: 16px; font-style: italic; line-height: 1.4; }
+  .month-card.foundation .month-sub { color: rgba(255,255,255,0.85); }
+  .month-card .modules { list-style: none; flex: 1; }
+  .month-card .modules li { padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.12); font-size: 14px; line-height: 1.4; }
+  .month-card .modules li:first-child { border-top: none; padding-top: 0; }
+  .month-card .skill { display: inline-block; background: rgba(125,164,244,0.22); color: var(--blue-light); padding: 2px 8px; border-radius: 4px; font-family: 'SF Mono', monospace; font-size: 12px; margin: 2px 4px 2px 0; }
+  .month-card.foundation .skill { background: rgba(255,255,255,0.22); color: var(--paper); }
+  .month-card .badge { display: inline-block; font-size: 10px; padding: 3px 8px; border-radius: 4px; text-transform: uppercase; font-weight: 800; letter-spacing: 0.1em; vertical-align: middle; }
+  .badge.optional { background: var(--warn); color: var(--navy); }
+  .badge.lite { background: var(--blue-light); color: var(--navy); }
+  .lite-callout { background: var(--blue-light); color: var(--navy); border-radius: 6px; padding: 12px 16px; font-size: 13px; font-weight: 600; margin-top: 16px; }
+
+  /* BONUS */
+  .bonus { background: var(--lilac); }
+  .bonus-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; margin-top: 16px; }
+  .bonus-card { background: var(--paper); border-radius: 12px; padding: 24px; border: 1px solid var(--line); }
+  .bonus-card h4 { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 22px; margin-bottom: 8px; }
+  .bonus-card p { font-size: 14px; color: var(--ink-muted); line-height: 1.5; }
+
+  /* TRUST */
+  .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 16px; }
+  .trust-card { background: var(--lilac); border-radius: 16px; padding: 32px; border-left: 4px solid var(--blue); }
+  .trust-card h4 { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 24px; margin-bottom: 12px; }
+  .trust-card p { font-size: 15px; line-height: 1.5; }
+  @media (max-width: 800px) { .trust-grid { grid-template-columns: 1fr; } }
+
+  /* OPINIONS */
+  .opinions { background: var(--navy-2); color: var(--paper); }
+  .opinions .section-eyebrow { color: var(--blue-light); }
+  .opinions .section-title { color: var(--paper); }
+  .opinion-list { list-style: none; max-width: 1000px; margin-top: 16px; }
+  .opinion-list li { padding: 24px 0; border-top: 1px solid rgba(255,255,255,0.15); display: grid; grid-template-columns: 60px 1fr; gap: 24px; align-items: start; }
+  .opinion-list li:first-child { border-top: none; }
+  .opinion-list .num { font-family: 'Anton', sans-serif; font-size: 44px; color: var(--blue-light); line-height: 1; }
+  .opinion-list .text { font-size: 16px; line-height: 1.55; }
+  .opinion-list .text strong { color: var(--blue-light); }
+
+  /* FOOTER */
+  footer { padding: 32px 0; text-align: center; background: var(--navy); color: rgba(255,255,255,0.55); font-size: 12px; border-top: 1px solid rgba(255,255,255,0.08); }
+  footer a { color: var(--blue-light); }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <div class="eyebrow">Markology Course · Outline v2 · 2026-06-19</div>
+    <h1 class="display">The Claude Marketing Course for Accountants</h1>
+    <p class="promise">Leads in the door. In 12 months your firm has a marketing department running on Claude, with 15 to 25 installed skills doing the work.</p>
+    <div class="hero-meta">
+      <div class="meta-item needs-decision">
+        <div class="label">Price</div>
+        <div class="value">$2.99 / month</div>
+        <div class="needs-flag">memory says $199, confirm</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Subscribers Goal</div>
+        <div class="value">1,000 globally</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Format</div>
+        <div class="value">Weekend completable + monthly skill drops</div>
+      </div>
+      <div class="meta-item">
+        <div class="label">Live Touch</div>
+        <div class="value">1 group Q&A per month</div>
+      </div>
+      <div class="meta-item needs-decision">
+        <div class="label">Platform</div>
+        <div class="value">Skool (recommended)</div>
+        <div class="needs-flag">decide</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quotes">
+  <div class="container">
+    <div class="section-eyebrow">The course's spine, exact words</div>
+    <h2>Use these as the structural beats for every welcome script and sales page.</h2>
+    <div class="quote-stack">
+      <blockquote>We tried to solve that for accountants because we know marketing is the last thing on your list. Always.</blockquote>
+      <blockquote>As you are spending the majority of your time on operational workflow with AI.</blockquote>
+      <blockquote>We wanted to make this as easy as possible. Self-paced learning you can do in a weekend.</blockquote>
+      <blockquote>And the skills you can drop into your Claude.</blockquote>
+      <blockquote>Cut and paste. As easy as possible.</blockquote>
+    </div>
+    <div class="voice-note">Echo, do not copy verbatim (some of these are AutomationTown-adjacent phrasing).</div>
+  </div>
+</section>
+
+<section class="section tracks">
+  <div class="container">
+    <div class="section-eyebrow">Two tracks, one curriculum</div>
+    <h2 class="display section-title">Same Content. Two Speeds.</h2>
+    <p class="section-lede">Every module ships in two formats. The fast-track gets you to leads in the door. The deep-dive teaches you marketing well enough to keep running it.</p>
+    <div class="tracks-grid">
+      <div class="track-card">
+        <div class="label">Fast-track</div>
+        <h3>Just Get Me Leads</h3>
+        <p>5 to 10 minute walkthrough per module. Watch, install the skill, run it on your firm. The whole foundation is doable in a weekend.</p>
+        <div class="who">For: the solo accountant who just left corporate and needs leads NOW.</div>
+      </div>
+      <div class="track-card">
+        <div class="label">Deep-dive</div>
+        <h3>Teach Me Marketing</h3>
+        <p>Longer explainer per module. The WHY, the edge cases, the common mistakes, how to tell if it is working.</p>
+        <div class="who">For: the admin or receptionist learning to run firm marketing long-term.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section months">
+  <div class="container">
+    <div class="section-eyebrow">The 12-month map</div>
+    <h2 class="display section-title">The Curriculum</h2>
+    <p class="section-lede">Month 1 is the foundation (8 sub-modules, the whole core, weekend-completable). Months 2 through 12 are monthly skill drops that add new tools as you grow into marketing.</p>
+    <div class="months-grid">
+
+      <!-- MONTH 1 -->
+      <div class="month-card foundation">
+        <div class="month-num">01</div>
+        <div class="month-theme">Foundation</div>
+        <div class="month-sub">Build your firm's marketing brain · 8 sub-modules · weekend completable</div>
+        <ul class="modules">
+          <li><strong>1.1</strong> Welcome + how this works (inbound vs outbound, how long marketing takes, the "some methods stay with agency clients" honesty)</li>
+          <li><strong>1.2</strong> Set up Claude Code on your computer</li>
+          <li><strong>1.3</strong> Connect Claude to your data (Drive, email, meeting notes, Canopy/Carbon/Karbon)</li>
+          <li><strong>1.4</strong> Build your firm's marketing brain <span class="skill">/build-knowledge-base</span></li>
+          <li><strong>1.5</strong> Set up your marketing departments <span class="skill">/setup-departments</span></li>
+          <li><strong>1.6</strong> Set up your reporting <span class="skill">/monthly-report</span></li>
+          <li><strong>1.7</strong> Audit your website (the 5-tab test) <span class="skill">/website-audit</span></li>
+          <li><strong>1.8</strong> Find your ideal client + positioning <span class="skill">/icp-research</span><span class="skill">/positioning</span></li>
+        </ul>
+        <div class="lite-callout">Lite mention lives at end of 1.8. Soft note only, once in the whole course.</div>
+      </div>
+
+      <!-- MONTH 2 -->
+      <div class="month-card">
+        <div class="month-num">02</div>
+        <div class="month-theme">SEO Foundation</div>
+        <div class="month-sub">3 skill drops</div>
+        <ul class="modules">
+          <li><strong>2.1</strong> How accountant search actually works (local vs national, intent, timelines)</li>
+          <li><strong>2.2</strong> Keyword research with Claude <span class="skill">/keyword-research</span></li>
+          <li><strong>2.3</strong> Fix your site's biggest SEO problems <span class="skill">/seo-page-audit</span></li>
+        </ul>
+      </div>
+
+      <!-- MONTH 3 -->
+      <div class="month-card">
+        <div class="month-num">03</div>
+        <div class="month-theme">Website That Converts</div>
+        <div class="month-sub">3 skill drops</div>
+        <ul class="modules">
+          <li><strong>3.1</strong> Pain-led copy + the 5-tab test in detail <span class="skill">/hero-rewrite</span></li>
+          <li><strong>3.2</strong> Build local + service pages <span class="skill">/service-page-build</span></li>
+          <li><strong>3.3</strong> Show the humans + social proof (photos, bios, reviews, trust signals)</li>
+        </ul>
+      </div>
+
+      <!-- MONTH 4 -->
+      <div class="month-card">
+        <div class="month-num">04</div>
+        <div class="month-theme">Content Engine</div>
+        <div class="month-sub">3 skill drops</div>
+        <ul class="modules">
+          <li><strong>4.1</strong> Mine your meetings + emails for content ideas <span class="skill">/content-mining</span></li>
+          <li><strong>4.2</strong> Teach Claude your tone of voice <span class="skill">/voice-trainer</span></li>
+          <li><strong>4.3</strong> Build a 90-day content calendar <span class="skill">/content-calendar</span></li>
+        </ul>
+      </div>
+
+      <!-- MONTH 5 -->
+      <div class="month-card">
+        <div class="month-num">05</div>
+        <div class="month-theme">Blog + Writing</div>
+        <div class="month-sub">3 skill drops</div>
+        <ul class="modules">
+          <li><strong>5.1</strong> Write blogs that rank AND get read (why your blog isn't interesting) <span class="skill">/blog-draft</span></li>
+          <li><strong>5.2</strong> Publish + index (platform-specific, schema, GSC) <span class="skill">/blog-publish-prep</span></li>
+          <li><strong>5.3</strong> Repurpose one blog into 10 social posts <span class="skill">/repurpose-blog</span></li>
+        </ul>
+      </div>
+
+      <!-- MONTH 6 -->
+      <div class="month-card">
+        <div class="month-num">06</div>
+        <div class="month-theme">Reviews + Local + GBP</div>
+        <div class="month-sub">3 skill drops · fast-track swap with M7</div>
+        <ul class="modules">
+          <li><strong>6.1</strong> Google reviews on autopilot <span class="skill">/review-pipeline</span></li>
+          <li><strong>6.2</strong> Google Business Profile setup + monthly posts <span class="skill">/gbp-monthly-post</span></li>
+          <li><strong>6.3</strong> Citations + directories <span class="skill">/citation-list</span></li>
+        </ul>
+      </div>
+
+      <!-- MONTH 7 -->
+      <div class="month-card">
+        <div class="month-num">07</div>
+        <div class="month-theme">Email + Newsletter</div>
+        <div class="month-sub">3 skill drops</div>
+        <ul class="modules">
+          <li><strong>7.1</strong> Lead magnets that actually work for accountants <span class="skill">/lead-magnet-ideas</span></li>
+          <li><strong>7.2</strong> Email platform + welcome sequence <span class="skill">/welcome-sequence-draft</span></li>
+          <li><strong>7.3</strong> Monthly newsletter routine <span class="skill">/newsletter-draft</span></li>
+        </ul>
+      </div>
+
+      <!-- MONTH 8 -->
+      <div class="month-card">
+        <div class="month-num">08</div>
+        <div class="month-theme">Social Media</div>
+        <div class="month-sub">3 skill drops</div>
+        <ul class="modules">
+          <li><strong>8.1</strong> Personal vs business LinkedIn (and why personal wins)</li>
+          <li><strong>8.2</strong> Social routine for the accountant who hates social <span class="skill">/social-monthly</span></li>
+          <li><strong>8.3</strong> Automate social with Claude + scheduling <span class="skill">/social-auto-schedule</span></li>
+        </ul>
+      </div>
+
+      <!-- MONTH 9 OPTIONAL -->
+      <div class="month-card optional">
+        <div class="month-num">09</div>
+        <div class="month-theme">Video <span class="badge optional">Optional in fast-track</span></div>
+        <div class="month-sub">3 skill drops · only if you'll be on camera</div>
+        <ul class="modules">
+          <li><strong>9.1</strong> Why YouTube works for accountants (explainer format, long-tail intent)</li>
+          <li><strong>9.2</strong> Short-form (Reels, Shorts, TikTok)</li>
+          <li><strong>9.3</strong> YouTube production stack (filming, editing, thumbnails, captions) <span class="skill">/yt-description</span></li>
+        </ul>
+      </div>
+
+      <!-- MONTH 10 -->
+      <div class="month-card">
+        <div class="month-num">10</div>
+        <div class="month-theme">Communities + Webinars + Podcasts</div>
+        <div class="month-sub">3 skill drops</div>
+        <ul class="modules">
+          <li><strong>10.1</strong> Reddit, Quora, Facebook groups (helpful-first commenting)</li>
+          <li><strong>10.2</strong> Webinars (host or guest)</li>
+          <li><strong>10.3</strong> Podcast guest appearances + outreach <span class="skill">/podcast-pitch</span></li>
+        </ul>
+      </div>
+
+      <!-- MONTH 11 -->
+      <div class="month-card">
+        <div class="month-num">11</div>
+        <div class="month-theme">Outreach + Backlinks + Partnerships</div>
+        <div class="month-sub">3 skill drops</div>
+        <ul class="modules">
+          <li><strong>11.1</strong> Cold email outreach <span class="skill">/cold-email</span></li>
+          <li><strong>11.2</strong> Backlinks: DIY vs hire + vetted freelancer list <span class="skill">/backlink-pitch</span></li>
+          <li><strong>11.3</strong> Partnerships + cross-promotion <span class="skill">/partnership-pitch</span></li>
+        </ul>
+      </div>
+
+      <!-- MONTH 12 -->
+      <div class="month-card">
+        <div class="month-num">12</div>
+        <div class="month-theme">Tracking + Monthly Routine + Ads</div>
+        <div class="month-sub">3 skill drops · capstone</div>
+        <ul class="modules">
+          <li><strong>12.1</strong> Tracking what's working (GA4 + GSC numbers that matter) <span class="skill">/monthly-metrics</span></li>
+          <li><strong>12.2</strong> Your monthly marketing routine going forward</li>
+          <li><strong>12.3</strong> Ads basics (when paid makes sense) + when to hire Markology</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section bonus">
+  <div class="container">
+    <div class="section-eyebrow">Always-on library, no drip</div>
+    <h2 class="display section-title">Bonus Library</h2>
+    <p class="section-lede">Available to every member from day one. Reference, not curriculum.</p>
+    <div class="bonus-grid">
+      <div class="bonus-card"><h4>Software Tools Cheat Sheet</h4><p>Every tool we recommend with pricing, fit-for, and our take.</p></div>
+      <div class="bonus-card"><h4>Vetted Freelancer List</h4><p>Backlinks, design, video editors. Real people we have used.</p></div>
+      <div class="bonus-card"><h4>Marketing Troubleshooting</h4><p>"My blog ranked then dropped." "GBP suspended." "Reviews not showing." Diagnosis flowcharts.</p></div>
+      <div class="bonus-card"><h4>Integration Deep Dives</h4><p>Canopy, Carbon, Karbon, QuickBooks: pointing Claude at your firm's practice management data.</p></div>
+      <div class="bonus-card"><h4>Lite + Agency: When To Consider</h4><p>The honest "is DIY enough for you" gut check.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section trust">
+  <div class="container">
+    <div class="section-eyebrow">Frames every welcome + module intro</div>
+    <h2 class="display section-title">What We Tell Members Up Front</h2>
+    <div class="trust-grid">
+      <div class="trust-card">
+        <h4>The 7-Year Trust Anchor</h4>
+        <p>Markology has worked with accountants nationwide for 7+ years. That experience is the credibility anchor. Welcome video says it. Module intros reference it where natural ("in our 7 years working with accountants...").</p>
+      </div>
+      <div class="trust-card">
+        <h4>The Agency-Secrets Honesty</h4>
+        <p>Not everything Markology does for agency clients is given away in the course. Welcome script says this transparently. Protects the moat AND sets honest expectations so the gap between course and Lite or full agency is visible from day one.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section opinions">
+  <div class="container">
+    <div class="section-eyebrow">Head of agency push-backs</div>
+    <h2 class="display section-title">What I'd Change Before Beta</h2>
+    <ul class="opinion-list">
+      <li>
+        <div class="num">01</div>
+        <div class="text"><strong>YouTube is risky for most accountants.</strong> Camera + editing cadence kills non-naturals. Month 9 stays OPTIONAL in fast-track. For solos, replace with a "leads-now sprint" instead.</div>
+      </li>
+      <li>
+        <div class="num">02</div>
+        <div class="text"><strong>Ads stay minimal.</strong> Most accountants should not DIY Google Ads. Module 12.3 plus a clean "or hire Markology" link is the right scope.</div>
+      </li>
+      <li>
+        <div class="num">03</div>
+        <div class="text"><strong>For fast-track, swap Months 6 and 7.</strong> Reviews + GBP drive faster local leads than lead magnets. Deep-dive keeps current order.</div>
+      </li>
+      <li>
+        <div class="num">04</div>
+        <div class="text"><strong>Canopy / Carbon / Karbon integration is your moat.</strong> No other accountant marketing course integrates with practice management. Worth real research effort. Could become a Month 1 sub-topic AND a deeper Bonus module.</div>
+      </li>
+      <li>
+        <div class="num">05</div>
+        <div class="text"><strong>The "5-tab test" deserves to be a named teaching device.</strong> Memorable, recommendable. Use it on the sales page too.</div>
+      </li>
+      <li>
+        <div class="num">06</div>
+        <div class="text"><strong>Reconciliation needed: "weekend completable" vs "12 months."</strong> The fix is to position Month 1 as the whole core course (weekend binge), Months 2-12 as monthly NEW skill drops that add tools as your firm grows. Same sales-page promise as Will's spine quotes. No contradiction.</div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    Outline v2 · 2026-06-19 · Companion: <a href="../timeline-2026-06-19/">Timeline + Production Schedule</a>
+  </div>
+</footer>
+
+</body>
+</html>

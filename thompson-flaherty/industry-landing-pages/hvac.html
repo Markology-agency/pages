@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thompson Flaherty - Accounting for HVAC Businesses</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Red+Hat+Text:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  body { font-family: 'Red Hat Text', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  input::placeholder, select { color: #8A7F76; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="image-slot.js"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="env,react">
+// HVAC industry content — fed into the shared template.
+window.INDUSTRY = {
+  label: 'Industry Landing - HVAC',
+  noun: 'business',
+  faqTitle: 'Common questions about HVAC accounting',
+  heroBadge: { title: 'Survive the slow season', sub: 'Cash-flow plans built for your cycle.' },
+  compareUsed: [
+    'A generalist who ignores your seasonal swings',
+    'Every call looks profitable until you run the numbers',
+    'Truck and equipment buys with no depreciation timing',
+    'Payroll guesswork on overtime and W-2 vs 1099',
+    'Refrigerant, parts, and uniforms left off the return',
+  ],
+  compareWith: [
+    'A CPA who plans around your peak and off-peak cycles',
+    'Job costing that shows margin per call and install',
+    'Section 179 & bonus depreciation timed to your fleet',
+    'Payroll, overtime, and classification done right',
+    'Every trade deduction captured and documented',
+  ],
+  heroPhoto: 'https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80',
+  copy: {
+    practical: {
+      eyebrow: 'For HVAC Businesses',
+      headline: <>HVAC accounting that keeps your business <em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>cool</em> all year.</>,
+      sub: "Tax strategy, job costing, and cash-flow planning for HVAC contractors, built around seasonal swings, fleet depreciation, and the deductions your trade earns. You get a dedicated CPA who knows your business all year, not just in April.",
+      ctaPrimary: 'Schedule Your Consultation',
+      painTitle: 'The financial traps HVAC contractors hit',
+      painLead: 'The seasonal and job-cost gaps that quietly erode thin margins.',
+      processTitle: 'How working together begins',
+      teamTitle: "Who you'll work with",
+    },
+    outcome: {
+      eyebrow: 'For HVAC Businesses',
+      headline: <>Smooth out the <em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>feast-or-famine</em> cash flow.</>,
+      sub: 'Summer runs hot, winter runs slow, and the cash flow follows. We build the systems that smooth the cycles, capture every deduction, and time your equipment buys for the biggest tax win.',
+      ctaPrimary: 'Schedule Your Consultation',
+      painTitle: "Seasonal swings shouldn't mean cash-flow chaos",
+      painLead: 'Peak-season revenue can hide the winter shortfall until it is too late.',
+      processTitle: <>From first call to<br/>year-round partner</>,
+      teamTitle: 'Talk to a dedicated CPA, not a call center',
+    },
+  },
+  trust: [
+    '3,000+ clients served',
+    'Best Accountants — SBM Finalist',
+    'AICPA Member Firm',
+    'QuickBooks Certified ProAdvisor',
+    'Serving clients nationwide',
+  ],
+  pain: [
+    { title: 'Feast-or-famine cash flow',
+      body: 'Summer revenue masks the winter shortfall until the bank account runs dry.' },
+    { title: 'No job-cost tracking',
+      body: 'Every call looks profitable until you actually run the numbers by job and by install.' },
+    { title: 'Tech payroll complexity',
+      body: 'Overtime, multiple pay rates, and W-2 vs 1099 decisions for installers and technicians.' },
+    { title: 'Missed deductions',
+      body: 'Refrigerant, parts, uniforms, licensing, and truck expenses left off the return.' },
+  ],
+  services: [
+    { icon: 'ledger', name: 'Accounting', lead: 'Job-cost financials you can trust.',
+      href: 'https://thompsonflaherty.com/accounting/',
+      points: ['Margin per service call and install project', 'Cash-flow forecasting for the slow season', 'CFO-level financials and benchmarking'] },
+    { icon: 'layers', name: 'Bookkeeping', lead: 'Clean, reconciled books every month.',
+      href: 'https://thompsonflaherty.com/bookkeeping/',
+      points: ['Revenue tracked by service type', 'Up-to-date books by the 10th', 'Audit-ready records year-round'] },
+    { icon: 'payroll', name: 'Managed Payroll', lead: 'Your techs, paid right, on time.',
+      href: 'https://thompsonflaherty.com/payroll/',
+      points: ['Overtime & multiple pay rates handled', 'W-2 / 1099 classification done right', 'Multi-state crews supported'] },
+    { icon: 'tax', name: 'Tax', lead: 'Planning all year, not just April.',
+      href: 'https://thompsonflaherty.com/tax-business/',
+      points: ['Section 179 & 100% bonus depreciation on vans', 'Entity & QBI strategy', 'Refrigerant, parts & uniform deductions'] },
+  ],
+  process: [
+    { title: 'Free intro call', body: "Tell us about your business and your goals. No pressure and no commitment, just a real conversation.", meta: 'Step 1' },
+    { title: 'We review your numbers', body: 'We dig into your books, taxes, and structure, then show you exactly where we can help.', meta: 'Step 2' },
+    { title: 'We take the wheel', body: 'We transition your accounts, clean things up, and put reliable systems in place. Fast.', meta: 'Step 3' },
+    { title: 'Year-round partnership', body: "Proactive planning, fast answers, and ongoing advisory. We're in your corner all year.", meta: 'Ongoing' },
+  ],
+  faqs: [
+    { q: 'Do you work with HVAC businesses outside Illinois?',
+      a: "Yes. We're based in Edwardsville with a Chicago office, and we serve trades businesses across the Metro East, St. Louis, Chicago, and nationwide through virtual CPA services." },
+    { q: 'Can you help me plan for the slow season?',
+      a: 'Yes. We build cash-flow forecasts and reserve plans around your actual billing cycle, so winter is planned for, not just survived.' },
+    { q: 'How do you handle depreciation on new vans and equipment?',
+      a: 'We model Section 179 and 100% bonus depreciation against your most profitable years, so you time purchases for the biggest legal tax benefit.' },
+    { q: 'What does this cost?',
+      a: "Our pricing reflects the strategy and care we bring to every client. Basic returns start at $450; ongoing engagements (books, payroll, and tax) are quoted after a quick review of your numbers, with clear pricing and no hourly surprises." },
+    { q: 'How fast can we switch?',
+      a: 'Most HVAC businesses are fully transitioned in a few weeks. Mid-year switches are routine; we regularly pick up books partway through a year.' },
+  ],
+};
+</script>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel" src="tf-header.jsx"></script>
+<script type="text/babel" src="safe-variant.jsx"></script>
+<script type="text/babel" src="industry-page.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "tone": "practical",
+  "accent": "#A42223"
+}/*EDITMODE-END*/;
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  return (
+    <React.Fragment>
+      <IndustryPage tweaks={t} />
+      <TweaksPanel>
+        <TweakSection label="Copy" />
+        <TweakRadio label="Tone" value={t.tone}
+                    options={['practical', 'outcome']}
+                    onChange={(v) => setTweak('tone', v)} />
+        <TweakSection label="Brand" />
+        <TweakColor label="Accent" value={t.accent}
+                    options={['#A42223', '#510606', '#9E122A', '#0E1E34']}
+                    onChange={(v) => setTweak('accent', v)} />
+      </TweaksPanel>
+    </React.Fragment>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

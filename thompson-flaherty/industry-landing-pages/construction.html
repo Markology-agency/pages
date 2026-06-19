@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thompson Flaherty - Accounting for Contractors &amp; Builders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Red+Hat+Text:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  body { font-family: 'Red Hat Text', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  input::placeholder, select { color: #8A7F76; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="image-slot.js"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="env,react">
+// Construction industry content — fed into the shared template.
+window.INDUSTRY = {
+  label: 'Industry Landing - Construction',
+  noun: 'business',
+  faqTitle: 'Common questions about construction accounting',
+  heroBadge: { title: 'Know which jobs make money', sub: 'WIP & job costing, every month.' },
+  compareUsed: [
+    'A generalist who has never seen a WIP schedule',
+    "Job costs you can't see until the job is over",
+    'Retainage buried in AR, overstating your cash',
+    'Surprise tax bills with no method strategy',
+    'Statements your bonding company questions',
+  ],
+  compareWith: [
+    'A CPA who knows job costing, WIP, and retainage',
+    'Real-time profitability on every active job',
+    'Retainage tracked separately, so cash is honest',
+    'Method, equipment & QBI planning all year',
+    'Bonding-ready financials sureties and banks trust',
+  ],
+  heroPhoto: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
+  copy: {
+    practical: {
+      eyebrow: 'For Contractors & Builders',
+      headline: <>Accounting that shows which jobs <em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>make money</em>.</>,
+      sub: "Job costing, WIP, and tax strategy for contractors, so you're never profitable on paper and broke in the bank. You get a dedicated CPA who knows your jobs all year, not just in April.",
+      ctaPrimary: 'Schedule Your Consultation',
+      painTitle: 'The accounting traps that catch contractors',
+      painLead: 'The job-cost and cash-flow gaps that quietly eat your margin.',
+      processTitle: 'How working together begins',
+      teamTitle: "Who you'll work with",
+    },
+    outcome: {
+      eyebrow: 'For Contractors & Builders',
+      headline: <>Stop being profitable on paper and <em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>broke in the bank</em>.</>,
+      sub: 'Retainage, progress billing, and long job cycles mean you can look profitable and still struggle to make payroll. We build job-cost and WIP systems that show the truth, and keep the tax bill in check.',
+      ctaPrimary: 'Schedule Your Consultation',
+      painTitle: "Profit and cash aren't the same thing",
+      painLead: 'Retainage and long job cycles can make a strong year feel broke.',
+      processTitle: <>From first call to<br/>year-round partner</>,
+      teamTitle: 'Talk to a dedicated CPA, not a call center',
+    },
+  },
+  trust: [
+    '3,000+ clients served',
+    'Best Accountants — SBM Finalist',
+    'AICPA Member Firm',
+    'QuickBooks Certified ProAdvisor',
+    'Serving clients nationwide',
+  ],
+  pain: [
+    { title: 'The retainage gap',
+      body: '5 to 10% withheld per billing, often your entire margin, tied up for months while your costs are already paid.' },
+    { title: 'Over/under billing & profit fade',
+      body: "Without a clean WIP schedule, you can't see which jobs are slipping until the job is over and the margin is gone." },
+    { title: 'Profitable on paper, broke in cash',
+      body: 'Front-loaded costs and back-loaded billing create dangerous timing gaps between profit and the bank balance.' },
+    { title: 'Subs, 1099s & certified payroll',
+      body: 'Subcontractor tracking, multi-state crews, and certified or prevailing-wage payroll that generalist firms routinely miss.' },
+  ],
+  services: [
+    { icon: 'ledger', name: 'Accounting', lead: 'Job-cost financials you can trust.',
+      href: 'https://thompsonflaherty.com/accounting/',
+      points: ['Job costing by project, with field buy-in', 'WIP schedules & over/under billing visibility', 'CFO & bonding-grade financials'] },
+    { icon: 'layers', name: 'Bookkeeping', lead: 'Clean, reconciled books every month.',
+      href: 'https://thompsonflaherty.com/bookkeeping/',
+      points: ['Retainage tracked separately from AR', 'Up-to-date books by the 10th', 'Audit- and bonding-ready records'] },
+    { icon: 'payroll', name: 'Managed Payroll', lead: 'Crews paid right, on time.',
+      href: 'https://thompsonflaherty.com/payroll/',
+      points: ['Certified & multi-state payroll', 'Subcontractor & 1099 reporting', 'Union / prevailing-wage handling'] },
+    { icon: 'tax', name: 'Tax', lead: 'Planning all year, not just April.',
+      href: 'https://thompsonflaherty.com/tax-business/',
+      points: ['Cash, accrual, completed-contract or POC method selection', 'Section 179 & 100% bonus depreciation timing', 'QBI & entity strategy'] },
+  ],
+  process: [
+    { title: 'Free intro call', body: "Tell us about your business and your goals. No pressure and no commitment, just a real conversation.", meta: 'Step 1' },
+    { title: 'We review your numbers', body: 'We dig into your books, job costs, and prior returns, then show you exactly where we can help.', meta: 'Step 2' },
+    { title: 'We take the wheel', body: 'We transition your accounts, clean things up, and put reliable job-cost systems in place. Fast.', meta: 'Step 3' },
+    { title: 'Year-round partnership', body: "Proactive planning, fast answers, and ongoing advisory. We're in your corner all year.", meta: 'Ongoing' },
+  ],
+  faqs: [
+    { q: 'Do you work with contractors outside Illinois?',
+      a: "Yes. We're based in Edwardsville with a Chicago office, and we serve contractors across the Metro East, St. Louis, Chicago, and nationwide through virtual CPA services." },
+    { q: 'Can you produce bonding-ready financials?',
+      a: 'Yes. We prepare statements that sureties and lenders trust, with WIP schedules and retainage tracked correctly so your bonding capacity reflects the real picture.' },
+    { q: 'We already have a bookkeeper. Can you just do tax and WIP?',
+      a: 'Absolutely. Many contractors keep their in-house bookkeeper and use us for job-cost review, WIP schedules, tax planning, and filing. We work alongside your team, not instead of it.' },
+    { q: 'What does this cost?',
+      a: "Our pricing reflects the strategy and care we bring to every client. Basic returns start at $450; ongoing engagements (books, payroll, and tax) are quoted after a quick review of your numbers, with clear pricing and no hourly surprises." },
+    { q: 'How fast can we switch?',
+      a: 'Most contractors are fully transitioned in a few weeks. Mid-year and mid-job switches are fine; we routinely pick up books partway through a year.' },
+  ],
+};
+</script>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel" src="tf-header.jsx"></script>
+<script type="text/babel" src="safe-variant.jsx"></script>
+<script type="text/babel" src="industry-page.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "tone": "practical",
+  "accent": "#A42223"
+}/*EDITMODE-END*/;
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  return (
+    <React.Fragment>
+      <IndustryPage tweaks={t} />
+      <TweaksPanel>
+        <TweakSection label="Copy" />
+        <TweakRadio label="Tone" value={t.tone}
+                    options={['practical', 'outcome']}
+                    onChange={(v) => setTweak('tone', v)} />
+        <TweakSection label="Brand" />
+        <TweakColor label="Accent" value={t.accent}
+                    options={['#A42223', '#510606', '#9E122A', '#0E1E34']}
+                    onChange={(v) => setTweak('accent', v)} />
+      </TweaksPanel>
+    </React.Fragment>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

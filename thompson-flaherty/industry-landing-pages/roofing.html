@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thompson Flaherty - Accounting for Roofing Contractors</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Red+Hat+Text:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  body { font-family: 'Red Hat Text', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  input::placeholder, select { color: #8A7F76; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="image-slot.js"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="env,react">
+// Roofing industry content — fed into the shared template.
+window.INDUSTRY = {
+  label: 'Industry Landing - Roofing',
+  noun: 'business',
+  faqTitle: 'Common questions about roofing accounting',
+  heroBadge: { title: 'Profit on every roof', sub: 'Job costing on every job type.' },
+  compareUsed: [
+    "A generalist who can't tell a surge from real growth",
+    'Margin that swings with material prices',
+    'Crew classification risk on every 1099',
+    'Insurance receivables tracked on sticky notes',
+    'Truck and lift buys with no depreciation plan',
+  ],
+  compareWith: [
+    'A CPA who knows the rhythm of roofing',
+    'Per-job profit on residential, commercial & insurance work',
+    'Correct W-2/1099 treatment for every crew member',
+    'Insurance-claim-ready financial records',
+    'Section 179 & bonus depreciation on trucks and lifts',
+  ],
+  heroPhoto: 'https://images.unsplash.com/photo-1605152276897-4f618f831968?auto=format&fit=crop&w=1200&q=80',
+  copy: {
+    practical: {
+      eyebrow: 'For Roofing Contractors',
+      headline: <>Roofing accounting that <em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>doesn't leak</em>.</>,
+      sub: "Job costing, payroll, and tax strategy for roofing contractors, built around weather-dependent revenue, material costs, and the deductions your trade earns. You get a dedicated CPA who knows your jobs all year, not just in April.",
+      ctaPrimary: 'Schedule Your Consultation',
+      painTitle: 'The financial challenges roofing contractors face',
+      painLead: 'Material swings, crew classification, and storm-season cash flow.',
+      processTitle: 'How working together begins',
+      teamTitle: "Who you'll work with",
+    },
+    outcome: {
+      eyebrow: 'For Roofing Contractors',
+      headline: <>Know your margin on <em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>every roof</em>.</>,
+      sub: 'Storm season creates surges, slow winters drain reserves, and material costs swing. We handle job costing, crew payroll, and tax so you can stay focused on the work.',
+      ctaPrimary: 'Schedule Your Consultation',
+      painTitle: 'Roofing moves fast, your books should too',
+      painLead: 'Material and weather swings make per-job costing essential.',
+      processTitle: <>From first call to<br/>year-round partner</>,
+      teamTitle: 'Talk to a dedicated CPA, not a call center',
+    },
+  },
+  trust: [
+    '3,000+ clients served',
+    'Best Accountants — SBM Finalist',
+    'AICPA Member Firm',
+    'QuickBooks Certified ProAdvisor',
+    'Serving clients nationwide',
+  ],
+  pain: [
+    { title: 'Material cost volatility',
+      body: 'Shingle and material prices swing; without job costing, your margin swings right along with them.' },
+    { title: 'Crew & sub classification',
+      body: '1099 vs W-2 for roofing crews creates real payroll-tax exposure if it is done wrong.' },
+    { title: 'Weather-driven revenue swings',
+      body: 'Storm season floods the pipeline; winter drains it. Cash flow needs active planning.' },
+    { title: 'Insurance work complexity',
+      body: 'Supplement documentation, Xactimate alignment, and receivables from carriers that drag on.' },
+  ],
+  services: [
+    { icon: 'ledger', name: 'Accounting', lead: 'Per-job financials you can trust.',
+      href: 'https://thompsonflaherty.com/accounting/',
+      points: ['Profit per roof: residential, commercial & insurance', 'Cash reserves & storm-cycle forecasting', 'Insurance-claim-ready financial records'] },
+    { icon: 'layers', name: 'Bookkeeping', lead: 'Clean, reconciled books every month.',
+      href: 'https://thompsonflaherty.com/bookkeeping/',
+      points: ['Books by project type, customer & revenue stream', 'Up-to-date books by the 10th', 'Audit-ready records year-round'] },
+    { icon: 'payroll', name: 'Managed Payroll', lead: 'Crews paid right, on time.',
+      href: 'https://thompsonflaherty.com/payroll/',
+      points: ['Crew payroll & overtime handled', 'Correct W-2 / 1099 for every worker', 'Multi-state crews supported'] },
+    { icon: 'tax', name: 'Tax', lead: 'Planning all year, not just April.',
+      href: 'https://thompsonflaherty.com/tax-business/',
+      points: ['Section 179 & bonus depreciation on trucks and lifts', 'Entity & deduction strategy', 'Year-round planning, not just April'] },
+  ],
+  process: [
+    { title: 'Free intro call', body: "Tell us about your business and your goals. No pressure and no commitment, just a real conversation.", meta: 'Step 1' },
+    { title: 'We review your numbers', body: 'We dig into your books, job costs, and prior returns, then show you exactly where we can help.', meta: 'Step 2' },
+    { title: 'We take the wheel', body: 'We transition your accounts, clean things up, and put reliable job-cost systems in place. Fast.', meta: 'Step 3' },
+    { title: 'Year-round partnership', body: "Proactive planning, fast answers, and ongoing advisory. We're in your corner all year.", meta: 'Ongoing' },
+  ],
+  faqs: [
+    { q: 'Do you work with roofing contractors outside Illinois?',
+      a: "Yes. We're based in Edwardsville with a Chicago office, and we serve trades businesses across the Metro East, St. Louis, Chicago, and nationwide through virtual CPA services." },
+    { q: 'Can you support insurance and supplement work?',
+      a: 'Yes. We keep financial records that support your supplement documentation and carrier receivables, so insurance work is clean at tax time and in any review.' },
+    { q: 'How do you handle crew classification?',
+      a: 'We get W-2 vs 1099 right for every crew member and sub, so you avoid the payroll-tax exposure that catches roofers who guess.' },
+    { q: 'What does this cost?',
+      a: "Our pricing reflects the strategy and care we bring to every client. Basic returns start at $450; ongoing engagements (books, payroll, and tax) are quoted after a quick review of your numbers, with clear pricing and no hourly surprises." },
+    { q: 'How fast can we switch?',
+      a: 'Most roofing contractors are fully transitioned in a few weeks. Mid-year and mid-season switches are fine; we routinely pick up books partway through a year.' },
+  ],
+};
+</script>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel" src="tf-header.jsx"></script>
+<script type="text/babel" src="safe-variant.jsx"></script>
+<script type="text/babel" src="industry-page.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "tone": "practical",
+  "accent": "#A42223"
+}/*EDITMODE-END*/;
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  return (
+    <React.Fragment>
+      <IndustryPage tweaks={t} />
+      <TweaksPanel>
+        <TweakSection label="Copy" />
+        <TweakRadio label="Tone" value={t.tone}
+                    options={['practical', 'outcome']}
+                    onChange={(v) => setTweak('tone', v)} />
+        <TweakSection label="Brand" />
+        <TweakColor label="Accent" value={t.accent}
+                    options={['#A42223', '#510606', '#9E122A', '#0E1E34']}
+                    onChange={(v) => setTweak('accent', v)} />
+      </TweaksPanel>
+    </React.Fragment>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

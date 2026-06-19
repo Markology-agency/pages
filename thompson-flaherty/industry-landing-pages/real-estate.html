@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thompson Flaherty - Accounting for Real Estate Agents &amp; Brokers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Red+Hat+Text:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #FFFFFF; }
+  body { font-family: 'Red Hat Text', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  input::placeholder, select { color: #8A7F76; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="image-slot.js"></script>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel" data-presets="env,react">
+// Real Estate industry content — fed into the shared template.
+window.INDUSTRY = {
+  label: 'Industry Landing - Real Estate',
+  noun: 'business',
+  faqTitle: 'Common questions about real estate accounting',
+  heroBadge: { title: 'Keep more per closing', sub: 'S-corp strategy on commission income.' },
+  compareUsed: [
+    'Filing a Schedule C and overpaying SE tax',
+    'Big commission months becoming big tax surprises',
+    'A sole-prop setup when an S-corp would save thousands',
+    'Mileage, marketing & CE deductions left on the table',
+    'Business and personal money in one account',
+  ],
+  compareWith: [
+    'S-corp strategy that cuts the 15.3% SE bite',
+    'Quarterly estimates so closings never surprise you',
+    'The right entity, set up and elected for you',
+    'Every mile, fee, and marketing dollar captured',
+    'Clean books that separate business from personal',
+  ],
+  heroPhoto: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80',
+  copy: {
+    practical: {
+      eyebrow: 'For Real Estate Agents & Brokers',
+      headline: <>Keep more of <em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>every commission</em>.</>,
+      sub: "Tax strategy, bookkeeping, and entity setup for agents and brokers, built around 1099 income, the self-employment tax, and irregular pay. You get a dedicated CPA who plans all year, not just in April.",
+      ctaPrimary: 'Schedule Your Consultation',
+      painTitle: 'Where agents and brokers overpay',
+      painLead: 'The structure and timing gaps that quietly cost you thousands.',
+      processTitle: 'How working together begins',
+      teamTitle: "Who you'll work with",
+    },
+    outcome: {
+      eyebrow: 'For Real Estate Agents & Brokers',
+      headline: <>Stop overpaying the <em style={{ fontStyle: 'normal', color: 'var(--accent)' }}>self-employment tax</em>.</>,
+      sub: 'No one withholds your taxes, your income swings month to month, and the full 15.3% self-employment tax lands on you. We build the structure and the habits that keep more of every closing in your pocket.',
+      ctaPrimary: 'Schedule Your Consultation',
+      painTitle: 'Commission income, taxed smart',
+      painLead: 'How you are set up matters as much as how much you sell.',
+      processTitle: <>From first call to<br/>year-round partner</>,
+      teamTitle: 'Talk to a dedicated CPA, not a call center',
+    },
+  },
+  trust: [
+    '3,000+ clients served',
+    'Best Accountants — SBM Finalist',
+    'AICPA Member Firm',
+    'QuickBooks Certified ProAdvisor',
+    'Serving clients nationwide',
+  ],
+  pain: [
+    { title: 'The 15.3% self-employment tax',
+      body: 'As a 1099 agent you pay both halves of Social Security and Medicare on your net income.' },
+    { title: 'Feast-or-famine income',
+      body: 'Commissions arrive in lumps; without planning, big months become big tax surprises.' },
+    { title: 'Wrong (or no) entity',
+      body: 'Filing as a sole proprietor when an S-corp election could save thousands every year.' },
+    { title: 'Missed write-offs',
+      body: 'Vehicle, marketing, licensing, CE, and home-office deductions left on the table.' },
+  ],
+  services: [
+    { icon: 'ledger', name: 'Accounting', lead: 'Financials that show what you keep.',
+      href: 'https://thompsonflaherty.com/accounting/',
+      points: ['Commission income tracked and reconciled', 'Profitability and benchmarking', 'CFO-level guidance as you grow a team'] },
+    { icon: 'layers', name: 'Bookkeeping', lead: 'Clean, reconciled books every month.',
+      href: 'https://thompsonflaherty.com/bookkeeping/',
+      points: ['Business separated from personal', 'Up-to-date books by the 10th', 'Audit-ready records year-round'] },
+    { icon: 'payroll', name: 'Managed Payroll', lead: 'Your team and brokerage, paid right.',
+      href: 'https://thompsonflaherty.com/payroll/',
+      points: ['Agent & staff payroll for brokerages', 'W-2 / 1099 handled correctly', 'Reasonable-comp setup for S-corps'] },
+    { icon: 'tax', name: 'Tax', lead: 'Entity strategy and year-round planning.',
+      href: 'https://thompsonflaherty.com/tax-business/',
+      points: ['S-corp election to cut SE tax', 'Quarterly estimates with no surprises', 'Mileage, marketing & home-office deductions'] },
+  ],
+  process: [
+    { title: 'Free intro call', body: "Tell us about your business and your goals. No pressure and no commitment, just a real conversation.", meta: 'Step 1' },
+    { title: 'We review your numbers', body: 'We dig into your books, taxes, and structure, then show you exactly where we can help.', meta: 'Step 2' },
+    { title: 'We take the wheel', body: 'We transition your accounts, clean things up, and put reliable systems in place. Fast.', meta: 'Step 3' },
+    { title: 'Year-round partnership', body: "Proactive planning, fast answers, and ongoing advisory. We're in your corner all year.", meta: 'Ongoing' },
+  ],
+  faqs: [
+    { q: 'Do you work with agents and brokers outside Illinois?',
+      a: "Yes. We're based in Edwardsville with a Chicago office, and we serve agents and brokerages across the Metro East, St. Louis, Chicago, and nationwide through virtual CPA services." },
+    { q: 'When does an S-corp election make sense for me?',
+      a: 'Once your net commission income is consistent, an S-corp can cut your self-employment tax by letting you pay it only on a reasonable salary. We model your numbers and tell you if and when it pays off.' },
+    { q: 'I already have a bookkeeper. Can you just do tax and strategy?',
+      a: 'Absolutely. Many agents keep their bookkeeper and use us for entity strategy, quarterly estimates, and filing. We work alongside your team, not instead of it.' },
+    { q: 'What does this cost?',
+      a: "Our pricing reflects the strategy and care we bring to every client. Basic returns start at $450; ongoing engagements (books, payroll, and tax) are quoted after a quick review of your numbers, with clear pricing and no hourly surprises." },
+    { q: 'How fast can we switch?',
+      a: 'Most agents and brokers are fully transitioned in a few weeks. Mid-year switches are routine; we regularly pick up books partway through a year.' },
+  ],
+};
+</script>
+
+<script type="text/babel" src="tweaks-panel.jsx"></script>
+<script type="text/babel" src="shared.jsx"></script>
+<script type="text/babel" src="tf-header.jsx"></script>
+<script type="text/babel" src="safe-variant.jsx"></script>
+<script type="text/babel" src="industry-page.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "tone": "practical",
+  "accent": "#A42223"
+}/*EDITMODE-END*/;
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+  return (
+    <React.Fragment>
+      <IndustryPage tweaks={t} />
+      <TweaksPanel>
+        <TweakSection label="Copy" />
+        <TweakRadio label="Tone" value={t.tone}
+                    options={['practical', 'outcome']}
+                    onChange={(v) => setTweak('tone', v)} />
+        <TweakSection label="Brand" />
+        <TweakColor label="Accent" value={t.accent}
+                    options={['#A42223', '#510606', '#9E122A', '#0E1E34']}
+                    onChange={(v) => setTweak('accent', v)} />
+      </TweaksPanel>
+    </React.Fragment>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>

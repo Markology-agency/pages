@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Markology Nav Mockup, 2026-06-21</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: #1a1a1a;
+    background: #fafafa;
+    line-height: 1.5;
+  }
+
+  /* Top Nav */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: #ffffff;
+    border-bottom: 1px solid #e8e8e8;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .logo {
+    font-weight: 700;
+    font-size: 22px;
+    color: #1a1a1a;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .logo span { color: #ff5722; }
+  .nav-items {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    list-style: none;
+  }
+  .nav-item {
+    position: relative;
+  }
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 10px 16px;
+    color: #1a1a1a;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: 6px;
+    transition: background 0.15s;
+    cursor: pointer;
+  }
+  .nav-link:hover { background: #f5f5f5; }
+  .nav-link .chev {
+    font-size: 10px;
+    opacity: 0.5;
+    transition: transform 0.15s;
+  }
+  .nav-item:hover .chev { transform: rotate(180deg); }
+  .cta-btn {
+    background: #ff5722;
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    margin-left: 8px;
+    transition: background 0.15s;
+  }
+  .cta-btn:hover { background: #e64a19; }
+
+  /* Dropdown */
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 380px;
+    background: white;
+    border: 1px solid #e8e8e8;
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s, visibility 0.15s;
+  }
+  .nav-item:hover .dropdown { opacity: 1; visibility: visible; }
+  .dropdown-header {
+    font-size: 12px;
+    font-weight: 600;
+    color: #ff5722;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 4px 12px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 8px;
+  }
+  .dropdown-item {
+    display: block;
+    padding: 10px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #1a1a1a;
+    transition: background 0.1s;
+  }
+  .dropdown-item:hover { background: #fff5f0; }
+  .dropdown-item-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 2px;
+  }
+  .dropdown-item-sub {
+    font-size: 13px;
+    color: #666;
+  }
+  .dropdown-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .tag-dfy { background: #fff3e0; color: #e65100; }
+  .tag-diy { background: #e3f2fd; color: #1565c0; }
+  .tag-free { background: #e8f5e9; color: #2e7d32; }
+
+  /* Page body */
+  .hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 80px 24px 40px;
+    text-align: center;
+  }
+  .hero h1 {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .hero p {
+    font-size: 18px;
+    color: #666;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  /* Side-by-side review section */
+  .review-section {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 24px;
+  }
+  .review-title {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+  .review-title h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .review-title p {
+    color: #666;
+    font-size: 15px;
+  }
+  .review-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .review-card {
+    background: white;
+    border: 1px solid #e8e8e8;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+  }
+  .review-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .review-card .header-line {
+    font-size: 13px;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .review-card .item {
+    padding: 12px 0;
+    border-bottom: 1px solid #f5f5f5;
+  }
+  .review-card .item:last-child { border-bottom: none; }
+  .review-card .item-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+  .review-card .item-sub {
+    font-size: 13px;
+    color: #666;
+  }
+
+  /* Annotations */
+  .annotations {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 24px 100px;
+  }
+  .annotations h2 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  .annotation {
+    background: white;
+    border-left: 3px solid #ff5722;
+    padding: 16px 20px;
+    margin-bottom: 12px;
+    border-radius: 0 8px 8px 0;
+  }
+  .annotation strong { color: #ff5722; }
+
+  .footer-note {
+    text-align: center;
+    padding: 40px 24px;
+    color: #999;
+    font-size: 13px;
+    border-top: 1px solid #e8e8e8;
+  }
+
+  @media (max-width: 900px) {
+    .review-grid { grid-template-columns: 1fr; }
+    .nav-items { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Live Nav -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">markology<span>.</span></a>
+    <ul class="nav-items">
+
+      <!-- Services -->
+      <li class="nav-item">
+        <a class="nav-link">Services <span class="chev">&#9662;</span></a>
+        <div class="dropdown">
+          <a class="dropdown-item" href="#">
+            <div class="dropdown-item-title">SEO for Accountants</div>
+            <div class="dropdown-item-sub">Show up in Google search.</div>
+          </a>
+          <a class="dropdown-item" href="#">
+            <div class="dropdown-item-title">GEO &amp; AI Search for Accountants</div>
+            <div class="dropdown-item-sub">Show up in ChatGPT, Claude, Perplexity.</div>
+          </a>
+          <a class="dropdown-item" href="#">
+            <div class="dropdown-item-title">Content Marketing for Accountants</div>
+            <div class="dropdown-item-sub">Posts that pull qualified leads.</div>
+          </a>
+          <a class="dropdown-item" href="#">
+            <div class="dropdown-item-title">Accounting Ads</div>
+            <div class="dropdown-item-sub">Paid traffic that converts.</div>
+          </a>
+          <a class="dropdown-item" href="#">
+            <div class="dropdown-item-title">Websites for Accountants</div>
+            <div class="dropdown-item-sub">Sites built to rank and convert.</div>
+          </a>
+        </div>
+      </li>
+
+      <!-- AI Marketing for Accountants -->
+      <li class="nav-item">
+        <a class="nav-link">AI Marketing for Accountants <span class="chev">&#9662;</span></a>
+        <div class="dropdown">
+          <a class="dropdown-item" href="#">
+            <div class="dropdown-item-title">Markology LITE <span class="dropdown-tag tag-dfy">Done For You</span></div>
+            <div class="dropdown-item-sub">We run your marketing. You stay billable.</div>
+          </a>
+          <a class="dropdown-item" href="#">
+            <div class="dropdown-item-title">The Claude Marketing Course <span class="dropdown-tag tag-diy">Learn It Yourself</span></div>
+            <div class="dropdown-item-sub">Build your own AI marketing engine.</div>
+          </a>
+        </div>
+      </li>
+
+      <!-- How To -->
+      <li class="nav-item">
+        <a class="nav-link">How To <span class="chev">&#9662;</span></a>
+        <div class="dropdown">
+          <a class="dropdown-item" href="#">
+            <div class="dropdown-item-title">Digital Marketing for Accountants</div>
+            <div class="dropdown-item-sub">The 2026 digital marketing playbook.</div>
+          </a>
+          <a class="dropdown-item" href="#">
+            <div class="dropdown-item-title">ChatGPT for Accountants</div>
+            <div class="dropdown-item-sub">Get your firm cited inside ChatGPT.</div>
+          </a>
+          <a class="dropdown-item" href="#">
+            <div class="dropdown-item-title">Blog</div>
+            <div class="dropdown-item-sub">Weekly posts on AI marketing for firms.</div>
+          </a>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="#">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link cta-btn" href="#">Book a Call</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Hover the nav above to see each dropdown.</h1>
+  <p>Or scroll down. All three dropdowns are shown side by side below so you can compare them without hovering.</p>
+</section>
+
+<!-- Side-by-side review -->
+<section class="review-section">
+  <div class="review-title">
+    <h2>All three dropdowns, side by side</h2>
+    <p>For easy comparison. This is what each menu contains.</p>
+  </div>
+
+  <div class="review-grid">
+    <!-- Services Card -->
+    <div class="review-card">
+      <h3>Services</h3>
+
+      <div class="item">
+        <div class="item-title">SEO for Accountants</div>
+        <div class="item-sub">Show up in Google search.</div>
+      </div>
+      <div class="item">
+        <div class="item-title">GEO &amp; AI Search for Accountants</div>
+        <div class="item-sub">Show up in ChatGPT, Claude, Perplexity.</div>
+      </div>
+      <div class="item">
+        <div class="item-title">Content Marketing for Accountants</div>
+        <div class="item-sub">Posts that pull qualified leads.</div>
+      </div>
+      <div class="item">
+        <div class="item-title">Accounting Ads</div>
+        <div class="item-sub">Paid traffic that converts.</div>
+      </div>
+      <div class="item">
+        <div class="item-title">Websites for Accountants</div>
+        <div class="item-sub">Sites built to rank and convert.</div>
+      </div>
+    </div>
+
+    <!-- AI Marketing Card -->
+    <div class="review-card">
+      <h3>AI Marketing for Accountants</h3>
+
+      <div class="item">
+        <div class="item-title">Markology LITE <span class="dropdown-tag tag-dfy">Done For You</span></div>
+        <div class="item-sub">We run your marketing. You stay billable.</div>
+      </div>
+      <div class="item">
+        <div class="item-title">The Claude Marketing Course <span class="dropdown-tag tag-diy">Learn It Yourself</span></div>
+        <div class="item-sub">Build your own AI marketing engine.</div>
+      </div>
+    </div>
+
+    <!-- How To Card -->
+    <div class="review-card">
+      <h3>How To</h3>
+
+      <div class="item">
+        <div class="item-title">Digital Marketing for Accountants</div>
+        <div class="item-sub">The 2026 digital marketing playbook.</div>
+      </div>
+      <div class="item">
+        <div class="item-title">ChatGPT for Accountants</div>
+        <div class="item-sub">Get your firm cited inside ChatGPT.</div>
+      </div>
+      <div class="item">
+        <div class="item-title">Blog</div>
+        <div class="item-sub">Weekly posts on AI marketing for firms.</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:24px; padding:16px; background:#fff5f0; border-radius:8px; color:#666; font-size:14px;">
+    <strong style="color:#ff5722;">About</strong> sits as a standalone top-nav link (no dropdown). Pricing removed from nav.
+  </div>
+</section>
+
+<!-- Annotations -->
+<section class="annotations">
+  <h2>Why this structure</h2>
+
+  <div class="annotation">
+    <strong>Nav order:</strong> Services, AI Marketing for Accountants, How To, About, Book a Call (CTA button).
+  </div>
+
+  <div class="annotation">
+    <strong>Services holds the channel-level retainers.</strong> SEO, GEO &amp; AI Search, Content, Ads, Websites.
+  </div>
+
+  <div class="annotation">
+    <strong>GEO page now dual-targets two keywords.</strong> "GEO for accountants" plus "AI search for accountants." Both anchors visible in nav so both keywords get nav-wide internal link equity. Page-level structure: H1 still leads with GEO, but H2 absorbs "AI search for accountants" as a separate ranking target with its own direct-answer section.
+  </div>
+
+  <div class="annotation">
+    <strong>AI Marketing for Accountants is its own slot, not stuffed under Services.</strong> Headline keyword and master positioning. Now holds only Lite and Course (the two ways anyone buys Markology). Free Audit removed from this dropdown since it's a lead magnet, not a buying path.
+  </div>
+
+  <div class="annotation">
+    <strong>How To pillar is "Digital Marketing for Accountants," not "Marketing for Accountants."</strong> Homepage already targets "marketing for accountants" so the pillar would have cannibalized it. Digital Marketing for Accountants captures a distinct ~720/mo direct keyword plus the channel-mix audience without competing with the homepage. ChatGPT for Accountants and Blog round out the dropdown.
+  </div>
+
+  <div class="annotation">
+    <strong>Pricing removed from nav.</strong> If you want it back later, easiest spot is inside the AI Marketing dropdown next to Lite and Course.
+  </div>
+
+  <div class="annotation">
+    <strong>Book a Call is the only nav CTA.</strong> High-intent action. Free Audit can still live on the page bodies as a softer secondary capture, but it doesn't need nav real estate.
+  </div>
+</section>
+
+<div class="footer-note">
+  Mockup saved at Clients/Markology/Drafts/nav-mockup-2026-06-21.html. Hover the nav at top to test live behavior.
+</div>
+
+</body>
+</html>

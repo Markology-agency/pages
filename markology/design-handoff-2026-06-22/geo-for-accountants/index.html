@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>GEO for Accountants | Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ============================================================
+     MARKOLOGY — GEO for Accountants  (Webflow drop-in)
+     Scoped to .mk-geo. No nav/footer (Webflow handles those).
+     Light palette: paper + lilac body, one navy section, blue CTA.
+     ============================================================ */
+  .mk-geo {
+    --navy:#070630; --navy2:#0C0A47; --blue:#3872EB; --blue-l:#7DA4F4;
+    --paper:#F9F9FF; --lilac:#E6E9FF; --mute:#5B5D78; --muted-d:#A9ABCE;
+    --line:rgba(7,6,48,0.1); --line-d:rgba(255,255,255,0.12);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--navy); background:var(--paper); -webkit-font-smoothing:antialiased; line-height:1.5;
+  }
+  .mk-geo *,.mk-geo *::before,.mk-geo *::after{ box-sizing:border-box; }
+  .mk-geo img{ display:block; max-width:100%; }
+  .mk-geo a{ color:inherit; text-decoration:none; }
+  .mk-geo .wrap{ max-width:1220px; margin:0 auto; padding:0 48px; }
+  .mk-geo .disp{ font-family:'Anton','Arial Narrow',sans-serif; font-weight:400;
+    text-transform:uppercase; line-height:1.04; letter-spacing:.005em; margin:0; }
+  .mk-geo .accent{ color:var(--blue); }
+  .mk-geo .accent-l{ color:var(--blue-l); }
+  .mk-geo .eyebrow{ font-weight:700; font-size:11.5px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--blue); display:block; margin-bottom:14px; }
+  .mk-geo .eyebrow--d{ color:var(--blue-l); }
+
+  /* buttons */
+  .mk-geo .btn{ display:inline-flex; align-items:center; gap:10px; font-weight:700; font-size:15px;
+    padding:16px 28px; border-radius:999px; cursor:pointer; white-space:nowrap; border:1px solid transparent;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease; }
+  .mk-geo .btn svg{ width:16px; height:16px; flex:none; }
+  .mk-geo .btn-blue{ background:var(--blue); color:#fff; box-shadow:0 14px 30px -10px rgba(56,114,235,.6); }
+  .mk-geo .btn-blue:hover{ transform:translateY(-2px); box-shadow:0 20px 36px -10px rgba(56,114,235,.75); }
+  .mk-geo .btn-outline{ background:transparent; color:var(--navy); border-color:var(--navy); }
+  .mk-geo .btn-outline:hover{ background:var(--navy); color:#fff; transform:translateY(-2px); }
+  .mk-geo .btn-outline-d{ background:transparent; color:#fff; border-color:rgba(255,255,255,.5); }
+  .mk-geo .btn-outline-d:hover{ background:rgba(255,255,255,.12); border-color:#fff; }
+  .mk-geo .btn-white{ background:#fff; color:var(--navy); }
+  .mk-geo .btn-white:hover{ transform:translateY(-2px); }
+
+  /* reveal */
+  @media (prefers-reduced-motion:no-preference){
+    .mk-geo [data-reveal]{ opacity:0; transform:translateY(22px);
+      transition:opacity .65s cubic-bezier(.2,.7,.2,1), transform .65s cubic-bezier(.2,.7,.2,1); }
+    .mk-geo [data-reveal].is-in{ opacity:1; transform:none; }
+  }
+
+  /* hero */
+  .mk-geo .hero{ padding:104px 0 100px; position:relative; overflow:hidden; border-bottom:1px solid var(--line);
+    background:radial-gradient(ellipse 110% 80% at 50% 28%, #ECE4FF 0%, #F3EFFF 35%, var(--paper) 68%); }
+  .mk-geo .hero::before{ content:""; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(ellipse 60% 50% at 50% 0%, rgba(56,114,235,.06), transparent 65%); }
+  .mk-geo .hero-inner{ position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; text-align:center; }
+  .mk-geo .hero-tag{ display:inline-flex; align-items:center; gap:10px; background:#fff;
+    border:1px solid rgba(56,114,235,.2); border-radius:999px; padding:8px 18px; font-size:11.5px; font-weight:700;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--blue); margin-bottom:24px; box-shadow:0 2px 12px -4px rgba(56,114,235,.18); }
+  .mk-geo .hero-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--blue); animation:mkpulse 1.6s infinite; }
+  @keyframes mkpulse{ 0%,100%{opacity:1} 50%{opacity:.3} }
+  .mk-geo .hero h1{ font-size:clamp(44px,6.2vw,96px); max-width:16ch; line-height:1.03; letter-spacing:-0.005em; }
+  .mk-geo .hero-lede{ font-size:18px; line-height:1.6; color:var(--mute); margin:24px 0 0; max-width:54ch; }
+  .mk-geo .hero-btns{ display:flex; flex-wrap:wrap; gap:16px; margin-top:36px; justify-content:center; }
+  .mk-geo .hero-btns .btn{ font-size:16px; padding:18px 34px; }
+
+  /* prompt mock under hero — AI chat window */
+  .mk-geo .prompt-card{ position:relative; z-index:2; max-width:680px; margin:56px auto 0; background:#fff;
+    border:1px solid var(--line); border-radius:20px; overflow:hidden; text-align:left;
+    box-shadow:0 36px 80px -40px rgba(7,6,48,.28); }
+  .mk-geo .chat-bar{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:13px 18px; border-bottom:1px solid var(--line); }
+  .mk-geo .chat-bar .brand{ display:flex; align-items:center; gap:9px; font-weight:700; font-size:14px; color:var(--navy); }
+  .mk-geo .chat-bar .brand .logo{ width:26px; height:26px; border-radius:50%; background:var(--navy); color:#fff; display:flex; align-items:center; justify-content:center; }
+  .mk-geo .chat-bar .brand .logo svg{ width:15px; height:15px; }
+  .mk-geo .chat-bar .model{ font-size:12.5px; color:var(--mute); display:flex; align-items:center; gap:5px; background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:5px 11px; }
+  .mk-geo .chat-bar .model svg{ width:12px; height:12px; }
+  .mk-geo .chat-body{ padding:24px 24px 6px; }
+  .mk-geo .chat-u{ display:flex; justify-content:flex-end; margin-bottom:22px; }
+  .mk-geo .chat-u .bubble{ background:var(--lilac); color:var(--navy); font-weight:600; font-size:15.5px; line-height:1.45; padding:12px 16px; border-radius:16px 16px 5px 16px; max-width:82%; }
+  .mk-geo .chat-a{ display:flex; gap:13px; align-items:flex-start; }
+  .mk-geo .chat-a .ava{ width:32px; height:32px; border-radius:9px; background:var(--navy); color:#fff; flex:none; display:flex; align-items:center; justify-content:center; }
+  .mk-geo .chat-a .ava svg{ width:17px; height:17px; }
+  .mk-geo .chat-a .resp{ flex:1; }
+  .mk-geo .chat-a .resp p{ margin:0; font-size:15.5px; color:var(--navy); line-height:1.62; }
+  .mk-geo .chat-a b{ color:var(--blue); background:rgba(56,114,235,.1); border-radius:6px; padding:1px 6px; font-weight:700; }
+  .mk-geo .chat-a sup{ color:var(--blue); font-weight:700; font-size:11px; padding-left:1px; }
+  .mk-geo .chat-src{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .mk-geo .chat-src .src{ display:flex; align-items:center; gap:7px; font-size:12px; font-weight:600; color:var(--navy); background:var(--paper); border:1px solid var(--line); border-radius:999px; padding:6px 12px; }
+  .mk-geo .chat-src .src .fav{ width:16px; height:16px; border-radius:5px; background:var(--blue); color:#fff; font-size:9px; font-weight:800; display:flex; align-items:center; justify-content:center; }
+  .mk-geo .chat-src .src.win{ border-color:rgba(56,114,235,.4); background:rgba(56,114,235,.07); }
+  .mk-geo .chat-input{ display:flex; align-items:center; gap:12px; margin:18px 20px 20px; border:1px solid var(--line); border-radius:14px; padding:12px 14px; }
+  .mk-geo .chat-input .ph{ flex:1; font-size:14px; color:var(--mute); }
+  .mk-geo .chat-input .send{ width:34px; height:34px; border-radius:10px; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; flex:none; }
+  .mk-geo .chat-input .send svg{ width:16px; height:16px; }
+
+  /* shift / stat band */
+  .mk-geo .shift{ background:var(--lilac); padding:96px 0; }
+  .mk-geo .shift-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:center; }
+  .mk-geo .shift h2{ font-size:clamp(32px,4.4vw,56px); margin:0; }
+  .mk-geo .shift p{ font-size:17px; color:var(--mute); line-height:1.65; margin:20px 0 0; max-width:48ch; }
+  .mk-geo .shift-stat{ background:var(--navy); color:#fff; border-radius:26px; padding:44px 40px; text-align:center;
+    box-shadow:0 40px 80px -38px rgba(7,6,48,.5); }
+  .mk-geo .shift-stat .big{ font-family:'Anton',sans-serif; font-size:clamp(72px,9vw,120px); line-height:.9; color:#fff; }
+  .mk-geo .shift-stat .lbl{ font-size:15px; color:var(--muted-d); margin-top:14px; line-height:1.5; }
+  .mk-geo .shift-stat .rule{ height:1px; background:rgba(255,255,255,.12); margin:26px 0; }
+  .mk-geo .shift-stat .mini{ display:flex; justify-content:space-around; gap:16px; }
+  .mk-geo .shift-stat .mini .m-n{ font-family:'Anton',sans-serif; font-size:30px; color:var(--blue-l); line-height:1; }
+  .mk-geo .shift-stat .mini .m-l{ font-size:11px; color:var(--muted-d); margin-top:6px; text-transform:uppercase; letter-spacing:.08em; }
+
+  /* services */
+  .mk-geo .svc{ background:var(--paper); padding:104px 0; }
+  .mk-geo .svc .sec-head{ text-align:center; max-width:640px; margin:0 auto 56px; }
+  .mk-geo .svc .sec-head h2{ font-size:clamp(34px,4.6vw,60px); margin:0; }
+  .mk-geo .svc .sec-head p{ font-size:17px; color:var(--mute); margin:16px 0 0; }
+  .mk-geo .svc-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .mk-geo .svc-card{ background:#fff; border:1px solid var(--line); border-radius:22px; padding:34px 30px;
+    box-shadow:0 16px 44px -30px rgba(7,6,48,.2); transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+  .mk-geo .svc-card:hover{ transform:translateY(-6px); box-shadow:0 30px 60px -30px rgba(7,6,48,.26); border-color:rgba(56,114,235,.4); }
+  .mk-geo .svc-card .ico{ width:52px; height:52px; border-radius:14px; background:var(--lilac); color:var(--blue);
+    display:flex; align-items:center; justify-content:center; margin-bottom:22px; }
+  .mk-geo .svc-card .ico svg{ width:26px; height:26px; }
+  .mk-geo .svc-card h3{ font-family:'Anton',sans-serif; text-transform:uppercase; font-weight:400; font-size:21px;
+    line-height:1.1; margin:0 0 12px; letter-spacing:.005em; }
+  .mk-geo .svc-card p{ font-size:14.5px; color:var(--mute); line-height:1.62; margin:0; }
+
+  /* steps (navy) */
+  .mk-geo .steps{ background:var(--navy); color:#fff; padding:104px 0; position:relative; overflow:hidden; }
+  .mk-geo .steps::before{ content:""; position:absolute; top:-120px; right:-120px; width:440px; height:440px;
+    background:radial-gradient(circle, rgba(56,114,235,.26), transparent 65%); pointer-events:none; }
+  .mk-geo .steps .sec-head{ max-width:640px; margin-bottom:60px; position:relative; z-index:2; }
+  .mk-geo .steps h2{ font-size:clamp(34px,4.6vw,60px); color:#fff; margin:0; }
+  .mk-geo .steps .sec-head p{ font-size:17px; color:var(--muted-d); margin:16px 0 0; }
+  .mk-geo .steps-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; position:relative; z-index:2; }
+  .mk-geo .step{ background:var(--navy2); border:1px solid var(--line-d); border-radius:22px; padding:34px 30px; }
+  .mk-geo .step .num{ font-family:'Anton',sans-serif; font-size:24px; color:var(--blue-l);
+    width:52px; height:52px; border-radius:14px; background:rgba(56,114,235,.16); display:flex; align-items:center; justify-content:center; margin-bottom:22px; }
+  .mk-geo .step h3{ font-family:'Anton',sans-serif; text-transform:uppercase; font-weight:400; font-size:22px; margin:0 0 12px; letter-spacing:.005em; }
+  .mk-geo .step p{ font-size:14.5px; color:var(--muted-d); line-height:1.62; margin:0; }
+  .mk-geo .step p b{ color:#EAF0FF; }
+
+  /* trust */
+  .mk-geo .trust{ background:var(--paper); padding:40px 0 104px; }
+  .mk-geo .trust-card{ display:grid; grid-template-columns:.8fr 1.2fr; gap:48px; align-items:center;
+    background:var(--lilac); border-radius:28px; padding:48px; }
+  .mk-geo .trust-photo{ position:relative; justify-self:center; width:300px; }
+  .mk-geo .trust-photo .disc{ background:radial-gradient(circle at 50% 30%, #5d88f0 0%, var(--blue) 70%); border-radius:26px;
+    aspect-ratio:82/100; overflow:hidden; display:flex; align-items:flex-end; justify-content:center;
+    box-shadow:0 34px 70px -34px rgba(56,114,235,.7); }
+  .mk-geo .trust-photo .disc img{ width:100%; height:100%; object-fit:contain; object-position:bottom center; display:block; filter:drop-shadow(0 12px 24px rgba(7,6,48,.25)); }
+  .mk-geo .trust-photo .chip{ position:absolute; left:-16px; bottom:-16px; background:var(--navy); color:#fff;
+    border-radius:14px; padding:12px 16px; box-shadow:0 18px 38px -16px rgba(7,6,48,.6); }
+  .mk-geo .trust-photo .chip b{ font-family:'Anton',sans-serif; font-size:15px; letter-spacing:.02em; display:block; }
+  .mk-geo .trust-photo .chip span{ font-size:11px; color:var(--blue-l); letter-spacing:.06em; text-transform:uppercase; font-weight:700; }
+  .mk-geo .trust h2{ font-size:clamp(30px,3.8vw,50px); margin:0; }
+  .mk-geo .trust p{ font-size:16px; color:var(--mute); line-height:1.65; margin:18px 0 0; max-width:48ch; }
+  .mk-geo .trust-stats{ display:flex; flex-wrap:wrap; gap:32px; margin-top:30px; }
+  .mk-geo .trust-stats .ts .n{ font-family:'Anton',sans-serif; font-size:38px; line-height:.9; color:var(--navy); }
+  .mk-geo .trust-stats .ts .l{ font-size:12.5px; color:var(--mute); margin-top:6px; }
+  @media (max-width:780px){ .mk-geo .trust-card{ grid-template-columns:1fr; gap:36px; padding:32px; text-align:center; } .mk-geo .trust-stats{ justify-content:center; } }
+
+  /* CTA */
+  .mk-geo .cal-embed{ margin:38px auto 0; max-width:900px; background:#fff; border-radius:24px; padding:8px; box-shadow:0 50px 100px -40px rgba(0,0,0,.4); overflow:hidden; }
+  .mk-geo .cal-embed .calendly-inline-widget{ border-radius:18px; overflow:hidden; }
+  .mk-geo .cta-quote{ margin:42px auto 0; max-width:620px; text-align:center; position:relative; z-index:2; }
+  .mk-geo .cta-quote .cq-stars{ display:inline-flex; gap:4px; color:#fff; margin-bottom:14px; }
+  .mk-geo .cta-quote .cq-stars svg{ width:18px; height:18px; }
+  .mk-geo .cta-quote blockquote{ margin:0; font-size:21px; line-height:1.5; color:#fff; font-weight:500; }
+  .mk-geo .cta-quote figcaption{ margin-top:14px; font-size:13.5px; color:rgba(255,255,255,.82); }
+  .mk-geo .cta-quote figcaption b{ color:#fff; font-weight:700; }
+  .mk-geo .cta{ background:var(--blue); padding:100px 0; position:relative; overflow:hidden; }
+  .mk-geo .cta::after{ content:""; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(560px 280px at 50% 0%, rgba(255,255,255,.22), transparent 58%); }
+  .mk-geo .cta-inner{ text-align:center; position:relative; z-index:2; }
+  .mk-geo .cta .eyebrow{ color:rgba(255,255,255,.82); display:inline-block; }
+  .mk-geo .cta h2{ font-size:clamp(38px,5.4vw,72px); color:#fff; margin:14px 0 0; }
+  .mk-geo .cta p{ font-size:18px; color:#EAF0FF; margin:18px auto 0; max-width:46ch; line-height:1.6; }
+  .mk-geo .cta-btns{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:36px; }
+
+  /* responsive */
+  @media (max-width:980px){
+    .mk-geo .shift-grid{ grid-template-columns:1fr; gap:40px; }
+    .mk-geo .svc-grid{ grid-template-columns:1fr 1fr; }
+    .mk-geo .steps-grid{ grid-template-columns:1fr; }
+  }
+  @media (max-width:640px){
+    .mk-geo .wrap{ padding:0 22px; }
+    .mk-geo .hero{ padding:76px 0 72px; }
+    .mk-geo .svc-grid{ grid-template-columns:1fr; }
+    .mk-geo .prompt-card{ padding:22px; }
+  }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#F9F9FF">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#F9F9FF"/>
+    <text x="600" y="380" text-anchor="middle" font-family="Anton, sans-serif" font-size="130" fill="#070630">GEO</text>
+    <text x="600" y="510" text-anchor="middle" font-family="Anton, sans-serif" font-size="130" fill="#3872EB">FOR ACCOUNTANTS</text>
+    <circle cx="600" cy="620" r="11" fill="#3872EB"/>
+  </svg>
+</template>
+<div class="mk-geo">
+
+  <!-- HERO -->
+  <section class="hero" data-screen-label="Hero">
+    <div class="wrap">
+      <div class="hero-inner" data-reveal>
+        <div class="hero-tag"><span class="dot"></span>Generative Engine Optimization</div>
+        <h1 class="disp">Get your firm cited<br /><span class="accent">across AI search.</span></h1>
+        <p class="hero-lede">When a prospect asks ChatGPT "who's the best CPA for my profession?", does it name your firm? If not, your competitors are taking those high-quality leads. GEO is how we get you found and recommended across Google and the major AI search engines.</p>
+        <div class="hero-btns">
+          <a href="https://www.markology.io/audit" class="btn btn-blue">Get your free AI marketing audit
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="https://www.markology.io/contact" class="btn btn-outline">Book a call</a>
+        </div>
+      </div>
+      <div class="prompt-card" data-reveal>
+        <div class="chat-bar">
+          <div class="brand"><span class="logo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2-6.3-4.6L5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></span>AI Assistant</div>
+          <div class="model">GPT-5 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+        <div class="chat-body">
+          <div class="chat-u"><div class="bubble">What's the best CPA firm in Fort Worth, Texas?</div></div>
+          <div class="chat-a">
+            <span class="ava"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4H22l-6 4.4 2.3 7.2-6.3-4.6L5.7 21l2.3-7.2-6-4.4h7.6z"/></svg></span>
+            <div class="resp">
+              <p>One firm consistently recommended in Fort Worth is <b>your firm here</b>.<sup>1</sup> They're known for responsive service, deep niche expertise, and strong client reviews.<sup>2</sup></p>
+              <div class="chat-src">
+                <span class="src win"><span class="fav">Y</span>yourfirm.com</span>
+                <span class="src"><span class="fav">G</span>Google Reviews</span>
+                <span class="src"><span class="fav">C</span>Clutch.co</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="chat-input"><span class="ph">Ask a follow-up…</span><span class="send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M6 11l6-6 6 6"/></svg></span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHIFT -->
+  <section class="shift" data-screen-label="The shift">
+    <div class="wrap">
+      <div class="shift-grid">
+        <div data-reveal>
+          <span class="eyebrow">The search shift</span>
+          <h2 class="disp">Your prospects aren't<br />only Googling <span class="accent">anymore.</span></h2>
+          <p>A growing share of search now happens inside AI chatbots, and it climbs every month. If your firm isn't visible inside ChatGPT, Gemini, and Perplexity as well as Google, you're handing leads to the firms that are. We've already helped firms become the recommended accountant in their niche across Google and AI search.</p>
+        </div>
+        <div class="shift-stat" data-reveal>
+          <div class="big" data-count="1/3">1/3</div>
+          <div class="lbl">of all search now happens inside AI chatbots, and the share keeps climbing.</div>
+          <div class="rule"></div>
+          <div class="mini">
+            <div><div class="m-n">ChatGPT</div><div class="m-l">cited</div></div>
+            <div><div class="m-n">Gemini</div><div class="m-l">cited</div></div>
+            <div><div class="m-n">Perplexity</div><div class="m-l">cited</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="svc" data-screen-label="What we do">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">How we get your firm seen</span>
+        <h2 class="disp">The work behind <span class="accent">being recommended.</span></h2>
+        <p>Six things we run so AI search engines know who you serve, trust your firm, and quote you in their answers.</p>
+      </div>
+      <div class="svc-grid">
+        <article class="svc-card" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg></div>
+          <h3>AI Search Audit</h3>
+          <p>We benchmark exactly where your firm shows up across ChatGPT, Gemini, Perplexity, and Google AI Overviews today.</p>
+        </article>
+        <article class="svc-card" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H5.2L4 17.5z"/><path d="M8 9h8M8 12h5"/></svg></div>
+          <h3>AI-Cited Content</h3>
+          <p>Pages, FAQs, and posts engineered to be lifted straight into AI answers and Google results.</p>
+        </article>
+        <article class="svc-card" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M7.5 7.5l3.2 8M16.5 7.5l-3.2 8M8 6h8"/></svg></div>
+          <h3>Schema &amp; Entity SEO</h3>
+          <p>Structured data, knowledge graph entries, and entity links that tell AI exactly who you serve and why you're credible.</p>
+        </article>
+        <article class="svc-card" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15l6-6"/><path d="M10.5 6.5l1.5-1.5a4 4 0 0 1 5.7 5.7L16 12"/><path d="M13.5 17.5L12 19a4 4 0 0 1-5.7-5.7L8 11.5"/></svg></div>
+          <h3>Authority Backlinks</h3>
+          <p>Placements in the accounting and finance publications that AI search and Google both trust and cite.</p>
+        </article>
+        <article class="svc-card" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5.5L20 9l-4 4 1 6-5-3-5 3 1-6-4-4 5.5-.5z"/></svg></div>
+          <h3>Reviews &amp; Trust Signals</h3>
+          <p>Google reviews, podcast features, and professional directories. The signals AI checks before recommending you.</p>
+        </article>
+        <article class="svc-card" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3.5-3.5 3 3L21 7"/></svg></div>
+          <h3>Real-Time AI Tracking</h3>
+          <p>Custom dashboards pulling your visibility across every major AI model, so you see where you're winning and where to push.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- STEPS -->
+  <section class="steps" data-screen-label="3 steps">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow eyebrow--d">How it works</span>
+        <h2 class="disp">Getting cited inside<br />AI search, in <span class="accent-l">3 steps.</span></h2>
+        <p>The same system we use to get accounting firms found and recommended across Google and AI search.</p>
+      </div>
+      <div class="steps-grid">
+        <article class="step" data-reveal>
+          <div class="num">1</div>
+          <h3>Map AI intent</h3>
+          <p>We find the exact prompts your prospects type into ChatGPT, Gemini, and Perplexity. Things like <b>best CPA firm in Fort Worth</b> or <b>the best accountant for my small business</b>.</p>
+        </article>
+        <article class="step" data-reveal>
+          <div class="num">2</div>
+          <h3>Build cite-worthy content</h3>
+          <p>Pages structured the way AI lifts answers: <b>clear headings, sourced data, defined entities, and schema markup</b> so AI knows exactly what to quote.</p>
+        </article>
+        <article class="step" data-reveal>
+          <div class="num">3</div>
+          <h3>Earn AI's trust signals</h3>
+          <p>Backlinks from reputable accounting publications, third-party reviews, podcast features, and structured listings AI cross-references when weighing credibility.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="trust" data-screen-label="Trust">
+    <div class="wrap">
+      <div class="trust-card" data-reveal>
+        <div class="trust-photo">
+          <div class="disc"><img src="../uploads/whitney-cutout-solid.png" alt="Whitney Hesmer, Markology founder" /></div>
+          <div class="chip"><b>Whitney Hesmer</b><span>Founder</span></div>
+        </div>
+        <div>
+          <span class="eyebrow">Built for accountants</span>
+          <h2 class="disp">7+ years helping accountants <span class="accent">get found.</span></h2>
+          <p>GEO isn't a side experiment for us. It's the next chapter of the same work we've done since 2019: getting accounting firms found and recommended where their clients are searching. Now that includes Google and every major AI search engine.</p>
+          <div class="trust-stats">
+            <div class="ts"><div class="n">7+</div><div class="l">Years on accounting-firm marketing</div></div>
+            <div class="ts"><div class="n">100+</div><div class="l">Firms grown</div></div>
+            <div class="ts"><div class="n">100%</div><div class="l">Accounting-only focus</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" data-screen-label="CTA">
+    <div class="wrap">
+      <div class="cta-inner" data-reveal>
+        <span class="eyebrow">Are you showing up inside AI search?</span>
+        <h2 class="disp">Find out where<br />you stand today.</h2>
+        <p>Take our obligation-free audit. It only costs you 30 minutes, and you'll see exactly where your firm shows up across Google and AI search right now. Or grab a time below.</p>
+        <div class="cal-embed" data-reveal>
+          <div class="calendly-inline-widget" data-url="https://calendly.com/markology/intro?hide_gdpr_banner=1&background_color=ffffff&primary_color=3872eb" style="min-width:320px;height:680px;"></div>
+        </div>
+        <figure class="cta-quote" data-reveal>
+          <span class="cq-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+          <blockquote>“We have too many leads. I never thought this would be the case.”</blockquote>
+          <figcaption><b>Eric Killian, CPA</b> · The Fitness CPA, Colorado</figcaption>
+        </figure>
+        <div class="cta-btns">
+          <a href="https://www.markology.io/audit" class="btn btn-white">Get your free AI marketing audit
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  (function(){
+    var root=document.querySelector('.mk-geo'); if(!root) return;
+    var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var els=root.querySelectorAll('[data-reveal]');
+    if(reduce||!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('is-in');}); }
+    else{
+      var io=new IntersectionObserver(function(en){en.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('is-in'); io.unobserve(e.target);}});},{threshold:.14, rootMargin:'0px 0px -6% 0px'});
+      els.forEach(function(e){ io.observe(e); });
+    }
+  })();
+  </script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+</div>
+</body>
+</html>

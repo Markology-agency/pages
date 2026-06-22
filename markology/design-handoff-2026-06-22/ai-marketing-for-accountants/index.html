@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Marketing for Accountants | Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ============================================================
+     MARKOLOGY — AI Marketing for Accountants
+     Webflow drop-in · scoped to .mk-ai
+     Light palette: paper + lilac body, ONE navy section (team),
+     blue CTA close. No nav/footer — Webflow handles those.
+     ============================================================ */
+  .mk-ai {
+    --navy:  #070630;
+    --navy2: #0C0A47;
+    --blue:  #3872EB;
+    --blue-l:#7DA4F4;
+    --paper: #F9F9FF;
+    --lilac: #E6E9FF;
+    --mute:  #5B5D78;
+    --muted-d:#A9ABCE;
+    --line:  rgba(7,6,48,0.1);
+    --line-d:rgba(255,255,255,0.12);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: var(--navy);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  .mk-ai *, .mk-ai *::before, .mk-ai *::after { box-sizing: border-box; }
+  .mk-ai img { display: block; max-width: 100%; }
+  .mk-ai a { color: inherit; text-decoration: none; }
+
+  /* Layout */
+  .mk-ai .wrap { max-width: 1220px; margin: 0 auto; padding: 0 48px; }
+  .mk-ai .disp { font-family: 'Anton', 'Arial Narrow', sans-serif; font-weight: 400;
+    text-transform: uppercase; line-height: 1.02; letter-spacing: 0.005em; margin: 0; }
+  .mk-ai .accent { color: var(--blue); }
+  .mk-ai .accent-l { color: var(--blue-l); }
+
+  /* Eyebrow */
+  .mk-ai .eyebrow { font-weight: 700; font-size: 11.5px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--blue); display: block; margin-bottom: 14px; }
+  .mk-ai .eyebrow--d { color: var(--blue-l); }
+
+  /* Buttons */
+  .mk-ai .btn { display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'Inter', sans-serif; font-weight: 700; font-size: 15px;
+    padding: 16px 28px; border-radius: 999px; cursor: pointer; white-space: nowrap;
+    border: 1px solid transparent; transition: transform .18s ease, box-shadow .18s ease; }
+  .mk-ai .btn svg { width: 16px; height: 16px; flex: none; }
+  .mk-ai .btn-blue { background: var(--blue); color: #fff; box-shadow: 0 14px 30px -10px rgba(56,114,235,.6); }
+  .mk-ai .btn-blue:hover { transform: translateY(-2px); box-shadow: 0 20px 36px -10px rgba(56,114,235,.75); }
+  .mk-ai .btn-outline { background: transparent; color: var(--navy); border-color: var(--navy); }
+  .mk-ai .btn-outline:hover { background: var(--navy); color: #fff; transform: translateY(-2px); }
+  .mk-ai .btn-outline-d { background: transparent; color: #fff; border-color: rgba(255,255,255,.5); }
+  .mk-ai .btn-outline-d:hover { background: rgba(255,255,255,.12); border-color: #fff; }
+  .mk-ai .btn-white { background: #fff; color: var(--navy); }
+  .mk-ai .btn-white:hover { transform: translateY(-2px); }
+
+  /* ── NAV ── */
+  .mk-ai .nav { position: sticky; top: 0; z-index: 100; background: rgba(249,249,255,.88);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+  .mk-ai .nav-inner { max-width: 1340px; margin: 0 auto; padding: 0 40px; height: 78px;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+  .mk-ai .nav-logo { display:inline-flex; align-items:center; gap:11px; font-family: 'Anton', sans-serif; font-size: 26px; text-transform: uppercase; letter-spacing: .03em; color: var(--navy); }
+  .mk-ai .nav-logo svg { width: 25px; height: 25px; color: var(--blue); flex:none; }
+  .mk-ai .nav-links { display: flex; align-items: center; gap: 4px; }
+  .mk-ai .nav-item { position: relative; }
+  .mk-ai .nav-item > a { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px;
+    font-family:'Anton',sans-serif; text-transform:uppercase; letter-spacing:.04em; font-size: 15px; font-weight: 400; color: var(--navy); border-radius: 10px; cursor: pointer; white-space: nowrap; }
+  .mk-ai .nav-item > a:hover { color: var(--blue); background: var(--lilac); }
+  .mk-ai .nav-item .caret { width: 10px; height: 10px; opacity: .5; transition: transform .2s ease; }
+  .mk-ai .nav-item:hover .caret { transform: rotate(180deg); }
+  .mk-ai .nav-new { display:inline-flex; align-items:center; gap:9px; padding:10px 14px; font-family:'Anton',sans-serif; text-transform:uppercase; letter-spacing:.04em; font-size:15px; color:var(--navy); white-space:nowrap; }
+  .mk-ai .nav-new .nb { font-family:'Inter',sans-serif; font-size:10px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; background:var(--blue); color:#fff; border-radius:999px; padding:4px 9px; }
+  .mk-ai .nav-drop { position: absolute; top: calc(100% + 8px); left: 0; min-width: 360px;
+    background: #fff; border: 1px solid var(--line); border-radius: 18px;
+    box-shadow: 0 30px 70px -30px rgba(7,6,48,.34); padding: 10px;
+    opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity .2s ease, transform .2s ease; }
+  .mk-ai .nav-item:hover .nav-drop { opacity: 1; visibility: visible; transform: none; }
+  .mk-ai .nav-drop a { display: block; padding: 12px 14px; border-radius: 12px; }
+  .mk-ai .nav-drop a:hover { background: var(--lilac); }
+  .mk-ai .nav-drop .dt { font-family:'Inter',sans-serif; font-weight: 700; font-size: 14.5px; color: var(--navy); display: flex; align-items: center; gap: 8px; text-transform:none; letter-spacing:0; }
+  .mk-ai .nav-drop .dt .pill { font-size: 9.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; background: var(--lilac); color: var(--blue); border-radius: 999px; padding: 3px 8px; }
+  .mk-ai .nav-drop .dd { font-family:'Inter',sans-serif; font-size: 12.5px; color: var(--mute); margin-top: 3px; line-height: 1.4; text-transform:none; letter-spacing:0; }
+  .mk-ai .nav-cta { background: var(--blue); color: #fff; padding: 11px 22px; border-radius: 999px; font-family:'Inter',sans-serif; font-size: 14.5px; font-weight: 700; white-space: nowrap; transition: transform .18s ease, box-shadow .18s ease; box-shadow: 0 10px 24px -10px rgba(56,114,235,.6); }
+  .mk-ai .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 16px 30px -10px rgba(56,114,235,.75); }
+  .mk-ai .nav-links > .nav-cta { display: none; }
+  .mk-ai .nav-burger { display: none; width: 44px; height: 44px; border-radius: 12px; border: 1px solid var(--line);
+    background: #fff; align-items: center; justify-content: center; cursor: pointer; color: var(--navy); }
+  .mk-ai .nav-burger svg { width: 22px; height: 22px; }
+  @media (max-width: 1080px){
+    .mk-ai .nav-links, .mk-ai .nav-inner > .nav-cta { display: none; }
+    .mk-ai .nav-burger { display: inline-flex; }
+    .mk-ai .nav.open .nav-links { display: flex; flex-direction: column; align-items: stretch; gap: 4px;
+      position: absolute; top: 78px; left: 0; right: 0; background: #fff; border-bottom: 1px solid var(--line);
+      padding: 16px 24px 24px; box-shadow: 0 30px 60px -30px rgba(7,6,48,.3); }
+    .mk-ai .nav.open .nav-links > .nav-cta { display: inline-flex; align-self: flex-start; }
+    .mk-ai .nav.open .nav-item > a, .mk-ai .nav.open .nav-new { padding: 14px 8px; font-size: 17px; }
+    .mk-ai .nav.open .nav-drop { position: static; opacity: 1; visibility: visible; transform: none;
+      box-shadow: none; border: none; padding: 4px 0 8px 12px; min-width: 0; background: transparent; }
+    .mk-ai .nav.open .nav-item .caret { display: none; }
+  }
+
+  /* Scroll reveal */
+  @media (prefers-reduced-motion: no-preference) {
+    .mk-ai [data-reveal] { opacity: 0; transform: translateY(22px);
+      transition: opacity .65s cubic-bezier(.2,.7,.2,1), transform .65s cubic-bezier(.2,.7,.2,1); }
+    .mk-ai [data-reveal].is-in { opacity: 1; transform: none; }
+  }
+
+  /* ── HERO ─────────────────────────────────────────────── */
+  .mk-ai .hero { padding: 88px 0 96px; position: relative; overflow: hidden; border-bottom: 1px solid var(--line);
+    background: radial-gradient(ellipse 110% 80% at 50% 30%, #ECE4FF 0%, #F3EFFF 35%, var(--paper) 68%); }
+  .mk-ai .hero::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse 60% 50% at 50% 0%, rgba(56,114,235,.06), transparent 65%); }
+  .mk-ai .hero-inner { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; }
+  .mk-ai .hero .wrap { max-width: 1480px; }
+  .mk-ai .hero-tag { display: inline-flex; align-items: center; gap: 10px;
+    background: #fff; border: 1px solid rgba(56,114,235,.2); border-radius: 999px; padding: 8px 18px;
+    font-size: 11.5px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 24px; box-shadow: 0 2px 12px -4px rgba(56,114,235,.18); }
+  .mk-ai .hero-tag .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--blue);
+    animation: mkpulse 1.6s infinite; }
+  @keyframes mkpulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+  .mk-ai .hero h1 { font-size: clamp(44px, 6.2vw, 96px); color: var(--navy); max-width: 1400px; line-height: 1.03; letter-spacing:-0.005em; }
+  .mk-ai .hero h1 .accent { color: var(--blue); }
+  .mk-ai .hero-lede { font-size: 18px; line-height: 1.6; color: var(--mute); margin: 22px 0 0; max-width: 44ch; }
+  .mk-ai .hero-btns { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 36px; justify-content: center; }
+  .mk-ai .hero-btns .btn { font-size: 16px; padding: 18px 36px; }
+
+  /* ── PAIN ──────────────────────────────────────────────── */
+  .mk-ai .pain { background: var(--lilac); padding: 96px 0; }
+  .mk-ai .pain .sec-head { max-width: 1040px; margin: 0 auto 56px; text-align: center; }
+  .mk-ai .pain .sec-head h2 { font-size: clamp(32px, 4.4vw, 58px); margin: 0; }
+  .mk-ai .pain .sec-head p { font-size: 17px; color: var(--mute); margin: 16px 0 0; }
+  .mk-ai .pgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .mk-ai .pcard { background: #fff; border: 1px solid var(--line); border-radius: 22px;
+    padding: 32px 28px; display: flex; flex-direction: column; gap: 16px;
+    box-shadow: 0 16px 40px -28px rgba(7,6,48,.18);
+    transition: transform .2s ease, box-shadow .2s ease; }
+  .mk-ai .pcard:hover { transform: translateY(-5px); box-shadow: 0 28px 52px -28px rgba(7,6,48,.22); }
+  .mk-ai .pcard .picon { width: 48px; height: 48px; border-radius: 14px; background: var(--lilac);
+    color: var(--blue); display: flex; align-items: center; justify-content: center; flex: none; }
+  .mk-ai .pcard .picon svg { width: 24px; height: 24px; }
+  .mk-ai .pcard h3 { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 22px;
+    line-height: 1.08; font-weight: 400; margin: 0; letter-spacing: .005em; }
+  .mk-ai .pcard p { font-size: 15px; color: var(--mute); line-height: 1.65; margin: 0; }
+
+  /* ── OPTIONS ───────────────────────────────────────────── */
+  .mk-ai .options { background: var(--paper); padding: 104px 0; position: relative; overflow: hidden; }
+  .mk-ai .options::before { content: ""; position: absolute; top: 40px; left: 50%; transform: translateX(-50%);
+    width: 700px; height: 700px; border-radius: 50%; pointer-events: none;
+    background: radial-gradient(circle, rgba(230,233,255,.7), transparent 62%); }
+  .mk-ai .options .wrap { position: relative; z-index: 2; }
+  .mk-ai .options .sec-head { text-align: center; max-width: 660px; margin: 0 auto 56px; }
+  .mk-ai .options .sec-head h2 { font-size: clamp(34px, 4.6vw, 62px); margin: 0; }
+  .mk-ai .options .sec-head p { font-size: 17px; color: var(--mute); margin: 16px 0 0; }
+  .mk-ai .ogrid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: stretch; }
+  .mk-ai .ocard { border-radius: 28px; overflow: hidden; position: relative; display: flex; flex-direction: column;
+    transition: transform .22s ease, box-shadow .22s ease; }
+  .mk-ai .ocard:hover { transform: translateY(-6px); }
+  .mk-ai .ocard-lite { box-shadow: 0 30px 70px -34px rgba(7,6,48,.5); }
+  .mk-ai .ocard-lite:hover { box-shadow: 0 42px 90px -34px rgba(7,6,48,.6); }
+  .mk-ai .ocard-course:hover { box-shadow: 0 38px 80px -34px rgba(7,6,48,.26); }
+  .mk-ai .pop-flag { position: absolute; top: 22px; right: 22px; z-index: 3;
+    background: var(--blue); color: #fff; font-size: 10.5px; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; border-radius: 999px; padding: 7px 14px; box-shadow: 0 10px 24px -8px rgba(56,114,235,.8); }
+  .mk-ai .effort { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px;
+    font-size: 12.5px; font-weight: 600; }
+  .mk-ai .effort .bars { display: inline-flex; gap: 3px; }
+  .mk-ai .effort .bars i { width: 6px; height: 14px; border-radius: 2px; display: inline-block; }
+  .mk-ai .ocard-head { padding: 40px 36px 32px; }
+  .mk-ai .ocard-head .badge { display: inline-flex; align-items: center; gap: 8px;
+    font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+    border-radius: 999px; padding: 7px 14px; margin-bottom: 20px; }
+  .mk-ai .ocard h3 { font-family: 'Anton', sans-serif; text-transform: uppercase; font-weight: 400;
+    font-size: clamp(26px, 3vw, 38px); line-height: 1.04; letter-spacing: .005em; margin: 0 0 12px; }
+  .mk-ai .ocard .tag { font-size: 13.5px; color: var(--mute); line-height: 1.5; }
+  .mk-ai .ocard .price { margin-top: 24px; display: flex; align-items: baseline; gap: 8px; }
+  .mk-ai .ocard .price .n { font-family: 'Anton', sans-serif; font-size: 52px; line-height: .9; }
+  .mk-ai .ocard .price .per { font-size: 15px; font-weight: 600; opacity: .7; }
+  .mk-ai .ocard-body { padding: 28px 36px 36px; display: flex; flex-direction: column; gap: 26px; flex: 1; }
+  .mk-ai .ocard-body .feat-list { display: flex; flex-direction: column; gap: 13px; list-style: none; margin: 0; padding: 0; }
+  .mk-ai .ocard-body .feat-list li { display: flex; align-items: flex-start; gap: 12px; font-size: 15px; line-height: 1.5; }
+  .mk-ai .ocard-body .feat-list li svg { width: 18px; height: 18px; flex: none; margin-top: 2px; }
+  .mk-ai .ocard-body .feat-label { font-size: 11px; font-weight: 700; letter-spacing: .18em;
+    text-transform: uppercase; margin-bottom: 12px; }
+  .mk-ai .ocard-body .add-ons { border-radius: 14px; padding: 18px 20px; }
+  .mk-ai .ocard-body .add-ons .ao { font-size: 13.5px; line-height: 1.55; margin-top: 8px; }
+  .mk-ai .ocard-body .ao-tag { font-size: 10.5px; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; border-radius: 999px; padding: 3px 10px; margin-right: 8px; }
+
+  /* LITE card — navy */
+  .mk-ai .ocard-lite { background: var(--navy); color: #fff; border: 1.5px solid rgba(255,255,255,.08); }
+  .mk-ai .ocard-lite .badge { background: rgba(56,114,235,.25); color: var(--blue-l); }
+  .mk-ai .ocard-lite .tag { color: var(--muted-d); }
+  .mk-ai .ocard-lite .price .n { color: #fff; }
+  .mk-ai .ocard-lite .price .per { color: var(--muted-d); }
+  .mk-ai .ocard-lite .ocard-body { border-top: 1px solid rgba(255,255,255,.1); }
+  .mk-ai .ocard-lite .feat-list li { color: #EAF0FF; }
+  .mk-ai .ocard-lite .feat-list li svg { color: var(--blue-l); }
+  .mk-ai .ocard-lite .feat-label { color: var(--muted-d); }
+  .mk-ai .ocard-lite .add-ons { background: rgba(255,255,255,.06); }
+  .mk-ai .ocard-lite .add-ons .feat-label { color: var(--muted-d); }
+  .mk-ai .ocard-lite .add-ons .ao { color: #CFDCFF; }
+  .mk-ai .ocard-lite .ao-tag { background: rgba(56,114,235,.3); color: var(--blue-l); }
+
+  /* Course card — paper/lilac */
+  .mk-ai .ocard-course { background: #fff; border: 1.5px solid var(--line); }
+  .mk-ai .ocard-course .badge { background: var(--lilac); color: var(--blue); }
+  .mk-ai .ocard-course .price .n { color: var(--navy); }
+  .mk-ai .ocard-course .ocard-body { border-top: 1px solid var(--line); }
+  .mk-ai .ocard-course .feat-list li { color: var(--navy); }
+  .mk-ai .ocard-course .feat-list li svg { color: var(--blue); }
+  .mk-ai .ocard-course .feat-label { color: var(--mute); }
+  .mk-ai .ocard-course .add-ons { background: var(--lilac); }
+  .mk-ai .ocard-course .add-ons .feat-label { color: var(--mute); }
+  .mk-ai .ocard-course .add-ons .ao { color: var(--mute); }
+  .mk-ai .ocard-course .ao-tag.recommended { background: var(--blue); color: #fff; }
+  .mk-ai .ocard-course .ao-tag.opt { background: rgba(7,6,48,.08); color: var(--mute); }
+  .mk-ai .for-tag { font-size: 12px; font-weight: 600; color: var(--mute); margin-top: 18px; }
+  .mk-ai .for-tag strong { color: var(--navy); }
+  .mk-ai .ocard-lite .for-tag { color: var(--muted-d); }
+  .mk-ai .ocard-lite .for-tag strong { color: #EAF0FF; }
+
+  /* ── TEAM ──────────────────────────────────────────────── */
+  .mk-ai .team { background: var(--navy); color: #fff; padding: 104px 0; position: relative; overflow: hidden; }
+  .mk-ai .team::before { content: ""; position: absolute; top: -100px; right: -100px; width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(56,114,235,.25), transparent 65%); pointer-events: none; }
+  .mk-ai .team-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 72px; align-items: center; }
+  .mk-ai .team-photo { position: relative; }
+  .mk-ai .team-img { border-radius: 28px; overflow: hidden; max-width: 420px;
+    box-shadow: 0 44px 90px -36px rgba(0,0,0,.6); }
+  .mk-ai .team-img img { width: 100%; display: block; object-fit: cover; }
+  .mk-ai .team-chip { position: absolute; bottom: -18px; right: -18px; background: var(--blue);
+    border-radius: 18px; padding: 18px 22px; box-shadow: 0 20px 44px -18px rgba(56,114,235,.9); }
+  .mk-ai .team-chip .tc-n { font-family: 'Anton', sans-serif; font-size: 38px; line-height: .95; }
+  .mk-ai .team-chip .tc-l { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; opacity: .9; margin-top: 4px; }
+  .mk-ai .team .sec-head { max-width: 540px; }
+  .mk-ai .team h2 { font-size: clamp(36px, 4.8vw, 66px); color: #fff; margin: 0; }
+  .mk-ai .team .team-lede { font-size: 17px; color: var(--muted-d); line-height: 1.65; margin: 22px 0 0; }
+  .mk-ai .team-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 44px; }
+  .mk-ai .tstat { background: rgba(255,255,255,.06); border: 1px solid var(--line-d); border-radius: 18px; padding: 22px 24px; }
+  .mk-ai .tstat .ts-n { font-family: 'Anton', sans-serif; font-size: 38px; line-height: .95; color: #fff; }
+  .mk-ai .tstat .ts-l { font-size: 13px; color: var(--muted-d); margin-top: 6px; line-height: 1.4; }
+
+  /* ── FINAL CTA ─────────────────────────────────────────── */
+  .mk-ai .cta { background: var(--blue); padding: 100px 0; position: relative; overflow: hidden; }
+  .mk-ai .cta::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(520px 260px at 50% 0%, rgba(255,255,255,.22), transparent 55%); }
+  .mk-ai .cta-inner { text-align: center; position: relative; z-index: 2; }
+  .mk-ai .cta .eyebrow { color: rgba(255,255,255,.8); display: inline-block; }
+  .mk-ai .cta h2 { font-size: clamp(38px, 5.5vw, 74px); color: #fff; margin: 14px 0 0; }
+  .mk-ai .cta p { font-size: 18px; color: #EAF0FF; margin: 18px auto 0; max-width: 42ch; line-height: 1.6; }
+  .mk-ai .cta-btns { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; margin-top: 36px; }
+  .mk-ai .cta-note { font-size: 13px; color: rgba(255,255,255,.7); margin-top: 22px; }
+  .mk-ai .cal-embed { margin: 38px auto 0; max-width: 900px; background: #fff; border-radius: 24px; padding: 8px;
+    box-shadow: 0 50px 100px -40px rgba(0,0,0,.5); overflow: hidden; }
+  .mk-ai .cal-embed .calendly-inline-widget { border-radius: 18px; overflow: hidden; }
+  .mk-ai .cta-quote { margin: 42px auto 0; max-width: 620px; text-align: center; position: relative; z-index: 2; }
+  .mk-ai .cta-quote .cq-stars { display: inline-flex; gap: 4px; color: #fff; margin-bottom: 14px; }
+  .mk-ai .cta-quote .cq-stars svg { width: 18px; height: 18px; }
+  .mk-ai .cta-quote blockquote { margin: 0; font-size: 21px; line-height: 1.5; color: #fff; font-weight: 500; }
+  .mk-ai .cta-quote figcaption { margin-top: 14px; font-size: 13.5px; color: rgba(255,255,255,.82); }
+  .mk-ai .cta-quote figcaption b { color: #fff; font-weight: 700; }
+
+  /* ── RESPONSIVE ─────────────────────────────────────────── */
+  @media (max-width: 980px) {
+    .mk-ai .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+    .mk-ai .ogrid { grid-template-columns: 1fr; }
+    .mk-ai .team-grid { grid-template-columns: 1fr; gap: 48px; }
+    .mk-ai .team-img { max-width: 340px; }
+  }
+  @media (max-width: 680px){
+    .mk-ai .pgrid { grid-template-columns: 1fr; }
+    .mk-ai .team-stats { grid-template-columns: 1fr 1fr; }
+    .mk-ai .wrap { padding: 0 22px; }
+    .mk-ai .hero { padding: 72px 0 68px; }
+    .mk-ai .ocard-head { padding: 28px 24px 24px; }
+    .mk-ai .ocard-body { padding: 24px 24px 28px; }
+  }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#F3EFFF">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#F3EFFF"/>
+    <text x="600" y="380" text-anchor="middle" font-family="Anton, sans-serif" font-size="120" fill="#070630">AI MARKETING</text>
+    <text x="600" y="500" text-anchor="middle" font-family="Anton, sans-serif" font-size="120" fill="#3872EB">FOR ACCOUNTANTS</text>
+    <circle cx="600" cy="610" r="10" fill="#3872EB"/>
+  </svg>
+</template>
+<div class="mk-ai">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" data-screen-label="Hero">
+    <div class="wrap">
+      <div class="hero-inner" data-reveal>
+        <div class="hero-tag"><span class="dot"></span>Powered by Claude</div>
+        <h1 class="disp">AI is making everything better.<br /><span class="accent">What about your marketing?</span></h1>
+        <p class="hero-lede">AI marketing for accountants. Two ways to grow your firm without going the typical agency route.</p>
+        <div class="hero-btns">
+          <a href="#options" class="btn btn-blue">See Your Two Options</a>
+          <a href="#book" class="btn btn-outline">Book a Call</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PAIN ============ -->
+  <section class="pain" data-screen-label="Pain points">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">Sound familiar?</span>
+        <h2 class="disp">You're great at the work. <span class="accent">Marketing<br />is the part you keep putting off.</span></h2>
+        <p>Most firm owners we talk to are stuck on one of three things.</p>
+      </div>
+      <div class="pgrid">
+        <article class="pcard" data-reveal>
+          <div class="picon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <h3>Marketing is the last thing on your mind</h3>
+          <p>You're billable Monday to Friday. Posting on LinkedIn, writing blogs, optimising for ChatGPT. That all happens on Sunday at 9 PM, if it happens at all.</p>
+        </article>
+        <article class="pcard" data-reveal>
+          <div class="picon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          </div>
+          <h3>You don't know where to start</h3>
+          <p>Google Ads. LinkedIn. SEO. AI search. A new website. Email. Reviews. Every guru says start somewhere different. Three months later nothing is live.</p>
+        </article>
+        <article class="pcard" data-reveal>
+          <div class="picon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          </div>
+          <h3>You're not ready for a full marketing department</h3>
+          <p>PR, paid media, YouTube, a custom website. The full Markology package handles all of it. You want something leaner first that gets you found and brings in leads.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TWO OPTIONS ============ -->
+  <section class="options" id="options" data-screen-label="Two options">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">Where to start</span>
+        <h2 class="disp">We created two AI<br /><span class="accent">solutions for you.</span></h2>
+        <p>Either way you land in the same place: found on Google and AI search, posting every week, and turning visitors into booked calls. The real difference is what it costs and how hands-on you want to be.</p>
+      </div>
+      <div class="ogrid">
+
+        <!-- LITE -->
+        <article class="ocard ocard-lite" data-reveal>
+          <div class="ocard-head">
+            <div class="badge">Done for you</div>
+            <h3>Markology<br /><span style="color:var(--blue-l);">Lite.</span></h3>
+            <p class="tag">We run your entire marketing department. You stay billable.</p>
+            <div class="price">
+              <span class="n">$1,499</span>
+              <span class="per">/ month</span>
+            </div>
+            <div class="effort" style="color:var(--blue-l);">Your effort:
+              <span class="bars"><i style="background:rgba(125,164,244,.9)"></i><i style="background:rgba(125,164,244,.25)"></i><i style="background:rgba(125,164,244,.25)"></i></span>
+              none, we handle it
+            </div>
+          </div>
+          <div class="ocard-body">
+            <div>
+              <div class="feat-label">What's included every week</div>
+              <ul class="feat-list">
+                <li>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  Found on Google AND AI search (ChatGPT, Perplexity, Google AI Overviews)
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  Weekly content blogs, written and published
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  Weekly social posts on LinkedIn and Instagram
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  Real-time lead dashboards. See exactly where leads come from.
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  Quarterly strategy session with the team
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  Weekly Slack access. Same-day answers, no ticket portals.
+                </li>
+              </ul>
+            </div>
+            <p class="for-tag"><strong>For:</strong> any accountant who wants the whole marketing department handled.</p>
+            <a href="https://www.markology.io/lite" class="btn btn-blue" style="align-self:flex-start;">See Markology Lite
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Course -->
+        <article class="ocard ocard-course" data-reveal>
+          <div class="ocard-head">
+            <div class="badge">Do it yourself</div>
+            <h3>The Claude<br /><span class="accent">Marketing<br />Course.</span></h3>
+            <p class="tag">We hand you the system. You run it yourself with Claude.</p>
+            <div class="price">
+              <span class="n">$299</span>
+              <span class="per">/ month · cancel anytime</span>
+            </div>
+            <div class="effort" style="color:var(--blue);">Your effort:
+              <span class="bars"><i style="background:var(--blue)"></i><i style="background:var(--blue)"></i><i style="background:rgba(56,114,235,.2)"></i></span>
+              a few hours a week
+            </div>
+          </div>
+          <div class="ocard-body">
+            <div>
+              <div class="feat-label">What you get</div>
+              <ul class="feat-list">
+                <li>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  Automated routines that run your marketing every week, hands-off once they're set up
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  The same best-practice skills our agency uses, built right into Claude
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  Step-by-step videos and templates for every module
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  Built around Claude. No $20-a-month tool stack to manage.
+                </li>
+                <li>
+                  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  New skills added every month, plus a live monthly Q&amp;A
+                </li>
+              </ul>
+            </div>
+            <p class="for-tag"><strong>For:</strong> AI-curious accountants who want to own the system.</p>
+            <a href="https://www.markology.io/course" class="btn btn-outline" style="align-self:flex-start;">Join the Waitlist
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TEAM / BUILT FOR ACCOUNTANTS ============ -->
+  <section class="team" data-screen-label="Built for accountants">
+    <div class="wrap">
+      <div class="team-grid">
+        <div class="team-photo" data-reveal>
+          <div class="team-img">
+            <img src="../uploads/whitney-founder-new.jpeg" alt="Whitney Hesmer, Markology founder" />
+          </div>
+          <div class="team-chip">
+            <div class="tc-n">100+</div>
+            <div class="tc-l">accounting firms grown</div>
+          </div>
+        </div>
+        <div class="team-body" data-reveal>
+          <span class="eyebrow eyebrow--d">Built for accountants</span>
+          <h2 class="disp">The team that's been<br />growing accounting<br />firms for <span class="accent-l">7 years.</span></h2>
+          <p class="team-lede">Markology has been running marketing for accounting firms since 2019. We know the niche, the seasonality, and what actually moves the needle for firms at every size. Lite is the lean version of what we do every day for our full-service clients. Same senior team, same proven system, smaller scope and a price that makes sense before you're ready to go all in.</p>
+          <div class="team-stats">
+            <div class="tstat">
+              <div class="ts-n">100%</div>
+              <div class="ts-l">Accounting-firm marketing. No SaaS, no ecommerce, no generalist clients.</div>
+            </div>
+            <div class="tstat">
+              <div class="ts-n">2019</div>
+              <div class="ts-l">Running marketing for accounting firms. Same team, same focus, every year since.</div>
+            </div>
+            <div class="tstat">
+              <div class="ts-n">5×</div>
+              <div class="ts-l">Traffic and leads guarantee. We put it in writing.</div>
+            </div>
+            <div class="tstat">
+              <div class="ts-n">DIY</div>
+              <div class="ts-l">Our clients kept asking for a DIY version. We built the Course in Claude because that's the right tool for it.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section class="cta" id="book" data-screen-label="CTA">
+    <div class="wrap">
+      <div class="cta-inner" data-reveal>
+        <span class="eyebrow">Not sure which one fits?</span>
+        <h2 class="disp">15 minutes on Zoom.<br />We tell you which <span style="color:#fff;opacity:.85;">one.</span></h2>
+        <p>Whether it's Markology Lite, the Claude Marketing Course, or our full-service Growth package, we'll tell you what actually makes sense for where your firm is right now. Straight pricing, no pressure.</p>
+        <div class="cal-embed" data-reveal>
+          <div class="calendly-inline-widget" data-url="https://calendly.com/markology/intro?hide_gdpr_banner=1&background_color=ffffff&primary_color=3872eb" style="min-width:320px;height:680px;"></div>
+        </div>
+        <figure class="cta-quote" data-reveal>
+          <span class="cq-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+          <blockquote>“We found the best marketer I've ever worked with.”</blockquote>
+          <figcaption><b>Camila S., Marketing Director</b> · Yume Food, Melbourne</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  (function(){
+    var root = document.querySelector('.mk-ai');
+    if (!root) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Scroll reveal
+    var els = root.querySelectorAll('[data-reveal]');
+    if (reduce || !('IntersectionObserver' in window)) {
+      els.forEach(function(e){ e.classList.add('is-in'); });
+    } else {
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if (en.isIntersecting){ en.target.classList.add('is-in'); io.unobserve(en.target); }
+        });
+      }, { threshold: 0.14, rootMargin: '0px 0px -6% 0px' });
+      els.forEach(function(e){ io.observe(e); });
+    }
+    // Count-up
+    function countUp(el){
+      var end = parseFloat(el.getAttribute('data-count'));
+      var suf = el.getAttribute('data-suffix') || '';
+      if (reduce){ el.textContent = end + suf; return; }
+      var dur = 1400, t0 = null;
+      function tick(ts){
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0)/dur, 1);
+        var e = 1 - Math.pow(1-p, 3);
+        el.textContent = Math.round(end * e) + suf;
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      el.textContent = '0' + suf;
+      requestAnimationFrame(tick);
+    }
+    if ('IntersectionObserver' in window) {
+      var co = new IntersectionObserver(function(entries){
+        entries.forEach(function(en){
+          if (en.isIntersecting){ countUp(en.target); co.unobserve(en.target); }
+        });
+      }, { threshold: 0.6 });
+      root.querySelectorAll('[data-count]').forEach(function(el){ co.observe(el); });
+    }
+    var go = document.querySelectorAll('.mk-ai [data-reveal]');
+  })();
+  </script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+</div>
+</body>
+</html>

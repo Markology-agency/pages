@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Success Stories · Markology (Webflow drop-in)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ============================================================
+     MARKOLOGY · Success Stories  (Webflow drop-in)
+     Everything scoped under .mk-ss so it never clashes with
+     Webflow global styles. Self-contained: paste into an
+     Embed/HTML block. Nav + footer are handled by the site.
+     System: Anton display, Inter text, navy / electric blue.
+     ============================================================ */
+  .mk-ss {
+    --navy:  #070630;
+    --navy2: #0C0A47;
+    --blue:  #3872EB;
+    --blue-l:#7DA4F4;
+    --paper: #F9F9FF;
+    --lilac: #E6E9FF;
+    --mute:  #5B5D78;
+    --mute-d:#A9ABCE;
+    --line:  rgba(7,6,48,0.12);
+    --line-d:rgba(255,255,255,0.12);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    color: var(--navy);
+    background: var(--paper);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+  .mk-ss *, .mk-ss *::before, .mk-ss *::after { box-sizing: border-box; }
+  .mk-ss img { display: block; max-width: 100%; }
+  .mk-ss a { color: inherit; text-decoration: none; }
+  .mk-ss svg { display: block; }
+
+  .mk-ss .wrap { max-width: 1220px; margin: 0 auto; padding: 0 48px; }
+  .mk-ss .disp { font-family: 'Anton', 'Arial Narrow', sans-serif; font-weight: 400;
+    text-transform: uppercase; line-height: 1.02; letter-spacing: 0.005em; margin: 0; }
+  .mk-ss .accent { color: var(--blue); }
+  .mk-ss .accent-l { color: var(--blue-l); }
+  .mk-ss .eyebrow { font-weight: 700; font-size: 12px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--blue); display: inline-flex;
+    align-items: center; gap: 10px; }
+  .mk-ss .eyebrow--d { color: var(--blue-l); }
+
+  /* buttons */
+  .mk-ss .btn { display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 700; font-size: 15px; letter-spacing: 0.01em;
+    padding: 16px 28px; border-radius: 999px; cursor: pointer; white-space: nowrap;
+    border: 1px solid transparent; transition: transform .18s ease, background .18s ease, box-shadow .18s ease, color .18s ease; }
+  .mk-ss .btn svg { width: 16px; height: 16px; }
+  .mk-ss .btn-blue { background: var(--blue); color: #fff; box-shadow: 0 14px 30px -10px rgba(56,114,235,.7); }
+  .mk-ss .btn-blue:hover { transform: translateY(-2px); box-shadow: 0 18px 36px -10px rgba(56,114,235,.85); }
+  .mk-ss .btn-light { background: #fff; color: var(--navy); }
+  .mk-ss .btn-light:hover { transform: translateY(-2px); }
+  .mk-ss .btn-ghost-d { background: transparent; color: #fff; border-color: rgba(255,255,255,.4); }
+  .mk-ss .btn-ghost-d:hover { background: rgba(255,255,255,.1); border-color: #fff; }
+  .mk-ss .btn-navy { background: var(--navy); color: #fff; }
+  .mk-ss .btn-navy:hover { transform: translateY(-2px); }
+
+  /* ---------- HERO ---------- */
+  .mk-ss .hero { background: var(--navy); color: #fff; position: relative; overflow: hidden; }
+  .mk-ss .hero .wrap { padding: 104px 48px 96px; position: relative; z-index: 2; }
+  .mk-ss .hero::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(680px 360px at 82% 8%, rgba(56,114,235,.30), transparent 60%); }
+  .mk-ss .hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 56px; align-items: center; }
+  .mk-ss .hero .star { position: absolute; color: rgba(255,255,255,.05); top: -40px; left: -50px; z-index: 0; }
+  .mk-ss .hero h1 { font-size: clamp(44px, 6.2vw, 96px); margin: 22px 0 0; line-height: 1.03; letter-spacing:-0.005em; }
+  .mk-ss .hero .lede { font-size: 19px; line-height: 1.55; color: #CFDCFF; max-width: 46ch; margin: 26px 0 0; }
+  .mk-ss .hero-cta { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+  .mk-ss .hero-rating { display: flex; align-items: center; gap: 14px; margin-top: 30px; color: #CFDCFF; font-size: 13.5px; }
+  .mk-ss .stars { display: inline-flex; gap: 3px; color: var(--blue-l); }
+  .mk-ss .stars svg { width: 17px; height: 17px; }
+  .mk-ss .hero-shot { position: relative; }
+  .mk-ss .hero-shot .frame { border: 1px solid rgba(255,255,255,.16); border-radius: 22px; overflow: hidden;
+    background: #fff; box-shadow: 0 44px 100px -36px rgba(0,0,0,.75); }
+  .mk-ss .hero-shot .frame img { width: 100%; }
+  .mk-ss .hero-shot .badge-float { position: absolute; left: -22px; bottom: -22px;
+    background: var(--blue); color: #fff; border-radius: 16px; padding: 16px 20px;
+    box-shadow: 0 22px 44px -18px rgba(56,114,235,.8); }
+  .mk-ss .hero-shot .badge-float .n { font-family: 'Anton', sans-serif; font-size: 40px; line-height: 1; }
+  .mk-ss .hero-shot .badge-float .l { font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; margin-top: 4px; opacity: .9; }
+
+  /* ---------- QUOTE STRIP ---------- */
+  .mk-ss .quotes { background: var(--lilac); padding: 92px 0; }
+  .mk-ss .sec-head { max-width: 640px; }
+  .mk-ss .sec-head h2 { font-size: clamp(34px, 4.6vw, 60px); margin: 14px 0 0; }
+  .mk-ss .sec-head p { color: var(--mute); font-size: 17px; margin: 16px 0 0; max-width: 52ch; }
+  .mk-ss .qgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 50px; }
+  .mk-ss .qcard { background: #fff; border: 1px solid var(--line); border-radius: 20px; padding: 28px 26px 26px;
+    box-shadow: 0 18px 44px -30px rgba(7,6,48,.5); display: flex; flex-direction: column; gap: 18px;
+    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+  .mk-ss .qcard:hover { transform: translateY(-5px); box-shadow: 0 28px 56px -28px rgba(7,6,48,.5); border-color: rgba(56,114,235,.4); }
+  .mk-ss .qcard .play { width: 42px; height: 42px; border-radius: 50%; background: rgba(56,114,235,.12);
+    color: var(--blue); display: inline-flex; align-items: center; justify-content: center; flex: none; }
+  .mk-ss .qcard .play svg { width: 16px; height: 16px; margin-left: 2px; }
+  .mk-ss .qcard .q { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 21px; line-height: 1.12;
+    letter-spacing: .005em; }
+  .mk-ss .qcard .cite { margin-top: auto; font-size: 13px; color: var(--mute); line-height: 1.45; }
+  .mk-ss .qcard .cite b { color: var(--navy); font-weight: 700; }
+
+  /* ---------- CASE STUDIES ---------- */
+  .mk-ss .cases { padding: 104px 0 40px; }
+  .mk-ss .case { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; padding: 64px 0; }
+  .mk-ss .case + .case { border-top: 1px solid var(--line); }
+  .mk-ss .case.flip .case-media { order: 2; }
+  .mk-ss .case-media { position: relative; }
+  .mk-ss .screen { border-radius: 18px; overflow: hidden; border: 1px solid var(--line);
+    background: #0b0a2e; box-shadow: 0 36px 80px -34px rgba(7,6,48,.55); }
+  .mk-ss .screen .chrome { display: flex; align-items: center; gap: 7px; padding: 12px 16px; background: var(--navy); }
+  .mk-ss .screen .chrome i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.25); }
+  .mk-ss .screen .chrome i:nth-child(1){ background:#ff5f57; } .mk-ss .screen .chrome i:nth-child(2){ background:#febc2e; } .mk-ss .screen .chrome i:nth-child(3){ background:#28c840; }
+  .mk-ss .screen .chrome .live { margin-left: auto; display: inline-flex; align-items: center; gap: 6px;
+    font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: #fff; font-weight: 700; }
+  .mk-ss .screen .chrome .live .dot { width: 7px; height: 7px; border-radius: 50%; background: #28c840; animation: mkpulse 1.5s infinite; }
+  @keyframes mkpulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+  .mk-ss a.screen { display: block; position: relative; cursor: pointer; text-decoration: none;
+    transition: transform .22s ease, box-shadow .22s ease; }
+  .mk-ss a.screen::after { content: "See how we did it \2192"; position: absolute; inset: 0;
+    display: flex; align-items: flex-end; justify-content: center; padding: 20px;
+    font-family: 'Inter', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: .01em; color: #fff;
+    background: linear-gradient(to top, rgba(7,6,48,.82), rgba(7,6,48,0) 46%);
+    opacity: 0; transition: opacity .22s ease; }
+  .mk-ss a.screen:hover { transform: translateY(-5px); box-shadow: 0 46px 92px -34px rgba(7,6,48,.7); }
+  .mk-ss a.screen:hover::after { opacity: 1; }
+  .mk-ss .screen .vid { width: 100%; display: block; background: #0b0a2e; }
+  .mk-ss .case-media .avatar { position: absolute; right: -16px; bottom: -16px; width: 92px; height: 92px;
+    border-radius: 18px; overflow: hidden; border: 3px solid var(--paper); box-shadow: 0 16px 34px -16px rgba(7,6,48,.6); background:#fff;
+    display: flex; align-items: center; justify-content: center; padding: 12px; }
+  .mk-ss .case-media .avatar img { width: 100%; height: 100%; object-fit: contain; }
+  .mk-ss .case-body .client { font-weight: 700; font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--blue); }
+  .mk-ss .case-stat { display: flex; align-items: baseline; gap: 14px; margin: 14px 0 6px; flex-wrap: wrap; }
+  .mk-ss .case-stat .big { font-family: 'Anton', sans-serif; font-size: clamp(60px, 7vw, 104px); line-height: .9; color: var(--navy); }
+  .mk-ss .case-stat .unit { font-family: 'Anton', sans-serif; font-size: clamp(22px, 2.4vw, 32px); color: var(--blue); text-transform: uppercase; }
+  .mk-ss .case-body h3 { font-family: 'Anton', sans-serif; text-transform: uppercase; font-weight: 400;
+    font-size: 26px; line-height: 1.08; margin: 4px 0 14px; }
+  .mk-ss .case-body p { color: var(--mute); font-size: 16px; line-height: 1.65; margin: 0; max-width: 46ch; }
+  .mk-ss .case-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+  .mk-ss .tag { font-size: 12px; font-weight: 600; letter-spacing: .03em; color: var(--mute);
+    background: var(--lilac); border-radius: 999px; padding: 7px 14px; }
+
+  /* ---------- REVIEWS ---------- */
+  .mk-ss .reviews { background: var(--navy); color: #fff; padding: 104px 0; position: relative; overflow: hidden; }
+  .mk-ss .reviews::before { content: ""; position: absolute; top: -120px; right: -120px; width: 420px; height: 420px;
+    background: radial-gradient(circle, rgba(56,114,235,.28), transparent 65%); pointer-events: none; }
+  .mk-ss .reviews .sec-head h2 { color: #fff; }
+  .mk-ss .reviews .sec-head p { color: var(--mute-d); }
+  .mk-ss .rgrid { columns: 2; column-gap: 24px; margin-top: 52px; }
+  @media (max-width: 880px){ .mk-ss .rgrid { columns: 1; } }
+  .mk-ss .rcard { break-inside: avoid; background: var(--navy2); border: 1px solid var(--line-d);
+    border-radius: 20px; padding: 30px; margin-bottom: 24px; }
+  .mk-ss .rcard .stars { margin-bottom: 16px; }
+  .mk-ss .rcard .rq { font-size: 15.5px; line-height: 1.62; color: #EAF0FF; }
+  .mk-ss .rcard .rq.lead { font-family: 'Anton', sans-serif; text-transform: uppercase; font-size: 22px;
+    line-height: 1.14; color: #fff; letter-spacing: .005em; margin-bottom: 14px; }
+  .mk-ss .rcard .who { display: flex; align-items: center; gap: 14px; margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--line-d); }
+  .mk-ss .rcard .who img { width: 46px; height: 46px; border-radius: 50%; object-fit: cover; flex: none; background:#fff; }
+  .mk-ss .rcard .who .nm { font-weight: 700; font-size: 14.5px; }
+  .mk-ss .rcard .who .rl { font-size: 12.5px; color: var(--mute-d); margin-top: 2px; }
+
+  /* ---------- FINAL CTA ---------- */
+  .mk-ss .cta { padding: 100px 0; }
+  .mk-ss .cta-box { background: var(--blue); color: #fff; border-radius: 32px; padding: 72px 56px; text-align: center;
+    position: relative; overflow: hidden; box-shadow: 0 44px 90px -40px rgba(56,114,235,.7); }
+  .mk-ss .cta-box::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(560px 280px at 50% 0%, rgba(255,255,255,.22), transparent 60%); }
+  .mk-ss .cta-box .eyebrow { color: rgba(255,255,255,.85); justify-content: center; }
+  .mk-ss .cta-box h2 { font-size: clamp(38px, 5.5vw, 76px); margin: 16px 0 0; position: relative; }
+  .mk-ss .cta-box p { font-size: 18px; color: #EAF0FF; margin: 18px auto 0; max-width: 40ch; position: relative; }
+  .mk-ss .cta-box .hero-cta { justify-content: center; }
+
+  /* ---------- MOTION ---------- */
+  @media (prefers-reduced-motion: no-preference) {
+    .mk-ss [data-reveal] { opacity: 0; transform: translateY(26px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+    .mk-ss [data-reveal].is-in { opacity: 1; transform: none; }
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 980px){
+    .mk-ss .hero-grid { grid-template-columns: 1fr; gap: 44px; }
+    .mk-ss .hero-shot { max-width: 520px; }
+    .mk-ss .qgrid { grid-template-columns: 1fr 1fr; }
+    .mk-ss .case { grid-template-columns: 1fr; gap: 32px; padding: 48px 0; }
+    .mk-ss .case.flip .case-media { order: 0; }
+  }
+  @media (max-width: 600px){
+    .mk-ss .wrap { padding: 0 22px; }
+    .mk-ss .hero .wrap { padding: 76px 22px 72px; }
+    .mk-ss .qgrid { grid-template-columns: 1fr; }
+    .mk-ss .cta-box { padding: 52px 26px; border-radius: 24px; }
+    .mk-ss .case-media .avatar { width: 74px; height: 74px; padding: 9px; }
+  }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#070630">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#070630"/>
+    <text x="600" y="380" text-anchor="middle" font-family="Anton, sans-serif" font-size="130" fill="#FFFFFF">SUCCESS</text>
+    <text x="600" y="510" text-anchor="middle" font-family="Anton, sans-serif" font-size="130" fill="#3872EB">STORIES</text>
+    <circle cx="600" cy="620" r="11" fill="#3872EB"/>
+  </svg>
+</template>
+<div class="mk-ss">
+
+  <!-- ============ HERO ============ -->
+  <header class="hero" data-screen-label="Hero">
+    <svg class="star" width="260" height="260" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-copy" data-reveal>
+          <span class="eyebrow eyebrow--d">Real client results</span>
+          <h1 class="disp">Success<br />stories.</h1>
+          <p class="lede">Don't just take our word for it. Hear why accounting firms and other small businesses love working with Markology month on month to get found on Google and AI search.</p>
+          <div class="hero-cta">
+            <a href="https://www.markology.io/contact" class="btn btn-blue">Meet with us
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a href="#cases" class="btn btn-ghost-d">See the wins</a>
+          </div>
+          <div class="hero-rating">
+            <span class="stars" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            </span>
+            <span>Trusted by accounting firms across the US, UK &amp; Australia</span>
+          </div>
+        </div>
+        <div class="hero-shot" data-reveal>
+          <div class="frame">
+            <img src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/658eac0c7bd9a5c089648d6a_Markology_Marketing%20for%20Accounting%20Firms.png" alt="Markology marketing results for accounting firms" loading="eager" />
+          </div>
+          <div class="badge-float">
+            <div class="n" data-count="500" data-suffix="%">500%</div>
+            <div class="l">Avg. organic growth</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ SHORT VIDEO / QUOTE TESTIMONIALS ============ -->
+  <section class="quotes" data-screen-label="Testimonials">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">In their words</span>
+        <h2 class="disp">Hear it straight <span class="accent">from them.</span></h2>
+        <p>The line we hear most often from founders after a few months with Markology.</p>
+      </div>
+      <div class="qgrid">
+        <article class="qcard" data-reveal>
+          <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          <p class="q">"We have too many leads. I never thought this would be the case."</p>
+          <p class="cite"><b>Eric Killian, CPA</b><br />The Fitness CPA · Colorado, USA</p>
+        </article>
+        <article class="qcard" data-reveal>
+          <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          <p class="q">"We found the best marketer I've ever worked with."</p>
+          <p class="cite"><b>Camila S., Marketing Director</b><br />Yume Food · Melbourne, Australia</p>
+        </article>
+        <article class="qcard" data-reveal>
+          <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          <p class="q">"Since working with Markology, our business has doubled."</p>
+          <p class="cite"><b>Jordan Cook, Owner</b><br />Paragon Body · California, USA</p>
+        </article>
+        <article class="qcard" data-reveal>
+          <span class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          <p class="q">"I have a waitlist of so many leads, it's kind of crazy!"</p>
+          <p class="cite"><b>Toni Cameron, Owner</b><br />TL;DR: Accounting · Washington, USA</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CASE STUDIES (video) ============ -->
+  <section class="cases" id="cases" data-screen-label="Case studies">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">Case studies on video</span>
+        <h2 class="disp">Real dashboards. <span class="accent">Real growth.</span></h2>
+        <p>Watch the wins roll in. Every figure below is from the client's own analytics, no estimates.</p>
+      </div>
+
+      <!-- 1 Fitness CPA -->
+      <article class="case" data-reveal>
+        <div class="case-media">
+          <a class="screen" href="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/657fd0d484117f80c242774f_fitness-cpa.gif" target="_blank" rel="noopener">
+            <div class="chrome"><i></i><i></i><i></i><span class="live"><span class="dot"></span>Live dashboard</span></div>
+            <img class="vid" src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/657fd0d484117f80c242774f_fitness-cpa.gif" alt="The Fitness CPA organic growth dashboard" loading="lazy" /></a>
+          <div class="avatar"><img src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/64e2d525e073f39027371a7a_image%2042.png" alt="The Fitness CPA" loading="lazy" /></div>
+        </div>
+        <div class="case-body">
+          <span class="client">The Fitness CPA</span>
+          <div class="case-stat"><span class="big" data-count="500" data-suffix="%">500%</span><span class="unit">in 9 months</span></div>
+          <h3>From 550 to 5,000 organic visitors a month.</h3>
+          <p>They averaged 550 organic visitors a month before Markology. Within a year they hit 1,500, and within two years 5,000 a month, on Google and AI search. The firm now runs a client waitlist.</p>
+          <div class="case-tags"><span class="tag">SEO &amp; AI search</span><span class="tag">Content strategy</span><span class="tag">Client waitlist</span></div>
+        </div>
+      </article>
+
+      <!-- 2 TL;DR Accounting -->
+      <article class="case flip" data-reveal>
+        <div class="case-media">
+          <a class="screen" href="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/657fd0ede9e3267618a01d69_tldr-accounting.gif" target="_blank" rel="noopener">
+            <div class="chrome"><i></i><i></i><i></i><span class="live"><span class="dot"></span>Live dashboard</span></div>
+            <img class="vid" src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/657fd0ede9e3267618a01d69_tldr-accounting.gif" alt="TL;DR Accounting organic growth dashboard" loading="lazy" /></a>
+          <div class="avatar"><img src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/64e2d6260c459d4b66d90a39_image%2045.png" alt="TL;DR Accounting" loading="lazy" /></div>
+        </div>
+        <div class="case-body">
+          <span class="client">TL;DR: Accounting</span>
+          <div class="case-stat"><span class="big" data-count="1200" data-suffix="%">1200%</span><span class="unit">in year one</span></div>
+          <h3>600 to 5,500 visitors in the first year.</h3>
+          <p>TL;DR: Accounting averaged 600 unique visitors a month before Markology. Within one year they reached 5,500 a month from Google and AI search, and now run a client waitlist of their own.</p>
+          <div class="case-tags"><span class="tag">SEO &amp; AI search</span><span class="tag">Lead funnels</span><span class="tag">Client waitlist</span></div>
+        </div>
+      </article>
+
+      <!-- 3 Training Loft (reworded, no ranking) -->
+      <article class="case" data-reveal>
+        <div class="case-media">
+          <a class="screen" href="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/657fd0f846fa2dba9c83ff1c_visit.gif" target="_blank" rel="noopener">
+            <div class="chrome"><i></i><i></i><i></i><span class="live"><span class="dot"></span>Live dashboard</span></div>
+            <img class="vid" src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/657fd0f846fa2dba9c83ff1c_visit.gif" alt="The Training Loft visibility growth" loading="lazy" /></a>
+          <div class="avatar"><img src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/64e2d70fbb8618a542316273_image%2047.png" alt="The Training Loft" loading="lazy" /></div>
+        </div>
+        <div class="case-body">
+          <span class="client">The Training Loft</span>
+          <div class="case-stat"><span class="big" data-count="2" data-suffix="X">2X</span><span class="unit">the leads</span></div>
+          <h3>The name LA finds first for personal training.</h3>
+          <p>Within six months, The Training Loft went from barely visible to the gym Los Angeles clients are recommended on Google and AI search for personal training. The boutique studio has doubled its leads since last year.</p>
+          <div class="case-tags"><span class="tag">Local SEO</span><span class="tag">AI search</span><span class="tag">Leads doubled</span></div>
+        </div>
+      </article>
+
+      <!-- 4 Basta & Company -->
+      <article class="case flip" data-reveal>
+        <div class="case-media">
+          <a class="screen" href="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/657fd10b42a3aaa035aaefd3_basta-%26-company.gif" target="_blank" rel="noopener">
+            <div class="chrome"><i></i><i></i><i></i><span class="live"><span class="dot"></span>Live dashboard</span></div>
+            <img class="vid" src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/657fd10b42a3aaa035aaefd3_basta-%26-company.gif" alt="Basta & Company organic growth dashboard" loading="lazy" /></a>
+          <div class="avatar"><img src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/64e2d7681cac081b69eabecf_image%2049.png" alt="Basta & Company" loading="lazy" /></div>
+        </div>
+        <div class="case-body">
+          <span class="client">Basta &amp; Company</span>
+          <div class="case-stat"><span class="big" data-count="500" data-suffix="%">500%</span><span class="unit">in one year</span></div>
+          <h3>A modern site and 5X the organic traffic.</h3>
+          <p>In one year, Markology built Basta &amp; Company a modern new website and grew organic traffic to 5X the monthly average. The leads coming in are higher quality, B2B over B2C, and keep growing every month.</p>
+          <div class="case-tags"><span class="tag">Website build</span><span class="tag">SEO &amp; AI search</span><span class="tag">B2B leads</span></div>
+        </div>
+      </article>
+
+      <!-- 5 WaveTech -->
+      <article class="case" data-reveal>
+        <div class="case-media">
+          <a class="screen" href="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/657fd115e5a4ed66396af700_wavetech-teraphy%20(1).gif" target="_blank" rel="noopener">
+            <div class="chrome"><i></i><i></i><i></i><span class="live"><span class="dot"></span>Live dashboard</span></div>
+            <img class="vid" src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/657fd115e5a4ed66396af700_wavetech-teraphy%20(1).gif" alt="WaveTech Therapy organic growth dashboard" loading="lazy" /></a>
+          <div class="avatar"><img src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/64e2d7c5eba14476cc99cce2_image%2052.png" alt="WaveTech Therapy" loading="lazy" /></div>
+        </div>
+        <div class="case-body">
+          <span class="client">WaveTech Therapy</span>
+          <div class="case-stat"><span class="big" data-count="270" data-suffix="%">270%</span><span class="unit">in 6 months</span></div>
+          <h3>One home for every growing franchise.</h3>
+          <p>WaveTech Therapy came to Markology for a comprehensive new corporate website to house its growing franchises. Since launch, they have nearly tripled their organic traffic from Google and AI search.</p>
+          <div class="case-tags"><span class="tag">Website build</span><span class="tag">Multi-location</span><span class="tag">SEO &amp; AI search</span></div>
+        </div>
+      </article>
+
+      <!-- 6 Yume Food -->
+      <article class="case flip" data-reveal>
+        <div class="case-media">
+          <a class="screen" href="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/657fd11d76cabbfba185149b_yume-food.gif" target="_blank" rel="noopener">
+            <div class="chrome"><i></i><i></i><i></i><span class="live"><span class="dot"></span>Live dashboard</span></div>
+            <img class="vid" src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/657fd11d76cabbfba185149b_yume-food.gif" alt="Yume Food Company organic growth dashboard" loading="lazy" /></a>
+          <div class="avatar"><img src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/64e2d8272169dbd1faf09da5_image%2054.png" alt="Yume Food Company" loading="lazy" /></div>
+        </div>
+        <div class="case-body">
+          <span class="client">Yume Food Company</span>
+          <div class="case-stat"><span class="big" data-count="3" data-suffix="X">3X</span><span class="unit">organic traffic</span></div>
+          <h3>A content engine built for bottom-funnel leads.</h3>
+          <p>Markology built Yume Food an overall content and SEO strategy designed to grow organic traffic and bottom-of-funnel leads on Google and AI search. Within the first six months, organic traffic grew 300%.</p>
+          <div class="case-tags"><span class="tag">Content marketing</span><span class="tag">SEO &amp; AI search</span><span class="tag">Lead gen</span></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ LONG-FORM REVIEWS ============ -->
+  <section class="reviews" data-screen-label="Reviews">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow eyebrow--d">Reviews</span>
+        <h2 class="disp">The full <span class="accent-l">write-ups.</span></h2>
+        <p>Longer reviews from founders we have worked with across SEO, AI search, content and website builds.</p>
+      </div>
+      <div class="rgrid">
+        <article class="rcard" data-reveal>
+          <span class="stars" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+          </span>
+          <p class="rq lead">"Working with the Markology team has been invaluable."</p>
+          <p class="rq">Our website up-level blew us away. It is so clean, professional and stands out from the rest. We take our brand seriously and we are so proud of everything Whitney and her team created for us. We feel complete confidence in what they do, from content strategy and copywriting to website updates and SEO, and they really care.</p>
+          <div class="who">
+            <img src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/64e2da06b109859bb1afb61e_image%2017%20(1).png" alt="Whitney Cole" loading="lazy" />
+            <div><div class="nm">Whitney Cole</div><div class="rl">Co-founder of WorkWell</div></div>
+          </div>
+        </article>
+
+        <article class="rcard" data-reveal>
+          <span class="stars" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+          </span>
+          <p class="rq lead">"They consistently delivered high-quality work on time, often going above and beyond."</p>
+          <p class="rq">An exceptional experience that exceeded my expectations across digital marketing and web development. Their keen eye for detail and understanding of user experience made our website a powerful tool for engagement and conversion. Whitney helped us get featured on guest blogs and podcasts and built content calendars so everything stayed in sync. We would recommend her to any accounting firm looking to outsource their marketing.</p>
+          <div class="who">
+            <img src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/65cbd3a97eea30fddeb0f62b_1701141443772.jpeg" alt="John Wazydrag, CPA" loading="lazy" />
+            <div><div class="nm">John Wazydrag, CPA</div><div class="rl">Co-founder of Equivion</div></div>
+          </div>
+        </article>
+
+        <article class="rcard" data-reveal>
+          <span class="stars" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+          </span>
+          <p class="rq lead">"Actually gets you leads, not just looks pretty."</p>
+          <p class="rq">Markology was great to work with, highly recommend. Whitney was very responsive and I always knew where we were with the project. She knows her stuff when it comes to SEO and lead generation. She will build you a website and a marketing strategy that actually gets you leads. No-nonsense and all business, which you don't always find with creative agencies.</p>
+          <div class="who">
+            <img src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/65447a12e3a831fe3d77f5aa_image%2017.svg" alt="Rachel Smith" loading="lazy" />
+            <div><div class="nm">Rachel Smith</div><div class="rl">Owner of Books on Point</div></div>
+          </div>
+        </article>
+
+        <article class="rcard" data-reveal>
+          <span class="stars" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+          </span>
+          <p class="rq lead">"The Markology team is just great at making sure things happen in the best way possible."</p>
+          <p class="rq">Our online meetings are clear, to the point and very productive. Whitney is always there to answer questions and solve problems. She makes you feel comfortable and is very clear when she explains things. They have lifted our online business and are very adaptable to budget and priorities. I can recommend 100%. She has never let us down, on the contrary she has always been there for us.</p>
+          <div class="who">
+            <img src="https://cdn.prod.website-files.com/64cc241e84100f8f5bc22c18/64e2dd4b5197e8df5f54e247_image%2017%20(3).png" alt="Maria & Denise" loading="lazy" />
+            <div><div class="nm">Maria &amp; Denise</div><div class="rl">Co-founders of Urban Way Collective</div></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FINAL CTA ============ -->
+  <section class="cta" data-screen-label="CTA">
+    <div class="wrap">
+      <div class="cta-box" data-reveal>
+        <span class="eyebrow">Not sure where to start?</span>
+        <h2 class="disp">Let's get your<br />firm growing.</h2>
+        <p>The best way to start is to jump on a quick call. No pitch deck, no pressure.</p>
+        <div class="hero-cta">
+          <a href="https://www.markology.io/contact" class="btn btn-light">Book a 15-min call
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  (function(){
+    var root = document.querySelector('.mk-ss');
+    if(!root) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* Scroll reveal */
+    var reveals = root.querySelectorAll('[data-reveal]');
+    if(reduce || !('IntersectionObserver' in window)){
+      reveals.forEach(function(el){ el.classList.add('is-in'); });
+    } else {
+      var ro = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){ e.target.classList.add('is-in'); ro.unobserve(e.target); }
+        });
+      }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+      reveals.forEach(function(el){ ro.observe(el); });
+    }
+
+    /* Count-up on stats */
+    function countUp(el){
+      var end = parseFloat(el.getAttribute('data-count'));
+      var suffix = el.getAttribute('data-suffix') || '';
+      if(reduce){ el.textContent = end.toLocaleString('en-US') + suffix; return; }
+      var dur = 1400, t0 = null;
+      function tick(ts){
+        if(!t0) t0 = ts;
+        var p = Math.min((ts - t0)/dur, 1);
+        var e = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(end * e).toLocaleString('en-US') + suffix;
+        if(p < 1) requestAnimationFrame(tick);
+      }
+      el.textContent = '0' + suffix;
+      requestAnimationFrame(tick);
+    }
+    var stats = root.querySelectorAll('[data-count]');
+    if(!('IntersectionObserver' in window)){
+      stats.forEach(countUp);
+    } else {
+      var so = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){ countUp(e.target); so.unobserve(e.target); }
+        });
+      }, { threshold: 0.6 });
+      stats.forEach(function(el){ so.observe(el); });
+    }
+  })();
+  </script>
+
+</div>
+</body>
+</html>

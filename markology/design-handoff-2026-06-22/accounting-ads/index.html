@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Accounting Ads | Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* MARKOLOGY — Accounting Ads (Webflow drop-in, scoped .mk-ads) */
+  .mk-ads{ --navy:#070630; --navy2:#0C0A47; --blue:#3872EB; --blue-l:#7DA4F4; --paper:#F9F9FF; --lilac:#E6E9FF;
+    --mute:#5B5D78; --muted-d:#A9ABCE; --line:rgba(7,6,48,0.1); --line-d:rgba(255,255,255,0.12);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--navy); background:var(--paper); -webkit-font-smoothing:antialiased; line-height:1.5; }
+  .mk-ads *,.mk-ads *::before,.mk-ads *::after{ box-sizing:border-box; }
+  .mk-ads img{ display:block; max-width:100%; } .mk-ads a{ color:inherit; text-decoration:none; }
+  .mk-ads .wrap{ max-width:1220px; margin:0 auto; padding:0 48px; }
+  .mk-ads .disp{ font-family:'Anton','Arial Narrow',sans-serif; font-weight:400; text-transform:uppercase; line-height:1.04; letter-spacing:.005em; margin:0; }
+  .mk-ads .accent{ color:var(--blue); } .mk-ads .accent-l{ color:var(--blue-l); }
+  .mk-ads .eyebrow{ font-weight:700; font-size:11.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--blue); display:block; margin-bottom:14px; }
+  .mk-ads .eyebrow--d{ color:var(--blue-l); }
+  .mk-ads .btn{ display:inline-flex; align-items:center; gap:10px; font-weight:700; font-size:15px; padding:16px 28px; border-radius:999px; cursor:pointer; white-space:nowrap; border:1px solid transparent; transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease; }
+  .mk-ads .btn svg{ width:16px; height:16px; flex:none; }
+  .mk-ads .btn-blue{ background:var(--blue); color:#fff; box-shadow:0 14px 30px -10px rgba(56,114,235,.6); }
+  .mk-ads .btn-blue:hover{ transform:translateY(-2px); box-shadow:0 20px 36px -10px rgba(56,114,235,.75); }
+  .mk-ads .btn-outline{ background:transparent; color:var(--navy); border-color:var(--navy); }
+  .mk-ads .btn-outline:hover{ background:var(--navy); color:#fff; transform:translateY(-2px); }
+  .mk-ads .btn-outline-d{ background:transparent; color:#fff; border-color:rgba(255,255,255,.5); }
+  .mk-ads .btn-outline-d:hover{ background:rgba(255,255,255,.12); border-color:#fff; }
+  .mk-ads .btn-white{ background:#fff; color:var(--navy); } .mk-ads .btn-white:hover{ transform:translateY(-2px); }
+  @media (prefers-reduced-motion:no-preference){ .mk-ads [data-reveal]{ opacity:0; transform:translateY(22px); transition:opacity .65s cubic-bezier(.2,.7,.2,1), transform .65s cubic-bezier(.2,.7,.2,1); } .mk-ads [data-reveal].is-in{ opacity:1; transform:none; } }
+
+  .mk-ads .hero{ padding:104px 0 100px; position:relative; overflow:hidden; border-bottom:1px solid rgba(255,255,255,.08); background:radial-gradient(ellipse 120% 92% at 50% 10%, #12164E 0%, #0B0838 48%, var(--navy) 100%); color:#fff; }
+  .mk-ads .hero::before{ content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 64% 52% at 50% 0%, rgba(56,114,235,.24), transparent 66%); }
+  .mk-ads .hero-inner{ position:relative; z-index:2; display:grid; grid-template-columns:1.4fr .6fr; gap:48px; align-items:center; }
+  .mk-ads .hero-copy{ min-width:0; }
+  .mk-ads .hero-tag{ display:inline-flex; align-items:center; gap:10px; background:#fff; border:1px solid rgba(56,114,235,.2); border-radius:999px; padding:8px 18px; font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--blue); margin-bottom:24px; box-shadow:0 2px 12px -4px rgba(56,114,235,.18); }
+  .mk-ads .hero-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--blue); animation:mkpulse 1.6s infinite; }
+  @keyframes mkpulse{ 0%,100%{opacity:1} 50%{opacity:.3} }
+  .mk-ads .hero h1{ font-size:clamp(44px,6.2vw,96px); max-width:17ch; line-height:1.03; letter-spacing:-0.005em; color:#fff; }
+  .mk-ads .hero-lede{ font-size:18px; line-height:1.6; color:#CFDCFF; margin:24px 0 0; max-width:48ch; }
+  .mk-ads .hero-btns{ display:flex; flex-wrap:wrap; gap:16px; margin-top:36px; justify-content:flex-start; }
+  .mk-ads .hero-btns .btn{ font-size:16px; padding:18px 34px; }
+
+  /* AD MOCKUPS */
+  .mk-ads .hero-visual{ position:relative; display:flex; flex-direction:column; gap:18px; max-width:320px; margin-left:auto; }
+  .mk-ads .admock{ background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 34px 74px -34px rgba(7,6,48,.45); transition:transform .25s ease; }
+  .mk-ads .ad-google{ padding:18px 20px; transform:rotate(-1.4deg); }
+  .mk-ads .ad-google.flip{ transform:rotate(1.4deg); }
+  .mk-ads .ad-meta{ overflow:hidden; transform:rotate(1.4deg); }
+  .mk-ads .hero-visual:hover .ad-google, .mk-ads .hero-visual:hover .ad-meta, .mk-ads .hero-visual:hover .ad-google.flip{ transform:rotate(0deg); }
+  .mk-ads .ad-google .g-spon{ font-size:12px; font-weight:700; color:#5B5D78; }
+  .mk-ads .ad-google .g-site{ display:flex; align-items:center; gap:10px; margin:10px 0 10px; }
+  .mk-ads .ad-google .g-fav{ width:28px; height:28px; border-radius:50%; background:var(--navy); color:#fff; font-family:'Anton',sans-serif; font-size:13px; display:flex; align-items:center; justify-content:center; flex:none; }
+  .mk-ads .ad-google .g-name{ font-size:13px; color:var(--navy); font-weight:600; line-height:1.15; }
+  .mk-ads .ad-google .g-url{ font-size:12px; color:#5B5D78; line-height:1.15; }
+  .mk-ads .ad-google .g-title{ display:block; font-family:'Inter',sans-serif; font-size:19px; font-weight:500; color:#1a0dab; line-height:1.25; margin-bottom:5px; }
+  .mk-ads .ad-google .g-desc{ font-size:13px; color:#4d5156; line-height:1.5; margin:0; }
+  .mk-ads .ad-google .g-links{ display:flex; flex-wrap:wrap; gap:18px; margin-top:11px; }
+  .mk-ads .ad-google .g-links span{ font-size:13px; color:#1a0dab; }
+  .mk-ads .ad-meta .m-top{ display:flex; align-items:center; gap:10px; padding:14px 16px 10px; }
+  .mk-ads .ad-meta .m-av{ width:40px; height:40px; border-radius:50%; background:linear-gradient(135deg,#1F3A8A,#3872EB); color:#fff; font-family:'Anton',sans-serif; font-size:15px; display:flex; align-items:center; justify-content:center; flex:none; }
+  .mk-ads .ad-meta .m-name{ font-size:13.5px; font-weight:700; color:var(--navy); line-height:1.15; }
+  .mk-ads .ad-meta .m-spon{ font-size:11.5px; color:#5B5D78; display:flex; align-items:center; gap:5px; margin-top:2px; }
+  .mk-ads .ad-meta .m-spon svg{ width:11px; height:11px; }
+  .mk-ads .ad-meta .m-copy{ font-size:13.5px; color:var(--navy); line-height:1.5; padding:0 16px 12px; margin:0; }
+  .mk-ads .ad-meta .m-img{ aspect-ratio:1.91/1; background:var(--lilac); overflow:hidden; }
+  .mk-ads .ad-meta .m-img img{ width:100%; height:100%; object-fit:cover; }
+  .mk-ads .ad-meta .m-cta{ display:flex; align-items:center; justify-content:space-between; gap:12px; background:#F0F2F5; padding:12px 16px; }
+  .mk-ads .ad-meta .m-dom{ font-size:11px; color:#5B5D78; text-transform:uppercase; letter-spacing:.02em; }
+  .mk-ads .ad-meta .m-head{ font-size:14px; font-weight:700; color:var(--navy); line-height:1.2; margin-top:2px; }
+  .mk-ads .ad-meta .m-btn{ background:#E4E6EB; color:var(--navy); font-weight:700; font-size:13px; padding:9px 16px; border-radius:8px; white-space:nowrap; }
+  .mk-ads .ad-meta .m-react{ display:flex; justify-content:space-between; padding:10px 16px; font-size:12px; color:#5B5D78; border-top:1px solid var(--line); }
+  .mk-ads .ad-meta .m-react span{ display:flex; align-items:center; gap:6px; }
+  .mk-ads .ad-meta .m-react svg{ width:14px; height:14px; color:var(--blue); }
+  .mk-ads .hero-visual .float{ position:absolute; top:-16px; right:-10px; background:var(--navy); color:#fff; border-radius:12px; padding:10px 14px; box-shadow:0 18px 40px -18px rgba(7,6,48,.6); z-index:3; }
+  .mk-ads .hero-visual .float b{ display:block; font-family:'Anton',sans-serif; font-size:20px; color:var(--blue-l); line-height:1; }
+  .mk-ads .hero-visual .float span{ font-size:10.5px; letter-spacing:.08em; text-transform:uppercase; color:#CFDCFF; }
+
+  .mk-ads .flags{ background:var(--lilac); padding:96px 0; }
+  .mk-ads .sec-head{ text-align:center; max-width:680px; margin:0 auto 52px; }
+  .mk-ads .sec-head h2{ font-size:clamp(32px,4.4vw,58px); margin:0; }
+  .mk-ads .sec-head p{ font-size:17px; color:var(--mute); margin:16px 0 0; }
+  .mk-ads .flag-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:20px; }
+  .mk-ads .flag{ background:#fff; border:1px solid var(--line); border-radius:20px; padding:30px 30px; display:flex; gap:20px; align-items:flex-start; box-shadow:0 16px 40px -30px rgba(7,6,48,.2); }
+  .mk-ads .flag .fn{ color:#E0463E; background:#FDEAE8; width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex:none; }
+  .mk-ads .flag .fn svg{ width:24px; height:24px; }
+  .mk-ads .flag .ft{ font-size:11px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#E0463E; margin-bottom:8px; }
+  .mk-ads .flag p{ margin:0; font-size:16px; line-height:1.5; font-weight:600; color:var(--navy); }
+
+  .mk-ads .two{ background:var(--paper); padding:104px 0; }
+  .mk-ads .two-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:50px; align-items:start; }
+  .mk-ads .tcard{ background:#fff; border:1px solid var(--line); border-radius:22px; padding:38px 34px; box-shadow:0 16px 44px -30px rgba(7,6,48,.2); }
+  .mk-ads .tcard .ico{ width:52px; height:52px; border-radius:14px; background:var(--lilac); color:var(--blue); display:flex; align-items:center; justify-content:center; margin-bottom:22px; }
+  .mk-ads .tcard .ico svg{ width:26px; height:26px; }
+  .mk-ads .tcard h3{ font-family:'Anton',sans-serif; text-transform:uppercase; font-weight:400; font-size:24px; margin:0 0 12px; letter-spacing:.005em; }
+  .mk-ads .tcard p{ font-size:15px; color:var(--mute); line-height:1.62; margin:0; }
+  .mk-ads .tcard .metric{ display:flex; gap:30px; margin-top:26px; align-items:flex-start; }
+  .mk-ads .sb-wrap{ display:flex; flex-direction:column; align-items:center; gap:9px; }
+  .mk-ads .sb{ position:relative; width:92px; height:92px; display:grid; place-items:center; }
+  .mk-ads .sb svg{ position:absolute; inset:0; width:100%; height:100%; filter:drop-shadow(0 12px 20px -12px rgba(7,6,48,.4)); }
+  .mk-ads .sb-1{ transform:rotate(-7deg); } .mk-ads .sb-2{ transform:rotate(6deg); }
+  .mk-ads .sb .sb-n{ position:relative; z-index:2; font-family:'Anton',sans-serif; font-size:27px; color:#fff; line-height:1; }
+  .mk-ads .sb-l{ font-size:12px; color:var(--navy); font-weight:700; letter-spacing:.03em; text-align:center; }
+
+  .mk-ads .steps{ background:var(--navy); color:#fff; padding:104px 0; position:relative; overflow:hidden; }
+  .mk-ads .steps::before{ content:""; position:absolute; top:-120px; right:-120px; width:440px; height:440px; background:radial-gradient(circle, rgba(56,114,235,.26), transparent 65%); pointer-events:none; }
+  .mk-ads .steps .sec-head{ margin-bottom:56px; position:relative; z-index:2; }
+  .mk-ads .steps .sec-head h2{ color:#fff; }
+  .mk-ads .steps .sec-head p{ color:var(--muted-d); }
+  .mk-ads .steps-grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:16px; position:relative; z-index:2; }
+  .mk-ads .step{ background:var(--navy2); border:1px solid var(--line-d); border-radius:18px; padding:24px 20px; }
+  .mk-ads .step .num{ font-family:'Anton',sans-serif; font-size:20px; color:var(--blue-l); width:44px; height:44px; border-radius:12px; background:rgba(56,114,235,.16); display:flex; align-items:center; justify-content:center; margin-bottom:18px; }
+  .mk-ads .step h3{ font-family:'Anton',sans-serif; text-transform:uppercase; font-weight:400; font-size:17px; margin:0 0 10px; line-height:1.12; letter-spacing:.005em; }
+  .mk-ads .step p{ font-size:13px; color:var(--muted-d); line-height:1.55; margin:0; }
+
+  .mk-ads .vads{ background:var(--lilac); padding:104px 0; }
+  .mk-ads .vads .sec-head .eyebrow{ color:var(--blue); }
+  .mk-ads .vads-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1100px; margin:0 auto; align-items:start; }
+  .mk-ads .vads-grid .fbpost:nth-child(2){ margin-top:34px; }
+  .mk-ads .fbpost{ background:#fff; border-radius:14px; overflow:hidden; box-shadow:0 26px 60px -34px rgba(7,6,48,.4); display:flex; flex-direction:column; }
+  .mk-ads .fbpost .fb-top{ display:flex; align-items:center; gap:10px; padding:13px 14px 9px; }
+  .mk-ads .fbpost .fb-av{ width:40px; height:40px; border-radius:10px; background:#111; color:#fff; font-family:'Anton',sans-serif; font-size:16px; display:flex; align-items:center; justify-content:center; flex:none; letter-spacing:.02em; }
+  .mk-ads .fbpost .fb-name{ font-weight:700; font-size:14px; color:var(--navy); }
+  .mk-ads .fbpost .fb-spon{ font-size:11px; color:var(--mute); display:flex; align-items:center; gap:5px; margin-top:1px; }
+  .mk-ads .fbpost .fb-spon svg{ width:11px; height:11px; }
+  .mk-ads .fbpost .fb-copy{ font-size:13px; line-height:1.5; color:var(--navy); padding:2px 14px 11px; }
+  .mk-ads .fbpost .fb-creative{ aspect-ratio:1/1; background:#000; }
+  .mk-ads .fbpost .fb-creative img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .mk-ads .fbpost .fb-bar{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 14px; background:#F0F2F5; }
+  .mk-ads .fbpost .fb-bar .fb-head{ font-size:13.5px; font-weight:700; color:var(--navy); line-height:1.25; }
+  .mk-ads .fbpost .fb-bar .fb-sub{ font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; color:var(--mute); margin-bottom:3px; }
+  .mk-ads .fbpost .fb-bar .fb-btn{ background:#E4E6EB; color:var(--navy); font-weight:700; font-size:12.5px; padding:9px 14px; border-radius:8px; flex:none; }
+  .mk-ads .fbpost .fb-react{ display:flex; align-items:center; gap:7px; padding:10px 14px; font-size:11.5px; color:var(--mute); }
+  .mk-ads .fbpost .fb-react svg{ width:15px; height:15px; color:var(--blue); }
+  @media (max-width:900px){ .mk-ads .vads-grid{ grid-template-columns:1fr; max-width:420px; } .mk-ads .vads-grid .fbpost:nth-child(2){ margin-top:0; } }
+
+  .mk-ads .case{ background:var(--paper); padding:104px 0; }
+  .mk-ads .case-card{ background:var(--lilac); border-radius:28px; padding:48px 48px 44px; }
+  .mk-ads .case-head{ display:grid; grid-template-columns:.7fr 1.3fr; gap:48px; align-items:center; }
+  .mk-ads .case-quiz{ margin-top:38px; padding-top:38px; border-top:1px solid rgba(7,6,48,.12); }
+  .mk-ads .case-card .big{ font-family:'Anton',sans-serif; font-size:clamp(64px,8vw,108px); line-height:.88; color:var(--blue); }
+  .mk-ads .case-card .big span{ display:block; font-size:18px; color:var(--navy); text-transform:uppercase; letter-spacing:.04em; margin-top:10px; }
+  .mk-ads .case-card .tag{ font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--blue); margin-bottom:14px; }
+  .mk-ads .case-card h2{ font-size:clamp(28px,3.4vw,44px); margin:0; }
+  .mk-ads .case-card p{ font-size:16px; color:var(--mute); line-height:1.65; margin:18px 0 0; }
+
+  .mk-ads .erc-wrap{ margin-top:40px; }
+  .mk-ads .erc-cap{ text-align:center; font-size:12px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--blue); margin:0 0 18px; }
+  .mk-ads .erc-mock{ max-width:1040px; margin:0 auto; background:#fff; border:1px solid var(--line); border-radius:18px; overflow:hidden; box-shadow:0 50px 100px -44px rgba(7,6,48,.5); }
+  .mk-ads .erc-bar{ display:flex; align-items:center; gap:7px; padding:12px 16px; background:#F0F2F5; border-bottom:1px solid var(--line); }
+  .mk-ads .erc-bar i{ width:11px; height:11px; border-radius:50%; background:#cfd3dc; }
+  .mk-ads .erc-url{ margin-left:10px; font-size:12px; color:#5B5D78; background:#fff; border:1px solid var(--line); border-radius:8px; padding:6px 16px; }
+  .mk-ads .erc-body{ display:grid; grid-template-columns:1.08fr .92fr; }
+  .mk-ads .erc-left{ padding:40px 44px 46px; background:#fff; }
+  .mk-ads .erc-logo{ display:flex; align-items:center; gap:10px; margin-bottom:26px; }
+  .mk-ads .erc-logo .mk{ font-family:'Anton',sans-serif; text-transform:uppercase; font-size:18px; letter-spacing:.02em; color:#15171C; line-height:.9; }
+  .mk-ads .erc-logo .mk b{ color:#C8102E; font-weight:400; }
+  .mk-ads .erc-logo .tag{ font-size:9.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#9A9DA6; }
+  .mk-ads .erc-eye{ display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#C8102E; background:#FDECEC; border:1px solid rgba(200,16,46,.18); border-radius:999px; padding:7px 14px; }
+  .mk-ads .erc-h{ font-family:'Anton',sans-serif; text-transform:uppercase; font-weight:400; font-size:clamp(28px,3vw,40px); line-height:1.04; color:#15171C; margin:18px 0 0; letter-spacing:.005em; }
+  .mk-ads .erc-h b{ color:#C8102E; font-weight:400; }
+  .mk-ads .erc-sub{ font-size:14.5px; color:#5A5D66; line-height:1.6; margin:14px 0 0; max-width:42ch; }
+  .mk-ads .erc-cta{ display:inline-flex; align-items:center; gap:10px; margin-top:24px; background:#C8102E; color:#fff; font-weight:700; font-size:15px; padding:15px 26px; border-radius:10px; box-shadow:0 14px 30px -10px rgba(200,16,46,.55); }
+  .mk-ads .erc-cta svg{ width:16px; height:16px; }
+  .mk-ads .erc-trust{ display:flex; flex-wrap:wrap; gap:16px 22px; margin-top:24px; }
+  .mk-ads .erc-trust span{ display:inline-flex; align-items:center; gap:7px; font-size:11.5px; font-weight:600; color:#15171C; }
+  .mk-ads .erc-trust svg{ width:15px; height:15px; color:#1F8A5B; flex:none; }
+  .mk-ads .erc-right{ background:#15171C; color:#fff; padding:42px 38px; display:flex; flex-direction:column; justify-content:center; }
+  .mk-ads .erc-step{ font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#F0727E; }
+  .mk-ads .erc-prog{ height:6px; border-radius:999px; background:rgba(255,255,255,.12); margin:12px 0 22px; overflow:hidden; }
+  .mk-ads .erc-prog i{ display:block; height:100%; width:33%; border-radius:999px; background:#C8102E; }
+  .mk-ads .erc-q{ font-family:'Anton',sans-serif; text-transform:uppercase; font-weight:400; font-size:21px; line-height:1.16; letter-spacing:.005em; }
+  .mk-ads .erc-opts{ display:flex; flex-direction:column; gap:10px; margin-top:20px; }
+  .mk-ads .erc-opt{ display:flex; align-items:center; justify-content:space-between; gap:12px; background:#212530; border:1px solid #2E3340; border-radius:12px; padding:14px 16px; font-size:14px; font-weight:600; }
+  .mk-ads .erc-opt.sel{ border-color:#C8102E; background:rgba(200,16,46,.16); }
+  .mk-ads .erc-opt .rd{ width:18px; height:18px; border-radius:50%; border:2px solid #2E3340; flex:none; }
+  .mk-ads .erc-opt.sel .rd{ border-color:#C8102E; background:#C8102E; box-shadow:inset 0 0 0 3px #15171C; }
+  @media (max-width:760px){ .mk-ads .erc-body{ grid-template-columns:1fr; } .mk-ads .case-head{ grid-template-columns:1fr; gap:26px; } }
+
+  .mk-ads .cta{ background:var(--blue); padding:100px 0; position:relative; overflow:hidden; }
+  .mk-ads .cta::after{ content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(560px 280px at 50% 0%, rgba(255,255,255,.22), transparent 58%); }
+  .mk-ads .cta-inner{ text-align:center; position:relative; z-index:2; }
+  .mk-ads .cta .eyebrow{ color:rgba(255,255,255,.82); display:inline-block; }
+  .mk-ads .cta h2{ font-size:clamp(38px,5.4vw,72px); color:#fff; margin:14px 0 0; }
+  .mk-ads .cta p{ font-size:18px; color:#EAF0FF; margin:18px auto 0; max-width:46ch; line-height:1.6; }
+  .mk-ads .cta-btns{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:36px; }
+  .mk-ads .cal-embed{ margin:38px auto 0; max-width:900px; background:#fff; border-radius:24px; padding:8px; box-shadow:0 50px 100px -40px rgba(0,0,0,.4); overflow:hidden; }
+  .mk-ads .cal-embed .calendly-inline-widget{ border-radius:18px; overflow:hidden; }
+  .mk-ads .cta-quote{ margin:42px auto 0; max-width:620px; text-align:center; position:relative; z-index:2; }
+  .mk-ads .cta-quote .cq-stars{ display:inline-flex; gap:4px; color:#fff; margin-bottom:14px; }
+  .mk-ads .cta-quote .cq-stars svg{ width:18px; height:18px; }
+  .mk-ads .cta-quote blockquote{ margin:0; font-size:21px; line-height:1.5; color:#fff; font-weight:500; }
+  .mk-ads .cta-quote figcaption{ margin-top:14px; font-size:13.5px; color:rgba(255,255,255,.82); }
+  .mk-ads .cta-quote figcaption b{ color:#fff; font-weight:700; }
+
+  @media (max-width:980px){ .mk-ads .hero-inner{ grid-template-columns:1fr; gap:44px; text-align:center; } .mk-ads .hero h1{ max-width:18ch; margin-inline:auto; } .mk-ads .hero-lede{ margin-inline:auto; } .mk-ads .hero-btns{ justify-content:center; } .mk-ads .hero-visual{ max-width:440px; margin:0 auto; width:100%; text-align:left; } .mk-ads .flag-grid{ grid-template-columns:1fr; } .mk-ads .two-grid{ grid-template-columns:1fr; } .mk-ads .steps-grid{ grid-template-columns:1fr 1fr; } .mk-ads .case-card{ grid-template-columns:1fr; gap:28px; padding:40px; text-align:center; } }
+  @media (max-width:640px){ .mk-ads .wrap{ padding:0 22px; } .mk-ads .hero{ padding:76px 0 72px; } .mk-ads .steps-grid{ grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#070630">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#070630"/>
+    <text x="600" y="380" text-anchor="middle" font-family="Anton, sans-serif" font-size="130" fill="#FFFFFF">ACCOUNTING</text>
+    <text x="600" y="510" text-anchor="middle" font-family="Anton, sans-serif" font-size="130" fill="#3872EB">ADS</text>
+    <circle cx="600" cy="620" r="11" fill="#3872EB"/>
+  </svg>
+</template>
+<div class="mk-ads">
+
+  <!-- HERO -->
+  <section class="hero" data-screen-label="Hero">
+    <div class="wrap">
+      <div class="hero-inner">
+        <div class="hero-copy" data-reveal>
+          <div class="hero-tag"><span class="dot"></span>Paid ads for accountants</div>
+          <h1 class="disp">Stop wasting money on<br /><span class="accent">your accounting ads.</span></h1>
+          <p class="hero-lede">We hate to break it to you, but your current ads probably aren't working. We run Google and social ads that track the only metrics that matter: leads and sales.</p>
+          <div class="hero-btns">
+            <a href="https://www.markology.io/contact" class="btn btn-blue">Schedule a call
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a href="https://www.markology.io/audit" class="btn btn-outline-d">Get a free audit</a>
+          </div>
+        </div>
+        <div class="hero-visual" data-reveal>
+          <div class="float"><b>$0.80</b><span>Per click</span></div>
+          <div class="admock ad-google">
+            <div class="g-spon">Sponsored</div>
+            <div class="g-site"><span class="g-fav">L</span><div><div class="g-name">Lakeside Accounting</div><div class="g-url">lakesideaccounting.com/tax-relief</div></div></div>
+            <a class="g-title">Restaurant Tax Relief | Save $10k+ This Year</a>
+            <p class="g-desc">Specialist CPAs for restaurant owners. Claim every deduction and credit you're owed. Book a free 15-minute savings review today.</p>
+            <div class="g-links"><span>Free Review</span><span>Our Services</span><span>Client Results</span></div>
+          </div>
+          <div class="admock ad-google flip">
+            <div class="g-spon">Sponsored</div>
+            <div class="g-site"><span class="g-fav">S</span><div><div class="g-name">Summit CPA Group</div><div class="g-url">summitcpagroup.com/bookkeeping</div></div></div>
+            <a class="g-title">Small Business Bookkeeping | First Month Free</a>
+            <p class="g-desc">Stress-free monthly bookkeeping for growing businesses. Clean books, on time, every month. Book a free consult today.</p>
+            <div class="g-links"><span>Pricing</span><span>Our Services</span><span>Book a Call</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RED FLAGS -->
+  <section class="flags" data-screen-label="Red flags">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">Sound familiar?</span>
+        <h2 class="disp">Does your advertising have <span class="accent">any of these red flags?</span></h2>
+        <p>We rarely see digital advertising done well. Wasted spend, no tracking, bloated fees. Here's how to tell your ad dollars could be working harder.</p>
+      </div>
+      <div class="flag-grid">
+        <article class="flag" data-reveal><div class="fn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><div><div class="ft">Red flag</div><p>You're measuring likes and shares, rather than leads.</p></div></article>
+        <article class="flag" data-reveal><div class="fn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><div><div class="ft">Red flag</div><p>You don't have a dedicated landing page for each ad and audience.</p></div></article>
+        <article class="flag" data-reveal><div class="fn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><div><div class="ft">Red flag</div><p>Your cost-per-click is over $1, or your click-through-rate is under 1%.</p></div></article>
+        <article class="flag" data-reveal><div class="fn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg></div><div><div class="ft">Red flag</div><p>You're paying for clicks without getting anything in return.</p></div></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TWO POINTS -->
+  <section class="two" data-screen-label="Quality and tracking">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">Get your house in order first</span>
+        <h2 class="disp">The ad is only <span class="accent">half the job.</span></h2>
+        <p>The best design and copy in the world won't convert if the ad leads to a weak landing page. We never spend on ads until your site is in conversion-worthy shape.</p>
+      </div>
+      <div class="two-grid">
+        <article class="tcard" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg></div>
+          <h3>Attract quality, not quantity</h3>
+          <p>It's one thing to attract thousands of people. It's another to attract your ideal lead and have them convert. We track how long visitors stay, what they do, and what happens after they leave.</p>
+        </article>
+        <article class="tcard" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3.5-3.5 3 3L21 7"/></svg></div>
+          <h3>Track the metrics that matter</h3>
+          <p>We skip the vanity metrics and watch the ones tied to results. Our click-through-rate runs consistently above 4% and our cost-per-click below $1. If a campaign isn't hitting ROI, we end it before real money is spent.</p>
+          <div class="metric">
+            <div class="sb-wrap">
+              <div class="sb sb-1"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50.00 0.00 L58.00 9.79 L69.13 3.81 L72.78 15.91 L85.36 14.64 L84.09 27.22 L96.19 30.87 L90.21 42.00 L100.00 50.00 L90.21 58.00 L96.19 69.13 L84.09 72.78 L85.36 85.36 L72.78 84.09 L69.13 96.19 L58.00 90.21 L50.00 100.00 L42.00 90.21 L30.87 96.19 L27.22 84.09 L14.64 85.36 L15.91 72.78 L3.81 69.13 L9.79 58.00 L0.00 50.00 L9.79 42.00 L3.81 30.87 L15.91 27.22 L14.64 14.64 L27.22 15.91 L30.87 3.81 L42.00 9.79 Z" fill="#3872EB"/></svg><span class="sb-n">4%+</span></div>
+              <span class="sb-l">Click-through-rate</span>
+            </div>
+            <div class="sb-wrap">
+              <div class="sb sb-2"><svg viewBox="0 0 100 100" aria-hidden="true"><path d="M50.00 0.00 L58.00 9.79 L69.13 3.81 L72.78 15.91 L85.36 14.64 L84.09 27.22 L96.19 30.87 L90.21 42.00 L100.00 50.00 L90.21 58.00 L96.19 69.13 L84.09 72.78 L85.36 85.36 L72.78 84.09 L69.13 96.19 L58.00 90.21 L50.00 100.00 L42.00 90.21 L30.87 96.19 L27.22 84.09 L14.64 85.36 L15.91 72.78 L3.81 69.13 L9.79 58.00 L0.00 50.00 L9.79 42.00 L3.81 30.87 L15.91 27.22 L14.64 14.64 L27.22 15.91 L30.87 3.81 L42.00 9.79 Z" fill="#070630"/></svg><span class="sb-n">&lt;$1</span></div>
+              <span class="sb-l">Cost-per-click</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="steps" data-screen-label="Process">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow eyebrow--d">Start to finish</span>
+        <h2 class="disp">How we craft ads <span class="accent-l">that work.</span></h2>
+        <p>Years of running best-practice campaigns, distilled into one repeatable process.</p>
+      </div>
+      <div class="steps-grid">
+        <article class="step" data-reveal><div class="num">1</div><h3>Design winning ads</h3><p>Creative and copy built to stop the scroll and earn the click.</p></article>
+        <article class="step" data-reveal><div class="num">2</div><h3>Best-practice landing page</h3><p>A dedicated page matched to each ad and audience.</p></article>
+        <article class="step" data-reveal><div class="num">3</div><h3>Create a lead magnet</h3><p>Something worth trading an email for, so clicks become leads.</p></article>
+        <article class="step" data-reveal><div class="num">4</div><h3>Track daily</h3><p>We monitor campaigns every day and cut what isn't working.</p></article>
+        <article class="step" data-reveal><div class="num">5</div><h3>Convert for less</h3><p>Hundreds of quality leads at a cost-per-click below a dollar.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- VAST META ADS -->
+  <section class="vads" data-screen-label="Real ads">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">Real ads, real clients</span>
+        <h2 class="disp">Scroll-stopping ads we've <span class="accent">actually run.</span></h2>
+        <p>A campaign we built for Vast, an accounting firm for restaurant operators. Sharp creative, a clear hook, and one job: turn a scroll into a booked call.</p>
+      </div>
+      <div class="vads-grid">
+        <article class="fbpost" data-reveal>
+          <div class="fb-top"><div class="fb-av">V</div><div><div class="fb-name">Vast</div><div class="fb-spon">Sponsored · <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></div></div></div>
+          <p class="fb-copy">Your accountant talks EBITDA. We talk Tuesdays-make-money-now. Numbers you can run a restaurant on.</p>
+          <div class="fb-creative"><img src="../uploads/vast-ad-operator.png" alt="Vast ad: We speak operator" loading="lazy" /></div>
+          <div class="fb-bar"><div><div class="fb-sub">Vast for restaurants</div><div class="fb-head">We speak operator, not just accountant</div></div><span class="fb-btn">Learn More</span></div>
+          <div class="fb-react"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21h2V9H2v12zm20-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L13.17 1 6.59 7.59C6.22 7.95 6 8.45 6 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>214 reactions · 41 comments</div>
+        </article>
+        <article class="fbpost" data-reveal>
+          <div class="fb-top"><div class="fb-av">V</div><div><div class="fb-name">Vast</div><div class="fb-spon">Sponsored · <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></div></div></div>
+          <p class="fb-copy">Over-ordering. Overstaffing. Overpaying. We catch the slow bleed your books quietly hide every single month.</p>
+          <div class="fb-creative"><img src="../uploads/vast-ad-leaking.png" alt="Vast ad: Your profit is leaking out the back door" loading="lazy" /></div>
+          <div class="fb-bar"><div><div class="fb-sub">Vast for restaurants</div><div class="fb-head">Stop the profit leak in your kitchen</div></div><span class="fb-btn">Learn More</span></div>
+          <div class="fb-react"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21h2V9H2v12zm20-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L13.17 1 6.59 7.59C6.22 7.95 6 8.45 6 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>318 reactions · 27 comments</div>
+        </article>
+        <article class="fbpost" data-reveal>
+          <div class="fb-top"><div class="fb-av">V</div><div><div class="fb-name">Vast</div><div class="fb-spon">Sponsored · <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg></div></div></div>
+          <p class="fb-copy">Margins, inventory, pricing. We speak operator, not just accountant, and we know your food cost by heart.</p>
+          <div class="fb-creative"><img src="../uploads/vast-ad-foodcost.png" alt="Vast ad: We know your food cost by heart" loading="lazy" /></div>
+          <div class="fb-bar"><div><div class="fb-sub">Vast for restaurants</div><div class="fb-head">Kitchen to shelf, we know your numbers</div></div><span class="fb-btn">Learn More</span></div>
+          <div class="fb-react"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21h2V9H2v12zm20-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L13.17 1 6.59 7.59C6.22 7.95 6 8.45 6 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5 1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-2z"/></svg>176 reactions · 19 comments</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE -->
+  <section class="case" data-screen-label="Case study">
+    <div class="wrap">
+      <div class="case-card" data-reveal>
+        <div class="case-head">
+          <div class="big">$1M<span>in 3 months</span></div>
+          <div>
+            <div class="tag">The Fitness CPA</div>
+            <h2 class="disp">A campaign that drove $1M+ in revenue.</h2>
+            <p>Markology and The Fitness CPA built a campaign around the Employee Retention Credit that led to over $1M in sales. An interactive quiz, sharp ad creative, and fast execution delivered million-dollar results.</p>
+          </div>
+        </div>
+        <div class="case-quiz">
+        <p class="erc-cap">The interactive quiz that converted</p>
+        <div class="erc-mock">
+          <div class="erc-bar"><i></i><i></i><i></i><span class="erc-url">thefitnesscpa.com/erc-qualify</span></div>
+          <div class="erc-body">
+            <div class="erc-left">
+              <div class="erc-logo"><span class="mk">THE FITNESS<b>CPA</b></span><span class="tag">Tax credits for fitness businesses</span></div>
+              <span class="erc-eye"><span style="width:7px;height:7px;border-radius:50%;background:#C8102E;display:block;"></span>Employee Retention Credit</span>
+              <h2 class="erc-h">See if your business qualifies for up to <b>$26,000 per employee.</b></h2>
+              <p class="erc-sub">Most eligible businesses never claim it. Take our 60-second quiz and find out what the IRS may still owe you, no upfront cost.</p>
+              <a class="erc-cta">Start the 60-second quiz <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+              <div class="erc-trust">
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>No win, no fee</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>IRS-compliant filing</span>
+                <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>Average claim $130k</span>
+              </div>
+            </div>
+            <div class="erc-right">
+              <div class="erc-step">Question 1 of 6</div>
+              <div class="erc-prog"><i></i></div>
+              <div class="erc-q">How many W-2 employees did you have in 2021?</div>
+              <div class="erc-opts">
+                <div class="erc-opt"><span>1 to 5 employees</span><span class="rd"></span></div>
+                <div class="erc-opt sel"><span>6 to 20 employees</span><span class="rd"></span></div>
+                <div class="erc-opt"><span>21 to 50 employees</span><span class="rd"></span></div>
+                <div class="erc-opt"><span>More than 50</span><span class="rd"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" data-screen-label="CTA">
+    <div class="wrap">
+      <div class="cta-inner" data-reveal>
+        <span class="eyebrow">Ready to stop wasting ad spend?</span>
+        <h2 class="disp">Ads that bring in<br />real leads.</h2>
+        <p>Book a free 15-minute call. We'll audit what you're running now and show you exactly how we'd turn that budget into booked calls.</p>
+        <div class="cal-embed" data-reveal>
+          <div class="calendly-inline-widget" data-url="https://calendly.com/markology/intro?hide_gdpr_banner=1&background_color=ffffff&primary_color=3872eb" style="min-width:320px;height:680px;"></div>
+        </div>
+        <figure class="cta-quote" data-reveal>
+          <span class="cq-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+          <blockquote>“Since working with Markology, our business has doubled.”</blockquote>
+          <figcaption><b>Jordan Cook, Owner</b> · Paragon Body, California</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  (function(){ var root=document.querySelector('.mk-ads'); if(!root) return;
+    var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var els=root.querySelectorAll('[data-reveal]');
+    if(reduce||!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('is-in');}); }
+    else{ var io=new IntersectionObserver(function(en){en.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('is-in'); io.unobserve(e.target);}});},{threshold:.14, rootMargin:'0px 0px -6% 0px'});
+      els.forEach(function(e){ io.observe(e); }); }
+  })();
+  </script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+</div>
+</body>
+</html>

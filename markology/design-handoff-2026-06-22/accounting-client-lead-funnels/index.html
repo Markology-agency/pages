@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lead Funnels for Accountants | Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* MARKOLOGY — Lead Funnels for Accountants (Webflow drop-in, scoped .mk-lf) */
+  .mk-lf{ --navy:#070630; --navy2:#0C0A47; --blue:#3872EB; --blue-l:#7DA4F4; --paper:#F9F9FF; --lilac:#E6E9FF;
+    --mute:#5B5D78; --muted-d:#A9ABCE; --line:rgba(7,6,48,0.1); --line-d:rgba(255,255,255,0.12);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; color:var(--navy); background:var(--paper); -webkit-font-smoothing:antialiased; line-height:1.5; }
+  .mk-lf *,.mk-lf *::before,.mk-lf *::after{ box-sizing:border-box; }
+  .mk-lf img{ display:block; max-width:100%; } .mk-lf a{ color:inherit; text-decoration:none; }
+  .mk-lf .wrap{ max-width:1220px; margin:0 auto; padding:0 48px; }
+  .mk-lf .disp{ font-family:'Anton','Arial Narrow',sans-serif; font-weight:400; text-transform:uppercase; line-height:1.04; letter-spacing:.005em; margin:0; }
+  .mk-lf .accent{ color:var(--blue); } .mk-lf .accent-l{ color:var(--blue-l); }
+  .mk-lf .eyebrow{ font-weight:700; font-size:11.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--blue); display:block; margin-bottom:14px; }
+  .mk-lf .eyebrow--d{ color:var(--blue-l); }
+  .mk-lf .btn{ display:inline-flex; align-items:center; gap:10px; font-weight:700; font-size:15px; padding:16px 28px; border-radius:999px; cursor:pointer; white-space:nowrap; border:1px solid transparent; transition:transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease; }
+  .mk-lf .btn svg{ width:16px; height:16px; flex:none; }
+  .mk-lf .btn-blue{ background:var(--blue); color:#fff; box-shadow:0 14px 30px -10px rgba(56,114,235,.6); }
+  .mk-lf .btn-blue:hover{ transform:translateY(-2px); box-shadow:0 20px 36px -10px rgba(56,114,235,.75); }
+  .mk-lf .btn-outline{ background:transparent; color:var(--navy); border-color:var(--navy); }
+  .mk-lf .btn-outline:hover{ background:var(--navy); color:#fff; transform:translateY(-2px); }
+  .mk-lf .btn-white{ background:#fff; color:var(--navy); } .mk-lf .btn-white:hover{ transform:translateY(-2px); }
+  @media (prefers-reduced-motion:no-preference){ .mk-lf [data-reveal]{ opacity:0; transform:translateY(22px); transition:opacity .65s cubic-bezier(.2,.7,.2,1), transform .65s cubic-bezier(.2,.7,.2,1); } .mk-lf [data-reveal].is-in{ opacity:1; transform:none; } }
+
+  .mk-lf .hero{ padding:104px 0 100px; position:relative; overflow:hidden; border-bottom:1px solid var(--line); background:radial-gradient(ellipse 110% 80% at 50% 28%, #ECE4FF 0%, #F3EFFF 35%, var(--paper) 68%); }
+  .mk-lf .hero::before{ content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 60% 50% at 50% 0%, rgba(56,114,235,.06), transparent 65%); }
+  .mk-lf .hero-inner{ position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; text-align:center; }
+  .mk-lf .hero-tag{ display:inline-flex; align-items:center; gap:10px; background:#fff; border:1px solid rgba(56,114,235,.2); border-radius:999px; padding:8px 18px; font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--blue); margin-bottom:24px; box-shadow:0 2px 12px -4px rgba(56,114,235,.18); }
+  .mk-lf .hero-tag .dot{ width:7px; height:7px; border-radius:50%; background:var(--blue); animation:mkpulse 1.6s infinite; }
+  @keyframes mkpulse{ 0%,100%{opacity:1} 50%{opacity:.3} }
+  .mk-lf .hero h1{ font-size:clamp(44px,6.2vw,96px); max-width:18ch; line-height:1.03; letter-spacing:-0.005em; }
+  .mk-lf .hero-lede{ font-size:18px; line-height:1.6; color:var(--mute); margin:24px 0 0; max-width:48ch; }
+  .mk-lf .hero-btns{ display:flex; flex-wrap:wrap; gap:16px; margin-top:36px; justify-content:center; }
+  .mk-lf .hero-btns .btn{ font-size:16px; padding:18px 34px; }
+
+  .mk-lf .shift{ background:linear-gradient(180deg, #070630 0%, #0C1542 42%, #16245C 74%, #20367F 100%); padding:100px 0; position:relative; overflow:hidden; }
+  .mk-lf .shift::before{ content:""; position:absolute; top:-140px; left:50%; transform:translateX(-50%); width:680px; height:480px; background:radial-gradient(circle, rgba(56,114,235,.28), transparent 65%); pointer-events:none; }
+  .mk-lf .shift .wrap{ position:relative; z-index:2; }
+  .mk-lf .shift .sec-head h2{ color:#fff; }
+  .mk-lf .shift .sec-head p{ color:#CFDCFF; }
+  .mk-lf .shift .eyebrow{ color:var(--blue-l); }
+  .mk-lf .shift .accent{ color:var(--blue-l); }
+  .mk-lf .shift .step-block .step-tag{ color:#fff; }
+  .mk-lf .shift .flow-arrow{ color:var(--blue-l); }
+  .mk-lf .shift .ex-note{ color:#AEB2DA; }
+  .mk-lf .shift .ex-note b{ color:var(--blue-l); }
+  .mk-lf .flow{ max-width:680px; margin:0 auto; }
+  .mk-lf .step-block .step-tag{ display:flex; align-items:center; gap:13px; font-family:'Anton',sans-serif; text-transform:uppercase; font-size:19px; line-height:1.1; letter-spacing:.01em; color:var(--navy); margin-bottom:18px; }
+  .mk-lf .step-block .step-tag .snum{ width:34px; height:34px; border-radius:50%; background:var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; font-size:18px; flex:none; }
+  .mk-lf .flow .calc{ max-width:460px; }
+  .mk-lf .flow-arrow{ display:flex; justify-content:center; color:var(--blue); margin:20px 0; }
+  .mk-lf .flow-arrow svg{ width:30px; height:30px; }
+  .mk-lf .inbox.staggered .email:nth-child(2){ margin-left:34px; }
+  .mk-lf .inbox.staggered .email:nth-child(3){ margin-left:68px; }
+  .mk-lf .inbox.staggered .email:nth-child(4){ margin-left:102px; }
+  .mk-lf .mock{ background:#fff; border:1px solid var(--line); border-radius:24px; padding:30px; box-shadow:0 30px 70px -42px rgba(7,6,48,.45); }
+  .mk-lf .mock-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:24px; }
+  .mk-lf .mock-head .mt{ font-family:'Anton',sans-serif; text-transform:uppercase; font-weight:400; font-size:18px; letter-spacing:.01em; }
+  .mk-lf .mock-tag{ font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--blue); background:var(--lilac); border-radius:999px; padding:5px 11px; white-space:nowrap; }
+  .mk-lf .seq{ position:relative; padding-left:30px; }
+  .mk-lf .seq::before{ content:""; position:absolute; left:9px; top:10px; bottom:10px; width:2px; background:linear-gradient(var(--blue), var(--blue-l)); }
+  .mk-lf .seq-step{ position:relative; margin-bottom:14px; }
+  .mk-lf .seq-step:last-child{ margin-bottom:0; }
+  .mk-lf .seq-step::before{ content:""; position:absolute; left:-26px; top:17px; width:12px; height:12px; border-radius:50%; background:#fff; border:3px solid var(--blue); }
+  .mk-lf .seq-day{ font-size:10.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--blue); margin-bottom:6px; }
+  .mk-lf .seq-mail{ border:1px solid var(--line); border-radius:14px; padding:13px 15px; background:var(--paper); transition:transform .18s ease, box-shadow .18s ease; }
+  .mk-lf .seq-mail:hover{ transform:translateY(-3px); box-shadow:0 16px 32px -22px rgba(7,6,48,.4); }
+  .mk-lf .seq-mail .subj{ font-weight:700; font-size:13.5px; color:var(--navy); line-height:1.3; }
+  .mk-lf .seq-mail .prev{ font-size:12px; color:var(--mute); margin-top:3px; line-height:1.45; }
+  .mk-lf .calc .field{ margin-bottom:18px; }
+  .mk-lf .calc .field .flabel{ font-size:11.5px; font-weight:600; color:var(--mute); text-transform:uppercase; letter-spacing:.07em; }
+  .mk-lf .calc .field .fval{ font-family:'Anton',sans-serif; font-size:30px; color:var(--navy); line-height:1.05; margin-top:4px; }
+  .mk-lf .calc .track{ height:7px; border-radius:999px; background:var(--lilac); margin:12px 0 0; position:relative; }
+  .mk-lf .calc .track i{ position:absolute; left:0; top:0; bottom:0; border-radius:999px; background:var(--blue); }
+  .mk-lf .calc .track i::after{ content:""; position:absolute; right:-8px; top:50%; transform:translateY(-50%); width:16px; height:16px; border-radius:50%; background:#fff; border:3px solid var(--blue); box-shadow:0 2px 6px rgba(7,6,48,.25); }
+  .mk-lf .calc .result{ background:var(--navy); border-radius:16px; padding:24px; margin-top:4px; text-align:center; position:relative; overflow:hidden; }
+  .mk-lf .calc .result::after{ content:""; position:absolute; top:-60px; right:-60px; width:180px; height:180px; background:radial-gradient(circle, rgba(56,114,235,.4), transparent 65%); pointer-events:none; }
+  .mk-lf .calc .result .rl{ font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted-d); position:relative; z-index:2; }
+  .mk-lf .calc .result .rv{ font-family:'Anton',sans-serif; font-size:56px; line-height:1; color:var(--blue-l); margin-top:6px; position:relative; z-index:2; }
+  .mk-lf .calc .result .rv span{ font-size:20px; }
+  .mk-lf .calc .result .rsub{ font-size:12px; color:var(--muted-d); margin-top:10px; position:relative; z-index:2; }
+  .mk-lf .calc .capture{ display:flex; gap:8px; margin-top:16px; }
+  .mk-lf .calc .capture .inp{ flex:1; border:1px solid var(--line); border-radius:11px; padding:12px 14px; font-size:13px; color:var(--muted-d); background:var(--paper); display:flex; align-items:center; }
+  .mk-lf .calc .capture .btn{ padding:12px 18px; font-size:13px; }
+  .mk-lf .ex-note{ text-align:center; font-size:13px; color:var(--mute); margin:26px 0 0; }
+  .mk-lf .ex-note b{ color:var(--blue); font-weight:700; }
+  .mk-lf .inbox{ display:flex; flex-direction:column; gap:10px; }
+  .mk-lf .email{ display:flex; gap:13px; align-items:flex-start; border:1px solid var(--line); border-radius:14px; padding:14px 15px; background:var(--paper); transition:transform .18s ease, box-shadow .18s ease; }
+  .mk-lf .email:hover{ transform:translateY(-3px); box-shadow:0 16px 32px -22px rgba(7,6,48,.4); }
+  .mk-lf .email .av{ width:40px; height:40px; border-radius:50%; overflow:hidden; background:var(--navy); flex:none; }
+  .mk-lf .email .av img{ width:100%; height:100%; object-fit:cover; object-position:top center; }
+  .mk-lf .email .ebody{ flex:1; min-width:0; }
+  .mk-lf .email .etop{ display:flex; justify-content:space-between; align-items:baseline; gap:10px; }
+  .mk-lf .email .efrom{ font-weight:700; font-size:13px; color:var(--navy); }
+  .mk-lf .email .etime{ font-size:10.5px; color:var(--blue); font-weight:700; white-space:nowrap; letter-spacing:.04em; text-transform:uppercase; }
+  .mk-lf .email .esubj{ font-weight:700; font-size:13.5px; color:var(--navy); margin-top:4px; line-height:1.3; }
+  .mk-lf .email .eprev{ font-size:12px; color:var(--mute); margin-top:2px; line-height:1.45; }
+  .mk-lf .flow .calmock{ max-width:540px; }
+  .mk-lf .cal-ui{ display:grid; grid-template-columns:.85fr 1.15fr; gap:24px; align-items:start; }
+  .mk-lf .cal-host{ display:flex; gap:11px; align-items:center; }
+  .mk-lf .cal-host img{ width:42px; height:42px; border-radius:50%; object-fit:cover; object-position:top center; flex:none; }
+  .mk-lf .cal-host b{ display:block; font-size:14px; color:var(--navy); }
+  .mk-lf .cal-host span{ font-size:12px; color:var(--mute); }
+  .mk-lf .cal-dur{ display:flex; align-items:center; gap:8px; font-size:13px; color:var(--mute); margin-top:16px; }
+  .mk-lf .cal-dur svg{ width:16px; height:16px; color:var(--blue); flex:none; }
+  .mk-lf .cal-month{ font-weight:700; font-size:13px; color:var(--navy); margin-bottom:10px; text-align:center; }
+  .mk-lf .cal-days{ display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .mk-lf .cal-days span{ aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:11px; color:var(--navy); border-radius:8px; }
+  .mk-lf .cal-days span.hd{ color:var(--muted-d); font-size:9.5px; font-weight:700; }
+  .mk-lf .cal-days span.dim{ color:var(--muted-d); }
+  .mk-lf .cal-days span.on{ background:var(--lilac); color:var(--blue); font-weight:700; }
+  .mk-lf .cal-days span.sel{ background:var(--blue); color:#fff; font-weight:700; }
+  .mk-lf .cal-slots{ display:flex; gap:8px; margin-top:14px; }
+  .mk-lf .cal-slots .slot{ flex:1; text-align:center; border:1px solid var(--line); border-radius:10px; padding:9px 0; font-size:12px; font-weight:600; color:var(--navy); }
+  .mk-lf .cal-slots .slot.sel{ background:var(--navy); color:#fff; border-color:var(--navy); }
+
+  .mk-lf .vals{ background:var(--paper); padding:104px 0; }
+  .mk-lf .sec-head{ text-align:center; max-width:660px; margin:0 auto 56px; }
+  .mk-lf .sec-head h2{ font-size:clamp(34px,4.6vw,60px); margin:0; }
+  .mk-lf .sec-head p{ font-size:17px; color:var(--mute); margin:16px 0 0; }
+  .mk-lf .vgrid{ display:grid; grid-template-columns:repeat(2,1fr); gap:22px; }
+  .mk-lf .vcard{ background:#fff; border:1px solid var(--line); border-radius:22px; padding:36px 34px; box-shadow:0 16px 44px -30px rgba(7,6,48,.2); display:flex; gap:22px; align-items:flex-start; transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease; }
+  .mk-lf .vcard:hover{ transform:translateY(-6px); box-shadow:0 30px 60px -30px rgba(7,6,48,.26); border-color:rgba(56,114,235,.4); }
+  .mk-lf .vcard .ico{ width:52px; height:52px; border-radius:14px; background:var(--lilac); color:var(--blue); display:flex; align-items:center; justify-content:center; flex:none; }
+  .mk-lf .vcard .ico svg{ width:26px; height:26px; }
+  .mk-lf .vcard h3{ font-family:'Anton',sans-serif; text-transform:uppercase; font-weight:400; font-size:20px; line-height:1.12; margin:0 0 10px; letter-spacing:.005em; }
+  .mk-lf .vcard p{ font-size:14.5px; color:var(--mute); line-height:1.6; margin:0; }
+
+  .mk-lf .quotes{ background:var(--navy); color:#fff; padding:96px 0; position:relative; overflow:hidden; }
+  .mk-lf .quotes::before{ content:""; position:absolute; top:-120px; right:-120px; width:440px; height:440px; background:radial-gradient(circle, rgba(56,114,235,.26), transparent 65%); pointer-events:none; }
+  .mk-lf .quotes-grid{ display:grid; grid-template-columns:1fr 1fr; gap:24px; position:relative; z-index:2; }
+  .mk-lf .qc{ background:var(--navy2); border:1px solid var(--line-d); border-radius:22px; padding:36px 34px; }
+  .mk-lf .qc .stars{ display:inline-flex; gap:3px; color:var(--blue-l); margin-bottom:18px; }
+  .mk-lf .qc .stars svg{ width:18px; height:18px; }
+  .mk-lf .qc blockquote{ font-family:'Anton',sans-serif; text-transform:uppercase; font-weight:400; font-size:clamp(22px,2.6vw,30px); line-height:1.16; margin:0; letter-spacing:.01em; }
+  .mk-lf .qc .cite{ margin-top:20px; font-size:13.5px; color:var(--muted-d); }
+  .mk-lf .qc .cite b{ color:#fff; }
+
+  .mk-lf .roi{ background:var(--lilac); padding:104px 0; }
+  .mk-lf .pricing-mock{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; max-width:940px; margin:0 auto 38px; align-items:stretch; }
+  .mk-lf .ptier{ background:#fff; border:1px solid var(--line); border-radius:20px; padding:30px 24px; position:relative; display:flex; flex-direction:column; box-shadow:0 16px 44px -32px rgba(7,6,48,.3); }
+  .mk-lf .ptier.dim{ opacity:.66; }
+  .mk-lf .ptier.hot{ border:2px solid var(--blue); box-shadow:0 28px 64px -34px rgba(56,114,235,.6); }
+  .mk-lf .pt-flag{ position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--blue); color:#fff; font-size:10px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; padding:5px 13px; border-radius:999px; white-space:nowrap; }
+  .mk-lf .pt-name{ font-family:'Anton',sans-serif; text-transform:uppercase; font-size:22px; color:var(--navy); letter-spacing:.01em; }
+  .mk-lf .pt-price{ font-family:'Anton',sans-serif; font-size:38px; color:var(--navy); margin:6px 0 18px; line-height:1; }
+  .mk-lf .pt-price em{ display:block; font-family:'Inter',sans-serif; font-style:normal; font-size:12px; font-weight:600; color:var(--mute); margin-bottom:3px; letter-spacing:.02em; }
+  .mk-lf .pt-price span{ font-family:'Inter',sans-serif; font-size:14px; font-weight:600; color:var(--mute); }
+  .mk-lf .ptier ul{ list-style:none; margin:0 0 18px; padding:0; display:flex; flex-direction:column; gap:10px; flex:1; }
+  .mk-lf .ptier li{ display:flex; gap:9px; align-items:flex-start; font-size:13px; color:var(--mute); line-height:1.4; }
+  .mk-lf .ptier li svg{ width:16px; height:16px; color:var(--blue); flex:none; margin-top:1px; }
+  .mk-lf .pt-nurture{ font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.06em; border-radius:10px; padding:11px; text-align:center; }
+  .mk-lf .pt-nurture.on{ background:var(--lilac); color:var(--blue); }
+  .mk-lf .pt-nurture.off{ background:rgba(7,6,48,.05); color:var(--muted-d); }
+
+  .mk-lf .cta{ background:var(--blue); padding:100px 0; position:relative; overflow:hidden; }
+  .mk-lf .cta::after{ content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(560px 280px at 50% 0%, rgba(255,255,255,.22), transparent 58%); }
+  .mk-lf .cta-inner{ text-align:center; position:relative; z-index:2; }
+  .mk-lf .cta .eyebrow{ color:rgba(255,255,255,.82); display:inline-block; }
+  .mk-lf .cta h2{ font-size:clamp(38px,5.4vw,72px); color:#fff; margin:14px 0 0; }
+  .mk-lf .cta p{ font-size:18px; color:#EAF0FF; margin:18px auto 0; max-width:46ch; line-height:1.6; }
+  .mk-lf .cal-embed{ margin:38px auto 0; max-width:900px; background:#fff; border-radius:24px; padding:8px; box-shadow:0 50px 100px -40px rgba(0,0,0,.4); overflow:hidden; }
+  .mk-lf .cal-embed .calendly-inline-widget{ border-radius:18px; overflow:hidden; }
+  .mk-lf .cta-quote{ margin:42px auto 0; max-width:620px; text-align:center; position:relative; z-index:2; }
+  .mk-lf .cta-quote .cq-stars{ display:inline-flex; gap:4px; color:#fff; margin-bottom:14px; }
+  .mk-lf .cta-quote .cq-stars svg{ width:18px; height:18px; }
+  .mk-lf .cta-quote blockquote{ margin:0; font-size:21px; line-height:1.5; color:#fff; font-weight:500; }
+  .mk-lf .cta-quote figcaption{ margin-top:14px; font-size:13.5px; color:rgba(255,255,255,.82); }
+  .mk-lf .cta-quote figcaption b{ color:#fff; font-weight:700; }
+  .mk-lf .cta-btns{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:36px; }
+
+  @media (max-width:980px){ .mk-lf .vgrid{ grid-template-columns:1fr; } .mk-lf .quotes-grid{ grid-template-columns:1fr; } .mk-lf .pricing-mock{ grid-template-columns:1fr; max-width:420px; } }
+  @media (max-width:560px){ .mk-lf .inbox.staggered .email{ margin-left:0 !important; } .mk-lf .flow .calc{ max-width:none; } .mk-lf .cal-ui{ grid-template-columns:1fr; } }
+  @media (max-width:640px){ .mk-lf .wrap{ padding:0 22px; } .mk-lf .hero{ padding:76px 0 72px; } .mk-lf .roi-card{ padding:40px 26px; } }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#F9F9FF">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#F9F9FF"/>
+    <text x="600" y="380" text-anchor="middle" font-family="Anton, sans-serif" font-size="130" fill="#070630">LEAD</text>
+    <text x="600" y="510" text-anchor="middle" font-family="Anton, sans-serif" font-size="130" fill="#3872EB">FUNNELS</text>
+    <circle cx="600" cy="620" r="11" fill="#3872EB"/>
+  </svg>
+</template>
+<div class="mk-lf">
+
+  <!-- HERO -->
+  <section class="hero" data-screen-label="Hero">
+    <div class="wrap">
+      <div class="hero-inner" data-reveal>
+        <div class="hero-tag"><span class="dot"></span>Lead funnels for accountants</div>
+        <h1 class="disp">What do visitors do<br /><span class="accent">after they leave?</span></h1>
+        <p class="hero-lede">Most never come back. We turn website visitors into booked accounting clients with automated nurture campaigns that keep your firm top of mind.</p>
+        <div class="hero-btns">
+          <a href="https://www.markology.io/contact" class="btn btn-blue">Book a 15-min call
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="https://www.markology.io/audit" class="btn btn-outline">Get a free audit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAT / LEAD MAGNETS -->
+  <section class="shift" data-screen-label="Lead magnets">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">Why nurture matters</span>
+        <h2 class="disp">Almost nobody buys <span class="accent">on the first visit.</span></h2>
+        <p>The average prospect needs around seven touches before they commit. So we build the lead magnets and automated sequences that keep your firm top of mind, and reach out at exactly the right moment.</p>
+      </div>
+      <div class="flow">
+        <div class="step-block" data-reveal>
+          <div class="step-tag"><span class="snum">1</span> They run your free calculator</div>
+          <div class="mock calc">
+            <div class="mock-head"><span class="mt">S-Corp tax calculator</span><span class="mock-tag">Lead magnet</span></div>
+            <div class="field"><div class="flabel">Annual net profit</div><div class="fval">$180,000</div><div class="track"><i style="width:64%"></i></div></div>
+            <div class="field"><div class="flabel">Reasonable salary</div><div class="fval">$90,000</div><div class="track"><i style="width:42%"></i></div></div>
+            <div class="result"><div class="rl">Estimated tax savings</div><div class="rv">$13,770<span>/yr</span></div><div class="rsub">vs. filing as a sole proprietor</div></div>
+            <div class="capture"><span class="inp">you@yourfirm.com</span><a href="https://www.markology.io/contact" class="btn btn-blue">Email my report</a></div>
+          </div>
+        </div>
+        <div class="flow-arrow" data-reveal><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></div>
+        <div class="step-block" data-reveal>
+          <div class="step-tag"><span class="snum">2</span> We nurture them automatically</div>
+          <div class="mock">
+            <div class="mock-head"><span class="mt">Automated email sequence</span><span class="mock-tag">4 emails</span></div>
+            <div class="inbox staggered">
+              <div class="email"><div class="av"><img src="../uploads/Aragon-Headshot-Whitney-Hesmer-2026-06-22-17.jpeg" alt="Whitney Hesmer" /></div><div class="ebody"><div class="etop"><span class="efrom">Whitney at Markology</span><span class="etime">Day 0 · Instant</span></div><div class="esubj">Here's your S-Corp savings report</div><div class="eprev">Thanks for running the numbers. Here's the full breakdown of what you could save this year.</div></div></div>
+              <div class="email"><div class="av"><img src="../uploads/Aragon-Headshot-Whitney-Hesmer-2026-06-22-17.jpeg" alt="Whitney Hesmer" /></div><div class="ebody"><div class="etop"><span class="efrom">Whitney at Markology</span><span class="etime">Day 2</span></div><div class="esubj">The mistake most S-Corps make at tax time</div><div class="eprev">Three deductions founders miss, and how to claim them before year end.</div></div></div>
+              <div class="email"><div class="av"><img src="../uploads/Aragon-Headshot-Whitney-Hesmer-2026-06-22-17.jpeg" alt="Whitney Hesmer" /></div><div class="ebody"><div class="etop"><span class="efrom">Whitney at Markology</span><span class="etime">Day 5</span></div><div class="esubj">How one firm cut their tax bill by $14k</div><div class="eprev">A quick case study from a firm a lot like yours.</div></div></div>
+              <div class="email"><div class="av"><img src="../uploads/Aragon-Headshot-Whitney-Hesmer-2026-06-22-17.jpeg" alt="Whitney Hesmer" /></div><div class="ebody"><div class="etop"><span class="efrom">Whitney at Markology</span><span class="etime">Day 7 · Offer</span></div><div class="esubj">Want us to handle this for you?</div><div class="eprev">Grab a 15-minute call and we'll map your savings live.</div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="flow-arrow" data-reveal><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg></div>
+        <div class="step-block" data-reveal>
+          <div class="step-tag"><span class="snum">3</span> They book a call with you</div>
+          <div class="mock calmock">
+            <div class="mock-head"><span class="mt">Book a 15-min call</span><span class="mock-tag">Scheduling</span></div>
+            <div class="cal-ui">
+              <div>
+                <div class="cal-host"><img src="../uploads/Aragon-Headshot-Whitney-Hesmer-2026-06-22-17.jpeg" alt="Whitney Hesmer" /><div><b>Whitney Hesmer</b><span>Markology</span></div></div>
+                <div class="cal-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>15 minute meeting</div>
+              </div>
+              <div>
+                <div class="cal-month">June 2026</div>
+                <div class="cal-days">
+                  <span class="hd">S</span><span class="hd">M</span><span class="hd">T</span><span class="hd">W</span><span class="hd">T</span><span class="hd">F</span><span class="hd">S</span>
+                  <span class="dim">1</span><span class="dim">2</span><span class="dim">3</span><span class="dim">4</span><span class="dim">5</span><span class="dim">6</span><span>7</span>
+                  <span>8</span><span>9</span><span>10</span><span>11</span><span class="on">12</span><span class="on">13</span><span>14</span>
+                  <span>15</span><span class="on">16</span><span class="on">17</span><span class="sel">18</span><span class="on">19</span><span class="on">20</span><span>21</span>
+                  <span>22</span><span class="on">23</span><span class="on">24</span><span class="on">25</span><span>26</span><span>27</span><span>28</span>
+                </div>
+                <div class="cal-slots"><span class="slot">10:00 am</span><span class="slot sel">11:30 am</span><span class="slot">2:00 pm</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="ex-note" data-reveal><b>Illustrative example.</b> We build the lead magnet and the sequence around your firm's services and clients.</p>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="vals" data-screen-label="What we do">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">How it works</span>
+        <h2 class="disp">Turn cold visitors into <span class="accent">booked calls.</span></h2>
+        <p>Four moving parts, fully automated and managed for you.</p>
+      </div>
+      <div class="vgrid">
+        <article class="vcard" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 12l3 3 7-7"/></svg></div>
+          <div><h3>Automated lead funnels</h3><p>We nurture each lead through targeted automation campaigns that keep your firm top of mind long after they leave your website.</p></div>
+        </article>
+        <article class="vcard" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H5.2L4 17.5z"/><path d="M8 9h8M8 12h5"/></svg></div>
+          <div><h3>Resources that earn trust</h3><p>We help you create valuable guides, videos, and resources that prove your expertise and give prospects a reason to come back.</p></div>
+        </article>
+        <article class="vcard" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></div>
+          <div><h3>Tag leads by funnel stage</h3><p>We organise your list by cold leads, warm prospects, and clients, so the right message reaches the right person at the right time.</p></div>
+        </article>
+        <article class="vcard" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+          <div><h3>Reach out at the right time</h3><p>Instead of spamming unlikely leads, we wait until a prospect shows the perfect amount of interest before reaching out for the sale.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTES -->
+  <section class="quotes" data-screen-label="Testimonials">
+    <div class="wrap">
+      <div class="quotes-grid">
+        <article class="qc" data-reveal>
+          <span class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+          <blockquote>We have too many leads. I never thought this would be the case.</blockquote>
+          <p class="cite"><b>Eric Killian, CPA</b> · The Fitness CPA · Colorado, USA</p>
+        </article>
+        <article class="qc" data-reveal>
+          <span class="stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+          <blockquote>We found the best marketer I've ever worked with.</blockquote>
+          <p class="cite"><b>Camila S.</b> · Marketing Director, Yume Food</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section class="roi" data-screen-label="Part of a package">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">Included, not an add-on</span>
+        <h2 class="disp">Lead nurturing is built into our <span class="accent">Growth and Authority packages.</span></h2>
+        <p>You don't buy funnels piece by piece. The lead magnets, sequences, and tracking come as part of our done-for-you packages, working alongside your content, ads, and website to bring in clients on Google and AI search.</p>
+      </div>
+      <div class="pricing-mock" data-reveal>
+        <div class="ptier dim">
+          <div class="pt-name">Markology Lite</div>
+          <div class="pt-price">$1,699<span>/mo</span></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Found on Google and AI search</li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>4 content blogs / month</li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Weekly social posts</li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Real-time lead dashboard</li>
+          </ul>
+          <div class="pt-nurture off">No lead nurturing</div>
+        </div>
+        <div class="ptier hot">
+          <div class="pt-flag">Includes lead nurturing</div>
+          <div class="pt-name">Markology Growth</div>
+          <div class="pt-price"><em>from</em>$3,499<span>/mo</span></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Everything in Lite, plus:</li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>6 content blogs / month</li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Paid ads (Google + Meta)</li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Email and funnel automation</li>
+          </ul>
+          <div class="pt-nurture on">Lead nurturing included</div>
+        </div>
+        <div class="ptier hot">
+          <div class="pt-flag">Includes lead nurturing</div>
+          <div class="pt-name">Markology Authority</div>
+          <div class="pt-price"><em>from</em>$4,999<span>/mo</span></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Everything in Growth, plus:</li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>8 content blogs / month</li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Unlimited lead magnets and funnels</li>
+            <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Full CRM and email automation</li>
+          </ul>
+          <div class="pt-nurture on">Lead nurturing included</div>
+        </div>
+      </div>
+      <div style="text-align:center;"><a href="https://www.markology.io/pricing" class="btn btn-blue" data-reveal>See full pricing
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" data-screen-label="CTA">
+    <div class="wrap">
+      <div class="cta-inner" data-reveal>
+        <span class="eyebrow">Ready to convert more of your traffic?</span>
+        <h2 class="disp">Let's build your<br />funnel.</h2>
+        <p>Grab a time below. We'll look at your site and show you exactly where leads are slipping away, and how we'd capture them.</p>
+        <div class="cal-embed" data-reveal>
+          <div class="calendly-inline-widget" data-url="https://calendly.com/markology/intro?hide_gdpr_banner=1&background_color=ffffff&primary_color=3872eb" style="min-width:320px;height:680px;"></div>
+        </div>
+        <figure class="cta-quote" data-reveal>
+          <span class="cq-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg></span>
+          <blockquote>“Since working with Markology, our business has doubled.”</blockquote>
+          <figcaption><b>Jordan Cook, Owner</b> · Paragon Body, California</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  (function(){ var root=document.querySelector('.mk-lf'); if(!root) return;
+    var reduce=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var els=root.querySelectorAll('[data-reveal]');
+    if(reduce||!('IntersectionObserver' in window)){ els.forEach(function(e){e.classList.add('is-in');}); }
+    else{ var io=new IntersectionObserver(function(en){en.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('is-in'); io.unobserve(e.target);}});},{threshold:.14, rootMargin:'0px 0px -6% 0px'});
+      els.forEach(function(e){ io.observe(e); }); }
+  })();
+  </script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+</div>
+</body>
+</html>

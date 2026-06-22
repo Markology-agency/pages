@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VAST, Restaurant Accountants & Fractional CFOs</title>
+<meta name="description" content="VAST is restaurant-only accounting and fractional CFO services, led by a CPA who actually owns restaurants. Book an intro call." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,700;0,800;0,900;1,800;1,900&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="landing.css" />
+</head>
+<body>
+<div id="root"></div>
+<template id="__bundler_thumbnail">
+<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+<rect width="100" height="100" fill="#DBD300"/>
+<text x="50" y="60" font-family="Archivo, sans-serif" font-weight="900" font-size="30" fill="#111" text-anchor="middle">Vast</text>
+<circle cx="64.5" cy="40" r="2.6" fill="#111"/>
+</svg>
+</template>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="photo-data.js"></script>
+<script type="text/babel" src="components.jsx"></script>
+<script type="text/babel">
+const { useState } = React;
+
+// Two hero directions to A/B test
+function HeroA() {
+  return (
+    <Hero
+      theme="t-black"
+      sticker={<span>Does your restaurant accountant do <span className="it">this?</span></span>}
+      headline={<span>YOUR ACCOUNTANT HAS NEVER WORKED A <span className="mark">FRIDAY RUSH.</span></span>}
+      sub="VAST is accounting and fractional CFO services built only for restaurants, led by a CPA who actually owns them. We read your P&L like a line cook reads a ticket."
+      photo="assets/photo-tanya-kitchen.png"
+      photoBadge={<span>CPA + Restaurant owner</span>}
+      trust="20+ years · Restaurant-only · Reno, NV"
+    />
+  );
+}
+function HeroB() {
+  return (
+    <Hero
+      theme="t-black"
+      solo
+      sticker={<span>Restaurant-only accounting &amp; CFO</span>}
+      stickerTheme="s-aqua"
+      headline={<span>FINALLY KNOW WHERE YOUR <span className="mark-aqua">MONEY</span> IS GOING.</span>}
+      sub="From the FICA tip credit to food cost to labor creep, VAST finds the money your generic accountant misses, and hands you a plan to keep more of it."
+      primaryTheme="btn-aqua"
+      trust="Trusted by multi-unit operators · Led by Tanya McCaffery, CPA"
+    />
+  );
+}
+
+function Page() {
+  const [variant, setVariant] = useState("A");
+  return (
+    <React.Fragment>
+      <Nav dark />
+      {variant === "A" ? <HeroA /> : <HeroB />}
+
+      <ProblemBand
+        eyebrow="The generic-accountant problem"
+        title={<span>Most accountants do your taxes. <span className="it">That's it.</span></span>}
+        items={[
+          { q: "Find the FICA tip credit?", a: "The payroll tax you overpay on tips, recoverable, and routinely missed." },
+          { q: "Know your prime cost target?", a: "Food + labor as a share of sales is the number that makes or breaks a restaurant." },
+          { q: "Catch labor creeping past 32%?", a: "We flag the slow bleed before it shows up in your bank account." },
+          { q: "Speak operator, not just accountant?", a: "Tanya has run the line. Your numbers get translated into decisions." },
+        ]}
+      />
+
+      <Services
+        eyebrow="What VAST does"
+        title="Everything your restaurant's finances need, in one team."
+        intro="Bookkeeping that's actually clean, taxes handled on time, and CFO-level strategy when you're ready to grow."
+        cards={[
+          { icon: "receipt", title: "Restaurant bookkeeping", body: "Clean, current books with restaurant-specific categorization, prime cost, comps, and tips done right." },
+          { icon: "scale", title: "Tax planning & filing", body: "On-time filing plus proactive strategy: FICA tip credit, depreciation, deductions most firms overlook." },
+          { icon: "trend", title: "Fractional CFO", body: "Cash flow, forecasting, and expansion strategy, CFO firepower without the full-time hire." },
+          { icon: "chart", title: "Margin & menu insight", body: "Food cost, labor, and pricing reviewed against real restaurant benchmarks." },
+          { icon: "clock", title: "Payroll-tax recovery", body: "We make sure tipped-wage credits and payroll savings actually land in your pocket." },
+          { icon: "users", title: "A partner, not a portal", body: "A dedicated team that knows your restaurant, Start, Fix, or Grow, we meet you where you are." },
+        ]}
+      />
+
+      <TanyaProof theme="t-cream" />
+
+      <Stats
+        theme="t-yellow"
+        stats={[
+          { n: "20+", l: "Years in accounting & finance" },
+          { n: "1,000s", l: "Restaurant P&Ls reviewed" },
+          { n: "5", l: "Restaurant concepts co-owned" },
+          { n: "100%", l: "Restaurant-focused. Nothing else." },
+        ]}
+      />
+
+      <Testimonial
+        theme="t-black"
+        quote="I couldn't imagine a better team to work with. They are intentional, thorough, and have set us up for more success than I ever thought possible."
+        cite="Nenada Maslovaric · Old Barrel Tea Company"
+      />
+
+      <FAQ
+        theme="t-paper"
+        items={[
+          { q: "Do you only work with restaurants?", a: "Yes. VAST is built exclusively for restaurants and food & beverage businesses, that focus is the whole point. We know your prime cost, tip compliance, and seasonality cold." },
+          { q: "What's the difference between a bookkeeper and a fractional CFO?", a: "A bookkeeper records what already happened. A fractional CFO helps you decide what happens next, cash flow, forecasting, pricing, and expansion. VAST does both under one roof." },
+          { q: "What is the FICA tip credit?", a: "It lets you recoup some of the employer payroll taxes you pay on employee tips. Many owners miss it entirely. We make sure you claim what you're owed." },
+          { q: "How do we get started?", a: "Book an intro call. We'll learn about your restaurant and map you to one of our three tracks, Start, Fix, or Grow." },
+          { q: "Where is VAST located?", a: "We're based in Reno, NV and work with restaurant operators wherever they are, in a secure online environment." },
+        ]}
+      />
+
+      <BookBand
+        theme="t-black"
+        title={<span>Let's find the money your books are <span className="mark-aqua">hiding.</span></span>}
+        intro="Tell us about your restaurant and book a no-pressure intro call with a team that actually speaks operator."
+      />
+
+      <Footer />
+
+      <div className="ab" role="group" aria-label="A/B hero preview">
+        <span>HERO</span>
+        <button className={variant === "A" ? "on" : ""} onClick={() => setVariant("A")}>A</button>
+        <button className={variant === "B" ? "on" : ""} onClick={() => setVariant("B")}>B</button>
+      </div>
+    </React.Fragment>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Page />);
+</script>
+</body>
+</html>

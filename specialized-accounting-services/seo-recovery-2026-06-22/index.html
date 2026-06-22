@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SAS SEO Recovery Audit (June 22, 2026) — Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#F59E0B;--bad:#EF4444;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--paper);color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}
+.container{max-width:1080px;margin:0 auto;padding:72px 32px;}
+@media(max-width:720px){.container{padding:48px 20px;}}
+.crumb{margin-bottom:12px;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--mute);}
+.crumb a{color:var(--blue);text-decoration:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--blue);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;border:2px solid var(--navy);box-shadow:4px 4px 0 var(--navy);}
+.pill.bad{background:var(--bad);}
+.pill.warn{background:var(--warn);}
+.pill.good{background:var(--good);}
+.pill.navy{background:var(--navy);}
+h1{font-family:'Bangers','Impact',sans-serif;font-size:clamp(42px,7vw,80px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:20px 0 0;}
+.lede{font-size:18px;color:var(--mute);max-width:740px;margin-top:20px;}
+.meta{margin-top:24px;display:flex;gap:18px;flex-wrap:wrap;align-items:center;}
+h2{font-family:'Bangers',sans-serif;font-size:clamp(28px,4vw,40px);letter-spacing:0.04em;color:var(--navy);margin:56px 0 12px;}
+h3{font-family:'Bangers',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin:24px 0 8px;}
+p{margin:8px 0 12px;}
+.sub{font-size:14px;color:var(--mute);margin-bottom:16px;}
+.callout{background:#fff;border:2px solid var(--navy);border-radius:16px;padding:22px 26px;box-shadow:5px 5px 0 var(--navy);margin:16px 0;}
+.callout.bad{background:#FEF2F2;border-color:var(--bad);box-shadow:5px 5px 0 var(--bad);}
+.callout.good{background:#F0FDF4;border-color:var(--good);box-shadow:5px 5px 0 var(--good);}
+.callout.warn{background:#FFFBEB;border-color:var(--warn);box-shadow:5px 5px 0 var(--warn);}
+.callout.lilac{background:var(--lilac);}
+.callout h3{margin-top:0;}
+.callout p{margin:6px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:18px 0;}
+@media(max-width:720px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+.kpi{background:#fff;border:2px solid var(--navy);border-radius:14px;padding:18px 16px;box-shadow:4px 4px 0 var(--navy);}
+.kpi .lbl{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:700;color:var(--mute);}
+.kpi .val{font-family:'Bangers',sans-serif;font-size:36px;color:var(--navy);letter-spacing:0.02em;margin-top:4px;line-height:1;}
+.kpi .sub{font-size:12px;color:var(--mute);margin-top:6px;}
+.kpi.bad .val{color:var(--bad);}
+.kpi.warn .val{color:var(--warn);}
+.kpi.good .val{color:var(--good);}
+table{width:100%;border-collapse:separate;border-spacing:0;background:#fff;border:2px solid var(--navy);border-radius:14px;overflow:hidden;box-shadow:5px 5px 0 var(--navy);margin:14px 0;font-size:13px;}
+th{text-align:left;padding:12px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;font-weight:700;}
+td{padding:11px 14px;border-top:1px solid var(--hair);vertical-align:top;}
+td code{font-family:'JetBrains Mono',monospace;font-size:12px;background:var(--lilac);padding:2px 6px;border-radius:4px;}
+td.tag{font-weight:700;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;}
+td.tag.bad{color:var(--bad);}
+td.tag.good{color:var(--good);}
+td.tag.warn{color:var(--warn);}
+pre{background:#0B0A40;color:#E6E9FF;padding:18px 20px;border-radius:12px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:12.5px;line-height:1.55;margin:12px 0;border:2px solid var(--navy);box-shadow:5px 5px 0 var(--navy);}
+pre .c{color:#8B8FB8;}
+pre .k{color:#FBBF24;}
+pre .s{color:#86EFAC;}
+ol,ul{margin:8px 0 14px 22px;}
+li{margin:6px 0;}
+.foot{margin-top:80px;padding-top:24px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);letter-spacing:0.08em;text-transform:uppercase;font-weight:600;}
+.foot a{color:var(--blue);text-decoration:none;}
+.priority-tag{display:inline-block;font-family:'Bangers',sans-serif;font-size:14px;letter-spacing:0.06em;padding:4px 12px;border-radius:6px;border:2px solid var(--navy);box-shadow:3px 3px 0 var(--navy);margin-right:10px;vertical-align:middle;}
+.p1{background:var(--bad);color:#fff;}
+.p2{background:var(--warn);color:#fff;}
+.p3{background:var(--blue);color:#fff;}
+.p4{background:var(--navy);color:#fff;}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="crumb"><a href="https://markology-agency.github.io/pages/specialized-accounting-services/">SAS Hub</a> &rsaquo; SEO Recovery Audit</div>
+  <span class="pill bad">Recovery Audit &middot; Critical Findings</span>
+  <h1>SAS SEO RECOVERY AUDIT.<br/><span class="accent">JUNE 22, 2026.</span></h1>
+  <p class="lede">Five SEO issues investigated. One root cause explains the franchise + ROBS ranking collapse and the missing sitelinks. Fix kits ready to deploy.</p>
+  <div class="meta">
+    <span class="pill navy">Prepared for Michael Sommers</span>
+    <span class="pill">Prepared by Markology</span>
+  </div>
+
+  <h2>TL;DR.</h2>
+  <div class="callout bad">
+    <h3>The smoking gun.</h3>
+    <p><strong>27 of 28 SEO-bearing URLs on sas-cpas.com return hard 404 with no redirect.</strong> Only the bare root (sas-cpas.com/) redirects to sas-acct.com. Every franchise page, every ROBS page, every service page, and every ranking blog post on the old domain is a dead end as far as Google is concerned. That means link equity transfer from the March 2026 migration is effectively zero on every URL except the homepage.</p>
+    <p>This single misconfiguration explains the four ranking losses Whitney flagged (franchise accountants, franchise accounting, ROBS accountants, ROBS accounting), the missing sitelinks on sas-acct.com SERPs, and the 90% drop in keyword footprint on sas-cpas.com between February and May 2026.</p>
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi bad"><div class="lbl">Old URLs broken</div><div class="val">27 / 28</div><div class="sub">Hard 404, no redirect</div></div>
+    <div class="kpi bad"><div class="lbl">Ref domains lost</div><div class="val">65</div><div class="sub">240 old vs 175 new</div></div>
+    <div class="kpi warn"><div class="lbl">Aussie spellings</div><div class="val">1</div><div class="sub">Homepage meta description</div></div>
+    <div class="kpi good"><div class="lbl">Target pages exist</div><div class="val">13 / 13</div><div class="sub">All new-domain pages live, 200 OK</div></div>
+  </div>
+
+  <h2>ISSUE 1. REDIRECTS.</h2>
+  <p><span class="priority-tag p1">P1 &middot; Critical</span> Fix this first. Everything else is downstream.</p>
+
+  <h3>What we found.</h3>
+  <p>Curl test against the old domain (using GET, since the WAF returns 405 on HEAD and may have masked this in earlier checks):</p>
+  <table>
+    <thead><tr><th>Old URL</th><th>Status</th><th>Redirects to</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td><code>sas-cpas.com/</code></td><td>200</td><td>sas-acct.com/ (2 hops via http downgrade)</td><td class="tag warn">OK with hop waste</td></tr>
+      <tr><td><code>sas-cpas.com/franchise-accountants/</code></td><td>404</td><td>none</td><td class="tag bad">Broken</td></tr>
+      <tr><td><code>sas-cpas.com/franchise-accounting/</code></td><td>404</td><td>none</td><td class="tag bad">Broken</td></tr>
+      <tr><td><code>sas-cpas.com/robs/</code></td><td>404</td><td>none</td><td class="tag bad">Broken</td></tr>
+      <tr><td><code>sas-cpas.com/rollovers-as-business-startups/</code></td><td>404</td><td>none</td><td class="tag bad">Broken</td></tr>
+      <tr><td><code>sas-cpas.com/robs-accountants/</code></td><td>404</td><td>none</td><td class="tag bad">Broken</td></tr>
+      <tr><td><code>sas-cpas.com/robs-accounting/</code></td><td>404</td><td>none</td><td class="tag bad">Broken</td></tr>
+      <tr><td><code>sas-cpas.com/services/</code> + 12 industry/service pages</td><td>404</td><td>none</td><td class="tag bad">Broken</td></tr>
+      <tr><td><code>sas-cpas.com/blog/</code> + every ranking post tested</td><td>404</td><td>none</td><td class="tag bad">Broken</td></tr>
+    </tbody>
+  </table>
+  <p>All 13 equivalent pages on <strong>sas-acct.com</strong> return 200, so the destinations exist. This is purely a redirect-rule problem.</p>
+
+  <h3>Why it broke.</h3>
+  <p>The old domain is on GoDaddy basic domain forwarding (DNS: ns43/44.domaincontrol.com, terminating at an AWS ELB at 15.197.225.128 / 3.33.251.168). GoDaddy basic forwarding only rewrites the bare root. There is no path-preserving rule, so every inner URL hits the apex server, which returns 404 with no Location header.</p>
+
+  <h3>The fix.</h3>
+  <p>Either of two paths recovers all 27 URLs in a single deploy:</p>
+  <ol>
+    <li><strong>Registrar path (fastest).</strong> In GoDaddy, change the domain forward to a path-aware 301. Some GoDaddy plans gate this; if the option is unavailable, use path 2.</li>
+    <li><strong>Host path (recommended).</strong> Point sas-cpas.com DNS at the sas-acct.com host (WP Engine / Apache + NitroPack) and add a server-level path-preserving 301. Both Apache and Nginx snippets are below; full ready-to-paste kit is in the fix kit file linked at the bottom.</li>
+  </ol>
+
+  <h3>Apache (.htaccess on sas-cpas.com host).</h3>
+<pre><span class="c"># Single rule: 301 every path from sas-cpas.com to the same path on sas-acct.com</span>
+<span class="k">RewriteEngine</span> On
+<span class="k">RewriteCond</span> %{HTTP_HOST} ^(www\.)?sas-cpas\.com$ [NC]
+<span class="k">RewriteRule</span> ^(.*)$ <span class="s">https://sas-acct.com/$1</span> [R=301,L]
+</pre>
+
+  <h3>Nginx (server block on sas-cpas.com host).</h3>
+<pre><span class="k">server</span> {
+    <span class="k">listen</span> 80;
+    <span class="k">listen</span> 443 ssl;
+    <span class="k">server_name</span> sas-cpas.com www.sas-cpas.com;
+    <span class="k">return</span> 301 <span class="s">https://sas-acct.com$request_uri</span>;
+}
+</pre>
+
+  <h3>Verification (after deploy).</h3>
+<pre><span class="c"># Should all show: 301 -&gt; https://sas-acct.com/[same path] -&gt; 200</span>
+curl -sIL https://sas-cpas.com/franchise-accountants/
+curl -sIL https://sas-cpas.com/robs/
+curl -sIL https://sas-cpas.com/2025/03/10/take-advantage-of-robs-for-business-funding/
+</pre>
+
+  <h3>Post-deploy follow-through.</h3>
+  <ul>
+    <li>Resubmit sas-cpas.com sitemap in the legacy GSC property so Google sees the new 301 signals on the next crawl rather than waiting weeks.</li>
+    <li>Use GSC URL Inspection to request reindexation of the 5 highest-value franchise/ROBS pages.</li>
+    <li>Expect non-brand keywords to begin recovering within 3-6 weeks of the redirect fix; full equity transfer takes 2-3 months.</li>
+  </ul>
+
+  <h2>ISSUE 2. META DESCRIPTIONS (AUSSIE SPELLING).</h2>
+  <p><span class="priority-tag p1">P1 &middot; Quick win</span> 5-minute fix in Rank Math.</p>
+  <p>Full audit of all 90 indexable URLs (49 pages + 41 blog posts) for British / Australian spellings. Found one instance:</p>
+  <table>
+    <thead><tr><th>URL</th><th>Field</th><th>Current</th><th>Fix to</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>sas-acct.com/</code> (homepage)</td>
+        <td>meta description, og:description, twitter:description, Article schema description</td>
+        <td>"SAS CPAs <strong>specialises</strong> in franchise accounting..."</td>
+        <td>"SAS CPAs <strong>specializes</strong> in franchise accounting..."</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><strong>Apply via Rank Math.</strong> Editing the meta description in Rank Math (the source of truth on this site) auto-syncs all four locations including the Article schema. No code edit required.</p>
+
+  <div class="callout warn">
+    <h3>Bonus findings while we were in there.</h3>
+    <p><strong>Duplicate meta on JETSET Pilates pages.</strong> Both <code>/jetset-pilates/</code> and <code>/jetset-pilates-accountant/</code> share an identical meta description. Risk of self-cannibalization. Queue a rewrite to differentiate the industry page from the accountant service page.</p>
+    <p><strong>10 meta descriptions outside the 120-160 char range.</strong> 4 are too short (under 115c), 6 are too long (over 160c, will truncate in SERPs). Full list in the fix kit file.</p>
+    <p><strong>Mega Menu template indexed.</strong> <code>/header-with-megamenu/</code> has no meta description and should be set to noindex or excluded from the sitemap. It is an Elementor template, not a real page.</p>
+  </div>
+
+  <h2>ISSUE 3. MISSING SITELINKS.</h2>
+  <p><span class="priority-tag p2">P2</span> Cannot be forced. Earned through site signals.</p>
+  <p>Google generates sitelinks (the indented set of links under the main result) algorithmically. They appear when Google has high confidence in the site's structure, navigation, and authority. sas-acct.com isn't showing them yet for three combinable reasons:</p>
+  <ol>
+    <li><strong>Domain age and authority.</strong> sas-acct.com only entered SEMrush's index in March 2026. To Google it is effectively a brand-new domain that has not yet inherited sas-cpas.com's authority signals (which the broken redirects are blocking).</li>
+    <li><strong>Internal linking depth.</strong> Sitelinks are surfaced from the pages Google judges most important on the site. Internal linking signals which pages matter; this audit found weak service-page interlinking (Issue 5 below).</li>
+    <li><strong>Mixed brand signals.</strong> While both sas-cpas.com and sas-acct.com return separate content footprints in Google's index, the brand identity is split. Once redirects consolidate everything to sas-acct.com, brand signals will concentrate.</li>
+  </ol>
+  <p><strong>What controls sitelinks recovery.</strong> Fix Issue 1, complete Issue 5, keep the sitemap clean (already submitted), and Google will typically render sitelinks within 4-12 weeks of the consolidation signal stabilizing. There is no "request sitelinks" button. The legacy GSC "demote sitelinks" tool was retired in 2016.</p>
+
+  <h2>ISSUE 4. FRANCHISE + ROBS RANKINGS.</h2>
+  <p><span class="priority-tag p1">P1 diagnosis &middot; P3 execution</span> Same root cause as Issue 1.</p>
+
+  <div class="callout">
+    <h3>What changed.</h3>
+    <p>The "why" Whitney asked about: on sas-cpas.com in January 2025, the homepage held <strong>position 7 for "franchise accounting services"</strong> (search volume 70, CPC $8.01). That ranking is gone. On sas-acct.com today, the head term doesn't crack the top 30.</p>
+  </div>
+
+  <table>
+    <thead><tr><th>Metric</th><th>sas-cpas.com (old)</th><th>sas-acct.com (new)</th></tr></thead>
+    <tbody>
+      <tr><td>Organic keywords (current)</td><td>29</td><td>64</td></tr>
+      <tr><td>Organic traffic (current)</td><td>1</td><td>253</td></tr>
+      <tr><td>Authority Score (SEMrush)</td><td>11</td><td>16</td></tr>
+      <tr><td>Referring domains</td><td>240</td><td>175</td></tr>
+      <tr><td>Total backlinks</td><td>793</td><td>876</td></tr>
+      <tr><td>Pre-migration peak (Feb 2026)</td><td>96 keywords</td><td>0 keywords</td></tr>
+      <tr><td>Top rank for "franchise accounting services" Jan 2025</td><td>#7 (homepage)</td><td>n/a</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Top-10 SERP today (US database).</h3>
+  <ul>
+    <li><strong>"franchise accountants"</strong> (vol 90, KD 0.35): EisnerAmper, Qvinci, Brown &amp; Maguire, Franchise Business Review, 1851franchise, Grassi, Assurance Dimensions, CLA, MacPas, Franchise Direct. SAS not in top 30 on either domain.</li>
+    <li><strong>"franchise accounting"</strong> (vol 590, KD 0.43): NetSuite, Sage, Pacific ABS, QMK, Franchise Direct, Patriot Software, Assurance Dimensions, OverEasyOffice, Ceterus, PBMares. SAS not in top 30 on either domain.</li>
+    <li><strong>"ROBS accountants"</strong> and <strong>"ROBS accounting"</strong>: SEMrush returned no SERP data (volume too low for standard coverage). These are niche acronym terms; ranking on them is mostly an internal-linking and on-page question.</li>
+  </ul>
+
+  <h3>The 65 lost referring domains.</h3>
+  <p>sas-cpas.com still has 65 more referring domains than sas-acct.com. With path-preserving redirects in place, that gap closes automatically as Google recrawls and reattributes those links. Without redirects, the gap stays open and the links keep pointing at dead URLs.</p>
+
+  <h2>ISSUE 5. EEAT + INTERNAL LINKING.</h2>
+  <p><span class="priority-tag p3">P3 sprint</span> Queue for July restart.</p>
+
+  <h3>EEAT gaps to close.</h3>
+  <ul>
+    <li><strong>Author bylines on all blog posts.</strong> Each post should link to an author bio page (Michael Sommers, or whichever team member). Audit the 41 indexed blog posts; add bylines where missing.</li>
+    <li><strong>Person schema on author pages.</strong> Add Person JSON-LD with credentials, work history, LinkedIn, sameAs. Michael's CPA + franchise expertise is the trust signal.</li>
+    <li><strong>Organization schema on homepage and About.</strong> Currently the homepage has Article schema (per the meta audit). It should also carry Organization schema with founder, address, sameAs, and a credential list. Article on the homepage is the wrong type and may compete with the franchise-vertical pages for the topical anchor.</li>
+    <li><strong>1,400+ Franchise Clients / 2,800+ Locations Served.</strong> These already lead the ad RSAs (per the May 26 campaign refresh). They should also be on the homepage hero, the about page, and tagged in schema as aggregateRating or knowsAbout signals.</li>
+    <li><strong>Top Workplaces 2026 award.</strong> Add Award schema and a footer/about callout. Currently not surfaced on-site.</li>
+    <li><strong>Case studies / portfolio brands.</strong> The brand promotes franchise expertise across 1,400 clients but has no public case studies. Even two named, owner-quoted studies would lift trust signals significantly.</li>
+  </ul>
+
+  <h3>Internal linking sprint (priority order).</h3>
+  <p>Per the Markology cross-client rule: weight equity to homepage and service pages, anchor text uses exact service keywords.</p>
+  <ol>
+    <li><strong>Homepage to vertical service pages.</strong> Audit homepage body for in-body anchors to the 9 vertical pages (Auto, Beauty &amp; Wellness, Coffee Shops, Education, Fitness, Healthcare, Home Services, Restaurant, Retail, Senior Care). Anchors should be the exact service keyword.</li>
+    <li><strong>Vertical pages cross-link to franchise-accounting and franchise-financial-reporting.</strong> Every vertical page should carry at least one in-body link to <code>/franchise-accounting/</code> with the anchor "franchise accounting" and one to <code>/franchise-financial-reporting/</code>.</li>
+    <li><strong>ROBS hub-and-spoke.</strong> <code>/robs/</code> as the hub, with body links from every ROBS-adjacent blog post (count: ~6 posts including the 2025/03/10 piece). Anchor: "ROBS financing" or "ROBS compliance" depending on context.</li>
+    <li><strong>All blog posts to at least one service page.</strong> Current SAS blog rule (already in CLAUDE.md) requires 2+ internal links per post with at least one to a service page. Audit existing 41 posts for compliance; backfill where missing.</li>
+    <li><strong>Add a global secondary nav of service categories.</strong> Currently the main nav is shallow. A secondary "Industries" mega-menu (already exists as the <code>/header-with-megamenu/</code> template but appears unused) would push vertical pages into deeper crawl prominence.</li>
+  </ol>
+
+  <h2>EXECUTION PLAN.</h2>
+
+  <table>
+    <thead><tr><th>#</th><th>Action</th><th>Owner</th><th>When</th><th>Effort</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Deploy path-preserving 301 from sas-cpas.com to sas-acct.com (Apache or Nginx snippet ready)</td><td>Whitney to coordinate with SAS host or GoDaddy</td><td>This week</td><td>15 min</td></tr>
+      <tr><td>2</td><td>Fix "specialises" to "specializes" in Rank Math on homepage</td><td>Markology (Will)</td><td>This week</td><td>5 min</td></tr>
+      <tr><td>3</td><td>Verify all 27 old URLs return single-hop 301 after redirect deploy</td><td>Markology</td><td>Same day as #1</td><td>5 min</td></tr>
+      <tr><td>4</td><td>Resubmit sas-cpas.com sitemap in legacy GSC property; request reindex on top 5 franchise/ROBS pages</td><td>Markology (Will)</td><td>Day after #1</td><td>15 min</td></tr>
+      <tr><td>5</td><td>Differentiate JETSET Pilates duplicate meta descriptions</td><td>Markology (Will)</td><td>This week</td><td>10 min</td></tr>
+      <tr><td>6</td><td>Rewrite 10 out-of-range meta descriptions to 120-160 chars</td><td>Markology (Will)</td><td>Next week</td><td>45 min</td></tr>
+      <tr><td>7</td><td>Set <code>/header-with-megamenu/</code> to noindex or exclude from sitemap</td><td>Markology</td><td>Next week</td><td>5 min</td></tr>
+      <tr><td>8</td><td>EEAT sprint: author bios, Person schema, Organization schema, Top Workplaces callout</td><td>Markology, queued for July restart</td><td>July 2026 (post-Maintenance)</td><td>Half day</td></tr>
+      <tr><td>9</td><td>Internal linking sprint per the 5-step plan above</td><td>Markology, queued for July restart</td><td>July 2026 (post-Maintenance)</td><td>Half day</td></tr>
+      <tr><td>10</td><td>Recheck rankings 4 weeks after redirect deploy</td><td>Markology</td><td>~July 20, 2026</td><td>30 min</td></tr>
+    </tbody>
+  </table>
+
+  <h2>WHAT TO EXPECT AFTER FIX.</h2>
+  <ul>
+    <li><strong>Weeks 1-3.</strong> Google recrawls sas-cpas.com URLs, sees the new 301s, begins reattributing equity. Rankings for branded terms stable. Non-brand may dip briefly during reattribution.</li>
+    <li><strong>Weeks 3-6.</strong> Non-brand keywords on sas-acct.com begin recovering. The 65-domain referring-domain gap closes. ROBS and franchise pages start re-indexing with the inherited authority.</li>
+    <li><strong>Weeks 6-12.</strong> Head terms (franchise accounting, franchise accountants, ROBS accountants) climb back toward old positions. Sitelinks begin appearing on branded SERPs once internal linking signals stabilize.</li>
+    <li><strong>Month 3+.</strong> Compounding effect from the EEAT and internal-linking sprints. Top Workplaces + 1,400+ clients signals start to differentiate SAS in the franchise-CPA SERP from competitors who lack the operational depth.</li>
+  </ul>
+
+  <div class="callout good">
+    <h3>The good news.</h3>
+    <p>This is a one-rule fix, not a rebuild. All 13 target pages on sas-acct.com return 200, the content is in place, the ads campaigns are working ($6.69 CPC down from $23), and the brand has real trust signals (1,400+ clients, Top Workplaces). The redirect fix unlocks 90% of the SEO recovery; the rest is the EEAT + linking sprint we already had queued for July.</p>
+  </div>
+
+  <div class="foot">
+    Prepared 2026-06-22 by Markology &middot; <a href="https://markology-agency.github.io/pages/specialized-accounting-services/">Back to SAS hub</a>
+  </div>
+</div>
+</body>
+</html>

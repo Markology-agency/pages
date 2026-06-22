@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vast FICA Tip Credit Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#FFF4D8;font-family:'Hanken Grotesk',-apple-system,sans-serif;color:#1d1d1d;-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.5;padding:24px}
+.calc{display:grid;grid-template-columns:1fr 360px;gap:0;background:#fff;border:1px solid #e7e6e1;max-width:1100px;margin:0 auto}
+.inputs{padding:30px 32px}
+.output{padding:36px 32px;background:#111;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.eyebrow{font-family:'Archivo',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:#6b6b66;margin-bottom:22px}
+.output .eyebrow{color:#4AFEE5;margin-bottom:10px}
+.field{margin-bottom:24px}
+.field:last-child{margin-bottom:0}
+.field label{display:flex;justify-content:space-between;align-items:baseline;font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px}
+.field label .v{font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:18px;text-transform:none;letter-spacing:0;color:#111}
+.field input[type=range]{width:100%;-webkit-appearance:none;appearance:none;background:transparent;height:30px;cursor:pointer}
+.field input[type=range]::-webkit-slider-runnable-track{height:6px;background:#e7e6e1}
+.field input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;background:#111;margin-top:-8px;cursor:pointer}
+.field input[type=range]::-moz-range-track{height:6px;background:#e7e6e1}
+.field input[type=range]::-moz-range-thumb{width:22px;height:22px;background:#111;border:0;border-radius:0;cursor:pointer}
+.field input[type=range]:focus{outline:none}
+.amount{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(54px,8vw,84px);line-height:.95;letter-spacing:-.025em;color:#DBD300}
+.amount-sub{font-size:14px;line-height:1.5;color:rgba(255,255,255,.78);margin-top:14px;max-width:280px}
+.cta{display:inline-flex;align-items:center;gap:10px;background:#DBD300;color:#111;padding:14px 22px;text-decoration:none;font-family:'Archivo',sans-serif;font-weight:700;font-size:14px;margin-top:24px}
+.cta:hover{background:#C7BF00}
+.fine{margin-top:18px;font-size:11px;color:#6b6b66;line-height:1.5;max-width:1100px;margin-left:auto;margin-right:auto;text-align:center}
+@media(max-width:780px){.calc{grid-template-columns:1fr}.inputs,.output{padding:24px}.amount{font-size:64px}}
+</style>
+</head>
+<body>
+<div class="calc">
+  <div class="inputs">
+    <div class="eyebrow">Estimate your credit</div>
+
+    <div class="field">
+      <label>Tipped employees <span class="v" id="vEmp">12</span></label>
+      <input type="range" id="emp" min="1" max="60" step="1" value="12">
+    </div>
+
+    <div class="field">
+      <label>Avg hours / week / employee <span class="v" id="vHrs">32</span></label>
+      <input type="range" id="hrs" min="10" max="50" step="1" value="32">
+    </div>
+
+    <div class="field">
+      <label>Avg tips / week / employee <span class="v"><span style="font-weight:400">$</span><span id="vTips">350</span></span></label>
+      <input type="range" id="tips" min="50" max="1500" step="10" value="350">
+    </div>
+  </div>
+
+  <div class="output">
+    <div class="eyebrow">Estimated annual credit</div>
+    <div class="amount" id="annual">$0</div>
+    <div class="amount-sub">A federal credit on the employer's share of payroll tax paid on tipped wages. Refunded against your income-tax bill.</div>
+    <a class="cta" href="https://www.vastcfo.com/restaurant-fica-tip-credit/#lead-form" target="_top">Claim it with VAST &rarr;</a>
+  </div>
+</div>
+<p class="fine">Estimate assumes a $2.13/hr cash wage (federal tipped minimum). Credit is 7.65% of weekly tips above the wage floor &times; 52 weeks &times; employees. Real number depends on per-employee payroll records and state wage rules. Higher cash wages = higher credit.</p>
+<script>
+(function(){
+  var emp=document.getElementById('emp'), hrs=document.getElementById('hrs'), tips=document.getElementById('tips');
+  var vEmp=document.getElementById('vEmp'), vHrs=document.getElementById('vHrs'), vTips=document.getElementById('vTips');
+  var annual=document.getElementById('annual');
+  var CASH_WAGE=2.13, WAGE_FLOOR=5.15, FICA=0.0765;
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function calc(){
+    var nEmp=+emp.value, h=+hrs.value, t=+tips.value;
+    vEmp.textContent=nEmp; vHrs.textContent=h; vTips.textContent=t;
+    var subsidy=Math.max(0,(WAGE_FLOOR-CASH_WAGE)*h);
+    var creditable=Math.max(0, t-subsidy);
+    var total=creditable*FICA*52*nEmp;
+    annual.textContent=fmt(total);
+  }
+  [emp,hrs,tips].forEach(function(el){el.addEventListener('input',calc)});
+  calc();
+})();
+</script>
+</body>
+</html>

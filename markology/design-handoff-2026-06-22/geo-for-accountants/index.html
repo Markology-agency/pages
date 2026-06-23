@@ -103,14 +103,24 @@
   .mk-geo .shift-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:center; }
   .mk-geo .shift h2{ font-size:clamp(32px,4.4vw,56px); margin:0; }
   .mk-geo .shift p{ font-size:17px; color:var(--mute); line-height:1.65; margin:20px 0 0; max-width:48ch; }
-  .mk-geo .shift-stat{ background:var(--navy); color:#fff; border-radius:26px; padding:44px 40px; text-align:center;
+  .mk-geo .shift-stat{ background:var(--navy); color:#fff; border-radius:26px; padding:36px 36px;
     box-shadow:0 40px 80px -38px rgba(7,6,48,.5); }
-  .mk-geo .shift-stat .big{ font-family:'Anton',sans-serif; font-size:clamp(72px,9vw,120px); line-height:.9; color:#fff; }
-  .mk-geo .shift-stat .lbl{ font-size:15px; color:var(--muted-d); margin-top:14px; line-height:1.5; }
-  .mk-geo .shift-stat .rule{ height:1px; background:rgba(255,255,255,.12); margin:26px 0; }
-  .mk-geo .shift-stat .mini{ display:flex; justify-content:space-around; gap:16px; }
-  .mk-geo .shift-stat .mini .m-n{ font-family:'Anton',sans-serif; font-size:30px; color:var(--blue-l); line-height:1; }
-  .mk-geo .shift-stat .mini .m-l{ font-size:11px; color:var(--muted-d); margin-top:6px; text-transform:uppercase; letter-spacing:.08em; }
+  .mk-geo .shift-stat .donut-row{ display:flex; align-items:center; gap:22px; margin-bottom:20px; }
+  .mk-geo .shift-stat .donut-wrap{ position:relative; width:90px; height:90px; flex-shrink:0; }
+  .mk-geo .shift-stat .donut-wrap svg{ width:90px; height:90px; transform:rotate(-90deg); }
+  .mk-geo .shift-stat .donut-track{ fill:none; stroke:rgba(255,255,255,.10); stroke-width:10; }
+  .mk-geo .shift-stat .donut-fill{ fill:none; stroke:var(--blue-l); stroke-width:10; stroke-linecap:round;
+    stroke-dasharray:0 189; transition:stroke-dasharray 1.4s cubic-bezier(.4,0,.2,1); }
+  .mk-geo .shift-stat .donut-fill.animated{ stroke-dasharray:63 189; }
+  .mk-geo .shift-stat .donut-label{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .mk-geo .shift-stat .donut-num{ font-family:'Anton',sans-serif; font-size:20px; line-height:1; color:#fff; }
+  .mk-geo .shift-stat .donut-sub{ font-size:9px; text-transform:uppercase; letter-spacing:.08em; color:var(--blue-l); font-weight:700; margin-top:3px; }
+  .mk-geo .shift-stat .donut-text .big-label{ font-family:'Anton',sans-serif; font-size:22px; color:#fff; line-height:1.1; margin-bottom:6px; }
+  .mk-geo .shift-stat .donut-text .lbl{ font-size:13px; color:var(--muted-d); line-height:1.5; margin:0; }
+  .mk-geo .shift-stat .rule{ width:100%; height:1px; background:rgba(255,255,255,.12); margin:0 0 18px; }
+  .mk-geo .shift-stat .mini{ display:flex; gap:7px; flex-wrap:wrap; }
+  .mk-geo .shift-stat .mini .pill{ background:rgba(56,114,235,.25); border:1px solid rgba(125,164,244,.3);
+    border-radius:99px; padding:5px 12px; font-size:11px; font-weight:700; color:var(--blue-l); letter-spacing:.03em; }
 
   /* services */
   .mk-geo .svc{ background:var(--paper); padding:104px 0; }
@@ -151,7 +161,7 @@
   .mk-geo .trust-photo .disc{ background:radial-gradient(circle at 50% 30%, #5d88f0 0%, var(--blue) 70%); border-radius:26px;
     aspect-ratio:82/100; overflow:hidden; display:flex; align-items:flex-end; justify-content:center;
     box-shadow:0 34px 70px -34px rgba(56,114,235,.7); }
-  .mk-geo .trust-photo .disc img{ width:100%; height:100%; object-fit:contain; object-position:bottom center; display:block; filter:drop-shadow(0 12px 24px rgba(7,6,48,.25)); }
+  .mk-geo .trust-photo .disc img{ width:100%; height:100%; object-fit:cover; object-position:top center; display:block; }
   .mk-geo .trust-photo .chip{ position:absolute; left:-16px; bottom:-16px; background:var(--navy); color:#fff;
     border-radius:14px; padding:12px 16px; box-shadow:0 18px 38px -16px rgba(7,6,48,.6); }
   .mk-geo .trust-photo .chip b{ font-family:'Anton',sans-serif; font-size:15px; letter-spacing:.02em; display:block; }
@@ -181,8 +191,37 @@
   .mk-geo .cta p{ font-size:18px; color:#EAF0FF; margin:18px auto 0; max-width:46ch; line-height:1.6; }
   .mk-geo .cta-btns{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:36px; }
 
-  /* responsive */
-  @media (max-width:980px){
+  /* ai leads proof */
+  .mk-geo .ai-proof{ background:var(--navy); padding:104px 0; }
+  .mk-geo .ai-proof .sec-head{ text-align:center; max-width:640px; margin:0 auto 56px; }
+  .mk-geo .ai-proof .sec-head .eyebrow{ background:rgba(56,114,235,.25); border-color:rgba(125,164,244,.3); color:var(--blue-l); }
+  .mk-geo .ai-proof h2{ font-size:clamp(34px,4.6vw,60px); color:#fff; }
+  .mk-geo .ai-proof h2 .accent{ color:var(--blue-l); }
+  .mk-geo .ai-proof .sec-head p{ font-size:17px; color:var(--muted-d); margin:16px 0 0; line-height:1.6; }
+  .mk-geo .ai-dash-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  .mk-geo .ai-dash{ background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09); border-radius:18px; overflow:hidden; box-shadow:0 24px 60px -24px rgba(0,0,0,.5); }
+  .mk-geo .ai-dash-head{ display:flex; align-items:center; justify-content:space-between; padding:14px 18px; background:rgba(255,255,255,.06); border-bottom:1px solid rgba(255,255,255,.07); font-size:11.5px; color:var(--muted-d); letter-spacing:.06em; text-transform:uppercase; font-weight:600; }
+  .mk-geo .ai-dash-label{ background:var(--blue); color:#fff; border-radius:6px; padding:3px 10px; font-size:10.5px; font-weight:700; letter-spacing:.04em; }
+  .mk-geo .dash-rows{ padding:10px 0 14px; }
+  .mk-geo .dash-row{ display:flex; align-items:center; justify-content:space-between; padding:7px 18px; font-size:13px; transition:all .2s; }
+  .mk-geo .dash-row:not(.dash-row--ai){ filter:blur(0.4px); opacity:.5; }
+  .mk-geo .dash-row--ai{ background:rgba(56,114,235,.13); border-left:3px solid var(--blue); padding-left:15px; filter:none; opacity:1; }
+  .mk-geo .dash-row--ai .ai-src{ display:flex; align-items:center; gap:8px; font-weight:600; color:#fff; }
+  .mk-geo .dash-row--ai span:last-child{ font-family:'Anton',sans-serif; font-size:17px; color:var(--blue-l); }
+  .mk-geo .dash-row:not(.dash-row--ai) .src-name{ color:rgba(255,255,255,.5); }
+  .mk-geo .dash-row:not(.dash-row--ai) span:last-child{ color:rgba(255,255,255,.35); font-family:'Anton',sans-serif; font-size:15px; }
+  .mk-geo .ai-icon{ display:inline-flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:5px; font-size:9px; font-weight:800; flex-shrink:0; }
+  .mk-geo .ai-icon--oai{ background:#10a37f; color:#fff; }
+  .mk-geo .ai-icon--gpt{ background:#10a37f; color:#fff; }
+  .mk-geo .ai-icon--claude{ background:#D97757; color:#fff; }
+  .mk-geo .ai-icon--reddit{ background:#FF4500; color:#fff; }
+  .mk-geo .ai-icon--perp{ background:#20B2AA; color:#fff; }
+  .mk-geo .ai-proof-note{ text-align:center; margin-top:32px; font-size:13px; color:var(--muted-d); }
+  .mk-geo .ai-proof-note b{ color:#fff; }
+  @media (max-width:860px){ .mk-geo .ai-dash-grid{ grid-template-columns:1fr; } }
+
+
+  @media (max-width:900px){
     .mk-geo .shift-grid{ grid-template-columns:1fr; gap:40px; }
     .mk-geo .svc-grid{ grid-template-columns:1fr 1fr; }
     .mk-geo .steps-grid{ grid-template-columns:1fr; }
@@ -253,16 +292,86 @@
           <p>A growing share of search now happens inside AI chatbots, and it climbs every month. If your firm isn't visible inside ChatGPT, Gemini, and Perplexity as well as Google, you're handing leads to the firms that are. We've already helped firms become the recommended accountant in their niche across Google and AI search.</p>
         </div>
         <div class="shift-stat" data-reveal>
-          <div class="big" data-count="1/3">1/3</div>
-          <div class="lbl">of all search now happens inside AI chatbots, and the share keeps climbing.</div>
+          <div class="donut-row">
+            <div class="donut-wrap">
+              <svg viewBox="0 0 70 70">
+                <circle class="donut-track" cx="35" cy="35" r="30"/>
+                <circle class="donut-fill" cx="35" cy="35" r="30"/>
+              </svg>
+              <div class="donut-label">
+                <div class="donut-num">1/3</div>
+                <div class="donut-sub">AI search</div>
+              </div>
+            </div>
+            <div class="donut-text">
+              <div class="big-label">1 in 3 searches<br/>now happen in AI.</div>
+              <p class="lbl">The share keeps climbing. If you're not there, a competitor is.</p>
+            </div>
+          </div>
           <div class="rule"></div>
           <div class="mini">
-            <div><div class="m-n">ChatGPT</div><div class="m-l">cited</div></div>
-            <div><div class="m-n">Gemini</div><div class="m-l">cited</div></div>
-            <div><div class="m-n">Perplexity</div><div class="m-l">cited</div></div>
+            <span class="pill">ChatGPT</span>
+            <span class="pill">Gemini</span>
+            <span class="pill">Perplexity</span>
+            <span class="pill">Claude</span>
+            <span class="pill">Google AI</span>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- AI LEADS PROOF -->
+  <section class="ai-proof" data-screen-label="AI leads proof">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">Real client data. This month.</span>
+        <h2 class="disp">Your leads are arriving<br /><span class="accent">from ChatGPT and Claude.</span></h2>
+        <p>We track every lead source inside each client's dashboard. Every month, AI platforms send real qualified prospects directly to contact pages. This is what GEO looks like in practice.</p>
+      </div>
+      <div class="ai-dash-grid">
+
+        <!-- Dashboard 1 -->
+        <div class="ai-dash" data-reveal>
+          <div class="ai-dash-head"><div class="ai-dash-label">Client A</div>Contact Page - Source</div>
+          <div class="dash-rows">
+            <div class="dash-row"><span class="src-name">google / organic</span><span>24</span></div>
+            <div class="dash-row"><span class="src-name">(direct) / (none)</span><span>11</span></div>
+            <div class="dash-row"><span class="src-name">google / cpc</span><span>6</span></div>
+            <div class="dash-row dash-row--ai"><span class="ai-src"><span class="ai-icon ai-icon--oai">AI</span>openai / referral</span><span>4</span></div>
+            <div class="dash-row"><span class="src-name">bing / organic</span><span>3</span></div>
+            <div class="dash-row dash-row--ai"><span class="ai-src"><span class="ai-icon ai-icon--gpt">G</span>chatgpt.com / referral</span><span>3</span></div>
+          </div>
+        </div>
+
+        <!-- Dashboard 2 -->
+        <div class="ai-dash" data-reveal>
+          <div class="ai-dash-head"><div class="ai-dash-label">Client B</div>Contact Page &mdash; Source</div>
+          <div class="dash-rows">
+            <div class="dash-row"><span class="src-name">google / organic</span><span>17</span></div>
+            <div class="dash-row"><span class="src-name">(direct) / (none)</span><span>15</span></div>
+            <div class="dash-row"><span class="src-name">google / referral</span><span>4</span></div>
+            <div class="dash-row dash-row--ai"><span class="ai-src"><span class="ai-icon ai-icon--gpt">G</span>chatgpt.com / ai-assistant</span><span>4</span></div>
+            <div class="dash-row dash-row--ai"><span class="ai-src"><span class="ai-icon ai-icon--claude">C</span>claude.ai / ai-assistant</span><span>3</span></div>
+            <div class="dash-row"><span class="src-name">yelp.com / referral</span><span>2</span></div>
+          </div>
+        </div>
+
+        <!-- Dashboard 3 -->
+        <div class="ai-dash" data-reveal>
+          <div class="ai-dash-head"><div class="ai-dash-label">Client C</div>Lead Source &mdash; This Month</div>
+          <div class="dash-rows">
+            <div class="dash-row"><span class="src-name">google / organic</span><span>13</span></div>
+            <div class="dash-row"><span class="src-name">(direct) / (none)</span><span>6</span></div>
+            <div class="dash-row"><span class="src-name">google / cpc</span><span>4</span></div>
+            <div class="dash-row dash-row--ai"><span class="ai-src"><span class="ai-icon ai-icon--gpt">G</span>chatgpt.com / referral</span><span>4</span></div>
+            <div class="dash-row dash-row--ai"><span class="ai-src"><span class="ai-icon ai-icon--reddit">R</span>reddit.com / referral</span><span>3</span></div>
+            <div class="dash-row"><span class="src-name">bing / organic</span><span>2</span></div>
+          </div>
+        </div>
+
+      </div>
+      <p class="ai-proof-note" data-reveal>Actual client dashboards. <b>Real data, every month.</b> We track AI lead sources for every client as a core success indicator.</p>
     </div>
   </section>
 
@@ -342,7 +451,7 @@
     <div class="wrap">
       <div class="trust-card" data-reveal>
         <div class="trust-photo">
-          <div class="disc"><img src="../uploads/whitney-cutout-solid.png" alt="Whitney Hesmer, Markology founder" /></div>
+          <div class="disc"><img src="../uploads/1487f983-8cc4-4c42-b192-c45e9f0f9833-4bfb6360.jpeg" alt="Whitney Hesmer, Markology founder" /></div>
           <div class="chip"><b>Whitney Hesmer</b><span>Founder</span></div>
         </div>
         <div>
@@ -391,6 +500,12 @@
     else{
       var io=new IntersectionObserver(function(en){en.forEach(function(e){ if(e.isIntersecting){e.target.classList.add('is-in'); io.unobserve(e.target);}});},{threshold:.14, rootMargin:'0px 0px -6% 0px'});
       els.forEach(function(e){ io.observe(e); });
+      /* donut animation */
+      var donut=root.querySelector('.donut-fill');
+      if(donut){
+        var dIo=new IntersectionObserver(function(en){if(en[0].isIntersecting){donut.classList.add('animated');dIo.disconnect();}},{threshold:.5});
+        dIo.observe(donut);
+      }
     }
   })();
   </script>

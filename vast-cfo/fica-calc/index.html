@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vast FICA Tip Credit Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800;900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:transparent;font-family:'Hanken Grotesk',-apple-system,sans-serif;color:#1d1d1d;-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.5}
+.calc{display:grid;grid-template-columns:1fr 360px;gap:0;background:#fff;border:1px solid #e7e6e1;max-width:1180px;margin:0 auto}
+.calc-inputs{padding:30px 32px}
+.calc-output{padding:32px;background:#111;color:#fff;display:flex;flex-direction:column;justify-content:space-between;min-height:340px}
+.eyebrow{font-family:'Archivo',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:.08em;font-size:11px;color:#6b6b66;margin-bottom:18px}
+.calc-output .eyebrow{color:#4AFEE5;margin-bottom:14px}
+.field{margin-bottom:22px}
+.field:last-child{margin-bottom:0}
+.field label{display:flex;justify-content:space-between;align-items:baseline;font-family:'Archivo',sans-serif;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.04em;margin-bottom:10px}
+.field label .v{font-family:'Hanken Grotesk',sans-serif;font-weight:700;font-size:18px;text-transform:none;letter-spacing:0;color:#111}
+.field input[type=range]{width:100%;-webkit-appearance:none;appearance:none;background:transparent;height:32px;cursor:pointer}
+.field input[type=range]::-webkit-slider-runnable-track{height:6px;background:#e7e6e1;border-radius:0}
+.field input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:22px;height:22px;background:#111;margin-top:-8px;border-radius:0;cursor:pointer}
+.field input[type=range]:focus{outline:none}
+.field input[type=range]:focus::-webkit-slider-thumb{background:#DBD300;box-shadow:0 0 0 2px #111}
+.field .hint{font-size:12px;color:#6b6b66;margin-top:6px;line-height:1.4}
+.amount{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(46px,7vw,72px);line-height:.95;letter-spacing:-.02em;color:#4AFEE5}
+.amount-label{font-family:'Archivo',sans-serif;font-weight:700;text-transform:uppercase;font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,.7);margin-bottom:6px;margin-top:14px}
+.amount-sub{font-size:14px;line-height:1.45;color:rgba(255,255,255,.78);margin-top:14px}
+.row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:13px}
+.row:last-child{border-bottom:0}
+.row .k{color:rgba(255,255,255,.7)}
+.row .v{font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+.cta{display:inline-flex;align-items:center;gap:10px;background:#DBD300;color:#111;padding:14px 22px;text-decoration:none;font-family:'Archivo',sans-serif;font-weight:700;font-size:14px;margin-top:18px;align-self:flex-start;text-transform:none;border:0;cursor:pointer}
+.cta:hover{background:#C7BF00}
+.footnote{padding:14px 32px 18px;font-size:11px;color:#6b6b66;line-height:1.45;background:#FFF4D8;border-top:1px solid #e7e6e1}
+.footnote strong{color:#111}
+@media(max-width:780px){.calc{grid-template-columns:1fr}.calc-inputs{padding:24px}.calc-output{padding:24px;min-height:auto}}
+</style>
+</head>
+<body>
+<div class="calc">
+  <div class="calc-inputs">
+    <div class="eyebrow">Estimate your credit</div>
+
+    <div class="field">
+      <label>Tipped employees <span class="v"><span id="vEmp">12</span></span></label>
+      <input type="range" id="emp" min="1" max="60" step="1" value="12">
+      <div class="hint">Servers, bartenders, baristas, food runners — anyone who reports tip income.</div>
+    </div>
+
+    <div class="field">
+      <label>Avg hours / week / employee <span class="v"><span id="vHrs">32</span></span></label>
+      <input type="range" id="hrs" min="10" max="50" step="1" value="32">
+    </div>
+
+    <div class="field">
+      <label>Cash hourly wage you pay <span class="v">$<span id="vWage">2.13</span></span></label>
+      <input type="range" id="wage" min="2.13" max="15" step="0.01" value="2.13">
+      <div class="hint">$2.13 = federal tipped minimum. Some states require higher.</div>
+    </div>
+
+    <div class="field">
+      <label>Avg reported tips / week / employee <span class="v">$<span id="vTips">350</span></span></label>
+      <input type="range" id="tips" min="50" max="1500" step="10" value="350">
+    </div>
+  </div>
+
+  <div class="calc-output">
+    <div>
+      <div class="eyebrow">Estimated annual FICA tip credit</div>
+      <div class="amount" id="annual">$0</div>
+      <div class="amount-sub">A federal credit on the employer's share of payroll tax paid on tipped wages. Refunds dollar-for-dollar against your income-tax bill.</div>
+
+      <div class="amount-label">Breakdown</div>
+      <div class="row"><span class="k">Per employee / week</span><span class="v" id="perEmpWeek">$0</span></div>
+      <div class="row"><span class="k">Per employee / year</span><span class="v" id="perEmpYear">$0</span></div>
+      <div class="row"><span class="k">Creditable tips / employee / week</span><span class="v" id="credTips">$0</span></div>
+    </div>
+    <a class="cta" href="https://www.vastcfo.com/restaurant-fica-tip-credit/#lead-form" target="_top">Claim it with VAST &rarr;</a>
+  </div>
+</div>
+<div class="footnote">
+  <strong>How this is calculated:</strong> The FICA tip credit (IRC &sect;45B) refunds the employer's share of FICA tax (7.65%) on tips above the federal tipped-minimum subsidy. For each employee: <em>creditable tips per week</em> = max(0, weekly tips &minus; (max(0, $5.15 &minus; cash hourly wage) &times; hours)); <em>annual credit</em> = creditable tips &times; 7.65% &times; 52 &times; number of employees. The $5.15/hr wage floor is frozen in the statute. Estimate only &mdash; actual credit depends on accurate tip reporting and per-employee payroll records.
+</div>
+<script>
+(function(){
+  var emp=document.getElementById('emp'), hrs=document.getElementById('hrs'),
+      wage=document.getElementById('wage'), tips=document.getElementById('tips');
+  var vEmp=document.getElementById('vEmp'), vHrs=document.getElementById('vHrs'),
+      vWage=document.getElementById('vWage'), vTips=document.getElementById('vTips');
+  var annual=document.getElementById('annual'), perEmpWeek=document.getElementById('perEmpWeek'),
+      perEmpYear=document.getElementById('perEmpYear'), credTips=document.getElementById('credTips');
+  var WAGE_FLOOR=5.15, FICA=0.0765;
+  function fmt(n){return '$'+Math.round(n).toLocaleString('en-US');}
+  function fmt2(n){return '$'+n.toFixed(2);}
+  function calc(){
+    var nEmp=+emp.value, h=+hrs.value, w=+wage.value, t=+tips.value;
+    vEmp.textContent=nEmp; vHrs.textContent=h; vWage.textContent=w.toFixed(2); vTips.textContent=t;
+    var subsidy=Math.max(0, (WAGE_FLOOR - w) * h);
+    var creditable=Math.max(0, t - subsidy);
+    var perWeek=creditable * FICA;
+    var perYear=perWeek * 52;
+    var total=perYear * nEmp;
+    credTips.textContent=fmt2(creditable);
+    perEmpWeek.textContent=fmt2(perWeek);
+    perEmpYear.textContent=fmt(perYear);
+    annual.textContent=fmt(total);
+  }
+  [emp,hrs,wage,tips].forEach(function(el){el.addEventListener('input',calc)});
+  calc();
+})();
+</script>
+</body>
+</html>

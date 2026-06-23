@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SEO for Accountants | Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  /* ============================================================
+     MARKOLOGY — SEO for Accountants  (Webflow drop-in)
+     Scoped to .mk-seo. No nav/footer.
+     ============================================================ */
+  .mk-seo {
+    --navy:#070630; --navy2:#0C0A47; --blue:#3872EB; --blue-l:#7DA4F4;
+    --paper:#F9F9FF; --lilac:#E6E9FF; --mute:#5B5D78; --muted-d:#A9ABCE;
+    --line:rgba(7,6,48,0.10); --line-d:rgba(255,255,255,0.12);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    color:var(--navy); background:var(--paper); -webkit-font-smoothing:antialiased; line-height:1.5;
+  }
+  .mk-seo *,.mk-seo *::before,.mk-seo *::after{ box-sizing:border-box; }
+  .mk-seo img{ display:block; max-width:100%; }
+  .mk-seo a{ color:inherit; text-decoration:none; }
+  .mk-seo svg{ display:block; }
+  .mk-seo .wrap{ max-width:1220px; margin:0 auto; padding:0 48px; }
+  .mk-seo .disp{ font-family:'Anton','Arial Narrow',sans-serif; font-weight:400;
+    text-transform:uppercase; line-height:1.03; letter-spacing:.005em; margin:0; }
+  .mk-seo .accent{ color:var(--blue); }
+  .mk-seo .accent-l{ color:var(--blue-l); }
+  .mk-seo .eyebrow{ font-weight:700; font-size:11.5px; letter-spacing:.2em; text-transform:uppercase;
+    color:var(--blue); display:block; margin-bottom:14px; }
+  .mk-seo .eyebrow--d{ color:var(--blue-l); }
+
+  /* buttons */
+  .mk-seo .btn{ display:inline-flex; align-items:center; gap:10px; font-weight:700; font-size:15px;
+    padding:16px 28px; border-radius:999px; cursor:pointer; white-space:nowrap; border:1px solid transparent;
+    transition:transform .18s, box-shadow .18s, background .18s, color .18s; }
+  .mk-seo .btn svg{ width:16px; height:16px; flex:none; fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+  .mk-seo .btn-blue{ background:var(--blue); color:#fff; box-shadow:0 14px 30px -10px rgba(56,114,235,.6); }
+  .mk-seo .btn-blue:hover{ transform:translateY(-2px); box-shadow:0 20px 36px -10px rgba(56,114,235,.75); }
+  .mk-seo .btn-outline{ background:transparent; color:var(--navy); border-color:rgba(7,6,48,.3); }
+  .mk-seo .btn-outline:hover{ background:var(--navy); color:#fff; transform:translateY(-2px); }
+  .mk-seo .btn-outline-d{ background:transparent; color:#fff; border-color:rgba(255,255,255,.4); }
+  .mk-seo .btn-outline-d:hover{ background:rgba(255,255,255,.1); border-color:#fff; }
+  .mk-seo .btn-white{ background:#fff; color:var(--navy); }
+  .mk-seo .btn-white:hover{ transform:translateY(-2px); }
+
+  /* reveal */
+  @media (prefers-reduced-motion:no-preference){
+    .mk-seo [data-reveal]{ opacity:0; transform:translateY(22px);
+      transition:opacity .65s cubic-bezier(.2,.7,.2,1), transform .65s cubic-bezier(.2,.7,.2,1); }
+    .mk-seo [data-reveal].is-in{ opacity:1; transform:none; }
+  }
+
+  /* ── HERO ─────────────────────────────────────────────────── */
+  .mk-seo .hero{ padding:104px 0 96px; position:relative; overflow:hidden; border-bottom:1px solid rgba(255,255,255,.08);
+    background:var(--navy); }
+  .mk-seo .hero::before{ content:""; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(ellipse 80% 60% at 50% 0%, rgba(56,114,235,.35), transparent 65%); }
+  .mk-seo .hero::after{ content:""; position:absolute; bottom:0; left:50%;
+    transform:translateX(-50%); width:130%; height:75%;
+    background:radial-gradient(ellipse at 50% 85%, rgba(7,6,48,.5) 0%, rgba(7,6,48,.25) 45%, transparent 70%);
+    border-radius:50% 50% 0 0; pointer-events:none; z-index:1; }
+  .mk-seo .hero-inner{ position:relative; z-index:2; display:flex; flex-direction:column; align-items:center; text-align:center; }
+  .mk-seo .hero-tag{ display:inline-flex; align-items:center; gap:10px; background:rgba(255,255,255,.1);
+    border:1px solid rgba(255,255,255,.18); border-radius:999px; padding:8px 18px; font-size:11.5px; font-weight:700;
+    letter-spacing:.14em; text-transform:uppercase; color:#fff; margin-bottom:24px; backdrop-filter:blur(8px); }
+  .mk-seo .hero-tag .dot{ width:7px; height:7px; border-radius:50%; background:#7DA4F4; animation:mkpulse 1.6s infinite; }
+  @keyframes mkpulse{ 0%,100%{opacity:1} 50%{opacity:.3} }
+  .mk-seo .hero h1{ font-size:clamp(44px,6.2vw,96px); max-width:16ch; line-height:1.03; color:#fff; }
+  .mk-seo .hero h1 .accent{ color:#7DA4F4; }
+  .mk-seo .hero-lede{ font-size:18px; line-height:1.6; color:rgba(255,255,255,.65); margin:24px 0 0; max-width:52ch; }
+  .mk-seo .hero-btns{ display:flex; flex-wrap:wrap; gap:16px; margin-top:36px; justify-content:center; }
+  .mk-seo .hero-btns .btn{ font-size:16px; padding:18px 34px; }
+  .mk-seo .hero-btns .btn-blue{ background:#3872EB; border-color:#3872EB; color:#fff; }
+  .mk-seo .hero-btns .btn-ghost{ background:transparent; border-color:rgba(255,255,255,.3); color:#fff; }
+  .mk-seo .hero-btns .btn-ghost:hover{ background:rgba(255,255,255,.1); border-color:#fff; }
+
+  /* SERP mock */
+  .mk-seo .serp-card{ position:relative; z-index:2; max-width:640px; margin:56px auto 0; background:#fff;
+    border:1px solid var(--line); border-radius:20px; overflow:hidden; text-align:left;
+    box-shadow:0 36px 80px -40px rgba(7,6,48,.28); }
+  .mk-seo .serp-chrome{ display:flex; align-items:center; gap:8px; padding:12px 16px; background:var(--paper);
+    border-bottom:1px solid var(--line); }
+  .mk-seo .serp-chrome .dots{ display:flex; gap:5px; }
+  .mk-seo .serp-chrome .dots span{ width:10px; height:10px; border-radius:50%; }
+  .mk-seo .serp-chrome .dots span:nth-child(1){ background:#ff5f57; }
+  .mk-seo .serp-chrome .dots span:nth-child(2){ background:#febc2e; }
+  .mk-seo .serp-chrome .dots span:nth-child(3){ background:#28c840; }
+  .mk-seo .serp-chrome .url-bar{ flex:1; background:#fff; border:1px solid var(--line); border-radius:8px;
+    padding:6px 12px; font-size:12px; color:var(--mute); margin:0 8px; }
+  .mk-seo .serp-body{ padding:20px 24px 24px; }
+  .mk-seo .serp-search{ display:flex; align-items:center; gap:10px; border:1.5px solid rgba(56,114,235,.4);
+    border-radius:24px; padding:10px 16px; margin-bottom:16px; }
+  .mk-seo .serp-search svg{ width:16px; height:16px; color:var(--mute); flex:none; }
+  .mk-seo .serp-search span{ font-size:14px; color:var(--navy); font-weight:500; }
+  .mk-seo .serp-meta{ font-size:11px; color:var(--mute); margin-bottom:12px; }
+  .mk-seo .serp-result{ padding:12px 0; border-bottom:1px solid rgba(7,6,48,.06); }
+  .mk-seo .serp-result:last-child{ border-bottom:none; padding-bottom:0; }
+  .mk-seo .serp-result--win{ background:rgba(56,114,235,.05); border-radius:12px; padding:12px 14px; border:1px solid rgba(56,114,235,.18); position:relative; margin-bottom:2px; }
+  .mk-seo .serp-url{ font-size:11px; color:var(--mute); margin-bottom:3px; display:flex; align-items:center; gap:6px; }
+  .mk-seo .serp-url .fav{ width:14px; height:14px; border-radius:3px; background:var(--blue); display:inline-flex; align-items:center; justify-content:center; color:#fff; font-size:8px; font-weight:800; flex:none; }
+  .mk-seo .serp-title{ font-size:14.5px; font-weight:700; color:var(--blue); margin-bottom:4px; }
+  .mk-seo .serp-desc{ font-size:12px; color:var(--mute); line-height:1.55; }
+  .mk-seo .serp-win-badge{ position:absolute; top:10px; right:12px; background:var(--blue); color:#fff;
+    font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; border-radius:6px; padding:3px 8px; }
+  .mk-seo .serp-result--dim .serp-title{ color:var(--mute); font-weight:600; }
+
+  /* ── PROOF BAND ───────────────────────────────────────────── */
+  .mk-seo .proof{ background:var(--lilac); padding:96px 0; }
+  .mk-seo .proof-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:center; }
+  .mk-seo .proof h2{ font-size:clamp(32px,4.4vw,56px); margin:0; }
+  .mk-seo .proof p{ font-size:17px; color:var(--mute); line-height:1.65; margin:20px 0 0; max-width:48ch; }
+  .mk-seo .proof-stat{ background:var(--navy); color:#fff; border-radius:26px; padding:44px 40px; text-align:center;
+    box-shadow:0 40px 80px -38px rgba(7,6,48,.5); }
+  .mk-seo .proof-stat .big{ font-family:'Anton',sans-serif; font-size:clamp(72px,9vw,120px); line-height:.9; color:#fff; }
+  .mk-seo .proof-stat .lbl{ font-size:15px; color:var(--muted-d); margin-top:14px; line-height:1.5; }
+  .mk-seo .proof-stat .rule{ height:1px; background:rgba(255,255,255,.12); margin:26px 0; }
+  .mk-seo .proof-stat .mini{ display:flex; justify-content:space-around; gap:16px; }
+  .mk-seo .proof-stat .mini .m-n{ font-family:'Anton',sans-serif; font-size:30px; color:var(--blue-l); line-height:1; }
+  .mk-seo .proof-stat .mini .m-l{ font-size:11px; color:var(--muted-d); margin-top:6px; text-transform:uppercase; letter-spacing:.08em; }
+
+  /* ── SERVICES ─────────────────────────────────────────────── */
+  .mk-seo .svcs{ background:var(--paper); padding:104px 0; }
+  .mk-seo .svcs .sec-head{ text-align:center; max-width:640px; margin:0 auto 56px; }
+  .mk-seo .svcs .sec-head h2{ font-size:clamp(34px,4.6vw,60px); margin:0; }
+  .mk-seo .svcs .sec-head p{ font-size:17px; color:var(--mute); margin:16px 0 0; }
+  .mk-seo .svc-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .mk-seo .svc-card{ background:#fff; border:1px solid var(--line); border-radius:22px; padding:34px 30px;
+    box-shadow:0 16px 44px -30px rgba(7,6,48,.18); transition:transform .2s, box-shadow .2s, border-color .2s; }
+  .mk-seo .svc-card:hover{ transform:translateY(-6px); box-shadow:0 30px 60px -30px rgba(7,6,48,.24); border-color:rgba(56,114,235,.4); }
+  .mk-seo .svc-card .ico{ width:52px; height:52px; border-radius:14px; background:var(--lilac); color:var(--blue);
+    display:flex; align-items:center; justify-content:center; margin-bottom:22px; }
+  .mk-seo .svc-card .ico svg{ width:26px; height:26px; }
+  .mk-seo .svc-card h3{ font-family:'Anton',sans-serif; text-transform:uppercase; font-weight:400; font-size:21px;
+    line-height:1.1; margin:0 0 12px; letter-spacing:.005em; }
+  .mk-seo .svc-card p{ font-size:14.5px; color:var(--mute); line-height:1.62; margin:0; }
+
+  /* ── CASE STUDIES ─────────────────────────────────────────── */
+  .mk-seo .cases{ background:var(--navy); color:#fff; padding:104px 0; position:relative; overflow:hidden; }
+  .mk-seo .cases::before{ content:""; position:absolute; top:-100px; right:-100px; width:460px; height:460px;
+    background:radial-gradient(circle, rgba(56,114,235,.22), transparent 65%); pointer-events:none; }
+  .mk-seo .cases .sec-head{ max-width:640px; margin-bottom:56px; position:relative; z-index:2; }
+  .mk-seo .cases h2{ font-size:clamp(34px,4.6vw,60px); color:#fff; margin:0; }
+  .mk-seo .cases .sec-head p{ font-size:17px; color:var(--muted-d); margin:16px 0 0; }
+  .mk-seo .case-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; position:relative; z-index:2; }
+  .mk-seo .case-card{ background:var(--navy2); border:1px solid var(--line-d); border-radius:22px; padding:34px 30px; }
+  .mk-seo .case-card .client{ font-size:11px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--blue-l); display:block; margin-bottom:10px; }
+  .mk-seo .case-card .big{ font-family:'Anton',sans-serif; font-size:clamp(54px,6vw,80px); line-height:.92; color:#fff; }
+  .mk-seo .case-card .timeline{ font-size:14px; color:var(--muted-d); margin-top:4px; }
+  .mk-seo .case-card h3{ font-family:'Anton',sans-serif; text-transform:uppercase; font-weight:400;
+    font-size:19px; line-height:1.1; margin:20px 0 12px; letter-spacing:.005em; }
+  .mk-seo .case-card p{ font-size:14px; color:var(--muted-d); line-height:1.62; margin:0; }
+  .mk-seo .case-card .tags{ display:flex; flex-wrap:wrap; gap:6px; margin-top:20px; }
+  .mk-seo .case-card .tag{ font-size:11px; font-weight:600; color:var(--blue-l); background:rgba(56,114,235,.16);
+    border-radius:999px; padding:5px 12px; }
+  /* ── FEATURED CASE + CHART ─────────────────────────────── */
+  .mk-seo .case-feat{ grid-column:1/-1; display:grid; grid-template-columns:1fr 1fr; gap:0;
+    background:var(--navy2); border:1px solid var(--line-d); border-radius:22px; overflow:hidden; }
+  .mk-seo .case-feat-text{ padding:44px 40px; }
+  .mk-seo .case-feat-chart{ padding:36px; border-left:1px solid var(--line-d);
+    display:flex; flex-direction:column; background:rgba(0,0,0,.18); }
+  .mk-seo .chart-header{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; }
+  .mk-seo .chart-lbl{ font-size:11px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--muted-d); padding-top:6px; }
+  .mk-seo .chart-peak{ font-family:'Anton',sans-serif; font-size:42px; color:#fff; line-height:1; text-align:right; }
+  .mk-seo .chart-peak small{ font-family:'Inter',sans-serif; font-size:13px; color:var(--muted-d); font-weight:500; margin-left:3px; }
+  .mk-seo .chart-svg{ width:100%; display:block; flex:1; min-height:130px; }
+  .mk-seo .chart-axis{ display:flex; justify-content:space-between; margin-top:10px; }
+  .mk-seo .chart-axis span{ font-size:11px; color:var(--muted-d); }
+  .mk-seo .feat-dot{ opacity:0; }
+  @media (prefers-reduced-motion:no-preference){
+    .mk-seo .feat-line{ stroke-dasharray:900; stroke-dashoffset:900; }
+    .mk-seo .case-feat.is-in .feat-line{ stroke-dashoffset:0; transition:stroke-dashoffset 2.4s cubic-bezier(.2,.7,.2,1) .4s; }
+    .mk-seo .case-feat.is-in .feat-dot{ opacity:1; transition:opacity .2s 2.5s; }
+  }
+  @media (max-width:768px){
+    .mk-seo .proof-grid{ grid-template-columns:1fr !important; }
+    .mk-seo .proof-person{ width:160px; margin:0 auto; }
+    .mk-seo .case-feat{ grid-template-columns:1fr; }
+    .mk-seo .case-feat-chart{ border-left:none; border-top:1px solid var(--line-d); }
+  }
+
+  /* ── HOW IT WORKS ─────────────────────────────────────────── */
+  .mk-seo .steps{ background:var(--lilac); padding:104px 0; }
+  .mk-seo .steps .sec-head{ text-align:center; max-width:640px; margin:0 auto 56px; }
+  .mk-seo .steps h2{ font-size:clamp(34px,4.6vw,60px); margin:0; }
+  .mk-seo .steps .sec-head p{ font-size:17px; color:var(--mute); margin:16px 0 0; }
+  .mk-seo .steps-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  .mk-seo .step{ background:#fff; border:1px solid var(--line); border-radius:22px; overflow:hidden; }
+  .mk-seo .step-vis{ background:var(--lilac); border-bottom:1px solid var(--line); padding:24px 24px 20px; min-height:148px; display:flex; flex-direction:column; justify-content:center; }
+  .mk-seo .step-body{ padding:28px 30px 32px; }
+  /* Step 1: keyword table */
+  .mk-seo .kw-row{ display:flex; align-items:center; justify-content:space-between; gap:8px;
+    padding:6px 10px; border-radius:8px; margin-bottom:5px; background:#fff; border:1px solid rgba(7,6,48,.07); }
+  .mk-seo .kw-row:last-child{ margin-bottom:0; }
+  .mk-seo .kw-row--win{ background:rgba(56,114,235,.06); border-color:rgba(56,114,235,.2); }
+  .mk-seo .kw-term{ font-size:11px; color:var(--navy); font-weight:500; flex:1; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .mk-seo .kw-badge{ font-size:10px; font-weight:700; border-radius:5px; padding:2px 7px; flex-none; }
+  .mk-seo .kw-badge.gap{ background:rgba(220,60,60,.1); color:#c0392b; }
+  .mk-seo .kw-badge.win{ background:rgba(56,114,235,.15); color:var(--blue); }
+  /* Step 2: page preview */
+  .mk-seo .pg-chrome{ display:flex; align-items:center; gap:6px; margin-bottom:10px; }
+  .mk-seo .pg-dots{ display:flex; gap:4px; }
+  .mk-seo .pg-dots span{ width:8px; height:8px; border-radius:50%; }
+  .mk-seo .pg-dots span:nth-child(1){ background:#ff5f57; }
+  .mk-seo .pg-dots span:nth-child(2){ background:#febc2e; }
+  .mk-seo .pg-dots span:nth-child(3){ background:#28c840; }
+  .mk-seo .pg-url{ flex:1; background:#fff; border:1px solid var(--line); border-radius:6px;
+    padding:4px 10px; font-size:10px; color:var(--mute); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .mk-seo .pg-url em{ color:var(--blue); font-style:normal; font-weight:700; }
+  .mk-seo .pg-content{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:12px 14px; }
+  .mk-seo .pg-h1{ height:9px; background:var(--navy); border-radius:4px; width:70%; margin-bottom:8px; opacity:.15; }
+  .mk-seo .pg-lines{ display:flex; flex-direction:column; gap:5px; }
+  .mk-seo .pg-line{ height:6px; background:var(--navy); border-radius:3px; opacity:.08; }
+  .mk-seo .pg-line:nth-child(2){ width:85%; }
+  .mk-seo .pg-line:nth-child(3){ width:60%; }
+  .mk-seo .pg-seo{ margin-top:10px; display:flex; align-items:center; gap:6px;
+    font-size:10px; font-weight:700; color:var(--blue); }
+  .mk-seo .pg-seo .check{ width:16px; height:16px; border-radius:50%; background:var(--blue);
+    color:#fff; display:flex; align-items:center; justify-content:center; font-size:9px; flex-none; }
+  /* Step 3: growth chart */
+  .mk-seo .gc-labels{ display:flex; justify-content:space-between; font-size:11px; font-weight:700;
+    font-family:'Anton',sans-serif; letter-spacing:.02em; color:var(--mute); margin-bottom:4px; }
+  .mk-seo .gc-labels .hi{ color:var(--blue); }
+  .mk-seo .gc-svg{ width:100%; height:72px; display:block; overflow:visible; }
+  .mk-seo .gc-area{ fill:rgba(56,114,235,.12); }
+  .mk-seo .gc-line{ fill:none; stroke:var(--blue); stroke-width:2.5; stroke-linecap:round; }
+  .mk-seo .gc-area,.mk-seo .gc-line{ animation:mkChartDraw 1.6s cubic-bezier(.2,.7,.2,1) both; }
+  .mk-seo .gc-line{ animation-delay:.05s; }
+  @keyframes mkChartDraw{ from{clip-path:inset(0 100% 0 0)} to{clip-path:inset(0 0% 0 0)} }
+  .mk-seo .gc-x{ display:flex; justify-content:space-between; font-size:10px; color:var(--mute); margin-top:4px; }
+  .mk-seo .step .num{ font-family:'Anton',sans-serif; font-size:22px; color:var(--blue);
+    width:52px; height:52px; border-radius:14px; background:rgba(56,114,235,.1); display:flex; align-items:center; justify-content:center; margin-bottom:22px; }
+  .mk-seo .step h3{ font-family:'Anton',sans-serif; text-transform:uppercase; font-weight:400; font-size:22px; margin:0 0 12px; letter-spacing:.005em; }
+  .mk-seo .step p{ font-size:14.5px; color:var(--mute); line-height:1.62; margin:0; }
+  .mk-seo .step p b{ color:var(--navy); }
+
+  /* ── TRUST ────────────────────────────────────────────────── */
+  .mk-seo .trust{ background:var(--paper); padding:40px 0 104px; }
+  .mk-seo .trust-card{ display:grid; grid-template-columns:.8fr 1.2fr; gap:48px; align-items:center;
+    background:var(--lilac); border-radius:28px; padding:48px; }
+  .mk-seo .trust-photo{ position:relative; justify-self:center; width:300px; }
+  .mk-seo .trust-photo .disc{ background:radial-gradient(circle at 50% 30%, #5d88f0 0%, var(--blue) 70%);
+    border-radius:26px; aspect-ratio:82/100; overflow:hidden; display:flex; align-items:flex-end; justify-content:center;
+    box-shadow:0 34px 70px -34px rgba(56,114,235,.7); }
+  .mk-seo .trust-photo .disc img{ width:100%; height:100%; object-fit:contain; object-position:bottom center; }
+  .mk-seo .trust-photo .chip{ position:absolute; left:-16px; bottom:-16px; background:var(--navy); color:#fff;
+    border-radius:14px; padding:12px 16px; box-shadow:0 18px 38px -16px rgba(7,6,48,.6); }
+  .mk-seo .trust-photo .chip b{ font-family:'Anton',sans-serif; font-size:15px; letter-spacing:.02em; display:block; }
+  .mk-seo .trust-photo .chip span{ font-size:11px; color:var(--blue-l); letter-spacing:.06em; text-transform:uppercase; font-weight:700; }
+  .mk-seo .trust h2{ font-size:clamp(30px,3.8vw,50px); margin:0; }
+  .mk-seo .trust p{ font-size:16px; color:var(--mute); line-height:1.65; margin:18px 0 0; max-width:48ch; }
+  .mk-seo .trust-stats{ display:flex; flex-wrap:wrap; gap:32px; margin-top:30px; }
+  .mk-seo .trust-stats .ts .n{ font-family:'Anton',sans-serif; font-size:38px; line-height:.9; color:var(--navy); }
+  .mk-seo .trust-stats .ts .l{ font-size:12.5px; color:var(--mute); margin-top:6px; }
+
+  /* ── CTA ──────────────────────────────────────────────────── */
+  .mk-seo .cta{ background:var(--blue); padding:100px 0; position:relative; overflow:hidden; }
+  .mk-seo .cta::after{ content:""; position:absolute; inset:0; pointer-events:none;
+    background:radial-gradient(560px 280px at 50% 0%, rgba(255,255,255,.22), transparent 58%); }
+  .mk-seo .cta-inner{ text-align:center; position:relative; z-index:2; }
+  .mk-seo .cta .eyebrow{ color:rgba(255,255,255,.82); display:inline-block; }
+  .mk-seo .cta h2{ font-size:clamp(38px,5.4vw,72px); color:#fff; margin:14px 0 0; }
+  .mk-seo .cta p{ font-size:18px; color:#EAF0FF; margin:18px auto 0; max-width:46ch; line-height:1.6; }
+  .mk-seo .cal-embed{ margin:38px auto 0; max-width:900px; background:#fff; border-radius:24px;
+    padding:8px; box-shadow:0 50px 100px -40px rgba(0,0,0,.4); overflow:hidden; }
+  .mk-seo .cal-embed .calendly-inline-widget{ border-radius:18px; overflow:hidden; }
+  .mk-seo .cta-btns{ display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:36px; }
+  .mk-seo .cta-quote{ margin:42px auto 0; max-width:620px; text-align:center; position:relative; z-index:2; }
+  .mk-seo .cta-quote .stars{ display:inline-flex; gap:4px; color:#fff; margin-bottom:14px; }
+  .mk-seo .cta-quote .stars svg{ width:18px; height:18px; }
+  .mk-seo .cta-quote blockquote{ margin:0; font-size:21px; line-height:1.5; color:#fff; font-weight:500; }
+  .mk-seo .cta-quote figcaption{ margin-top:14px; font-size:13.5px; color:rgba(255,255,255,.82); }
+  .mk-seo .cta-quote figcaption b{ color:#fff; }
+
+  /* responsive */
+  @media (max-width:980px){
+    .mk-seo .proof-grid{ grid-template-columns:1fr; gap:40px; }
+    .mk-seo .svc-grid{ grid-template-columns:1fr 1fr; }
+    .mk-seo .case-grid{ grid-template-columns:1fr; }
+    .mk-seo .steps-grid{ grid-template-columns:1fr; }
+    .mk-seo .trust-card{ grid-template-columns:1fr; gap:36px; padding:32px; text-align:center; }
+    .mk-seo .trust-stats{ justify-content:center; }
+    .mk-seo .trust-photo{ width:220px; justify-self:center; }
+  }
+  @media (max-width:640px){
+    .mk-seo .wrap{ padding:0 22px; }
+    .mk-seo .hero{ padding:76px 0 72px; }
+    .mk-seo .svc-grid{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail" data-bg-color="#F9F9FF">
+  <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+    <rect width="120" height="80" fill="#F9F9FF"/>
+    <text x="60" y="38" text-anchor="middle" font-family="Anton,sans-serif" font-size="22" fill="#070630">SEO</text>
+    <text x="60" y="58" text-anchor="middle" font-family="Anton,sans-serif" font-size="13" fill="#3872EB">FOR ACCOUNTANTS</text>
+  </svg>
+</template>
+
+<div class="mk-seo">
+
+  <!-- HERO -->
+  <section class="hero" data-screen-label="Hero">
+    <div class="wrap">
+      <div class="hero-inner" data-reveal>
+        <div class="hero-tag"><span class="dot"></span>SEO for Accounting Firms</div>
+        <h1 class="disp">Get your firm found<br /><span class="accent">on Google and AI search.</span></h1>
+        <p class="hero-lede">100+ accounting firms grown. 7+ years working in this niche. We know exactly what it takes to get your ideal clients finding and choosing your firm on Google and AI search.</p>
+        <div class="hero-btns">
+          <a href="https://www.markology.io/audit" class="btn btn-blue">Get your free SEO audit
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a href="https://www.markology.io/contact" class="btn btn-outline">Book a call</a>
+        </div>
+      </div>
+
+      <!-- SERP MOCK -->
+      <div class="serp-card" data-reveal>
+        <div class="serp-chrome">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="url-bar">search results</div>
+        </div>
+        <div class="serp-body">
+          <div class="serp-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>
+            <span>best CPA for therapists near me</span>
+          </div>
+          <div class="serp-meta">About 4,120 results</div>
+          <div class="serp-result serp-result--win">
+            <div class="serp-url"><span class="fav">T</span> tldraccounting.com &rsaquo; therapy-cpa</div>
+            <div class="serp-title">Accounting for Therapists | TL;DR Accounting</div>
+            <div class="serp-desc">Specialized accounting and bookkeeping for therapists and private practice owners in Seattle. Tax planning, payroll, and growth strategy for mental health professionals.</div>
+            <span class="serp-win-badge">Our client</span>
+          </div>
+          <div class="serp-result serp-result--dim">
+            <div class="serp-url"><span class="fav" style="background:#8a8aab;">G</span> genericaccounting.com &rsaquo; services</div>
+            <div class="serp-title">Business Accounting Services | Generic Firm</div>
+            <div class="serp-desc">Full-service accounting and tax preparation for small businesses across the US.</div>
+          </div>
+          <div class="serp-result serp-result--dim">
+            <div class="serp-url"><span class="fav" style="background:#8a8aab;">A</span> anothercpa.com &rsaquo; about</div>
+            <div class="serp-title">CPA Services | Another Firm</div>
+            <div class="serp-desc">General tax and accounting services. Schedule a consultation today.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROOF -->
+  <section class="proof" data-screen-label="Proof">
+    <div class="wrap">
+      <div class="proof-grid">
+        <div data-reveal>
+          <span class="eyebrow">The opportunity</span>
+          <h2 class="disp">Your best leads are<br />searching on Google<br /><span class="accent">right now.</span></h2>
+          <p>If a prospect searches "accountant for my restaurant" or "best CPA near me" and your firm doesn't appear, you don't exist to them. SEO is how we change that: getting your firm in front of high-intent prospects at the exact moment they're ready to hire.</p>
+        </div>
+        <div class="proof-stat" data-reveal>
+          <div class="big">500%</div>
+          <div class="lbl">Average organic growth for accounting firms we work with on Google and AI search.</div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="svcs" data-screen-label="What we do">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">What's included</span>
+        <h2 class="disp">Everything your firm needs<br /><span class="accent">to get found.</span></h2>
+        <p>Six disciplines we run together so your firm shows up on Google and AI search for the clients you actually want.</p>
+      </div>
+      <div class="svc-grid">
+        <article class="svc-card" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg></div>
+          <h3>SEO Audit</h3>
+          <p>A thorough baseline: where your site stands today, what your competitors are doing, and exactly what it will take to get your firm found on Google and AI search.</p>
+        </article>
+        <article class="svc-card" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div>
+          <h3>Keyword Research</h3>
+          <p>We map the exact search terms your ideal clients use, from niche-specific phrases to location-based searches, and build your strategy around them.</p>
+        </article>
+        <article class="svc-card" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 013 3L7 19l-4 1 1-4z"/></svg></div>
+          <h3>On-Page SEO</h3>
+          <p>Every page, title, heading, and meta description written and structured to signal relevance to Google. Content that answers what prospects are actually asking.</p>
+        </article>
+        <article class="svc-card" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+          <h3>Technical SEO</h3>
+          <p>Site speed, crawlability, Core Web Vitals, schema markup. The foundation Google checks before showing your firm to anyone.</p>
+        </article>
+        <article class="svc-card" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15l6-6"/><path d="M10.5 6.5l1.5-1.5a4 4 0 015.7 5.7L16 12"/><path d="M13.5 17.5L12 19a4 4 0 01-5.7-5.7L8 11.5"/></svg></div>
+          <h3>Link Building</h3>
+          <p>Credible backlinks from accounting and finance publications. No black-hat tactics: only quality placements that improve how Google and AI search view your firm.</p>
+        </article>
+        <article class="svc-card" data-reveal>
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <h3>Local SEO</h3>
+          <p>Google Business Profile, local citations, and location-based content that put your firm on the map for clients searching nearby on Google and AI search.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CASE STUDIES -->
+  <section class="cases" data-screen-label="Case studies">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow eyebrow--d">From the results dashboard</span>
+        <h2 class="disp">Accounting firms we've<br /><span class="accent-l">grown on Google.</span></h2>
+        <p>These aren't projections. Every number below is pulled directly from client analytics.</p>
+      </div>
+      <div class="case-grid">
+
+        <!-- Featured: TL;DR with animated chart -->
+        <div class="case-feat" data-reveal>
+          <div class="case-feat-text">
+            <span class="client">TL;DR: Accounting, Seattle</span>
+            <div class="big">1,200%</div>
+            <div class="timeline">organic growth, year one</div>
+            <h3>600 to 5,500 visitors. First year.</h3>
+            <p>TL;DR: Accounting averaged 600 unique visitors a month before Markology. Within 12 months they hit 5,500 a month from Google and AI search, and now run a client waitlist.</p>
+            <div class="tags">
+              <span class="tag">SEO</span>
+              <span class="tag">Content</span>
+              <span class="tag">Client waitlist</span>
+            </div>
+          </div>
+          <div class="case-feat-chart">
+            <div class="chart-header">
+              <span class="chart-lbl">Organic visitors / month (GA4)</span>
+              <div class="chart-peak">5,500<small>/mo</small></div>
+            </div>
+            <svg class="chart-svg" viewBox="0 0 400 100" preserveAspectRatio="none">
+              <defs>
+                <linearGradient id="cg1" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#3872EB" stop-opacity="0.45"/>
+                  <stop offset="100%" stop-color="#3872EB" stop-opacity="0.02"/>
+                </linearGradient>
+                <clipPath id="cc1"><rect x="0" y="0" width="400" height="100"/></clipPath>
+              </defs>
+              <line x1="0" y1="62" x2="400" y2="62" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+              <line x1="0" y1="30" x2="400" y2="30" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+              <path clip-path="url(#cc1)"
+                d="M0,95 C40,94 60,90 100,87 C140,84 160,74 200,62 C240,50 260,38 300,29 C340,20 360,11 400,5 L400,100 L0,100 Z"
+                fill="url(#cg1)"/>
+              <path class="feat-line" clip-path="url(#cc1)"
+                d="M0,95 C40,94 60,90 100,87 C140,84 160,74 200,62 C240,50 260,38 300,29 C340,20 360,11 400,5"
+                fill="none" stroke="#3872EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle class="feat-dot" cx="400" cy="5" r="5" fill="#3872EB"/>
+            </svg>
+            <div class="chart-axis">
+              <span>Month 1 &middot; 600/mo</span>
+              <span>Month 12 &middot; 5,500/mo</span>
+            </div>
+          </div>
+        </div>
+
+        <article class="case-card" data-reveal>
+          <span class="client">The Fitness CPA, Colorado</span>
+          <div class="big">500%</div>
+          <div class="timeline">in 9 months</div>
+          <h3>550 to 5,000 organic visitors a month.</h3>
+          <p>The Fitness CPA went from 550 organic visitors a month to 5,000 within two years. They're now a recognized name on Google and AI search for fitness industry accounting, and run a client waitlist.</p>
+          <div class="tags">
+            <span class="tag">SEO</span>
+            <span class="tag">AI search</span>
+            <span class="tag">Client waitlist</span>
+          </div>
+        </article>
+        <article class="case-card" data-reveal>
+          <span class="client">Basta &amp; Company, US</span>
+          <div class="big">500%</div>
+          <div class="timeline">in one year</div>
+          <h3>New site. 5x the traffic. Better leads.</h3>
+          <p>A modern new website and a full SEO strategy in one year. Organic traffic grew 5x, and leads shifted from B2C to higher-quality B2B clients found on Google and AI search.</p>
+          <div class="tags">
+            <span class="tag">Website</span>
+            <span class="tag">SEO</span>
+            <span class="tag">B2B leads</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="steps" data-screen-label="How it works">
+    <div class="wrap">
+      <div class="sec-head" data-reveal>
+        <span class="eyebrow">How it works</span>
+        <h2 class="disp">Getting your firm found<br /><span class="accent">in 3 steps.</span></h2>
+        <p>The same process we've used with 100+ accounting firms to get them found and chosen on Google and AI search.</p>
+      </div>
+      <div class="steps-grid">
+        <article class="step" data-reveal>
+          <!-- Visual: keyword gap audit -->
+          <div class="step-vis">
+            <div class="kw-row"><span class="kw-term">CPA for creatives NYC</span><span class="kw-badge gap">Gap</span></div>
+            <div class="kw-row"><span class="kw-term">bookkeeping for contractors</span><span class="kw-badge gap">Gap</span></div>
+            <div class="kw-row kw-row--win"><span class="kw-term">tax accountant Denver</span><span class="kw-badge win">#1</span></div>
+            <div class="kw-row"><span class="kw-term">accounting firm for therapists</span><span class="kw-badge gap">Gap</span></div>
+          </div>
+          <div class="step-body">
+            <div class="num">1</div>
+            <h3>Audit and strategy</h3>
+            <p>We start with a full SEO audit: your current visibility, your competitors, and the keyword gaps that represent your biggest opportunities. Everything your firm needs to get found on Google and AI search, mapped out in week one.</p>
+          </div>
+        </article>
+        <article class="step" data-reveal>
+          <!-- Visual: page builder preview -->
+          <div class="step-vis">
+            <div class="pg-chrome">
+              <div class="pg-dots"><span></span><span></span><span></span></div>
+              <div class="pg-url">yourfirm.com/<em>cpa-for-freelancers</em></div>
+            </div>
+            <div class="pg-content">
+              <div class="pg-h1"></div>
+              <div class="pg-lines">
+                <div class="pg-line"></div>
+                <div class="pg-line"></div>
+                <div class="pg-line"></div>
+              </div>
+              <div class="pg-seo"><span class="check">✓</span> SEO optimized. AI-ready. Niche-specific.</div>
+            </div>
+          </div>
+          <div class="step-body">
+            <div class="num">2</div>
+            <h3>Build and publish</h3>
+            <p>We build and publish the pages, content, and technical fixes your site needs. <b>Every piece is written for your niche</b>, structured for search, and optimized for the specific clients you want to attract.</p>
+          </div>
+        </article>
+        <article class="step" data-reveal>
+          <!-- Visual: animated traffic chart -->
+          <div class="step-vis">
+            <div class="gc-labels"><span>550/mo</span><span class="hi">5,000/mo</span></div>
+            <svg class="gc-svg" viewBox="0 0 200 72" preserveAspectRatio="none">
+              <path class="gc-area" d="M0,68 C30,67 55,64 80,54 C105,44 130,28 165,10 L200,4 L200,72 L0,72 Z" />
+              <path class="gc-line" d="M0,68 C30,67 55,64 80,54 C105,44 130,28 165,10 L200,4" />
+              <circle cx="200" cy="4" r="4" fill="#3872EB" />
+            </svg>
+            <div class="gc-x"><span>Month 1</span><span>Month 12</span></div>
+          </div>
+          <div class="step-body">
+            <div class="num">3</div>
+            <h3>Grow and track</h3>
+            <p>Monthly reporting, backlink campaigns, and continuous optimization. You see exactly where your firm is being found on Google and AI search, and where we're pushing next.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="trust" data-screen-label="Trust">
+    <div class="wrap">
+      <div class="trust-card" data-reveal>
+        <div class="trust-photo">
+          <div class="disc"><img src="../uploads/whitney-cutout-solid.png" alt="Whitney Hesmer, Markology founder" /></div>
+          <div class="chip"><b>Whitney Hesmer</b><span>Founder</span></div>
+        </div>
+        <div>
+          <span class="eyebrow">Built for accountants</span>
+          <h2 class="disp">7+ years getting<br />accountants <span class="accent">found.</span></h2>
+          <p>We don't work with restaurants, e-commerce, or general service businesses. Accounting firms are all we do. That means we know your keywords, your niches, and the content that converts for your specific market better than any generalist agency.</p>
+          <div class="trust-stats">
+            <div class="ts"><div class="n">7+</div><div class="l">Years on accounting marketing</div></div>
+            <div class="ts"><div class="n">100+</div><div class="l">Firms grown</div></div>
+            <div class="ts"><div class="n">100%</div><div class="l">Accounting-only focus</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" data-screen-label="CTA">
+    <div class="wrap">
+      <div class="cta-inner" data-reveal>
+        <span class="eyebrow">Are you showing up on Google and AI search?</span>
+        <h2 class="disp">Find out where<br />you stand today.</h2>
+        <p>Get your free SEO audit. We'll look at your site, your competitors, and show you exactly where you're missing clients on Google and AI search. Takes 30 minutes. No obligation.</p>
+        <div class="cal-embed" data-reveal>
+          <div class="calendly-inline-widget" data-url="https://calendly.com/markology/intro?hide_gdpr_banner=1&background_color=ffffff&primary_color=3872eb" style="min-width:320px;height:680px;"></div>
+        </div>
+        <figure class="cta-quote" data-reveal>
+          <span class="stars">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 21.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>
+          </span>
+          <blockquote>"We have too many leads. I never thought this would be the case."</blockquote>
+          <figcaption><b>Eric Killian, CPA</b> · The Fitness CPA, Colorado</figcaption>
+        </figure>
+        <div class="cta-btns">
+          <a href="https://www.markology.io/audit" class="btn btn-white">Get your free SEO audit
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+  (function(){
+    var root = document.querySelector('.mk-seo'); if(!root) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+    var els = root.querySelectorAll('[data-reveal]');
+    if(reduce || !('IntersectionObserver' in window)){
+      els.forEach(function(e){ e.classList.add('is-in'); });
+    } else {
+      var io = new IntersectionObserver(function(en){
+        en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('is-in'); io.unobserve(e.target); }});
+      },{ threshold:.14, rootMargin:'0px 0px -6% 0px' });
+      els.forEach(function(e){ io.observe(e); });
+    }
+  })();
+  </script>
+  <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
+</div>
+</body>
+</html>

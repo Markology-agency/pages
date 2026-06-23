@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Claude Marketing Course for Accountants · Markology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#070630;
+    --navy-2:#0C0A47;
+    --blue:#3872EB;
+    --blue-soft:#7DA4F4;
+    --paper:#F9F9FF;
+    --lilac:#E6E9FF;
+    --line:rgba(255,255,255,0.10);
+    --text-dim:rgba(255,255,255,0.72);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--navy);color:#fff;font-family:'Inter',sans-serif;font-weight:400;line-height:1.55;-webkit-font-smoothing:antialiased}
+  img{max-width:100%;display:block;border-radius:14px}
+  a{color:#fff;text-decoration:none}
+  .anton{font-family:'Anton',sans-serif;font-weight:400;line-height:1.02;letter-spacing:0.5px;text-transform:uppercase}
+  .container{max-width:1180px;margin:0 auto;padding:0 28px}
+  .eyebrow{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--blue-soft);font-weight:600}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:16px 26px;border-radius:999px;font-weight:700;font-size:15px;transition:transform .15s ease, background .15s ease;cursor:pointer;border:0}
+  .btn-primary{background:var(--blue);color:#fff}
+  .btn-primary:hover{transform:translateY(-1px);background:#2a60d4}
+  .btn-ghost{background:rgba(255,255,255,0.06);color:#fff;border:1px solid var(--line)}
+  .btn-ghost:hover{background:rgba(255,255,255,0.10)}
+  .pill{display:inline-block;padding:6px 14px;border-radius:999px;background:var(--blue);color:#fff;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+  section{padding:96px 0;border-top:1px solid var(--line)}
+  section:first-of-type{border-top:0}
+
+  /* TOP STRIPE */
+  .ticker{background:var(--blue);color:#fff;padding:10px 0;text-align:center;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+  .ticker b{font-weight:800}
+
+  /* NAV */
+  .nav{padding:20px 0;border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;justify-content:space-between;align-items:center}
+  .logo{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:1px}
+  .nav-links{display:flex;gap:28px;font-size:14px;color:var(--text-dim);font-weight:600}
+
+  /* HERO */
+  .hero{padding:120px 0 100px;text-align:left;position:relative;overflow:hidden}
+  .hero h1{font-size:clamp(56px,8vw,118px);max-width:1000px;margin:24px 0 30px}
+  .hero h1 .accent{color:var(--blue-soft)}
+  .hero p.lede{font-size:20px;max-width:680px;color:var(--text-dim);margin-bottom:36px;line-height:1.5}
+  .hero .cta-row{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:48px}
+  .hero .stripe{display:flex;gap:48px;flex-wrap:wrap;padding-top:36px;border-top:1px solid var(--line);color:var(--text-dim);font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase}
+  .hero .stripe b{color:#fff;font-weight:800}
+
+  /* UNFAIR MATH */
+  .math{background:var(--navy-2)}
+  .math .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:60px;align-items:center}
+  .math h2{font-size:clamp(40px,5vw,72px);margin-bottom:24px}
+  .math p{font-size:18px;color:var(--text-dim);max-width:540px}
+  .math .stack{display:flex;flex-direction:column;gap:14px}
+  .math .row{background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:18px;padding:24px;display:flex;justify-content:space-between;align-items:center}
+  .math .row .label{font-size:14px;color:var(--text-dim);letter-spacing:1px;text-transform:uppercase;font-weight:600}
+  .math .row .val{font-family:'Anton',sans-serif;font-size:28px;color:#fff}
+  .math .row.you{background:linear-gradient(135deg,var(--blue),var(--blue-soft));border-color:transparent}
+  .math .row.you .label,.math .row.you .val{color:#fff}
+
+  /* STAT STRIP */
+  .strip{padding:60px 0;background:#000020}
+  .strip-inner{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:left}
+  .strip .num{font-family:'Anton',sans-serif;font-size:64px;color:var(--blue-soft);line-height:1}
+  .strip .label{font-size:14px;color:var(--text-dim);margin-top:8px;text-transform:uppercase;letter-spacing:1px;font-weight:600}
+
+  /* MODULES */
+  .modules h2{font-size:clamp(44px,5.5vw,84px);max-width:900px;margin-bottom:18px}
+  .modules .sub{font-size:18px;color:var(--text-dim);max-width:760px;margin-bottom:48px}
+  .mod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .mod{background:rgba(255,255,255,0.03);border:1px solid var(--line);border-radius:18px;padding:26px;transition:transform .2s ease,border-color .2s ease,background .2s ease}
+  .mod:hover{transform:translateY(-3px);border-color:var(--blue-soft);background:rgba(56,114,235,0.08)}
+  .mod .nbr{font-family:'Anton',sans-serif;font-size:14px;color:var(--blue-soft);letter-spacing:2px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
+  .mod .nbr .tag{background:var(--blue);color:#fff;padding:3px 10px;border-radius:999px;font-size:10px;letter-spacing:1.5px;font-family:'Inter',sans-serif;font-weight:800}
+  .mod h3{font-family:'Anton',sans-serif;font-size:24px;margin-bottom:10px;line-height:1.05}
+  .mod p{font-size:14px;color:var(--text-dim);line-height:1.5}
+  .mod .deliverable{margin-top:14px;font-size:12px;color:var(--blue-soft);text-transform:uppercase;letter-spacing:1px;font-weight:700}
+
+  /* PATHS */
+  .paths{background:var(--navy-2)}
+  .paths h2{font-size:clamp(40px,5vw,72px);margin-bottom:18px}
+  .paths .sub{color:var(--text-dim);font-size:18px;max-width:760px;margin-bottom:48px}
+  .path-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .path{background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:22px;padding:40px;position:relative}
+  .path .badge{position:absolute;top:24px;right:24px;font-size:11px;letter-spacing:1.5px;font-weight:800;color:var(--blue-soft);text-transform:uppercase}
+  .path h3{font-family:'Anton',sans-serif;font-size:42px;line-height:1;margin-bottom:14px}
+  .path .hours{display:inline-block;background:var(--blue);color:#fff;font-size:12px;padding:5px 12px;border-radius:999px;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
+  .path ul{list-style:none;margin:18px 0}
+  .path li{padding:10px 0;border-top:1px solid var(--line);font-size:15px;color:var(--text-dim)}
+  .path li b{color:#fff;font-weight:700}
+  .path .price{margin-top:24px;font-family:'Anton',sans-serif;font-size:30px}
+  .path .price small{font-family:'Inter',sans-serif;color:var(--text-dim);font-size:14px;text-transform:none;letter-spacing:0;font-weight:500}
+
+  /* DAY 1 TIMELINE */
+  .day1 h2{font-size:clamp(44px,5.5vw,80px);max-width:900px;margin-bottom:18px}
+  .day1 .sub{color:var(--text-dim);font-size:18px;max-width:760px;margin-bottom:54px}
+  .timeline{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative}
+  .tl-step{padding:30px 22px;border-left:1px solid var(--line);position:relative}
+  .tl-step:first-child{border-left:0}
+  .tl-step .min{font-family:'Anton',sans-serif;font-size:48px;color:var(--blue-soft);line-height:1}
+  .tl-step .min small{font-family:'Inter',sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);font-weight:700;display:block;margin-top:4px}
+  .tl-step h4{font-family:'Anton',sans-serif;font-size:20px;margin:16px 0 8px;line-height:1.1}
+  .tl-step p{font-size:13px;color:var(--text-dim);line-height:1.5}
+  .tl-step.tl-end{background:linear-gradient(180deg,rgba(56,114,235,0.18),rgba(56,114,235,0));border-radius:0 18px 18px 0}
+  .tl-end .min,.tl-end h4{color:#fff}
+
+  /* PROOF SCREENS */
+  .proof{background:var(--navy-2)}
+  .proof h2{font-size:clamp(44px,5.5vw,80px);max-width:900px;margin-bottom:18px}
+  .proof .sub{color:var(--text-dim);font-size:18px;max-width:780px;margin-bottom:56px}
+  .proof-stack{display:flex;flex-direction:column;gap:48px}
+  .proof-card{display:grid;grid-template-columns:1.3fr .9fr;gap:48px;align-items:center;background:rgba(255,255,255,0.03);border:1px solid var(--line);border-radius:22px;padding:38px}
+  .proof-card.reverse{grid-template-columns:.9fr 1.3fr}
+  .proof-card.reverse .text{order:2}
+  .proof-card img{width:100%;border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,0.4)}
+  .proof-card .text h3{font-family:'Anton',sans-serif;font-size:36px;line-height:1.05;margin-bottom:18px}
+  .proof-card .text p{font-size:16px;color:var(--text-dim);line-height:1.6;margin-bottom:14px}
+  .proof-card .meta{font-size:12px;color:var(--blue-soft);letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:14px}
+
+  /* APPROVAL FLOW */
+  .approval h2{font-size:clamp(40px,5vw,72px);margin-bottom:18px;max-width:900px}
+  .approval .sub{color:var(--text-dim);font-size:18px;max-width:780px;margin-bottom:54px}
+  .col-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .col-card{background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:22px;padding:38px}
+  .col-card.you{background:linear-gradient(135deg,rgba(56,114,235,0.20),rgba(56,114,235,0.05));border-color:var(--blue-soft)}
+  .col-card h3{font-family:'Anton',sans-serif;font-size:32px;line-height:1.05;margin-bottom:6px;display:flex;justify-content:space-between;align-items:center}
+  .col-card h3 .tag{font-size:11px;letter-spacing:1.5px;font-family:'Inter',sans-serif;font-weight:800;color:var(--blue-soft);text-transform:uppercase}
+  .col-card .lead{color:var(--text-dim);font-size:15px;margin-bottom:24px}
+  .col-card ul{list-style:none}
+  .col-card li{padding:12px 0;border-top:1px solid var(--line);font-size:15px;color:var(--text-dim);display:flex;gap:12px;align-items:flex-start}
+  .col-card li:first-child{border-top:0}
+  .col-card li .ico{flex-shrink:0;width:22px;height:22px;border-radius:6px;background:var(--blue);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:12px;margin-top:2px}
+  .col-card.you li .ico{background:#fff;color:var(--blue)}
+
+  /* TRUST */
+  .trust-frame{background:#000020}
+  .trust-frame .grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start}
+  .trust-frame h2{font-size:clamp(36px,4.5vw,60px);margin-bottom:18px}
+  .trust-frame p{color:var(--text-dim);font-size:17px;line-height:1.65;margin-bottom:18px}
+  .trust-frame .pill-dark{display:inline-block;background:rgba(125,164,244,0.12);border:1px solid rgba(125,164,244,0.35);color:var(--blue-soft);padding:6px 14px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px}
+
+  /* MONTHLY DROPS */
+  .drops{background:var(--navy-2)}
+  .drops .grid{display:grid;grid-template-columns:1fr 1.1fr;gap:60px;align-items:center}
+  .drops h2{font-size:clamp(40px,5vw,72px);margin-bottom:18px}
+  .drops p{color:var(--text-dim);font-size:18px;margin-bottom:14px}
+  .drops .list{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:30px}
+  .drops .skill{background:rgba(255,255,255,0.05);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px}
+  .drops .skill .dot{width:8px;height:8px;border-radius:50%;background:var(--blue);flex-shrink:0}
+
+  /* TOOL STACK */
+  .tools h2{font-size:clamp(40px,5vw,72px);max-width:900px;margin-bottom:18px}
+  .tools .sub{color:var(--text-dim);font-size:18px;max-width:760px;margin-bottom:54px}
+  .tool-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+  .tool{background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:14px;padding:22px 18px;text-align:center}
+  .tool .nm{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:1px}
+  .tool .cost{font-size:12px;color:var(--blue-soft);letter-spacing:1px;text-transform:uppercase;font-weight:700;margin-top:6px}
+  .tools .vs{margin-top:48px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;text-align:left}
+  .tools .vs .vs-card{background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:18px;padding:28px}
+  .tools .vs .vs-card.win{background:linear-gradient(135deg,rgba(56,114,235,0.20),rgba(56,114,235,0.04));border-color:var(--blue-soft)}
+  .tools .vs .vs-card .who{font-size:13px;color:var(--text-dim);letter-spacing:1.5px;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+  .tools .vs .vs-card .amt{font-family:'Anton',sans-serif;font-size:36px;line-height:1}
+  .tools .vs .vs-card .note{margin-top:10px;font-size:13px;color:var(--text-dim)}
+
+  /* WHO */
+  .who{background:var(--navy-2)}
+  .who h2{font-size:clamp(40px,5vw,72px);margin-bottom:18px;max-width:900px}
+  .who-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:36px}
+  .who-card{background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:22px;padding:38px}
+  .who-card h3{font-family:'Anton',sans-serif;font-size:30px;margin-bottom:18px}
+  .who-card ul{list-style:none}
+  .who-card li{padding:10px 0;border-top:1px solid var(--line);font-size:15px;color:var(--text-dim)}
+  .who-card li:first-child{border-top:0}
+
+  /* CLOSING CTA */
+  .close{padding:140px 0;text-align:center;background:radial-gradient(ellipse at top,rgba(56,114,235,0.18) 0%,rgba(56,114,235,0) 60%),var(--navy)}
+  .close h2{font-size:clamp(56px,8vw,120px);max-width:1000px;margin:0 auto 24px}
+  .close p{font-size:20px;color:var(--text-dim);max-width:640px;margin:0 auto 36px}
+  .close .waitlist-form{display:flex;gap:10px;max-width:480px;margin:0 auto 24px}
+  .close input{flex:1;padding:18px 20px;border-radius:999px;border:1px solid var(--line);background:rgba(255,255,255,0.06);color:#fff;font-family:'Inter',sans-serif;font-size:15px}
+  .close input::placeholder{color:var(--text-dim)}
+  .close .fineprint{font-size:13px;color:var(--text-dim);margin-top:18px}
+  .close .perks{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;max-width:980px;margin:64px auto 0;text-align:left}
+  .close .perk{background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:18px;padding:22px}
+  .close .perk .num{font-family:'Anton',sans-serif;font-size:30px;color:var(--blue-soft)}
+  .close .perk .lbl{font-size:14px;color:var(--text-dim);margin-top:6px;line-height:1.4}
+
+  /* FOOTER */
+  footer{padding:48px 0;border-top:1px solid var(--line);text-align:center;color:var(--text-dim);font-size:13px}
+
+  /* STORY-STACK (vertical timeline cards w/ inline mockup) */
+  .story-stack{display:flex;flex-direction:column;gap:24px;margin-top:24px}
+  .story-step{display:grid;grid-template-columns:110px 1fr 340px;gap:32px;align-items:center;background:rgba(255,255,255,0.03);border:1px solid var(--line);border-radius:22px;padding:36px}
+  .story-step.story-end{background:linear-gradient(135deg,rgba(56,114,235,0.18),rgba(56,114,235,0.04));border-color:rgba(125,164,244,0.4)}
+  .story-time{display:flex;flex-direction:column;align-items:flex-start;gap:2px}
+  .story-time .story-min{font-family:'Anton',sans-serif;font-size:54px;color:var(--blue-soft);line-height:1}
+  .story-time .story-meridian{font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim)}
+  .story-step.story-end .story-time .story-min{color:#fff}
+  .story-text h4{font-family:'Anton',sans-serif;font-size:30px;line-height:1.05;margin-bottom:12px;color:#fff}
+  .story-text p{font-size:15px;color:var(--text-dim);line-height:1.55}
+  .story-mockup{display:flex;justify-content:center;align-items:center}
+  .story-mockup .gs-phone,.story-mockup .em{margin:0}
+  @media (max-width:991px){
+    .story-step{grid-template-columns:1fr;gap:18px}
+    .story-time{flex-direction:row;align-items:baseline;gap:8px}
+    .story-time .story-min{font-size:42px}
+  }
+
+  /* GOOGLE SHEETS INLINE MOCKUP (reused across sections) */
+  .gs-phone{background:#1A1B30;border-radius:38px;padding:8px;width:300px;box-shadow:0 24px 60px rgba(0,0,0,0.5);margin:0 auto}
+  .gs-phone-screen{background:#FFFFFF;border-radius:30px;overflow:hidden;position:relative}
+  .gs-phone-status{padding:12px 22px 6px;display:flex;justify-content:space-between;align-items:center;font-size:11px;font-weight:600;color:#0B0A24;background:#fff}
+  .gs-bar{background:#0F9D58;color:#fff;padding:10px 14px 8px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600}
+  .gs-bar .docIco{width:18px;height:18px;background:rgba(255,255,255,0.25);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800}
+  .gs-bar .nm{flex:1;line-height:1.2;color:#fff}
+  .gs-bar .nm small{display:block;font-size:9.5px;font-weight:400;opacity:0.85;margin-top:1px;color:#fff}
+  .gs-bar .ico{font-size:11px;opacity:0.9}
+  .gs-tool{background:#0F9D58;color:#fff;padding:6px 14px 8px;font-size:10px;display:flex;gap:14px;border-top:1px solid rgba(255,255,255,0.18);opacity:0.92}
+  .gs-grid{background:#fff}
+  .gs-head{display:grid;grid-template-columns:36px 1fr 100px;background:#E8F5E9;font-size:9.5px;font-weight:700;color:#0F9D58;letter-spacing:0.5px;border-bottom:1px solid #C8E6C9}
+  .gs-head > div{padding:8px 10px;border-right:1px solid #C8E6C9;color:#0F9D58}
+  .gs-head > div:last-child{border-right:0}
+  .gs-r{display:grid;grid-template-columns:36px 1fr 100px;font-size:10.5px;line-height:1.35;border-bottom:1px solid #F0F0F0;background:#fff;align-items:stretch;color:#0B0A24}
+  .gs-r > div{padding:9px 10px;border-right:1px solid #F0F0F0;display:flex;flex-direction:column;justify-content:center;color:#0B0A24}
+  .gs-r > div:last-child{border-right:0}
+  .gs-r .gs-n{background:#FAFAFA;color:#999;font-weight:600;font-size:10px;text-align:right;font-family:monospace;padding-right:8px;align-items:flex-end;justify-content:center}
+  .gs-r .gs-t{color:#0B0A24;font-weight:600;font-family:'Inter',sans-serif}
+  .gs-r .gs-t small{display:block;color:#7E809A;font-weight:500;font-size:9.5px;margin-top:3px;font-family:'Inter',sans-serif}
+  .gs-r .gs-s{padding:0;align-items:center;justify-content:center;font-size:9.5px}
+  .gs-r.aw{background:#FFFBEB}
+  .gs-r.aw .gs-n{background:#FFF7DA}
+  .gs-r.ap{background:#F0FAF4}
+  .gs-r.ap .gs-n{background:#E1F4E8}
+  .gs-r.sc{background:#EEF3FE}
+  .gs-r.sc .gs-n{background:#E2EBFD}
+  .gs-pill{display:inline-block;padding:3px 8px;border-radius:3px;font-size:9.5px;font-weight:700;letter-spacing:0.3px;white-space:nowrap;font-family:'Inter',sans-serif}
+  .gs-pill.aw{background:#FEF3D5;color:#9C7700}
+  .gs-pill.ap{background:#D9F2E5;color:#1E8E5F}
+  .gs-pill.sc{background:#DDE9FD;color:#3872EB}
+  .gs-dd{position:absolute;top:118px;right:24px;background:#fff;border-radius:6px;box-shadow:0 8px 30px rgba(0,0,0,0.22);padding:6px 0;width:128px;z-index:5;font-size:11px;font-weight:600;border:1px solid rgba(0,0,0,0.05)}
+  .gs-dd .o{padding:8px 14px;color:#0B0A24;display:flex;align-items:center;gap:8px}
+  .gs-dd .o.sel{background:#E8F5E9;color:#0F9D58}
+  .gs-dd .o .d{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+  .gs-dd .o .d.a{background:#F3D24B}
+  .gs-dd .o .d.b{background:#0F9D58}
+  .gs-dd .o .d.c{background:#EF4444}
+  .gs-dd .o .d.d{background:#3872EB}
+  .gs-dd .o .d.e{background:#9CA3AF}
+
+  /* Email mockup */
+  .em{background:#fff;border:1px solid #E8E9F2;border-radius:12px;max-width:480px;overflow:hidden;color:#0B0A24;box-shadow:0 16px 40px rgba(0,0,0,0.18)}
+  .em-h{display:flex;align-items:flex-start;gap:10px;padding:16px 18px;border-bottom:1px solid #E8E9F2}
+  .em-h .av{width:30px;height:30px;border-radius:50%;background:#0B0A24;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px;flex-shrink:0}
+  .em-h .mt{flex:1;font-size:12px}
+  .em-h .mt .fr{font-weight:600;color:#0B0A24}
+  .em-h .mt .to{color:#7E809A;margin-top:2px}
+  .em-h .tm{font-size:11px;color:#7E809A}
+  .em-b{padding:18px;font-size:13px;color:#3E3F66}
+  .em-b h5{color:#0B0A24;font-size:15px;font-weight:700;margin-bottom:12px;line-height:1.3}
+  .em-b p{margin-bottom:10px;line-height:1.5}
+  .em-items{display:flex;flex-direction:column;gap:6px;margin:12px 0}
+  .em-i{background:#F4F5F9;border-radius:6px;padding:9px 11px;display:flex;align-items:center;gap:10px;font-size:11.5px;color:#0B0A24}
+  .em-i .p{font-size:9px;font-weight:800;letter-spacing:1px;text-transform:uppercase;padding:3px 7px;border-radius:3px;flex-shrink:0;min-width:64px;text-align:center;background:#fff;border:1px solid #E8E9F2;color:#0B0A24}
+  .em-i.li .p{background:#0A66C2;color:#fff;border-color:#0A66C2}
+  .em-i.nl .p{background:#F2A2A2;color:#fff;border-color:#F2A2A2}
+  .em-cta{display:inline-flex;align-items:center;gap:6px;background:#3872EB;color:#fff;padding:10px 16px;border-radius:7px;font-size:12px;font-weight:600;margin-top:6px}
+
+  /* RESPONSIVE */
+  @media (max-width:991px){
+    .math .grid,.mod-grid,.path-grid,.col-2,.who-grid,.proof-card,.proof-card.reverse,.drops .grid{grid-template-columns:1fr !important}
+    .proof-card.reverse .text{order:0}
+    .strip-inner{grid-template-columns:repeat(2,1fr)}
+    .timeline{grid-template-columns:1fr 1fr}
+    .tool-grid{grid-template-columns:repeat(3,1fr)}
+    .tools .vs{grid-template-columns:1fr}
+    .close .perks{grid-template-columns:1fr 1fr}
+  }
+  @media (max-width:600px){
+    section{padding:64px 0}
+    .hero{padding:80px 0 70px}
+    .timeline{grid-template-columns:1fr}
+    .tool-grid{grid-template-columns:repeat(2,1fr)}
+    .close .perks{grid-template-columns:1fr}
+    .hero .stripe{gap:24px}
+  }
+
+  /* CLAUDE CODE TERMINAL MOCKUP */
+  .cc-term{background:#1B1B1F;border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,0.5);overflow:hidden;font-family:'SF Mono','Menlo','Monaco','Courier New',monospace;border:1px solid rgba(255,255,255,0.08)}
+  .cc-term .cc-bar{background:#26262C;padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,0.06)}
+  .cc-term .cc-bar .dot{width:11px;height:11px;border-radius:50%}
+  .cc-term .cc-bar .dot.r{background:#FF5F57}
+  .cc-term .cc-bar .dot.y{background:#FFBD2E}
+  .cc-term .cc-bar .dot.g{background:#28C840}
+  .cc-term .cc-bar .ti{margin-left:14px;color:#A0A0A8;font-size:11px;font-weight:500;letter-spacing:0.2px}
+  .cc-term .cc-body{padding:22px 22px 26px;color:#E6E6EA;font-size:13px;line-height:1.65}
+  .cc-term .cc-line{display:block;margin:2px 0;white-space:pre-wrap}
+  .cc-term .cc-prompt{color:#D87C4A;font-weight:600;margin-right:8px}
+  .cc-term .cc-user{color:#fff;font-weight:500}
+  .cc-term .cc-meta{color:#7E7E88;font-style:italic}
+  .cc-term .cc-ok{color:#4ADE80}
+  .cc-term .cc-tool{color:#7DA4F4;font-weight:600}
+  .cc-term .cc-accent{color:#D8B4FE}
+  .cc-term .cc-done{color:#E6E6EA;background:rgba(74,222,128,0.10);border-left:3px solid #4ADE80;padding:8px 12px;margin:10px 0;border-radius:4px}
+  .cc-term .cc-cursor{display:inline-block;width:8px;height:14px;background:#D87C4A;vertical-align:text-bottom;animation:ccBlink 1s steps(1) infinite;margin-left:4px}
+  .cc-term .cc-progress{display:flex;align-items:center;gap:10px;margin:6px 0;color:#A0A0A8;font-size:12.5px}
+  .cc-term .cc-progress .st{width:14px;text-align:center}
+  .cc-term .cc-progress .st.ok{color:#4ADE80}
+  .cc-term .cc-progress .st.now{color:#D87C4A}
+  .cc-term .cc-progress .st.next{color:#3F3F46}
+  .cc-term .cc-progress .lbl{color:#E6E6EA}
+  .cc-term .cc-progress .lbl.now{color:#fff;font-weight:600}
+  .cc-term .cc-progress .lbl.next{color:#7E7E88}
+  .cc-term .cc-progress .nbr{color:#7E7E88;margin-right:4px;font-weight:500}
+  .cc-term .cc-section{color:#7E7E88;font-size:11px;text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin:14px 0 8px}
+  .cc-term .cc-action{display:inline-block;background:rgba(125,164,244,0.14);border:1px solid rgba(125,164,244,0.35);color:#7DA4F4;padding:4px 12px;border-radius:6px;font-size:11.5px;font-weight:600;margin-right:8px;margin-top:8px}
+  @keyframes ccBlink{50%{opacity:0}}
+</style>
+</head>
+<body>
+
+<div class="ticker">
+  <span>NEW · COMING JULY 2026 · <b>THE DIY CLAUDE MARKETING COURSE</b> FOR ACCOUNTANTS · WAITLIST OPEN</span>
+</div>
+
+<header class="nav">
+  <div class="container nav-inner">
+    <div class="logo">+ MARKOLOGY</div>
+    <div class="nav-links">
+      <span>ALL SERVICES</span><span>LITE!</span><span>REVIEWS</span><span>ABOUT US</span><span>FREE STUFF</span>
+    </div>
+    <a href="#waitlist" class="btn btn-primary">Join the waitlist</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container" style="display:grid;grid-template-columns:1.2fr 0.8fr;gap:60px;align-items:center">
+    <div>
+      <span class="eyebrow">THE CLAUDE MARKETING COURSE FOR ACCOUNTANTS · LAUNCHING JULY 2026</span>
+      <h1 class="anton" style="font-size:clamp(48px,6.5vw,96px)">MARKETING IS<br>THE LAST THING<br>ON YOUR LIST.<br><span class="accent">WE BUILT THE COURSE<br>SO IT CAN STAY THAT WAY.</span></h1>
+      <p class="lede">Leads come in. Skills do the actual work. You stay focused on your clients. Built on the system Markology has used for 7+ years to get accounting firms found and recommended on Google and AI search.</p>
+      <div class="cta-row">
+        <a href="#waitlist" class="btn btn-primary">Join the waitlist →</a>
+        <a href="#curriculum" class="btn btn-ghost">See what's inside</a>
+      </div>
+    </div>
+    <div class="cc-term">
+      <div class="cc-bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="ti">claude code · the claude marketing course</span>
+      </div>
+      <div class="cc-body">
+        <span class="cc-line"><span class="cc-prompt">›</span><span class="cc-user">claude /course progress</span></span>
+        <span class="cc-line cc-meta">  Loading your course state for: Smith CPA &amp; Co.</span>
+        <span class="cc-line">&nbsp;</span>
+        <span class="cc-section">YOUR COURSE PROGRESS · 13 MODULES</span>
+        <div class="cc-progress"><span class="st ok">✓</span><span class="nbr">01</span><span class="lbl">Claude, Set Up For Your Firm</span></div>
+        <div class="cc-progress"><span class="st ok">✓</span><span class="nbr">02</span><span class="lbl">Your Tools, In One Brain</span></div>
+        <div class="cc-progress"><span class="st ok">✓</span><span class="nbr">03</span><span class="lbl">Your Firm's Voice Profile</span></div>
+        <div class="cc-progress"><span class="st now">▶</span><span class="nbr">04</span><span class="lbl now">Routines &amp; Approvals  <span style="color:#D87C4A;font-weight:500">(in progress)</span></span></div>
+        <div class="cc-progress"><span class="st next">○</span><span class="nbr">05</span><span class="lbl next">SEO &amp; AI Search Foundation</span></div>
+        <div class="cc-progress"><span class="st next">○</span><span class="nbr">06</span><span class="lbl next">The Blog Engine</span></div>
+        <div class="cc-progress"><span class="st next">○</span><span class="nbr">07</span><span class="lbl next">Newsletter Engine</span></div>
+        <span class="cc-line">&nbsp;</span>
+        <span class="cc-line cc-meta">  3 of 13 done · go in order, or jump to any module.</span>
+        <span class="cc-line"><span class="cc-prompt">›</span><span class="cc-cursor"></span></span>
+      </div>
+    </div>
+  </div>
+  <div class="container" style="margin-top:48px">
+    <div class="stripe">
+      <span><b>7+ YEARS</b> · marketing accountants</span>
+      <span><b>13 MODULES</b> · go in order or jump</span>
+      <span><b>NEW SKILLS</b> · every month</span>
+      <span><b>$299/MO</b> · cancel anytime</span>
+    </div>
+  </div>
+</section>
+
+<!-- VOICE SPINE -->
+<section style="background:#000020;padding:80px 0">
+  <div class="container">
+    <span class="eyebrow">WHY THIS COURSE EXISTS</span>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:18px;margin-top:36px">
+      <div style="background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:18px;padding:26px">
+        <div style="font-family:'Anton',sans-serif;font-size:48px;color:var(--blue-soft);line-height:1">01</div>
+        <p style="font-size:15px;color:#fff;margin-top:14px;line-height:1.5">Marketing is the last thing on every accountant's list. We built this so it stops being a problem.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:18px;padding:26px">
+        <div style="font-family:'Anton',sans-serif;font-size:48px;color:var(--blue-soft);line-height:1">02</div>
+        <p style="font-size:15px;color:#fff;margin-top:14px;line-height:1.5">You're already using AI for client work. This is how you point a little of it at your own marketing.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:18px;padding:26px">
+        <div style="font-family:'Anton',sans-serif;font-size:48px;color:var(--blue-soft);line-height:1">03</div>
+        <p style="font-size:15px;color:#fff;margin-top:14px;line-height:1.5">Go at your own pace. No live cohort, no homework, no time pressure.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:18px;padding:26px">
+        <div style="font-family:'Anton',sans-serif;font-size:48px;color:var(--blue-soft);line-height:1">04</div>
+        <p style="font-size:15px;color:#fff;margin-top:14px;line-height:1.5">Every module installs a Claude skill that does the actual work. Cut and paste, then approve.</p>
+      </div>
+      <div style="background:rgba(255,255,255,0.04);border:1px solid var(--line);border-radius:18px;padding:26px">
+        <div style="font-family:'Anton',sans-serif;font-size:48px;color:var(--blue-soft);line-height:1">05</div>
+        <p style="font-size:15px;color:#fff;margin-top:14px;line-height:1.5">New skills drop every month. The system you built in month one keeps getting smarter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UNFAIR MATH -->
+<section class="math">
+  <div class="container">
+    <div class="grid">
+      <div>
+        <span class="eyebrow">THE MATH NO ACCOUNTANT CAN IGNORE</span>
+        <h2 class="anton">MARKETING USED<br>TO COST $5,000<br>A MONTH.<br><span class="accent" style="color:var(--blue-soft)">NOW IT'S $299.</span></h2>
+        <p>You know your write-offs cold. You know your break-even. Now look at the line item below for "marketing." For a long time the only options were an $80,000/year hire, a generalist agency that needed a six-month ramp on accounting context, or doing it yourself in the gaps and never quite catching up. The course is the fourth option: the same system a $5,000/month agency runs, sized for one firm, priced for a CPA who would rather not explain a $60,000 marketing line to a partner.</p>
+      </div>
+      <div class="stack">
+        <div class="row">
+          <span class="label">In-house marketing director</span>
+          <span class="val">$80K/yr + benefits</span>
+        </div>
+        <div class="row">
+          <span class="label">Generalist marketing agency</span>
+          <span class="val">$5K/mo + ramp</span>
+        </div>
+        <div class="row">
+          <span class="label">Markology LITE (done-for-you)</span>
+          <span class="val">$1,599/mo</span>
+        </div>
+        <div class="row you">
+          <span class="label">The Claude Marketing Course (DIY)</span>
+          <span class="val">$299/mo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE GRID -->
+<section class="modules" id="curriculum">
+  <div class="container">
+    <span class="eyebrow">THE CURRICULUM · 13 MODULES · 121 CHAPTERS</span>
+    <h2 class="anton">EVERYTHING WE USE<br>FOR OUR AGENCY CLIENTS.<br>NOW IN YOUR HANDS.</h2>
+    <p class="sub">Each module stands alone. Run them in order to build a fully automated marketing department, or jump straight to the one piece you came for. Same $299/mo either way.</p>
+
+    <div class="mod-grid">
+      <div class="mod">
+        <div class="nbr">01 · SETUP</div>
+        <h3>Claude, Set Up For Your Firm</h3>
+        <p>Install Claude Code, connect Drive, email, calendar, and meeting notes. Build a "Business DNA" file Claude uses on every output.</p>
+        <div class="deliverable">DELIVERABLE: Connected Claude workspace</div>
+      </div>
+      <div class="mod">
+        <div class="nbr">02 · INTEGRATIONS</div>
+        <h3>Your Tools, In One Brain</h3>
+        <p>Plug in Canopy, Carbon, Karbon, QuickBooks, Calendly, HubSpot, Asana, Slack. Claude reads from all of them. This is your moat.</p>
+        <div class="deliverable">DELIVERABLE: Practice stack wired in</div>
+      </div>
+      <div class="mod">
+        <div class="nbr">03 · FOUNDATION</div>
+        <h3>How Marketing Actually Works</h3>
+        <p>Inbound vs outbound. The 7 channels accountants should care about. Who your ideal client is. A real 10-page strategy doc out the other side.</p>
+        <div class="deliverable">DELIVERABLE: 10-page marketing audit + strategy</div>
+      </div>
+      <div class="mod">
+        <div class="nbr">04 · MESSAGING</div>
+        <h3>Sound Like A Firm Worth Hiring</h3>
+        <p>Move from features ("we file 1040s") to outcomes ("you stop overpaying tax in week one"). Train Claude on your voice once. It writes in it forever.</p>
+        <div class="deliverable">DELIVERABLE: Messaging audit + hero rewrite</div>
+      </div>
+      <div class="mod">
+        <div class="nbr">05 · SEO RESEARCH</div>
+        <h3>What Your Buyers Actually Search</h3>
+        <p>Find what real prospects type into Google. Pick the head term you can win. Pull a full competitor and keyword strategy in a Friday afternoon.</p>
+        <div class="deliverable">DELIVERABLE: SEO + competitor strategy doc</div>
+      </div>
+      <div class="mod">
+        <div class="nbr">06 · AI SEARCH <span class="tag">NEW</span></div>
+        <h3>Show Up In ChatGPT + Perplexity</h3>
+        <p>Get cited by AI answer engines. Schema, E-E-A-T signals, llms.txt, a monthly visibility check routine. The new front door for your firm.</p>
+        <div class="deliverable">DELIVERABLE: AI visibility scorecard</div>
+      </div>
+      <div class="mod">
+        <div class="nbr">07 · WEBSITE</div>
+        <h3>A Site That Books Calls</h3>
+        <p>The architecture every accountant firm should have. The 5-tab test. Service pages that convert. Claude builds page drafts in your voice.</p>
+        <div class="deliverable">DELIVERABLE: Full website audit + page drafts</div>
+      </div>
+      <div class="mod">
+        <div class="nbr">08 · TRACKING</div>
+        <h3>Know What's Working In One Look</h3>
+        <p>Install GA4, GSC, conversion tracking. The 5 numbers that matter for accountants. A weekly + monthly + quarterly check routine you can run in 20 minutes.</p>
+        <div class="deliverable">DELIVERABLE: Personalized reporting rhythm</div>
+      </div>
+      <div class="mod">
+        <div class="nbr">09 · CONTENT</div>
+        <h3>The Monthly SEO + Content Engine</h3>
+        <p>GBP posts, reviews, citations, backlinks, content calendar, blog drafting + indexing. Claude does 90% of the typing. You approve.</p>
+        <div class="deliverable">DELIVERABLE: 1-month content calendar + grading workbook</div>
+      </div>
+      <div class="mod">
+        <div class="nbr">10 · EMAIL</div>
+        <h3>The Newsletter That Pays For Itself</h3>
+        <p>Lead magnets, welcome flows, referral asks, the Mailchimp template that works. Subject lines, frequency, what actually gets opened.</p>
+        <div class="deliverable">DELIVERABLE: Welcome + newsletter + referral kit</div>
+      </div>
+      <div class="mod">
+        <div class="nbr">11 · SOCIAL</div>
+        <h3>For The Accountant Who Hates Social</h3>
+        <p>Which platforms. How often. Personal vs business LinkedIn. Metricool to schedule it all in one window. Claude writes the captions.</p>
+        <div class="deliverable">DELIVERABLE: Monthly social plan + auto-schedule</div>
+      </div>
+      <div class="mod">
+        <div class="nbr">12 · YOUTUBE</div>
+        <h3>The Explainer Channel Move</h3>
+        <p>Filming setup, editing flow, thumbnails, captions, the kind of videos prospects actually finish. Optional. Skip if not your thing.</p>
+        <div class="deliverable">DELIVERABLE: First 3 video templates</div>
+      </div>
+      <div class="mod">
+        <div class="nbr">13 · OUTREACH</div>
+        <h3>Podcasts, Partnerships, Networking</h3>
+        <p>Guest appearances, cold email, BNI, Chambers, conferences, partner pitches. The outreach templates we use for our own agency clients.</p>
+        <div class="deliverable">DELIVERABLE: Outreach template kit</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TWO PATHS -->
+<section class="paths">
+  <div class="container">
+    <span class="eyebrow">CHOOSE YOUR PACE</span>
+    <h2 class="anton">TWO WAYS TO RUN IT.<br>SAME $299/MO.</h2>
+    <p class="sub">Most courses force a 12-week march. This one doesn't. Pick the speed and depth that fit your week, switch any time. Both tracks install the same approval-gated automations.</p>
+
+    <div class="path-grid">
+      <div class="path">
+        <span class="badge">FAST-TRACK</span>
+        <h3 class="anton">JUST GET ME LEADS</h3>
+        <span class="hours">47 chapters · 5-10 min each</span>
+        <p style="color:var(--text-dim);font-size:15px">For the accountant who wants leads by next month. Setup, messaging, SEO, AI search, content, email, and outreach. Stripped to what moves the needle. Filter by Local or National.</p>
+        <ul>
+          <li>✓ Weekend completable, start to first published post</li>
+          <li>✓ Skip integrations + theory you don't need yet</li>
+          <li>✓ Every chapter ends in one cut-and-paste skill</li>
+          <li>✓ Same approval gates. Nothing publishes without you.</li>
+        </ul>
+        <div class="price">$299<small>/month · cancel anytime</small></div>
+      </div>
+      <div class="path">
+        <span class="badge">DEEP-DIVE</span>
+        <h3 class="anton">TEACH ME MARKETING</h3>
+        <span class="hours">13 modules · 121 chapters</span>
+        <p style="color:var(--text-dim);font-size:15px">For the accountant who wants to actually understand it. The full Markology playbook from messaging through partnerships, taught the way we'd train a new hire. Each module ends in a deliverable for your firm.</p>
+        <ul>
+          <li>✓ Full curriculum, run in order or jump around</li>
+          <li>✓ One monthly live Q&A with the Markology team</li>
+          <li>✓ Plain-English first. Every term translated in the same sentence.</li>
+          <li>✓ The "why" behind every recommendation, not just the "what"</li>
+        </ul>
+        <div class="price">$299<small>/month · cancel anytime</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROUTINE EXAMPLE: YOUR MONDAY MORNING -->
+<section class="day1">
+  <div class="container">
+    <span class="eyebrow">CHOOSE TO AUTOMATE YOUR MARKETING WORK WITH CLAUDE ROUTINES</span>
+    <h2 class="anton">YOU OPEN YOUR EMAIL.<br>YOU OPEN ONE SHEET.<br>YOUR MARKETING IS DONE.</h2>
+    <p class="sub">Here's an actual Monday. Your firm. Your name. You've already made coffee. You're about to spend twelve minutes on marketing for the entire week.</p>
+
+    <div class="story-stack">
+
+      <div class="story-step">
+        <div class="story-time"><span class="story-min">8:42</span><span class="story-meridian">AM</span></div>
+        <div class="story-text">
+          <h4>You see the email</h4>
+          <p>One email from your marketing system. Subject: "3 things waiting for your review." You tap it. It lists a blog, a LinkedIn article, and your June newsletter. You tap "Open Marketing Board."</p>
+        </div>
+        <div class="story-mockup">
+          <div class="em">
+            <div class="em-h"><div class="av">M</div><div class="mt"><div class="fr">Markology Marketing</div><div class="to">to me</div></div><div class="tm">8:42 AM</div></div>
+            <div class="em-b">
+              <h5>📋 3 items waiting for your review</h5>
+              <p>Your marketing board has 3 items ready for your sign-off. Each takes 2 to 3 minutes to review.</p>
+              <div class="em-items">
+                <div class="em-i"><span class="p">BLOG</span><span>How to Choose a CPA for Your Austin Restaurant</span></div>
+                <div class="em-i li"><span class="p">LINKEDIN</span><span>The Marketing System Every Solo CPA Should Run</span></div>
+                <div class="em-i nl"><span class="p">NEWSLETTER</span><span>June: AI is Replacing Your Brochure Site</span></div>
+              </div>
+              <span class="em-cta">Open Marketing Board →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-step">
+        <div class="story-time"><span class="story-min">8:43</span><span class="story-meridian">AM</span></div>
+        <div class="story-text">
+          <h4>Your Google Sheet opens</h4>
+          <p>You're inside your Marketing Board. Three rows are yellow ("Awaiting Review"). You tap the first row's title. Google Docs opens to the blog draft on your phone.</p>
+        </div>
+        <div class="story-mockup">
+          <div class="gs-phone">
+            <div class="gs-phone-screen">
+              <div class="gs-phone-status"><span>8:43</span><span>📶 100%</span></div>
+              <div class="gs-bar"><div class="docIco">📊</div><div class="nm">Marketing Board<small>Google Sheets</small></div><span class="ico">↗ ⋮</span></div>
+              <div class="gs-tool"><span>File</span><span>Edit</span><span>View</span><span>Format</span></div>
+              <div class="gs-grid">
+                <div class="gs-head"><div>#</div><div>TITLE</div><div>STATUS</div></div>
+                <div class="gs-r aw"><div class="gs-n">2</div><div class="gs-t"><b>BLOG</b> Choose a CPA for Your Austin Restaurant<small>📄 Doc · Pub Jun 23</small></div><div class="gs-s"><span class="gs-pill aw">⏳ Awaiting</span></div></div>
+                <div class="gs-r aw"><div class="gs-n">3</div><div class="gs-t"><b>LI ART</b> Marketing System Every Solo CPA Should Run<small>📄 Doc · Pub Jun 23</small></div><div class="gs-s"><span class="gs-pill aw">⏳ Awaiting</span></div></div>
+                <div class="gs-r aw"><div class="gs-n">4</div><div class="gs-t"><b>NEWS</b> June: AI is Replacing Your Brochure Site<small>📄 Doc · Pub Jun 20</small></div><div class="gs-s"><span class="gs-pill aw">⏳ Awaiting</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-step">
+        <div class="story-time"><span class="story-min">8:46</span><span class="story-meridian">AM</span></div>
+        <div class="story-text">
+          <h4>You read the blog</h4>
+          <p>It's about choosing a CPA for an Austin restaurant. 1,250 words, in your firm's voice. You read it in 3 minutes. It sounds like you. You'd publish this exact thing if you'd written it yourself.</p>
+        </div>
+        <div class="story-mockup">
+          <div class="gs-phone">
+            <div class="gs-phone-screen">
+              <div class="gs-phone-status"><span>8:46</span><span>📶 100%</span></div>
+              <div style="background:#4285F4;color:#fff;padding:10px 14px 8px;display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600"><div style="width:18px;height:18px;background:rgba(255,255,255,0.25);border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:10px">📄</div><div style="flex:1;line-height:1.2;color:#fff">Blog #1 · Choose a CPA<small style="display:block;font-size:9.5px;font-weight:400;opacity:0.85;margin-top:1px;color:#fff">Google Docs</small></div><span style="font-size:11px;opacity:0.9;color:#fff">↗ ⋮</span></div>
+              <div style="padding:16px 14px;color:#0B0A24;font-size:11px;line-height:1.5;background:#fff">
+                <div style="font-size:13px;font-weight:700;margin-bottom:4px;color:#0B0A24">How to Choose a CPA for Your Austin Restaurant</div>
+                <div style="font-size:10px;color:#7E809A;margin-bottom:10px">By Whitney · 3 min read · Drafted Jun 21</div>
+                <p style="margin-bottom:8px;color:#3E3F66">If you're running a restaurant in Austin, hiring the right CPA is one of the highest-leverage decisions you'll make in your first 3 years.</p>
+                <p style="margin-bottom:8px;color:#3E3F66">The wrong one costs you in two ways: thousands in missed deductions, and the slow drag of always rebuilding if your books aren't right.</p>
+                <div style="font-size:12px;font-weight:700;color:#0B0A24;margin:10px 0 4px">What to ask before you hire</div>
+                <p style="margin-bottom:8px;color:#3E3F66">Most restaurant owners pick a CPA from a Google search and a 15-minute call. That works for personal taxes. It does not work for a business with inventory aging, tipped employees, and quarterly sales tax filings.</p>
+                <p style="color:#7E809A;font-style:italic;font-size:10px">[draft continues 1,150 more words]</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-step">
+        <div class="story-time"><span class="story-min">9:11</span><span class="story-meridian">AM</span></div>
+        <div class="story-text">
+          <h4>You tap the dropdown</h4>
+          <p>Back to the Sheet. You tap the yellow "Awaiting Review" cell on row 1. Dropdown opens: Awaiting Review · <b style="color:#fff">Approved</b> · Needs Edits · Scheduled · Published. You tap Approved. Row turns green.</p>
+        </div>
+        <div class="story-mockup">
+          <div class="gs-phone" style="position:relative">
+            <div class="gs-phone-screen">
+              <div class="gs-phone-status"><span>9:11</span><span>📶 100%</span></div>
+              <div class="gs-bar"><div class="docIco">📊</div><div class="nm">Marketing Board<small>Google Sheets</small></div><span class="ico">↗ ⋮</span></div>
+              <div class="gs-tool"><span>File</span><span>Edit</span><span>View</span><span>Format</span></div>
+              <div class="gs-grid">
+                <div class="gs-head"><div>#</div><div>TITLE</div><div>STATUS</div></div>
+                <div class="gs-r aw" style="outline:2px solid #1A73E8;outline-offset:-2px"><div class="gs-n">2</div><div class="gs-t"><b>BLOG</b> Choose a CPA for Your Austin Restaurant<small>📄 Doc · Pub Jun 23</small></div><div class="gs-s"><span class="gs-pill aw">⏳ ▾</span></div></div>
+                <div class="gs-r aw"><div class="gs-n">3</div><div class="gs-t"><b>LI ART</b> Marketing System Every Solo CPA<small>📄 Doc</small></div><div class="gs-s"><span class="gs-pill aw">⏳ Awaiting</span></div></div>
+                <div class="gs-r aw"><div class="gs-n">4</div><div class="gs-t"><b>NEWS</b> AI is Replacing Your Brochure Site<small>📄 Doc</small></div><div class="gs-s"><span class="gs-pill aw">⏳ Awaiting</span></div></div>
+              </div>
+              <div class="gs-dd">
+                <div class="o"><span class="d a"></span>Awaiting Review</div>
+                <div class="o sel"><span class="d b"></span>Approved</div>
+                <div class="o"><span class="d c"></span>Needs Edits</div>
+                <div class="o"><span class="d d"></span>Scheduled</div>
+                <div class="o"><span class="d e"></span>Published</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="story-step story-end">
+        <div class="story-time"><span class="story-min">9:14</span><span class="story-meridian">AM</span></div>
+        <div class="story-text">
+          <h4>All 3 approved. You're done.</h4>
+          <p>You repeat the gesture on the LinkedIn article and the newsletter. Three taps total. Your Sheet is all green. You close your phone and get back to client work. Your marketing for the week is finished.</p>
+        </div>
+        <div class="story-mockup">
+          <div class="gs-phone">
+            <div class="gs-phone-screen">
+              <div class="gs-phone-status"><span>9:14</span><span>📶 100%</span></div>
+              <div class="gs-bar"><div class="docIco">📊</div><div class="nm">Marketing Board<small>Google Sheets</small></div><span class="ico">↗ ⋮</span></div>
+              <div class="gs-tool"><span>File</span><span>Edit</span><span>View</span><span>Format</span></div>
+              <div class="gs-grid">
+                <div class="gs-head"><div>#</div><div>TITLE</div><div>STATUS</div></div>
+                <div class="gs-r ap"><div class="gs-n">2</div><div class="gs-t"><b>BLOG</b> Choose a CPA for Your Austin Restaurant<small>📄 Doc · Pub Jun 23</small></div><div class="gs-s"><span class="gs-pill ap">✓ Approved</span></div></div>
+                <div class="gs-r ap"><div class="gs-n">3</div><div class="gs-t"><b>LI ART</b> Marketing System Every Solo CPA<small>📄 Doc · Pub Jun 23</small></div><div class="gs-s"><span class="gs-pill ap">✓ Approved</span></div></div>
+                <div class="gs-r ap"><div class="gs-n">4</div><div class="gs-t"><b>NEWS</b> AI is Replacing Your Brochure Site<small>📄 Doc · Pub Jun 20</small></div><div class="gs-s"><span class="gs-pill ap">✓ Approved</span></div></div>
+                <div class="gs-r sc"><div class="gs-n">5</div><div class="gs-t"><b>LI POST</b> 3 questions before signing with an agency<small>📅 Jun 23 · 9am</small></div><div class="gs-s"><span class="gs-pill sc">📅 Scheduled</span></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="text-align:center;margin-top:36px;color:var(--text-dim);font-size:15px;max-width:720px;margin-left:auto;margin-right:auto">By Tuesday morning, your newsletter is out to 1,247 subscribers. By Friday, the blog is live on your site. The system did the typing. You did the approving. <b style="color:#fff">Your total time this week: 12 minutes.</b></p>
+
+    <div style="background:rgba(255,255,255,0.03);border:1px solid var(--line);border-radius:22px;padding:38px;margin-top:64px">
+      <span class="eyebrow">APPROVALS MADE EASY</span>
+      <h3 class="anton" style="font-size:clamp(28px,3.5vw,44px);line-height:1.1;margin:18px 0 14px">YOU ALREADY USE GOOGLE SHEETS<br>EVERY DAY. SO DOES YOUR MARKETING.</h3>
+      <p style="color:var(--text-dim);font-size:16px;max-width:760px;margin-bottom:32px">You won't learn a new app. You won't log into another platform. You won't open Claude. You won't touch a kanban board, an Asana, a Trello, or any "AI marketing dashboard." You open the same Google Sheet you've used for client tax workpapers for the last decade. Status column is a dropdown. Tap the dropdown. Pick "Approved." Done.</p>
+      <div style="display:grid;grid-template-columns:1fr 320px;gap:40px;align-items:center;background:#F9F9FF;border-radius:14px;padding:30px;color:#0B0A24">
+        <div style="background:#fff;border-radius:10px;overflow:hidden;border:1px solid #E8E9F2;box-shadow:0 8px 24px rgba(0,0,0,0.08)">
+          <div style="background:#fff;padding:8px 12px;border-bottom:1px solid #E8E9F2;display:flex;align-items:center;gap:8px;font-size:11px;color:#5F6368">
+            <span style="width:11px;height:11px;border-radius:50%;background:#FF5F57"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#FFBD2E"></span>
+            <span style="width:11px;height:11px;border-radius:50%;background:#28C840"></span>
+            <span style="margin-left:14px;color:#0B0A24;font-weight:600">📊 Markology · Marketing Board — Google Sheets</span>
+          </div>
+          <div class="gs-tool" style="color:#fff;background:#0F9D58;font-size:10px;padding:5px 14px;opacity:1"><span>File</span><span>Edit</span><span>View</span><span>Insert</span><span>Format</span><span>Data</span><span>Tools</span><span>Extensions</span><span>Help</span></div>
+          <div class="gs-grid">
+            <div class="gs-head" style="grid-template-columns:30px 80px 1fr 110px 110px 90px"><div>#</div><div>TYPE</div><div>TITLE</div><div>STATUS</div><div>DOC LINK</div><div>PUB DATE</div></div>
+            <div class="gs-r aw" style="grid-template-columns:30px 80px 1fr 110px 110px 90px"><div class="gs-n">2</div><div><span class="gs-pill" style="background:#5B7CFA;color:#fff">BLOG</span></div><div class="gs-t">How to Choose a CPA for Your Austin Restaurant</div><div class="gs-s"><span class="gs-pill aw">⏳ Awaiting</span></div><div style="font-size:10px;color:#1A73E8">📄 Open Doc</div><div style="font-size:10px;color:#0B0A24">Jun 23</div></div>
+            <div class="gs-r aw" style="grid-template-columns:30px 80px 1fr 110px 110px 90px"><div class="gs-n">3</div><div><span class="gs-pill" style="background:#0A66C2;color:#fff">LI ART</span></div><div class="gs-t">The Marketing System Every Solo CPA Should Run in 2026</div><div class="gs-s"><span class="gs-pill aw">⏳ Awaiting</span></div><div style="font-size:10px;color:#1A73E8">📄 Open Doc</div><div style="font-size:10px;color:#0B0A24">Jun 23</div></div>
+            <div class="gs-r aw" style="grid-template-columns:30px 80px 1fr 110px 110px 90px"><div class="gs-n">4</div><div><span class="gs-pill" style="background:#F2A2A2;color:#fff">NEWS</span></div><div class="gs-t">June: AI is Replacing Your Brochure Site</div><div class="gs-s"><span class="gs-pill aw">⏳ Awaiting</span></div><div style="font-size:10px;color:#1A73E8">📄 Open Doc</div><div style="font-size:10px;color:#0B0A24">Jun 20</div></div>
+            <div class="gs-r sc" style="grid-template-columns:30px 80px 1fr 110px 110px 90px"><div class="gs-n">5</div><div><span class="gs-pill" style="background:#7DA4F4;color:#fff">LI POST</span></div><div class="gs-t">3 questions to ask before signing with an agency</div><div class="gs-s"><span class="gs-pill sc">📅 Scheduled</span></div><div style="font-size:10px;color:#1A73E8">📄 Open Doc</div><div style="font-size:10px;color:#0B0A24">Jun 23</div></div>
+            <div class="gs-r ap" style="grid-template-columns:30px 80px 1fr 110px 110px 90px"><div class="gs-n">6</div><div><span class="gs-pill" style="background:#A78BFA;color:#fff">CAROUSEL</span></div><div class="gs-t">5 things every accountant's site is missing</div><div class="gs-s"><span class="gs-pill ap">✓ Approved</span></div><div style="font-size:10px;color:#1A73E8">📄 Open Doc</div><div style="font-size:10px;color:#0B0A24">Jun 25</div></div>
+            <div class="gs-r ap" style="grid-template-columns:30px 80px 1fr 110px 110px 90px"><div class="gs-n">7</div><div><span class="gs-pill" style="background:#1DA1F2;color:#fff">TWITTER</span></div><div class="gs-t">"What separates the CPA firms that last in 2025"</div><div class="gs-s"><span class="gs-pill" style="background:#E5E7EB;color:#374151">✓ Published</span></div><div style="font-size:10px;color:#1A73E8">📄 Open Doc</div><div style="font-size:10px;color:#0B0A24">Jun 21</div></div>
+          </div>
+        </div>
+        <div class="gs-phone" style="position:relative">
+          <div class="gs-phone-screen">
+            <div class="gs-phone-status"><span>9:11</span><span>📶 100%</span></div>
+            <div class="gs-bar"><div class="docIco">📊</div><div class="nm">Marketing Board<small>Google Sheets</small></div><span class="ico">↗ ⋮</span></div>
+            <div class="gs-tool"><span>File</span><span>Edit</span><span>View</span><span>Format</span></div>
+            <div class="gs-grid">
+              <div class="gs-head"><div>#</div><div>TITLE</div><div>STATUS</div></div>
+              <div class="gs-r aw" style="outline:2px solid #1A73E8;outline-offset:-2px"><div class="gs-n">2</div><div class="gs-t"><b>BLOG</b> Choose a CPA for Your Austin Restaurant<small>📄 Doc</small></div><div class="gs-s"><span class="gs-pill aw">⏳ ▾</span></div></div>
+              <div class="gs-r aw"><div class="gs-n">3</div><div class="gs-t"><b>LI ART</b> Marketing System Every Solo CPA<small>📄 Doc</small></div><div class="gs-s"><span class="gs-pill aw">⏳ Awaiting</span></div></div>
+              <div class="gs-r aw"><div class="gs-n">4</div><div class="gs-t"><b>NEWS</b> AI is Replacing Your Brochure Site<small>📄 Doc</small></div><div class="gs-s"><span class="gs-pill aw">⏳ Awaiting</span></div></div>
+            </div>
+            <div class="gs-dd">
+              <div class="o"><span class="d a"></span>Awaiting Review</div>
+              <div class="o sel"><span class="d b"></span>Approved</div>
+              <div class="o"><span class="d c"></span>Needs Edits</div>
+              <div class="o"><span class="d d"></span>Scheduled</div>
+              <div class="o"><span class="d e"></span>Published</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px">
+        <div>
+          <div style="font-family:'Anton',sans-serif;font-size:32px;color:var(--blue-soft);line-height:1">4 MIN</div>
+          <div style="font-size:13px;color:var(--text-dim);margin-top:8px;letter-spacing:1px;text-transform:uppercase;font-weight:700">Your average weekly pass</div>
+        </div>
+        <div>
+          <div style="font-family:'Anton',sans-serif;font-size:32px;color:var(--blue-soft);line-height:1">YOUR PHONE</div>
+          <div style="font-size:13px;color:var(--text-dim);margin-top:8px;letter-spacing:1px;text-transform:uppercase;font-weight:700">Between meetings, on the train</div>
+        </div>
+        <div>
+          <div style="font-family:'Anton',sans-serif;font-size:32px;color:var(--blue-soft);line-height:1">ONE GESTURE</div>
+          <div style="font-size:13px;color:var(--text-dim);margin-top:8px;letter-spacing:1px;text-transform:uppercase;font-weight:700">Tap row, read, tap Approved</div>
+        </div>
+        <div>
+          <div style="font-family:'Anton',sans-serif;font-size:32px;color:var(--blue-soft);line-height:1">YOUR DRIVE</div>
+          <div style="font-size:13px;color:var(--text-dim);margin-top:8px;letter-spacing:1px;text-transform:uppercase;font-weight:700">Your data, your account, your control</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- OR: INDIVIDUAL TASKS -->
+<section class="day1">
+  <div class="container">
+    <span class="eyebrow">OR CHOOSE TO RUN ONE SKILL AT A TIME</span>
+    <h2 class="anton">WRITE ONE BLOG POST.<br>BUILD ONE SOCIAL POST.<br>NO ROUTINE REQUIRED.</h2>
+    <p class="sub">You don't have to run the whole automated system. Some weeks you just need one thing. Open Claude, ask, get a finished draft back in minutes. Every skill stands alone.</p>
+
+    <div class="timeline">
+      <div class="tl-step">
+        <div class="min" style="font-size:24px">/blog-draft<small>3 min</small></div>
+        <h4>"Write me a blog about Q4 estate planning."</h4>
+        <p>You get back a 1,250-word draft in your firm's voice. Declarative + question H2s, direct-answer openers, keyword anchors, schema. Ready to paste into your CMS.</p>
+      </div>
+      <div class="tl-step">
+        <div class="min" style="font-size:24px">/social-monthly<small>2 min</small></div>
+        <h4>"Draft a LinkedIn carousel about the OBBBA bill."</h4>
+        <p>You get back 5 slide texts, a caption, and 3 hashtag options. In your voice. No "Did you know...?" or "🚀 Let me tell you why..." Just plain expert framing.</p>
+      </div>
+      <div class="tl-step">
+        <div class="min" style="font-size:24px">/website-audit<small>4 min</small></div>
+        <h4>"Audit my homepage for the new positioning."</h4>
+        <p>You get back a diff of what's working vs what's drifted, plus a revised hero block. Read it, take what helps, leave what doesn't. No subscription required.</p>
+      </div>
+      <div class="tl-step">
+        <div class="min" style="font-size:24px">/monthly-metrics<small>90 sec</small></div>
+        <h4>"Pull this month's GSC numbers."</h4>
+        <p>You get back five numbers in plain English: traffic up or down, top 3 queries earning clicks, biggest opportunity, biggest leak, what to do next month.</p>
+      </div>
+      <div class="tl-step tl-end">
+        <div class="min" style="font-size:24px">/newsletter-draft<small>3 min</small></div>
+        <h4>"Draft a newsletter for my advisory clients."</h4>
+        <p>You get back a subject line, preview text, and a 400-word body. Paste it into Mailchimp. Send. The whole task done in less time than it takes to make a sandwich.</p>
+      </div>
+    </div>
+
+    <p style="text-align:center;margin-top:36px;color:var(--text-dim);font-size:15px;max-width:720px;margin-left:auto;margin-right:auto">Every skill in the course is also a standalone command. Run the full system, run one piece, or mix and match. <b style="color:#fff">Same $299/month either way.</b></p>
+
+    <div style="background:rgba(255,255,255,0.03);border:1px solid var(--line);border-radius:22px;padding:38px;margin-top:64px">
+      <span class="eyebrow">THIS IS WHAT ONE SKILL LOOKS LIKE</span>
+      <h3 class="anton" style="font-size:clamp(28px,3.5vw,44px);line-height:1.1;margin:18px 0 14px">YOU TYPE THE COMMAND.<br>YOU GET THE DELIVERABLE.</h3>
+      <p style="color:var(--text-dim);font-size:16px;max-width:760px;margin-bottom:32px">No prompt engineering. No back-and-forth. No "make it sound less AI." Every skill in the course is a standalone command Claude already knows how to run. Ask for it, walk away for two minutes, come back to a finished draft saved in your Drive.</p>
+
+      <div style="max-width:880px">
+        <div class="cc-term">
+          <div class="cc-bar">
+            <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+            <span class="ti">claude code · ~/marketing</span>
+          </div>
+          <div class="cc-body">
+            <span class="cc-line"><span class="cc-prompt">›</span><span class="cc-user">/blog-draft Write me a blog post about Q4 estate planning for my newsletter.</span></span>
+            <span class="cc-line">&nbsp;</span>
+            <span class="cc-line cc-meta">  Running skill: <span class="cc-tool">blog-draft</span> · using your firm voice profile</span>
+            <span class="cc-line">&nbsp;</span>
+            <span class="cc-line"><span class="cc-ok">✓</span> Pulled firm voice profile (Smith CPA &amp; Co.)</span>
+            <span class="cc-line"><span class="cc-ok">✓</span> Drafted 1,247-word blog post in your voice</span>
+            <span class="cc-line"><span class="cc-ok">✓</span> Mixed declarative + question H2s, direct-answer openers</span>
+            <span class="cc-line"><span class="cc-ok">✓</span> Added internal links to /estate-planning and /trust-services</span>
+            <span class="cc-line"><span class="cc-ok">✓</span> Created Google Doc in your Drive</span>
+            <div class="cc-done">
+              <div style="color:#fff;font-weight:600;margin-bottom:4px">📄 Why Q4 Is the Right Time to Revisit Your Estate Plan</div>
+              <div style="color:#A0A0A8;font-size:12px">1,247 words · 6 min read · saved to Drive › Marketing › Drafts</div>
+            </div>
+            <span class="cc-line">&nbsp;</span>
+            <span class="cc-line"><span class="cc-action">Open Draft</span><span class="cc-action">Refine Voice</span><span class="cc-action">Send to Mailchimp</span></span>
+            <span class="cc-line">&nbsp;</span>
+            <span class="cc-line cc-meta">  Total time: 47 seconds. No routine. No sheet. Just the draft.</span>
+            <span class="cc-line"><span class="cc-prompt">›</span><span class="cc-cursor"></span></span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:36px">
+        <div>
+          <div style="font-family:'Anton',sans-serif;font-size:32px;color:var(--blue-soft);line-height:1">47 SEC</div>
+          <div style="font-size:13px;color:var(--text-dim);margin-top:8px;letter-spacing:1px;text-transform:uppercase;font-weight:700">From ask to finished draft</div>
+        </div>
+        <div>
+          <div style="font-family:'Anton',sans-serif;font-size:32px;color:var(--blue-soft);line-height:1">ONE COMMAND</div>
+          <div style="font-size:13px;color:var(--text-dim);margin-top:8px;letter-spacing:1px;text-transform:uppercase;font-weight:700">No prompt engineering</div>
+        </div>
+        <div>
+          <div style="font-family:'Anton',sans-serif;font-size:32px;color:var(--blue-soft);line-height:1">YOUR VOICE</div>
+          <div style="font-size:13px;color:var(--text-dim);margin-top:8px;letter-spacing:1px;text-transform:uppercase;font-weight:700">Pulled from your firm profile</div>
+        </div>
+        <div>
+          <div style="font-family:'Anton',sans-serif;font-size:32px;color:var(--blue-soft);line-height:1">YOUR DRIVE</div>
+          <div style="font-size:13px;color:var(--text-dim);margin-top:8px;letter-spacing:1px;text-transform:uppercase;font-weight:700">Saved in your account, not ours</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST + HONESTY -->
+<section class="trust-frame">
+  <div class="container">
+    <span class="eyebrow">THE TRUST FRAME · WHY THIS COURSE IS HONEST WITH YOU</span>
+    <div class="grid" style="margin-top:36px">
+      <div>
+        <span class="pill-dark">7+ YEARS</span>
+        <h2 class="anton">SEVEN YEARS RUNNING MARKETING<br>FOR ACCOUNTING FIRMS.</h2>
+        <p>Markology has worked with accounting firms nationwide since 2019. Local CPAs, niche specialty firms, multi-location practices. The system the course teaches is the same one we run every week, refined over hundreds of monthly cycles.</p>
+        <p>You're not learning theory from someone who read about accountants. You're learning the literal playbook from the people who execute it for paying agency clients right now.</p>
+      </div>
+      <div>
+        <span class="pill-dark">AGENCY-LEVEL HONESTY</span>
+        <h2 class="anton">SOME METHODS STAY<br>WITH OUR AGENCY CLIENTS.</h2>
+        <p>The course gives you the system that produces results for most accountants. The full edge cases, the multi-channel scale work, the strategy-level moves we make for $5K-and-up agency engagements? Those stay with our agency clients.</p>
+        <p>You'll always know where the line is. No fake-reveal, no withheld "good stuff." When you outgrow DIY, Markology LITE ($1,599/mo) or the full agency tier is the next step. Until then, the course is enough.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MONTHLY DROPS -->
+<section class="drops">
+  <div class="container">
+    <div class="grid">
+      <div>
+        <span class="eyebrow">THE SUBSCRIPTION JUSTIFICATION</span>
+        <h2 class="anton">NEW SKILLS<br>EVERY MONTH.</h2>
+        <p>Google changes. ChatGPT changes. Mailchimp redesigns its dashboard. The course updates in lockstep. Every month brings a fresh set of cut-and-paste skills you drop into your Claude. Done.</p>
+        <p>One course. One investment. New material as fast as marketing itself moves.</p>
+      </div>
+      <div>
+        <div class="list">
+          <div class="skill"><span class="dot"></span>/connect-data</div>
+          <div class="skill"><span class="dot"></span>/build-business-dna</div>
+          <div class="skill"><span class="dot"></span>/keyword-research</div>
+          <div class="skill"><span class="dot"></span>/ai-search-audit</div>
+          <div class="skill"><span class="dot"></span>/website-audit</div>
+          <div class="skill"><span class="dot"></span>/service-page-build</div>
+          <div class="skill"><span class="dot"></span>/monthly-metrics</div>
+          <div class="skill"><span class="dot"></span>/content-calendar</div>
+          <div class="skill"><span class="dot"></span>/blog-draft</div>
+          <div class="skill"><span class="dot"></span>/repurpose-blog</div>
+          <div class="skill"><span class="dot"></span>/newsletter-draft</div>
+          <div class="skill"><span class="dot"></span>/social-monthly</div>
+          <div class="skill"><span class="dot"></span>/social-auto-schedule</div>
+          <div class="skill"><span class="dot"></span>/podcast-pitch</div>
+          <div class="skill"><span class="dot"></span>/cold-email</div>
+          <div class="skill"><span class="dot"></span>42 skills + new monthly</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO FOR / NOT FOR -->
+<section class="who">
+  <div class="container">
+    <span class="eyebrow">HONEST FIT-CHECK</span>
+    <h2 class="anton">WHO THIS COURSE<br>IS FOR.<br>AND WHO IT ISN'T.</h2>
+
+    <div class="who-grid">
+      <div class="who-card">
+        <h3>Built for you if you are</h3>
+        <ul>
+          <li>+ A CPA, EA, bookkeeper, or fractional CFO with your own firm</li>
+          <li>+ AI-curious or already using ChatGPT or Claude in your week</li>
+          <li>+ Spending zero on marketing and feeling it, or spending too much and unsure what is working</li>
+          <li>+ Comfortable opening Google Drive and editing a sheet</li>
+          <li>+ Willing to read a draft Claude wrote and improve it before it goes live</li>
+          <li>+ Open to one piece of marketing this weekend, more next month</li>
+        </ul>
+      </div>
+      <div class="who-card">
+        <h3>Not built for you if you</h3>
+        <ul>
+          <li>– Want a hands-off, done-for-you service. That is Markology LITE, $1,599/mo.</li>
+          <li>– Want one-on-one weekly calls and a custom strategy. That is the agency tier.</li>
+          <li>– Want to never look at your firm's marketing again, ever</li>
+          <li>– Are looking for "AI tricks" or growth-hack one-offs</li>
+          <li>– Have never opened Google Drive and never want to</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSING CTA -->
+<section class="close" id="waitlist">
+  <div class="container">
+    <span class="pill">LAUNCHING JULY 2026</span>
+    <h2 class="anton" style="margin-top:24px">JOIN THE WAITLIST.<br>HOLD YOUR FOUNDING<br>MEMBER PRICING.</h2>
+    <p>Public launch is July 2026 at $299/month. Waitlist members get the founding-member price, the first month free, and the first look at every new skill we drop.</p>
+
+    <form class="waitlist-form" onsubmit="event.preventDefault();alert('Connect to Kit form 9540545 on the live page.')">
+      <input type="email" placeholder="your@firmname.com" required>
+      <button type="submit" class="btn btn-primary">Join the waitlist</button>
+    </form>
+    <div class="fineprint">Approved emails get a confirmation. We never share your address. Cancel anytime, even before launch.</div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    Markology · The marketing agency accounting firms trust · 7+ years getting accountants found and recommended on Google and AI search
+  </div>
+</footer>
+
+</body>
+</html>

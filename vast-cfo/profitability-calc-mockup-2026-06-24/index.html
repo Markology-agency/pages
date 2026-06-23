@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Restaurant Profitability Benchmark — Mockup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#111111; --ink:#1d1d1d; --aqua:#4AFEE5; --aqua-deep:#2fe6cd;
+  --paper:#F7F7F6; --white:#ffffff; --line:#e7e6e1;
+  --good:#0a8f5a; --warn:#c8801f; --bad:#c8331f;
+  --font-display:"Archivo", system-ui, sans-serif;
+  --font-body:"Hanken Grotesk", system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+
+/* mockup chrome */
+.mockup-frame{max-width:1180px;margin:0 auto;padding:24px 32px 80px}
+.mockup-bar{display:flex;gap:8px;align-items:center;padding:10px 14px;background:var(--white);border:1px solid var(--line);border-radius:8px;font-family:var(--font-display);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#7a7a73;margin-bottom:24px}
+.mockup-bar .dots{display:flex;gap:6px;margin-right:10px}
+.mockup-bar .dots span{width:10px;height:10px;border-radius:50%;background:#e2e2dc}
+.mockup-bar .url{margin-left:8px;color:var(--ink);font-weight:600;text-transform:none;letter-spacing:0;font-family:var(--font-body)}
+.mockup-bar .right{margin-left:auto;color:#a8a8a0}
+
+/* page header (matches vastcfo nav feel) */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0 28px;border-bottom:1px solid var(--line);margin-bottom:36px}
+.logo{font-family:var(--font-display);font-weight:900;font-size:26px;letter-spacing:-.02em}
+.logo .dot{display:inline-block;width:10px;height:10px;background:var(--aqua);margin-right:6px;border-radius:50%}
+.nav .links{display:flex;gap:26px;font-family:var(--font-display);font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.04em}
+.nav .links a{text-decoration:none;color:var(--ink)}
+.nav .cta{font-family:var(--font-display);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em;background:var(--black);color:#fff;padding:12px 18px;border-radius:0;text-decoration:none}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;margin-bottom:48px;align-items:center}
+.eyebrow{font-family:var(--font-display);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:#5f5f57;margin-bottom:14px}
+h1{font-family:var(--font-display);font-weight:900;font-size:clamp(38px,5vw,62px);line-height:1.02;letter-spacing:-.025em;margin:0 0 18px;color:var(--black)}
+h1 .hi{background:var(--aqua);padding:.02em .15em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.lede{font-size:19px;line-height:1.55;color:#2a2a2a;max-width:560px}
+.hero-aside{background:var(--black);color:#fff;padding:28px 26px;border-radius:0;font-family:var(--font-display)}
+.hero-aside h3{margin:0 0 14px;font-weight:900;font-size:18px;letter-spacing:-.01em;text-transform:uppercase;color:var(--aqua)}
+.hero-aside ol{margin:0;padding-left:22px;font-family:var(--font-body);font-weight:500;font-size:15px;line-height:1.6}
+.hero-aside ol li{margin-bottom:8px}
+
+/* step container */
+.step{display:none;background:var(--white);border:1.5px solid var(--ink);border-radius:0;padding:40px;margin-bottom:36px;animation:fadein .25s ease}
+.step.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.step-head{display:flex;align-items:center;gap:14px;margin-bottom:26px}
+.step-num{font-family:var(--font-display);font-weight:900;font-size:13px;letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:#fff;padding:6px 12px}
+.step h2{font-family:var(--font-display);font-weight:900;font-size:clamp(26px,3.4vw,38px);line-height:1.05;letter-spacing:-.02em;margin:0;color:var(--black)}
+.step .step-sub{margin:6px 0 0;color:#56564f;font-size:16px;line-height:1.5;max-width:680px}
+
+/* step 1 upload */
+.upload-zone{border:2.5px dashed #b8b8ae;background:var(--paper);padding:54px 24px;text-align:center;transition:.2s;cursor:pointer}
+.upload-zone:hover{border-color:var(--ink);background:#fff}
+.upload-zone .icon{font-size:48px;margin-bottom:14px;font-family:var(--font-display);font-weight:900;color:var(--ink)}
+.upload-zone h3{font-family:var(--font-display);font-weight:800;font-size:22px;margin:0 0 8px;letter-spacing:-.01em}
+.upload-zone p{margin:0;color:#56564f;font-size:15px}
+.upload-zone .formats{margin-top:14px;font-family:var(--font-display);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#85857c}
+.upload-help{display:flex;gap:14px;margin-top:24px;padding:18px 22px;background:#FFF8E6;border-left:4px solid #E2B23A;font-size:14px;line-height:1.5}
+.upload-help strong{font-family:var(--font-display);font-weight:800;display:block;margin-bottom:4px;font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+.upload-help a{color:var(--ink);text-decoration:underline;font-weight:600}
+.upload-alt{margin-top:22px;text-align:center;font-size:14px;color:#56564f}
+.upload-alt a{font-weight:700;color:var(--ink);text-decoration:underline}
+
+/* step 2 mapping */
+.map-intro{background:var(--paper);border-left:4px solid var(--aqua-deep);padding:16px 20px;margin-bottom:24px;font-size:14px;line-height:1.5}
+.map-intro strong{font-family:var(--font-display);font-weight:800}
+.map-table{width:100%;border-collapse:collapse;font-size:14px}
+.map-table th{text-align:left;padding:12px 14px;background:var(--ink);color:#fff;font-family:var(--font-display);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.map-table td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+.map-table tr:nth-child(even) td{background:#fbfbfa}
+.map-table .acct{font-family:"SF Mono","Menlo",monospace;font-size:13px;color:#3a3a33}
+.map-table .amt{text-align:right;font-family:var(--font-display);font-weight:700;color:var(--ink)}
+.map-table select{font-family:var(--font-body);font-size:13px;padding:8px 10px;border:1.5px solid var(--line);background:#fff;width:100%;max-width:240px}
+.map-conf{display:inline-block;padding:3px 8px;font-family:var(--font-display);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.06em;border-radius:0}
+.map-conf.high{background:#d6f5e7;color:#0a6d44}
+.map-conf.med{background:#fce8c8;color:#7d4d14}
+.map-conf.low{background:#f8d6cf;color:#8a2614}
+
+/* step 3 email gate */
+.gate{max-width:520px;margin:0 auto;text-align:center;padding:20px 0}
+.gate h3{font-family:var(--font-display);font-weight:900;font-size:30px;line-height:1.1;margin:0 0 12px;letter-spacing:-.02em}
+.gate p{color:#56564f;margin:0 0 28px;line-height:1.5}
+.gate .field{margin-bottom:14px;text-align:left}
+.gate label{display:block;font-family:var(--font-display);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;color:var(--ink)}
+.gate input{width:100%;font-family:var(--font-body);font-size:16px;padding:14px 16px;border:1.5px solid var(--line);background:#fff;border-radius:0}
+.gate .check{display:flex;gap:12px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);padding:14px 16px;margin:22px 0 24px;text-align:left}
+.gate .check input[type=checkbox]{width:18px;height:18px;margin:2px 0 0;flex-shrink:0;accent-color:var(--ink);cursor:pointer}
+.gate .check label{display:block;margin:0;font-family:var(--font-body);font-weight:500;font-size:14px;line-height:1.45;color:#3a3a33;text-transform:none;letter-spacing:0;cursor:pointer}
+
+/* step 4 results */
+.score-band{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;background:var(--ink);color:#fff;padding:36px 38px;margin-bottom:36px;align-items:center}
+.score-band .grade-box{text-align:center}
+.score-band .grade-label{font-family:var(--font-display);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#a8a8a0;margin-bottom:8px}
+.score-band .grade{font-family:var(--font-display);font-weight:900;font-size:120px;line-height:.85;color:var(--aqua);letter-spacing:-.04em}
+.score-band .grade-text{font-family:var(--font-display);font-weight:800;font-size:18px;text-transform:uppercase;letter-spacing:.04em;margin-top:6px}
+.score-band .headline-stat{margin-bottom:18px}
+.score-band .headline-stat .lbl{font-family:var(--font-display);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--aqua);margin-bottom:4px}
+.score-band .headline-stat .val{font-family:var(--font-display);font-weight:900;font-size:42px;line-height:1;letter-spacing:-.02em}
+.score-band .headline-stat .sub{font-size:14px;color:#bdbdb5;margin-top:4px}
+
+.benchmark-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:36px}
+.bench-card{background:#fff;border:1.5px solid var(--line);padding:22px 24px}
+.bench-card .name{font-family:var(--font-display);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:#56564f;margin-bottom:8px}
+.bench-card .you-vs{display:flex;align-items:baseline;gap:14px;margin-bottom:14px}
+.bench-card .you{font-family:var(--font-display);font-weight:900;font-size:36px;letter-spacing:-.02em;line-height:1}
+.bench-card .vs{font-family:var(--font-display);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#85857c}
+.bench-card .target{font-family:var(--font-display);font-weight:700;font-size:16px;color:#56564f}
+.bench-card .bar-wrap{position:relative;height:10px;background:var(--paper);border:1px solid var(--line);margin-bottom:10px}
+.bench-card .bar{position:absolute;top:0;bottom:0;background:var(--ink)}
+.bench-card .target-marker{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--aqua-deep)}
+.bench-card .status{font-family:var(--font-display);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding:5px 10px;display:inline-block}
+.bench-card .status.good{background:#d6f5e7;color:var(--good)}
+.bench-card .status.warn{background:#fce8c8;color:var(--warn)}
+.bench-card .status.bad{background:#f8d6cf;color:var(--bad)}
+.bench-card .note{margin-top:12px;font-size:14px;line-height:1.5;color:#3a3a33}
+.bench-card .note .leak{font-family:var(--font-display);font-weight:800;color:var(--bad)}
+
+/* deep-dive CTA band */
+.deepdive{background:var(--aqua);color:var(--black);padding:44px 48px;margin-bottom:36px;display:grid;grid-template-columns:1.4fr auto;gap:36px;align-items:center}
+.deepdive h3{font-family:var(--font-display);font-weight:900;font-size:32px;line-height:1.05;letter-spacing:-.02em;margin:0 0 10px}
+.deepdive p{margin:0;font-size:16px;line-height:1.5;max-width:560px}
+.deepdive .btn{font-family:var(--font-display);font-weight:900;font-size:15px;text-transform:uppercase;letter-spacing:.05em;background:var(--black);color:#fff;padding:20px 32px;text-decoration:none;display:inline-block;border:0;cursor:pointer;white-space:nowrap}
+
+/* secondary */
+.secondary-band{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.secondary-card{background:var(--white);border:1.5px solid var(--line);padding:24px}
+.secondary-card h4{font-family:var(--font-display);font-weight:800;font-size:16px;margin:0 0 8px;letter-spacing:-.01em}
+.secondary-card p{margin:0 0 14px;color:#56564f;font-size:14px;line-height:1.5}
+.secondary-card a{font-family:var(--font-display);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink);text-decoration:underline}
+
+/* shared buttons */
+.btn-row{display:flex;gap:14px;justify-content:flex-end;margin-top:30px}
+.btn{font-family:var(--font-display);font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.05em;padding:16px 26px;border:1.5px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer;text-decoration:none;display:inline-block}
+.btn.secondary{background:transparent;color:var(--ink)}
+.btn:hover{opacity:.9}
+
+/* disclosure */
+.disclosure{font-size:12px;color:#85857c;line-height:1.5;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+
+/* annotation notes for whitney */
+.note-pin{position:fixed;right:18px;top:50%;transform:translateY(-50%);background:#fffbcc;border:2px solid #e2c44a;padding:14px 16px;font-size:12px;line-height:1.5;max-width:240px;font-family:var(--font-body);box-shadow:0 8px 30px rgba(0,0,0,.12);z-index:100}
+.note-pin strong{font-family:var(--font-display);font-weight:800;display:block;margin-bottom:6px;text-transform:uppercase;font-size:11px;letter-spacing:.06em}
+.note-pin .close{position:absolute;top:6px;right:8px;font-family:var(--font-display);font-weight:900;font-size:14px;cursor:pointer;color:#85857c;background:none;border:0;padding:0}
+
+@media (max-width:840px){
+  .hero{grid-template-columns:1fr;gap:32px}
+  .benchmark-grid{grid-template-columns:1fr}
+  .score-band{grid-template-columns:1fr;text-align:center}
+  .deepdive{grid-template-columns:1fr;text-align:center}
+  .mockup-frame{padding:16px}
+  .step{padding:24px}
+}
+</style>
+</head>
+<body>
+
+<div class="note-pin" id="notePin">
+  <button class="close" onclick="document.getElementById('notePin').remove()">×</button>
+  <strong>Mockup notes</strong>
+  This is a UX prototype. Click any button or drop zone — the flow advances with sample data so you can feel the full experience. Backend (real LLM categorization + Sheets logging) is deferred.
+</div>
+
+<div class="mockup-frame">
+
+<div class="mockup-bar">
+  <div class="dots"><span></span><span></span><span></span></div>
+  <div class="url">vastcfo.com/restaurant-profitability-calculator/</div>
+  <div class="right">Mockup · 2026-06-24</div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="logo"><span class="dot"></span>VAST CFO</div>
+  <div class="links">
+    <a>Services</a><a>About</a><a>Resources</a><a>Tools</a>
+  </div>
+  <a class="cta">Book a Call</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="eyebrow">Restaurant Profitability Benchmark</div>
+    <h1>See where your <span class="hi">profit is leaking</span> — in 60 seconds.</h1>
+    <p class="lede">Upload your trial balance. We compare every line against industry benchmarks for restaurants like yours and show you exactly where you're bleeding margin.</p>
+  </div>
+  <div class="hero-aside">
+    <h3>How it works</h3>
+    <ol>
+      <li>Upload your trial balance (any format)</li>
+      <li>Confirm we categorized your accounts right</li>
+      <li>See your benchmark report instantly</li>
+      <li>Book a call if you want the deep-dive analysis</li>
+    </ol>
+  </div>
+</div>
+
+<!-- STEP 1: UPLOAD -->
+<div class="step active" id="step1">
+  <div class="step-head">
+    <div class="step-num">Step 1 of 3</div>
+    <h2>Upload your trial balance.</h2>
+  </div>
+  <p class="step-sub">We accept exports from QuickBooks, Xero, Restaurant365, Toast, or a plain CSV/Excel file. Most owners have one in their accounting software — here's how to find it.</p>
+
+  <div class="upload-zone" onclick="goStep(2)">
+    <div class="icon">↑</div>
+    <h3>Drop your trial balance here</h3>
+    <p>or <u>click to browse</u></p>
+    <div class="formats">CSV · XLSX · PDF · QBO export</div>
+  </div>
+
+  <div class="upload-help">
+    <div>
+      <strong>Not sure how to export?</strong>
+      QuickBooks Online: Reports → Trial Balance → set date range → Export to Excel.
+      <a>See full walkthrough →</a>
+    </div>
+  </div>
+
+  <div class="upload-alt">
+    Don't have a trial balance handy? <a onclick="goStep(2)">Enter your numbers manually instead →</a>
+  </div>
+</div>
+
+<!-- STEP 2: MAPPING CONFIRM -->
+<div class="step" id="step2">
+  <div class="step-head">
+    <div class="step-num">Step 2 of 3</div>
+    <h2>Quick check — did we categorize this right?</h2>
+  </div>
+  <p class="step-sub">We mapped your accounts to standard restaurant categories. Fix anything we got wrong, then continue. This takes about 30 seconds.</p>
+
+  <div class="map-intro">
+    <strong>Detected:</strong> Trial balance for <strong>Maple Street Tavern</strong>, period ending May 31 2026. 23 accounts categorized · 21 high confidence · 2 need review.
+  </div>
+
+  <table class="map-table">
+    <thead>
+      <tr><th>Your account name</th><th style="text-align:right">Amount</th><th>Mapped to</th><th>Confidence</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="acct">Sales — Food</td><td class="amt">$182,450</td><td><select><option selected>Food Revenue</option><option>Beverage Revenue</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Sales — Beverage</td><td class="amt">$71,820</td><td><select><option selected>Beverage Revenue</option><option>Food Revenue</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Food Cost</td><td class="amt">$62,030</td><td><select><option selected>Food COGS</option><option>Beverage COGS</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Beverage Cost</td><td class="amt">$19,890</td><td><select><option selected>Beverage COGS</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Wages — BOH</td><td class="amt">$48,200</td><td><select><option selected>Labor — Back of House</option><option>Labor — Front of House</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Wages — FOH</td><td class="amt">$32,800</td><td><select><option selected>Labor — Front of House</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Mgmt Salary</td><td class="amt">$11,500</td><td><select><option selected>Labor — Management</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Payroll Taxes &amp; Benefits</td><td class="amt">$14,300</td><td><select><option selected>Labor Burden</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Rent</td><td class="amt">$22,500</td><td><select><option selected>Occupancy</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Utilities</td><td class="amt">$6,100</td><td><select><option selected>Utilities</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Merchant Fees</td><td class="amt">$5,840</td><td><select><option selected>Direct Operating</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Repairs &amp; Maintenance</td><td class="amt">$3,200</td><td><select><option selected>Repairs &amp; Maintenance</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Marketing</td><td class="amt">$4,400</td><td><select><option selected>Advertising</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Misc Expense 4500</td><td class="amt">$2,840</td><td><select><option selected>— Choose category —</option><option>Other Controllable</option><option>Direct Operating</option><option>Repairs &amp; Maintenance</option></select></td><td><span class="map-conf low">Needs review</span></td></tr>
+      <tr><td class="acct">DJ &amp; Live Music</td><td class="amt">$1,950</td><td><select><option selected>Music &amp; Entertainment</option><option>Advertising</option></select></td><td><span class="map-conf med">Medium</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="btn-row">
+    <button class="btn secondary" onclick="goStep(1)">← Back</button>
+    <button class="btn" onclick="goStep(3)">Looks right — continue →</button>
+  </div>
+</div>
+
+<!-- STEP 3: EMAIL GATE -->
+<div class="step" id="step3">
+  <div class="step-head">
+    <div class="step-num">Step 3 of 3</div>
+    <h2>Where should we send your benchmark report?</h2>
+  </div>
+
+  <div class="gate">
+    <p>We'll show your results on the next screen and email you a PDF copy so you can come back to it.</p>
+    <div class="field">
+      <label>Your name</label>
+      <input type="text" placeholder="First and last name" value="Sam Rivera" />
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" placeholder="you@yourrestaurant.com" value="sam@maplestreettavern.com" />
+    </div>
+    <div class="field">
+      <label>Restaurant name</label>
+      <input type="text" placeholder="e.g. Maple Street Tavern" value="Maple Street Tavern" />
+    </div>
+    <div class="check">
+      <input type="checkbox" id="optin" checked />
+      <label for="optin">Send me Tanya's monthly restaurant operator newsletter. One email a month, unsubscribe anytime.</label>
+    </div>
+    <button class="btn" style="width:100%;padding:18px" onclick="goStep(4)">Show my benchmark report →</button>
+    <div class="disclosure" style="text-align:left;margin-top:18px;border:0;padding:0">
+      Your data is used only to generate this report and stored securely. We never sell your information. <a style="text-decoration:underline">Privacy policy</a>.
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4: RESULTS -->
+<div class="step" id="step4">
+  <div class="step-head">
+    <div class="step-num">Your Report</div>
+    <h2>Maple Street Tavern · May 2026</h2>
+  </div>
+  <p class="step-sub">Compared against benchmarks for full-service independent restaurants doing $2-5M/year in revenue.</p>
+
+  <div class="score-band">
+    <div>
+      <div class="headline-stat">
+        <div class="lbl">Estimated annual profit leak</div>
+        <div class="val">$87,400</div>
+        <div class="sub">Money you'd add back to net profit if you hit benchmarks on every line</div>
+      </div>
+      <div class="headline-stat" style="margin-bottom:0">
+        <div class="lbl">Your net profit margin</div>
+        <div class="val">5.8% <span style="color:#a8a8a0;font-size:18px;font-weight:600">vs. 12% benchmark</span></div>
+      </div>
+    </div>
+    <div class="grade-box">
+      <div class="grade-label">Overall</div>
+      <div class="grade">C+</div>
+      <div class="grade-text">Below benchmark</div>
+    </div>
+  </div>
+
+  <div class="benchmark-grid">
+
+    <div class="bench-card">
+      <div class="name">Food cost %</div>
+      <div class="you-vs"><div class="you">34%</div><div class="vs">vs.</div><div class="target">28-32% target</div></div>
+      <div class="bar-wrap"><div class="bar" style="left:0;width:68%;background:#c8801f"></div><div class="target-marker" style="left:60%"></div></div>
+      <span class="status warn">2 pts high</span>
+      <div class="note">Likely <span class="leak">$3,650/mo leak.</span> Could be portion creep, waste, or supplier pricing slip. Worth pulling a 30-day waste log.</div>
+    </div>
+
+    <div class="bench-card">
+      <div class="name">Prime cost (Food + Bev + Labor) %</div>
+      <div class="you-vs"><div class="you">69%</div><div class="vs">vs.</div><div class="target">≤ 60-65% target</div></div>
+      <div class="bar-wrap"><div class="bar" style="left:0;width:92%;background:#c8331f"></div><div class="target-marker" style="left:65%"></div></div>
+      <span class="status bad">Significantly over</span>
+      <div class="note">Biggest leak. <span class="leak">$4,200/mo</span> over benchmark — the combination of food cost and labor is eating margin faster than either line alone shows.</div>
+    </div>
+
+    <div class="bench-card">
+      <div class="name">Labor %</div>
+      <div class="you-vs"><div class="you">35%</div><div class="vs">vs.</div><div class="target">28-33% target</div></div>
+      <div class="bar-wrap"><div class="bar" style="left:0;width:70%;background:#c8801f"></div><div class="target-marker" style="left:62%"></div></div>
+      <span class="status warn">2 pts high</span>
+      <div class="note">FOH/BOH split looks reasonable. Management salary slightly heavy for your revenue tier.</div>
+    </div>
+
+    <div class="bench-card">
+      <div class="name">Occupancy %</div>
+      <div class="you-vs"><div class="you">8.9%</div><div class="vs">vs.</div><div class="target">≤ 6-8% target</div></div>
+      <div class="bar-wrap"><div class="bar" style="left:0;width:60%;background:#c8801f"></div><div class="target-marker" style="left:55%"></div></div>
+      <span class="status warn">Slightly high</span>
+      <div class="note">Rent is fixed, but worth knowing — only solvable with revenue growth or lease renegotiation.</div>
+    </div>
+
+    <div class="bench-card">
+      <div class="name">Beverage cost %</div>
+      <div class="you-vs"><div class="you">27.7%</div><div class="vs">vs.</div><div class="target">20-25% target</div></div>
+      <div class="bar-wrap"><div class="bar" style="left:0;width:70%;background:#c8801f"></div><div class="target-marker" style="left:55%"></div></div>
+      <span class="status warn">3 pts high</span>
+      <div class="note">Bar pour costs or over-comping. Worth a one-month pour test.</div>
+    </div>
+
+    <div class="bench-card">
+      <div class="name">Marketing %</div>
+      <div class="you-vs"><div class="you">1.7%</div><div class="vs">vs.</div><div class="target">2-4% target</div></div>
+      <div class="bar-wrap"><div class="bar" style="left:0;width:30%;background:#0a8f5a"></div><div class="target-marker" style="left:48%"></div></div>
+      <span class="status good">Under (could grow)</span>
+      <div class="note">You're spending less than peers. Not necessarily bad, but room to test if covers are flat.</div>
+    </div>
+
+  </div>
+
+  <div class="deepdive">
+    <div>
+      <h3>This is the surface. The real money is in the deep dive.</h3>
+      <p>The benchmarks above tell you where you're off. A 30-minute call with Tanya tells you why — and what to fix first. We'll walk through your specific numbers, not a generic playbook.</p>
+    </div>
+    <a class="btn">Book a 30-min call with Tanya</a>
+  </div>
+
+  <div class="secondary-band">
+    <div class="secondary-card">
+      <h4>Download your report as a PDF</h4>
+      <p>We've also emailed it to sam@maplestreettavern.com so you can find it later.</p>
+      <a>↓ Download PDF</a>
+    </div>
+    <div class="secondary-card">
+      <h4>Read: The 2026 Restaurant Benchmarks Guide</h4>
+      <p>Full breakdown of what healthy looks like across full-service, fast-casual, coffee, and catering.</p>
+      <a>Read the guide →</a>
+    </div>
+  </div>
+
+  <div class="disclosure">
+    Benchmarks are drawn from Vast CFO's 2026 Restaurant Benchmarks Guide and industry data from the National Restaurant Association and Restaurant365 operator survey. Comparisons are for educational purposes only and do not constitute accounting, tax, or financial advice. For analysis specific to your business, schedule a call.
+  </div>
+</div>
+
+</div>
+
+<script>
+function goStep(n){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>

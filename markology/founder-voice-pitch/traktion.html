@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How a meeting becomes founder-voice, Traktion sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bangers&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0b1e3f;
+    --navy-2: #1e3a8a;
+    --blue: #2563eb;
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --border: #e2e8f0;
+    --text: #0f172a;
+    --muted: #64748b;
+    --red: #dc2626;
+    --red-bg: #fef2f2;
+    --green: #059669;
+    --green-bg: #ecfdf5;
+    --yellow-bg: #fffbeb;
+    --yellow-border: #fcd34d;
+    --teal: #0d9488;
+    --teal-bg: #f0fdfa;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; }
+
+  .topbar { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%); color: white; padding: 28px 48px 22px; }
+  .topbar-brand { font-family: 'Bangers', sans-serif; letter-spacing: 2px; font-size: 13px; opacity: 0.75; margin-bottom: 6px; }
+  .topbar-title { font-size: 26px; font-weight: 800; margin: 0 0 4px; }
+  .topbar-sub { font-size: 14px; opacity: 0.85; max-width: 920px; }
+
+  /* Step narrator bar */
+  .narrator {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 20px 48px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  }
+  .step-indicator {
+    font-family: 'Bangers', sans-serif;
+    letter-spacing: 2px;
+    font-size: 13px;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  .step-indicator .current { color: var(--navy); font-size: 18px; }
+  .narrator-text {
+    flex: 1;
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--text);
+    font-weight: 500;
+  }
+  .narrator-text strong { color: var(--navy); }
+  .nav-buttons { display: flex; gap: 10px; flex-shrink: 0; }
+  .btn {
+    padding: 10px 22px;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    background: white;
+    color: var(--text);
+    transition: all 0.15s;
+  }
+  .btn:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); }
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-primary {
+    background: var(--navy);
+    color: white;
+    border-color: var(--navy);
+  }
+  .btn-primary:hover:not(:disabled) { background: var(--navy-2); border-color: var(--navy-2); color: white; }
+  .btn-restart { background: transparent; border-color: transparent; color: var(--muted); }
+  .btn-restart:hover { color: var(--blue); }
+
+  /* Three-column pipeline */
+  .pipeline {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr 60px 1fr;
+    gap: 0;
+    padding: 28px 32px 60px;
+    align-items: stretch;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+  .col {
+    background: var(--card);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    opacity: 0.25;
+    transition: opacity 0.4s ease;
+  }
+  .col.active { opacity: 1; }
+  .col-header { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .col-stage { font-family: 'Bangers', sans-serif; font-size: 12px; letter-spacing: 2px; color: var(--muted); margin-bottom: 4px; }
+  .col-title { font-size: 17px; font-weight: 700; color: var(--navy); margin: 0; }
+  .col-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .col-body { padding: 18px 20px; flex: 1; overflow: auto; }
+  .col-input .col-header { background: var(--yellow-bg); border-bottom-color: var(--yellow-border); }
+  .col-pipeline .col-header { background: #f8fafc; }
+  .col-output .col-header { background: var(--teal-bg); border-bottom-color: #5eead4; }
+  .arrow { display: flex; align-items: center; justify-content: center; color: var(--blue); font-size: 36px; font-weight: 800; opacity: 0.3; transition: opacity 0.4s ease; }
+  .arrow.active { opacity: 1; }
+
+  /* Transcript with progressive PII reveal */
+  .transcript { font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65; }
+  .speaker { color: var(--navy-2); font-weight: 700; }
+  .speaker-line { margin-top: 14px; }
+  .speaker-line:first-child { margin-top: 0; }
+  .pii {
+    background: transparent;
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+  .scrubbed .pii {
+    background: var(--red-bg);
+    color: var(--red);
+    text-decoration: line-through;
+    text-decoration-color: var(--red);
+    text-decoration-thickness: 2px;
+    padding: 0 4px;
+    border-radius: 3px;
+    font-weight: 500;
+  }
+  .skip-meta { background: #f1f5f9; border-left: 3px solid var(--muted); padding: 10px 14px; margin: 16px 0; font-size: 12px; color: var(--muted); border-radius: 0 6px 6px 0; }
+  .skip-meta .pii.notyet { color: inherit; }
+
+  /* Pipeline steps with progressive reveal */
+  .step {
+    display: flex;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--border);
+    opacity: 0.3;
+    transition: opacity 0.4s ease, background 0.4s ease;
+    border-radius: 6px;
+  }
+  .step:last-child { border-bottom: none; }
+  .step.revealed { opacity: 1; }
+  .step.current { background: #eff6ff; padding: 14px 12px; }
+  .step-num { width: 28px; height: 28px; border-radius: 8px; background: var(--navy); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+  .step.current .step-num { background: var(--blue); transform: scale(1.1); }
+  .step-body { flex: 1; }
+  .step-title { font-weight: 600; font-size: 14px; color: var(--navy); margin-bottom: 2px; }
+  .step-desc { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+  .step-meta { margin-top: 6px; font-size: 11px; background: #f8fafc; padding: 4px 8px; border-radius: 4px; color: var(--text); display: inline-block; font-family: 'JetBrains Mono', monospace; }
+
+  /* Output entries appear progressively */
+  .entry-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--teal);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .entry-card.revealed { opacity: 1; transform: translateY(0); }
+  .entry-card:last-child { margin-bottom: 0; }
+  .entry-card.takefirst { border-left-color: var(--navy-2); }
+  .entry-card.faqcard { border-left-color: #ea580c; }
+  .entry-card.painfirst { border-left-color: var(--red); }
+  .entry-header { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 8px; }
+  .type-pill { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; background: var(--teal); color: white; padding: 3px 8px; border-radius: 4px; }
+  .type-pill.take { background: var(--navy-2); }
+  .type-pill.faq { background: #ea580c; }
+  .type-pill.pain { background: var(--red); }
+  .tag { font-size: 11px; padding: 2px 7px; border-radius: 4px; background: #dbeafe; color: var(--navy-2); font-weight: 500; }
+  .audience-pill { font-size: 10px; padding: 2px 7px; border-radius: 4px; background: #fef3c7; color: #92400e; }
+  .entry-content { font-size: 13.5px; line-height: 1.55; color: var(--text); margin: 6px 0; }
+  .swap { background: var(--green-bg); color: var(--green); padding: 0 4px; border-radius: 3px; font-weight: 600; border-bottom: 1.5px solid #6ee7b7; }
+  .entry-meta { font-size: 11px; color: var(--muted); margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); }
+  .empty-output { color: var(--muted); font-style: italic; text-align: center; padding: 40px 20px; font-size: 13px; }
+
+  @media (max-width: 1100px) {
+    .pipeline { grid-template-columns: 1fr; }
+    .arrow { transform: rotate(90deg); padding: 8px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">MARKOLOGY · FOUNDER-VOICE · PIPELINE WALKTHROUGH</div>
+  <h1 class="topbar-title">How a Fireflies meeting becomes Traktion's voice library</h1>
+  <div class="topbar-sub">Sample: a 30-minute discovery call with a prospective therapist asking about S-corp election. Click <strong>Next →</strong> to walk through the pipeline step by step.</div>
+</div>
+
+<div class="narrator">
+  <div class="step-indicator"><span class="current" id="step-num">STEP 1</span> &nbsp; OF 7</div>
+  <div class="narrator-text" id="narrator-text">
+    <strong>Here's a real Fireflies transcript</strong>, a 30-minute discovery call with a therapist prospect asking about S-corp election. Names, locations, companies, all visible. Nothing scrubbed yet.
+  </div>
+  <div class="nav-buttons">
+    <button class="btn" id="btn-back" onclick="step(-1)" disabled>← Back</button>
+    <button class="btn btn-primary" id="btn-next" onclick="step(1)">Next →</button>
+    <button class="btn btn-restart" onclick="goto(0)">Restart</button>
+  </div>
+</div>
+
+<div class="pipeline">
+
+  <section class="col col-input active" id="col-input">
+    <div class="col-header">
+      <div class="col-stage">STAGE 1 · INPUT</div>
+      <h2 class="col-title">Raw Fireflies transcript</h2>
+      <div class="col-sub">Real meeting. Names, companies, locations visible. Nothing stripped yet.</div>
+    </div>
+    <div class="col-body">
+      <div class="skip-meta" id="meeting-meta">
+        <strong>Meeting:</strong> "Discovery, <span class="pii">Sarah Johnson</span> intro call"<br>
+        <strong>Duration:</strong> 27 min · <strong>Attendees:</strong> mebea@traktionaccounting.com, <span class="pii">sarah@brightpaththerapy.com</span>
+      </div>
+
+      <div class="transcript" id="transcript">
+        <div class="speaker-line"><span class="speaker"><span class="pii">SARAH JOHNSON</span>:</span> Hi Mebea, thanks for hopping on. So I'm a solo therapist over at <span class="pii">Bright Path Therapy</span> in <span class="pii">Austin</span>, doing about <span class="pii">$184K</span> this year, my CPA at <span class="pii">Smith & Associates</span> said wait til I hit $200K before electing S-corp but it doesn't feel right.</div>
+
+        <div class="speaker-line"><span class="speaker">MEBEA:</span> Yeah, that advice is way too conservative for most therapists. The way I think about it, once you're netting around $80K to $100K in profit, the S-corp math usually works. If you're at $184K revenue with decent margins, you're at like $130K profit, well past that threshold. The mechanic is straightforward, you split income between W-2 salary and distributions, and only the salary portion gets self-employment tax. For someone at your level we usually see meaningful annual SE tax savings.</div>
+
+        <div class="speaker-line"><span class="speaker"><span class="pii">SARAH</span>:</span> Wait so does that mean I still have to do estimated taxes if I'm an S-corp? My friend <span class="pii">Jen</span> over in <span class="pii">Round Rock</span> said she didn't have to anymore.</div>
+
+        <div class="speaker-line"><span class="speaker">MEBEA:</span> Common confusion. Payroll handles your salary tax, withholding is done there. But your distributions, no taxes withheld. IRS still expects quarterly estimated payments to cover the tax on the distribution portion. Payroll handles your salary. Estimated taxes handle your distributions. You need both.</div>
+
+        <div class="speaker-line"><span class="speaker"><span class="pii">SARAH</span>:</span> OK that makes sense. One more thing, I might bring on an associate next year, does any of this change?</div>
+
+        <div class="speaker-line"><span class="speaker">MEBEA:</span> Yeah it changes the math. You'd want strong collected revenue from that associate before the hire is profitable, at a healthy 20-30% margin. We call that the ramp period. Plan for about six months before they hit break-even.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="arrow" id="arrow-1">→</div>
+
+  <section class="col col-pipeline" id="col-pipeline">
+    <div class="col-header">
+      <div class="col-stage">STAGE 2 · PIPELINE</div>
+      <h2 class="col-title">The Markology engine</h2>
+      <div class="col-sub">Five passes. Fully automated. Runs daily.</div>
+    </div>
+    <div class="col-body">
+
+      <div class="step" data-step="1" id="pipe-1">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Server-side filter</div>
+          <div class="step-desc">Decide whether the meeting is worth extracting from at all. Skip if all attendees are internal, duration is under 10 min, or the title matches a skip pattern (standup, payroll, 1:1, etc.). No AI cost on skipped meetings.</div>
+        </div>
+      </div>
+
+      <div class="step" data-step="2" id="pipe-2">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">PII pre-scrub (regex)</div>
+          <div class="step-desc">Strip emails, phones, ZIPs, common first+last names, US states, major cities, and per-client block terms. First defensive pass before anything goes to Claude.</div>
+          <div class="step-meta">scrub("Sarah Johnson") → "[REDACTED:name]"</div>
+        </div>
+      </div>
+
+      <div class="step" data-step="3" id="pipe-3">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Claude extract</div>
+          <div class="step-desc">Read the transcript. Pull every distinct founder take, story, prospect pain point, FAQ, social-ready quote, and vocabulary entry. Tag each by topic and audience.</div>
+        </div>
+      </div>
+
+      <div class="step" data-step="4" id="pipe-4">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Anonymization review</div>
+          <div class="step-desc">Second AI pass: catch anything the regex missed. First-name-only mentions, distinctive business descriptors, neighborhood names, identifying detail combinations. If an entry can't be cleaned without losing meaning, it's dropped.</div>
+        </div>
+      </div>
+
+      <div class="step" data-step="5" id="pipe-5">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">Router</div>
+          <div class="step-desc">Each entry filed into the right topic file with tagged metadata, plus the matching digest (faqs.md, social-ready.md, vocabulary.md). The library INDEX regenerates.</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="arrow" id="arrow-2">→</div>
+
+  <section class="col col-output" id="col-output">
+    <div class="col-header">
+      <div class="col-stage">STAGE 3 · OUTPUT</div>
+      <h2 class="col-title">Founder-voice library entries</h2>
+      <div class="col-sub">Clean, tagged, anonymized. Filed into Traktion's library. Drafts pull from here.</div>
+    </div>
+    <div class="col-body" id="output-body">
+
+      <article class="entry-card takefirst" data-out="1">
+        <div class="entry-header">
+          <span class="type-pill take">Founder Take</span>
+          <span class="tag">S-corp election timing</span>
+          <span class="audience-pill">solo therapist</span>
+        </div>
+        <div class="entry-content">"Most CPAs tell therapists to wait until $200K revenue before electing S-corp. That's too conservative. The math usually works once you're netting <span class="swap">around $80K to $100K</span> in profit. For a solo therapist around $130K profit, the SE tax savings are meaningful."</div>
+        <div class="entry-meta">Filed in <code>topics/s-corp-election-timing.md</code></div>
+      </article>
+
+      <article class="entry-card takefirst" data-out="2">
+        <div class="entry-header">
+          <span class="type-pill take">Founder Take</span>
+          <span class="tag">estimated tax payments</span>
+          <span class="audience-pill">S-corp therapist</span>
+        </div>
+        <div class="entry-content">"Common confusion: S-corp election does not eliminate estimated taxes. Payroll handles your salary tax through withholding. But distributions have no tax withheld. The IRS still expects quarterly estimated payments on the distribution portion. Payroll handles salary. Estimated taxes handle distributions. You need both."</div>
+        <div class="entry-meta">Filed in <code>topics/estimated-tax-payments.md</code> + <code>topics/s-corp-election-timing.md</code></div>
+      </article>
+
+      <article class="entry-card faqcard" data-out="3">
+        <div class="entry-header">
+          <span class="type-pill faq">FAQ (Q + A)</span>
+          <span class="tag">estimated tax payments</span>
+        </div>
+        <div class="entry-content"><strong style="color: #ea580c;">Q:</strong> "If I elect S-corp, do I still need to do estimated tax payments?"<br><br><strong style="color: var(--navy-2);">A (Mebea):</strong> "Yes, S-corp election doesn't eliminate estimated taxes. Payroll handles your salary tax through withholding, but distributions have no tax withheld. The IRS still expects quarterly estimated payments on the distribution portion. Payroll handles salary. Estimated taxes handle distributions. You need both."</div>
+        <div class="entry-meta">Filed in <code>faqs.md</code> with paired answer. Question came up <span class="swap">in a prior call too</span>, frequency now 2, strong FAQ-page candidate.</div>
+      </article>
+
+      <article class="entry-card painfirst" data-out="4">
+        <div class="entry-header">
+          <span class="type-pill pain">Pain Point</span>
+          <span class="tag">S-corp election timing</span>
+        </div>
+        <div class="entry-content">"<span class="swap">A prospect's</span> generalist CPA told <span class="swap">her</span> to wait until $200K revenue to elect S-corp. <span class="swap">She</span> felt the advice was wrong but couldn't evaluate it."</div>
+        <div class="entry-meta">Filed in <code>pain-points.md</code>. Pattern: generalist-CPA underservice. Future blog angle.</div>
+      </article>
+
+      <article class="entry-card" data-out="5">
+        <div class="entry-header">
+          <span class="type-pill">Social Quote</span>
+          <span class="tag">S-corp election timing</span>
+        </div>
+        <div class="entry-content">"Payroll handles your salary. Estimated taxes handle your distributions. You need both, most S-corp therapists just don't realize it until April."</div>
+        <div class="entry-meta">Filed in <code>social-ready.md</code> · 126 chars · ready to lift</div>
+      </article>
+
+      <article class="entry-card" data-out="6">
+        <div class="entry-header">
+          <span class="type-pill" style="background: var(--teal);">Vocabulary</span>
+          <span class="tag">group practice scaling</span>
+        </div>
+        <div class="entry-content">"'Ramp period', Mebea's term for the interval between an associate's start date and the point where their caseload generates enough revenue to cover their fully-loaded cost. Typically framed as six months."</div>
+        <div class="entry-meta">Filed in <code>vocabulary.md</code>. The writing agent mirrors this phrase in future drafts.</div>
+      </article>
+
+    </div>
+  </section>
+
+</div>
+
+<script>
+const STEPS = [
+  // step 1: input only
+  {
+    title: "STEP 1",
+    text: "<strong>Here's a real Fireflies transcript</strong>, a 30-minute discovery call with a therapist prospect asking about S-corp election. Names, locations, companies, all visible. Nothing scrubbed yet.",
+    activeCols: ['input'],
+    activeArrows: [],
+    pipeStep: 0,
+    scrubbed: false,
+    revealedOutputs: 0,
+  },
+  // step 2: pipeline step 1 (filter)
+  {
+    title: "STEP 2",
+    text: "<strong>Server-side filter.</strong> Before any AI runs, we check duration, attendee domains, and title. This meeting clears the filter (27 min, external attendee, no skip-pattern in title). Internal standups, payroll, 1:1s get skipped automatically.",
+    activeCols: ['input', 'pipeline'],
+    activeArrows: ['arrow-1'],
+    pipeStep: 1,
+    scrubbed: false,
+    revealedOutputs: 0,
+  },
+  // step 3: pipeline step 2 (regex scrub) + transcript shows scrub
+  {
+    title: "STEP 3",
+    text: "<strong>PII pre-scrub (regex).</strong> A defensive first pass strips names, emails, phones, ZIPs, US states, and major city names. Watch the transcript on the left, every detected name, company, and location is flagged red. This happens before anything reaches Claude.",
+    activeCols: ['input', 'pipeline'],
+    activeArrows: ['arrow-1'],
+    pipeStep: 2,
+    scrubbed: true,
+    revealedOutputs: 0,
+  },
+  // step 4: pipeline step 3 (claude extract)
+  {
+    title: "STEP 4",
+    text: "<strong>Claude reads the scrubbed transcript</strong> and pulls every distinct piece of content the writing agent can use. Founder takes, prospect pain points, FAQs they actually asked, social-ready quotes, vocabulary the founder uses naturally. Each entry gets tagged by topic and audience.",
+    activeCols: ['input', 'pipeline'],
+    activeArrows: ['arrow-1'],
+    pipeStep: 3,
+    scrubbed: true,
+    revealedOutputs: 0,
+  },
+  // step 5: pipeline step 4 (review)
+  {
+    title: "STEP 5",
+    text: "<strong>Anonymization review.</strong> A second Claude pass catches anything regex missed: first-name-only mentions, distinctive business descriptors, neighborhood names. If an entry can't be cleaned without destroying its point, it's dropped.",
+    activeCols: ['input', 'pipeline'],
+    activeArrows: ['arrow-1'],
+    pipeStep: 4,
+    scrubbed: true,
+    revealedOutputs: 0,
+  },
+  // step 6: pipeline step 5 (router) + output starts
+  {
+    title: "STEP 6",
+    text: "<strong>Router files everything.</strong> Each entry lands in the right topic file with tagged metadata, plus the matching digest (faqs, social-ready, vocabulary). The library INDEX regenerates so the content-calendar skill can see fresh material.",
+    activeCols: ['input', 'pipeline', 'output'],
+    activeArrows: ['arrow-1', 'arrow-2'],
+    pipeStep: 5,
+    scrubbed: true,
+    revealedOutputs: 0,
+  },
+  // step 7: all outputs revealed
+  {
+    title: "STEP 7",
+    text: "<strong>This is what one meeting produced.</strong> Six clean, tagged, anonymized entries filed into Traktion's library. All from a single 30-minute call. Across all of Mebea's meetings, the library grows by 5-15 entries per week. The writing agent draws from this every time we draft a blog or social post.",
+    activeCols: ['input', 'pipeline', 'output'],
+    activeArrows: ['arrow-1', 'arrow-2'],
+    pipeStep: 5,
+    scrubbed: true,
+    revealedOutputs: 6,
+  },
+];
+
+let cur = 0;
+
+function apply(s) {
+  document.getElementById('step-num').textContent = s.title;
+  document.getElementById('narrator-text').innerHTML = s.text;
+
+  // Columns
+  ['input', 'pipeline', 'output'].forEach(c => {
+    document.getElementById('col-' + c).classList.toggle('active', s.activeCols.includes(c));
+  });
+  // Arrows
+  ['arrow-1', 'arrow-2'].forEach(a => {
+    document.getElementById(a).classList.toggle('active', s.activeArrows.includes(a));
+  });
+  // Pipeline steps
+  for (let i = 1; i <= 5; i++) {
+    const el = document.getElementById('pipe-' + i);
+    el.classList.toggle('revealed', i <= s.pipeStep);
+    el.classList.toggle('current', i === s.pipeStep && s.pipeStep < 5);
+  }
+  // Scrubbed transcript
+  document.getElementById('transcript').classList.toggle('scrubbed', s.scrubbed);
+  document.getElementById('meeting-meta').classList.toggle('scrubbed', s.scrubbed);
+  // Outputs
+  document.querySelectorAll('.entry-card').forEach(c => {
+    const n = parseInt(c.dataset.out);
+    c.classList.toggle('revealed', n <= s.revealedOutputs);
+  });
+  // Buttons
+  document.getElementById('btn-back').disabled = cur === 0;
+  document.getElementById('btn-next').disabled = cur === STEPS.length - 1;
+  if (cur === STEPS.length - 1) {
+    document.getElementById('btn-next').textContent = 'Done ✓';
+  } else {
+    document.getElementById('btn-next').textContent = 'Next →';
+  }
+}
+
+function step(delta) {
+  cur = Math.max(0, Math.min(STEPS.length - 1, cur + delta));
+  apply(STEPS[cur]);
+}
+
+function goto(idx) {
+  cur = idx;
+  apply(STEPS[cur]);
+}
+
+// Keyboard shortcuts: arrow keys to advance
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); step(1); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); step(-1); }
+});
+
+apply(STEPS[0]);
+</script>
+
+</body>
+</html>

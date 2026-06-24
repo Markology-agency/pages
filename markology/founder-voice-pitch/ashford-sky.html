@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How a meeting becomes founder-voice, Ashford Sky sample</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Bangers&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0b1e3f;
+    --navy-2: #1e3a8a;
+    --blue: #2563eb;
+    --lilac: #a78bfa;
+    --bg: #f1f5f9;
+    --card: #ffffff;
+    --border: #e2e8f0;
+    --text: #0f172a;
+    --muted: #64748b;
+    --red: #dc2626;
+    --red-bg: #fef2f2;
+    --green: #059669;
+    --green-bg: #ecfdf5;
+    --yellow-bg: #fffbeb;
+    --yellow-border: #fcd34d;
+    --teal: #0d9488;
+    --teal-bg: #f0fdfa;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, sans-serif; }
+  .topbar { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%); color: white; padding: 32px 48px 28px; }
+  .topbar-brand { font-family: 'Bangers', sans-serif; letter-spacing: 2px; font-size: 14px; opacity: 0.75; margin-bottom: 8px; }
+  .topbar-title { font-size: 30px; font-weight: 800; margin: 0 0 6px; }
+  .topbar-sub { font-size: 15px; opacity: 0.85; max-width: 920px; }
+  .pipeline { display: grid; grid-template-columns: 1fr 60px 1fr 60px 1fr; gap: 0; padding: 32px 32px; align-items: stretch; max-width: 1600px; margin: 0 auto; }
+  .col { background: var(--card); border-radius: 12px; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04); border: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+  .col-header { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+  .col-stage { font-family: 'Bangers', sans-serif; font-size: 12px; letter-spacing: 2px; color: var(--muted); margin-bottom: 4px; }
+  .col-title { font-size: 17px; font-weight: 700; color: var(--navy); margin: 0; }
+  .col-sub { font-size: 12px; color: var(--muted); margin-top: 4px; }
+  .col-body { padding: 18px 20px; flex: 1; overflow: auto; }
+  .col-input .col-header { background: var(--yellow-bg); border-bottom-color: var(--yellow-border); }
+  .col-pipeline .col-header { background: #f8fafc; }
+  .col-output .col-header { background: var(--teal-bg); border-bottom-color: #5eead4; }
+  .arrow { display: flex; align-items: center; justify-content: center; color: var(--blue); font-size: 36px; font-weight: 800; }
+  .transcript { font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.65; color: var(--text); }
+  .speaker { color: var(--navy-2); font-weight: 700; }
+  .speaker-line { margin-top: 14px; }
+  .speaker-line:first-child { margin-top: 0; }
+  .pii { background: var(--red-bg); color: var(--red); text-decoration: line-through; text-decoration-color: var(--red); text-decoration-thickness: 2px; padding: 0 4px; border-radius: 3px; font-weight: 500; }
+  .skip-meta { background: #f1f5f9; border-left: 3px solid var(--muted); padding: 10px 14px; margin: 16px 0; font-size: 12px; color: var(--muted); border-radius: 0 6px 6px 0; }
+  .step { display: flex; gap: 12px; padding: 14px 0; border-bottom: 1px dashed var(--border); }
+  .step:last-child { border-bottom: none; }
+  .step-num { width: 28px; height: 28px; border-radius: 8px; background: var(--navy); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; flex-shrink: 0; }
+  .step-body { flex: 1; }
+  .step-title { font-weight: 600; font-size: 14px; color: var(--navy); margin-bottom: 2px; }
+  .step-desc { font-size: 12.5px; color: var(--muted); line-height: 1.5; }
+  .step-meta { margin-top: 6px; font-size: 11px; background: #f8fafc; padding: 4px 8px; border-radius: 4px; color: var(--text); display: inline-block; font-family: 'JetBrains Mono', monospace; }
+  .step-cost { color: var(--green); font-weight: 600; font-size: 11px; margin-top: 4px; }
+  .step-cost.zero { color: var(--muted); font-weight: 500; }
+  .entry-card { background: white; border: 1px solid var(--border); border-left: 4px solid var(--teal); border-radius: 8px; padding: 14px 16px; margin-bottom: 14px; }
+  .entry-card:last-child { margin-bottom: 0; }
+  .entry-card.takefirst { border-left-color: var(--navy-2); }
+  .entry-card.faqcard { border-left-color: #ea580c; }
+  .entry-card.painfirst { border-left-color: var(--red); }
+  .entry-header { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-bottom: 8px; }
+  .type-pill { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; background: var(--teal); color: white; padding: 3px 8px; border-radius: 4px; }
+  .type-pill.take { background: var(--navy-2); }
+  .type-pill.faq { background: #ea580c; }
+  .type-pill.pain { background: var(--red); }
+  .tag { font-size: 11px; padding: 2px 7px; border-radius: 4px; background: #dbeafe; color: var(--navy-2); font-weight: 500; }
+  .audience-pill { font-size: 10px; padding: 2px 7px; border-radius: 4px; background: #fef3c7; color: #92400e; }
+  .entry-content { font-size: 13.5px; line-height: 1.55; color: var(--text); margin: 6px 0; }
+  .swap { background: var(--green-bg); color: var(--green); padding: 0 4px; border-radius: 3px; font-weight: 600; border-bottom: 1.5px solid #6ee7b7; }
+  .entry-meta { font-size: 11px; color: var(--muted); margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); }
+  .legend { margin: 0 32px 40px; background: white; border-radius: 12px; padding: 18px 24px; border: 1px solid var(--border); max-width: 1600px; margin-left: auto; margin-right: auto; display: flex; gap: 32px; flex-wrap: wrap; font-size: 13px; }
+  .legend-item { display: flex; align-items: center; gap: 8px; }
+  .legend-chip { padding: 2px 8px; border-radius: 4px; font-weight: 500; font-size: 12px; }
+  .footnote { text-align: center; font-size: 12px; color: var(--muted); padding: 0 32px 60px; }
+  .footnote code { background: #e2e8f0; padding: 1px 6px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; }
+  @media (max-width: 1100px) { .pipeline { grid-template-columns: 1fr; } .arrow { transform: rotate(90deg); padding: 8px 0; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-brand">MARKOLOGY · FOUNDER-VOICE · PIPELINE WALKTHROUGH</div>
+  <h1 class="topbar-title">How a Fireflies meeting becomes Ashford Sky's voice library</h1>
+  <div class="topbar-sub">Sample: a 40-minute discovery call with a prospective acquisition entrepreneur asking about quality of earnings on a deal he's considering. Sensitive deal context, anonymized hard.</div>
+</div>
+
+<div class="pipeline">
+
+  <section class="col col-input">
+    <div class="col-header">
+      <div class="col-stage">STAGE 1 · INPUT</div>
+      <h2 class="col-title">Raw Fireflies transcript</h2>
+      <div class="col-sub">Real meeting. Deal-side specifics visible. Nothing stripped yet.</div>
+    </div>
+    <div class="col-body">
+      <div class="skip-meta">
+        <strong>Meeting:</strong> "Discovery, <span class="pii">Mike Chen</span> intro, <span class="pii">DentalSoft</span> diligence question"<br>
+        <strong>Duration:</strong> 42 min · <strong>Attendees:</strong> darin@ashfordsky.com, <span class="pii">mike@chencap.com</span><br>
+        <strong>Server-side filter:</strong> KEEP (not internal, &gt;10min, no skip-pattern in title)
+      </div>
+
+      <div class="transcript">
+        <div class="speaker-line"><span class="speaker"><span class="pii">MIKE CHEN</span>:</span> Darin, thanks for making time. So we're in LOI on <span class="pii">DentalSoft</span>, it's a <span class="pii">$4.8M revenue</span> SaaS company doing dental practice management out of <span class="pii">Provo</span>. Seller's claiming <span class="pii">$1.6M EBITDA</span>. I need to know if those numbers are real before we go hard.</div>
+
+        <div class="speaker-line"><span class="speaker">DARIN:</span> First question I'd ask, what's their churn rate look like? Because in dental SaaS, anything over 1.5% monthly is a red flag that the ARR they're claiming isn't sticky. EBITDA looks great on paper, but if you're losing 20% of your customer base annually, that EBITDA is going to compress fast post-close.</div>
+
+        <div class="speaker-line"><span class="speaker"><span class="pii">MIKE</span>:</span> They said their churn is under 1%. Should I trust the data room?</div>
+
+        <div class="speaker-line"><span class="speaker">DARIN:</span> No. Never trust the data room. The data room is a sales document. What you want is the underlying export from their billing system, Stripe or wherever, and you build the cohort retention curves yourself. If you can't get raw billing data, that's your answer. They're hiding something or they don't know their numbers. Either way, no.</div>
+
+        <div class="speaker-line"><span class="speaker"><span class="pii">MIKE</span>:</span> OK. What about the EBITDA add-backs? Their QofE shows like $300K in owner add-backs.</div>
+
+        <div class="speaker-line"><span class="speaker">DARIN:</span> That's where most QofE reports lie by omission. Owner comp add-back is fine, but you have to replace it with what a hired CEO would actually cost. If the seller is taking $80K and a real CEO costs $200K, your real EBITDA add-back is $80K minus $200K, which is negative $120K. Most QofE reports just add the $80K back and call it done. That's how new owners get blindsided by year-two compression.</div>
+
+        <div class="speaker-line"><span class="speaker"><span class="pii">MIKE</span>:</span> Got it. We're looking at a <span class="pii">5.2x EBITDA</span> multiple. Reasonable?</div>
+
+        <div class="speaker-line"><span class="speaker">DARIN:</span> For dental SaaS at that scale with verified retention, 4x to 6x is the band. 5.2x is fine if churn is really under 1.5%. If churn turns out to be 2-3%, you should be at 3x to 3.5x. Push back at LOI if the diligence reveals churn worse than what they claimed.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="arrow">→</div>
+
+  <section class="col col-pipeline">
+    <div class="col-header">
+      <div class="col-stage">STAGE 2 · PIPELINE</div>
+      <h2 class="col-title">The Markology engine</h2>
+      <div class="col-sub">Same five steps as every client. Identical engine, per-client config.</div>
+    </div>
+    <div class="col-body">
+
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <div class="step-title">Server-side filter</div>
+          <div class="step-desc">Skip if all attendees internal, duration under 10 min, or title matches a skip pattern.</div>
+          <div class="step-cost zero">Cost: $0 (no Claude call)</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <div class="step-title">PII pre-scrub (regex)</div>
+          <div class="step-desc">Strip emails, phones, ZIPs, common first+last names, US states, major cities, and Ashford Sky's per-client block terms (target company names if known).</div>
+          <div class="step-meta">scrub("Mike Chen") → "[REDACTED:name]"</div>
+          <div class="step-cost zero">Cost: $0</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <div class="step-title">Claude extract (Sonnet)</div>
+          <div class="step-desc">Pull every distinct take, story, prospect pain point, FAQ, social-ready quote, vocabulary entry. Tag by topic and audience. For Ashford Sky: aggressive deal-side anonymization in this pass.</div>
+          <div class="step-cost">~$0.020 per meeting (prompt-cached)</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <div class="step-title">Anonymization review (Sonnet)</div>
+          <div class="step-desc">Second pass: target company name, specific deal sizes, geography, multiples too precise to identify a known deal. If a single entry can't be cleaned without losing meaning, the entry is dropped.</div>
+          <div class="step-cost">~$0.005 per meeting</div>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <div class="step-title">Router</div>
+          <div class="step-desc">Each entry filed into the right topic file with YAML frontmatter, plus the matching digest. INDEX.md regenerates.</div>
+          <div class="step-cost zero">Cost: $0</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 18px; padding: 12px 14px; background: var(--green-bg); border-left: 3px solid var(--green); border-radius: 0 6px 6px 0; font-size: 13px;">
+        <strong style="color: var(--green);">Total per meeting:</strong> ~$0.025<br>
+        <span style="color: var(--muted); font-size: 12px;">Belt-and-suspenders option: any meeting titled with "diligence", "LOI", or "deal" can be set to fully skip if Darin prefers.</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="arrow">→</div>
+
+  <section class="col col-output">
+    <div class="col-header">
+      <div class="col-stage">STAGE 3 · OUTPUT</div>
+      <h2 class="col-title">Founder-voice library entries</h2>
+      <div class="col-sub">Clean, tagged, anonymized. Filed into Ashford Sky's library.</div>
+    </div>
+    <div class="col-body">
+
+      <article class="entry-card takefirst">
+        <div class="entry-header">
+          <span class="type-pill take">Founder Take</span>
+          <span class="tag">quality of earnings</span>
+          <span class="audience-pill">acquisition entrepreneur</span>
+        </div>
+        <div class="entry-content">"The data room is a sales document, not a diligence document. Never trust it. What you want is the underlying export from the seller's billing system, you build the cohort retention curves yourself. If they can't or won't hand over raw billing data, that's your answer. They're hiding something or they don't know their numbers."</div>
+        <div class="entry-meta">Filed in <code>topics/quality-of-earnings.md</code> · Source meeting redacted in storage</div>
+      </article>
+
+      <article class="entry-card takefirst">
+        <div class="entry-header">
+          <span class="type-pill take">Founder Take</span>
+          <span class="tag">EBITDA add-backs</span>
+          <span class="audience-pill">acquisition entrepreneur</span>
+        </div>
+        <div class="entry-content">"Owner comp add-back is fine, but you have to replace it with what a hired CEO actually costs. If the seller is paying themselves <span class="swap">below market</span> and a real CEO costs <span class="swap">2-3x that</span>, your real add-back is negative. Most QofE reports just add owner comp back at face value, that's how new owners get blindsided by year-two EBITDA compression."</div>
+        <div class="entry-meta">Filed in <code>topics/ebitda-add-backs-and-normalizations.md</code></div>
+      </article>
+
+      <article class="entry-card takefirst">
+        <div class="entry-header">
+          <span class="type-pill take">Founder Take</span>
+          <span class="tag">buy-side due diligence</span>
+          <span class="audience-pill">SaaS acquirer</span>
+        </div>
+        <div class="entry-content">"In SaaS, monthly churn over 1.5% is a red flag that the ARR isn't sticky. The EBITDA can look great on paper, but lose 20% of customers annually and that EBITDA compresses fast post-close. Verify churn before you trust any multiple."</div>
+        <div class="entry-meta">Filed in <code>topics/buy-side-due-diligence.md</code> + <code>topics/quality-of-earnings.md</code></div>
+      </article>
+
+      <article class="entry-card faqcard">
+        <div class="entry-header">
+          <span class="type-pill faq">FAQ</span>
+          <span class="tag">quality of earnings</span>
+        </div>
+        <div class="entry-content">"Should I trust the data room?"</div>
+        <div class="entry-meta">Filed in <code>faqs.md</code>. Strong FAQ-page candidate, plain prospect language.</div>
+      </article>
+
+      <article class="entry-card">
+        <div class="entry-header">
+          <span class="type-pill">Social Quote</span>
+          <span class="tag">buy-side due diligence</span>
+        </div>
+        <div class="entry-content">"The data room is a sales document. Never trust it. You want the raw billing export, you build the cohort curves yourself."</div>
+        <div class="entry-meta">Filed in <code>social-ready.md</code> · 127 chars · LinkedIn-ready</div>
+      </article>
+
+      <article class="entry-card">
+        <div class="entry-header">
+          <span class="type-pill" style="background: var(--teal);">Vocabulary</span>
+          <span class="tag">EBITDA add-backs</span>
+        </div>
+        <div class="entry-content">"'Year-two EBITDA compression', Darin's framing for the post-close drop in earnings when add-backs were inflated or owner comp was unrealistically low at the time of acquisition. Used to push acquirers to model normalized financials, not seller-reported."</div>
+        <div class="entry-meta">Filed in <code>vocabulary.md</code>. Writing agent mirrors this phrase in future drafts.</div>
+      </article>
+
+    </div>
+  </section>
+
+</div>
+
+<div class="legend">
+  <div class="legend-item">
+    <span class="legend-chip" style="background: var(--red-bg); color: var(--red); text-decoration: line-through;">DentalSoft, Provo</span>
+    <span>PII in raw transcript (red, struck through)</span>
+  </div>
+  <div class="legend-item">
+    <span class="legend-chip" style="background: var(--green-bg); color: var(--green); border-bottom: 1.5px solid #6ee7b7;">below market</span>
+    <span>Anonymized replacement (green, in final entry)</span>
+  </div>
+  <div class="legend-item">
+    <span class="legend-chip" style="background: var(--navy); color: white;">Founder Take</span>
+    <span>Highest-value entry type (most common)</span>
+  </div>
+</div>
+
+<div class="footnote">
+  Notice: target company name, deal size, location, multiples, and party identities are all stripped. The substance, Darin's actual diligence framework, his vocabulary, his contrarian positions, is preserved and reusable for content. Aggregate value across many calls, with zero deal exposure.
+</div>
+
+</body>
+</html>

@@ -63,7 +63,6 @@ function PillEyebrow({ accent, children }) {
       fontFamily: FONT_BODY, fontSize: 12, fontWeight: 600, color: accent,
       letterSpacing: '0.06em', textTransform: 'uppercase',
     }}>
-      <span style={{ display: 'inline-block', width: 6, height: 6, borderRadius: 999, background: accent }} />
       {children}
     </div>
   );

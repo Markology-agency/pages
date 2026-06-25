@@ -87,7 +87,7 @@ const PROCESS = _IND.process || [
 ];
 
 const TEAM = [
-  { name: 'Tyler Hawkins, CPA', role: 'Member · Senior Certified Public Accountant', key: 'teamTyler', photo: 'assets/team-tyler.jpeg' },
+  { name: 'Tyler Hawkins, CPA', role: 'Senior Certified Public Accountant', key: 'teamTyler', photo: 'assets/team-tyler.jpeg' },
   { name: 'Kelly Flaherty, CPA', role: 'Senior Certified Public Accountant', key: 'teamKelly', photo: 'assets/team-kelly.jpeg' },
   { name: 'Jim Klostermann', role: 'Senior Tax Accountant', key: 'teamJim', photo: 'assets/team-jim.jpeg' },
   { name: 'Christian Kimble, CPA', role: 'Certified Public Accountant', key: 'teamChristian', photo: 'assets/team-christian.jpeg' },

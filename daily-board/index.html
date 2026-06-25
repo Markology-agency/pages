@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Markology Daily Board — 2026-06-25</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #1B2845; --blue: #4A6FA5; --lilac: #B8A4D8; --lilac-soft: #E8DFF5;
+    --bg: #F5F4F8; --card: #FFFFFF; --ink: #1B2845; --muted: #9098B0; --line: #E6E4ED;
+    --red: #D04A4A; --red-soft: #FCE9E9;
+    --yellow: #E5A53A; --yellow-soft: #FBF1DD;
+    --green: #4FA66E; --green-soft: #E5F2EA;
+    --neutral: #C9CDDD;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--ink); font-size: 14px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 1440px; margin: 0 auto; padding: 32px 40px 80px; }
+  .header { display: flex; align-items: flex-end; justify-content: space-between; padding-bottom: 20px; border-bottom: 2px solid var(--navy); margin-bottom: 28px; }
+  .header-title h1 { font-family: 'Bangers', cursive; font-size: 56px; line-height: 1; letter-spacing: 2px; margin: 0; color: var(--navy); }
+  .header-title .eyebrow { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--blue); font-weight: 600; margin-bottom: 8px; }
+  .header-meta { text-align: right; color: var(--muted); font-size: 13px; }
+  .header-meta .date { font-size: 20px; font-weight: 600; color: var(--ink); margin-bottom: 4px; }
+  .summary { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-bottom: 32px; }
+  .summary-card { background: var(--card); border-radius: 12px; padding: 16px 18px; border: 1px solid var(--line); }
+  .summary-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); font-weight: 600; margin-bottom: 6px; }
+  .summary-card .value { font-size: 26px; font-weight: 700; color: var(--ink); line-height: 1.1; }
+  .summary-card .delta { font-size: 12px; margin-top: 4px; color: var(--muted); }
+  .summary-card.red .value { color: var(--red); }
+  .summary-card.yellow .value { color: var(--yellow); }
+  .summary-card.green .value { color: var(--green); }
+  .data-status { background: var(--card); border-radius: 12px; padding: 18px 22px; border: 1px solid var(--line); margin-bottom: 28px; }
+  .data-status h3 { margin: 0 0 10px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: var(--navy); }
+  .data-status table { width: 100%; border-collapse: collapse; font-size: 12px; }
+  .data-status td { padding: 4px 16px 4px 0; }
+  .section-header { display: flex; align-items: baseline; justify-content: space-between; margin: 28px 0 16px; }
+  .section-header h2 { font-family: 'Bangers', cursive; font-size: 28px; letter-spacing: 1.5px; margin: 0; color: var(--navy); }
+  .section-header .sub { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 600; }
+  .focus-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 8px; }
+  .focus-card { background: var(--card); border-radius: 14px; padding: 20px; border: 1px solid var(--line); border-left: 6px solid var(--red); box-shadow: 0 2px 12px rgba(27,40,69,0.06); }
+  .focus-card.yellow { border-left-color: var(--yellow); }
+  .focus-card .client { font-size: 17px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .focus-card .tier { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+  .focus-card .why { font-size: 13px; color: var(--ink); line-height: 1.5; }
+  .wall { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .tile { background: var(--card); border-radius: 12px; padding: 16px; border: 1px solid var(--line); border-top: 4px solid var(--neutral); }
+  .tile.red { border-top-color: var(--red); background: linear-gradient(180deg, var(--red-soft) 0%, var(--card) 30%); }
+  .tile.yellow { border-top-color: var(--yellow); background: linear-gradient(180deg, var(--yellow-soft) 0%, var(--card) 30%); }
+  .tile.green { border-top-color: var(--green); }
+  .tile-head { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+  .tile-name { font-weight: 700; font-size: 14px; color: var(--navy); line-height: 1.2; }
+  .tile-tier { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-top: 2px; }
+  .badge { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; padding: 3px 8px; border-radius: 100px; color: white; background: var(--neutral); }
+  .badge.red { background: var(--red); }
+  .badge.yellow { background: var(--yellow); }
+  .badge.green { background: var(--green); }
+  .tile-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
+  .stat { text-align: left; }
+  .stat-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); font-weight: 600; margin-bottom: 2px; }
+  .stat-value { font-size: 14px; font-weight: 700; color: var(--ink); line-height: 1.1; }
+  .stat-delta { font-size: 10px; margin-top: 2px; font-weight: 600; }
+  .stat-delta.down { color: var(--red); }
+  .stat-delta.up { color: var(--green); }
+  .stat-delta.flat { color: var(--muted); }
+  .tile-why { font-size: 11px; color: var(--ink); padding-top: 10px; border-top: 1px solid var(--line); line-height: 1.4; }
+  .tile.green .tile-why { color: var(--muted); }
+  .tile-why .why-label { font-size: 9px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); font-weight: 700; margin-right: 4px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header class="header">
+    <div class="header-title">
+      <div class="eyebrow">Markology Operations</div>
+      <h1>DAILY BOARD</h1>
+    </div>
+    <div class="header-meta">
+      <div class="date">2026-06-25</div>
+      <div>Last 7 days: Jun 18 to Jun 24</div>
+      <div>vs. previous 7 days: Jun 11 to Jun 17</div>
+    </div>
+  </header>
+
+  <div class="data-status">
+    <h3>Data Wiring Status</h3>
+    <table><tr><td><strong>GSC</strong></td><td>wired (21 of 22 properties, Thompson Flaherty unverified)</td></tr><tr><td><strong>GA4</strong></td><td>wired (18 of 22, TL;DR + U-Nique need access on whitney@markology.io)</td></tr><tr><td><strong>Google Ads</strong></td><td>wired (17 of 18 accessible accounts)</td></tr><tr><td><strong>Meta Ads</strong></td><td>wired (4 client accounts: Virjee, Vast CFO, CHA, Llamas)</td></tr><tr><td><strong>Asana signals</strong></td><td>wired (Edits Needed + Client Review per client)</td></tr><tr><td><strong>Leads</strong></td><td>Virjee Dental + Virjee Local wired (canonical Sheet). CHA pending sheet ID. 17 others need lead source.</td></tr></table>
+  </div>
+
+  <div class="summary">
+    <div class="summary-card red">
+      <div class="label">Need Focus</div>
+      <div class="value">6</div>
+      <div class="delta">flagged red</div>
+    </div>
+    <div class="summary-card yellow">
+      <div class="label">Watch</div>
+      <div class="value">11</div>
+      <div class="delta">trending yellow</div>
+    </div>
+    <div class="summary-card green">
+      <div class="label">Healthy</div>
+      <div class="value">3</div>
+      <div class="delta">running clean</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Portfolio Ad Spend WTD</div>
+      <div class="value">$1,245</div>
+      <div class="delta">▲ 87%</div>
+    </div>
+    <div class="summary-card">
+      <div class="label">Clients tracked</div>
+      <div class="value">20</div>
+      <div class="delta">across all tiers</div>
+    </div>
+  </div>
+
+  
+        <div class="section-header">
+          <h2>FOCUS TODAY</h2>
+          <span class="sub">3 clients need attention</span>
+        </div>
+        <div class="focus-strip">
+            <div class="focus-card red">
+              <div class="client">Virjee Consulting — Dental</div>
+              <div class="tier">National Monthly</div>
+              <div class="why">GSC clicks -54% (37 to 17) · Leads at 1/20 (5% of monthly goal, day 25/30)</div>
+            </div>
+            <div class="focus-card red">
+              <div class="client">Virjee Consulting — Local</div>
+              <div class="tier">Local Monthly</div>
+              <div class="why">Spend spike +3329% WTD · 1 edits-needed task · Leads at 0/20 (0% of monthly goal, day 25/30) · Meta conversions surge (4 to 13)</div>
+            </div>
+            <div class="focus-card red">
+              <div class="client">Cherry Hill Advisory</div>
+              <div class="tier">National Monthly</div>
+              <div class="why">2 edits-needed tasks · Meta spend stopped (was $32 prior week) · Sessions -73% (3674 to 1002)</div>
+            </div></div>
+
+  <div class="section-header">
+    <h2>ALL CLIENTS</h2>
+    <span class="sub">Sorted by urgency</span>
+  </div>
+
+  <div class="wall">
+        <div class="tile red">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">Virjee Consulting — Dental</div>
+              <div class="tile-tier">National Monthly</div>
+            </div>
+            <span class="badge red">RED</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">460</div><div class="stat-delta up">▲ 83%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">17</div><div class="stat-delta down">▼ 54%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$129</div><div class="stat-delta up">▲ 3%</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">1</div><div class="stat-delta flat">prev: 1 · G</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> GSC clicks -54% (37 to 17) · Leads at 1/20 (5% of monthly goal, day 25/30)</div>
+        </div>
+        <div class="tile red">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">Virjee Consulting — Local</div>
+              <div class="tile-tier">Local Monthly</div>
+            </div>
+            <span class="badge red">RED</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">184</div><div class="stat-delta up">▲ 2%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">46</div><div class="stat-delta down">▼ 25%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$1,572</div><div class="stat-delta up">▲ 29%</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">13</div><div class="stat-delta flat">prev: 4 · G/M</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> Spend spike +3329% WTD · 1 edits-needed task · Leads at 0/20 (0% of monthly goal, day 25/30) · Meta conversions surge (4 to 13)</div>
+        </div>
+        <div class="tile red">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">Cherry Hill Advisory</div>
+              <div class="tile-tier">National Monthly</div>
+            </div>
+            <span class="badge red">RED</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">1,002</div><div class="stat-delta down">▼ 73%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">34</div><div class="stat-delta down">▼ 26%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$76.75</div><div class="stat-delta down">▼ 34%</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">0</div><div class="stat-delta flat">prev: 0 · G</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> 2 edits-needed tasks · Meta spend stopped (was $32 prior week) · Sessions -73% (3674 to 1002)</div>
+        </div>
+        <div class="tile red">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">Ashford Sky</div>
+              <div class="tile-tier">Local Monthly</div>
+            </div>
+            <span class="badge red">RED</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">49</div><div class="stat-delta down">▼ 72%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">1</div><div class="stat-delta down">▼ 80%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$46.78</div><div class="stat-delta down">▼ 3%</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">0</div><div class="stat-delta flat">prev: 0 · G</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> 1 edits-needed task · Sessions -72% (178 to 49)</div>
+        </div>
+        <div class="tile red">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">Affinity Accounting</div>
+              <div class="tile-tier">Local Monthly</div>
+            </div>
+            <span class="badge red">RED</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">134</div><div class="stat-delta down">▼ 13%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">13</div><div class="stat-delta down">▼ 50%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$30.52</div><div class="stat-delta up">▲ 2%</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">0</div><div class="stat-delta flat">prev: 0 · G</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> GSC clicks -50% (26 to 13) · 1 edits-needed task</div>
+        </div>
+        <div class="tile red">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">Adam Traywick</div>
+              <div class="tile-tier">Local Monthly</div>
+            </div>
+            <span class="badge red">RED</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">1,115</div><div class="stat-delta down">▼ 36%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">24</div><div class="stat-delta down">▼ 50%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$24.52</div><div class="stat-delta down">▼ 19%</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">1</div><div class="stat-delta flat">prev: 2 · G</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> GSC clicks -50% (48 to 24) · 1 edits-needed task · Sessions -36% (1729 to 1115)</div>
+        </div>
+        <div class="tile yellow">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">Thompson Flaherty CPA</div>
+              <div class="tile-tier">Local Monthly</div>
+            </div>
+            <span class="badge yellow">YELLOW</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">278</div><div class="stat-delta up">▲ 107%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">—</div><div class="stat-delta flat">no access</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$528</div><div class="stat-delta up">▲ 937%</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">0</div><div class="stat-delta flat">prev: 0 · G</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> Spend spike +937% WTD · 2 edits-needed tasks · Sessions spike +107% (134 to 278)</div>
+        </div>
+        <div class="tile yellow">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">KB Financial Advisors</div>
+              <div class="tile-tier">National Monthly</div>
+            </div>
+            <span class="badge yellow">YELLOW</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">409</div><div class="stat-delta down">▼ 29%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">71</div><div class="stat-delta down">▼ 49%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$47.52</div><div class="stat-delta up">▲ 2%</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">0</div><div class="stat-delta flat">prev: 0 · G</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> GSC clicks -49% (138 to 71) · 3 tasks need edits</div>
+        </div>
+        <div class="tile yellow">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">Core Advisors</div>
+              <div class="tile-tier">National Monthly</div>
+            </div>
+            <span class="badge yellow">YELLOW</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">189</div><div class="stat-delta down">▼ 22%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">12</div><div class="stat-delta down">▼ 48%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$44.53</div><div class="stat-delta up">▲ 39%</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">2</div><div class="stat-delta flat">prev: 0 · G</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> GSC clicks -48% (23 to 12) · 3 tasks need edits</div>
+        </div>
+        <div class="tile yellow">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">SAS</div>
+              <div class="tile-tier">Maintenance (temp)</div>
+            </div>
+            <span class="badge yellow">YELLOW</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">114</div><div class="stat-delta down">▼ 15%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">22</div><div class="stat-delta down">▼ 42%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$41.01</div><div class="stat-delta down">▼ 18%</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">0</div><div class="stat-delta flat">prev: 0 · G</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> GSC clicks -42% (38 to 22)</div>
+        </div>
+        <div class="tile yellow">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">Tarleton Estate Attorney</div>
+              <div class="tile-tier">Local Monthly</div>
+            </div>
+            <span class="badge yellow">YELLOW</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">161</div><div class="stat-delta up">▲ 20%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">29</div><div class="stat-delta down">▼ 29%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$39.41</div><div class="stat-delta up">▲ 2%</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">0</div><div class="stat-delta flat">prev: 1 · G</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> Lost conversions (1 → 0) · 1 edits-needed task</div>
+        </div>
+        <div class="tile yellow">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">Llamas Financial</div>
+              <div class="tile-tier">Maintenance</div>
+            </div>
+            <span class="badge yellow">YELLOW</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">123</div><div class="stat-delta up">▲ 124%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">15</div><div class="stat-delta down">▼ 21%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$40.38</div><div class="stat-delta down">▼ 48%</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">0</div><div class="stat-delta flat">prev: 17 · G/M</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> Spend spike +670% WTD · 4 tasks need edits · Meta spend down -93% · Meta leads down (17 to 0) · Sessions spike +124% (55 to 123)</div>
+        </div>
+        <div class="tile yellow">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">Traktion</div>
+              <div class="tile-tier">National Monthly</div>
+            </div>
+            <span class="badge yellow">YELLOW</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">178</div><div class="stat-delta down">▼ 3%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">24</div><div class="stat-delta down">▼ 41%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$1.31</div><div class="stat-delta down">▼ 77%</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">1</div><div class="stat-delta flat">prev: 0 · G</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> Spend collapsed -77% WTD · GSC clicks -41% (41 to 24) · 1 edits-needed task · 1 task sitting in client review</div>
+        </div>
+        <div class="tile yellow">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">Bookkeeping for Brokers</div>
+              <div class="tile-tier">Maintenance</div>
+            </div>
+            <span class="badge yellow">YELLOW</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">88</div><div class="stat-delta down">▼ 39%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">19</div><div class="stat-delta down">▼ 47%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">—</div><div class="stat-delta flat">no ads account</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">—</div><div class="stat-delta flat"></div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> GSC clicks -47% (36 to 19) · Sessions -39% (145 to 88)</div>
+        </div>
+        <div class="tile yellow">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">The Fitness CPA</div>
+              <div class="tile-tier">Maintenance</div>
+            </div>
+            <span class="badge yellow">YELLOW</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">—</div><div class="stat-delta flat">not configured</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">—</div><div class="stat-delta flat">not configured</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">—</div><div class="stat-delta flat">no ads account</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">—</div><div class="stat-delta flat"></div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> 3 tasks need edits</div>
+        </div>
+        <div class="tile yellow">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">TL;DR: Accounting</div>
+              <div class="tile-tier">National Monthly</div>
+            </div>
+            <span class="badge yellow">YELLOW</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">—</div><div class="stat-delta flat">no access</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">98</div><div class="stat-delta down">▼ 30%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">—</div><div class="stat-delta flat">no ads account</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">—</div><div class="stat-delta flat"></div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> GSC clicks -30% (140 to 98) · 1 task sitting in client review</div>
+        </div>
+        <div class="tile yellow">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">Vast CFO</div>
+              <div class="tile-tier">National Monthly</div>
+            </div>
+            <span class="badge yellow">YELLOW</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">385</div><div class="stat-delta up">▲ 145%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">35</div><div class="stat-delta down">▼ 30%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$138</div><div class="stat-delta up">new</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">1</div><div class="stat-delta flat">prev: 0 · M</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Flagged:</span> No ad spend either period · GSC clicks -30% (50 to 35) · 1 edits-needed task · Sessions spike +145% (157 to 385)</div>
+        </div>
+        <div class="tile green">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">Steve Ellard CPA</div>
+              <div class="tile-tier">Local Monthly</div>
+            </div>
+            <span class="badge green">GREEN</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">524</div><div class="stat-delta up">▲ 14%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">27</div><div class="stat-delta down">▼ 16%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$77.28</div><div class="stat-delta up">▲ 13%</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">0</div><div class="stat-delta flat">prev: 0 · G</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Status:</span> 1 edits-needed task</div>
+        </div>
+        <div class="tile green">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">Keen Capital</div>
+              <div class="tile-tier">National Monthly</div>
+            </div>
+            <span class="badge green">GREEN</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">111</div><div class="stat-delta up">▲ 1%</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">6</div><div class="stat-delta up">▲ 50%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">$42.37</div><div class="stat-delta down">▼ 12%</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">0</div><div class="stat-delta flat">prev: 0 · G</div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Status:</span> 2 edits-needed tasks</div>
+        </div>
+        <div class="tile green">
+          <div class="tile-head">
+            <div>
+              <div class="tile-name">U-Nique Accounting</div>
+              <div class="tile-tier">National Monthly</div>
+            </div>
+            <span class="badge green">GREEN</span>
+          </div>
+          <div class="tile-stats">
+            <div class="stat"><div class="stat-label">Sessions</div><div class="stat-value">—</div><div class="stat-delta flat">no access</div></div>
+            <div class="stat"><div class="stat-label">GSC Clicks</div><div class="stat-value">1</div><div class="stat-delta down">▼ 67%</div></div>
+            <div class="stat"><div class="stat-label">Ad Spend</div><div class="stat-value">—</div><div class="stat-delta flat">no ads account</div></div>
+            <div class="stat"><div class="stat-label">Conv</div><div class="stat-value">—</div><div class="stat-delta flat"></div></div>
+          </div>
+          <div class="tile-why"><span class="why-label">Status:</span> All within tolerance.</div>
+        </div></div>
+
+</div>
+</body>
+</html>

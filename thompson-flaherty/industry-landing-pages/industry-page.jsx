@@ -99,7 +99,7 @@ const INDUSTRY_FAQS = _IND.faqs || [
   { q: 'We already have a bookkeeper. Can you just do tax?',
     a: 'Absolutely. Many practices keep their in-house bookkeeper and use us for review, tax planning, and filing. We work alongside your team, not instead of it.' },
   { q: 'What does this cost?',
-    a: "Our pricing reflects the strategy and care we bring to every client. Basic returns start at $450; ongoing practice engagements (books, payroll, and tax) are quoted after a quick review of your numbers, with clear pricing and no hourly surprises." },
+    a: "Our pricing reflects the strategy and care we bring to every client. Basic returns start at $550; ongoing practice engagements (books, payroll, and tax) are quoted after a quick review of your numbers, with clear pricing and no hourly surprises." },
   { q: 'How is this different from a big, high-volume tax shop?',
     a: "We're not a volume shop. Every client works directly with a dedicated CPA who handles both the tax work and the year-round advice, not a call center, and not a different person every time." },
   { q: 'How fast can we switch?',
@@ -168,7 +168,12 @@ function IndustryHero({ accent, copy }) {
           <image-slot id="industry-hero" shape="rounded" radius="20"
                       src={_IND.heroPhoto || (window.__resources && window.__resources.heroPhoto) || "https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1200&q=80"}
                       placeholder="Drop a practice photo (waiting room, team, chairside)"
-                      style={{ width: '100%', height: 540, display: 'block', boxShadow: TF.shadowLg }}></image-slot>
+                      style={{ width: '100%', height: 540, display: 'block',
+                               WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%), linear-gradient(to left, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)',
+                               WebkitMaskComposite: 'intersect',
+                               maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%), linear-gradient(to left, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%)',
+                               maskComposite: 'intersect',
+                               borderRadius: 0 }}></image-slot>
           <div style={{
             position: 'absolute', left: -20, bottom: 28, zIndex: 2, background: '#fff',
             borderRadius: 14, padding: '15px 19px', border: `1px solid ${TF.border}`,
@@ -216,15 +221,21 @@ function PainSection({ accent, copy }) {
     <div style={{ background: TF.surface, padding: '80px 56px' }}>
       <div style={{ maxWidth: 1180, margin: '0 auto' }}>
         <SectionHead accent={accent} eyebrow="What we solve" title={copy.painTitle} lead={copy.painLead} maxTitle={900} nowrap />
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
           {PAIN_POINTS.map((p, i) => (
-            <div key={i} style={{ background: '#fff', borderRadius: 16, padding: '26px 28px',
-                                  border: `1px solid ${TF.border}`, boxShadow: TF.shadow }}>
-              <div style={{ fontFamily: FONT_DISPLAY, fontWeight: 600, fontSize: 19, color: TF.ink,
-                            marginBottom: 8, letterSpacing: '-0.008em' }}>
+            <div key={i} style={{ background: '#fff', borderRadius: 16, padding: '28px 24px',
+                                  border: `1px solid ${TF.border}`, boxShadow: TF.shadow,
+                                  display: 'flex', flexDirection: 'column', gap: 10 }}>
+              <div style={{ width: 36, height: 36, borderRadius: 10, background: accent + '14',
+                            color: accent, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                            fontFamily: FONT_DISPLAY, fontWeight: 700, fontSize: 16, flexShrink: 0 }}>
+                {i + 1}
+              </div>
+              <div style={{ fontFamily: FONT_DISPLAY, fontWeight: 600, fontSize: 17, color: TF.ink,
+                            letterSpacing: '-0.008em', lineHeight: 1.2 }}>
                 {p.title}
               </div>
-              <div style={{ fontFamily: FONT_BODY, fontSize: 14.5, lineHeight: 1.6, color: TF.inkSoft }}>
+              <div style={{ fontFamily: FONT_BODY, fontSize: 14, lineHeight: 1.6, color: TF.inkSoft }}>
                 {p.body}
               </div>
             </div>

@@ -6,6 +6,7 @@
 <title>Cherry Hill Advisory — SEO Report · June 1–30, 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
   :root { --paper:#f7f4ee; --navy:#0b1b3a; --blue:#1f4fff; --lilac:#b9a8ff; --mute:#6a6a72; --hair:#1f1f24; --up:#2a8a3a; --down:#c43a2a; }
   * { box-sizing: border-box; }
@@ -46,6 +47,17 @@
   footer { margin-top:60px; color:var(--mute); font-size:12px; text-align:center; }
   footer a { color:var(--blue); text-decoration:none; }
   .brand { font-family:Anton,Inter,sans-serif; font-size:18px; letter-spacing:2px; color:var(--navy); text-transform:uppercase; }
+  .wins-card { background:#e6f5ea; border:2px solid var(--up); border-radius:6px; padding:20px 22px; margin:0 0 28px; box-shadow:5px 5px 0 var(--up); }
+  .wins-title { font-family:Anton,Inter,sans-serif; font-size:22px; color:var(--up); margin-bottom:12px; letter-spacing:0.02em; text-transform:uppercase; }
+  .wins-list { margin:0; padding-left:18px; line-height:1.85; font-size:14px; }
+  .wins-list li { margin-bottom:4px; }
+  .win-kw { font-weight:600; color:var(--navy); }
+  .win-delta { color:var(--up); font-weight:700; }
+  .win-vol { color:var(--mute); font-size:12px; }
+  .diag-card { background:#fff8eb; border:2px solid #a26100; border-radius:6px; padding:20px 22px; margin:0 0 28px; box-shadow:5px 5px 0 #a26100; }
+  .diag-title { font-family:Anton,Inter,sans-serif; font-size:22px; color:#a26100; margin-bottom:12px; letter-spacing:0.02em; text-transform:uppercase; }
+  .diag-card p { margin:6px 0; font-size:14px; line-height:1.6; }
+  .chart-box { background:white; border:2px solid var(--navy); border-radius:6px; padding:24px; box-shadow:5px 5px 0 var(--navy); position:relative; height:380px; margin:0 0 28px; }
 </style>
 </head>
 <body>
@@ -58,11 +70,17 @@
   <div class="meta">Reporting period: <strong>June 1–30, 2026</strong> &middot; compared to May 2026 &middot; generated Jun 30, 2026</div>
 </header>
 
+<div class="wins-card"><div class="wins-title">Wins this month — biggest position gains (30d)</div><ul class="wins-list"><li><strong>#19</strong> &middot; <span class='win-kw'>sarbanes oxley internal controls</span> <span class='win-delta'>+81 positions in 30d</span> <span class='win-vol'>· 590 vol · $3.56 CPC</span></li><li><strong>#24</strong> &middot; <span class='win-kw'>advisory risk</span> <span class='win-delta'>+76 positions in 30d</span> <span class='win-vol'>· 70 vol · $3.08 CPC</span></li><li><strong>#37</strong> &middot; <span class='win-kw'>sarbanes oxley consultant</span> <span class='win-delta'>+63 positions in 30d</span> <span class='win-vol'>· 30 vol · $13.49 CPC</span></li><li><strong>#48</strong> &middot; <span class='win-kw'>sarbanes oxley audit</span> <span class='win-delta'>+52 positions in 30d</span> <span class='win-vol'>· 170 vol · $7.36 CPC</span></li><li><strong>#48</strong> &middot; <span class='win-kw'>sarbanes oxley it compliance</span> <span class='win-delta'>+52 positions in 30d</span> <span class='win-vol'>· 40 vol · $8.24 CPC</span></li></ul></div>
+
+<div class="diag-card"><div class="diag-title">Why GSC clicks dropped this month</div><p>Total GSC clicks dropped from <strong>337</strong> to <strong>166</strong> (a drop of 171).</p>
+<p><strong>Brand search ('cherry hill...') accounts for 58% of the drop</strong> (187 → 87, down 100). Likely tied to outside discovery activity in May (podcast, press, launch?) that didn't repeat in June.</p>
+<p><strong>Impressions surged +173% (8,859 → 24,188)</strong> at the same time. Classic AI Overview pattern: Google is surfacing CHA content broadly but answering directly, blocking the click. Check pages with 1000+ impressions and &lt;1% CTR for top AIO targets.</p></div>
+
 <section class="kpis">
   <div class="kpi">
     <div class="label">Tracked KW in Top 10</div>
     <div class="value">2</div>
-    <div class="sub">of 14 ranked / 51 tracked</div>
+    <div class="sub">of 14 ranked / 50 tracked</div>
   </div>
   <div class="kpi">
     <div class="label">Keywords gaining (30d)</div>
@@ -95,6 +113,9 @@
   </div>
 </section>
 
+<h2>13-month trajectory</h2>
+<div class="chart-box"><canvas id="trend"></canvas></div>
+
 <h2>Tracked keywords currently ranking</h2>
 <div class="notes">
   <strong>How to read:</strong> these are the keywords CHA is actively tracking in SEMrush Position Tracking — the ones we chose to compete for. Δ30d shows position movement in the last 30 days. ▲ = improved, ▼ = dropped.
@@ -114,7 +135,7 @@
   <thead>
     <tr><th>Keyword</th><th class='num'>Search Volume</th><th class='num'>CPC</th></tr>
   </thead>
-  <tbody><tr><td>sox compliance</td><td class='num'>9,900</td><td class='num'>$4.92</td></tr><tr><td>ai governance</td><td class='num'>8,100</td><td class='num'>$16.68</td></tr><tr><td>enterprise risk management</td><td class='num'>4,400</td><td class='num'>$6.69</td></tr><tr><td>internal audit</td><td class='num'>3,600</td><td class='num'>$24.33</td></tr><tr><td>risk management training</td><td class='num'>1,000</td><td class='num'>$4.89</td></tr><tr><td>internal audit services</td><td class='num'>880</td><td class='num'>$21.33</td></tr><tr><td>fraud risk management</td><td class='num'>720</td><td class='num'>$6.97</td></tr><tr><td>enterprise ai governance</td><td class='num'>590</td><td class='num'>$22.06</td></tr><tr><td>ai auditing</td><td class='num'>480</td><td class='num'>$9.32</td></tr><tr><td>artificial intelligence audit</td><td class='num'>480</td><td class='num'>$9.32</td></tr><tr><td>ai governance and compliance</td><td class='num'>390</td><td class='num'>$17.12</td></tr><tr><td>sox compliance audit</td><td class='num'>320</td><td class='num'>$11.51</td></tr><tr><td>enterprise risk management consulting</td><td class='num'>260</td><td class='num'>$8.39</td></tr><tr><td>internal audit training</td><td class='num'>210</td><td class='num'>$5.76</td></tr><tr><td>psychotherapist accountant</td><td class='num'>210</td><td class='num'>$0.00</td></tr></tbody>
+  <tbody><tr><td>sox compliance</td><td class='num'>9,900</td><td class='num'>$4.92</td></tr><tr><td>ai governance</td><td class='num'>8,100</td><td class='num'>$16.68</td></tr><tr><td>enterprise risk management</td><td class='num'>4,400</td><td class='num'>$6.69</td></tr><tr><td>internal audit</td><td class='num'>3,600</td><td class='num'>$24.33</td></tr><tr><td>risk management training</td><td class='num'>1,000</td><td class='num'>$4.89</td></tr><tr><td>internal audit services</td><td class='num'>880</td><td class='num'>$21.33</td></tr><tr><td>fraud risk management</td><td class='num'>720</td><td class='num'>$6.97</td></tr><tr><td>enterprise ai governance</td><td class='num'>590</td><td class='num'>$22.06</td></tr><tr><td>ai auditing</td><td class='num'>480</td><td class='num'>$9.32</td></tr><tr><td>artificial intelligence audit</td><td class='num'>480</td><td class='num'>$9.32</td></tr><tr><td>ai governance and compliance</td><td class='num'>390</td><td class='num'>$17.12</td></tr><tr><td>sox compliance audit</td><td class='num'>320</td><td class='num'>$11.51</td></tr><tr><td>enterprise risk management consulting</td><td class='num'>260</td><td class='num'>$8.39</td></tr><tr><td>internal audit training</td><td class='num'>210</td><td class='num'>$5.76</td></tr><tr><td>internal audit risk assessment</td><td class='num'>170</td><td class='num'>$12.32</td></tr></tbody>
 </table>
 
 <h2>Top queries driving clicks (GSC)</h2>
@@ -130,13 +151,37 @@
   <thead>
     <tr><th>Page</th><th class='num'>Clicks</th><th class='num'>Impressions</th><th class='num'>Avg pos</th></tr>
   </thead>
-  <tbody><tr><td><a href='https://www.cherryhilladvisory.com/' target='_blank' rel='noopener'>/</a></td><td class='num'>104</td><td class='num'>1,093</td><td class='num'>8.7</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/about-us' target='_blank' rel='noopener'>/about-us</a></td><td class='num'>18</td><td class='num'>711</td><td class='num'>3.9</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/events-and-webinars' target='_blank' rel='noopener'>/events-and-webinars</a></td><td class='num'>6</td><td class='num'>461</td><td class='num'>5.4</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/downloads-and-tools' target='_blank' rel='noopener'>/downloads-and-tools</a></td><td class='num'>3</td><td class='num'>191</td><td class='num'>5.0</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/library-and-tools/ai-auditing-guide' target='_blank' rel='noopener'>/library-and-tools/ai-auditing-guide</a></td><td class='num'>3</td><td class='num'>936</td><td class='num'>23.7</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/risk-register-blog/how-to-build-a-fraud-risk-assessment-2026' target='_blank' rel='noopener'>/risk-register-blog/how-to-build-a-fraud-risk-assessment-2026</a></td><td class='num'>3</td><td class='num'>86</td><td class='num'>16.4</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/sarbanes-oxley-sox-compliance' target='_blank' rel='noopener'>/sarbanes-oxley-sox-compliance</a></td><td class='num'>3</td><td class='num'>1,935</td><td class='num'>28.6</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/ai-governance-emerging-risk' target='_blank' rel='noopener'>/ai-governance-emerging-risk</a></td><td class='num'>2</td><td class='num'>105</td><td class='num'>13.3</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/contact-us' target='_blank' rel='noopener'>/contact-us</a></td><td class='num'>2</td><td class='num'>382</td><td class='num'>4.7</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/risk-register-blog/how-lava-lamps-help-keep-the-internet-safe-and-what-internal-auditors-should-actually-care-about' target='_blank' rel='noopener'>/risk-register-blog/how-lava-lamps-help-keep-the-internet-safe-and-what-internal-auditors-should-actually-care-about</a></td><td class='num'>2</td><td class='num'>1,731</td><td class='num'>9.0</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/risk-register-blog/the-state-of-ai-adoption-in-internal-audit-in-2026' target='_blank' rel='noopener'>/risk-register-blog/the-state-of-ai-adoption-in-internal-audit-in-2026</a></td><td class='num'>2</td><td class='num'>24</td><td class='num'>10.6</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/sec-cybersecurity-disclosure-rule-two-year-review' target='_blank' rel='noopener'>/sec-cybersecurity-disclosure-rule-two-year-review</a></td><td class='num'>2</td><td class='num'>13,866</td><td class='num'>4.8</td></tr></tbody>
+  <tbody><tr><td><a href='https://www.cherryhilladvisory.com/' target='_blank' rel='noopener'>/</a></td><td class='num'>104</td><td class='num'>1,093</td><td class='num'>8.7</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/about-us' target='_blank' rel='noopener'>/about-us</a></td><td class='num'>18</td><td class='num'>711</td><td class='num'>3.9</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/events-and-webinars' target='_blank' rel='noopener'>/events-and-webinars</a></td><td class='num'>6</td><td class='num'>461</td><td class='num'>5.4</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/downloads-and-tools' target='_blank' rel='noopener'>/downloads-and-tools</a></td><td class='num'>3</td><td class='num'>191</td><td class='num'>5.0</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/library-and-tools/ai-auditing-guide' target='_blank' rel='noopener'>/library-and-tools/ai-auditing-guide</a></td><td class='num'>3</td><td class='num'>936</td><td class='num'>23.7</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/risk-register-blog/how-to-build-a-fraud-risk-assessment-2026' target='_blank' rel='noopener'>/risk-register-blog/how-to-build-a-fraud-risk-assessment-2026</a></td><td class='num'>3</td><td class='num'>86</td><td class='num'>16.4</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/sarbanes-oxley-sox-compliance' target='_blank' rel='noopener'>/sarbanes-oxley-sox-compliance</a></td><td class='num'>3</td><td class='num'>1,935</td><td class='num'>28.6</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/ai-governance-emerging-risk' target='_blank' rel='noopener'>/ai-governance-emerging-risk</a></td><td class='num'>2</td><td class='num'>105</td><td class='num'>13.3</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/contact-us' target='_blank' rel='noopener'>/contact-us</a></td><td class='num'>2</td><td class='num'>382</td><td class='num'>4.7</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/risk-register-blog/the-state-of-ai-adoption-in-internal-audit-in-2026' target='_blank' rel='noopener'>/risk-register-blog/the-state-of-ai-adoption-in-internal-audit-in-2026</a></td><td class='num'>2</td><td class='num'>24</td><td class='num'>10.6</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/sec-cybersecurity-disclosure-rule-two-year-review' target='_blank' rel='noopener'>/sec-cybersecurity-disclosure-rule-two-year-review</a></td><td class='num'>2</td><td class='num'>13,866</td><td class='num'>4.8</td></tr></tbody>
 </table>
 
 <footer>
   <div class="brand">MARKOLOGY</div>
   <div>Built by <a href="https://markology.io" target="_blank" rel="noopener">markology.io</a> · Cherry Hill Advisory · June 1–30, 2026</div>
 </footer>
+
+<script>
+const ctx = document.getElementById('trend');
+new Chart(ctx, {
+  data: {
+    labels: ["May 25", "Jun 25", "Jul 25", "Aug 25", "Sep 25", "Oct 25", "Nov 25", "Dec 25", "Jan 26", "Feb 26", "Mar 26", "Apr 26", "May 26", "Jun 26"],
+    datasets: [
+      { type:'line', label:'SEMrush ranking keywords', data: [2, 6, 5, 7, 7, 7, 8, 4, 8, 21, 35, 47, 61, null], borderColor:'#0b1b3a', backgroundColor:'rgba(11,27,58,.12)', yAxisID:'y1', tension:0.3, pointRadius:4, fill:true, spanGaps:true },
+      { type:'line', label:'GA4 organic sessions', data: [null, null, null, null, null, null, null, null, null, null, null, null, 381, 387], borderColor:'#1f4fff', backgroundColor:'rgba(31,79,255,.10)', yAxisID:'y2', tension:0.3, pointRadius:4, spanGaps:true },
+      { type:'line', label:'GSC clicks', data: [0, 0, 0, 0, 108, 127, 97, 333, 106, 108, 176, 190, 337, 166], borderColor:'#b9a8ff', backgroundColor:'rgba(185,168,255,.10)', yAxisID:'y2', tension:0.3, pointRadius:4, spanGaps:true },
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    interaction: { mode:'index', intersect:false },
+    plugins: { legend: { position:'bottom', labels:{ font:{ family:'Inter', size:13 } } } },
+    scales: {
+      x: { grid:{ display:false } },
+      y1: { position:'left',  beginAtZero:true, title:{ display:true, text:'SEMrush keywords' } },
+      y2: { position:'right', beginAtZero:true, grid:{ display:false }, title:{ display:true, text:'GA4 sessions / GSC clicks' } }
+    }
+  }
+});
+</script>
 
 </div>
 </body>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cherry Hill Advisory — Leads Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --navy:#0c1a3c;
+    --blue:#3b5dff;
+    --lilac:#a98bff;
+    --bg:#f6f7fb;
+    --ink:#1b1f3a;
+    --muted:#6b7280;
+    --line:#e5e7ef;
+    --warn:#a26100;
+  }
+  *{box-sizing:border-box}
+  body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);margin:0;padding:0;line-height:1.55}
+  .wrap{max-width:1280px;margin:0 auto;padding:48px 32px 96px}
+  header{margin-bottom:40px}
+  .eyebrow{font-family:'Anton',sans-serif;letter-spacing:3px;color:var(--blue);font-size:16px;margin-bottom:10px;text-transform:uppercase}
+  h1{font-family:'Anton',sans-serif;font-size:72px;letter-spacing:.5px;margin:0 0 8px;color:var(--navy);text-transform:uppercase;line-height:1}
+  .sub{color:var(--muted);font-size:15px}
+  .period{display:inline-block;background:#eef2ff;color:var(--blue);font-weight:600;font-size:14px;padding:6px 14px;border-radius:999px;margin:0 0 12px;letter-spacing:.2px}
+  h2{font-family:'Anton',sans-serif;font-size:36px;letter-spacing:.5px;color:var(--navy);margin:48px 0 16px;text-transform:uppercase}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:24px;box-shadow:0 1px 2px rgba(12,26,60,.03)}
+  .card.note{background:#fffaf0;border-color:#f3d9a4;color:#5a4400;font-size:14px;line-height:1.6}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:20px}
+  .stat .k{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:6px}
+  .stat .v{font-family:'Anton',sans-serif;font-size:44px;color:var(--navy);line-height:1;text-transform:uppercase;letter-spacing:.5px}
+  footer{margin-top:64px;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  footer .brand{font-family:'Anton',sans-serif;font-size:20px;letter-spacing:2px;color:var(--navy);text-transform:uppercase}
+  footer a{color:var(--blue);text-decoration:none;font-weight:600}
+  footer a:hover{text-decoration:underline}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);background:#fafbff;position:sticky;top:0}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  td.total{font-weight:700;color:var(--navy)}
+  td.ts{white-space:nowrap;color:var(--muted);font-variant-numeric:tabular-nums;width:170px}
+  td.actions{width:170px;white-space:nowrap}
+  .meta{color:var(--muted);font-size:12px;margin-top:4px}
+  .meta a{color:var(--blue);text-decoration:none}
+  .msg{margin-top:8px;padding:10px 12px;background:#f6f7fb;border-left:3px solid var(--blue);border-radius:4px;font-size:13px;color:#2b2f4a;white-space:pre-wrap}
+  .msg-missing{background:#fff4e6;border-left-color:var(--warn);color:var(--warn);font-style:italic}
+  .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.3px;text-transform:uppercase;white-space:nowrap}
+  .pill-contact{background:#fff4dd;color:#a26100}
+  .pill-unmatched{background:#ffe1e1;color:#a31313}
+  .footnote{color:var(--muted);font-size:13px;margin-top:6px}
+  .chart-box{position:relative;height:380px}
+  .btn{display:inline-block;padding:4px 8px;font-size:11px;font-weight:600;border-radius:6px;border:1px solid var(--line);background:#fff;cursor:pointer;margin:1px;color:var(--ink);font-family:inherit}
+  .btn:hover{background:#f0f2fb}
+  .btn-spam{border-color:#ffb3b3;color:#a31313}
+  .btn-spam:hover{background:#ffe1e1}
+  .btn-legit{border-color:#bdf2c5;color:#15703a}
+  .btn-legit:hover{background:#dff5e3}
+  .status{font-size:11px;color:var(--muted);margin-top:4px;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+  tr[data-spam="true"]{background:#fff5f5;opacity:.55}
+  tr[data-spam="true"] .msg{background:#ffe8e8;border-left-color:#ff6b6b}
+  tr[data-legit="true"]{background:#f6fff8}
+  tr[data-legit="true"] .status::before{content:"✓ legit";color:#15703a}
+  tr[data-spam="true"] .status::before{content:"✗ spam";color:#a31313}
+  code{background:#f0f2fb;padding:1px 6px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Markology · Cherry Hill Advisory</div>
+  <h1>Leads Tracker</h1>
+  
+  <div class="sub">Webflow form submissions, bucketed by category. Last refreshed Jun 30, 2026 5:20 AM ET. Spam marks save to this browser only.</div>
+</header>
+
+<div class="stats">
+  <div class="stat"><div class="k">Total submissions</div><div class="v">265</div></div>
+  <div class="stat"><div class="k">For spam review</div><div class="v">8</div></div>
+  <div class="stat"><div class="k">Test rows filtered</div><div class="v">19</div></div>
+  <div class="stat"><div class="k">Refresh</div><div class="v" style="font-size:24px;line-height:1.2">Daily<br>06:00 AEST</div></div>
+</div>
+
+<h2>Monthly submissions by category</h2>
+<div class="card">
+  <div class="chart-box"><canvas id="trend"></canvas></div>
+</div>
+
+<div class="card">
+  <table>
+    <thead>
+      <tr><th>Month</th><th class='num'>Library / Tools Downloads</th><th class='num'>Webinar Registrations</th><th class='num'>Blog Subscribers</th><th class='num'>Contact Us Form</th><th class='num'>Unmatched Submissions</th><th class='num'>Total</th></tr>
+    </thead>
+    <tbody><tr><td><strong>May 2026</strong></td><td class='num'>40</td><td class='num'>27</td><td class='num'>1</td><td class='num'>3</td><td class='num'>0</td><td class='num total'>71</td></tr><tr><td><strong>Jun 2026</strong></td><td class='num'>97</td><td class='num'>59</td><td class='num'>33</td><td class='num'>3</td><td class='num'>2</td><td class='num total'>194</td></tr></tbody>
+  </table>
+</div>
+
+
+<h2>Library &amp; Tools — per-asset monthly downloads</h2>
+<div class="card">
+  <table>
+    <thead>
+      <tr><th>Asset</th><th class='num'>May 2026</th><th class='num'>Jun 2026</th><th class='num'>Total</th></tr>
+    </thead>
+    <tbody><tr><td>Practitioner’s Workbook: Cybersecurity Topical Requirement</td><td class='num'>  5</td><td class='num'> 17</td><td class='num total'>22</td></tr><tr><td>AI Resource Pack (Governance Policy, Inventory Registry, Approval Records, Documentation, Monitoring Evidence Tracker, Evaluation Tool)</td><td class='num'>  7</td><td class='num'> 13</td><td class='num total'>20</td></tr><tr><td>AI Internal Audit Encyclopedia</td><td class='num'>  4</td><td class='num'> 11</td><td class='num total'>15</td></tr><tr><td>Internal Audit for Babies</td><td class='num'>  ·</td><td class='num'> 14</td><td class='num total'>14</td></tr><tr><td>AI Auditing Guide</td><td class='num'>  6</td><td class='num'>  6</td><td class='num total'>12</td></tr><tr><td>Practitioner’s Workbook: Organizational Behavior Topical Requirement</td><td class='num'>  3</td><td class='num'>  6</td><td class='num total'>9</td></tr><tr><td>What Your Audit Committee Needs to Hear from Internal Audit Right Now</td><td class='num'>  1</td><td class='num'>  8</td><td class='num total'>9</td></tr><tr><td>AI Infrastructure Risk Questionnaire</td><td class='num'>  3</td><td class='num'>  5</td><td class='num total'>8</td></tr><tr><td>Focus 2026 - A Practical Look at the Themes Shaping Next Year's Internal Audit Plan</td><td class='num'>  1</td><td class='num'>  7</td><td class='num total'>8</td></tr><tr><td>Practitioner's Workbook: Third-Party Risk Topical Requirement</td><td class='num'>  2</td><td class='num'>  4</td><td class='num total'>6</td></tr><tr><td>AI Ethics Integration Framework</td><td class='num'>  3</td><td class='num'>  1</td><td class='num total'>4</td></tr><tr><td>Reputational Risk Rapid Response Toolkit</td><td class='num'>  1</td><td class='num'>  3</td><td class='num total'>4</td></tr><tr><td>The Future Internal Audit Leader</td><td class='num'>  2</td><td class='num'>  1</td><td class='num total'>3</td></tr><tr><td>Delve Incident: A Practical Guide for GRC Customers</td><td class='num'>  1</td><td class='num'>  1</td><td class='num total'>2</td></tr><tr><td>Internal Auditor Kids Coloring Book</td><td class='num'>  1</td><td class='num'>  ·</td><td class='num total'>1</td></tr></tbody>
+  </table>
+  <p class="footnote">Sorted by all-time downloads. <code>·</code> = no submissions that month.</p>
+</div>
+
+
+<h2>Webinar Registrations — per-webinar monthly counts</h2>
+<div class="card">
+  <table>
+    <thead>
+      <tr><th>Asset</th><th class='num'>May 2026</th><th class='num'>Jun 2026</th><th class='num'>Total</th></tr>
+    </thead>
+    <tbody><tr><td>Ai Part 1 Understanding Ai Risk In Plain Language</td><td class='num'>  6</td><td class='num'> 22</td><td class='num total'>28</td></tr><tr><td>Ai Part 4 Auditing Ai Enabled Processes</td><td class='num'> 13</td><td class='num'> 14</td><td class='num total'>27</td></tr><tr><td>Ai Part 3 Using Ai Inside Internal Audit The Right Way</td><td class='num'>  2</td><td class='num'> 10</td><td class='num total'>12</td></tr><tr><td>Ai Part 2 Building And Reviewing Ai Governance</td><td class='num'>  3</td><td class='num'>  6</td><td class='num total'>9</td></tr><tr><td>Ethics In The Age Of Algorithms What Internal Auditors Must Know</td><td class='num'>  3</td><td class='num'>  1</td><td class='num total'>4</td></tr><tr><td>Cyber Risk You Can Check Without Being A Security Engineer</td><td class='num'>  ·</td><td class='num'>  3</td><td class='num total'>3</td></tr><tr><td>Prevent And Defend The Role Of Internal Audit In Strengthening Cybersecurity Resilience</td><td class='num'>  ·</td><td class='num'>  2</td><td class='num total'>2</td></tr><tr><td>Risk Radar 2026 What Internal Audit Should Keep On The Top Of Mind This Year</td><td class='num'>  ·</td><td class='num'>  1</td><td class='num total'>1</td></tr></tbody>
+  </table>
+  <p class="footnote">Sorted by all-time downloads. <code>·</code> = no submissions that month.</p>
+</div>
+
+
+<h2>Contact &amp; unmatched submissions — review for spam</h2>
+
+<div id="message-gap" class="card note">
+  <strong>Heads up — message field not yet in the sheet.</strong>
+  The Webflow Contact Us form is posting to an Apps Script router that only logs
+  email + timestamp + page URL. To show what people are actually writing, two
+  small edits are needed: (1) add a <code>Message</code> field to the Webflow
+  form and include it in the POST payload, and (2) update the Apps Script to
+  write a <code>Message</code> column into the Submissions tab. Once those land,
+  this dashboard picks the column up automatically on the next refresh.
+</div>
+
+<div class="card">
+  <table>
+    <thead>
+      <tr>
+        <th>When (ET)</th>
+        <th>Source</th>
+        <th>Submission</th>
+        <th>Spam?</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr data-event-id="6c6a01a4-3f41-45ad-b85b-781944862ef6" data-spam="false">
+          <td class='ts'>Jun 25, 2026 2:59 PM ET</td>
+          <td><span class='pill pill-contact'>Contact</span></td>
+          <td>
+            <a href="mailto:gregdj@riverlandhomes.us">gregdj@riverlandhomes.us</a>
+            <div class='meta'>—</div>
+            <div class='meta'><a href='https://www.cherryhilladvisory.com/contact-us' target='_blank' rel='noopener'>/contact-us</a></div>
+            <div class='msg msg-missing'>Message field not captured by Webflow form — <a href='#message-gap'>see note below</a></div>
+          </td>
+          <td class='actions'>
+            <button class='btn btn-spam' onclick="markSpam(this, true)">Mark spam</button>
+            <button class='btn btn-legit' onclick="markSpam(this, false)">Mark legit</button>
+            <button class='btn btn-clear' onclick="markSpam(this, null)">Clear</button>
+            <div class='status'></div>
+          </td>
+        </tr>
+        <tr data-event-id="d4377480-c8ae-4185-9359-54e48e6d3c3b" data-spam="false">
+          <td class='ts'>Jun 23, 2026 4:29 PM ET</td>
+          <td><span class='pill pill-unmatched'>Unmatched</span></td>
+          <td>
+            <a href="mailto:dgt_consulting_llc@yahoo.com">dgt_consulting_llc@yahoo.com</a>
+            <div class='meta'>—</div>
+            <div class='meta'><a href='https://www.cherryhilladvisory.com/risk-register-blog/cybersecurity-topical-requirements-internal-audit' target='_blank' rel='noopener'>/risk-register-blog/cybersecurity-topical-requirements-internal-audit</a></div>
+            <div class='msg msg-missing'>Message field not captured by Webflow form — <a href='#message-gap'>see note below</a></div>
+          </td>
+          <td class='actions'>
+            <button class='btn btn-spam' onclick="markSpam(this, true)">Mark spam</button>
+            <button class='btn btn-legit' onclick="markSpam(this, false)">Mark legit</button>
+            <button class='btn btn-clear' onclick="markSpam(this, null)">Clear</button>
+            <div class='status'></div>
+          </td>
+        </tr>
+        <tr data-event-id="a50b5653-e7c1-4024-bc56-e79e840f621a" data-spam="false">
+          <td class='ts'>Jun 22, 2026 1:59 PM ET</td>
+          <td><span class='pill pill-contact'>Contact</span></td>
+          <td>
+            <a href="mailto:dl4912000@gmail.com">dl4912000@gmail.com</a>
+            <div class='meta'>—</div>
+            <div class='meta'><a href='https://www.cherryhilladvisory.com/contact-us' target='_blank' rel='noopener'>/contact-us</a></div>
+            <div class='msg msg-missing'>Message field not captured by Webflow form — <a href='#message-gap'>see note below</a></div>
+          </td>
+          <td class='actions'>
+            <button class='btn btn-spam' onclick="markSpam(this, true)">Mark spam</button>
+            <button class='btn btn-legit' onclick="markSpam(this, false)">Mark legit</button>
+            <button class='btn btn-clear' onclick="markSpam(this, null)">Clear</button>
+            <div class='status'></div>
+          </td>
+        </tr>
+        <tr data-event-id="3949107c-bd8e-4e6a-99d4-f789f5859fb7" data-spam="false">
+          <td class='ts'>Jun 16, 2026 9:09 AM ET</td>
+          <td><span class='pill pill-unmatched'>Unmatched</span></td>
+          <td>
+            <a href="mailto:orifuna@gmail.com">orifuna@gmail.com</a>
+            <div class='meta'>—</div>
+            <div class='meta'><a href='https://www.cherryhilladvisory.com/risk-register-blog/how-to-build-audit-plan-for-new-national-cyber-strategy-and-iia' target='_blank' rel='noopener'>/risk-register-blog/how-to-build-audit-plan-for-new-national-cyber-strategy-and-iia</a></div>
+            <div class='msg msg-missing'>Message field not captured by Webflow form — <a href='#message-gap'>see note below</a></div>
+          </td>
+          <td class='actions'>
+            <button class='btn btn-spam' onclick="markSpam(this, true)">Mark spam</button>
+            <button class='btn btn-legit' onclick="markSpam(this, false)">Mark legit</button>
+            <button class='btn btn-clear' onclick="markSpam(this, null)">Clear</button>
+            <div class='status'></div>
+          </td>
+        </tr>
+        <tr data-event-id="8af3d78c-e079-41c3-aaa9-76c8b463c977" data-spam="false">
+          <td class='ts'>Jun 10, 2026 10:09 AM ET</td>
+          <td><span class='pill pill-contact'>Contact</span></td>
+          <td>
+            <a href="mailto:ctroxell@liberty-bank.com">ctroxell@liberty-bank.com</a>
+            <div class='meta'>—</div>
+            <div class='meta'><a href='https://www.cherryhilladvisory.com/contact-us' target='_blank' rel='noopener'>/contact-us</a></div>
+            <div class='msg msg-missing'>Message field not captured by Webflow form — <a href='#message-gap'>see note below</a></div>
+          </td>
+          <td class='actions'>
+            <button class='btn btn-spam' onclick="markSpam(this, true)">Mark spam</button>
+            <button class='btn btn-legit' onclick="markSpam(this, false)">Mark legit</button>
+            <button class='btn btn-clear' onclick="markSpam(this, null)">Clear</button>
+            <div class='status'></div>
+          </td>
+        </tr>
+        <tr data-event-id="02dbc8c8-cc90-48df-9b37-2aad7ee7536d" data-spam="false">
+          <td class='ts'>May 28, 2026 3:20 PM ET</td>
+          <td><span class='pill pill-contact'>Contact</span></td>
+          <td>
+            <a href="mailto:andy.pinto@klx.com">andy.pinto@klx.com</a>
+            <div class='meta'>—</div>
+            <div class='meta'><a href='https://www.cherryhilladvisory.com/contact-us' target='_blank' rel='noopener'>/contact-us</a></div>
+            <div class='msg msg-missing'>Message field not captured by Webflow form — <a href='#message-gap'>see note below</a></div>
+          </td>
+          <td class='actions'>
+            <button class='btn btn-spam' onclick="markSpam(this, true)">Mark spam</button>
+            <button class='btn btn-legit' onclick="markSpam(this, false)">Mark legit</button>
+            <button class='btn btn-clear' onclick="markSpam(this, null)">Clear</button>
+            <div class='status'></div>
+          </td>
+        </tr>
+        <tr data-event-id="df77ebb5-d8db-4177-86f5-206784f22b75" data-spam="false">
+          <td class='ts'>May 28, 2026 8:20 AM ET</td>
+          <td><span class='pill pill-contact'>Contact</span></td>
+          <td>
+            <a href="mailto:hoangnguyen@bocusa.com">hoangnguyen@bocusa.com</a>
+            <div class='meta'>—</div>
+            <div class='meta'><a href='https://www.cherryhilladvisory.com/contact-us' target='_blank' rel='noopener'>/contact-us</a></div>
+            <div class='msg msg-missing'>Message field not captured by Webflow form — <a href='#message-gap'>see note below</a></div>
+          </td>
+          <td class='actions'>
+            <button class='btn btn-spam' onclick="markSpam(this, true)">Mark spam</button>
+            <button class='btn btn-legit' onclick="markSpam(this, false)">Mark legit</button>
+            <button class='btn btn-clear' onclick="markSpam(this, null)">Clear</button>
+            <div class='status'></div>
+          </td>
+        </tr>
+        <tr data-event-id="0449aa7e-9cbb-49fd-9c5b-eadb54ca913c" data-spam="false">
+          <td class='ts'>May 26, 2026 12:20 PM ET</td>
+          <td><span class='pill pill-contact'>Contact</span></td>
+          <td>
+            <a href="mailto:jsoderstrom@instinctpetfood.com">jsoderstrom@instinctpetfood.com</a>
+            <div class='meta'>—</div>
+            <div class='meta'><a href='https://www.cherryhilladvisory.com/ai-governance-emerging-risk' target='_blank' rel='noopener'>/ai-governance-emerging-risk</a></div>
+            <div class='msg msg-missing'>Message field not captured by Webflow form — <a href='#message-gap'>see note below</a></div>
+          </td>
+          <td class='actions'>
+            <button class='btn btn-spam' onclick="markSpam(this, true)">Mark spam</button>
+            <button class='btn btn-legit' onclick="markSpam(this, false)">Mark legit</button>
+            <button class='btn btn-clear' onclick="markSpam(this, null)">Clear</button>
+            <div class='status'></div>
+          </td>
+        </tr></tbody>
+  </table>
+  <p class="footnote">Spam marks are saved to localStorage in this browser. Once the message field is wired in, you'll see the actual message text inline. "Unmatched" rows are Webflow submissions the Brevo router couldn't classify — frequently spam.</p>
+</div>
+
+<script>
+// localStorage spam tracker — keyed by Event ID
+const STORE_KEY = 'cha_spam_marks_v1';
+function loadMarks() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch(e) { return {}; }
+}
+function saveMarks(marks) {
+  localStorage.setItem(STORE_KEY, JSON.stringify(marks));
+}
+function applyMark(tr, mark) {
+  if (mark === 'spam') {
+    tr.setAttribute('data-spam', 'true');
+    tr.removeAttribute('data-legit');
+  } else if (mark === 'legit') {
+    tr.setAttribute('data-legit', 'true');
+    tr.removeAttribute('data-spam');
+  } else {
+    tr.removeAttribute('data-spam');
+    tr.removeAttribute('data-legit');
+  }
+}
+function markSpam(btn, isSpam) {
+  const tr = btn.closest('tr');
+  const eventId = tr.dataset.eventId;
+  if (!eventId) return;
+  const marks = loadMarks();
+  if (isSpam === null) {
+    delete marks[eventId];
+    applyMark(tr, null);
+  } else {
+    marks[eventId] = isSpam ? 'spam' : 'legit';
+    applyMark(tr, marks[eventId]);
+  }
+  saveMarks(marks);
+}
+// On load, apply saved marks
+document.addEventListener('DOMContentLoaded', () => {
+  const marks = loadMarks();
+  document.querySelectorAll('tr[data-event-id]').forEach(tr => {
+    const mark = marks[tr.dataset.eventId];
+    if (mark) applyMark(tr, mark);
+  });
+});
+
+// Chart
+const ctx = document.getElementById('trend');
+new Chart(ctx, {
+  type: 'bar',
+  data: { labels: ["May 2026", "Jun 2026"], datasets: [{"label": "Library / Tools Downloads", "data": [40, 97], "backgroundColor": "#3b5dff", "borderRadius": 4}, {"label": "Webinar Registrations", "data": [27, 59], "backgroundColor": "#7d6cff", "borderRadius": 4}, {"label": "Blog Subscribers", "data": [1, 33], "backgroundColor": "#a98bff", "borderRadius": 4}, {"label": "Contact Us Form", "data": [3, 3], "backgroundColor": "#ffb547", "borderRadius": 4}, {"label": "Unmatched Submissions", "data": [0, 2], "backgroundColor": "#ff6b6b", "borderRadius": 4}] },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { position: 'bottom', labels: { font: { family: 'Inter', size: 13 } } },
+      tooltip: { callbacks: { label: (c) => `${c.dataset.label}: ${c.parsed.y}` } }
+    },
+    scales: {
+      x: { stacked: true, grid: { display: false } },
+      y: { stacked: true, beginAtZero: true, ticks: { precision: 0 } }
+    }
+  }
+});
+</script>
+
+<footer>
+  <div class="brand">MARKOLOGY</div>
+  <div>Built by <a href="https://markology.io" target="_blank" rel="noopener">markology.io</a> · Auto-refreshes daily</div>
+</footer>
+
+</div>
+</body>
+</html>

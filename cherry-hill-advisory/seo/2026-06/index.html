@@ -3,112 +3,141 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Cherry Hill Advisory — SEO Progress · June 2026</title>
+<title>Cherry Hill Advisory — SEO Report · June 1–30, 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
-  :root { --paper:#f7f4ee; --navy:#0b1b3a; --blue:#1f4fff; --lilac:#b9a8ff; --mute:#6a6a72; --hair:#1f1f24; }
+  :root { --paper:#f7f4ee; --navy:#0b1b3a; --blue:#1f4fff; --lilac:#b9a8ff; --mute:#6a6a72; --hair:#1f1f24; --up:#2a8a3a; --down:#c43a2a; }
   * { box-sizing: border-box; }
   body { margin:0; background:var(--paper); font-family:Inter,system-ui,sans-serif; color:var(--hair); line-height:1.5; }
   .wrap { max-width:1080px; margin:0 auto; padding:32px 24px 80px; }
   header.hero { margin-bottom:32px; }
   .pill { display:inline-block; background:var(--navy); color:white; padding:4px 14px; border-radius:999px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; }
-  h1 { font-family:Anton,Inter,sans-serif; font-size:64px; line-height:1; color:var(--navy); margin:8px 0 4px; letter-spacing:0.02em; }
-  h2 { font-family:Anton,Inter,sans-serif; font-size:32px; color:var(--navy); margin:40px 0 16px; letter-spacing:0.02em; }
-  .lede { font-size:18px; color:var(--hair); max-width:720px; }
-  .meta { color:var(--mute); font-size:14px; margin-top:12px; }
-  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin:24px 0 40px; }
-  @media (max-width:720px) { .kpis { grid-template-columns:repeat(2,1fr); } h1 { font-size:44px; } }
-  .kpi { background:white; border:2px solid var(--navy); border-radius:6px; padding:18px 16px; box-shadow:5px 5px 0 var(--navy); }
-  .kpi .label { font-size:11px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-bottom:6px; }
-  .kpi .value { font-family:Anton,Inter,sans-serif; font-size:36px; color:var(--navy); line-height:1; }
-  .kpi .delta { margin-top:6px; font-size:13px; color:var(--blue); font-weight:600; }
-  .chart-wrap { background:white; border:2px solid var(--navy); border-radius:6px; padding:16px; box-shadow:5px 5px 0 var(--navy); }
-  canvas { max-width:100%; }
+  h1 { font-family:Anton,Inter,sans-serif; font-size:56px; line-height:1; color:var(--navy); margin:8px 0 4px; letter-spacing:0.02em; text-transform:uppercase; }
+  h2 { font-family:Anton,Inter,sans-serif; font-size:28px; color:var(--navy); margin:36px 0 14px; letter-spacing:0.02em; text-transform:uppercase; }
+  .lede { font-size:17px; color:var(--hair); max-width:720px; }
+  .meta { color:var(--mute); font-size:13px; margin-top:10px; }
+  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:22px 0 36px; }
+  @media (max-width:720px) { .kpis { grid-template-columns:repeat(2,1fr); } h1 { font-size:38px; } }
+  .kpi { background:white; border:2px solid var(--navy); border-radius:6px; padding:16px 14px; box-shadow:5px 5px 0 var(--navy); }
+  .kpi .label { font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-bottom:6px; }
+  .kpi .value { font-family:Anton,Inter,sans-serif; font-size:30px; color:var(--navy); line-height:1; }
+  .kpi .delta { margin-top:6px; font-size:12px; font-weight:600; }
+  .kpi .delta.up { color:var(--up); }
+  .kpi .delta.down { color:var(--down); }
+  .kpi .delta.flat { color:var(--mute); }
+  .kpi .sub { font-size:11px; color:var(--mute); margin-top:4px; }
   table { width:100%; border-collapse:collapse; background:white; border:2px solid var(--navy); border-radius:6px; overflow:hidden; box-shadow:5px 5px 0 var(--navy); }
   thead { background:var(--navy); color:white; }
-  th,td { padding:12px 14px; text-align:left; border-bottom:1px solid #eee; font-size:14px; }
-  th { font-size:12px; letter-spacing:0.06em; text-transform:uppercase; }
+  th,td { padding:11px 13px; text-align:left; border-bottom:1px solid #eee; font-size:13px; }
+  th { font-size:11px; letter-spacing:0.06em; text-transform:uppercase; }
   tbody tr:last-child td { border-bottom:none; }
-  .notes { background:white; border-left:4px solid var(--blue); padding:14px 18px; margin-top:24px; border-radius:4px; }
-  footer { margin-top:64px; color:var(--mute); font-size:13px; text-align:center; }
+  td.num { text-align:right; font-variant-numeric:tabular-nums; }
+  th.num { text-align:right; }
+  td a { color:var(--blue); text-decoration:none; }
+  td a:hover { text-decoration:underline; }
+  .delta-up { color:var(--up); font-weight:700; }
+  .delta-down { color:var(--down); font-weight:700; }
+  .delta-flat { color:var(--mute); }
+  .notes { background:white; border-left:4px solid var(--blue); padding:14px 18px; margin:20px 0; border-radius:4px; font-size:14px; }
+  .notes strong { color:var(--navy); }
+  .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media (max-width:900px) { .grid-2 { grid-template-columns:1fr; } }
+  footer { margin-top:60px; color:var(--mute); font-size:12px; text-align:center; }
   footer a { color:var(--blue); text-decoration:none; }
+  .brand { font-family:Anton,Inter,sans-serif; font-size:18px; letter-spacing:2px; color:var(--navy); text-transform:uppercase; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <header class="hero">
-    <span class="pill">Monthly SEO Progress</span>
-    <h1>CHERRY HILL ADVISORY</h1>
-    <div class="lede">SEO snapshot for June 2026. Risk advisory and AI governance for internal audit.</div>
-    <div class="meta">cherryhilladvisory.com &middot; covers June 2026</div>
-  </header>
 
-  <section class="kpis">
-    <div class="kpi">
-      <div class="label">SEMrush Ranking Keywords</div>
-      <div class="value">61</div>
-      <div class="delta">+14 MoM (+30%)</div>
-    </div>
-    <div class="kpi">
-      <div class="label">GSC Queries · Top 10 / Top 20</div>
-      <div class="value">136</div>
-      <div class="delta">225 in top 20 · 502 total queries</div>
-    </div>
-    <div class="kpi">
-      <div class="label">Jun 2026 Search Impressions</div>
-      <div class="value">24,188</div>
-      <div class="delta">166 clicks &middot; 0.69% CTR &middot; avg pos 10.7</div>
-      <div class="delta" style="margin-top:4px;font-size:12px;color:var(--mute);font-weight:500;">87 brand &middot; 2 non-brand</div>
-    </div>
-    <div class="kpi">
-      <div class="label">Organic Sessions (GA4)</div>
-      <div class="value">386</div>
-      <div class="delta">organic search, all engines</div>
-    </div>
-  </section>
+<header class="hero">
+  <span class="pill">Monthly SEO Snapshot</span>
+  <h1>Cherry Hill Advisory</h1>
+  <div class="lede">SEMrush Position Tracking + Google Search Console + GA4. Off-topic rankings (viral lava-lamp blog post) are excluded — this is what CHA's actual service pages are doing.</div>
+  <div class="meta">Reporting period: <strong>June 1–30, 2026</strong> &middot; compared to May 2026 &middot; generated Jun 30, 2026</div>
+</header>
 
-  <h2>Trajectory</h2>
-  <div class="chart-wrap"><canvas id="trajectoryChart" height="120"></canvas></div>
+<section class="kpis">
+  <div class="kpi">
+    <div class="label">Tracked KW in Top 10</div>
+    <div class="value">2</div>
+    <div class="sub">of 14 ranked / 51 tracked</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Keywords gaining (30d)</div>
+    <div class="value">11</div>
+    <div class="sub">moved up in last 30 days</div>
+  </div>
+  <div class="kpi">
+    <div class="label">GSC Clicks</div>
+    <div class="value">166</div>
+    <div class="delta down">-51% vs May 2026</div>
+    <div class="sub">Prev: 337</div>
+  </div>
+  <div class="kpi">
+    <div class="label">GSC Impressions</div>
+    <div class="value">24,188</div>
+    <div class="delta up">+173% vs May 2026</div>
+    <div class="sub">Prev: 8,859</div>
+  </div>
+  <div class="kpi">
+    <div class="label">GA4 Organic Sessions</div>
+    <div class="value">387</div>
+    <div class="delta up">+2% vs May 2026</div>
+    <div class="sub">Prev: 381</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Avg GSC Position</div>
+    <div class="value">10.7</div>
+    <div class="delta up">+3.7 positions vs prev</div>
+    <div class="sub">Prev: 14.4</div>
+  </div>
+</section>
 
-  <h2>Top SEMrush Rankings (Non-Brand)</h2>
-  <table><thead><tr><th>Keyword</th><th>Position</th><th>&Delta; vs Last Month</th><th>Volume</th><th>Landing URL</th></tr></thead><tbody><tr><td>lava lamp wall encryption</td><td>5</td><td style="color:#6a6a72;font-weight:500;">&mdash;</td><td>40</td><td></td></tr><tr><td>cybersecurity+cherry+hill</td><td>6</td><td style="color:#c43a2a;font-weight:700;">&#9660; 5 <span style="color:#6a6a72;font-weight:500;font-size:11px;">(was 1)</span></td><td>110</td><td></td></tr><tr><td>lava lamp wall</td><td>6</td><td style="color:#2a8a3a;font-weight:700;">&#9650; 3 <span style="color:#6a6a72;font-weight:500;font-size:11px;">(was 9)</span></td><td>480</td><td></td></tr><tr><td>lava lamp encryption wall</td><td>7</td><td style="color:#1f4fff;font-weight:700;">NEW</td><td>90</td><td></td></tr><tr><td>lava lamp security wall</td><td>7</td><td style="color:#6a6a72;font-weight:500;">&mdash;</td><td>50</td><td></td></tr><tr><td>wall of lava lamps encryption</td><td>7</td><td style="color:#6a6a72;font-weight:500;">&mdash;</td><td>40</td><td></td></tr><tr><td>lava lamp wall security</td><td>8</td><td style="color:#6a6a72;font-weight:500;">&mdash;</td><td>70</td><td></td></tr><tr><td>wall of lava lamps</td><td>8</td><td style="color:#2a8a3a;font-weight:700;">&#9650; 6 <span style="color:#6a6a72;font-weight:500;font-size:11px;">(was 14)</span></td><td>390</td><td></td></tr><tr><td>lava lamp security</td><td>9</td><td style="color:#c43a2a;font-weight:700;">&#9660; 1 <span style="color:#6a6a72;font-weight:500;font-size:11px;">(was 8)</span></td><td>170</td><td></td></tr><tr><td>expert witness sourcing ai support services</td><td>9</td><td style="color:#6a6a72;font-weight:500;">&mdash;</td><td>40</td><td></td></tr><tr><td>lava lamp internet security</td><td>11</td><td style="color:#2a8a3a;font-weight:700;">&#9650; 2 <span style="color:#6a6a72;font-weight:500;font-size:11px;">(was 13)</span></td><td>40</td><td></td></tr><tr><td>san francisco lava lamp</td><td>13</td><td style="color:#6a6a72;font-weight:500;">&mdash;</td><td>40</td><td></td></tr></tbody></table>
-  <p style="font-size:13px;color:var(--mute);margin-top:10px;">SEMrush US database, end of June 2026. Brand queries excluded. &#9650; = moved up vs prior month, &#9660; = dropped, NEW = wasn't ranking last month.</p>
-
-  <h2>What Earned Clicks This Month (Non-Brand)</h2>
-  <table><thead><tr><th>Query</th><th>Position</th><th>Clicks</th><th>Impressions</th><th>CTR</th></tr></thead><tbody><tr><td>lava lamp wall</td><td>10.3</td><td><strong>1</strong></td><td>68</td><td>1.5%</td></tr><tr><td>cherryhill</td><td>32.0</td><td><strong>1</strong></td><td>1</td><td>100.0%</td></tr></tbody></table>
-  <p style="font-size:13px;color:var(--mute);margin-top:10px;">Google Search Console, June 2026. Non-brand queries that actually drove search traffic, sorted by clicks.</p>
-
-  <h2>Ranking but Not Yet Clicked &mdash; Optimization Opportunities</h2>
-  <table><thead><tr><th>Query</th><th>Position</th><th>Impressions</th><th>Opportunity</th></tr></thead><tbody><tr><td>internal audit co sourcing</td><td>26.1</td><td>336</td><td style='color:#6a6a72;font-size:13px;'>Ranking but not yet visible — content depth needed</td></tr><tr><td>confirmed cybersecurity breach disclosures june 20-27 2026</td><td>10.2</td><td>248</td><td style='color:#6a6a72;font-size:13px;'>Page 2 — push to page 1 to start converting</td></tr><tr><td>internal audit cosourcing</td><td>28.2</td><td>223</td><td style='color:#6a6a72;font-size:13px;'>Ranking but not yet visible — content depth needed</td></tr><tr><td>ai audit</td><td>31.7</td><td>145</td><td style='color:#6a6a72;font-size:13px;'>Ranking but not yet visible — content depth needed</td></tr><tr><td>internal audit co-sourcing services</td><td>42.3</td><td>139</td><td style='color:#6a6a72;font-size:13px;'>Ranking but not yet visible — content depth needed</td></tr><tr><td>confirmed cybersecurity breach disclosures june 21 to june 28 2026</td><td>6.3</td><td>117</td><td style='color:#6a6a72;font-size:13px;'>Page 1 with 0 clicks — sharpen title + meta CTA</td></tr></tbody></table>
-  <p style="font-size:13px;color:var(--mute);margin-top:10px;">Non-brand queries with 20+ impressions and zero clicks. These rank but the title/meta isn't earning the click yet &mdash; each row is a content or metadata fix that could unlock traffic.</p>
-
-  <footer>Generated by Markology &middot; auto-build · 2026-06-30 &middot; <a href="https://markology.io">markology.io</a></footer>
+<h2>Tracked keywords currently ranking</h2>
+<div class="notes">
+  <strong>How to read:</strong> these are the keywords CHA is actively tracking in SEMrush Position Tracking — the ones we chose to compete for. Δ30d shows position movement in the last 30 days. ▲ = improved, ▼ = dropped.
 </div>
+<table>
+  <thead>
+    <tr><th>Keyword</th><th class='num'>Position</th><th class='num'>Δ 30d</th><th class='num'>Volume</th><th class='num'>CPC</th></tr>
+  </thead>
+  <tbody><tr><td>internal audit cosourcing</td><td class='num'><strong>#1</strong></td><td class='num'><span class="delta-up">▲ 27</span></td><td class='num'>210</td><td class='num'>$8.28</td></tr><tr><td>cybersecurity+cherry+hill</td><td class='num'><strong>#7</strong></td><td class='num'><span class="delta-down">▼ 1</span></td><td class='num'>110</td><td class='num'>$0.00</td></tr><tr><td>sarbanes oxley internal controls</td><td class='num'><strong>#19</strong></td><td class='num'><span class="delta-up">▲ 81</span></td><td class='num'>590</td><td class='num'>$3.56</td></tr><tr><td>advisory risk</td><td class='num'><strong>#24</strong></td><td class='num'><span class="delta-up">▲ 76</span></td><td class='num'>70</td><td class='num'>$3.08</td></tr><tr><td>auditing ai</td><td class='num'><strong>#24</strong></td><td class='num'><span class="delta-up">▲ 3</span></td><td class='num'>110</td><td class='num'>$9.32</td></tr><tr><td>cybersecurity cherry hill nj</td><td class='num'><strong>#34</strong></td><td class='num'><span class="delta-down">▼ 21</span></td><td class='num'>50</td><td class='num'>$0.00</td></tr><tr><td>sarbanes oxley consultant</td><td class='num'><strong>#37</strong></td><td class='num'><span class="delta-up">▲ 63</span></td><td class='num'>30</td><td class='num'>$13.49</td></tr><tr><td>sarbanes oxley program</td><td class='num'><strong>#38</strong></td><td class='num'><span class="delta-up">▲ 2</span></td><td class='num'>50</td><td class='num'>$7.93</td></tr><tr><td>internal audit risk advisory</td><td class='num'><strong>#39</strong></td><td class='num'><span class="delta-down">▼ 7</span></td><td class='num'>20</td><td class='num'>$0.00</td></tr><tr><td>sarbanes oxley audit</td><td class='num'><strong>#48</strong></td><td class='num'><span class="delta-up">▲ 52</span></td><td class='num'>170</td><td class='num'>$7.36</td></tr><tr><td>sarbanes oxley it compliance</td><td class='num'><strong>#48</strong></td><td class='num'><span class="delta-up">▲ 52</span></td><td class='num'>40</td><td class='num'>$8.24</td></tr><tr><td>sox compliance consultants</td><td class='num'><strong>#53</strong></td><td class='num'><span class="delta-up">▲ 7</span></td><td class='num'>90</td><td class='num'>$0.00</td></tr><tr><td>sarbanes oxley compliance software</td><td class='num'><strong>#57</strong></td><td class='num'><span class="delta-up">▲ 4</span></td><td class='num'>110</td><td class='num'>$0.00</td></tr><tr><td>what is an ai audit</td><td class='num'><strong>#66</strong></td><td class='num'><span class="delta-up">▲ 34</span></td><td class='num'>210</td><td class='num'>$6.70</td></tr></tbody>
+</table>
 
-<script>
-  const trendData = {"labels": ["Feb 26", "Mar 26", "Apr 26", "May 26", "Jun 26"], "keywords": [0, 0, 0, 0, 0], "sessions": [0, 0, 0, 381, 386]};
-  const ctx = document.getElementById('trajectoryChart').getContext('2d');
-  new Chart(ctx, {
-    type: 'line',
-    data: {
-      labels: trendData.labels,
-      datasets: [
-        { label: 'Ranking Keywords (SEMrush)', data: trendData.keywords, borderColor: '#0b1b3a', backgroundColor: 'rgba(11,27,58,0.12)', yAxisID: 'y', tension: 0.3, fill: true, pointRadius: 4, pointBackgroundColor: '#0b1b3a' },
-        { label: 'Organic Sessions (GA4)', data: trendData.sessions, borderColor: '#1f4fff', borderDash: [6,4], backgroundColor: 'rgba(31,79,255,0.05)', yAxisID: 'y1', tension: 0.3, pointRadius: 4, pointBackgroundColor: '#1f4fff' }
-      ]
-    },
-    options: {
-      responsive: true,
-      interaction: { mode: 'index', intersect: false },
-      plugins: { legend: { position: 'bottom', labels: { font: { weight: '600' } } } },
-      scales: {
-        y:  { position: 'left',  beginAtZero: true, title: { display: true, text: 'Ranking Keywords' } },
-        y1: { position: 'right', beginAtZero: true, title: { display: true, text: 'Organic Sessions' }, grid: { drawOnChartArea: false } }
-      }
-    }
-  });
-</script>
+<h2>Top opportunities — tracked, not yet ranking</h2>
+<div class="notes">
+  <strong>How to read:</strong> tracked keywords that aren't in the top 100 yet. Sorted by search volume — highest-value targets at the top. These are where new blog content / on-page work should aim.
+</div>
+<table>
+  <thead>
+    <tr><th>Keyword</th><th class='num'>Search Volume</th><th class='num'>CPC</th></tr>
+  </thead>
+  <tbody><tr><td>sox compliance</td><td class='num'>9,900</td><td class='num'>$4.92</td></tr><tr><td>ai governance</td><td class='num'>8,100</td><td class='num'>$16.68</td></tr><tr><td>enterprise risk management</td><td class='num'>4,400</td><td class='num'>$6.69</td></tr><tr><td>internal audit</td><td class='num'>3,600</td><td class='num'>$24.33</td></tr><tr><td>risk management training</td><td class='num'>1,000</td><td class='num'>$4.89</td></tr><tr><td>internal audit services</td><td class='num'>880</td><td class='num'>$21.33</td></tr><tr><td>fraud risk management</td><td class='num'>720</td><td class='num'>$6.97</td></tr><tr><td>enterprise ai governance</td><td class='num'>590</td><td class='num'>$22.06</td></tr><tr><td>ai auditing</td><td class='num'>480</td><td class='num'>$9.32</td></tr><tr><td>artificial intelligence audit</td><td class='num'>480</td><td class='num'>$9.32</td></tr><tr><td>ai governance and compliance</td><td class='num'>390</td><td class='num'>$17.12</td></tr><tr><td>sox compliance audit</td><td class='num'>320</td><td class='num'>$11.51</td></tr><tr><td>enterprise risk management consulting</td><td class='num'>260</td><td class='num'>$8.39</td></tr><tr><td>internal audit training</td><td class='num'>210</td><td class='num'>$5.76</td></tr><tr><td>psychotherapist accountant</td><td class='num'>210</td><td class='num'>$0.00</td></tr></tbody>
+</table>
+
+<h2>Top queries driving clicks (GSC)</h2>
+<table>
+  <thead>
+    <tr><th>Query</th><th class='num'>Clicks</th><th class='num'>Impressions</th><th class='num'>CTR</th><th class='num'>Avg pos</th></tr>
+  </thead>
+  <tbody><tr><td>cherry hill advisory</td><td class='num'>80</td><td class='num'>156</td><td class='num'>51.28%</td><td class='num'>1.3</td></tr><tr><td>mike levy cherry hill advisory</td><td class='num'>6</td><td class='num'>20</td><td class='num'>30.00%</td><td class='num'>1.6</td></tr><tr><td>cherry hill associates</td><td class='num'>1</td><td class='num'>3</td><td class='num'>33.33%</td><td class='num'>6.3</td></tr><tr><td>cherryhill</td><td class='num'>1</td><td class='num'>1</td><td class='num'>100.00%</td><td class='num'>32.0</td></tr><tr><td>"feb 19, 2025" "hal" "close" "halliburton"</td><td class='num'>0</td><td class='num'>1</td><td class='num'>0.00%</td><td class='num'>7.0</td></tr><tr><td>"feb 19, 2025" "halliburton" "close"</td><td class='num'>0</td><td class='num'>1</td><td class='num'>0.00%</td><td class='num'>12.0</td></tr><tr><td>"ghost murmur" definition</td><td class='num'>0</td><td class='num'>5</td><td class='num'>0.00%</td><td class='num'>5.8</td></tr><tr><td>"halliburton" "feb 19, 2025" "close"</td><td class='num'>0</td><td class='num'>1</td><td class='num'>0.00%</td><td class='num'>10.0</td></tr><tr><td>"halliburton" "feb 19, 2025" close price</td><td class='num'>0</td><td class='num'>1</td><td class='num'>0.00%</td><td class='num'>10.0</td></tr><tr><td>"iia ai auditing framework"</td><td class='num'>0</td><td class='num'>2</td><td class='num'>0.00%</td><td class='num'>7.5</td></tr><tr><td>"priya will sign only if metric-lineage, fraud & loss ci, seeded-parity and a11y are auditable"</td><td class='num'>0</td><td class='num'>1</td><td class='num'>0.00%</td><td class='num'>8.0</td></tr><tr><td>"q3 exception toolkit" "september onboarding" adspectra</td><td class='num'>0</td><td class='num'>7</td><td class='num'>0.00%</td><td class='num'>9.7</td></tr><tr><td>"qa audit full enzyme tweak list rewarded refusal flagged"</td><td class='num'>0</td><td class='num'>9</td><td class='num'>0.00%</td><td class='num'>10.8</td></tr><tr><td>"qa audit" "full enzyme tweak list" rewarded refusal flagged</td><td class='num'>0</td><td class='num'>2</td><td class='num'>0.00%</td><td class='num'>11.0</td></tr><tr><td>1-year sox compliance services</td><td class='num'>0</td><td class='num'>1</td><td class='num'>0.00%</td><td class='num'>67.0</td></tr><tr><td>2024 iia international conference</td><td class='num'>0</td><td class='num'>7</td><td class='num'>0.00%</td><td class='num'>14.6</td></tr><tr><td>2026 audit</td><td class='num'>0</td><td class='num'>1</td><td class='num'>0.00%</td><td class='num'>50.0</td></tr><tr><td>2026 report to the nations</td><td class='num'>0</td><td class='num'>6</td><td class='num'>0.00%</td><td class='num'>7.7</td></tr><tr><td>541 advisors</td><td class='num'>0</td><td class='num'>1</td><td class='num'>0.00%</td><td class='num'>61.0</td></tr></tbody>
+</table>
+
+<h2>Top landing pages (GSC)</h2>
+<table>
+  <thead>
+    <tr><th>Page</th><th class='num'>Clicks</th><th class='num'>Impressions</th><th class='num'>Avg pos</th></tr>
+  </thead>
+  <tbody><tr><td><a href='https://www.cherryhilladvisory.com/' target='_blank' rel='noopener'>/</a></td><td class='num'>104</td><td class='num'>1,093</td><td class='num'>8.7</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/about-us' target='_blank' rel='noopener'>/about-us</a></td><td class='num'>18</td><td class='num'>711</td><td class='num'>3.9</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/events-and-webinars' target='_blank' rel='noopener'>/events-and-webinars</a></td><td class='num'>6</td><td class='num'>461</td><td class='num'>5.4</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/downloads-and-tools' target='_blank' rel='noopener'>/downloads-and-tools</a></td><td class='num'>3</td><td class='num'>191</td><td class='num'>5.0</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/library-and-tools/ai-auditing-guide' target='_blank' rel='noopener'>/library-and-tools/ai-auditing-guide</a></td><td class='num'>3</td><td class='num'>936</td><td class='num'>23.7</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/risk-register-blog/how-to-build-a-fraud-risk-assessment-2026' target='_blank' rel='noopener'>/risk-register-blog/how-to-build-a-fraud-risk-assessment-2026</a></td><td class='num'>3</td><td class='num'>86</td><td class='num'>16.4</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/sarbanes-oxley-sox-compliance' target='_blank' rel='noopener'>/sarbanes-oxley-sox-compliance</a></td><td class='num'>3</td><td class='num'>1,935</td><td class='num'>28.6</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/ai-governance-emerging-risk' target='_blank' rel='noopener'>/ai-governance-emerging-risk</a></td><td class='num'>2</td><td class='num'>105</td><td class='num'>13.3</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/contact-us' target='_blank' rel='noopener'>/contact-us</a></td><td class='num'>2</td><td class='num'>382</td><td class='num'>4.7</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/risk-register-blog/how-lava-lamps-help-keep-the-internet-safe-and-what-internal-auditors-should-actually-care-about' target='_blank' rel='noopener'>/risk-register-blog/how-lava-lamps-help-keep-the-internet-safe-and-what-internal-auditors-should-actually-care-about</a></td><td class='num'>2</td><td class='num'>1,731</td><td class='num'>9.0</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/risk-register-blog/the-state-of-ai-adoption-in-internal-audit-in-2026' target='_blank' rel='noopener'>/risk-register-blog/the-state-of-ai-adoption-in-internal-audit-in-2026</a></td><td class='num'>2</td><td class='num'>24</td><td class='num'>10.6</td></tr><tr><td><a href='https://www.cherryhilladvisory.com/sec-cybersecurity-disclosure-rule-two-year-review' target='_blank' rel='noopener'>/sec-cybersecurity-disclosure-rule-two-year-review</a></td><td class='num'>2</td><td class='num'>13,866</td><td class='num'>4.8</td></tr></tbody>
+</table>
+
+<footer>
+  <div class="brand">MARKOLOGY</div>
+  <div>Built by <a href="https://markology.io" target="_blank" rel="noopener">markology.io</a> · Cherry Hill Advisory · June 1–30, 2026</div>
+</footer>
+
+</div>
 </body>
 </html>

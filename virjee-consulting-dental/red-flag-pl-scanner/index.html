@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Practice Acquisition Red Flag Scanner (P&amp;L Mockup)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0F1A2E; --ink:#152238; --teal:#2FB5B5; --teal-deep:#1F9494;
+  --paper:#F6F7F9; --white:#ffffff; --line:#E4E7EB;
+  --good:#0F8A5A; --warn:#C87A1F; --bad:#B8331F;
+  --font-display:"Archivo", system-ui, sans-serif;
+  --font-body:"Hanken Grotesk", system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+
+/* mockup chrome */
+.mockup-frame{max-width:1180px;margin:0 auto;padding:24px 32px 80px}
+.mockup-bar{display:flex;gap:8px;align-items:center;padding:10px 14px;background:var(--white);border:1px solid var(--line);border-radius:8px;font-family:var(--font-display);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#6b7280;margin-bottom:24px}
+.mockup-bar .dots{display:flex;gap:6px;margin-right:10px}
+.mockup-bar .dots span{width:10px;height:10px;border-radius:50%;background:#e2e5ea}
+.mockup-bar .url{margin-left:8px;color:var(--ink);font-weight:600;text-transform:none;letter-spacing:0;font-family:var(--font-body)}
+.mockup-bar .right{margin-left:auto;color:#9aa2ad}
+
+/* page nav (matches dentalcpausa.com feel) */
+.nav{display:flex;align-items:center;justify-content:space-between;padding:18px 0 28px;border-bottom:1px solid var(--line);margin-bottom:36px}
+.logo{font-family:var(--font-display);font-weight:900;font-size:22px;letter-spacing:-.01em;color:var(--navy);display:flex;align-items:center;gap:10px}
+.logo .mark{width:34px;height:34px;background:var(--navy);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:900;font-size:15px;letter-spacing:0;border-radius:6px}
+.logo .mark span{color:var(--teal)}
+.nav .links{display:flex;gap:26px;font-family:var(--font-display);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.05em}
+.nav .links a{text-decoration:none;color:var(--ink)}
+.nav .cta{font-family:var(--font-display);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.05em;background:var(--navy);color:#fff;padding:12px 18px;border-radius:4px;text-decoration:none}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;margin-bottom:48px;align-items:center}
+.eyebrow{font-family:var(--font-display);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--teal-deep);margin-bottom:14px}
+h1{font-family:var(--font-display);font-weight:900;font-size:clamp(38px,5vw,58px);line-height:1.04;letter-spacing:-.02em;margin:0 0 18px;color:var(--navy)}
+h1 .hi{background:var(--teal);color:var(--navy);padding:.02em .15em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.lede{font-size:19px;line-height:1.55;color:#2a3244;max-width:560px}
+.hero-aside{background:var(--navy);color:#fff;padding:28px 26px;border-radius:6px;font-family:var(--font-display)}
+.hero-aside h3{margin:0 0 14px;font-weight:900;font-size:16px;letter-spacing:.05em;text-transform:uppercase;color:var(--teal)}
+.hero-aside ol{margin:0;padding-left:22px;font-family:var(--font-body);font-weight:500;font-size:15px;line-height:1.65}
+.hero-aside ol li{margin-bottom:8px}
+
+/* step container */
+.step{display:none;background:var(--white);border:1px solid var(--line);border-radius:6px;padding:40px;margin-bottom:36px;animation:fadein .25s ease}
+.step.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.step-head{display:flex;align-items:center;gap:14px;margin-bottom:26px;flex-wrap:wrap}
+.step-num{font-family:var(--font-display);font-weight:900;font-size:12px;letter-spacing:.1em;text-transform:uppercase;background:var(--navy);color:#fff;padding:6px 12px;border-radius:3px}
+.step h2{font-family:var(--font-display);font-weight:900;font-size:clamp(24px,3.2vw,34px);line-height:1.1;letter-spacing:-.015em;margin:0;color:var(--navy)}
+.step .step-sub{margin:6px 0 0;color:#4a5265;font-size:16px;line-height:1.55;max-width:720px}
+
+/* step 1 upload */
+.upload-zone{border:2.5px dashed #b8bdc7;background:var(--paper);padding:54px 24px;text-align:center;transition:.2s;cursor:pointer;border-radius:6px}
+.upload-zone:hover{border-color:var(--teal-deep);background:#fff}
+.upload-zone .icon{font-size:44px;margin-bottom:14px;font-family:var(--font-display);font-weight:900;color:var(--teal-deep);line-height:1}
+.upload-zone h3{font-family:var(--font-display);font-weight:800;font-size:22px;margin:0 0 8px;letter-spacing:-.01em;color:var(--navy)}
+.upload-zone p{margin:0;color:#4a5265;font-size:15px}
+.upload-zone .formats{margin-top:14px;font-family:var(--font-display);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:#7a8290}
+.upload-help{display:flex;gap:14px;margin-top:24px;padding:18px 22px;background:#FFF8E6;border-left:4px solid #E2B23A;font-size:14px;line-height:1.55;border-radius:0 4px 4px 0}
+.upload-help strong{font-family:var(--font-display);font-weight:800;display:block;margin-bottom:4px;font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.upload-help a{color:var(--navy);text-decoration:underline;font-weight:700}
+.upload-alt{margin-top:22px;text-align:center;font-size:14px;color:#4a5265}
+.upload-alt a{font-weight:700;color:var(--navy);text-decoration:underline;cursor:pointer}
+.trust-row{display:flex;gap:18px;flex-wrap:wrap;margin-top:26px;padding-top:22px;border-top:1px solid var(--line);font-size:13px;color:#4a5265}
+.trust-row .item{display:flex;gap:8px;align-items:flex-start}
+.trust-row .check{color:var(--good);font-family:var(--font-display);font-weight:900;flex-shrink:0}
+
+/* step 2 mapping */
+.map-intro{background:var(--paper);border-left:4px solid var(--teal);padding:16px 20px;margin-bottom:24px;font-size:14px;line-height:1.55;border-radius:0 4px 4px 0}
+.map-intro .label{font-family:var(--font-display);font-weight:800;color:var(--teal-deep);text-transform:uppercase;font-size:11px;letter-spacing:.06em;margin-bottom:4px}
+.map-table{width:100%;border-collapse:collapse;font-size:14px}
+.map-table th{text-align:left;padding:12px 14px;background:var(--navy);color:#fff;font-family:var(--font-display);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+.map-table td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+.map-table tr:nth-child(even) td{background:#fbfbfc}
+.map-table .acct{font-family:"SF Mono","Menlo",monospace;font-size:13px;color:#3a4256}
+.map-table .amt{text-align:right;font-family:var(--font-display);font-weight:700;color:var(--navy)}
+.map-table select{font-family:var(--font-body);font-size:13px;padding:8px 10px;border:1.5px solid var(--line);background:#fff;width:100%;max-width:260px;border-radius:3px}
+.map-conf{display:inline-block;padding:3px 8px;font-family:var(--font-display);font-weight:700;font-size:10px;text-transform:uppercase;letter-spacing:.06em;border-radius:2px}
+.map-conf.high{background:#d6f5e7;color:#0a6d44}
+.map-conf.med{background:#fce8c8;color:#7d4d14}
+.map-conf.low{background:#f8d6cf;color:#8a2614}
+
+/* step 3 email gate */
+.gate{max-width:520px;margin:0 auto;text-align:center;padding:20px 0}
+.gate p{color:#4a5265;margin:0 0 28px;line-height:1.55}
+.gate .field{margin-bottom:14px;text-align:left}
+.gate label{display:block;font-family:var(--font-display);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px;color:var(--navy)}
+.gate input,.gate select{width:100%;font-family:var(--font-body);font-size:16px;padding:14px 16px;border:1.5px solid var(--line);background:#fff;border-radius:4px}
+.gate .check{display:flex;gap:12px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);padding:14px 16px;margin:22px 0 24px;text-align:left;border-radius:4px}
+.gate .check input[type=checkbox]{width:18px;height:18px;margin:2px 0 0;flex-shrink:0;accent-color:var(--navy);cursor:pointer}
+.gate .check label{display:block;margin:0;font-family:var(--font-body);font-weight:500;font-size:14px;line-height:1.5;color:#3a4256;text-transform:none;letter-spacing:0;cursor:pointer}
+
+/* step 4 results */
+.score-band{display:grid;grid-template-columns:1.4fr 1fr;gap:32px;background:var(--navy);color:#fff;padding:36px 38px;margin-bottom:36px;align-items:center;border-radius:6px}
+.score-band .grade-box{text-align:center}
+.score-band .grade-label{font-family:var(--font-display);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#a8b0bd;margin-bottom:8px}
+.score-band .grade{font-family:var(--font-display);font-weight:900;font-size:110px;line-height:.85;color:var(--teal);letter-spacing:-.04em}
+.score-band .grade-text{font-family:var(--font-display);font-weight:800;font-size:16px;text-transform:uppercase;letter-spacing:.05em;margin-top:8px}
+.score-band .headline-stat{margin-bottom:18px}
+.score-band .headline-stat .lbl{font-family:var(--font-display);font-weight:700;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--teal);margin-bottom:4px}
+.score-band .headline-stat .val{font-family:var(--font-display);font-weight:900;font-size:38px;line-height:1;letter-spacing:-.02em}
+.score-band .headline-stat .sub{font-size:14px;color:#c2c8d2;margin-top:4px;line-height:1.5;max-width:380px}
+.score-band .flag-count{display:inline-block;font-family:var(--font-display);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.06em;background:var(--bad);color:#fff;padding:5px 10px;border-radius:3px;margin-top:6px}
+
+.section-title{font-family:var(--font-display);font-weight:900;font-size:22px;letter-spacing:-.01em;color:var(--navy);margin:8px 0 18px;padding-bottom:10px;border-bottom:2px solid var(--navy)}
+.section-title .count{font-size:14px;color:#6b7280;font-weight:700;margin-left:8px;letter-spacing:0}
+
+.benchmark-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:36px}
+.bench-card{background:#fff;border:1px solid var(--line);padding:22px 24px;border-radius:6px}
+.bench-card .name{font-family:var(--font-display);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:#4a5265;margin-bottom:8px}
+.bench-card .you-vs{display:flex;align-items:baseline;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+.bench-card .you{font-family:var(--font-display);font-weight:900;font-size:34px;letter-spacing:-.02em;line-height:1;color:var(--navy)}
+.bench-card .vs{font-family:var(--font-display);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#7a8290}
+.bench-card .target{font-family:var(--font-display);font-weight:700;font-size:15px;color:#4a5265}
+.bench-card .bar-wrap{position:relative;height:10px;background:var(--paper);border:1px solid var(--line);margin-bottom:10px;border-radius:3px}
+.bench-card .bar{position:absolute;top:0;bottom:0;background:var(--navy);border-radius:2px}
+.bench-card .target-marker{position:absolute;top:-4px;bottom:-4px;width:3px;background:var(--teal-deep)}
+.bench-card .status{font-family:var(--font-display);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.06em;padding:5px 10px;display:inline-block;border-radius:2px}
+.bench-card .status.good{background:#d6f5e7;color:var(--good)}
+.bench-card .status.warn{background:#fce8c8;color:var(--warn)}
+.bench-card .status.bad{background:#f8d6cf;color:var(--bad)}
+.bench-card .note{margin-top:12px;font-size:14px;line-height:1.55;color:#3a4256}
+.bench-card .note .leak{font-family:var(--font-display);font-weight:800;color:var(--bad)}
+
+/* add-back panel */
+.addback-panel{background:#fff;border:1px solid var(--line);border-radius:6px;padding:28px 30px;margin-bottom:36px}
+.addback-panel .intro{color:#4a5265;font-size:15px;line-height:1.55;margin:0 0 22px;max-width:720px}
+.addback-list{list-style:none;padding:0;margin:0}
+.addback-list li{display:grid;grid-template-columns:auto 1fr auto;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);align-items:start}
+.addback-list li:last-child{border-bottom:0}
+.addback-list .verdict{font-family:var(--font-display);font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.06em;padding:5px 9px;border-radius:2px;white-space:nowrap;align-self:start;margin-top:2px}
+.addback-list .verdict.strip{background:#f8d6cf;color:var(--bad)}
+.addback-list .verdict.negotiate{background:#fce8c8;color:var(--warn)}
+.addback-list .verdict.ok{background:#d6f5e7;color:var(--good)}
+.addback-list .line-detail .name{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--navy);margin-bottom:3px}
+.addback-list .line-detail .why{font-size:13px;color:#4a5265;line-height:1.5}
+.addback-list .amt{font-family:var(--font-display);font-weight:800;font-size:16px;color:var(--navy);text-align:right;white-space:nowrap;align-self:start;margin-top:2px}
+.addback-summary{background:var(--paper);border-radius:4px;padding:16px 20px;margin-top:22px;font-size:14px;line-height:1.55;color:var(--navy);border-left:4px solid var(--bad)}
+.addback-summary .row{display:flex;justify-content:space-between;padding:6px 0}
+.addback-summary .row.total{border-top:1px solid var(--line);margin-top:6px;padding-top:12px;font-family:var(--font-display);font-weight:800}
+.addback-summary .row .v{font-family:var(--font-display);font-weight:700}
+
+/* revenue concentration panel */
+.concentration{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:36px}
+.conc-card{background:#fff;border:1px solid var(--line);border-radius:6px;padding:22px 24px}
+.conc-card .lbl{font-family:var(--font-display);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:#4a5265;margin-bottom:10px}
+.conc-card .big{font-family:var(--font-display);font-weight:900;font-size:44px;line-height:.95;color:var(--navy);letter-spacing:-.02em;margin-bottom:8px}
+.conc-card .big.risk{color:var(--bad)}
+.conc-card .big.warn{color:var(--warn)}
+.conc-card .desc{font-size:13px;color:#4a5265;line-height:1.5}
+
+/* questions to ask panel */
+.questions{background:var(--navy);color:#fff;border-radius:6px;padding:36px 40px;margin-bottom:36px}
+.questions .qtitle{font-family:var(--font-display);font-weight:900;font-size:22px;letter-spacing:-.01em;margin:0 0 8px;color:#fff}
+.questions .qsub{font-size:15px;color:#c2c8d2;margin:0 0 26px;line-height:1.55;max-width:720px}
+.questions ol{margin:0;padding:0;list-style:none;counter-reset:qcount}
+.questions ol li{counter-increment:qcount;padding:20px 0 20px 60px;position:relative;border-top:1px solid #26314a;font-size:16px;line-height:1.55}
+.questions ol li:first-child{border-top:0}
+.questions ol li::before{content:counter(qcount);position:absolute;left:0;top:20px;font-family:var(--font-display);font-weight:900;font-size:32px;color:var(--teal);line-height:1}
+.questions ol li .qhead{font-family:var(--font-display);font-weight:800;font-size:16px;color:#fff;text-transform:none;letter-spacing:0;margin-bottom:6px}
+.questions ol li .qwhy{color:#c2c8d2;font-size:14px;line-height:1.55}
+
+/* deep-dive CTA band */
+.deepdive{background:var(--teal);color:var(--navy);padding:44px 48px;margin-bottom:36px;display:grid;grid-template-columns:1.4fr auto;gap:36px;align-items:center;border-radius:6px}
+.deepdive h3{font-family:var(--font-display);font-weight:900;font-size:30px;line-height:1.1;letter-spacing:-.02em;margin:0 0 10px}
+.deepdive p{margin:0;font-size:16px;line-height:1.55;max-width:560px}
+.deepdive .btn{font-family:var(--font-display);font-weight:900;font-size:15px;text-transform:uppercase;letter-spacing:.05em;background:var(--navy);color:#fff;padding:20px 32px;text-decoration:none;display:inline-block;border:0;cursor:pointer;white-space:nowrap;border-radius:4px}
+
+/* secondary */
+.secondary-band{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:24px}
+.secondary-card{background:var(--white);border:1px solid var(--line);padding:24px;border-radius:6px}
+.secondary-card h4{font-family:var(--font-display);font-weight:800;font-size:16px;margin:0 0 8px;letter-spacing:-.01em;color:var(--navy)}
+.secondary-card p{margin:0 0 14px;color:#4a5265;font-size:14px;line-height:1.55}
+.secondary-card a{font-family:var(--font-display);font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--navy);text-decoration:underline;cursor:pointer}
+
+/* shared buttons */
+.btn-row{display:flex;gap:14px;justify-content:flex-end;margin-top:30px;flex-wrap:wrap}
+.btn{font-family:var(--font-display);font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.05em;padding:16px 26px;border:1.5px solid var(--navy);background:var(--navy);color:#fff;cursor:pointer;text-decoration:none;display:inline-block;border-radius:4px}
+.btn.secondary{background:transparent;color:var(--navy)}
+.btn:hover{opacity:.9}
+
+/* disclosure */
+.disclosure{font-size:12px;color:#7a8290;line-height:1.55;margin-top:24px;padding-top:20px;border-top:1px solid var(--line)}
+
+/* annotation notes for whitney */
+.note-pin{position:fixed;right:18px;top:50%;transform:translateY(-50%);background:#fffbcc;border:2px solid #e2c44a;padding:14px 16px;font-size:12px;line-height:1.55;max-width:250px;font-family:var(--font-body);box-shadow:0 8px 30px rgba(0,0,0,.14);z-index:100;border-radius:4px}
+.note-pin strong{font-family:var(--font-display);font-weight:800;display:block;margin-bottom:6px;text-transform:uppercase;font-size:11px;letter-spacing:.06em}
+.note-pin .close{position:absolute;top:6px;right:8px;font-family:var(--font-display);font-weight:900;font-size:14px;cursor:pointer;color:#7a8290;background:none;border:0;padding:0}
+
+@media (max-width:840px){
+  .hero{grid-template-columns:1fr;gap:32px}
+  .benchmark-grid{grid-template-columns:1fr}
+  .score-band{grid-template-columns:1fr;text-align:center}
+  .deepdive{grid-template-columns:1fr;text-align:center}
+  .concentration{grid-template-columns:1fr}
+  .mockup-frame{padding:16px}
+  .step{padding:24px}
+  .addback-list li{grid-template-columns:1fr;gap:8px}
+  .addback-list .amt{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<div class="note-pin" id="notePin">
+  <button class="close" onclick="document.getElementById('notePin').remove()">×</button>
+  <strong>Mockup notes</strong>
+  This is a UX prototype. Click any button or drop zone to advance the flow with sample data (Hillcrest Family Dentistry). Backend (LLM categorization, benchmarks lookup, PDF gen, CRM push) is deferred.
+</div>
+
+<div class="mockup-frame">
+
+<div class="mockup-bar">
+  <div class="dots"><span></span><span></span><span></span></div>
+  <div class="url">dentalcpausa.com/red-flag-scanner/</div>
+  <div class="right">Mockup · 2026-07-02</div>
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <div class="logo"><span class="mark">D<span>·</span>C</span> DENTAL CPA USA</div>
+  <div class="links">
+    <a>Services</a><a>Buy a Practice</a><a>Blog</a><a>Tools</a>
+  </div>
+  <a class="cta">Book a Call</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="eyebrow">Practice Acquisition · Red Flag Scanner</div>
+    <h1>Before you sign the LOI, know what the seller's P&amp;L is <span class="hi">not telling you</span>.</h1>
+    <p class="lede">Upload the trailing 12 P&amp;L from the seller's broker packet. We compare every line to dental practice benchmarks, stress test the add backs, and hand you the questions to ask before you sign a thing.</p>
+  </div>
+  <div class="hero-aside">
+    <h3>How it works</h3>
+    <ol>
+      <li>Upload the seller's trailing 12 P&amp;L</li>
+      <li>Confirm we mapped the accounts right</li>
+      <li>See your red flag report in 60 seconds</li>
+      <li>Get a pre LOI call if the report worries you</li>
+    </ol>
+  </div>
+</div>
+
+<!-- STEP 1: UPLOAD -->
+<div class="step active" id="step1">
+  <div class="step-head">
+    <div class="step-num">Step 1 of 3</div>
+    <h2>Upload the seller's P&amp;L.</h2>
+  </div>
+  <p class="step-sub">We accept exports from QuickBooks, Xero, Dentrix Ascend, Eaglesoft, or a plain CSV, XLSX, or PDF. Most broker packets include a trailing 12 statement. That is the one you want.</p>
+
+  <div class="upload-zone" onclick="goStep(2)">
+    <div class="icon">↑</div>
+    <h3>Drop the P&amp;L here</h3>
+    <p>or <u>click to browse</u></p>
+    <div class="formats">CSV · XLSX · PDF · QBO export</div>
+  </div>
+
+  <div class="upload-help">
+    <div>
+      <strong>Only got a partial year?</strong>
+      Upload what you have (6 or 9 months works). The report will note the shorter window and flag it as a diligence gap you should push the broker to close.
+      <a>See a sample report →</a>
+    </div>
+  </div>
+
+  <div class="upload-alt">
+    Do not have the broker packet yet? <a onclick="goStep(2)">Try the scanner with a sample practice →</a>
+  </div>
+
+  <div class="trust-row">
+    <div class="item"><span class="check">✓</span><span>Your upload is not stored beyond the report generation.</span></div>
+    <div class="item"><span class="check">✓</span><span>No account or login required to see your report.</span></div>
+    <div class="item"><span class="check">✓</span><span>Built by Virjee, a CPA firm working with dentists only.</span></div>
+  </div>
+</div>
+
+<!-- STEP 2: MAPPING CONFIRM -->
+<div class="step" id="step2">
+  <div class="step-head">
+    <div class="step-num">Step 2 of 3</div>
+    <h2>Quick check. Did we categorize this right?</h2>
+  </div>
+  <p class="step-sub">We mapped the seller's accounts to standard dental practice categories. Fix anything we got wrong, then continue. Takes about 30 seconds.</p>
+
+  <div class="map-intro">
+    <div class="label">Detected</div>
+    P&amp;L for <b style="font-family:var(--font-display);font-weight:800">Hillcrest Family Dentistry, PLLC</b>, trailing 12 months ending May 31 2026. 22 line items categorized, 19 high confidence, 3 need your review.
+  </div>
+
+  <table class="map-table">
+    <thead>
+      <tr><th>Seller's account name</th><th style="text-align:right">Amount</th><th>Mapped to</th><th>Confidence</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="acct">Production - Owner Doctor</td><td class="amt">$1,284,500</td><td><select><option selected>Production - Owner</option><option>Production - Associate</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Production - Hygiene</td><td class="amt">$412,800</td><td><select><option selected>Production - Hygiene</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Adjustments &amp; Insurance Writeoffs</td><td class="amt">($538,100)</td><td><select><option selected>Adjustments &amp; Writeoffs</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Collections - PPO</td><td class="amt">$848,300</td><td><select><option selected>Collections - PPO</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Collections - Fee-for-Service</td><td class="amt">$268,400</td><td><select><option selected>Collections - FFS</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Dental Supplies</td><td class="amt">$89,400</td><td><select><option selected>Dental Supplies</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Lab Fees</td><td class="amt">$138,900</td><td><select><option selected>Lab Fees</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Doctor Comp - Owner (W-2)</td><td class="amt">$284,000</td><td><select><option selected>Owner Compensation</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Associate Doctor Comp (1099)</td><td class="amt">$68,200</td><td><select><option selected>Associate Doctor Comp</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Hygienist Wages</td><td class="amt">$178,400</td><td><select><option selected>Hygiene Wages</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Rent</td><td class="amt">$92,800</td><td><select><option selected>Rent</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Digital Ads (Google + Meta)</td><td class="amt">$28,400</td><td><select><option selected>Marketing - Paid</option></select></td><td><span class="map-conf high">High</span></td></tr>
+      <tr><td class="acct">Consulting Fees - Owner's Brother</td><td class="amt">$18,000</td><td><select><option selected>Related Party Expense</option><option>Consulting - Legitimate</option></select></td><td><span class="map-conf low">Needs review</span></td></tr>
+      <tr><td class="acct">Owner CE Trip (Bahamas Study Club)</td><td class="amt">$8,400</td><td><select><option selected>Owner Add-Back Claimed</option><option>Continuing Education (real)</option></select></td><td><span class="map-conf med">Medium</span></td></tr>
+      <tr><td class="acct">Owner Personal Travel Coded to Practice</td><td class="amt">$4,800</td><td><select><option selected>Owner Add-Back Claimed</option><option>Travel (business)</option></select></td><td><span class="map-conf med">Medium</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="btn-row">
+    <button class="btn secondary" onclick="goStep(1)">← Back</button>
+    <button class="btn" onclick="goStep(3)">Looks right, continue →</button>
+  </div>
+</div>
+
+<!-- STEP 3: EMAIL GATE -->
+<div class="step" id="step3">
+  <div class="step-head">
+    <div class="step-num">Step 3 of 3</div>
+    <h2>Where should we send your red flag report?</h2>
+  </div>
+
+  <div class="gate">
+    <p>We will show your results on the next screen and email you a PDF so you can share it with your attorney and lender.</p>
+    <div class="field">
+      <label>Your name</label>
+      <input type="text" placeholder="First and last name" value="Dr. Priya Shah" />
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" placeholder="you@yourdentalpractice.com" value="priya.shah@shahdental.com" />
+    </div>
+    <div class="field">
+      <label>Practice you are evaluating (optional)</label>
+      <input type="text" placeholder="e.g. Hillcrest Family Dentistry" value="Hillcrest Family Dentistry" />
+    </div>
+    <div class="field">
+      <label>Where are you in the process?</label>
+      <select>
+        <option>Just got the broker packet</option>
+        <option selected>Reviewing terms before LOI</option>
+        <option>LOI signed, in due diligence</option>
+        <option>Just curious about the seller's numbers</option>
+      </select>
+    </div>
+    <div class="check">
+      <input type="checkbox" id="optin" checked />
+      <label for="optin">Send me the monthly practice acquisition newsletter (one email a month, unsubscribe anytime).</label>
+    </div>
+    <button class="btn" style="width:100%;padding:18px" onclick="goStep(4)">Show my red flag report →</button>
+    <div class="disclosure" style="text-align:left;margin-top:18px;border:0;padding:0">
+      Your data is used only to generate this report and is stored securely. We never sell your information. <a>Privacy policy</a>.
+    </div>
+  </div>
+</div>
+
+<!-- STEP 4: RESULTS -->
+<div class="step" id="step4">
+  <div class="step-head">
+    <div class="step-num">Your Report</div>
+    <h2>Hillcrest Family Dentistry · TTM May 2026</h2>
+  </div>
+  <p class="step-sub">Compared against benchmarks for solo general practices doing $900K to $1.5M in collections, in a mid sized US metro. Not a valuation. Not tax advice. A pre LOI stress test.</p>
+
+  <div class="score-band">
+    <div>
+      <div class="headline-stat">
+        <div class="lbl">Estimated premium at risk if you do not negotiate</div>
+        <div class="val">$180,000 to $265,000</div>
+        <div class="sub">Overstated adjusted EBITDA and unsupported add backs, capitalized at a typical 4.5x to 5.5x multiple, translate to this range in likely over payment.</div>
+      </div>
+      <div class="headline-stat" style="margin-bottom:0">
+        <div class="lbl">Add backs claimed by seller</div>
+        <div class="val">$75,200 <span style="color:#a8b0bd;font-size:16px;font-weight:600">of which about $54K likely does not survive diligence</span></div>
+      </div>
+    </div>
+    <div class="grade-box">
+      <div class="grade-label">Overall</div>
+      <div class="grade">D+</div>
+      <div class="grade-text">High risk of overpay</div>
+      <div class="flag-count">7 red flags</div>
+    </div>
+  </div>
+
+  <div class="section-title">Overhead vs. dental benchmarks <span class="count">(6 categories reviewed)</span></div>
+
+  <div class="benchmark-grid">
+
+    <div class="bench-card">
+      <div class="name">Lab fees % of collections</div>
+      <div class="you-vs"><div class="you">12.0%</div><div class="vs">vs.</div><div class="target">8% to 10% target</div></div>
+      <div class="bar-wrap"><div class="bar" style="left:0;width:82%;background:var(--bad)"></div><div class="target-marker" style="left:66%"></div></div>
+      <span class="status bad">2 pts high</span>
+      <div class="note">Runs about <span class="leak">$23K a year</span> over benchmark. Could be a bad lab contract, a high crown to filling mix, or remakes the seller has not been tracking. Ask for lab invoices, not just the summary line.</div>
+    </div>
+
+    <div class="bench-card">
+      <div class="name">Supplies % of collections</div>
+      <div class="you-vs"><div class="you">7.7%</div><div class="vs">vs.</div><div class="target">5% to 6% target</div></div>
+      <div class="bar-wrap"><div class="bar" style="left:0;width:74%;background:var(--warn)"></div><div class="target-marker" style="left:55%"></div></div>
+      <span class="status warn">Slightly high</span>
+      <div class="note">About <span class="leak">$20K a year</span> over benchmark. Often means personal purchases running through the practice card, or a supplies vendor that has never been shopped. Fixable, but confirm before you underwrite it as savings.</div>
+    </div>
+
+    <div class="bench-card">
+      <div class="name">Total staff % (non owner)</div>
+      <div class="you-vs"><div class="you">52%</div><div class="vs">vs.</div><div class="target">25% to 30% target</div></div>
+      <div class="bar-wrap"><div class="bar" style="left:0;width:100%;background:var(--bad)"></div><div class="target-marker" style="left:56%"></div></div>
+      <span class="status bad">Significantly over</span>
+      <div class="note">The biggest red flag on the page. Non owner payroll is running twice the benchmark. Either the practice is genuinely overstaffed for its production, or the associate is producing well below what they cost. Neither is small.</div>
+    </div>
+
+    <div class="bench-card">
+      <div class="name">Occupancy % (rent + CAM + utilities)</div>
+      <div class="you-vs"><div class="you">10.5%</div><div class="vs">vs.</div><div class="target">5% to 7% target</div></div>
+      <div class="bar-wrap"><div class="bar" style="left:0;width:78%;background:var(--bad)"></div><div class="target-marker" style="left:56%"></div></div>
+      <span class="status bad">3 to 5 pts high</span>
+      <div class="note">You will inherit the lease, so this is not fixable in year one. <span class="leak">$40K to $60K</span> of overhead you cannot easily remove. Factor it into the price, not into your synergies model.</div>
+    </div>
+
+    <div class="bench-card">
+      <div class="name">Marketing % of collections</div>
+      <div class="you-vs"><div class="you">4.0%</div><div class="vs">vs.</div><div class="target">3% to 5% target</div></div>
+      <div class="bar-wrap"><div class="bar" style="left:0;width:50%;background:var(--good)"></div><div class="target-marker" style="left:45%"></div></div>
+      <span class="status good">In range</span>
+      <div class="note">Spend is normal for the size. Confirm with the seller which channels are actually driving new patients, because a healthy total can still hide a bad mix.</div>
+    </div>
+
+    <div class="bench-card">
+      <div class="name">Overhead % (all in, ex owner comp)</div>
+      <div class="you-vs"><div class="you">83%</div><div class="vs">vs.</div><div class="target">60% to 65% target</div></div>
+      <div class="bar-wrap"><div class="bar" style="left:0;width:100%;background:var(--bad)"></div><div class="target-marker" style="left:64%"></div></div>
+      <span class="status bad">Significantly over</span>
+      <div class="note">Adds up to a practice that produces well but keeps very little. Either you find real cost you can remove in year one, or the price needs to reflect the actual profitability, not the seller's adjusted number.</div>
+    </div>
+
+  </div>
+
+  <div class="section-title">Add back smell test <span class="count">(7 line items reviewed)</span></div>
+
+  <div class="addback-panel">
+    <p class="intro">The seller's memo asks you to add these back to EBITDA to justify the price. Not all of them will hold up when a lender or a diligence CPA looks. Here is our take, item by item.</p>
+    <ul class="addback-list">
+      <li>
+        <span class="verdict strip">Strip</span>
+        <div class="line-detail">
+          <div class="name">Consulting fees, owner's brother ($18,000)</div>
+          <div class="why">Related party. Unless there is an invoice trail and a service the practice actually needed, this is a distribution wearing a costume. Lenders will not credit it as an add back.</div>
+        </div>
+        <div class="amt">$18,000</div>
+      </li>
+      <li>
+        <span class="verdict strip">Strip</span>
+        <div class="line-detail">
+          <div class="name">Family health insurance ($18,200)</div>
+          <div class="why">The practice will still need to insure the owner (which is now you) and, in most cases, offer coverage to eligible staff. It is not going away just because ownership changes. Do not add this back.</div>
+        </div>
+        <div class="amt">$18,200</div>
+      </li>
+      <li>
+        <span class="verdict strip">Strip</span>
+        <div class="line-detail">
+          <div class="name">Owner CE trip, Bahamas Study Club ($8,400)</div>
+          <div class="why">You will need CE too. Some travel is legitimate, but the destination pattern suggests personal use dressed as CE. At best, add back a portion.</div>
+        </div>
+        <div class="amt">$8,400</div>
+      </li>
+      <li>
+        <span class="verdict negotiate">Negotiate</span>
+        <div class="line-detail">
+          <div class="name">Owner personal travel coded to practice ($4,800)</div>
+          <div class="why">Depends on documentation. Ask for the expense reports. If it is not documented as business travel, treat it as a distribution.</div>
+        </div>
+        <div class="amt">$4,800</div>
+      </li>
+      <li>
+        <span class="verdict negotiate">Negotiate</span>
+        <div class="line-detail">
+          <div class="name">Owner meals &amp; entertainment ($9,800)</div>
+          <div class="why">Some referral and staff meals are real, but $9,800 is heavy for a solo practice. Ask for detail and expect to add back only 30% to 40%.</div>
+        </div>
+        <div class="amt">$9,800</div>
+      </li>
+      <li>
+        <span class="verdict ok">Legitimate</span>
+        <div class="line-detail">
+          <div class="name">Owner auto lease + fuel ($14,200)</div>
+          <div class="why">Standard add back if the vehicle is titled personally and not needed for the practice. Confirm titling.</div>
+        </div>
+        <div class="amt">$14,200</div>
+      </li>
+      <li>
+        <span class="verdict ok">Legitimate</span>
+        <div class="line-detail">
+          <div class="name">Owner cell phone ($1,800)</div>
+          <div class="why">Typical owner add back. Small enough not to fight over.</div>
+        </div>
+        <div class="amt">$1,800</div>
+      </li>
+    </ul>
+    <div class="addback-summary">
+      <div class="row"><span>Claimed by seller</span><span class="v">$75,200</span></div>
+      <div class="row"><span>Strip (will not survive diligence)</span><span class="v">$44,600</span></div>
+      <div class="row"><span>Negotiate (partial credit likely)</span><span class="v">$14,600</span></div>
+      <div class="row"><span>Legitimate (defensible)</span><span class="v">$16,000</span></div>
+      <div class="row total"><span>Realistic add back credit</span><span class="v">$21,000 to $30,000</span></div>
+    </div>
+  </div>
+
+  <div class="section-title">Revenue concentration risk</div>
+
+  <div class="concentration">
+    <div class="conc-card">
+      <div class="lbl">Owner doctor share of production</div>
+      <div class="big risk">76%</div>
+      <div class="desc">Very high. The seller personally produces 3 in every 4 dollars. When the seller walks (or their patients follow), production drops. Model for a 30% to 40% dip in year one.</div>
+    </div>
+    <div class="conc-card">
+      <div class="lbl">PPO share of collections</div>
+      <div class="big warn">73%</div>
+      <div class="desc">PPO heavy. Ask the seller which specific plans, when they were last renegotiated, and whether any are on a UCR that will reset when ownership transfers.</div>
+    </div>
+    <div class="conc-card">
+      <div class="lbl">Top 3 insurance carriers</div>
+      <div class="big warn">~58%</div>
+      <div class="desc">Concentration inside PPO matters as much as PPO share overall. If Delta or MetLife alone is 30%+ of the book, a single fee schedule change moves the whole practice.</div>
+    </div>
+  </div>
+
+  <div class="questions">
+    <div class="qtitle">3 questions to ask the seller before you sign the LOI</div>
+    <p class="qsub">These come out of the red flags above. If the answers are not clear, that is data too.</p>
+    <ol>
+      <li>
+        <div class="qhead">Why is non owner payroll running 50%+ of collections?</div>
+        <div class="qwhy">Payroll is the biggest lever on future profit and the biggest place to hide bloat. You need to know whether it is genuine overstaffing (you can fix it) or an underproducing associate (harder), before you underwrite any of it as savings.</div>
+      </li>
+      <li>
+        <div class="qhead">Can we see the lab invoices for the last 6 months, not just the summary?</div>
+        <div class="qwhy">Lab at 12% is either a case mix that will not repeat under you, a bad contract, or unbilled remakes. All three change the price. The invoices tell you which one.</div>
+      </li>
+      <li>
+        <div class="qhead">What share of production came from patients the owner treated personally, and what is the plan for those charts at transition?</div>
+        <div class="qwhy">At 76% owner production, retention of those patients is the deal. Ask for the transition plan in writing. A short overlap and a warm intro protocol move numbers by tens of thousands.</div>
+      </li>
+    </ol>
+  </div>
+
+  <div class="deepdive">
+    <div>
+      <h3>This is the surface. The real read is a 30 minute call.</h3>
+      <p>The report tells you where to look. A pre LOI call walks the actual P&amp;L with you, tests the seller's story against your lender's underwriting, and gives you the price and terms you should be willing to sign. No sales pitch. Bring the packet.</p>
+    </div>
+    <a class="btn">Book a 30 min pre LOI review</a>
+  </div>
+
+  <div class="secondary-band">
+    <div class="secondary-card">
+      <h4>Download your report as a PDF</h4>
+      <p>We have also emailed it to priya.shah@shahdental.com so your attorney and lender can see it.</p>
+      <a>↓ Download PDF</a>
+    </div>
+    <div class="secondary-card">
+      <h4>Read: Buying a Dental Practice, the Tax Side</h4>
+      <p>Goodwill vs. equipment allocation, entity structure at close, and the mistakes that cost buyers the most in year one.</p>
+      <a>Read the guide →</a>
+    </div>
+  </div>
+
+  <div class="disclosure">
+    Benchmarks are drawn from Dental Economics, ADA Health Policy Institute, and Levin Group operator surveys. Comparisons are for educational purposes only and do not constitute accounting, tax, valuation, or legal advice. Every deal is different. For analysis specific to the practice you are evaluating, book a call.
+  </div>
+</div>
+
+</div>
+
+<script>
+function goStep(n){
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>

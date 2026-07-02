@@ -344,6 +344,86 @@ footer { padding: 60px 0 40px; border-top: 1px solid var(--hair); color: var(--m
 footer .ft-row { display: flex; gap: 24px; justify-content: space-between; flex-wrap: wrap; }
 footer a { color: var(--moss); }
 footer a:hover { color: var(--ink); }
+
+/* Search + jump-nav + grouped articles */
+.hub-search-wrap { position: relative; max-width: 480px; margin: 22px 0 0; }
+.hub-search-wrap .search-input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: 1.5px solid var(--hair);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--white);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.hub-search-wrap .search-input:focus {
+  outline: none;
+  border-color: var(--green-d);
+  box-shadow: 0 0 0 3px rgba(46,181,122,0.15);
+}
+.hub-search-wrap .search-icon {
+  position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+  width: 18px; height: 18px; color: var(--mute); pointer-events: none;
+}
+.jump-nav { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 8px; }
+.jump-nav a {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 999px;
+  background: var(--mist); color: var(--moss);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700; font-size: 12px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  transition: background .15s ease, color .15s ease, transform .15s ease;
+}
+.jump-nav a:hover { background: var(--ink); color: #fff; transform: translateY(-1px); }
+.jump-nav a .count {
+  background: rgba(0,0,0,0.08); padding: 1px 8px; border-radius: 999px;
+  font-size: 10.5px;
+}
+.jump-nav a:hover .count { background: rgba(255,255,255,0.18); color: #fff; }
+
+.cat-group { margin-bottom: 44px; }
+.cat-group:last-child { margin-bottom: 0; }
+.cat-group[hidden] { display: none; }
+.cat-group-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px; margin-bottom: 18px; padding-bottom: 12px;
+  border-bottom: 2px solid var(--hair);
+}
+.cat-group-head h3 {
+  font-size: 20px; font-weight: 800; letter-spacing: -0.01em;
+}
+.cat-group-head .cat-count {
+  font-size: 12px; font-weight: 700; color: var(--mute);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.cat-group-head h3 .swatch {
+  display: inline-block; width: 12px; height: 12px; border-radius: 50%;
+  margin-right: 10px; vertical-align: middle;
+}
+.badge-hot {
+  display: inline-block;
+  background: var(--green-d);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.empty-state {
+  padding: 32px 20px; text-align: center; color: var(--mute);
+  background: var(--paper); border-radius: 14px; margin-bottom: 40px;
+}
+.card.is-hidden { display: none; }
+.vcard.is-hidden, .short.is-hidden { display: none; }
+
 </style>
 </head>
 <body>
@@ -357,9 +437,6 @@ footer a:hover { color: var(--ink); }
   </div>
 </nav>
 
-<div class="container crumb">
-  <a href="../">Resource Hubs</a><span class="sep">›</span><span>1099 to Practice Owner</span>
-</div>
 <header class="hero">
   <div class="container">
     <span class="eyebrow">For the associate ready to own</span>
@@ -369,6 +446,11 @@ footer a:hover { color: var(--ink); }
       <a class="btn btn-primary" href="https://www.dentalcpausa.com/contact/">Book a Call</a>
       <a class="btn btn-ghost" href="#read">Browse resources ↓</a>
     </div>
+    <div class="hub-search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" class="search-input hub-search-input" placeholder="Search this hub…" aria-label="Search resources">
+    </div>
+    <div class="jump-nav"><a href="#sec-articles">Articles</a></div>
   </div>
 </header>
 <div id="read"></div>
@@ -383,7 +465,7 @@ footer a:hover { color: var(--ink); }
     </div>
   </div>
 </section>
-<section>
+<section id="sec-articles">
   <div class="container">
     <div class="section-head">
       <div>
@@ -393,55 +475,64 @@ footer a:hover { color: var(--ink); }
       <span class="count">8 pieces</span>
     </div>
     <div class="chips" data-chips><button class="chip active" data-filter="all">All <span class="chip-n">8</span></button><button class="chip" data-filter="pay" style="--chip:#00838F;">Pay <span class="chip-n">6</span></button><button class="chip" data-filter="taxes" style="--chip:#1565C0;">Taxes <span class="chip-n">1</span></button><button class="chip" data-filter="entity-setup" style="--chip:#5D4037;">Entity Setup <span class="chip-n">1</span></button></div>
-    <div class="cards" data-cards>
+    <div class="cards-wrap" data-cards>
+      <div class="cat-group" data-cat="pay" id="cat-pay">
+        <div class="cat-group-head">
+          <h3><span class="swatch" style="background:#00838F;"></span>Pay</h3>
+          <span class="cat-count">6 articles</span>
+        </div>
+        <div class="cards">
       <a class="card" data-cat="pay" href="https://www.dentalcpausa.com/average-dental-practice-owner-salary/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#00838F;">Pay</div>
-        <h4>Dental Practice Owner Salary</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <h4>Dental Practice Owner Salary<span class="badge-hot">Most read</span></h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="pay" href="https://www.dentalcpausa.com/dental-practice-owner-salary-2026/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#00838F;">Pay</div>
         <h4>Dental Practice Owner Salary in 2026</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="pay" href="https://www.dentalcpausa.com/typical-net-income-for-a-dentist/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#00838F;">Pay</div>
-        <h4>Net Income for a Dentist</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <h4>Net Income for a Dentist<span class="badge-hot">Most read</span></h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
-      <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/tax-deductions-for-independent-contractors-in-dentistry/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#1565C0;">Taxes</div>
-        <h4>Tax Deductions for 1099 Dentists</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+      <a class="card" data-cat="pay" href="https://www.dentalcpausa.com/dentist-bonus-vs-owner-distribution-tax/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#00838F;">Pay</div>
+        <h4>Bonus vs. Owner Distribution: Tax Impact<span class="badge-hot">Most read</span></h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
+      <a class="card" data-cat="pay" href="https://www.dentalcpausa.com/pay-for-dentists/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#00838F;">Pay</div>
+        <h4>How Dentists Get Paid<span class="badge-hot">Most read</span></h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="pay" href="https://www.dentalcpausa.com/reasonable-compensation-for-dentists/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#00838F;">Pay</div>
+        <h4>Reasonable Compensation for Dentists<span class="badge-hot">Most read</span></h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+        </div>
+      </div>
+      <div class="cat-group" data-cat="_more">
+        <div class="cat-group-head">
+          <h3>More resources</h3>
+          <span class="cat-count">2 articles</span>
+        </div>
+        <div class="cards">
       <a class="card" data-cat="entity-setup" href="https://www.dentalcpausa.com/dental-office-contractor-classifications/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#5D4037;">Entity Setup</div>
         <h4>Contractor vs. Employee for Dental Offices</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
-      <a class="card" data-cat="pay" href="https://www.dentalcpausa.com/dentist-bonus-vs-owner-distribution-tax/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#00838F;">Pay</div>
-        <h4>Bonus vs. Owner Distribution: Tax Impact</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+      <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/tax-deductions-for-independent-contractors-in-dentistry/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#1565C0;">Taxes</div>
+        <h4>Tax Deductions for 1099 Dentists</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
-      <a class="card" data-cat="pay" href="https://www.dentalcpausa.com/pay-for-dentists/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#00838F;">Pay</div>
-        <h4>How Dentists Get Paid</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
-      <a class="card" data-cat="pay" href="https://www.dentalcpausa.com/reasonable-compensation-for-dentists/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#00838F;">Pay</div>
-        <h4>Reasonable Compensation for Dentists</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a></div>
-  </div>
+        </div>
+      </div>
+    </div>
 </section>
 <section>
   <div class="container">
@@ -502,5 +593,71 @@ footer a:hover { color: var(--ink); }
   });
 })();
 </script>
+
+<script>
+(function() {
+  // Global search + chip filter (backwards compatible with existing chip UI)
+  var searchInput = document.querySelector('.hub-search-input');
+  var emptyState = document.querySelector('.empty-state');
+  var articleCards = Array.from(document.querySelectorAll('[data-cards] .card'));
+  var videoCards = Array.from(document.querySelectorAll('.cards .vcard'));
+  var shortCards = Array.from(document.querySelectorAll('.shorts-row .short'));
+  var toolCards = Array.from(document.querySelectorAll('.tools .card'));
+  var groups = document.querySelectorAll('.cat-group');
+
+  function applyFilter(q) {
+    q = (q || '').trim().toLowerCase();
+    var anyVisible = false;
+
+    function visitCard(el) {
+      var title = (el.querySelector('h4, .stitle') || {}).textContent || '';
+      var badge = (el.querySelector('.cat-badge, .badge, .ctype') || {}).textContent || '';
+      var match = !q || title.toLowerCase().includes(q) || badge.toLowerCase().includes(q);
+      el.classList.toggle('is-hidden', !match);
+      if (match) anyVisible = true;
+    }
+
+    articleCards.forEach(visitCard);
+    videoCards.forEach(visitCard);
+    shortCards.forEach(visitCard);
+    toolCards.forEach(visitCard);
+
+    // Hide any grouped section whose visible-card count is 0
+    groups.forEach(function(g) {
+      var visible = g.querySelectorAll('.card:not(.is-hidden)').length;
+      g.hidden = visible === 0;
+    });
+
+    if (emptyState) emptyState.hidden = anyVisible;
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) { applyFilter(e.target.value); });
+  }
+
+  // Preserve existing chip behavior + integrate with search
+  document.querySelectorAll('[data-chips]').forEach(function(chipBox) {
+    var chipCards = chipBox.parentElement.querySelector('[data-cards]');
+    if (!chipCards) return;
+    chipBox.addEventListener('click', function(e) {
+      var chip = e.target.closest('.chip');
+      if (!chip) return;
+      chipBox.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      var filter = chip.getAttribute('data-filter');
+      chipCards.querySelectorAll('.card').forEach(function(card) {
+        var catMatch = filter === 'all' || card.getAttribute('data-cat') === filter;
+        card.classList.toggle('is-hidden', !catMatch);
+      });
+      // Also hide grouped sections when a chip is active
+      groups.forEach(function(g) {
+        var groupCat = g.getAttribute('data-cat');
+        g.hidden = !(filter === 'all' || groupCat === filter);
+      });
+    });
+  });
+})();
+</script>
+
 </body>
 </html>

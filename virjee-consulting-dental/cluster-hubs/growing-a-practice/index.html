@@ -344,6 +344,86 @@ footer { padding: 60px 0 40px; border-top: 1px solid var(--hair); color: var(--m
 footer .ft-row { display: flex; gap: 24px; justify-content: space-between; flex-wrap: wrap; }
 footer a { color: var(--moss); }
 footer a:hover { color: var(--ink); }
+
+/* Search + jump-nav + grouped articles */
+.hub-search-wrap { position: relative; max-width: 480px; margin: 22px 0 0; }
+.hub-search-wrap .search-input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: 1.5px solid var(--hair);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--white);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.hub-search-wrap .search-input:focus {
+  outline: none;
+  border-color: var(--green-d);
+  box-shadow: 0 0 0 3px rgba(46,181,122,0.15);
+}
+.hub-search-wrap .search-icon {
+  position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+  width: 18px; height: 18px; color: var(--mute); pointer-events: none;
+}
+.jump-nav { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 8px; }
+.jump-nav a {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 999px;
+  background: var(--mist); color: var(--moss);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700; font-size: 12px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  transition: background .15s ease, color .15s ease, transform .15s ease;
+}
+.jump-nav a:hover { background: var(--ink); color: #fff; transform: translateY(-1px); }
+.jump-nav a .count {
+  background: rgba(0,0,0,0.08); padding: 1px 8px; border-radius: 999px;
+  font-size: 10.5px;
+}
+.jump-nav a:hover .count { background: rgba(255,255,255,0.18); color: #fff; }
+
+.cat-group { margin-bottom: 44px; }
+.cat-group:last-child { margin-bottom: 0; }
+.cat-group[hidden] { display: none; }
+.cat-group-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px; margin-bottom: 18px; padding-bottom: 12px;
+  border-bottom: 2px solid var(--hair);
+}
+.cat-group-head h3 {
+  font-size: 20px; font-weight: 800; letter-spacing: -0.01em;
+}
+.cat-group-head .cat-count {
+  font-size: 12px; font-weight: 700; color: var(--mute);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.cat-group-head h3 .swatch {
+  display: inline-block; width: 12px; height: 12px; border-radius: 50%;
+  margin-right: 10px; vertical-align: middle;
+}
+.badge-hot {
+  display: inline-block;
+  background: var(--green-d);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.empty-state {
+  padding: 32px 20px; text-align: center; color: var(--mute);
+  background: var(--paper); border-radius: 14px; margin-bottom: 40px;
+}
+.card.is-hidden { display: none; }
+.vcard.is-hidden, .short.is-hidden { display: none; }
+
 </style>
 </head>
 <body>
@@ -357,9 +437,6 @@ footer a:hover { color: var(--ink); }
   </div>
 </nav>
 
-<div class="container crumb">
-  <a href="../">Resource Hubs</a><span class="sep">›</span><span>Growing a Practice</span>
-</div>
 <header class="hero">
   <div class="container">
     <span class="eyebrow">For the owner running the show</span>
@@ -369,6 +446,15 @@ footer a:hover { color: var(--ink); }
       <a class="btn btn-primary" href="https://www.dentalcpausa.com/contact/">Book a Call</a>
       <a class="btn btn-ghost" href="#read">Browse resources ↓</a>
     </div>
+    <div class="hub-search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" class="search-input hub-search-input" placeholder="Search this hub…" aria-label="Search resources">
+    </div>
+    <div class="jump-nav"><a href="#sec-articles">Articles</a>
+<a href="#sec-videos">Long-Form Videos</a>
+<a href="#sec-webinars">Webinars</a>
+<a href="#sec-shorts">Shorts</a>
+<a href="#sec-tools">Tools & Guides</a></div>
   </div>
 </header>
 <div id="read"></div>
@@ -383,7 +469,7 @@ footer a:hover { color: var(--ink); }
     </div>
   </div>
 </section>
-<section>
+<section id="sec-articles" id="sec-videos" id="sec-webinars" id="sec-shorts" id="sec-tools">
   <div class="container">
     <div class="section-head">
       <div>
@@ -393,175 +479,180 @@ footer a:hover { color: var(--ink); }
       <span class="count">28 pieces</span>
     </div>
     <div class="chips" data-chips><button class="chip active" data-filter="all">All <span class="chip-n">28</span></button><button class="chip" data-filter="profitability" style="--chip:#2E7D32;">Profitability <span class="chip-n">13</span></button><button class="chip" data-filter="operations" style="--chip:#EF6C00;">Operations <span class="chip-n">12</span></button><button class="chip" data-filter="compliance" style="--chip:#455A64;">Compliance <span class="chip-n">2</span></button><button class="chip" data-filter="taxes" style="--chip:#1565C0;">Taxes <span class="chip-n">1</span></button></div>
-    <div class="cards" data-cards>
+    <div class="cards-wrap" data-cards>
+      <div class="cat-group" data-cat="profitability" id="cat-profitability">
+        <div class="cat-group-head">
+          <h3><span class="swatch" style="background:#2E7D32;"></span>Profitability</h3>
+          <span class="cat-count">13 articles</span>
+        </div>
+        <div class="cards">
       <a class="card" data-cat="profitability" href="https://www.dentalcpausa.com/ebitda-for-a-dental-practice/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#2E7D32;">Profitability</div>
-        <h4>EBITDA for a Dental Practice</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <h4>EBITDA for a Dental Practice<span class="badge-hot">Most read</span></h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="profitability" href="https://www.dentalcpausa.com/dentists-can-add-more-to-bottom-line-in-2026/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#2E7D32;">Profitability</div>
         <h4>Adding to Your Bottom Line in 2026</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
-      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/year-end-financial-checklist-for-dentists/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
-        <h4>Year-End Financial Checklist</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
-      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/set-dental-practice-pricing-2025/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
-        <h4>Setting Practice Pricing in 2025</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
-      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/best-apps-to-track-dental-office-expenses/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
-        <h4>Best Apps to Track Office Expenses</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
-      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/ai-tools-for-dentists/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
-        <h4>AI Tools for Dentists</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
       <a class="card" data-cat="profitability" href="https://www.dentalcpausa.com/january-dental-practice-cash-flow-tips/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#2E7D32;">Profitability</div>
         <h4>January Cash Flow Tips</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
-      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/things-dentists-forget-to-tell-their-cpa/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
-        <h4>Things Dentists Forget to Tell Their CPA</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
-      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/afford-to-hire-dental-staff/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
-        <h4>When You Can Afford to Hire Staff</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
-      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/7-marketing-strategies-for-dentists-2025/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
-        <h4>7 Marketing Strategies for 2025</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
       <a class="card" data-cat="profitability" href="https://www.dentalcpausa.com/dental-practice-budget-2025/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#2E7D32;">Profitability</div>
         <h4>Dental Practice Budget for 2025</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="profitability" href="https://www.dentalcpausa.com/how-much-is-a-dental-patient-worth/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#2E7D32;">Profitability</div>
-        <h4>How Much Is a Dental Patient Worth?</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <h4>How Much Is a Dental Patient Worth?<span class="badge-hot">Most read</span></h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="profitability" href="https://www.dentalcpausa.com/dental-practice-overhead/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#2E7D32;">Profitability</div>
-        <h4>Dental Practice Overhead</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <h4>Dental Practice Overhead<span class="badge-hot">Most read</span></h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="profitability" href="https://www.dentalcpausa.com/dental-key-performance-indicators/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#2E7D32;">Profitability</div>
         <h4>Dental KPIs to Track</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="profitability" href="https://www.dentalcpausa.com/improve-dental-collections-2025/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#2E7D32;">Profitability</div>
         <h4>How to Improve Dental Collections</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="profitability" href="https://www.dentalcpausa.com/dental-practice-projections/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#2E7D32;">Profitability</div>
         <h4>Dental Practice Projections</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
-      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/how-to-compete-with-corporate-dentistry/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
-        <h4>How to Compete With Corporate Dentistry</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
       <a class="card" data-cat="profitability" href="https://www.dentalcpausa.com/dental-practice-overhead-benchmarks/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#2E7D32;">Profitability</div>
-        <h4>Dental Practice Overhead Benchmarks</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <h4>Dental Practice Overhead Benchmarks<span class="badge-hot">Most read</span></h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
-      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/common-dental-accounting-mistakes/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
-        <h4>Common Dental Accounting Mistakes</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
-      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/best-dental-podcasts-2024/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
-        <h4>Dental Podcasts Worth a Listen</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
-      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/managing-labor-costs-for-dental-practices/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
-        <h4>Managing Labor Costs</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
       <a class="card" data-cat="profitability" href="https://www.dentalcpausa.com/dental-practice-profitability-tips/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#2E7D32;">Profitability</div>
         <h4>Dental Practice Profitability Tips</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="profitability" href="https://www.dentalcpausa.com/maintaining-dental-practice-profitability/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#2E7D32;">Profitability</div>
         <h4>Maintaining Practice Profitability</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
-      <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/tax-planning-for-dentists-initiatives/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#1565C0;">Taxes</div>
-        <h4>Tax Planning Initiatives for Dentists</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
-      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/operational-issues-currently-encountered-in-dental-practices-by-monica-rebella-cpa/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
-        <h4>Operational Issues in Dental Practices</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
       <a class="card" data-cat="profitability" href="https://www.dentalcpausa.com/prepare-dental-practice-possible-2024-slow/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#2E7D32;">Profitability</div>
         <h4>Preparing for a Slow Year</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
+        </div>
+      </div>
+      <div class="cat-group" data-cat="operations" id="cat-operations">
+        <div class="cat-group-head">
+          <h3><span class="swatch" style="background:#EF6C00;"></span>Operations</h3>
+          <span class="cat-count">12 articles</span>
+        </div>
+        <div class="cards">
+      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/year-end-financial-checklist-for-dentists/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
+        <h4>Year-End Financial Checklist</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/set-dental-practice-pricing-2025/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
+        <h4>Setting Practice Pricing in 2025</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/best-apps-to-track-dental-office-expenses/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
+        <h4>Best Apps to Track Office Expenses</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/ai-tools-for-dentists/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
+        <h4>AI Tools for Dentists<span class="badge-hot">Most read</span></h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/things-dentists-forget-to-tell-their-cpa/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
+        <h4>Things Dentists Forget to Tell Their CPA</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/afford-to-hire-dental-staff/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
+        <h4>When You Can Afford to Hire Staff</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/7-marketing-strategies-for-dentists-2025/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
+        <h4>7 Marketing Strategies for 2025</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/how-to-compete-with-corporate-dentistry/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
+        <h4>How to Compete With Corporate Dentistry</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/common-dental-accounting-mistakes/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
+        <h4>Common Dental Accounting Mistakes</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/best-dental-podcasts-2024/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
+        <h4>Dental Podcasts Worth a Listen</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/managing-labor-costs-for-dental-practices/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
+        <h4>Managing Labor Costs</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="operations" href="https://www.dentalcpausa.com/operational-issues-currently-encountered-in-dental-practices-by-monica-rebella-cpa/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#EF6C00;">Operations</div>
+        <h4>Operational Issues in Dental Practices</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+        </div>
+      </div>
+      <div class="cat-group" data-cat="compliance" id="cat-compliance">
+        <div class="cat-group-head">
+          <h3><span class="swatch" style="background:#455A64;"></span>Compliance</h3>
+          <span class="cat-count">2 articles</span>
+        </div>
+        <div class="cards">
       <a class="card" data-cat="compliance" href="https://www.dentalcpausa.com/ppp-loan-extended-24-weeks-impact-dental-practices/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#455A64;">Compliance</div>
         <h4>PPP Loan 24-Week Extension (Archive)</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="compliance" href="https://www.dentalcpausa.com/ppp-forgiveness-sept-2020-update/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#455A64;">Compliance</div>
         <h4>PPP Forgiveness Update (Archive)</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a></div>
-  </div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+        </div>
+      </div>
+      <div class="cat-group" data-cat="_more">
+        <div class="cat-group-head">
+          <h3>More resources</h3>
+          <span class="cat-count">1 article</span>
+        </div>
+        <div class="cards">
+      <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/tax-planning-for-dentists-initiatives/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#1565C0;">Taxes</div>
+        <h4>Tax Planning Initiatives for Dentists</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+        </div>
+      </div>
+    </div>
 </section>
 <section style="background: var(--paper);">
   <div class="container">
@@ -819,5 +910,71 @@ footer a:hover { color: var(--ink); }
   });
 })();
 </script>
+
+<script>
+(function() {
+  // Global search + chip filter (backwards compatible with existing chip UI)
+  var searchInput = document.querySelector('.hub-search-input');
+  var emptyState = document.querySelector('.empty-state');
+  var articleCards = Array.from(document.querySelectorAll('[data-cards] .card'));
+  var videoCards = Array.from(document.querySelectorAll('.cards .vcard'));
+  var shortCards = Array.from(document.querySelectorAll('.shorts-row .short'));
+  var toolCards = Array.from(document.querySelectorAll('.tools .card'));
+  var groups = document.querySelectorAll('.cat-group');
+
+  function applyFilter(q) {
+    q = (q || '').trim().toLowerCase();
+    var anyVisible = false;
+
+    function visitCard(el) {
+      var title = (el.querySelector('h4, .stitle') || {}).textContent || '';
+      var badge = (el.querySelector('.cat-badge, .badge, .ctype') || {}).textContent || '';
+      var match = !q || title.toLowerCase().includes(q) || badge.toLowerCase().includes(q);
+      el.classList.toggle('is-hidden', !match);
+      if (match) anyVisible = true;
+    }
+
+    articleCards.forEach(visitCard);
+    videoCards.forEach(visitCard);
+    shortCards.forEach(visitCard);
+    toolCards.forEach(visitCard);
+
+    // Hide any grouped section whose visible-card count is 0
+    groups.forEach(function(g) {
+      var visible = g.querySelectorAll('.card:not(.is-hidden)').length;
+      g.hidden = visible === 0;
+    });
+
+    if (emptyState) emptyState.hidden = anyVisible;
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) { applyFilter(e.target.value); });
+  }
+
+  // Preserve existing chip behavior + integrate with search
+  document.querySelectorAll('[data-chips]').forEach(function(chipBox) {
+    var chipCards = chipBox.parentElement.querySelector('[data-cards]');
+    if (!chipCards) return;
+    chipBox.addEventListener('click', function(e) {
+      var chip = e.target.closest('.chip');
+      if (!chip) return;
+      chipBox.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      var filter = chip.getAttribute('data-filter');
+      chipCards.querySelectorAll('.card').forEach(function(card) {
+        var catMatch = filter === 'all' || card.getAttribute('data-cat') === filter;
+        card.classList.toggle('is-hidden', !catMatch);
+      });
+      // Also hide grouped sections when a chip is active
+      groups.forEach(function(g) {
+        var groupCat = g.getAttribute('data-cat');
+        g.hidden = !(filter === 'all' || groupCat === filter);
+      });
+    });
+  });
+})();
+</script>
+
 </body>
 </html>

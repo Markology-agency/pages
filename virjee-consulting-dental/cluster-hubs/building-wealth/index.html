@@ -344,6 +344,86 @@ footer { padding: 60px 0 40px; border-top: 1px solid var(--hair); color: var(--m
 footer .ft-row { display: flex; gap: 24px; justify-content: space-between; flex-wrap: wrap; }
 footer a { color: var(--moss); }
 footer a:hover { color: var(--ink); }
+
+/* Search + jump-nav + grouped articles */
+.hub-search-wrap { position: relative; max-width: 480px; margin: 22px 0 0; }
+.hub-search-wrap .search-input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: 1.5px solid var(--hair);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--white);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.hub-search-wrap .search-input:focus {
+  outline: none;
+  border-color: var(--green-d);
+  box-shadow: 0 0 0 3px rgba(46,181,122,0.15);
+}
+.hub-search-wrap .search-icon {
+  position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+  width: 18px; height: 18px; color: var(--mute); pointer-events: none;
+}
+.jump-nav { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 8px; }
+.jump-nav a {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 999px;
+  background: var(--mist); color: var(--moss);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700; font-size: 12px;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  transition: background .15s ease, color .15s ease, transform .15s ease;
+}
+.jump-nav a:hover { background: var(--ink); color: #fff; transform: translateY(-1px); }
+.jump-nav a .count {
+  background: rgba(0,0,0,0.08); padding: 1px 8px; border-radius: 999px;
+  font-size: 10.5px;
+}
+.jump-nav a:hover .count { background: rgba(255,255,255,0.18); color: #fff; }
+
+.cat-group { margin-bottom: 44px; }
+.cat-group:last-child { margin-bottom: 0; }
+.cat-group[hidden] { display: none; }
+.cat-group-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px; margin-bottom: 18px; padding-bottom: 12px;
+  border-bottom: 2px solid var(--hair);
+}
+.cat-group-head h3 {
+  font-size: 20px; font-weight: 800; letter-spacing: -0.01em;
+}
+.cat-group-head .cat-count {
+  font-size: 12px; font-weight: 700; color: var(--mute);
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+.cat-group-head h3 .swatch {
+  display: inline-block; width: 12px; height: 12px; border-radius: 50%;
+  margin-right: 10px; vertical-align: middle;
+}
+.badge-hot {
+  display: inline-block;
+  background: var(--green-d);
+  color: #fff;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+.empty-state {
+  padding: 32px 20px; text-align: center; color: var(--mute);
+  background: var(--paper); border-radius: 14px; margin-bottom: 40px;
+}
+.card.is-hidden { display: none; }
+.vcard.is-hidden, .short.is-hidden { display: none; }
+
 </style>
 </head>
 <body>
@@ -357,9 +437,6 @@ footer a:hover { color: var(--ink); }
   </div>
 </nav>
 
-<div class="container crumb">
-  <a href="../">Resource Hubs</a><span class="sep">›</span><span>Building Wealth</span>
-</div>
 <header class="hero">
   <div class="container">
     <span class="eyebrow">For the owner thinking past practice income</span>
@@ -369,6 +446,15 @@ footer a:hover { color: var(--ink); }
       <a class="btn btn-primary" href="https://www.dentalcpausa.com/contact/">Book a Call</a>
       <a class="btn btn-ghost" href="#read">Browse resources ↓</a>
     </div>
+    <div class="hub-search-wrap">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" class="search-input hub-search-input" placeholder="Search this hub…" aria-label="Search resources">
+    </div>
+    <div class="jump-nav"><a href="#sec-articles">Articles</a>
+<a href="#sec-videos">Long-Form Videos</a>
+<a href="#sec-webinars">Webinars</a>
+<a href="#sec-shorts">Shorts</a>
+<a href="#sec-tools">Tools & Guides</a></div>
   </div>
 </header>
 <div id="read"></div>
@@ -383,7 +469,7 @@ footer a:hover { color: var(--ink); }
     </div>
   </div>
 </section>
-<section>
+<section id="sec-articles" id="sec-videos" id="sec-webinars" id="sec-shorts" id="sec-tools">
   <div class="container">
     <div class="section-head">
       <div>
@@ -393,163 +479,162 @@ footer a:hover { color: var(--ink); }
       <span class="count">26 pieces</span>
     </div>
     <div class="chips" data-chips><button class="chip active" data-filter="all">All <span class="chip-n">26</span></button><button class="chip" data-filter="taxes" style="--chip:#1565C0;">Taxes <span class="chip-n">19</span></button><button class="chip" data-filter="real-estate" style="--chip:#6A1B9A;">Real Estate <span class="chip-n">5</span></button><button class="chip" data-filter="compliance" style="--chip:#455A64;">Compliance <span class="chip-n">2</span></button></div>
-    <div class="cards" data-cards>
+    <div class="cards-wrap" data-cards>
+      <div class="cat-group" data-cat="taxes" id="cat-taxes">
+        <div class="cat-group-head">
+          <h3><span class="swatch" style="background:#1565C0;"></span>Taxes</h3>
+          <span class="cat-count">19 articles</span>
+        </div>
+        <div class="cards">
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/dental-supplies-fully-deductible/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>Are Dental Supplies Fully Deductible?</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/the-new-tax-law-for-dentists/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
-        <h4>The New Tax Law for Dentists</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <h4>The New Tax Law for Dentists<span class="badge-hot">Most read</span></h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/qualified-business-income-deduction-for-dentists/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
-        <h4>QBI Deduction for Dentists</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <h4>QBI Deduction for Dentists<span class="badge-hot">Most read</span></h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/augusta-rule-for-dentists/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>The Augusta Rule for Dentists</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/2026-tax-deductions-for-dentists/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>2026 Tax Deductions for Dentists</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/tax-moves-for-dentists-in-january/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>January Tax Moves for Dentists</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
-      <a class="card" data-cat="real-estate" href="https://www.dentalcpausa.com/short-term-rentals-to-reduce-dentist-tax-bill-2/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#6A1B9A;">Real Estate</div>
-        <h4>Short-Term Rentals as a Tax Strategy</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
-      <a class="card" data-cat="real-estate" href="https://www.dentalcpausa.com/real-estate-professional-status-for-dentists/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#6A1B9A;">Real Estate</div>
-        <h4>Real Estate Professional Status</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
-      <a class="card" data-cat="real-estate" href="https://www.dentalcpausa.com/real-estate-to-reduce-dentist-taxes/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#6A1B9A;">Real Estate</div>
-        <h4>Using Real Estate to Reduce Taxes</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/5-tax-strategies-for-dentists/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>5 Tax Strategies for Dentists</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/tax-mistakes-cost-dentists-thousands-yearly/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>Common Tax Mistakes Dentists Make</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/new-proposed-tax-laws-effect-dentists-practicing-s-corporations/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>Proposed Tax Laws and S-Corp Dentists</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
-      <a class="card" data-cat="real-estate" href="https://www.dentalcpausa.com/dentist-real-estate-case-study/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#6A1B9A;">Real Estate</div>
-        <h4>Dentist Real Estate Case Study</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/home-office-deduction-orthodontist/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>Home Office Deduction for Orthodontists</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
-      <a class="card" data-cat="real-estate" href="https://www.dentalcpausa.com/short-term-rental-strategy-lower-dental-taxes/" target="_blank" rel="noopener">
-        <div class="cat-badge" style="background:#6A1B9A;">Real Estate</div>
-        <h4>Short-Term Rental Strategy</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/year-end-tax-tips-dentists/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>Year-End Tax Tips</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/year-end-tax-strategies-for-dentists/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>Year-End Tax Strategies</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/year-end-tax-strategies-dental-practices/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>Year-End Strategies for Practices</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/last-minute-tax-deductions-for-dentists/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>Last-Minute Tax Deductions</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/dental-practice-owners-can-deduct-next-vacation/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>Deducting Your Next Vacation</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/extension-of-bonus-depreciation/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>Bonus Depreciation Extension</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/secret-reason-to-not-reduce-your-dental-taxes/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>When Not to Reduce Your Tax Bill</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/section-199a-tax-deduction-for-dentists/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
-        <h4>Section 199A Deduction for Dentists</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <h4>Section 199A Deduction for Dentists<span class="badge-hot">Most read</span></h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="taxes" href="https://www.dentalcpausa.com/impact-2018-tax-reform-dentists/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#1565C0;">Taxes</div>
         <h4>Impact of 2018 Tax Reform</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
+        </div>
+      </div>
+      <div class="cat-group" data-cat="real-estate" id="cat-real-estate">
+        <div class="cat-group-head">
+          <h3><span class="swatch" style="background:#6A1B9A;"></span>Real Estate</h3>
+          <span class="cat-count">5 articles</span>
+        </div>
+        <div class="cards">
+      <a class="card" data-cat="real-estate" href="https://www.dentalcpausa.com/short-term-rentals-to-reduce-dentist-tax-bill-2/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#6A1B9A;">Real Estate</div>
+        <h4>Short-Term Rentals as a Tax Strategy</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="real-estate" href="https://www.dentalcpausa.com/real-estate-professional-status-for-dentists/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#6A1B9A;">Real Estate</div>
+        <h4>Real Estate Professional Status</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="real-estate" href="https://www.dentalcpausa.com/real-estate-to-reduce-dentist-taxes/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#6A1B9A;">Real Estate</div>
+        <h4>Using Real Estate to Reduce Taxes<span class="badge-hot">Most read</span></h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="real-estate" href="https://www.dentalcpausa.com/dentist-real-estate-case-study/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#6A1B9A;">Real Estate</div>
+        <h4>Dentist Real Estate Case Study</h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+      <a class="card" data-cat="real-estate" href="https://www.dentalcpausa.com/short-term-rental-strategy-lower-dental-taxes/" target="_blank" rel="noopener">
+        <div class="cat-badge" style="background:#6A1B9A;">Real Estate</div>
+        <h4>Short-Term Rental Strategy<span class="badge-hot">Most read</span></h4>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+        </div>
+      </div>
+      <div class="cat-group" data-cat="compliance" id="cat-compliance">
+        <div class="cat-group-head">
+          <h3><span class="swatch" style="background:#455A64;"></span>Compliance</h3>
+          <span class="cat-count">2 articles</span>
+        </div>
+        <div class="cards">
       <a class="card" data-cat="compliance" href="https://www.dentalcpausa.com/irs-cracking-erc-shops-lead-costs-audits-small-businesses-including-dental-practices/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#455A64;">Compliance</div>
         <h4>IRS Crackdown on ERC Shops</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
       </a>
-
       <a class="card" data-cat="compliance" href="https://www.dentalcpausa.com/beware-of-tiktok-tax-advice-why-dental-practice-owners-need-to-be-wary/" target="_blank" rel="noopener">
         <div class="cat-badge" style="background:#455A64;">Compliance</div>
         <h4>Beware of TikTok Tax Advice</h4>
-        <div class="meta">Read on dentalcpausa.com <span class="arrow">→</span></div>
-      </a></div>
-  </div>
+        <div class="meta">Read article <span class="arrow">→</span></div>
+      </a>
+        </div>
+      </div>
+    </div>
 </section>
 <section style="background: var(--paper);">
   <div class="container">
@@ -792,5 +877,71 @@ footer a:hover { color: var(--ink); }
   });
 })();
 </script>
+
+<script>
+(function() {
+  // Global search + chip filter (backwards compatible with existing chip UI)
+  var searchInput = document.querySelector('.hub-search-input');
+  var emptyState = document.querySelector('.empty-state');
+  var articleCards = Array.from(document.querySelectorAll('[data-cards] .card'));
+  var videoCards = Array.from(document.querySelectorAll('.cards .vcard'));
+  var shortCards = Array.from(document.querySelectorAll('.shorts-row .short'));
+  var toolCards = Array.from(document.querySelectorAll('.tools .card'));
+  var groups = document.querySelectorAll('.cat-group');
+
+  function applyFilter(q) {
+    q = (q || '').trim().toLowerCase();
+    var anyVisible = false;
+
+    function visitCard(el) {
+      var title = (el.querySelector('h4, .stitle') || {}).textContent || '';
+      var badge = (el.querySelector('.cat-badge, .badge, .ctype') || {}).textContent || '';
+      var match = !q || title.toLowerCase().includes(q) || badge.toLowerCase().includes(q);
+      el.classList.toggle('is-hidden', !match);
+      if (match) anyVisible = true;
+    }
+
+    articleCards.forEach(visitCard);
+    videoCards.forEach(visitCard);
+    shortCards.forEach(visitCard);
+    toolCards.forEach(visitCard);
+
+    // Hide any grouped section whose visible-card count is 0
+    groups.forEach(function(g) {
+      var visible = g.querySelectorAll('.card:not(.is-hidden)').length;
+      g.hidden = visible === 0;
+    });
+
+    if (emptyState) emptyState.hidden = anyVisible;
+  }
+
+  if (searchInput) {
+    searchInput.addEventListener('input', function(e) { applyFilter(e.target.value); });
+  }
+
+  // Preserve existing chip behavior + integrate with search
+  document.querySelectorAll('[data-chips]').forEach(function(chipBox) {
+    var chipCards = chipBox.parentElement.querySelector('[data-cards]');
+    if (!chipCards) return;
+    chipBox.addEventListener('click', function(e) {
+      var chip = e.target.closest('.chip');
+      if (!chip) return;
+      chipBox.querySelectorAll('.chip').forEach(function(c) { c.classList.remove('active'); });
+      chip.classList.add('active');
+      var filter = chip.getAttribute('data-filter');
+      chipCards.querySelectorAll('.card').forEach(function(card) {
+        var catMatch = filter === 'all' || card.getAttribute('data-cat') === filter;
+        card.classList.toggle('is-hidden', !catMatch);
+      });
+      // Also hide grouped sections when a chip is active
+      groups.forEach(function(g) {
+        var groupCat = g.getAttribute('data-cat');
+        g.hidden = !(filter === 'all' || groupCat === filter);
+      });
+    });
+  });
+})();
+</script>
+
 </body>
 </html>

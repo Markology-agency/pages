@@ -260,6 +260,87 @@ footer a:hover { color: var(--green-l); }
 @media (max-width: 720px) { .foot-grid { grid-template-columns: 1fr; gap: 24px; } }
 .foot-grid strong { color: var(--white); font-family: 'Source Serif 4', serif; font-weight: 500; }
 .foot-bot { padding-top: 28px; margin-top: 36px; border-top: 1px solid rgba(255,255,255,.12); font-size: 12.5px; opacity: .6; }
+
+/* Compact card + grouped listing + filter chips */
+.section-head-meta { display: flex; align-items: center; gap: 20px; }
+.topic-filter { margin-bottom: 40px; display: flex; flex-direction: column; gap: 16px; }
+.topic-filter .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 16px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 999px;
+  font-size: 13px; font-weight: 500;
+  color: var(--ink); cursor: pointer;
+  font-family: inherit;
+  transition: background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
+}
+.chip span {
+  font-size: 11px; color: var(--mute); font-weight: 600;
+  background: var(--soft); padding: 2px 8px; border-radius: 999px;
+  transition: background .15s ease, color .15s ease;
+}
+.chip:hover { border-color: rgba(3,71,52,0.3); color: var(--green); }
+.chip.is-active { background: var(--green); color: var(--white); border-color: var(--green); }
+.chip.is-active span { background: rgba(255,255,255,0.18); color: var(--white); }
+.search-wrap {
+  position: relative;
+  max-width: 420px;
+}
+.search-input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: 1px solid var(--hair);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--white);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.search-input:focus {
+  outline: none;
+  border-color: var(--green-l);
+  box-shadow: 0 0 0 3px rgba(88,179,90,0.15);
+}
+.search-icon {
+  position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+  width: 18px; height: 18px; color: var(--mute); pointer-events: none;
+}
+.cat-section { margin-bottom: 60px; scroll-margin-top: 90px; }
+.cat-section:last-child { margin-bottom: 0; }
+.cat-section[hidden] { display: none; }
+.cat-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px; margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hair);
+}
+.cat-head h3 { font-size: 22px; font-weight: 500; color: var(--green); font-family: 'Source Serif 4', serif; }
+.cat-count { font-size: 12.5px; font-weight: 600; color: var(--mute); letter-spacing: 0.12em; text-transform: uppercase; }
+.empty-state {
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--mute);
+  background: var(--soft);
+  border-radius: 14px;
+  margin-bottom: 40px;
+}
+
+/* Override for more compact cards */
+.card { padding: 20px 22px 18px; min-height: 0; }
+.card h4 { font-size: 16px; line-height: 1.35; margin-bottom: 0; }
+.card .meta { display: none; }
+.card-badges { margin-bottom: 12px; }
+.card::after {
+  content: "→"; position: absolute; top: 20px; right: 22px;
+  color: var(--green); font-size: 16px; font-weight: 600;
+  opacity: 0; transition: opacity .2s ease, transform .2s ease;
+}
+.card { position: relative; }
+.card:hover::after { opacity: 1; transform: translateX(4px); }
+
 </style>
 </head>
 <body>
@@ -276,9 +357,6 @@ footer a:hover { color: var(--green-l); }
   </div>
 </nav>
 
-<div class="crumb">
-  <div class="container"><a href="../">All Resource Hubs</a><span class="sep">/</span><span>I Have RSUs Vesting</span></div>
-</div>
 
 <section class="hubhead">
   <div class="container hubhead-inner">
@@ -322,313 +400,122 @@ footer a:hover { color: var(--green-l); }
   <div class="container">
     <div class="section-head">
       <h2>Every article in this hub</h2>
-      <div class="count">45 articles</div>
+      <div class="section-head-meta">
+        <div class="count">45 articles</div>
+      </div>
     </div>
-    <div class="cards">
-
-      <a href="https://kbfinancialadvisors.com/10b5-1-plan/" class="card">
-        <div class="card-badges">
-          <span class="badge">10b5-1 Plan</span>
-          
-        </div>
-        <h4>10b5-1 Plan</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
+    <div class="topic-filter">
+      <div class="chips">
+        <button type="button" class="chip chip-all is-active" data-target="all">All <span>45</span></button>
+        <button type="button" class="chip" data-target="stock-options">Stock Options <span>17</span></button>
+        <button type="button" class="chip" data-target="rsu-tax">RSU Tax <span>6</span></button>
+        <button type="button" class="chip" data-target="cost-basis">Cost Basis <span>4</span></button>
+        <button type="button" class="chip" data-target="private-company">Private Company <span>3</span></button>
+        <button type="button" class="chip" data-target="withholding">Withholding <span>3</span></button>
+        <button type="button" class="chip" data-target="10b5-1-plan">10b5-1 Plan <span>2</span></button>
+        <button type="button" class="chip" data-target="concentration">Concentration <span>2</span></button>
+        <button type="button" class="chip" data-target="double-trigger">Double-Trigger <span>2</span></button>
+        <button type="button" class="chip" data-target="espp">ESPP <span>2</span></button>
+        <button type="button" class="chip" data-target="life-goals">Life Goals <span>2</span></button>
+        <button type="button" class="chip" data-target="sale-timing">Sale Timing <span>2</span></button>
+      </div>
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" class="search-input" placeholder="Search this hub..." aria-label="Search articles">
+      </div>
+    </div>
+    <div class="empty-state" hidden>
+      <p>No articles match your search. Try a different word.</p>
+    </div>
+    <div class="cat-section" data-cat="stock-options" id="cat-stock-options">
+      <div class="cat-head">
+        <h3>Stock Options</h3>
+        <span class="cat-count">17 articles</span>
+      </div>
+      <div class="cards">
       <a href="https://kbfinancialadvisors.com/3-tech-employees-3-stock-option-strategies/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>3 Tech Employees, 3 Stock Option Strategies</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/5-key-decisions-make-stock-options/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>5 Key Decisions to Make on Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/5-lessons-learned-missing-cost-basis/" class="card">
-        <div class="card-badges">
-          <span class="badge">Cost Basis</span>
-          
-        </div>
-        <h4>5 Lessons Learned: Missing Cost Basis</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/5-ways-to-plan-for-double-trigger-rsu/" class="card">
-        <div class="card-badges">
-          <span class="badge">Double-Trigger</span>
-          
-        </div>
-        <h4>5 Ways to Plan for Double-Trigger RSUs</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/avoid-the-irs-tax-trap-on-stock-options/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>Avoid the IRS Tax Trap on Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/best-investments-with-stock-options/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>Best Investments With Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/company-stock-percentage/" class="card">
-        <div class="card-badges">
-          <span class="badge">Concentration</span>
-          
-        </div>
-        <h4>Company Stock Percentage</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/concentration-risk/" class="card">
-        <div class="card-badges">
-          <span class="badge">Concentration</span>
-          
-        </div>
-        <h4>Concentration Risk</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/cpa-for-stock-option-taxes/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>CPA for Stock Option Taxes</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/definitive-guide-employee-stock-options/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>Definitive Guide to Employee Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/definitive-guide-to-restricted-stock-units/" class="card">
-        <div class="card-badges">
-          <span class="badge">RSU Tax</span>
-          
-        </div>
-        <h4>Definitive Guide to Restricted Stock Units</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/difference-between-rsus-and-stock-options/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>Difference Between RSUs and Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/double-trigger-rsu-taxes/" class="card">
-        <div class="card-badges">
-          <span class="badge">Double-Trigger</span>
-          
-        </div>
-        <h4>Double-Trigger RSU Taxes</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/employee-stock-purchase-plans-get-started/" class="card">
-        <div class="card-badges">
-          <span class="badge">ESPP</span>
-          
-        </div>
-        <h4>Employee Stock Purchase Plans (ESPP): Get Started</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/exercising-stock-options-private-company/" class="card">
-        <div class="card-badges">
-          <span class="badge">Private Company</span>
-          <span class="cross">Also in: AMT</span>
-        </div>
-        <h4>Exercising Stock Options at a Private Company</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/fair-market-value-vs-cost-basis/" class="card">
-        <div class="card-badges">
-          <span class="badge">Cost Basis</span>
-          
-        </div>
-        <h4>Fair Market Value vs. Cost Basis</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/fix-rsu-tax-underwithholding-issues/" class="card">
-        <div class="card-badges">
-          <span class="badge">Withholding</span>
-          
-        </div>
-        <h4>Fix RSU Tax Underwithholding Issues</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/how-does-espp-work/" class="card">
-        <div class="card-badges">
-          <span class="badge">ESPP</span>
-          
-        </div>
-        <h4>How Does an ESPP Work?</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/how-to-avoid-surprise-taxes-on-rsu-stock/" class="card">
-        <div class="card-badges">
-          <span class="badge">Withholding</span>
-          
-        </div>
-        <h4>How to Avoid Surprise Taxes on RSU Stock</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/how-to-pay-for-college-with-stock-options/" class="card">
-        <div class="card-badges">
-          <span class="badge">Life Goals</span>
-          
-        </div>
-        <h4>How to Pay for College With Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/how-to-use-stock-options-to-buy-a-house/" class="card">
-        <div class="card-badges">
-          <span class="badge">Life Goals</span>
-          
-        </div>
-        <h4>How to Use Stock Options to Buy a House</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/invest-cash-after-exercising-stock-options/" class="card">
-        <div class="card-badges">
-          <span class="badge">Private Company</span>
-          
-        </div>
-        <h4>Invest Cash After Exercising Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/mistakes-with-employee-stock-options/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>Mistakes With Employee Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/powerful-stock-option-investment-strategy/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>Powerful Stock Option Investment Strategy</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/private-company-stock-options/" class="card">
-        <div class="card-badges">
-          <span class="badge">Private Company</span>
-          <span class="cross">Also in: AMT</span>
-        </div>
-        <h4>Private Company Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/restricted-stock-beginner-guide/" class="card">
-        <div class="card-badges">
-          <span class="badge">RSU Tax</span>
-          
-        </div>
-        <h4>Restricted Stock Beginner Guide</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/rsu-cost-basis-tech-employees-guide/" class="card">
-        <div class="card-badges">
-          <span class="badge">Cost Basis</span>
-          
-        </div>
-        <h4>RSU Cost Basis: Tech Employees Guide</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/rsu-stock-options-after-layoff/" class="card">
-        <div class="card-badges">
-          <span class="badge">RSU Tax</span>
-          
-        </div>
-        <h4>RSU Stock Options After Layoff</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/rsu-strategies-for-tech-professionals/" class="card">
-        <div class="card-badges">
-          <span class="badge">RSU Tax</span>
-          
-        </div>
-        <h4>RSU Strategies for Tech Professionals</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/rsus-vs-stock-options/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>RSUs vs. Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/selling-stock-options-highest-tax-bracket/" class="card">
-        <div class="card-badges">
-          <span class="badge">Sale Timing</span>
-          
-        </div>
-        <h4>Selling Stock Options in the Highest Tax Bracket</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/state-taxation-of-stock-options-after-move/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>State Taxation of Stock Options After a Move</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/stock-option-decisions-make-best-choice/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>Stock Option Decisions: Make the Best Choice</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/stock-options-101/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>Stock Options 101</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/stock-options-when-you-quit-what-to-do/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>Stock Options When You Quit: What to Do</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/tech-employee-guide-to-rsu-taxes-2025/" class="card">
-        <div class="card-badges">
-          <span class="badge">RSU Tax</span>
-          
-        </div>
-        <h4>Tech Employee Guide to RSU Taxes 2025</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/understand-cost-basis/" class="card">
-        <div class="card-badges">
-          <span class="badge">Cost Basis</span>
-          
-        </div>
-        <h4>Understand Cost Basis</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/understanding-your-pay-stub-stock-options/" class="card">
         <div class="card-badges">
@@ -636,59 +523,282 @@ footer a:hover { color: var(--green-l); }
           <span class="cross">Also in: AMT</span>
         </div>
         <h4>Understanding Your Pay Stub: Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/understanding-your-pay-stub/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>Understanding Your Pay Stub</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/using-charitable-giving-to-offset-rsu-or-stock-option-gains/" class="card">
-        <div class="card-badges">
-          <span class="badge">RSU Tax</span>
-          
-        </div>
-        <h4>Using Charitable Giving to Offset RSU or Stock Option Gains</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/what-is-10b5-1-plan-should-i-participate/" class="card">
-        <div class="card-badges">
-          <span class="badge">10b5-1 Plan</span>
-          
-        </div>
-        <h4>What Is a 10b5-1 Plan? Should I Participate?</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/when-to-sell-stock-options-vs-rsu/" class="card">
-        <div class="card-badges">
-          <span class="badge">Sale Timing</span>
-          
-        </div>
-        <h4>When to Sell Stock Options vs. RSUs</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/where-to-find-stock-option-tax-documents/" class="card">
         <div class="card-badges">
           <span class="badge">Stock Options</span>
-          
         </div>
         <h4>Where to Find Stock Option Tax Documents</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
+      </a>
+      </div>
+    </div>
+
+    <div class="cat-section" data-cat="rsu-tax" id="cat-rsu-tax">
+      <div class="cat-head">
+        <h3>RSU Tax</h3>
+        <span class="cat-count">6 articles</span>
+      </div>
+      <div class="cards">
+      <a href="https://kbfinancialadvisors.com/definitive-guide-to-restricted-stock-units/" class="card">
+        <div class="card-badges">
+          <span class="badge">RSU Tax</span>
+        </div>
+        <h4>Definitive Guide to Restricted Stock Units</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/restricted-stock-beginner-guide/" class="card">
+        <div class="card-badges">
+          <span class="badge">RSU Tax</span>
+        </div>
+        <h4>Restricted Stock Beginner Guide</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/rsu-stock-options-after-layoff/" class="card">
+        <div class="card-badges">
+          <span class="badge">RSU Tax</span>
+        </div>
+        <h4>RSU Stock Options After Layoff</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/rsu-strategies-for-tech-professionals/" class="card">
+        <div class="card-badges">
+          <span class="badge">RSU Tax</span>
+        </div>
+        <h4>RSU Strategies for Tech Professionals</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/tech-employee-guide-to-rsu-taxes-2025/" class="card">
+        <div class="card-badges">
+          <span class="badge">RSU Tax</span>
+        </div>
+        <h4>Tech Employee Guide to RSU Taxes 2025</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/using-charitable-giving-to-offset-rsu-or-stock-option-gains/" class="card">
+        <div class="card-badges">
+          <span class="badge">RSU Tax</span>
+        </div>
+        <h4>Using Charitable Giving to Offset RSU or Stock Option Gains</h4>
+      </a>
+      </div>
+    </div>
+
+    <div class="cat-section" data-cat="cost-basis" id="cat-cost-basis">
+      <div class="cat-head">
+        <h3>Cost Basis</h3>
+        <span class="cat-count">4 articles</span>
+      </div>
+      <div class="cards">
+      <a href="https://kbfinancialadvisors.com/5-lessons-learned-missing-cost-basis/" class="card">
+        <div class="card-badges">
+          <span class="badge">Cost Basis</span>
+        </div>
+        <h4>5 Lessons Learned: Missing Cost Basis</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/fair-market-value-vs-cost-basis/" class="card">
+        <div class="card-badges">
+          <span class="badge">Cost Basis</span>
+        </div>
+        <h4>Fair Market Value vs. Cost Basis</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/rsu-cost-basis-tech-employees-guide/" class="card">
+        <div class="card-badges">
+          <span class="badge">Cost Basis</span>
+        </div>
+        <h4>RSU Cost Basis: Tech Employees Guide</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/understand-cost-basis/" class="card">
+        <div class="card-badges">
+          <span class="badge">Cost Basis</span>
+        </div>
+        <h4>Understand Cost Basis</h4>
+      </a>
+      </div>
+    </div>
+
+    <div class="cat-section" data-cat="private-company" id="cat-private-company">
+      <div class="cat-head">
+        <h3>Private Company</h3>
+        <span class="cat-count">3 articles</span>
+      </div>
+      <div class="cards">
+      <a href="https://kbfinancialadvisors.com/exercising-stock-options-private-company/" class="card">
+        <div class="card-badges">
+          <span class="badge">Private Company</span>
+          <span class="cross">Also in: AMT</span>
+        </div>
+        <h4>Exercising Stock Options at a Private Company</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/invest-cash-after-exercising-stock-options/" class="card">
+        <div class="card-badges">
+          <span class="badge">Private Company</span>
+        </div>
+        <h4>Invest Cash After Exercising Stock Options</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/private-company-stock-options/" class="card">
+        <div class="card-badges">
+          <span class="badge">Private Company</span>
+          <span class="cross">Also in: AMT</span>
+        </div>
+        <h4>Private Company Stock Options</h4>
+      </a>
+      </div>
+    </div>
+
+    <div class="cat-section" data-cat="withholding" id="cat-withholding">
+      <div class="cat-head">
+        <h3>Withholding</h3>
+        <span class="cat-count">3 articles</span>
+      </div>
+      <div class="cards">
+      <a href="https://kbfinancialadvisors.com/fix-rsu-tax-underwithholding-issues/" class="card">
+        <div class="card-badges">
+          <span class="badge">Withholding</span>
+        </div>
+        <h4>Fix RSU Tax Underwithholding Issues</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/how-to-avoid-surprise-taxes-on-rsu-stock/" class="card">
+        <div class="card-badges">
+          <span class="badge">Withholding</span>
+        </div>
+        <h4>How to Avoid Surprise Taxes on RSU Stock</h4>
       </a>
       <a href="https://kbfinancialadvisors.com/withholding-tax-on-stock-options/" class="card">
         <div class="card-badges">
           <span class="badge">Withholding</span>
-          
         </div>
         <h4>Withholding Tax on Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
+      </div>
     </div>
-  </div>
-</section>
+
+    <div class="cat-section" data-cat="10b5-1-plan" id="cat-10b5-1-plan">
+      <div class="cat-head">
+        <h3>10b5-1 Plan</h3>
+        <span class="cat-count">2 articles</span>
+      </div>
+      <div class="cards">
+      <a href="https://kbfinancialadvisors.com/10b5-1-plan/" class="card">
+        <div class="card-badges">
+          <span class="badge">10b5-1 Plan</span>
+        </div>
+        <h4>10b5-1 Plan</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/what-is-10b5-1-plan-should-i-participate/" class="card">
+        <div class="card-badges">
+          <span class="badge">10b5-1 Plan</span>
+        </div>
+        <h4>What Is a 10b5-1 Plan? Should I Participate?</h4>
+      </a>
+      </div>
+    </div>
+
+    <div class="cat-section" data-cat="concentration" id="cat-concentration">
+      <div class="cat-head">
+        <h3>Concentration</h3>
+        <span class="cat-count">2 articles</span>
+      </div>
+      <div class="cards">
+      <a href="https://kbfinancialadvisors.com/company-stock-percentage/" class="card">
+        <div class="card-badges">
+          <span class="badge">Concentration</span>
+        </div>
+        <h4>Company Stock Percentage</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/concentration-risk/" class="card">
+        <div class="card-badges">
+          <span class="badge">Concentration</span>
+        </div>
+        <h4>Concentration Risk</h4>
+      </a>
+      </div>
+    </div>
+
+    <div class="cat-section" data-cat="double-trigger" id="cat-double-trigger">
+      <div class="cat-head">
+        <h3>Double-Trigger</h3>
+        <span class="cat-count">2 articles</span>
+      </div>
+      <div class="cards">
+      <a href="https://kbfinancialadvisors.com/5-ways-to-plan-for-double-trigger-rsu/" class="card">
+        <div class="card-badges">
+          <span class="badge">Double-Trigger</span>
+        </div>
+        <h4>5 Ways to Plan for Double-Trigger RSUs</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/double-trigger-rsu-taxes/" class="card">
+        <div class="card-badges">
+          <span class="badge">Double-Trigger</span>
+        </div>
+        <h4>Double-Trigger RSU Taxes</h4>
+      </a>
+      </div>
+    </div>
+
+    <div class="cat-section" data-cat="espp" id="cat-espp">
+      <div class="cat-head">
+        <h3>ESPP</h3>
+        <span class="cat-count">2 articles</span>
+      </div>
+      <div class="cards">
+      <a href="https://kbfinancialadvisors.com/employee-stock-purchase-plans-get-started/" class="card">
+        <div class="card-badges">
+          <span class="badge">ESPP</span>
+        </div>
+        <h4>Employee Stock Purchase Plans (ESPP): Get Started</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/how-does-espp-work/" class="card">
+        <div class="card-badges">
+          <span class="badge">ESPP</span>
+        </div>
+        <h4>How Does an ESPP Work?</h4>
+      </a>
+      </div>
+    </div>
+
+    <div class="cat-section" data-cat="life-goals" id="cat-life-goals">
+      <div class="cat-head">
+        <h3>Life Goals</h3>
+        <span class="cat-count">2 articles</span>
+      </div>
+      <div class="cards">
+      <a href="https://kbfinancialadvisors.com/how-to-pay-for-college-with-stock-options/" class="card">
+        <div class="card-badges">
+          <span class="badge">Life Goals</span>
+        </div>
+        <h4>How to Pay for College With Stock Options</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/how-to-use-stock-options-to-buy-a-house/" class="card">
+        <div class="card-badges">
+          <span class="badge">Life Goals</span>
+        </div>
+        <h4>How to Use Stock Options to Buy a House</h4>
+      </a>
+      </div>
+    </div>
+
+    <div class="cat-section" data-cat="sale-timing" id="cat-sale-timing">
+      <div class="cat-head">
+        <h3>Sale Timing</h3>
+        <span class="cat-count">2 articles</span>
+      </div>
+      <div class="cards">
+      <a href="https://kbfinancialadvisors.com/selling-stock-options-highest-tax-bracket/" class="card">
+        <div class="card-badges">
+          <span class="badge">Sale Timing</span>
+        </div>
+        <h4>Selling Stock Options in the Highest Tax Bracket</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/when-to-sell-stock-options-vs-rsu/" class="card">
+        <div class="card-badges">
+          <span class="badge">Sale Timing</span>
+        </div>
+        <h4>When to Sell Stock Options vs. RSUs</h4>
+      </a>
+      </div>
+    </div>
+  </section>
 
 <section class="nav-strip">
   <div class="container">
@@ -726,6 +836,61 @@ footer a:hover { color: var(--green-l); }
     <div class="foot-bot">© KB Financial Advisors. Cluster hub mockup prepared by Markology for internal review.</div>
   </div>
 </footer>
+
+
+<script>
+(function() {
+  const chips = document.querySelectorAll('.chip');
+  const sections = document.querySelectorAll('.cat-section');
+  const searchInput = document.querySelector('.search-input');
+  const emptyState = document.querySelector('.empty-state');
+
+  function setActiveChip(target) {
+    chips.forEach(c => c.classList.toggle('is-active', c.dataset.target === target));
+  }
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const target = chip.dataset.target;
+      setActiveChip(target);
+      searchInput.value = '';
+      applyFilters(target, '');
+      if (target !== 'all') {
+        const sec = document.getElementById('cat-' + target);
+        if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        document.querySelector('.cards-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  searchInput.addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    setActiveChip('all');
+    applyFilters('all', q);
+  });
+
+  function applyFilters(target, q) {
+    let anyVisible = false;
+    sections.forEach(sec => {
+      const catMatch = target === 'all' || sec.dataset.cat === target;
+      if (!catMatch) { sec.hidden = true; return; }
+      const cards = sec.querySelectorAll('.card');
+      let visibleCount = 0;
+      cards.forEach(card => {
+        const title = card.querySelector('h4').textContent.toLowerCase();
+        const badge = card.querySelector('.badge').textContent.toLowerCase();
+        const match = !q || title.includes(q) || badge.includes(q);
+        card.style.display = match ? '' : 'none';
+        if (match) visibleCount++;
+      });
+      sec.hidden = visibleCount === 0;
+      if (visibleCount > 0) anyVisible = true;
+    });
+    emptyState.hidden = anyVisible;
+  }
+})();
+</script>
 
 </body>
 </html>

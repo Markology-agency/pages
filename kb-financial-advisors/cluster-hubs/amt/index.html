@@ -260,6 +260,87 @@ footer a:hover { color: var(--green-l); }
 @media (max-width: 720px) { .foot-grid { grid-template-columns: 1fr; gap: 24px; } }
 .foot-grid strong { color: var(--white); font-family: 'Source Serif 4', serif; font-weight: 500; }
 .foot-bot { padding-top: 28px; margin-top: 36px; border-top: 1px solid rgba(255,255,255,.12); font-size: 12.5px; opacity: .6; }
+
+/* Compact card + grouped listing + filter chips */
+.section-head-meta { display: flex; align-items: center; gap: 20px; }
+.topic-filter { margin-bottom: 40px; display: flex; flex-direction: column; gap: 16px; }
+.topic-filter .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 8px 16px;
+  background: var(--white);
+  border: 1px solid var(--hair);
+  border-radius: 999px;
+  font-size: 13px; font-weight: 500;
+  color: var(--ink); cursor: pointer;
+  font-family: inherit;
+  transition: background .15s ease, border-color .15s ease, color .15s ease, transform .15s ease;
+}
+.chip span {
+  font-size: 11px; color: var(--mute); font-weight: 600;
+  background: var(--soft); padding: 2px 8px; border-radius: 999px;
+  transition: background .15s ease, color .15s ease;
+}
+.chip:hover { border-color: rgba(3,71,52,0.3); color: var(--green); }
+.chip.is-active { background: var(--green); color: var(--white); border-color: var(--green); }
+.chip.is-active span { background: rgba(255,255,255,0.18); color: var(--white); }
+.search-wrap {
+  position: relative;
+  max-width: 420px;
+}
+.search-input {
+  width: 100%;
+  padding: 12px 16px 12px 44px;
+  border: 1px solid var(--hair);
+  border-radius: 999px;
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--ink);
+  background: var(--white);
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.search-input:focus {
+  outline: none;
+  border-color: var(--green-l);
+  box-shadow: 0 0 0 3px rgba(88,179,90,0.15);
+}
+.search-icon {
+  position: absolute; left: 16px; top: 50%; transform: translateY(-50%);
+  width: 18px; height: 18px; color: var(--mute); pointer-events: none;
+}
+.cat-section { margin-bottom: 60px; scroll-margin-top: 90px; }
+.cat-section:last-child { margin-bottom: 0; }
+.cat-section[hidden] { display: none; }
+.cat-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px; margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--hair);
+}
+.cat-head h3 { font-size: 22px; font-weight: 500; color: var(--green); font-family: 'Source Serif 4', serif; }
+.cat-count { font-size: 12.5px; font-weight: 600; color: var(--mute); letter-spacing: 0.12em; text-transform: uppercase; }
+.empty-state {
+  padding: 40px 24px;
+  text-align: center;
+  color: var(--mute);
+  background: var(--soft);
+  border-radius: 14px;
+  margin-bottom: 40px;
+}
+
+/* Override for more compact cards */
+.card { padding: 20px 22px 18px; min-height: 0; }
+.card h4 { font-size: 16px; line-height: 1.35; margin-bottom: 0; }
+.card .meta { display: none; }
+.card-badges { margin-bottom: 12px; }
+.card::after {
+  content: "→"; position: absolute; top: 20px; right: 22px;
+  color: var(--green); font-size: 16px; font-weight: 600;
+  opacity: 0; transition: opacity .2s ease, transform .2s ease;
+}
+.card { position: relative; }
+.card:hover::after { opacity: 1; transform: translateX(4px); }
+
 </style>
 </head>
 <body>
@@ -276,9 +357,6 @@ footer a:hover { color: var(--green-l); }
   </div>
 </nav>
 
-<div class="crumb">
-  <div class="container"><a href="../">All Resource Hubs</a><span class="sep">/</span><span>I Have ISOs and AMT Risk</span></div>
-</div>
 
 <section class="hubhead">
   <div class="container hubhead-inner">
@@ -322,97 +400,51 @@ footer a:hover { color: var(--green-l); }
   <div class="container">
     <div class="section-head">
       <h2>Every article in this hub</h2>
-      <div class="count">30 articles</div>
+      <div class="section-head-meta">
+        <div class="count">30 articles</div>
+      </div>
     </div>
-    <div class="cards">
-
-      <a href="https://kbfinancialadvisors.com/alternative-minimum-tax-amt/" class="card">
-        <div class="card-badges">
-          <span class="badge">AMT</span>
-          
-        </div>
-        <h4>Alternative Minimum Tax (AMT)</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/alternative-minimum-tax-iso/" class="card">
-        <div class="card-badges">
-          <span class="badge">AMT</span>
-          
-        </div>
-        <h4>Alternative Minimum Tax: ISO</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/amt-calculator-explained/" class="card">
-        <div class="card-badges">
-          <span class="badge">AMT</span>
-          
-        </div>
-        <h4>AMT Calculator Explained</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/amt-credit-carryforward-with-iso-explained/" class="card">
-        <div class="card-badges">
-          <span class="badge">AMT Credit</span>
-          
-        </div>
-        <h4>AMT Credit Carryforward With ISO Explained</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/amt-credit/" class="card">
-        <div class="card-badges">
-          <span class="badge">AMT Credit</span>
-          
-        </div>
-        <h4>AMT Credit</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/avoid-amt-on-iso-exercise/" class="card">
-        <div class="card-badges">
-          <span class="badge">AMT</span>
-          
-        </div>
-        <h4>Avoid AMT on ISO Exercise</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/borrow-money-for-incentive-stock-options/" class="card">
-        <div class="card-badges">
-          <span class="badge">ISO</span>
-          
-        </div>
-        <h4>Borrow Money for Incentive Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
+    <div class="topic-filter">
+      <div class="chips">
+        <button type="button" class="chip chip-all is-active" data-target="all">All <span>30</span></button>
+        <button type="button" class="chip" data-target="iso-exercise">ISO Exercise <span>9</span></button>
+        <button type="button" class="chip" data-target="amt">AMT <span>8</span></button>
+        <button type="button" class="chip" data-target="iso">ISO <span>8</span></button>
+        <button type="button" class="chip" data-target="amt-credit">AMT Credit <span>2</span></button>
+        <button type="button" class="chip" data-target="iso-tax">ISO Tax <span>2</span></button>
+        <button type="button" class="chip" data-target="more-resources">More resources <span>1</span></button>
+      </div>
+      <div class="search-wrap">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" class="search-input" placeholder="Search this hub..." aria-label="Search articles">
+      </div>
+    </div>
+    <div class="empty-state" hidden>
+      <p>No articles match your search. Try a different word.</p>
+    </div>
+    <div class="cat-section" data-cat="iso-exercise" id="cat-iso-exercise">
+      <div class="cat-head">
+        <h3>ISO Exercise</h3>
+        <span class="cat-count">9 articles</span>
+      </div>
+      <div class="cards">
       <a href="https://kbfinancialadvisors.com/cashless-exercise-example/" class="card">
         <div class="card-badges">
           <span class="badge">ISO Exercise</span>
-          
         </div>
         <h4>Cashless Exercise Example</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/cashless-exercise/" class="card">
         <div class="card-badges">
           <span class="badge">ISO Exercise</span>
-          
         </div>
         <h4>Cashless Exercise</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/disqualifying-disposition/" class="card">
-        <div class="card-badges">
-          <span class="badge">Qualifying Disposition</span>
-          
-        </div>
-        <h4>Disqualifying Disposition</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/exercise-incentive-stock-options-january/" class="card">
         <div class="card-badges">
           <span class="badge">ISO Exercise</span>
-          
         </div>
         <h4>Exercise Incentive Stock Options in January</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/exercise-stock-options-after-leaving/" class="card">
         <div class="card-badges">
@@ -420,7 +452,6 @@ footer a:hover { color: var(--green-l); }
           <span class="cross">Also in: RSU</span>
         </div>
         <h4>Exercise Stock Options After Leaving</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/exercise-my-private-companys-stock-options/" class="card">
         <div class="card-badges">
@@ -428,111 +459,12 @@ footer a:hover { color: var(--green-l); }
           <span class="cross">Also in: RSU</span>
         </div>
         <h4>Exercise My Private Company's Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/how-to-use-amt-tax-credit-maximum-savings/" class="card">
-        <div class="card-badges">
-          <span class="badge">AMT</span>
-          
-        </div>
-        <h4>How to Use AMT Tax Credit for Maximum Savings</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/how-to-use-incentive-stock-options/" class="card">
-        <div class="card-badges">
-          <span class="badge">ISO</span>
-          
-        </div>
-        <h4>How to Use Incentive Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/incentive-stock-options-amt-and-cost-basis/" class="card">
-        <div class="card-badges">
-          <span class="badge">AMT</span>
-          
-        </div>
-        <h4>Incentive Stock Options: AMT and Cost Basis</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/incentive-stock-options-basics/" class="card">
-        <div class="card-badges">
-          <span class="badge">ISO</span>
-          
-        </div>
-        <h4>Incentive Stock Options Basics</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/iso-exercise-strategy/" class="card">
         <div class="card-badges">
           <span class="badge">ISO Exercise</span>
-          
         </div>
         <h4>ISO Exercise Strategy</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/iso-tax-treatment-12-month-plan/" class="card">
-        <div class="card-badges">
-          <span class="badge">ISO</span>
-          
-        </div>
-        <h4>ISO Tax Treatment: 12-Month Plan</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/iso-to-nso-conversion/" class="card">
-        <div class="card-badges">
-          <span class="badge">ISO</span>
-          <span class="cross">Also in: RSU</span>
-        </div>
-        <h4>ISO to NSO Conversion</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/iso-vs-nso/" class="card">
-        <div class="card-badges">
-          <span class="badge">ISO</span>
-          <span class="cross">Also in: RSU</span>
-        </div>
-        <h4>ISO vs. NSO</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/new-isos-amt-tax-laws-you-need-know/" class="card">
-        <div class="card-badges">
-          <span class="badge">AMT</span>
-          
-        </div>
-        <h4>New ISOs: AMT Tax Laws You Need to Know</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/non-qualified-stock-options-san-francisco/" class="card">
-        <div class="card-badges">
-          <span class="badge">ISO Tax</span>
-          <span class="cross">Also in: RSU</span>
-        </div>
-        <h4>NQSO Stock Options Tax Treatment</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/san-fran-avoid-amt-company-stock-drops/" class="card">
-        <div class="card-badges">
-          <span class="badge">AMT</span>
-          
-        </div>
-        <h4>San Francisco: Avoid AMT When Company Stock Drops</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/selling-stock-before-year-end/" class="card">
-        <div class="card-badges">
-          <span class="badge">ISO</span>
-          
-        </div>
-        <h4>Selling Stock Before Year-End</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
-      </a>
-      <a href="https://kbfinancialadvisors.com/selling-stocks-to-buy-a-house/" class="card">
-        <div class="card-badges">
-          <span class="badge">ISO</span>
-          <span class="cross">Also in: RSU</span>
-        </div>
-        <h4>Selling Stocks to Buy a House</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/should-i-exercise-stock-options/" class="card">
         <div class="card-badges">
@@ -540,15 +472,12 @@ footer a:hover { color: var(--green-l); }
           <span class="cross">Also in: RSU</span>
         </div>
         <h4>Should I Exercise Stock Options?</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/stock-fall-selling-iso-exercised-in-jan/" class="card">
         <div class="card-badges">
           <span class="badge">ISO Exercise</span>
-          
         </div>
         <h4>Stock Fall: Selling ISO Exercised in January</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
       <a href="https://kbfinancialadvisors.com/what-happens-if-you-dont-exercise-stock-options/" class="card">
         <div class="card-badges">
@@ -556,7 +485,160 @@ footer a:hover { color: var(--green-l); }
           <span class="cross">Also in: RSU</span>
         </div>
         <h4>What Happens If You Don't Exercise Stock Options</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
+      </a>
+      </div>
+    </div>
+
+    <div class="cat-section" data-cat="amt" id="cat-amt">
+      <div class="cat-head">
+        <h3>AMT</h3>
+        <span class="cat-count">8 articles</span>
+      </div>
+      <div class="cards">
+      <a href="https://kbfinancialadvisors.com/alternative-minimum-tax-amt/" class="card">
+        <div class="card-badges">
+          <span class="badge">AMT</span>
+        </div>
+        <h4>Alternative Minimum Tax (AMT)</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/alternative-minimum-tax-iso/" class="card">
+        <div class="card-badges">
+          <span class="badge">AMT</span>
+        </div>
+        <h4>Alternative Minimum Tax: ISO</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/amt-calculator-explained/" class="card">
+        <div class="card-badges">
+          <span class="badge">AMT</span>
+        </div>
+        <h4>AMT Calculator Explained</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/avoid-amt-on-iso-exercise/" class="card">
+        <div class="card-badges">
+          <span class="badge">AMT</span>
+        </div>
+        <h4>Avoid AMT on ISO Exercise</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/how-to-use-amt-tax-credit-maximum-savings/" class="card">
+        <div class="card-badges">
+          <span class="badge">AMT</span>
+        </div>
+        <h4>How to Use AMT Tax Credit for Maximum Savings</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/incentive-stock-options-amt-and-cost-basis/" class="card">
+        <div class="card-badges">
+          <span class="badge">AMT</span>
+        </div>
+        <h4>Incentive Stock Options: AMT and Cost Basis</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/new-isos-amt-tax-laws-you-need-know/" class="card">
+        <div class="card-badges">
+          <span class="badge">AMT</span>
+        </div>
+        <h4>New ISOs: AMT Tax Laws You Need to Know</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/san-fran-avoid-amt-company-stock-drops/" class="card">
+        <div class="card-badges">
+          <span class="badge">AMT</span>
+        </div>
+        <h4>San Francisco: Avoid AMT When Company Stock Drops</h4>
+      </a>
+      </div>
+    </div>
+
+    <div class="cat-section" data-cat="iso" id="cat-iso">
+      <div class="cat-head">
+        <h3>ISO</h3>
+        <span class="cat-count">8 articles</span>
+      </div>
+      <div class="cards">
+      <a href="https://kbfinancialadvisors.com/borrow-money-for-incentive-stock-options/" class="card">
+        <div class="card-badges">
+          <span class="badge">ISO</span>
+        </div>
+        <h4>Borrow Money for Incentive Stock Options</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/how-to-use-incentive-stock-options/" class="card">
+        <div class="card-badges">
+          <span class="badge">ISO</span>
+        </div>
+        <h4>How to Use Incentive Stock Options</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/incentive-stock-options-basics/" class="card">
+        <div class="card-badges">
+          <span class="badge">ISO</span>
+        </div>
+        <h4>Incentive Stock Options Basics</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/iso-tax-treatment-12-month-plan/" class="card">
+        <div class="card-badges">
+          <span class="badge">ISO</span>
+        </div>
+        <h4>ISO Tax Treatment: 12-Month Plan</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/iso-to-nso-conversion/" class="card">
+        <div class="card-badges">
+          <span class="badge">ISO</span>
+          <span class="cross">Also in: RSU</span>
+        </div>
+        <h4>ISO to NSO Conversion</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/iso-vs-nso/" class="card">
+        <div class="card-badges">
+          <span class="badge">ISO</span>
+          <span class="cross">Also in: RSU</span>
+        </div>
+        <h4>ISO vs. NSO</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/selling-stock-before-year-end/" class="card">
+        <div class="card-badges">
+          <span class="badge">ISO</span>
+        </div>
+        <h4>Selling Stock Before Year-End</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/selling-stocks-to-buy-a-house/" class="card">
+        <div class="card-badges">
+          <span class="badge">ISO</span>
+          <span class="cross">Also in: RSU</span>
+        </div>
+        <h4>Selling Stocks to Buy a House</h4>
+      </a>
+      </div>
+    </div>
+
+    <div class="cat-section" data-cat="amt-credit" id="cat-amt-credit">
+      <div class="cat-head">
+        <h3>AMT Credit</h3>
+        <span class="cat-count">2 articles</span>
+      </div>
+      <div class="cards">
+      <a href="https://kbfinancialadvisors.com/amt-credit-carryforward-with-iso-explained/" class="card">
+        <div class="card-badges">
+          <span class="badge">AMT Credit</span>
+        </div>
+        <h4>AMT Credit Carryforward With ISO Explained</h4>
+      </a>
+      <a href="https://kbfinancialadvisors.com/amt-credit/" class="card">
+        <div class="card-badges">
+          <span class="badge">AMT Credit</span>
+        </div>
+        <h4>AMT Credit</h4>
+      </a>
+      </div>
+    </div>
+
+    <div class="cat-section" data-cat="iso-tax" id="cat-iso-tax">
+      <div class="cat-head">
+        <h3>ISO Tax</h3>
+        <span class="cat-count">2 articles</span>
+      </div>
+      <div class="cards">
+      <a href="https://kbfinancialadvisors.com/non-qualified-stock-options-san-francisco/" class="card">
+        <div class="card-badges">
+          <span class="badge">ISO Tax</span>
+          <span class="cross">Also in: RSU</span>
+        </div>
+        <h4>NQSO Stock Options Tax Treatment</h4>
       </a>
       <a href="https://kbfinancialadvisors.com/83i-election-for-nqso-rsu-big-tax-break/" class="card">
         <div class="card-badges">
@@ -564,11 +646,25 @@ footer a:hover { color: var(--green-l); }
           <span class="cross">Also in: RSU</span>
         </div>
         <h4>83(i) Election for NQSO RSU: Big Tax Break</h4>
-        <div class="meta">Read article<span class="arrow">→</span></div>
       </a>
+      </div>
     </div>
-  </div>
-</section>
+
+    <div class="cat-section" data-cat="more-resources" id="cat-more-resources">
+      <div class="cat-head">
+        <h3>More resources</h3>
+        <span class="cat-count">1 article</span>
+      </div>
+      <div class="cards">
+      <a href="https://kbfinancialadvisors.com/disqualifying-disposition/" class="card">
+        <div class="card-badges">
+          <span class="badge">Qualifying Disposition</span>
+        </div>
+        <h4>Disqualifying Disposition</h4>
+      </a>
+      </div>
+    </div>
+  </section>
 
 <section class="nav-strip">
   <div class="container">
@@ -606,6 +702,61 @@ footer a:hover { color: var(--green-l); }
     <div class="foot-bot">© KB Financial Advisors. Cluster hub mockup prepared by Markology for internal review.</div>
   </div>
 </footer>
+
+
+<script>
+(function() {
+  const chips = document.querySelectorAll('.chip');
+  const sections = document.querySelectorAll('.cat-section');
+  const searchInput = document.querySelector('.search-input');
+  const emptyState = document.querySelector('.empty-state');
+
+  function setActiveChip(target) {
+    chips.forEach(c => c.classList.toggle('is-active', c.dataset.target === target));
+  }
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const target = chip.dataset.target;
+      setActiveChip(target);
+      searchInput.value = '';
+      applyFilters(target, '');
+      if (target !== 'all') {
+        const sec = document.getElementById('cat-' + target);
+        if (sec) sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        document.querySelector('.cards-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  searchInput.addEventListener('input', (e) => {
+    const q = e.target.value.trim().toLowerCase();
+    setActiveChip('all');
+    applyFilters('all', q);
+  });
+
+  function applyFilters(target, q) {
+    let anyVisible = false;
+    sections.forEach(sec => {
+      const catMatch = target === 'all' || sec.dataset.cat === target;
+      if (!catMatch) { sec.hidden = true; return; }
+      const cards = sec.querySelectorAll('.card');
+      let visibleCount = 0;
+      cards.forEach(card => {
+        const title = card.querySelector('h4').textContent.toLowerCase();
+        const badge = card.querySelector('.badge').textContent.toLowerCase();
+        const match = !q || title.includes(q) || badge.includes(q);
+        card.style.display = match ? '' : 'none';
+        if (match) visibleCount++;
+      });
+      sec.hidden = visibleCount === 0;
+      if (visibleCount > 0) anyVisible = true;
+    });
+    emptyState.hidden = anyVisible;
+  }
+})();
+</script>
 
 </body>
 </html>

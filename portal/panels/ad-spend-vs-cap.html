@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ad Spend vs Cap</title>
+<style>
+  :root{--bg:#0d1017;--panel:#151a23;--panel2:#1b212c;--line:#232b38;--ink:#e8edf4;
+    --dim:#8a96a8;--accent:#3872EB;--pos:#3fb37f;--warn:#d6a53c;--neg:#e5686f;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-size:15px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif}
+  .wrap{max-width:940px;margin:0 auto;padding:28px 22px 60px}
+  h1{font-size:21px;margin:0 0 2px;font-weight:700}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:20px}
+  .cards{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;flex:1;min-width:130px}
+  .card .k{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
+  .card .v{font-size:23px;font-weight:700;margin-top:5px}
+  .tablewrap{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:660px}
+  th,td{text-align:right;padding:12px 15px;font-variant-numeric:tabular-nums;white-space:nowrap}
+  th{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--line)}
+  th:first-child,td:first-child{text-align:left}
+  tbody tr{border-bottom:1px solid var(--line)}
+  tbody tr:last-child{border-bottom:0}
+  .client{font-weight:600;color:#c9d6ea}
+  .bar{position:relative;min-width:150px}
+  .bar .track{height:7px;background:var(--panel2);border-radius:4px;overflow:hidden;margin-top:5px}
+  .bar .fill{height:100%;border-radius:4px}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px}
+  .ok{color:var(--pos);background:rgba(63,179,127,.12)}
+  .watch{color:var(--warn);background:rgba(214,165,60,.14)}
+  .over{color:var(--neg);background:rgba(229,104,111,.14)}
+  .dim{color:var(--dim)}
+  .foot{color:var(--dim);font-size:12px;margin-top:14px;line-height:1.5}
+</style></head>
+<body><div class="wrap">
+  <h1>Ad Spend vs Monthly Cap</h1>
+  <div class="sub">Google + Meta (Markology-paid) vs each client's cap · July month-to-date, snapshot
+    <span id="gen"></span> · "Pace" projects month-end at the current daily rate</div>
+  <div class="cards">
+    <div class="card"><div class="k">Spent MTD</div><div class="v" id="c-spent">–</div></div>
+    <div class="card"><div class="k">Projected mo-end</div><div class="v" id="c-proj">–</div></div>
+    <div class="card"><div class="k">Total caps</div><div class="v" id="c-cap">–</div></div>
+    <div class="card"><div class="k">On pace to overspend</div><div class="v" id="c-over">–</div></div>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Client</th><th>Cap</th><th>Spent MTD</th><th>Pace (mo-end)</th>
+      <th>% of cap</th><th>Status</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table></div>
+  <div class="foot">Pace = spent ÷ 10 days elapsed × 31. Virjee Meta excluded (client-paid). Cherry Hill
+    uses the $200 default cap (not in the matrix). Snapshot is manual — re-pull ad spend to refresh.
+    Cap source: reference_client_ad_budget_matrix.md.</div>
+</div>
+<script>
+const ELAPSED=10, DAYS=31, GEN="2026-07-10";
+// July MTD Markology-paid ad spend (Google + Meta), pulled 2026-07-10
+const DATA=[
+  {c:"Adam Traywick",cap:200,s:36.52},
+  {c:"Affinity Accounting",cap:200,s:36.67},
+  {c:"Ashford Sky",cap:200,s:67.11},
+  {c:"Cherry Hill Advisory",cap:200,s:52.47},
+  {c:"Core Advisors",cap:200,s:73.46},
+  {c:"KB Financial Advisors",cap:200,s:55.67},
+  {c:"Keen Capital",cap:200,s:67.35},
+  {c:"Llamas Financial",cap:100,s:70.08},
+  {c:"Specialized Accounting Services",cap:200,s:65.58},
+  {c:"Steve Ellard CPA",cap:200,s:88.87},
+  {c:"Tarleton Estate Attorney",cap:200,s:63.34},
+  {c:"Thompson Flaherty",cap:200,s:0},
+  {c:"Traktion",cap:200,s:6.63},
+  {c:"Vast CFO",cap:200,s:28.19},
+  {c:"Virjee Consulting - Dental",cap:500,s:155.86},
+  {c:"Virjee Consulting - Local",cap:200,s:94.56},
+];
+const money=n=>"$"+n.toLocaleString(undefined,{maximumFractionDigits:0});
+document.getElementById('gen').textContent=GEN;
+const rows=DATA.map(d=>{const pace=d.s/ELAPSED*DAYS; return {...d,pace,pct:pace/d.cap};})
+  .sort((a,b)=>b.pct-a.pct);
+let tS=0,tP=0,tC=0,over=0;
+document.getElementById('rows').innerHTML=rows.map(r=>{
+  tS+=r.s;tP+=r.pace;tC+=r.cap;
+  const st=r.pct>=1?["over","OVER"]:r.pct>=.8?["watch","WATCH"]:["ok","OK"];
+  if(r.pct>=1)over++;
+  const col=r.pct>=1?"var(--neg)":r.pct>=.8?"var(--warn)":"var(--pos)";
+  const w=Math.min(100,r.pct*100).toFixed(0);
+  return `<tr>
+    <td class="client">${r.c}</td>
+    <td class="dim">${money(r.cap)}</td>
+    <td>${money(r.s)}</td>
+    <td class="bar">${money(r.pace)}<div class="track"><div class="fill" style="width:${w}%;background:${col}"></div></div></td>
+    <td>${(r.pct*100).toFixed(0)}%</td>
+    <td><span class="pill ${st[0]}">${st[1]}</span></td></tr>`;
+}).join('');
+document.getElementById('c-spent').textContent=money(tS);
+document.getElementById('c-proj').textContent=money(tP);
+document.getElementById('c-cap').textContent=money(tC);
+document.getElementById('c-over').innerHTML=`<span style="color:var(--neg)">${over}</span> <span class="dim" style="font-size:14px">clients</span>`;
+</script>
+</body></html>

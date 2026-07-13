@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Markology — Client Time &amp; Tokens</title>
+<style>
+  :root{
+    --bg:#0d1017; --panel:#151a23; --panel2:#1b212c; --line:#232b38;
+    --ink:#e8edf4; --dim:#8a96a8; --accent:#3872EB; --accent2:#7DA4F4;
+    --good:#3fb37f;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif;
+    font-size:15px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:32px 24px 64px}
+  h1{font-size:22px;margin:0 0 2px;font-weight:700;letter-spacing:-.01em}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:24px}
+  .cards{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:16px 18px;flex:1;min-width:150px}
+  .card .k{color:var(--dim);font-size:12px;text-transform:uppercase;
+    letter-spacing:.06em}
+  .card .v{font-size:26px;font-weight:700;margin-top:6px;letter-spacing:-.02em}
+  .controls{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+  .seg{display:inline-flex;background:var(--panel);border:1px solid var(--line);
+    border-radius:9px;overflow:hidden}
+  .seg button{background:none;border:0;color:var(--dim);padding:7px 14px;
+    font-size:13px;cursor:pointer;font-weight:600}
+  .seg button.on{background:var(--accent);color:#fff}
+  .tablewrap{background:var(--panel);border:1px solid var(--line);
+    border-radius:12px;overflow-x:auto}
+  table{width:100%;border-collapse:collapse;min-width:640px}
+  th,td{text-align:right;padding:13px 16px;font-variant-numeric:tabular-nums}
+  th{color:var(--dim);font-size:12px;font-weight:600;text-transform:uppercase;
+    letter-spacing:.05em;border-bottom:1px solid var(--line);cursor:pointer;
+    user-select:none}
+  th:first-child,td:first-child{text-align:left}
+  tbody tr{border-bottom:1px solid var(--line)}
+  tbody tr:last-child{border-bottom:0}
+  tbody tr:hover{background:var(--panel2)}
+  .client{color:var(--accent2);font-weight:600}
+  .bar{position:relative}
+  .bar span{position:absolute;left:16px;right:16px;bottom:6px;height:3px;
+    background:var(--line);border-radius:2px}
+  .bar span i{position:absolute;left:0;top:0;bottom:0;background:var(--accent);
+    border-radius:2px}
+  td.dim{color:var(--dim)}
+  .foot{color:var(--dim);font-size:12px;margin-top:16px}
+  .nb{color:var(--dim)}
+</style></head>
+<body><div class="wrap">
+  <h1>Client Time &amp; Tokens</h1>
+  <div class="sub">Auto-tallied from Claude Code sessions · split by activity ·
+    generated 2026-07-13 06:24</div>
+
+  <div class="cards">
+    <div class="card"><div class="k">Total time</div><div class="v" id="c-time">–</div></div>
+    <div class="card"><div class="k">Total tokens</div><div class="v" id="c-tok">–</div></div>
+    <div class="card"><div class="k">Active clients</div><div class="v" id="c-cli">–</div></div>
+    <div class="card"><div class="k">Sessions</div><div class="v" id="c-ses">–</div></div>
+  </div>
+
+  <div class="controls">
+    <div class="seg" id="range">
+      <button data-r="7">7 days</button>
+      <button data-r="30" class="on">30 days</button>
+      <button data-r="90">90 days</button>
+      <button data-r="all">All time</button>
+    </div>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <thead><tr>
+        <th data-s="client">Client</th>
+        <th data-s="minutes">Time</th>
+        <th data-s="share">Share</th>
+        <th data-s="tok_total">Tokens</th>
+        <th data-s="tok_output">Output tok</th>
+        <th data-s="sessions">Sessions</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+  <div class="foot">Time is active work time (idle gaps over 5 min excluded).
+    Tokens are total throughput (input + output + cache). Non-billable =
+    internal/agency sessions that touched no client folder.</div>
+</div>
+<script>
+const DATA = [{"date": "2026-07-04", "client": "Cherry Hill Advisory", "minutes": 47.85, "tok_total": 12829070, "tok_output": 120156, "session_id": "0470a4e5-c0b8-4dfc-bb9e-915ad3aee2de"}, {"date": "2026-07-06", "client": "Ashford Sky", "minutes": 97.1, "tok_total": 62779299, "tok_output": 299348, "session_id": "0552a241-434c-4297-a475-48caf389f4fd"}, {"date": "2026-07-03", "client": "Markology", "minutes": 88.97, "tok_total": 23579448, "tok_output": 166185, "session_id": "05d66cd3-b63b-4835-87e2-58e0f50769c4"}, {"date": "2026-07-03", "client": "Cherry Hill Advisory", "minutes": 4.24, "tok_total": 1122831, "tok_output": 7914, "session_id": "05d66cd3-b63b-4835-87e2-58e0f50769c4"}, {"date": "2026-07-03", "client": "Vast CFO", "minutes": 4.24, "tok_total": 1122831, "tok_output": 7914, "session_id": "05d66cd3-b63b-4835-87e2-58e0f50769c4"}, {"date": "2026-07-03", "client": "Ashford Sky", "minutes": 4.24, "tok_total": 1122831, "tok_output": 7914, "session_id": "05d66cd3-b63b-4835-87e2-58e0f50769c4"}, {"date": "2026-07-03", "client": "Adam Traywick", "minutes": 5.65, "tok_total": 1497108, "tok_output": 10551, "session_id": "05d66cd3-b63b-4835-87e2-58e0f50769c4"}, {"date": "2026-07-03", "client": "KB Financial Advisors", "minutes": 2.82, "tok_total": 748554, "tok_output": 5276, "session_id": "05d66cd3-b63b-4835-87e2-58e0f50769c4"}, {"date": "2026-07-03", "client": "Llamas Financial", "minutes": 7.56, "tok_total": 2282090, "tok_output": 21834, "session_id": "07bd401a-5a17-4fed-90e9-581a8459b9d4"}, {"date": "2026-07-10", "client": "Steve Ellard CPA", "minutes": 17.76, "tok_total": 3542986, "tok_output": 38814, "session_id": "07df4d09-34d8-4323-9260-95eac9949472"}, {"date": "2026-07-10", "client": "Virjee Consulting - Local", "minutes": 17.76, "tok_total": 3542986, "tok_output": 38814, "session_id": "07df4d09-34d8-4323-9260-95eac9949472"}, {"date": "2026-07-09", "client": "Markology", "minutes": 66.32, "tok_total": 28749910, "tok_output": 162037, "session_id": "0a53e336-6db6-48ab-aef1-bf22e396e62a"}, {"date": "2026-07-09", "client": "Thompson Flaherty", "minutes": 22.11, "tok_total": 9583303, "tok_output": 54012, "session_id": "0a53e336-6db6-48ab-aef1-bf22e396e62a"}, {"date": "2026-07-06", "client": "Cherry Hill Advisory", "minutes": 204.85, "tok_total": 81267653, "tok_output": 693458, "session_id": "0df81515-a23f-476d-b792-4a91f71cc9aa"}, {"date": "2026-07-02", "client": "Non-billable", "minutes": 83.85, "tok_total": 51710980, "tok_output": 230696, "session_id": "0e5da688-978b-4867-984d-11d3cf70b5fa"}, {"date": "2026-07-09", "client": "Non-billable", "minutes": 19.0, "tok_total": 2671920, "tok_output": 53376, "session_id": "0ec1bb31-65f3-44a6-947b-a6c092880dd9"}, {"date": "2026-07-07", "client": "Cherry Hill Advisory", "minutes": 37.57, "tok_total": 20429380, "tok_output": 192864, "session_id": "180a01ca-d2dd-4377-b10a-bdba4fec176e"}, {"date": "2026-07-07", "client": "Cherry Hill Advisory", "minutes": 38.57, "tok_total": 3573293, "tok_output": 37408, "session_id": "18e2928b-e50f-4b45-b119-a2c20c3e3dcb"}, {"date": "2026-07-06", "client": "Markology", "minutes": 56.56, "tok_total": 15779127, "tok_output": 162467, "session_id": "1b1e078f-53fc-4afb-a22a-e69c262d39e4"}, {"date": "2026-07-10", "client": "Non-billable", "minutes": 114.67, "tok_total": 60652679, "tok_output": 331577, "session_id": "2555c56d-9d7a-4499-b7b9-2e6361aef54b"}, {"date": "2026-07-07", "client": "Affinity Accounting", "minutes": 77.27, "tok_total": 18686525, "tok_output": 160148, "session_id": "2671222c-2003-475d-a842-1239d68a8fe9"}, {"date": "2026-07-10", "client": "Non-billable", "minutes": 130.96, "tok_total": 97379458, "tok_output": 502672, "session_id": "2cd3188d-1186-4cae-b855-cf61ad341835"}, {"date": "2026-07-03", "client": "Markology", "minutes": 186.72, "tok_total": 50044557, "tok_output": 790060, "session_id": "30ffaef9-79fa-451f-ad29-ccf8f9ed97ea"}, {"date": "2026-07-08", "client": "Markology", "minutes": 379.98, "tok_total": 479717552, "tok_output": 1946976, "session_id": "3497f66d-b909-45ff-89ba-1c273db9fcf5"}, {"date": "2026-07-07", "client": "Affinity Accounting", "minutes": 53.98, "tok_total": 49053025, "tok_output": 262566, "session_id": "3c7f3aa0-9d1b-474c-a599-2c53298d8103"}, {"date": "2026-07-07", "client": "Cherry Hill Advisory", "minutes": 53.98, "tok_total": 49053025, "tok_output": 262566, "session_id": "3c7f3aa0-9d1b-474c-a599-2c53298d8103"}, {"date": "2026-07-07", "client": "Affinity Accounting", "minutes": 34.34, "tok_total": 12422591, "tok_output": 140155, "session_id": "4541c5d3-361a-48fb-986e-e031fa7ca654"}, {"date": "2026-07-07", "client": "Non-billable", "minutes": 6.22, "tok_total": 1362015, "tok_output": 6895, "session_id": "472d635f-5e85-4b68-82b2-1db205c183c4"}, {"date": "2026-07-07", "client": "Markology", "minutes": 35.41, "tok_total": 11544303, "tok_output": 147288, "session_id": "481276b2-d52d-4f4c-902e-007c509d28d9"}, {"date": "2026-07-08", "client": "Thompson Flaherty", "minutes": 37.86, "tok_total": 10145741, "tok_output": 75213, "session_id": "4a2e78eb-6aa5-470b-9965-c2684283b1a5"}, {"date": "2026-07-08", "client": "Markology", "minutes": 159.86, "tok_total": 42837573, "tok_output": 317567, "session_id": "4a2e78eb-6aa5-470b-9965-c2684283b1a5"}, {"date": "2026-07-02", "client": "Non-billable", "minutes": 138.57, "tok_total": 66919375, "tok_output": 258752, "session_id": "4c153145-e6e8-4305-b66b-f8b0b68212ef"}, {"date": "2026-07-08", "client": "Markology", "minutes": 63.87, "tok_total": 15138644, "tok_output": 252890, "session_id": "4e12e633-b0fc-454f-9847-a2754e06501a"}, {"date": "2026-07-10", "client": "Llamas Financial", "minutes": 23.97, "tok_total": 7803950, "tok_output": 70259, "session_id": "54fed29f-9413-48d3-964e-39243e848ead"}, {"date": "2026-07-10", "client": "Specialized Accounting Services", "minutes": 47.93, "tok_total": 15607901, "tok_output": 140517, "session_id": "54fed29f-9413-48d3-964e-39243e848ead"}, {"date": "2026-07-03", "client": "Cherry Hill Advisory", "minutes": 76.22, "tok_total": 22899051, "tok_output": 308781, "session_id": "5641abef-c089-409e-ace3-f54ceeab9da1"}, {"date": "2026-07-03", "client": "Non-billable", "minutes": 21.38, "tok_total": 4600847, "tok_output": 61260, "session_id": "58319f1f-1571-4e02-8136-1189ba931848"}, {"date": "2026-07-09", "client": "KB Financial Advisors", "minutes": 76.37, "tok_total": 19064709, "tok_output": 157782, "session_id": "590c7ee9-eb7d-4875-8991-2e7e2a8d64ba"}, {"date": "2026-07-08", "client": "Cherry Hill Advisory", "minutes": 27.59, "tok_total": 7224346, "tok_output": 123943, "session_id": "6069e83f-1259-436b-a38d-5c9490971189"}, {"date": "2026-07-10", "client": "Core Advisors", "minutes": 18.51, "tok_total": 3805206, "tok_output": 33288, "session_id": "633cb935-9e2a-4c85-a219-3a0c7fc95c33"}, {"date": "2026-07-03", "client": "Keen Capital", "minutes": 4.09, "tok_total": 710405, "tok_output": 6598, "session_id": "693595fb-8a78-4b6e-b337-b014472461d7"}, {"date": "2026-07-03", "client": "Thompson Flaherty", "minutes": 16.38, "tok_total": 2841619, "tok_output": 26390, "session_id": "693595fb-8a78-4b6e-b337-b014472461d7"}, {"date": "2026-07-09", "client": "Steve Ellard CPA", "minutes": 20.45, "tok_total": 11112725, "tok_output": 109517, "session_id": "6d3c4277-8209-4f06-8bc2-3839939bff03"}, {"date": "2026-07-10", "client": "Ashford Sky", "minutes": 34.81, "tok_total": 9856718, "tok_output": 119911, "session_id": "6e553540-56f2-4930-a746-2f8471464170"}, {"date": "2026-07-10", "client": "Llamas Financial", "minutes": 34.81, "tok_total": 9856718, "tok_output": 119911, "session_id": "6e553540-56f2-4930-a746-2f8471464170"}, {"date": "2026-07-10", "client": "Traktion", "minutes": 17.41, "tok_total": 4928359, "tok_output": 59956, "session_id": "6e553540-56f2-4930-a746-2f8471464170"}, {"date": "2026-07-06", "client": "Markology", "minutes": 65.75, "tok_total": 16282756, "tok_output": 215689, "session_id": "83d4f447-f438-4714-8ba7-bf7a34a27575"}, {"date": "2026-07-05", "client": "Markology", "minutes": 293.27, "tok_total": 98032218, "tok_output": 873389, "session_id": "8423f8b4-db79-4fce-9dbc-8f75a303705f"}, {"date": "2026-07-09", "client": "Markology", "minutes": 211.34, "tok_total": 173183761, "tok_output": 822463, "session_id": "89f88132-7a6b-40d8-af2e-8f983aadb0c1"}, {"date": "2026-07-09", "client": "Traktion", "minutes": 5.28, "tok_total": 4329594, "tok_output": 20562, "session_id": "89f88132-7a6b-40d8-af2e-8f983aadb0c1"}, {"date": "2026-07-09", "client": "Non-billable", "minutes": 53.81, "tok_total": 4301269, "tok_output": 76475, "session_id": "98881105-2728-4eea-abf2-125d8be211ad"}, {"date": "2026-07-08", "client": "Markology", "minutes": 106.6, "tok_total": 83295422, "tok_output": 369896, "session_id": "9ae77e97-3d1a-4912-b0c2-74859e102de1"}, {"date": "2026-07-08", "client": "Traktion", "minutes": 85.28, "tok_total": 66636337, "tok_output": 295916, "session_id": "9ae77e97-3d1a-4912-b0c2-74859e102de1"}, {"date": "2026-07-07", "client": "The Fitness CPA", "minutes": 43.84, "tok_total": 89730069, "tok_output": 155220, "session_id": "a3c0423c-6ebd-49c4-9130-de19f6b3119b"}, {"date": "2026-07-07", "client": "Specialized Accounting Services", "minutes": 43.84, "tok_total": 89730069, "tok_output": 155220, "session_id": "a3c0423c-6ebd-49c4-9130-de19f6b3119b"}, {"date": "2026-07-07", "client": "Affinity Accounting", "minutes": 43.84, "tok_total": 89730069, "tok_output": 155220, "session_id": "a3c0423c-6ebd-49c4-9130-de19f6b3119b"}, {"date": "2026-07-07", "client": "Markology", "minutes": 109.59, "tok_total": 224325173, "tok_output": 388049, "session_id": "a3c0423c-6ebd-49c4-9130-de19f6b3119b"}, {"date": "2026-07-07", "client": "Traktion", "minutes": 109.59, "tok_total": 224325173, "tok_output": 388049, "session_id": "a3c0423c-6ebd-49c4-9130-de19f6b3119b"}, {"date": "2026-07-10", "client": "Non-billable", "minutes": 16.64, "tok_total": 7054202, "tok_output": 72967, "session_id": "a6a51f06-7468-4aca-8e31-c35a2f17563b"}, {"date": "2026-07-08", "client": "Markology", "minutes": 190.01, "tok_total": 193203961, "tok_output": 704134, "session_id": "a94657b3-ea07-417e-bb87-82abc21f269c"}, {"date": "2026-07-02", "client": "Specialized Accounting Services", "minutes": 9.46, "tok_total": 967321, "tok_output": 7311, "session_id": "b1e704d5-6eb9-49cb-a2d6-207aa62a8886"}, {"date": "2026-07-02", "client": "Steve Ellard CPA", "minutes": 12.62, "tok_total": 1289761, "tok_output": 9749, "session_id": "b1e704d5-6eb9-49cb-a2d6-207aa62a8886"}, {"date": "2026-07-02", "client": "Virjee Consulting - Dental", "minutes": 51.07, "tok_total": 20318763, "tok_output": 165542, "session_id": "b508d8b3-f909-4c22-87a7-191b81ee5bd3"}, {"date": "2026-07-02", "client": "Vast CFO", "minutes": 21.28, "tok_total": 8466151, "tok_output": 68976, "session_id": "b508d8b3-f909-4c22-87a7-191b81ee5bd3"}, {"date": "2026-07-06", "client": "Markology", "minutes": 194.64, "tok_total": 131271217, "tok_output": 850184, "session_id": "b7f922a3-e732-40ed-b059-682200e06481"}, {"date": "2026-07-05", "client": "Markology", "minutes": 36.72, "tok_total": 8215198, "tok_output": 60661, "session_id": "b86b8328-41f3-4c98-b454-5620dcfb7836"}, {"date": "2026-07-09", "client": "Steve Ellard CPA", "minutes": 65.89, "tok_total": 36181417, "tok_output": 353076, "session_id": "c175d05c-6dcd-471e-84a4-8a5532aebb69"}, {"date": "2026-07-07", "client": "Affinity Accounting", "minutes": 72.11, "tok_total": 73133993, "tok_output": 321126, "session_id": "c417d79e-5f65-45b8-97a6-02334e62eac5"}, {"date": "2026-07-07", "client": "Cherry Hill Advisory", "minutes": 54.08, "tok_total": 54850495, "tok_output": 240844, "session_id": "c417d79e-5f65-45b8-97a6-02334e62eac5"}, {"date": "2026-07-07", "client": "U-Nique Accounting", "minutes": 108.47, "tok_total": 44997592, "tok_output": 394619, "session_id": "cbef7acd-892c-4ad7-9634-9e3f29bb0645"}, {"date": "2026-07-07", "client": "Steve Ellard CPA", "minutes": 54.23, "tok_total": 22498796, "tok_output": 197309, "session_id": "cbef7acd-892c-4ad7-9634-9e3f29bb0645"}, {"date": "2026-07-10", "client": "Markology", "minutes": 201.17, "tok_total": 240368559, "tok_output": 1056346, "session_id": "cbf32108-4272-4806-8029-35082e986896"}, {"date": "2026-07-10", "client": "Traktion", "minutes": 33.53, "tok_total": 40061427, "tok_output": 176058, "session_id": "cbf32108-4272-4806-8029-35082e986896"}, {"date": "2026-07-07", "client": "U-Nique Accounting", "minutes": 31.0, "tok_total": 20629517, "tok_output": 126817, "session_id": "d32e428d-f0ba-43ca-9d3b-5901f06a10b8"}, {"date": "2026-07-07", "client": "Affinity Accounting", "minutes": 62.0, "tok_total": 41259034, "tok_output": 253635, "session_id": "d32e428d-f0ba-43ca-9d3b-5901f06a10b8"}, {"date": "2026-07-02", "client": "KB Financial Advisors", "minutes": 43.27, "tok_total": 18213756, "tok_output": 203629, "session_id": "d6b2c961-acb3-4eb3-998b-6f2c439f85fc"}, {"date": "2026-07-02", "client": "Virjee Consulting - Dental", "minutes": 8.65, "tok_total": 3642751, "tok_output": 40726, "session_id": "d6b2c961-acb3-4eb3-998b-6f2c439f85fc"}, {"date": "2026-07-02", "client": "Tarleton Estate Attorney", "minutes": 8.65, "tok_total": 3642751, "tok_output": 40726, "session_id": "d6b2c961-acb3-4eb3-998b-6f2c439f85fc"}, {"date": "2026-07-02", "client": "Thompson Flaherty", "minutes": 8.65, "tok_total": 3642751, "tok_output": 40726, "session_id": "d6b2c961-acb3-4eb3-998b-6f2c439f85fc"}, {"date": "2026-07-09", "client": "Ashford Sky", "minutes": 81.94, "tok_total": 64194749, "tok_output": 535412, "session_id": "d707a566-f42f-45f3-9767-ca5dbfe15a23"}, {"date": "2026-07-09", "client": "Llamas Financial", "minutes": 8.78, "tok_total": 6878009, "tok_output": 57366, "session_id": "d707a566-f42f-45f3-9767-ca5dbfe15a23"}, {"date": "2026-07-09", "client": "Traktion", "minutes": 55.86, "tok_total": 32983155, "tok_output": 210858, "session_id": "dc0afec4-000c-487a-8385-885ad7d442f3"}, {"date": "2026-07-09", "client": "Ashford Sky", "minutes": 27.93, "tok_total": 16491578, "tok_output": 105429, "session_id": "dc0afec4-000c-487a-8385-885ad7d442f3"}, {"date": "2026-07-08", "client": "Non-billable", "minutes": 69.04, "tok_total": 38965927, "tok_output": 176826, "session_id": "dd76acc4-0c78-4873-826e-78c43bde07ff"}, {"date": "2026-07-10", "client": "Cherry Hill Advisory", "minutes": 68.61, "tok_total": 11304377, "tok_output": 232947, "session_id": "e86ed86c-b312-4da9-bb36-15eb3c2d8492"}, {"date": "2026-07-10", "client": "Ashford Sky", "minutes": 36.12, "tok_total": 7101330, "tok_output": 73177, "session_id": "ec3404c8-5a75-4226-a809-e9dd0881b079"}, {"date": "2026-07-10", "client": "Traktion", "minutes": 30.96, "tok_total": 6086854, "tok_output": 62723, "session_id": "ec3404c8-5a75-4226-a809-e9dd0881b079"}, {"date": "2026-07-10", "client": "Cherry Hill Advisory", "minutes": 36.12, "tok_total": 7101330, "tok_output": 73177, "session_id": "ec3404c8-5a75-4226-a809-e9dd0881b079"}, {"date": "2026-07-07", "client": "Non-billable", "minutes": 41.08, "tok_total": 12112951, "tok_output": 166425, "session_id": "ed0f019f-ea3a-4975-898c-3e70ee69e53b"}, {"date": "2026-07-10", "client": "Virjee Consulting - Dental", "minutes": 18.29, "tok_total": 2896658, "tok_output": 26067, "session_id": "ef3174b1-c2e0-403b-975c-ac095706b8cc"}, {"date": "2026-07-07", "client": "Adam Traywick", "minutes": 89.59, "tok_total": 31913602, "tok_output": 270649, "session_id": "ef6ae981-6ad7-4396-8c62-3c3c7d67131a"}, {"date": "2026-07-09", "client": "Cherry Hill Advisory", "minutes": 14.46, "tok_total": 4377270, "tok_output": 35339, "session_id": "ef9dc6e2-0df7-43e6-b9a2-036aeb39f5ac"}, {"date": "2026-07-09", "client": "KB Financial Advisors", "minutes": 21.69, "tok_total": 6565904, "tok_output": 53008, "session_id": "ef9dc6e2-0df7-43e6-b9a2-036aeb39f5ac"}, {"date": "2026-07-09", "client": "Traktion", "minutes": 110.33, "tok_total": 81287964, "tok_output": 458612, "session_id": "f84cc17d-84e7-4d5a-9933-e89a3eac66c3"}, {"date": "2026-07-09", "client": "Thompson Flaherty", "minutes": 55.16, "tok_total": 40643982, "tok_output": 229306, "session_id": "f84cc17d-84e7-4d5a-9933-e89a3eac66c3"}, {"date": "2026-07-09", "client": "KB Financial Advisors", "minutes": 13.79, "tok_total": 10160996, "tok_output": 57326, "session_id": "f84cc17d-84e7-4d5a-9933-e89a3eac66c3"}, {"date": "2026-07-06", "client": "Non-billable", "minutes": 81.38, "tok_total": 17216062, "tok_output": 189408, "session_id": "fae4eeb6-be05-45aa-8aa4-43cf0ffd99fb"}, {"date": "2026-07-06", "client": "Markology", "minutes": 45.85, "tok_total": 54068804, "tok_output": 68444, "session_id": "ff4b9ae1-c390-47ef-9319-7f9d06bc9dfb"}, {"date": "2026-07-06", "client": "Cherry Hill Advisory", "minutes": 71.33, "tok_total": 84107028, "tok_output": 106469, "session_id": "ff4b9ae1-c390-47ef-9319-7f9d06bc9dfb"}, {"date": "2026-07-06", "client": "Keen Capital", "minutes": 25.47, "tok_total": 30038224, "tok_output": 38025, "session_id": "ff4b9ae1-c390-47ef-9319-7f9d06bc9dfb"}, {"date": "2026-07-06", "client": "Vast CFO", "minutes": 40.76, "tok_total": 48061159, "tok_output": 60839, "session_id": "ff4b9ae1-c390-47ef-9319-7f9d06bc9dfb"}, {"date": "2026-07-06", "client": "Core Advisors", "minutes": 15.28, "tok_total": 18022935, "tok_output": 22815, "session_id": "ff4b9ae1-c390-47ef-9319-7f9d06bc9dfb"}, {"date": "2026-07-06", "client": "Ashford Sky", "minutes": 15.28, "tok_total": 18022935, "tok_output": 22815, "session_id": "ff4b9ae1-c390-47ef-9319-7f9d06bc9dfb"}, {"date": "2026-07-06", "client": "Traktion", "minutes": 5.09, "tok_total": 6007645, "tok_output": 7605, "session_id": "ff4b9ae1-c390-47ef-9319-7f9d06bc9dfb"}];
+let range = 30, sortKey = "minutes", sortDir = -1;
+
+function fmtH(m){ return m ? (m/60).toFixed(2)+"h" : "–"; }
+function fmtT(n){ if(!n) return "–";
+  if(n>=1e6) return (n/1e6).toFixed(1)+"M";
+  if(n>=1e3) return Math.round(n/1e3)+"k"; return ""+n; }
+
+function withinRange(d){
+  if(range==="all") return true;
+  const now = new Date();
+  const dt = new Date(d+"T00:00:00");
+  return (now - dt)/(1000*60*60*24) <= range;
+}
+
+function aggregate(){
+  const m = {};
+  for(const r of DATA){
+    if(!withinRange(r.date)) continue;
+    const a = m[r.client] || (m[r.client]={client:r.client,minutes:0,
+      tok_total:0,tok_output:0,sessions:new Set()});
+    a.minutes += r.minutes; a.tok_total += r.tok_total;
+    a.tok_output += r.tok_output; a.sessions.add(r.session_id);
+  }
+  return Object.values(m).map(a=>({...a,sessions:a.sessions.size}));
+}
+
+function render(){
+  const rows = aggregate();
+  const totMin = rows.reduce((s,r)=>s+r.minutes,0);
+  const totTok = rows.reduce((s,r)=>s+r.tok_total,0);
+  const allSes = new Set();
+  DATA.forEach(r=>{ if(withinRange(r.date)) allSes.add(r.session_id); });
+  document.getElementById("c-time").textContent = fmtH(totMin);
+  document.getElementById("c-tok").textContent  = fmtT(totTok);
+  document.getElementById("c-cli").textContent  =
+    rows.filter(r=>r.client!=="Non-billable").length;
+  document.getElementById("c-ses").textContent  = allSes.size;
+
+  rows.forEach(r=>r.share = totMin ? r.minutes/totMin : 0);
+  rows.sort((a,b)=>{
+    let x=a[sortKey], y=b[sortKey];
+    if(sortKey==="client"){ x=(""+x).toLowerCase(); y=(""+y).toLowerCase();
+      return x<y?-sortDir:x>y?sortDir:0; }
+    return (x-y)*sortDir;
+  });
+
+  const maxMin = Math.max(1, ...rows.map(r=>r.minutes));
+  const tb = document.getElementById("rows");
+  tb.innerHTML = rows.map(r=>{
+    const nb = r.client==="Non-billable";
+    const pct = (r.minutes/maxMin*100).toFixed(1);
+    return `<tr>
+      <td class="${nb?'nb':'client'}">${r.client}</td>
+      <td class="bar">${fmtH(r.minutes)}<span><i style="width:${pct}%"></i></span></td>
+      <td class="dim">${(r.share*100).toFixed(0)}%</td>
+      <td>${fmtT(r.tok_total)}</td>
+      <td class="dim">${fmtT(r.tok_output)}</td>
+      <td class="dim">${r.sessions}</td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="6" class="dim" style="text-align:center;padding:28px">No sessions in this range.</td></tr>`;
+}
+
+document.getElementById("range").addEventListener("click",e=>{
+  const b = e.target.closest("button"); if(!b) return;
+  range = b.dataset.r==="all" ? "all" : +b.dataset.r;
+  [...e.currentTarget.children].forEach(x=>x.classList.toggle("on",x===b));
+  render();
+});
+document.querySelectorAll("th[data-s]").forEach(th=>{
+  th.addEventListener("click",()=>{
+    const k = th.dataset.s;
+    if(sortKey===k) sortDir*=-1; else { sortKey=k; sortDir=(k==="client")?1:-1; }
+    render();
+  });
+});
+render();
+</script>
+</body></html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Client Reports</title>
+<style>
+  :root{--bg:#0d1017;--panel:#151a23;--panel2:#1b212c;--line:#232b38;--ink:#e8edf4;
+    --dim:#8a96a8;--accent:#3872EB;--accent2:#7DA4F4;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-size:15px;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif}
+  .wrap{max-width:1000px;margin:0 auto;padding:28px 22px 60px}
+  h1{font-size:21px;margin:0 0 2px;font-weight:700}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:22px}
+  .search{width:100%;max-width:340px;background:var(--panel);border:1px solid var(--line);
+    color:var(--ink);border-radius:9px;padding:9px 13px;font-size:14px;margin-bottom:20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+  a.card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:15px 16px;text-decoration:none;color:var(--ink);transition:border-color .12s,background .12s}
+  a.card:hover{border-color:var(--accent);background:var(--panel2)}
+  a.card .name{font-weight:600;font-size:15px;color:var(--accent2)}
+  a.card .slug{color:var(--dim);font-size:12px;margin-top:3px}
+  a.card .go{color:var(--dim);font-size:12px;margin-top:9px}
+  .foot{color:var(--dim);font-size:12px;margin-top:20px;line-height:1.5}
+</style></head>
+<body><div class="wrap">
+  <h1>Client Reports</h1>
+  <div class="sub">Every client's report hub on reports.markology.io — SEO, ads, weekly, strategy.
+    Cloudflare-gated (you'll be asked to sign in once).</div>
+  <input class="search" id="q" placeholder="Filter clients…" oninput="filt()">
+  <div class="grid" id="grid"></div>
+  <div class="foot">Each card opens that client's report landing page, which lists all their reports as cards.</div>
+</div>
+<script>
+const BASE="https://reports.markology.io/";
+const CLIENTS=[
+  ["Adam Traywick","adam-traywick"],
+  ["Affinity Accounting","affinity-accounting"],
+  ["Ashford Sky","ashford-sky"],
+  ["Bookkeeping for Brokers","bookkeeping-for-brokers"],
+  ["Cherry Hill Advisory","cherry-hill-advisory"],
+  ["Core Advisors","core-advisors"],
+  ["KB Financial Advisors","kb-financial-advisors"],
+  ["Keen Capital","keen-capital"],
+  ["Llamas Financial","llamas-financial"],
+  ["Specialized Accounting Services","specialized-accounting-services"],
+  ["Steve Ellard CPA","steve-ellard"],
+  ["Tarleton Estate Attorney","tarleton-estate-attorney"],
+  ["The Fitness CPA","the-fitness-cpa"],
+  ["Thompson Flaherty","thompson-flaherty"],
+  ["TL;DR Accounting","tldr-accounting"],
+  ["Traktion","traktion"],
+  ["U-Nique Accounting","u-nique-accounting"],
+  ["Vast CFO","vast-cfo"],
+  ["Virjee Consulting — Dental","virjee-consulting-dental"],
+  ["Virjee Consulting — Local","virjee-consulting-local"],
+];
+const grid=document.getElementById('grid');
+function draw(list){
+  grid.innerHTML=list.map(([n,s])=>`
+    <a class="card" href="${BASE}${s}/" target="_blank" rel="noopener" data-n="${n.toLowerCase()}">
+      <div class="name">${n}</div><div class="slug">${s}</div>
+      <div class="go">Open report hub →</div></a>`).join('');
+}
+function filt(){
+  const q=document.getElementById('q').value.toLowerCase().trim();
+  draw(CLIENTS.filter(([n,s])=>!q||n.toLowerCase().includes(q)||s.includes(q)));
+}
+draw(CLIENTS);
+</script>
+</body></html>

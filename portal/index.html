@@ -88,7 +88,7 @@ function select(id){
   document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.id===id));
   document.querySelectorAll('.view').forEach(v=>{
     const on=v.dataset.id===id; v.classList.toggle('on',on);
-    if(on){ const f=v.querySelector('iframe'); if(f && !f.src) f.src=f.dataset.src; } // lazy-load
+    if(on){ const f=v.querySelector('iframe'); if(f && !f.src) f.src=f.dataset.src+(f.dataset.src.indexOf('?')<0?'?':'&')+'cb='+Date.now(); } // lazy-load, cache-busted
   });
 }
 select('time');

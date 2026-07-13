@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Markology — Agency Portal</title>
+<style>
+  :root{--bg:#0b0e14;--panel:#151a23;--panel2:#1b212c;--line:#232b38;
+    --ink:#e8edf4;--dim:#8a96a8;--accent:#3872EB;--accent2:#7DA4F4;--pos:#3fb37f;--warn:#d6a53c;}
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif}
+  .app{display:flex;flex-direction:column;height:100vh}
+  header{display:flex;align-items:center;gap:16px;padding:14px 22px;border-bottom:1px solid var(--line);
+    background:linear-gradient(180deg,#10151e,#0b0e14)}
+  .brand{font-size:18px;font-weight:800;letter-spacing:-.02em}
+  .brand b{color:var(--accent2)}
+  .brand small{color:var(--dim);font-weight:500;font-size:12px;margin-left:8px;letter-spacing:0}
+  nav{display:flex;gap:4px;padding:0 14px;border-bottom:1px solid var(--line);background:var(--panel);
+    overflow-x:auto}
+  nav button{background:none;border:0;border-bottom:2px solid transparent;color:var(--dim);
+    padding:12px 16px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+  nav button:hover{color:var(--ink)}
+  nav button.on{color:#fff;border-bottom-color:var(--accent)}
+  nav button .dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-left:6px;
+    background:var(--warn);vertical-align:middle}
+  main{flex:1;position:relative;overflow:hidden}
+  .view{position:absolute;inset:0;display:none}
+  .view.on{display:block}
+  iframe{width:100%;height:100%;border:0;background:var(--bg)}
+  .stub{display:flex;align-items:center;justify-content:center;height:100%;padding:40px}
+  .stub .card{max-width:560px;background:var(--panel);border:1px solid var(--line);border-radius:14px;
+    padding:28px 30px}
+  .stub h2{margin:0 0 6px;font-size:19px}
+  .stub p{color:var(--dim);line-height:1.6;margin:10px 0}
+  .stub .tag{display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--warn);background:rgba(214,165,60,.12);border:1px solid rgba(214,165,60,.3);
+    padding:3px 9px;border-radius:20px;margin-bottom:14px}
+  .stub ul{color:var(--dim);line-height:1.7;padding-left:18px}
+  .stub code{background:var(--panel2);padding:2px 6px;border-radius:5px;color:var(--accent2);font-size:13px}
+</style></head>
+<body><div class="app">
+  <header>
+    <div class="brand">MARKOLOGY <b>Agency Portal</b><small>internal command center</small></div>
+  </header>
+  <nav id="tabs"></nav>
+  <main id="views"></main>
+</div>
+<script>
+// Each tab: iframe (live dashboard) or stub (pending data wiring).
+const TABS = [
+  {id:'time',  label:'Time Tracking',    src:'panels/time.html'},
+  {id:'profit',label:'Profitability',    src:'panels/profitability.html'},
+  {id:'adcap', label:'Ad Spend vs Cap',  src:'panels/ad-spend-vs-cap.html'},
+  {id:'daily', label:'Daily Board',       src:'panels/daily-board.html'},
+  {id:'seo',   label:'SEO Action Plan',   src:'panels/seo.html'},
+  {id:'reports',label:'Client Reports',   src:'panels/client-reports.html'},
+  {id:'feedback',label:'Client Feedback', src:'panels/feedback.html'},
+  {id:'social',label:'Social Posting',    src:'panels/social.html'},
+  {id:'tasks', label:'Tasks Due Today',   src:'panels/tasks-due.html'},
+  {id:'mkto',  label:'Markology To-Do',   src:'panels/markology-todo.html'},
+  {id:'emails',label:'Action Emails',     src:'panels/emails.html'},
+  {id:'agents',label:'Agent Runs',        src:'panels/agent-runs.html'},
+  {id:'voice', label:'Voice Library',     src:'panels/voice.html'},
+];
+
+const RECS = {id:'more', label:'+ More ideas', pending:true,
+  body:`<span class="tag">ideas — say the word</span>
+    <h2>Other panels worth adding</h2>
+    <ul>
+      <li><b>Revenue / MRR summary</b> — total monthly recurring from all client invoices, trend, per-client mix.</li>
+      <li><b>Leads this week</b> — from the daily-board lead tracking, per client.</li>
+      <li><b>Overdue / stale tasks</b> — Asana tasks past due or stuck in review >3 days.</li>
+      <li><b>Voice Library</b> — the Markology voice library once it's built.</li>
+    </ul>`};
+
+const tabsEl=document.getElementById('tabs'), viewsEl=document.getElementById('views');
+const all=[...TABS, RECS];
+all.forEach((t,i)=>{
+  const b=document.createElement('button');
+  b.innerHTML=t.label+(t.pending?'<span class="dot"></span>':'');
+  b.onclick=()=>select(t.id);
+  b.dataset.id=t.id; tabsEl.appendChild(b);
+  const v=document.createElement('div'); v.className='view'; v.dataset.id=t.id;
+  if(t.src){ v.innerHTML=`<iframe data-src="${t.src}"></iframe>`; }
+  else { v.innerHTML=`<div class="stub"><div class="card">${t.body}</div></div>`; }
+  viewsEl.appendChild(v);
+});
+function select(id){
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.id===id));
+  document.querySelectorAll('.view').forEach(v=>{
+    const on=v.dataset.id===id; v.classList.toggle('on',on);
+    if(on){ const f=v.querySelector('iframe'); if(f && !f.src) f.src=f.dataset.src; } // lazy-load
+  });
+}
+select('time');
+</script>
+</body></html>

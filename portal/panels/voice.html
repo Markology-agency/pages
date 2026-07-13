@@ -1,91 +1,893 @@
-<!doctype html><html><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1"><title>Voice Library</title>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Markology, Founder-Voice Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Anton&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0d1017;--panel:#151a23;--panel2:#1b212c;--line:#232b38;--ink:#e8edf4;--dim:#8a96a8;--accent2:#7DA4F4;--accent:#3872EB;}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-size:14.5px;line-height:1.6;
-font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif}
-.wrap{max-width:820px;margin:0 auto;padding:28px 22px 60px}
-h1{font-size:22px;margin:0 0 2px}.sub{color:var(--dim);font-size:13px;margin-bottom:18px}
-h2{font-size:19px;margin:26px 0 8px}h3{font-size:15px;text-transform:uppercase;letter-spacing:.04em;color:var(--dim);margin:22px 0 8px}
-h4{font-size:14px;margin:16px 0 6px;color:var(--accent2)}
-blockquote{border-left:3px solid var(--accent);margin:8px 0;padding:4px 14px;color:#dbe6f5;background:var(--panel);border-radius:0 8px 8px 0}
-ul{margin:8px 0;padding-left:20px}li{margin:4px 0}hr{border:0;border-top:1px solid var(--line);margin:20px 0}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 8px}
-.chip{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:5px 12px;font-size:12.5px;color:var(--dim)}
-.chip b{color:var(--accent2)}
-.stat{display:inline-block;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 16px;margin-right:10px}
-.stat .v{font-size:22px;font-weight:700}.stat .k{color:var(--dim);font-size:11px;text-transform:uppercase}
-</style></head><body><div class="wrap">
-<h1>Voice Library</h1>
-<div class="sub">Whitney's marketing voice, built from real calls · updates Mon &amp; Fri 6am · fully anonymized</div>
-<div>
-<span class="stat"><div class="v">47</div><div class="k">entries</div></span>
-<span class="stat"><div class="v">17</div><div class="k">topics</div></span>
+  :root {
+    --navy: #0b1e3f;
+    --navy-2: #1e3a8a;
+    --blue: #2563eb;
+    --lilac: #a78bfa;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --border: #e2e8f0;
+    --text: #0f172a;
+    --muted: #64748b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+  body { padding: 0 0 80px; }
+
+  .topbar {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: white;
+    padding: 32px 48px 28px;
+  }
+  .topbar-brand { font-family: 'Anton', sans-serif; letter-spacing: 2px; font-size: 14px; opacity: 0.7; margin-bottom: 8px; }
+  .topbar-title { font-size: 32px; font-weight: 800; margin: 0 0 4px; }
+  .topbar-sub { font-size: 15px; opacity: 0.8; }
+
+  .stats-bar {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 18px 48px;
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .stat-block { }
+  .stat-num { font-size: 28px; font-weight: 700; color: var(--navy); line-height: 1; }
+  .stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+
+  main { padding: 32px 48px; max-width: 1400px; margin: 0 auto; }
+
+  section { margin-bottom: 48px; }
+  h2 { font-size: 20px; font-weight: 700; margin: 0 0 16px; color: var(--navy); }
+  h2 .h2-hint { font-size: 13px; font-weight: 400; color: var(--muted); margin-left: 12px; }
+
+  /* Topic grid */
+  .topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .topic-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .topic-card:hover { border-color: var(--blue); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08); }
+  .topic-card.active { background: var(--navy); color: white; border-color: var(--navy); }
+  .topic-card.active .topic-count, .topic-card.active .topic-count-label { color: rgba(255,255,255,0.7); }
+  .topic-name { font-size: 14px; font-weight: 600; line-height: 1.3; margin-bottom: 8px; text-transform: capitalize; }
+  .topic-count { font-size: 22px; font-weight: 700; color: var(--navy); line-height: 1; }
+  .topic-count-label { font-size: 11px; color: var(--muted); font-weight: 400; margin-left: 4px; }
+
+  /* Filter chips */
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .chip {
+    border: 1.5px solid var(--chip-color, var(--border));
+    color: var(--chip-color, var(--text));
+    background: white;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .chip:hover { background: var(--chip-color); color: white; }
+  .chip.active { background: var(--chip-color); color: white; }
+  .chip-count { background: rgba(0,0,0,0.08); border-radius: 999px; padding: 1px 7px; font-size: 11px; font-weight: 700; }
+  .chip.active .chip-count { background: rgba(255,255,255,0.25); }
+  .chip-all { border-color: var(--navy); color: var(--navy); }
+  .chip-all:hover, .chip-all.active { background: var(--navy); color: white; }
+
+  /* Entry cards */
+  .entry-grid { display: grid; gap: 16px; }
+  .entry-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--type-color);
+    border-radius: 10px;
+    padding: 18px 22px;
+  }
+  .entry-header { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+  .type-pill {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--type-color);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+  .tag {
+    font-size: 12px;
+    padding: 3px 9px;
+    border-radius: 6px;
+    background: #f1f5f9;
+    color: var(--text);
+  }
+  .tag-primary { background: #dbeafe; color: var(--navy-2); font-weight: 600; }
+  .tag-secondary { background: #f1f5f9; color: var(--muted); }
+  .audience-pill {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 6px;
+    background: #fef3c7;
+    color: #92400e;
+    font-weight: 500;
+  }
+  .entry-content {
+    margin: 8px 0;
+    padding: 0;
+    border-left: none;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--text);
+    quotes: none;
+  }
+  .entry-content::before, .entry-content::after { content: none; }
+  .entry-footer {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .entry-context { flex: 1 1 auto; font-style: italic; }
+  .source-link { color: var(--blue); text-decoration: none; font-weight: 500; white-space: nowrap; }
+  .source-link:hover { text-decoration: underline; }
+
+  /* Hidden state for filtered-out cards */
+  .entry-card.hidden { display: none; }
+
+  /* Empty state */
+  .empty { text-align: center; padding: 48px; color: var(--muted); font-style: italic; }
+
+  /* Footer */
+  .skill-footer { margin: 60px 48px 0; padding-top: 24px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); text-align: center; }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-brand">MARKOLOGY · FOUNDER-VOICE LIBRARY</div>
+  <h1 class="topbar-title">Markology</h1>
+  <div class="topbar-sub">A library of Markology's actual voice, extracted from existing content today, grown from Fireflies meetings going forward.</div>
 </div>
-<h3>Topics</h3><div class="chips"><span class="chip">SEO for accounting firms <b>5</b></span><span class="chip">content marketing for accountants <b>4</b></span><span class="chip">niche and specialty positioning (dental, real estate, restaurant, e-commerce CPAs) <b>4</b></span><span class="chip">websites and web design for accounting firms <b>4</b></span><span class="chip">AI tools for running firm marketing (Claude, the Course) <b>3</b></span><span class="chip">conversion and lead funnels <b>3</b></span><span class="chip">Google Ads / PPC for accountants <b>3</b></span><span class="chip">measuring marketing ROI, leads, and attribution <b>3</b></span><span class="chip">webinars, lead magnets, and nurture campaigns <b>3</b></span><span class="chip">client onboarding and expectations <b>2</b></span><span class="chip">the cost of marketing / marketing on a small budget <b>2</b></span><span class="chip">GEO / AI search (ChatGPT, Perplexity, Google AI) for accountants <b>2</b></span><span class="chip">LinkedIn marketing for accountants <b>2</b></span><span class="chip">local SEO and Google Business Profile <b>2</b></span><span class="chip">social media for accountants <b>2</b></span><span class="chip">what makes accounting-firm marketing different <b>2</b></span><span class="chip">reviews, reputation, and social proof <b>1</b></span></div>
-<hr><h2>Markology Voice Library — Whitney Hesmer</h2>
 
-<p>A short summary of how Whitney actually sounds, built from her real Fireflies call transcripts (2026). This is the marketing voice Markology&#x27;s own content should carry. Full source material lives in `Clients/Markology/founder-voice/`.</p>
+<div class="stats-bar">
+  <div class="stat-block">
+    <div class="stat-num">47</div>
+    <div class="stat-label">Total Entries</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">17</div>
+    <div class="stat-label">Topics Covered</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">47</div>
+    <div class="stat-label">Founder Takes</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">0</div>
+    <div class="stat-label">Social-Ready Quotes</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">0</div>
+    <div class="stat-label">Voice Phrases</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">0</div>
+    <div class="stat-label">Stories + FAQs + Pain Points</div>
+  </div>
+</div>
 
-<blockquote><b>Hard rule:</b> Whitney is NOT an accountant or CPA. Never write first-person accountant claims (&quot;as a CPA...&quot;, &quot;I&#x27;m an accountant...&quot;). Her authority is years of marketing accounting firms and only working with accountants. See memory `user_whitney_not_accountant_no_cpa_claims.md`.</blockquote>
+<main>
+  <section>
+    <h2>Topics in the library <span class="h2-hint">click a topic to filter ↓ entries below</span></h2>
+    <div class="topic-grid">
+      <button class="topic-card" data-topic="SEO for accounting firms">
+            <div class="topic-name">SEO for accounting firms</div>
+            <div class="topic-count">5 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="content marketing for accountants">
+            <div class="topic-name">content marketing for accountants</div>
+            <div class="topic-count">4 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="niche and specialty positioning (dental, real estate, restaurant, e-commerce CPAs)">
+            <div class="topic-name">niche and specialty positioning (dental, real estate, restaurant, e-commerce CPAs)</div>
+            <div class="topic-count">4 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="websites and web design for accounting firms">
+            <div class="topic-name">websites and web design for accounting firms</div>
+            <div class="topic-count">4 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="AI tools for running firm marketing (Claude, the Course)">
+            <div class="topic-name">AI tools for running firm marketing (Claude, the Course)</div>
+            <div class="topic-count">3 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="conversion and lead funnels">
+            <div class="topic-name">conversion and lead funnels</div>
+            <div class="topic-count">3 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="Google Ads / PPC for accountants">
+            <div class="topic-name">Google Ads / PPC for accountants</div>
+            <div class="topic-count">3 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="measuring marketing ROI, leads, and attribution">
+            <div class="topic-name">measuring marketing ROI, leads, and attribution</div>
+            <div class="topic-count">3 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="webinars, lead magnets, and nurture campaigns">
+            <div class="topic-name">webinars, lead magnets, and nurture campaigns</div>
+            <div class="topic-count">3 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="client onboarding and expectations">
+            <div class="topic-name">client onboarding and expectations</div>
+            <div class="topic-count">2 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="the cost of marketing / marketing on a small budget">
+            <div class="topic-name">the cost of marketing / marketing on a small budget</div>
+            <div class="topic-count">2 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="GEO / AI search (ChatGPT, Perplexity, Google AI) for accountants">
+            <div class="topic-name">GEO / AI search (ChatGPT, Perplexity, Google AI) for accountants</div>
+            <div class="topic-count">2 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="LinkedIn marketing for accountants">
+            <div class="topic-name">LinkedIn marketing for accountants</div>
+            <div class="topic-count">2 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="local SEO and Google Business Profile">
+            <div class="topic-name">local SEO and Google Business Profile</div>
+            <div class="topic-count">2 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="social media for accountants">
+            <div class="topic-name">social media for accountants</div>
+            <div class="topic-count">2 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="what makes accounting-firm marketing different">
+            <div class="topic-name">what makes accounting-firm marketing different</div>
+            <div class="topic-count">2 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="reviews, reputation, and social proof">
+            <div class="topic-name">reviews, reputation, and social proof</div>
+            <div class="topic-count">1 <span class="topic-count-label">entry</span></div>
+        </button>
+    </div>
+  </section>
 
-<hr>
+  <section>
+    <h2>Filter by type</h2>
+    <div class="chips">
+      <button class="chip chip-all active" data-type="all">All <span class="chip-count">47</span></button>
+      <button class="chip" data-type="founder_take" style="--chip-color:#1e3a8a">Founder Take <span class="chip-count">47</span></button>
+    </div>
+  </section>
 
-<h3>The one-line north star</h3>
+  <section>
+    <h2 id="entries-heading">Library entries <span class="h2-hint" id="entries-count">47 showing</span></h2>
+    <div class="entry-grid" id="entry-grid">
+      <article class="entry-card" data-type="founder_take" data-topic="AI tools for running firm marketing (Claude, the Course)" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">AI tools for running firm marketing (Claude, the Course)</span>
+                <span class="tag tag-secondary">content marketing for accountants</span>
+                <span class="audience-pill">accounting firm owner curious about AI</span>
+            </header>
+            <blockquote class="entry-content">The course is built so you can use it two ways. You can pick and choose individual skills, like just give me a social media calendar for July, and get that one thing done. Or, where I actually think the value is, you set it up so a whole department runs on autopilot. The basics come first, and then each month goes deeper, so by the time we hit the social month it&#x27;s not tips, it&#x27;s automating the whole function. That full-automation piece is the hard part and it&#x27;s still not perfect, but that&#x27;s what we&#x27;re building toward.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client asked how the Claude marketing course works, and Whitney explained the two ways to use it, pick single skills or automate an entire marketing department.</span>
+                <span class="source-link">Meeting: 01KX4G2R8RKPFW5GGDHBR1DS6T</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="AI tools for running firm marketing (Claude, the Course)" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">AI tools for running firm marketing (Claude, the Course)</span>
+                <span class="tag tag-secondary">content marketing for accountants</span><span class="tag tag-secondary">social media for accountants</span>
+                <span class="audience-pill">accounting firm owner building their own marketing</span>
+            </header>
+            <blockquote class="entry-content">One of the best uses of AI in your marketing is mining your own calls for content ideas. You take what&#x27;s already working out in the world on LinkedIn and X, combine it with the recurring themes coming up in your actual client conversations, and let that generate draft posts in your voice. The raw material is stuff you already say every day, the AI just helps you catch it and shape it instead of staring at a blank page.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client was building his own marketing stack and showing Whitney his inbound-idea tool, and she noted that mining calls for ideas is exactly the approach she uses too.</span>
+                <span class="source-link">Meeting: 01KX1RYPXFZ85RNW2TG8T3AHG4</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="AI tools for running firm marketing (Claude, the Course)" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">AI tools for running firm marketing (Claude, the Course)</span>
+                <span class="tag tag-secondary">content marketing for accountants</span><span class="tag tag-secondary">websites and web design for accounting firms</span>
+                <span class="audience-pill">accounting firm owner using AI for content</span>
+            </header>
+            <blockquote class="entry-content">AI is a tool in the workflow, not the whole workflow. We don&#x27;t hand design to it, and when we turn a video script into a companion blog we&#x27;re careful, because if you just reuse the AI-written script the blog can read like it came straight out of a language model, short, sharp, that same phrasing everyone recognizes. A good writer takes the substance and rewrites it so it sounds human. The AI gets you the raw material, the judgment about what ships is still yours.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client cautioned that his video scripts were AI-generated and worried the companion blogs would sound like it, and Whitney agreed that a writer needs to rework the material rather than reuse it verbatim.</span>
+                <span class="source-link">Meeting: 01KX1TDST6K3TKF91G704JA0F0</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="client onboarding and expectations" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">client onboarding and expectations</span>
+                <span class="tag tag-secondary">the cost of marketing / marketing on a small budget</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">We run on a weekly cadence, and that&#x27;s on purpose. You send us something new for the site, we get it in that week, and by the next weekly meeting it&#x27;s ready for your review. If something&#x27;s urgent, put it in the subject line and we&#x27;ll pull it forward. The weekly rhythm is why nothing sits, we review what&#x27;s done, line up what&#x27;s next, and keep moving instead of letting requests pile up in an inbox.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was explaining her weekly working rhythm to a client&#x27;s operations lead so he&#x27;d know how requests move through the team.</span>
+                <span class="source-link">Meeting: 01KMZEBE152KGZYGW5EEHE07JG</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="client onboarding and expectations" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">client onboarding and expectations</span>
+                <span class="tag tag-secondary">content marketing for accountants</span><span class="tag tag-secondary">SEO for accounting firms</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">Every month follows the same shape. Week one we build all the social posts and the blog and set up the ad campaign. Week two is the heavy SEO week, backlinks, citations, Reddit research. Week three is the webinar, planning the next one and running the current one. Week four we wrap up, the end-of-month SEO update and the ads recap, and that&#x27;s where there&#x27;s a little wiggle room to pour into a bigger project. Same skeleton for every client, so the core work never gets dropped when something urgent comes up.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was walking a client&#x27;s operations lead through the repeatable four-week structure her team uses across all accounts.</span>
+                <span class="source-link">Meeting: 01KMZEBE152KGZYGW5EEHE07JG</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="content marketing for accountants" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">content marketing for accountants</span>
+                <span class="tag tag-secondary">blogging and thought leadership for CPAs</span><span class="tag tag-secondary">SEO for accounting firms</span>
+                <span class="audience-pill">accounting firm owner who sends in blog topics</span>
+            </header>
+            <blockquote class="entry-content">A lot of the topics owners send us are really thought leadership, not SEO. Nobody is typing that exact headline into Google. That kind of piece is great for brand authority and it shows you know your stuff, so I&#x27;m not saying skip it. But for SEO we want the blogs that answer what people are actually searching, because those are the ones that bring in a lead who finds you, wonders who you are, and goes down the rabbit hole. The best content strategy runs both lanes on purpose.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was explaining why some of a client&#x27;s submitted blog topics read as thought leadership and how she reframes them to also capture search demand.</span>
+                <span class="source-link">Meeting: 01KMZEBE152KGZYGW5EEHE07JG</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="content marketing for accountants" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">content marketing for accountants</span>
+                <span class="tag tag-secondary">social media for accountants</span><span class="tag tag-secondary">webinars, lead magnets, and nurture campaigns</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">The blog is the pillar, and everything else stems off it. We publish an SEO blog every week, then pull two social posts out of it to drive people back to it, and the newsletter anchors off the same content too. The idea is if it&#x27;s really good content, you want it on LinkedIn, in the newsletter, and on the blog so people can find it. That way you&#x27;re not scrambling around making five unrelated things a week, you&#x27;re making one strong thing and letting it work everywhere.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was describing how a single weekly blog cascades into social posts and the newsletter so the team isn&#x27;t creating disconnected content.</span>
+                <span class="source-link">Meeting: 01KMZEBE152KGZYGW5EEHE07JG</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="content marketing for accountants" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">content marketing for accountants</span>
+                <span class="tag tag-secondary">what makes accounting-firm marketing different</span><span class="tag tag-secondary">measuring marketing ROI and attribution</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">Once a quarter we sit down and ask what&#x27;s trending and what people are actually searching around this firm&#x27;s world, and then we build the calendar off that. For most clients we do that research automatically and bring it to the meeting, like here&#x27;s what we found, what do you think, yes or no. The owner doesn&#x27;t have to generate topics from scratch. They just need to give us the raw material and react to what we surface.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was explaining her quarterly content-planning cadence and how little input she actually needs from a busy owner to fill a calendar.</span>
+                <span class="source-link">Meeting: 01KMZEBE152KGZYGW5EEHE07JG</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="content marketing for accountants" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">content marketing for accountants</span>
+                <span class="tag tag-secondary">niche and specialty positioning</span>
+                <span class="audience-pill">accounting firm owner reviewing a content calendar</span>
+            </header>
+            <blockquote class="entry-content">If a topic doesn&#x27;t match the clients you actually serve, we cut it. On one calendar I had a piece planned around a specific entity tax, and the owner said they don&#x27;t really have any clients like that, so we swapped it out on the spot. There&#x27;s no point ranking for a search that brings you the wrong people. Content should pull in the clients you actually want, not just fill a slot.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was running a client through a list of proposed quarterly blog topics and dropped one that didn&#x27;t fit the firm&#x27;s real client base.</span>
+                <span class="source-link">Meeting: 01KX4EFNR4SB7NMWC6Z8W0DMKD</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="conversion and lead funnels" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">conversion and lead funnels</span>
+                <span class="tag tag-secondary">webinars, lead magnets, and nurture campaigns</span>
+                <span class="audience-pill">accounting firm owner building nurture funnels</span>
+            </header>
+            <blockquote class="entry-content">Don&#x27;t wait for perfect to launch a nurture funnel. Get the funnels live with the best content you have today, even if it&#x27;s placeholder content that isn&#x27;t perfectly tailored yet, and swap in the better pieces as they&#x27;re ready. The reason is timing: someone who fills out your form now might not convert for two or three months, and you want them already moving through the funnel during that window, not waiting on the sidelines while you polish it.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client wanted to hold the nurture funnels until the ideal video content was ready, and Whitney pushed to launch them immediately with placeholders so leads started entering the sequence.</span>
+                <span class="source-link">Meeting: 01KX1TDST6K3TKF91G704JA0F0</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="conversion and lead funnels" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">conversion and lead funnels</span>
+                <span class="tag tag-secondary">what makes accounting-firm marketing different</span><span class="tag tag-secondary">webinars, lead magnets, and nurture campaigns</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">The bigger-lever projects are things like nurture funnels and lead magnets built specifically for your ideal client. You figure out exactly who you want, then create a lead magnet aimed right at them, so when they do a pulse check or download it, they drop into an automated sequence. That&#x27;s the work that compounds, versus one-off tasks. It&#x27;s worth carving hours out of the routine to build it once.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was distinguishing the small ad-hoc requests she squeezes in from the bigger funnel projects that need dedicated hours in the plan.</span>
+                <span class="source-link">Meeting: 01KMZEBE152KGZYGW5EEHE07JG</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="conversion and lead funnels" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">conversion and lead funnels</span>
+                <span class="tag tag-secondary">Google Ads / PPC for accountants</span><span class="tag tag-secondary">measuring marketing ROI and attribution</span>
+                <span class="audience-pill">accounting firm owner running ads</span>
+            </header>
+            <blockquote class="entry-content">When you&#x27;re paying for ad clicks but not sure they&#x27;re working, the move is to look at where people bounce, not just how many came. I&#x27;ll run a Hotjar analysis for the last couple of weeks alongside the ad keyword report, so we can see which keywords they came in on and where on the page they dropped off. The clicks tell you the ad is doing its job. Hotjar tells you whether the page is losing them after they land.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client asked what was happening to all the ad clicks he was getting, and Whitney explained how she pairs the keyword report with session behavior to find the leak.</span>
+                <span class="source-link">Meeting: 01KX1RYPXFZ85RNW2TG8T3AHG4</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="the cost of marketing / marketing on a small budget" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">the cost of marketing / marketing on a small budget</span>
+                <span class="tag tag-secondary">SEO for accounting firms</span><span class="tag tag-secondary">conversion and lead funnels</span>
+                <span class="audience-pill">accounting firm owner with tight cash flow</span>
+            </header>
+            <blockquote class="entry-content">When cash gets tight, you don&#x27;t have to cut marketing, you reallocate it. If the SEO foundation is already built and you&#x27;ve got the leads you need, we can pause the backlinks and citations for a few months and pour those same hours into the website and the nurture funnels instead. Same budget, redirected to what moves the needle right now. Reassess in ninety days and turn the long-game work back on when the pressure eases.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client going through a cash-flow-negative stretch after a big hire asked to pause SEO spend and move it into higher-priority website and funnel work for a quarter.</span>
+                <span class="source-link">Meeting: 01KX1TDST6K3TKF91G704JA0F0</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="the cost of marketing / marketing on a small budget" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">the cost of marketing / marketing on a small budget</span>
+                <span class="tag tag-secondary">client onboarding and expectations</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">We try to stay really flexible on scope. Small asks, upload a tool to the site, add a page, that takes the team twenty minutes and I&#x27;m never going to push back on it, we just squeeze it in. I only raise moving up a tier when the big projects become an every-single-week thing. Most owners don&#x27;t need a bigger package, they need someone who&#x27;ll absorb the little stuff without turning it into a change order.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was explaining to a client&#x27;s operations lead how she handles extra requests without constantly pushing clients into higher tiers.</span>
+                <span class="source-link">Meeting: 01KMZEBE152KGZYGW5EEHE07JG</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="GEO / AI search (ChatGPT, Perplexity, Google AI) for accountants" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">GEO / AI search (ChatGPT, Perplexity, Google AI) for accountants</span>
+                <span class="tag tag-secondary">SEO for accounting firms</span><span class="tag tag-secondary">content marketing for accountants</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">Our whole formula comes down to lead generation, and the way we do it is mostly through Google search, AI visibility, and content strategy. Those three feed each other. You write the content people are actually searching for, that content gets you found on Google, and it&#x27;s the same content the AI engines pull from when someone asks ChatGPT or Perplexity the same question. You&#x27;re not choosing between Google and AI search, you&#x27;re building the one thing that works for both.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was laying out her core service methodology for a client&#x27;s operations lead who wanted to understand exactly what Markology owns and delivers.</span>
+                <span class="source-link">Meeting: 01KMZEBE152KGZYGW5EEHE07JG</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="GEO / AI search (ChatGPT, Perplexity, Google AI) for accountants" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">GEO / AI search (ChatGPT, Perplexity, Google AI) for accountants</span>
+                <span class="tag tag-secondary">measuring marketing ROI and attribution</span><span class="tag tag-secondary">SEO for accounting firms</span>
+                <span class="audience-pill">accounting firm owner asking about AI-search rankings</span>
+            </header>
+            <blockquote class="entry-content">When a tool tells you how you rank in AI search, take it with a grain of salt. The way it works is the tool runs its own test searches inside its own AI and reports back cited pages and mentions for the week. It has no real way of knowing how many people actually asked that question, because nobody publishes AI search volume yet. So it&#x27;s genuinely a guess at this point, useful as a directional signal, not a hard number. That&#x27;ll change when the AI platforms release their own data, but they haven&#x27;t.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client asked whether Markology could report where he ranks in AI search the way SEMrush reports keyword positions, and Whitney explained why the AI-visibility numbers are estimates rather than measurement.</span>
+                <span class="source-link">Meeting: 01KX1RYPXFZ85RNW2TG8T3AHG4</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="Google Ads / PPC for accountants" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">Google Ads / PPC for accountants</span>
+                <span class="tag tag-secondary">measuring marketing ROI and attribution</span>
+                <span class="audience-pill">accounting firm owner new to paid ads</span>
+            </header>
+            <blockquote class="entry-content">CPC just means cost per click, roughly what one click on that keyword costs you on Google Ads. And even the number the tool shows is an estimate, a guess at what you&#x27;d pay to go after that term, not a locked price. Right now the cost per click on your terms is unusually low, which is why a few more people are coming through. It moves around, so a cheap month is a good month to lean in.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client asked what the CPC column on his report meant, and Whitney explained the term and noted his current cost per click was running low.</span>
+                <span class="source-link">Meeting: 01KX4G2R8RKPFW5GGDHBR1DS6T</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="Google Ads / PPC for accountants" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">Google Ads / PPC for accountants</span>
+                <span class="tag tag-secondary">SEO for accounting firms</span><span class="tag tag-secondary">the cost of marketing and small budgets</span>
+                <span class="audience-pill">accounting firm owner weighing where to spend</span>
+            </header>
+            <blockquote class="entry-content">There&#x27;s so much you can do in marketing, videos, infographics, social, webinars, paid ads, that the real question is always where the highest-ROI dollar is. Through and through, for years, it&#x27;s been SEO, and now AI search on top of it. Ads are what keep leads coming while the SEO builds, but they&#x27;re not where the long-term return lives. If you only ever run ads, you never stop paying for every single lead.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client asked where the highest return on his marketing spend was and whether the ads were still worth it, and Whitney framed ads as the bridge while organic search compounds.</span>
+                <span class="source-link">Meeting: 01KX1RYPXFZ85RNW2TG8T3AHG4</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="Google Ads / PPC for accountants" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">Google Ads / PPC for accountants</span>
+                <span class="tag tag-secondary">measuring marketing ROI and attribution</span><span class="tag tag-secondary">SEO for accounting firms</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">Keep organic and paid traffic separate in your head when you read a report. A jump in visitors that&#x27;s coming from organic, with most of them landing straight on your homepage rather than a single blog, is a genuinely good sign, it means people are finding the brand, not just clicking one ad. That&#x27;s a healthier pattern than traffic that only shows up when the ads are running.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was walking a client through his monthly numbers and pointing out that his organic traffic was up and homepage-heavy, independent of the ads.</span>
+                <span class="source-link">Meeting: 01KX4G2R8RKPFW5GGDHBR1DS6T</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="LinkedIn marketing for accountants" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">LinkedIn marketing for accountants</span>
+                <span class="tag tag-secondary">niche and specialty positioning</span><span class="tag tag-secondary">social media for accountants</span>
+                <span class="audience-pill">accounting firm owner running two niches</span>
+            </header>
+            <blockquote class="entry-content">When you&#x27;re testing two very different audiences, split them across your personal profile and the company page. Keep your personal profile mostly on the niche you already have traction in, and let the company page carry the newer one you&#x27;re testing with ads and a webinar. Your personal posts go way farther than the company ones, but the people seeing the company page don&#x27;t even see your personal profile unless they go digging for you. That way you test the new direction without confusing the audience you&#x27;ve already built.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client was torn about how to post on LinkedIn while chasing two completely different niches at once and worried each audience would take him less seriously.</span>
+                <span class="source-link">Meeting: 01KX1RYPXFZ85RNW2TG8T3AHG4</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="LinkedIn marketing for accountants" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">LinkedIn marketing for accountants</span>
+                <span class="tag tag-secondary">niche and specialty positioning</span>
+                <span class="audience-pill">accounting firm owner running two niches</span>
+            </header>
+            <blockquote class="entry-content">You don&#x27;t have to post on social about a niche you&#x27;re not actively chasing. If you&#x27;re reaching out directly to people who are already posting job listings, they can see from your profile and your track record that you&#x27;re serious. The page just needs to be good enough that if someone looks you up, they don&#x27;t think, wait, you said you specialize in this but you never talk about it. Save your posting energy for the niche you&#x27;re actually trying to grow.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">The client realized he didn&#x27;t need a full social presence for one of his two niches because his outreach for it was direct and his profile history already established credibility.</span>
+                <span class="source-link">Meeting: 01KX1RYPXFZ85RNW2TG8T3AHG4</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="local SEO and Google Business Profile" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">local SEO and Google Business Profile</span>
+                <span class="tag tag-secondary">SEO for accounting firms</span><span class="tag tag-secondary">niche and specialty positioning</span>
+                <span class="audience-pill">local accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">With local SEO, win the smaller, easier market first. It&#x27;s honestly quite easy to be number one for a smaller metro&#x27;s terms, accountant near me, the city plus accounting firm, bookkeepers, CFO, tax prep, all of it. Once you&#x27;ve locked those up, that&#x27;s your signal to go all in on the bigger, harder city. Trying to fight for the hardest market on day one just means you rank nowhere for a long time.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">The firm had reached number one across nearly all of its smaller-metro keywords, and Whitney was recommending it use that win as the springboard to a larger city.</span>
+                <span class="source-link">Meeting: 01KX4EFNR4SB7NMWC6Z8W0DMKD</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="local SEO and Google Business Profile" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">local SEO and Google Business Profile</span>
+                <span class="tag tag-secondary">SEO for accounting firms</span><span class="tag tag-secondary">niche and specialty positioning</span>
+                <span class="audience-pill">remote accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">For a fully remote firm, local is rarely the long-term play, and I get why an owner feels that. But it&#x27;s not black and white. We do see success with local even for remote firms, partly because a lot of searchers still want someone nearby and trust that. So local can absolutely bring leads while a national niche builds, you just don&#x27;t want to build your whole future on a location when the business itself isn&#x27;t tied to one.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A remote client argued that local SEO didn&#x27;t fit a location-independent firm, and Whitney agreed on the long-term direction while noting local still converts for some remote firms.</span>
+                <span class="source-link">Meeting: 01KX1RYPXFZ85RNW2TG8T3AHG4</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="measuring marketing ROI, leads, and attribution" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">measuring marketing ROI, leads, and attribution</span>
+                <span class="tag tag-secondary">SEO for accounting firms</span><span class="tag tag-secondary">local SEO and Google Business Profile</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">Tie ranking movements back to what&#x27;s actually happening in the owner&#x27;s inbox. On one account a service-line keyword slipped a few spots the same week the owner said his last three new-client meetings were all about that exact service. That&#x27;s not a coincidence to wave off, it&#x27;s a signal, so I flag it with the team to look at. The rankings dashboard is only useful when you read it against the real conversations coming in.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client mentioned his recent new-client calls were all about a service whose keyword had just dipped, and Whitney connected the two rather than treating the ranking move in isolation.</span>
+                <span class="source-link">Meeting: 01KX4EFNR4SB7NMWC6Z8W0DMKD</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="measuring marketing ROI, leads, and attribution" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">measuring marketing ROI, leads, and attribution</span>
+                <span class="tag tag-secondary">client onboarding and expectations</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">Our default dashboard tracks the things that show whether the formula is working: organic visitors, how that&#x27;s turning into leads, what the ads looked like this month, where people are coming from, and the top-performing pages and search terms. Leads usually means someone getting in touch for a call. Beyond that baseline, what we put on the board is completely dependent on what the owner actually wants to see, some want a lot, some just want the one number.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was explaining how she sets up an ROI dashboard for a client and which core metrics she tracks by default versus customizes per owner.</span>
+                <span class="source-link">Meeting: 01KMZEBE152KGZYGW5EEHE07JG</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="measuring marketing ROI, leads, and attribution" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">measuring marketing ROI, leads, and attribution</span>
+                <span class="tag tag-secondary">what makes accounting-firm marketing different</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">Lead volume is only half the picture, lead quality is the other half. I&#x27;ll straight up ask an owner whether the leads coming through have been good ones or just tiresome, because a pile of junk inquiries isn&#x27;t a win. When the answer is that the people reaching out seem legit, that&#x27;s the number that actually tells you the marketing is pulling the right audience.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney checked in with a client on whether his recent uptick in leads was made up of genuine prospects or time-wasters.</span>
+                <span class="source-link">Meeting: 01KX4EFNR4SB7NMWC6Z8W0DMKD</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="niche and specialty positioning (dental, real estate, restaurant, e-commerce CPAs)" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">niche and specialty positioning (dental, real estate, restaurant, e-commerce CPAs)</span>
+                <span class="tag tag-secondary">what makes accounting-firm marketing different</span><span class="tag tag-secondary">SEO for accounting firms</span>
+                <span class="audience-pill">accounting firm owner choosing a niche</span>
+            </header>
+            <blockquote class="entry-content">Some accounting niches just market better than others. Dental firms tend to do well. Therapists do really well, though the engagements are cheaper. Restaurants do well but it&#x27;s competitive. Trades like HVAC are okay. Medical is harder, insurance agencies are harder, and agencies are hard, I don&#x27;t really recommend chasing those. And honestly, a lot of the firms that do the best are local. It&#x27;s not that the harder niches can&#x27;t work, it&#x27;s that you should go in knowing how competitive and how trust-heavy the space is before you commit.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A departing client asked which verticals Whitney had seen perform well, and she ran through the niches that convert versus the ones that fight uphill.</span>
+                <span class="source-link">Meeting: 01KJTAVV9F9SJ2EDBYA9KCK29N</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="niche and specialty positioning (dental, real estate, restaurant, e-commerce CPAs)" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">niche and specialty positioning (dental, real estate, restaurant, e-commerce CPAs)</span>
+                <span class="tag tag-secondary">webinars, lead magnets, and nurture campaigns</span><span class="tag tag-secondary">conversion and lead funnels</span>
+                <span class="audience-pill">accounting firm owner who cast a wide net</span>
+            </header>
+            <blockquote class="entry-content">Go really niche, and then go where that niche already gathers. Join the groups, network with as many of those people as you can, and offer something for free, like a live Q&amp;A or a session where you write down this year&#x27;s tax strategy. Anywhere there&#x27;s a grassroots community, get in and don&#x27;t be salesy, just contribute as much as you can. The niche you pick matters less than how deeply you show up in the rooms where those people already are.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client with a broad, unfocused positioning asked how to get traction, and Whitney walked him through narrowing down and embedding in the niche&#x27;s communities.</span>
+                <span class="source-link">Meeting: 01KJTAVV9F9SJ2EDBYA9KCK29N</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="niche and specialty positioning (dental, real estate, restaurant, e-commerce CPAs)" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">niche and specialty positioning (dental, real estate, restaurant, e-commerce CPAs)</span>
+                <span class="tag tag-secondary">brand and messaging for accounting firms</span><span class="tag tag-secondary">LinkedIn marketing for accountants</span>
+                <span class="audience-pill">accounting firm owner deciding between two niches</span>
+            </header>
+            <blockquote class="entry-content">Trying to speak to two completely different niches at once is genuinely hard, because the only way to cover both is to go bland, like a CPA firm that does tax and accounting, and then you&#x27;re not really speaking to anyone. It&#x27;s always better to be more specific. If you have to hedge while you test, you can, but know that specific is what actually converts. The bland version keeps every door open and closes every sale.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">The client was pulled between two very different niches and wondering whether to make his messaging generic enough to serve both.</span>
+                <span class="source-link">Meeting: 01KX1RYPXFZ85RNW2TG8T3AHG4</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="niche and specialty positioning (dental, real estate, restaurant, e-commerce CPAs)" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">niche and specialty positioning (dental, real estate, restaurant, e-commerce CPAs)</span>
+                <span class="tag tag-secondary">conversion and lead funnels</span><span class="tag tag-secondary">what makes accounting-firm marketing different</span>
+                <span class="audience-pill">accounting firm owner in a competitive niche</span>
+            </header>
+            <blockquote class="entry-content">In a high-trust profession, the problem usually isn&#x27;t traffic, it&#x27;s trust. We sent one firm plenty of clicks through Google Ads and it still didn&#x27;t convert, because that audience is smart, thinks they can do it themselves with AI, and doesn&#x27;t feel enough pain to switch. Meanwhile a comparable firm in a different niche runs the exact same playbook and converts fine. When traffic is there and conversions aren&#x27;t, the fix is almost always building trust, not buying more clicks.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was diagnosing why a client&#x27;s firm got ad traffic but few conversions, contrasting it with a similar firm in a niche that converts well.</span>
+                <span class="source-link">Meeting: 01KJTAVV9F9SJ2EDBYA9KCK29N</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="reviews, reputation, and social proof" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">reviews, reputation, and social proof</span>
+                <span class="tag tag-secondary">conversion and lead funnels</span><span class="tag tag-secondary">niche and specialty positioning</span>
+                <span class="audience-pill">accounting firm owner with a conversion problem</span>
+            </header>
+            <blockquote class="entry-content">If you&#x27;ve got a trust or conversion problem, social proof is the cheapest fix you&#x27;re not using. Any client willing to do a case study or even a quick video testimonial, get it and put it on the website, I&#x27;ll throw it up for you if you send it over. People want to see as many reviews as possible before they reach out to an accountant. It&#x27;s the difference between a visitor believing you and a visitor bouncing.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was helping a client diagnose a conversion problem and recommended collecting client testimonials and case studies to build the trust the site was missing.</span>
+                <span class="source-link">Meeting: 01KJTAVV9F9SJ2EDBYA9KCK29N</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="SEO for accounting firms" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">SEO for accounting firms</span>
+                <span class="tag tag-secondary">local SEO and Google Business Profile</span><span class="tag tag-secondary">measuring marketing ROI and attribution</span>
+                <span class="audience-pill">local accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">Once you&#x27;re number one for pretty much every keyword in your smaller, easier market, don&#x27;t just sit there. That&#x27;s the moment to pick a bigger city and go all in. I&#x27;d usually go after the one that&#x27;s easier to win first, even if it&#x27;s smaller, because being number one there happens fast, and then you use that momentum to take on the harder, more competitive metro next.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">The firm had reached the top position for nearly all of its local-area keywords, and Whitney was recommending which larger nearby city to expand into next.</span>
+                <span class="source-link">Meeting: 01KX4EFNR4SB7NMWC6Z8W0DMKD</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="SEO for accounting firms" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">SEO for accounting firms</span>
+                <span class="tag tag-secondary">the cost of marketing and small budgets</span><span class="tag tag-secondary">measuring marketing ROI and attribution</span>
+                <span class="audience-pill">established accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">If we&#x27;ve been doing your SEO long enough, pausing it for a couple of months to redirect budget isn&#x27;t going to sink you. We can still track it, and you don&#x27;t have many competitors nipping at your heels anyway, so you&#x27;re fine. It&#x27;s very different from a firm that&#x27;s just starting out. Once the foundation is built, it holds for a while.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">An established client asked whether he could pause SEO, backlinks, and citations for 90 days and move that budget into website and nurture-funnel work while cash was tight.</span>
+                <span class="source-link">Meeting: 01KX1TDST6K3TKF91G704JA0F0</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="SEO for accounting firms" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">SEO for accounting firms</span>
+                <span class="tag tag-secondary">niche and specialty positioning</span><span class="tag tag-secondary">content marketing for accountants</span>
+                <span class="audience-pill">accounting firm owner switching target niche</span>
+            </header>
+            <blockquote class="entry-content">Here&#x27;s the hard part about switching your whole niche: SEO takes a while, so the keywords we&#x27;ve been building are just starting to take off, and now we&#x27;re going to switch it all over and basically restart the clock. It&#x27;s a real cost of pivoting. That doesn&#x27;t mean don&#x27;t do it, but go in knowing you&#x27;re trading the traction you&#x27;ve already built for a fresh start on the new keywords.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">The client was moving from a location-based niche to a national niche, and his older keywords were finally starting to rank on page two just as he decided to pivot.</span>
+                <span class="source-link">Meeting: 01KX1RYPXFZ85RNW2TG8T3AHG4</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="SEO for accounting firms" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">SEO for accounting firms</span>
+                <span class="tag tag-secondary">measuring marketing ROI and attribution</span>
+                <span class="audience-pill">accounting firm owner new to SEO</span>
+            </header>
+            <blockquote class="entry-content">Rankings bounce around week to week, especially early on, so don&#x27;t read too much into any single move. One keyword slips three spots this week, another slips nine, and then they come right back. We just keep an eye on the trend line, not the daily wiggle. Panicking over one bad week is how people talk themselves out of SEO right before it starts working.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was walking a client through a weekly rankings snapshot where a couple of the target keywords had dipped a few positions.</span>
+                <span class="source-link">Meeting: 01KX4G2R8RKPFW5GGDHBR1DS6T</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="SEO for accounting firms" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">SEO for accounting firms</span>
+                <span class="tag tag-secondary">Google Ads / PPC for accountants</span><span class="tag tag-secondary">the cost of marketing and small budgets</span>
+                <span class="audience-pill">accounting firm owner weighing SEO vs ads</span>
+            </header>
+            <blockquote class="entry-content">All of this SEO work matters because it takes a long time, six to nine months to really start gaining traction. I&#x27;ll sometimes tell a client, let&#x27;s forego SEO this month and pour those hours into a big project instead, but I wouldn&#x27;t want to do that every single month. If you keep skipping it, you&#x27;re just spinning your wheels and paying for ads forever. The whole point of SEO is to eventually stop renting your traffic.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was explaining her core service formula and why the slow-building SEO work stays in the monthly scope even when a client wants to pour hours into a one-off project.</span>
+                <span class="source-link">Meeting: 01KMZEBE152KGZYGW5EEHE07JG</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="social media for accountants" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">social media for accountants</span>
+                <span class="tag tag-secondary">what makes accounting-firm marketing different</span><span class="tag tag-secondary">measuring marketing ROI and attribution</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">For a lot of accounting firms, social media is basically a brochure now. What we see on Hotjar is people clicking through to your LinkedIn or your Instagram just to make sure you&#x27;re a real, live brand that&#x27;s actually doing something, before they trust you enough to reach out. They&#x27;re not scrolling your feed for entertainment, they&#x27;re checking that you&#x27;re alive and kicking. Once you accept that&#x27;s the job, you stop stressing about posting constantly.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client wondered whether anyone even sees business social posts anymore, and Whitney reframed what social is actually accomplishing for a firm.</span>
+                <span class="source-link">Meeting: 01KX1TDST6K3TKF91G704JA0F0</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="social media for accountants" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">social media for accountants</span>
+                <span class="tag tag-secondary">the cost of marketing and small budgets</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">If social is functioning as a brochure, then posting once a week instead of three times still accomplishes the goal. You&#x27;re proving you&#x27;re active, not feeding an algorithm you need to win. So when a firm needs to free up hours for higher-priority work, dialing social back is one of the safer places to cut. You don&#x27;t have to stop, just right-size it to what it&#x27;s actually doing for you.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client asked whether the team could halve his social output to reallocate hours, and Whitney agreed it wouldn&#x27;t cost him much given social&#x27;s real role.</span>
+                <span class="source-link">Meeting: 01KX1TDST6K3TKF91G704JA0F0</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="webinars, lead magnets, and nurture campaigns" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">webinars, lead magnets, and nurture campaigns</span>
+                <span class="tag tag-secondary">niche and specialty positioning</span><span class="tag tag-secondary">conversion and lead funnels</span>
+                <span class="audience-pill">accounting firm owner in a trust-heavy niche</span>
+            </header>
+            <blockquote class="entry-content">For a lot of niches, webinars are the single biggest lever, right up there with ads. You don&#x27;t need anything fancy, a free Zoom session where you walk through this year&#x27;s tax strategy counts. Then you take that same recording and throw it up on YouTube, so it keeps working as content long after the live session ends. One hour of your time becomes a lead magnet and an evergreen asset at the same time.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was telling a client that webinars, even a simple free session repurposed to YouTube, were the biggest driver she&#x27;d seen for firms in trust-heavy niches.</span>
+                <span class="source-link">Meeting: 01KJTAVV9F9SJ2EDBYA9KCK29N</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="webinars, lead magnets, and nurture campaigns" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">webinars, lead magnets, and nurture campaigns</span>
+                <span class="tag tag-secondary">niche and specialty positioning</span><span class="tag tag-secondary">conversion and lead funnels</span>
+                <span class="audience-pill">accounting firm owner building trust</span>
+            </header>
+            <blockquote class="entry-content">The fastest way into a skeptical niche is to give value away for free in the rooms they already trust. Go into the groups and offer to run a free session, a Q&amp;A, or write down the tax strategy for the year, no pitch. It&#x27;s grassroots, it&#x27;s slow, but for a high-trust profession it beats a cold ad because people meet you as the helpful expert before they ever see a price.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client in a hard-to-convert niche was avoiding this exact work, and Whitney pointed him toward free community sessions as the trust-building move.</span>
+                <span class="source-link">Meeting: 01KJTAVV9F9SJ2EDBYA9KCK29N</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="webinars, lead magnets, and nurture campaigns" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">webinars, lead magnets, and nurture campaigns</span>
+                <span class="tag tag-secondary">content marketing for accountants</span><span class="tag tag-secondary">client onboarding and expectations</span>
+                <span class="audience-pill">accounting firm owner running webinars</span>
+            </header>
+            <blockquote class="entry-content">Start promoting a webinar about four weeks out, and treat it as a full little campaign, not just an event. There&#x27;s the outline, the designed presentation, the landing page, the ad graphics, the social posts, the newsletter, the reminder emails, and the automation that catches the leads coming in. Then afterward you send the replay to everyone who registered. The live hour is the smallest part, the campaign around it is what actually fills the seats.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was walking a client&#x27;s operations lead through everything her team builds around a monthly webinar and how far in advance it kicks off.</span>
+                <span class="source-link">Meeting: 01KMZEBE152KGZYGW5EEHE07JG</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="websites and web design for accounting firms" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">websites and web design for accounting firms</span>
+                <span class="tag tag-secondary">conversion and lead funnels</span>
+                <span class="audience-pill">accounting firm owner reviewing website design</span>
+            </header>
+            <blockquote class="entry-content">On a homepage banner, the image can&#x27;t be allowed to steal focus from the words and the button. If your eye can&#x27;t land on the middle text because there&#x27;s too much going on, that&#x27;s a problem, even if the design is on brand and looks sharp. The fix is usually simplifying, move the headline bigger to one side and keep a single arrow or image on the other, so the visitor isn&#x27;t trying to look at three things at once. Pretty doesn&#x27;t matter if it buries the message.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client couldn&#x27;t focus on the center text of a redesigned banner, and Whitney diagnosed that the images coming in from both sides were competing with the copy.</span>
+                <span class="source-link">Meeting: 01KX1TDST6K3TKF91G704JA0F0</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="websites and web design for accounting firms" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">websites and web design for accounting firms</span>
+                <span class="tag tag-secondary">conversion and lead funnels</span>
+                <span class="audience-pill">accounting firm owner reviewing a contact page</span>
+            </header>
+            <blockquote class="entry-content">A contact flow should be short, staged, and leave the visitor with a clear sense of what happens next. Breaking it into a quick one, two, three, tell us, schedule, meet, beats one long intimidating form. And the final step needs to convey some sense of finality, the thing they came for, even if it doesn&#x27;t spell out every detail. People fill out the form because they want to know what it&#x27;ll cost and what the plan looks like, so the flow should feel like it&#x27;s carrying them toward that answer.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney and a client were refining a staged contact page and getting the wording of the final step right so it landed with a sense of a clear next step.</span>
+                <span class="source-link">Meeting: 01KX1TDST6K3TKF91G704JA0F0</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="websites and web design for accounting firms" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">websites and web design for accounting firms</span>
+                <span class="tag tag-secondary">AI tools for running firm marketing (Claude, the Course)</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">Our website mockups come from experience, all the skills and patterns we&#x27;ve built up over years of doing this, not from guessing. AI can genuinely help with conversion copy, it&#x27;s good at answering how do I make someone actually want to buy, how do I speak to their pains. Sometimes it comes out a little too salesy for my taste, so you edit it back. It&#x27;s a strong starting point for the copy idea, not the finished page.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client asked whether Markology uses AI in web design, and Whitney explained that the layouts come from proven patterns while AI helps draft conversion-focused copy that then gets edited.</span>
+                <span class="source-link">Meeting: 01KX1RYPXFZ85RNW2TG8T3AHG4</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="websites and web design for accounting firms" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">websites and web design for accounting firms</span>
+                <span class="tag tag-secondary">niche and specialty positioning</span><span class="tag tag-secondary">SEO for accounting firms</span>
+                <span class="audience-pill">accounting firm owner serving a secondary audience</span>
+            </header>
+            <blockquote class="entry-content">When you go all in on a primary audience but still want to serve a secondary one, you don&#x27;t have to clutter the whole site. Keep the secondary page live but unlinked from the main homepage, and add a small line up top, like if you&#x27;re here for X, click here. It&#x27;s easy to find for the person who needs it and it doesn&#x27;t distract the primary audience the site is built for. You commit the homepage to one message without throwing away the other page.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">The client wanted his site fully tailored to his primary niche but still reachable by a secondary audience, and Whitney proposed a quiet pointer link rather than a split homepage.</span>
+                <span class="source-link">Meeting: 01KX1RYPXFZ85RNW2TG8T3AHG4</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="what makes accounting-firm marketing different" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">what makes accounting-firm marketing different</span>
+                <span class="tag tag-secondary">niche and specialty positioning</span><span class="tag tag-secondary">conversion and lead funnels</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">The advantage of only marketing accounting firms is you learn which niches convert and which fight you, from actually doing it. I can tell an owner that dental and restaurants and therapists tend to work, that trades are okay, and that medical and insurance run uphill because of trust. A generalist agency is guessing at that. When you&#x27;ve run the same playbook across a lot of firms, you stop guessing about what&#x27;s competitive and what converts.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A client asked which verticals Whitney had seen do well, and her answer drew on patterns across many accounting-firm engagements rather than theory.</span>
+                <span class="source-link">Meeting: 01KJTAVV9F9SJ2EDBYA9KCK29N</span>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="what makes accounting-firm marketing different" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">what makes accounting-firm marketing different</span>
+                <span class="tag tag-secondary">SEO for accounting firms</span><span class="tag tag-secondary">GEO / AI search (ChatGPT, Perplexity, Google AI) for accountants</span>
+                <span class="audience-pill">accounting firm owner</span>
+            </header>
+            <blockquote class="entry-content">The whole model comes down to one thing, lead generation, and it runs on a repeatable formula: Google search, AI visibility, and content strategy, feeding a weekly rhythm. It&#x27;s not a pile of random tactics, it&#x27;s the same core system applied to each firm, with whatever the owner wants to pour in on top. Consistency is the point, every month looks the same in terms of the core work, which is exactly why it compounds.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Whitney was laying out her core methodology and monthly structure for a client&#x27;s operations lead who wanted to understand how the engagement actually works.</span>
+                <span class="source-link">Meeting: 01KMZEBE152KGZYGW5EEHE07JG</span>
+            </footer>
+        </article>
+    </div>
+  </section>
+</main>
 
-<p>Whitney sounds like a sharp, warm marketing partner who has seen the inside of dozens of accounting firms, explains everything in plain language, ties every recommendation back to leads and ROI, and never oversells. Confident recommendations, zero hype.</p>
+<div class="skill-footer">
+  Generated from <code>Clients/Markology/founder-voice/</code> · Markology Founder-Voice skill · self-contained HTML, no network calls
+</div>
 
-<hr>
+<script>
+(function() {
+  const grid = document.getElementById('entry-grid');
+  const cards = Array.from(grid.querySelectorAll('.entry-card'));
+  const countEl = document.getElementById('entries-count');
+  let activeType = 'all';
+  let activeTopic = null;
 
-<h3>Signature phrases (verbatim from her calls)</h3>
+  function applyFilter() {
+    let visible = 0;
+    cards.forEach(c => {
+      const matchType = activeType === 'all' || c.dataset.type === activeType;
+      const matchTopic = !activeTopic || c.dataset.topic === activeTopic;
+      const show = matchType && matchTopic;
+      c.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    const filterLabel = activeTopic ? ` for "${activeTopic}"` : '';
+    countEl.textContent = `${visible} showing${filterLabel}`;
+  }
 
-<p>Use these as-is or lightly adapted. They are genuinely hers:</p>
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeType = chip.dataset.type;
+      applyFilter();
+    });
+  });
 
-<ul><li><b>&quot;It&#x27;s more of a brochure.&quot;</b> How she describes what business social media is really for now, a place people check that you&#x27;re a real, active brand before they trust you.</li>
-<li><b>&quot;Spinning your wheels and paying for ads forever.&quot;</b> The trap of skipping SEO and renting traffic instead of earning it.</li>
-<li><b>&quot;Go down the rabbit hole.&quot;</b> What an ideal lead does after a search-driven blog brings them in.</li>
-<li><b>&quot;Go all in.&quot;</b> Committing fully to the next market or niche once the current one is won.</li>
-<li><b>&quot;Where do we pour this in?&quot;</b> / <b>&quot;pour it in&quot;</b> How she slots a new project into a fixed weekly cadence, a capacity question, not an automatic yes.</li>
-<li><b>&quot;Nipping at your heels.&quot;</b> Competitors, or the reassuring lack of them.</li>
-<li><b>&quot;Let the niche find you&quot; vs &quot;go really niche.&quot;</b> The two paths into a specialty; she leans toward choosing and committing when an owner needs traction now.</li>
-<li><b>&quot;We&#x27;ll keep an eye on that.&quot;</b> Her calm response to a single bad week of rankings.</li>
-<li><b>&quot;To be honest&quot;</b> / <b>&quot;honestly though&quot;</b> Her candor markers, she says them before the real, unvarnished take.</li>
-<li><b>&quot;Reassess in ninety days.&quot;</b> How she frames a budget or strategy pause, always reversible, always time-boxed.</li>
-</ul>
-<h3>Warmth and affirmation markers</h3>
-
-<p>Her calls are dense with these. They make her sound collaborative, not lecturing:</p>
-
-<ul><li>&quot;Yep.&quot; &quot;100%.&quot; &quot;Absolutely.&quot; &quot;No worries at all.&quot; &quot;That&#x27;s a great idea.&quot; &quot;That sounds good.&quot;</li>
-<li>Runs through options quickly and lets the client react: &quot;I&#x27;ll just run through these, you say yes, no, yes.&quot;</li>
-<li>Genuinely encouraging, even at an offboarding: &quot;It will turn. Yes, it will turn.&quot; &quot;Wish you all the best.&quot;</li>
-<li>Low-ego and human: admits when she can&#x27;t remember, when she&#x27;s on a different computer, when something&#x27;s her miss. Never performs certainty she doesn&#x27;t have.</li>
-</ul>
-<hr>
-
-<h3>How she explains marketing to accountants</h3>
-
-<ul><li><b>Plain analogies over jargon.</b> Social is a brochure. SEO is renting vs owning your traffic. Bad rankings are &quot;just the daily wiggle.&quot; She defines terms in the same breath (&quot;CPC just means cost per click, roughly what one click costs you&quot;).</li>
-<li><b>Always leads with the lead.</b> Every tactic gets tied back to leads and ROI. &quot;Where&#x27;s the highest-ROI dollar&quot; is the recurring question she answers for owners.</li>
-<li><b>Sequences, doesn&#x27;t scatter.</b> Win the easy market first, then go all in on the harder one. Do fewer things better. Get funnels live with placeholders now, perfect them later.</li>
-<li><b>Honest about the slow burn.</b> SEO takes six to nine months; she says so up front rather than overpromising, and pairs it with ads as the bridge.</li>
-<li><b>Separates authority content from search content.</b> Thought leadership builds credibility; SEO blogs answer real searches and bring the leads. Both on purpose.</li>
-<li><b>Pairs Google and AI search, every time</b> (brand rule and her natural framing). &quot;Google search, AI visibility, and content strategy&quot; is how she describes the core formula.</li>
-<li><b>Reassures on volatility.</b> She talks owners off the ledge when one keyword dips, because panicking is how people quit SEO right before it works.</li>
-</ul>
-<h3>Rhythm</h3>
-
-<p>Conversational and a little thinking-out-loud, but it always lands on a clear recommendation. She&#x27;ll lay out two or three options, note the trade-offs, and then say what she&#x27;d actually do (&quot;that would be my recommendation as well&quot;). She hedges with &quot;to be honest&quot; and &quot;it depends, it&#x27;s not black and white,&quot; then commits. Warm affirmations punctuate everything. Sentences are relaxed, not staccato, no drill-sergeant cadence.</p>
-
-<h3>Never-says</h3>
-
-<ul><li>No first-person CPA / accountant claims (she isn&#x27;t one).</li>
-<li>No hype, urgency, or &quot;ACT NOW&quot; energy. The work speaks for itself.</li>
-<li>No &quot;rank #1 / top-3 rankings&quot; language in client-facing copy. Lead with being found, recommended, chosen, and with leads.</li>
-<li>No em dashes. Commas, periods, colons, parentheses instead.</li>
-<li>&quot;%&quot; not &quot;percent.&quot;</li>
-<li>Never &quot;shipped.&quot; Use Completed, Done, Live, Published.</li>
-<li>No generic agency filler (&quot;amplify your brand&quot;, &quot;synergize your growth&quot;, &quot;unlock your potential&quot;).</li>
-<li>Never overpromises a specific outcome or dollar figure; points to what&#x27;s historically worked instead.</li>
-</ul>
-</div></body></html>
+  document.querySelectorAll('.topic-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const topic = card.dataset.topic;
+      if (activeTopic === topic) {
+        activeTopic = null;
+        card.classList.remove('active');
+      } else {
+        document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        activeTopic = topic;
+        document.getElementById('entries-heading').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      applyFilter();
+    });
+  });
+})();
+</script>
+</body>
+</html>

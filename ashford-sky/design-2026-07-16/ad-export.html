@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ashford Sky · Ad Export</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet" />
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; background: #1c1c1e; }
+
+  /* ===== brand tokens ===== */
+  :root {
+    --blue: #024070;     /* primary deep blue */
+    --blue-deep: #012339;/* darker variant bg */
+    --sky: #9ED0F0;      /* accent sky blue */
+    --paper: #EBECED;    /* off-white */
+  }
+
+  .ad {
+    width: 1080px; height: 1080px; position: relative; overflow: hidden;
+    font-family: 'Gelica', 'Bitter', Georgia, serif; -webkit-font-smoothing: antialiased;
+  }
+  .mono { font-family: 'General Sans', sans-serif; }
+  .ad .eyebrow {
+    font-family: 'General Sans', sans-serif; font-weight: 500;
+    text-transform: uppercase; letter-spacing: 0.22em;
+  }
+
+  .logo { display: block; height: 60px; width: auto; }
+  .badge {
+    font-family: 'General Sans', sans-serif; font-weight: 600; font-size: 13px;
+    text-transform: uppercase; letter-spacing: 0.18em;
+    padding: 10px 17px; border-radius: 999px; white-space: nowrap;
+  }
+
+  /* ============================================================
+     A — BRAND BLUE · "$2M" hero
+     ============================================================ */
+  .adA { background: radial-gradient(ellipse 130% 95% at 50% 118%, #073c65 0%, #0d3658 50%, #12314a 100%); color: var(--paper); padding: 70px 72px; display: flex; flex-direction: column; }
+  .adA .topbar { display: flex; justify-content: space-between; align-items: center; }
+  .adA .badge { background: var(--sky); color: var(--blue); }
+  .adA .center { flex: 1; display: flex; flex-direction: column; justify-content: center; margin-top: 8px; }
+  .adA .pre { font-size: 22px; letter-spacing: 0.24em; color: rgba(235,236,237,0.6); margin-bottom: 40px; }
+  .adA .hero {
+    font-weight: 800; font-size: 320px; line-height: 0.84; letter-spacing: -0.03em;
+    display: flex; align-items: baseline; color: var(--paper);
+  }
+  .adA .hero .q { font-size: 200px; line-height: 1; margin-left: 16px; color: var(--sky); }
+  .adA .headline { font-weight: 800; font-size: 66px; line-height: 1.02; letter-spacing: -0.01em; margin-top: 26px; }
+  .adA .sub { font-family: 'General Sans', sans-serif; font-size: 21px; line-height: 1.5; color: rgba(235,236,237,0.72); margin-top: 22px; max-width: 740px; }
+  .adA .chips { display: flex; gap: 12px; margin-top: 34px; }
+  .adA .chip {
+    font-family: 'General Sans', sans-serif; font-size: 15px; letter-spacing: 0.03em;
+    padding: 11px 18px; border: 1px solid rgba(158,208,240,0.5); border-radius: 8px; color: var(--sky); white-space: nowrap;
+  }
+  .adA .footer {
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(235,236,237,0.18); padding-top: 26px; margin-top: 40px;
+  }
+  .adA .when { font-weight: 700; font-size: 27px; letter-spacing: 0.01em; white-space: nowrap; }
+  .adA .when b { color: var(--sky); font-weight: 800; }
+  .adA .cta {
+    font-family: 'General Sans', sans-serif; font-weight: 600; font-size: 19px;
+    background: var(--sky); color: var(--blue); padding: 16px 26px; border-radius: 10px; letter-spacing: 0.02em; white-space: nowrap;
+  }
+
+  /* ============================================================
+     B — DEEP NAVY · numbered pillars
+     ============================================================ */
+  .adB { background: var(--blue-deep); color: var(--paper); padding: 72px; display: flex; flex-direction: column; }
+  .adB .topbar { display: flex; justify-content: space-between; align-items: center; }
+  .adB .badge { background: rgba(158,208,240,0.14); color: var(--sky); border: 1px solid rgba(158,208,240,0.45); }
+  .adB .pre { font-size: 20px; letter-spacing: 0.24em; color: rgba(235,236,237,0.55); margin-top: 44px; }
+  .adB .headline {
+    font-weight: 800; font-size: 82px; line-height: 1.0; letter-spacing: -0.02em; margin-top: 16px; max-width: 880px;
+  }
+  .adB .headline .sky { color: var(--sky); }
+  .adB .pillars { margin-top: 42px; display: flex; flex-direction: column; }
+  .adB .pillar {
+    display: grid; grid-template-columns: 124px 1fr; align-items: baseline; gap: 28px;
+    padding: 20px 0; border-top: 1px solid rgba(235,236,237,0.16);
+  }
+  .adB .pillar:last-child { border-bottom: 1px solid rgba(235,236,237,0.16); }
+  .adB .pnum { font-family: 'General Sans', sans-serif; font-weight: 600; font-size: 58px; line-height: 1; color: var(--sky); letter-spacing: -0.02em; }
+  .adB .ptext { display: flex; flex-direction: column; gap: 6px; }
+  .adB .ptitle { font-weight: 700; font-size: 35px; letter-spacing: -0.01em; }
+  .adB .pdesc { font-family: 'General Sans', sans-serif; font-size: 18px; color: rgba(235,236,237,0.62); line-height: 1.4; }
+  .adB .footer {
+    margin-top: auto; display: flex; justify-content: space-between; align-items: center; padding-top: 32px;
+  }
+  .adB .when { font-weight: 700; font-size: 26px; white-space: nowrap; }
+  .adB .when b { color: var(--sky); font-weight: 800; }
+  .adB .cta {
+    font-family: 'General Sans', sans-serif; font-weight: 600; font-size: 19px;
+    background: var(--sky); color: var(--blue); padding: 16px 26px; border-radius: 10px; white-space: nowrap;
+  }
+
+  /* ============================================================
+     C — LIGHT PAPER · giant headline, sky highlight
+     ============================================================ */
+  .adC { background: var(--paper); color: var(--blue); padding: 76px; display: flex; flex-direction: column; }
+  .adC .topbar { display: flex; justify-content: space-between; align-items: center; }
+  .adC .logo { height: 58px; }
+  .adC .badge { background: var(--blue); color: var(--paper); }
+  .adC .stack { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .adC .pre { font-size: 21px; letter-spacing: 0.24em; color: rgba(2,64,112,0.6); margin-bottom: 30px; }
+  .adC .headline {
+    font-weight: 800; font-size: 112px; line-height: 0.96; letter-spacing: -0.02em;
+  }
+  .adC .headline .hl {
+    background: var(--sky); padding: 0 0.1em; border-radius: 6px; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+  }
+  .adC .sub {
+    font-family: 'General Sans', sans-serif; font-size: 22px; line-height: 1.55;
+    color: rgba(2,64,112,0.72); margin-top: 40px; max-width: 740px;
+  }
+  .adC .footer {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    border-top: 1px solid rgba(2,64,112,0.2); padding-top: 28px;
+  }
+  .adC .when { font-weight: 700; font-size: 27px; white-space: nowrap; }
+  .adC .when small { display:block; font-family:'General Sans', sans-serif; font-weight:500; font-size:14px; letter-spacing:0.16em; color: rgba(2,64,112,0.55); margin-top: 7px; text-transform: uppercase; }
+  .adC .cta {
+    font-family: 'General Sans', sans-serif; font-weight: 600; font-size: 19px;
+    color: var(--paper); background: var(--blue); padding: 16px 26px; border-radius: 10px; white-space: nowrap;
+  }
+
+  /* ============================================================
+     G — WARM CREAM · "$2M" hero (website light colorway)
+     ============================================================ */
+  .adG { background: #f0ede9; color: #133048; padding: 70px 72px; display: flex; flex-direction: column; }
+  .adG .topbar { display: flex; justify-content: space-between; align-items: center; }
+  .adG .logo { height: 58px; }
+  .adG .badge { background: #133048; color: #f0ede9; }
+  .adG .center { flex: 1; display: flex; flex-direction: column; justify-content: center; margin-top: 8px; }
+  .adG .pre { font-size: 22px; letter-spacing: 0.24em; color: rgba(19,48,72,0.6); margin-bottom: 40px; }
+  .adG .hero { font-weight: 800; font-size: 320px; line-height: 0.84; letter-spacing: -0.03em; display: flex; align-items: baseline; color: #133048; }
+  .adG .hero .q { font-size: 190px; line-height: 1; margin-left: 38px; color: #133048; }
+  .adG .headline { font-weight: 800; font-size: 66px; line-height: 1.04; letter-spacing: -0.01em; margin-top: 26px; }
+  .adG .headline .hl { background: #9ED0F0; padding: 0 0.08em; border-radius: 6px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .adG .sub { font-family: 'General Sans', sans-serif; font-size: 21px; line-height: 1.5; color: rgba(19,48,72,0.72); margin-top: 22px; max-width: 760px; }
+  .adG .chips { display: flex; gap: 12px; margin-top: 34px; }
+  .adG .chip { font-family: 'General Sans', sans-serif; font-size: 15px; letter-spacing: 0.03em; padding: 11px 18px; border: 1px solid rgba(19,48,72,0.3); border-radius: 8px; color: #133048; white-space: nowrap; }
+  .adG .footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(19,48,72,0.2); padding-top: 26px; margin-top: 40px; }
+  .adG .when { font-weight: 700; font-size: 27px; white-space: nowrap; }
+  .adG .when b { color: #024070; font-weight: 800; }
+  .adG .cta { font-family: 'General Sans', sans-serif; font-weight: 600; font-size: 19px; background: #133048; color: #f0ede9; padding: 16px 26px; border-radius: 10px; white-space: nowrap; }
+
+  /* ============================================================
+     LEAD-WITH-HOOK SET · "Free Webinar for Entrepreneurs"
+     ============================================================ */
+  /* shared lead bits */
+  .lead-set .lead {
+    font-family: 'General Sans', sans-serif; font-weight: 600; font-size: 23px;
+    text-transform: uppercase; letter-spacing: 0.2em;
+  }
+  .lead-set .punch { font-weight: 800; letter-spacing: -0.015em; }
+  .lead-set .sub {
+    font-family: 'General Sans', sans-serif; line-height: 1.5;
+  }
+
+  /* D — Brand blue, left */
+  .adD { background: radial-gradient(ellipse 130% 95% at 50% 118%, #073c65 0%, #0d3658 50%, #12314a 100%); color: var(--paper); padding: 76px 72px; display: flex; flex-direction: column; }
+  .adD .topbar { display: flex; justify-content: space-between; align-items: center; }
+  .adD .badge { background: var(--sky); color: var(--blue); }
+  .adD .stack { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .adD .lead { color: var(--sky); }
+  .adD .headline { font-weight: 800; font-size: 122px; line-height: 0.92; letter-spacing: -0.025em; margin-top: 26px; }
+  .adD .punch { font-size: 78px; color: var(--sky); margin-top: 14px; }
+  .adD .sub { font-size: 22px; color: rgba(235,236,237,0.72); margin-top: 30px; max-width: 760px; }
+  .adD .footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(235,236,237,0.18); padding-top: 26px; }
+  .adD .when { font-weight: 700; font-size: 27px; white-space: nowrap; }
+  .adD .when b { color: var(--sky); font-weight: 800; }
+  .adD .cta { font-family: 'General Sans', sans-serif; font-weight: 600; font-size: 19px; background: var(--sky); color: var(--blue); padding: 16px 26px; border-radius: 10px; white-space: nowrap; }
+
+  /* E — Deep navy, centered */
+  .adE { background: var(--blue-deep); color: var(--paper); padding: 80px 72px; display: flex; flex-direction: column; }
+  .adE .topbar { display: flex; justify-content: space-between; align-items: center; }
+  .adE .badge { background: rgba(158,208,240,0.14); color: var(--sky); border: 1px solid rgba(158,208,240,0.45); }
+  .adE .stack { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+  .adE .lead { color: var(--sky); }
+  .adE .rule { width: 64px; height: 4px; background: var(--sky); border-radius: 2px; margin: 30px 0; }
+  .adE .headline { font-weight: 800; font-size: 120px; line-height: 0.9; letter-spacing: -0.03em; }
+  .adE .punch { font-size: 70px; color: var(--sky); margin-top: 18px; white-space: nowrap; }
+  .adE .sub { font-size: 22px; color: rgba(235,236,237,0.72); margin-top: 34px; max-width: 720px; }
+  .adE .footer { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+  .adE .when { font-weight: 700; font-size: 27px; white-space: nowrap; }
+  .adE .when b { color: var(--sky); font-weight: 800; }
+  .adE .cta { font-family: 'General Sans', sans-serif; font-weight: 600; font-size: 20px; background: var(--sky); color: var(--blue); padding: 18px 38px; border-radius: 10px; white-space: nowrap; }
+
+  /* F — Light paper, left */
+  .adF { background: var(--paper); color: var(--blue); padding: 76px 72px; display: flex; flex-direction: column; }
+  .adF .topbar { display: flex; justify-content: space-between; align-items: center; }
+  .adF .logo { height: 58px; }
+  .adF .badge { background: var(--blue); color: var(--paper); }
+  .adF .stack { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+  .adF .lead { color: rgba(2,64,112,0.6); }
+  .adF .headline { font-weight: 800; font-size: 122px; line-height: 0.92; letter-spacing: -0.025em; margin-top: 26px; }
+  .adF .punch { font-size: 78px; margin-top: 14px; }
+  .adF .punch .hl { background: var(--sky); padding: 0 0.1em; border-radius: 6px; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+  .adF .sub { font-size: 22px; color: rgba(2,64,112,0.72); margin-top: 30px; max-width: 760px; }
+  .adF .footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(2,64,112,0.2); padding-top: 26px; }
+  .adF .when { font-weight: 700; font-size: 27px; white-space: nowrap; }
+  .adF .cta { font-family: 'General Sans', sans-serif; font-weight: 600; font-size: 19px; color: var(--paper); background: var(--blue); padding: 16px 26px; border-radius: 10px; white-space: nowrap; }
+</style>
+<style>
+  html, body { height: auto; background: #fff; margin: 0; }
+  .page { width: 1080px; height: 1080px; overflow: hidden; margin: 0 auto; }
+  @media screen { .page { margin: 0 auto 24px; box-shadow: 0 8px 30px rgba(0,0,0,0.15); } body { background: #d9d9dc; padding: 24px 0; } }
+  @media print { @page { size: 1080px 1080px; margin: 0; } html, body { background: #fff; } .page { margin: 0; box-shadow: none; break-after: page; } .page:last-child { break-after: auto; } }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel">
+/* ---------- A · Brand Blue ---------- */
+function AdA() {
+  return (
+    <div className="ad adA">
+      <div className="topbar">
+        <img className="logo" src="assets/logo-white.png" alt="Ashford Sky" />
+        <div className="badge">Free Live Webinar</div>
+      </div>
+      <div className="center">
+        <div className="pre eyebrow">Buying a business under</div>
+        <div className="hero">$2M<span className="q">?</span></div>
+        <div className="headline">Do the diligence<br/>that fits the deal.</div>
+        <div className="sub">Join CPA and acquisition specialist Darin Pierson for a 45-minute webinar on checking the numbers, keeping taxes low, and planning your first 90 days.</div>
+        <div className="chips">
+          <div className="chip">Check the numbers</div>
+          <div className="chip">Keep taxes low</div>
+          <div className="chip">Plan day one</div>
+        </div>
+      </div>
+      <div className="footer">
+        <div className="when">Fri, June 26 · <b>3:00 PM MT</b></div>
+        <div className="cta">ashfordsky.com/webinar</div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- B · Deep Navy ---------- */
+function AdB() {
+  return (
+    <div className="ad adB">
+      <div className="topbar">
+        <img className="logo" src="assets/logo-white.png" alt="Ashford Sky" />
+        <div className="badge">Free Live Webinar</div>
+      </div>
+      <div className="pre eyebrow">Financial diligence · deals under $2M</div>
+      <div className="headline">Don't overpay for your <span className="sky">first acquisition.</span></div>
+      <div className="pillars">
+        <div className="pillar">
+          <div className="pnum">01</div>
+          <div className="ptext">
+            <div className="ptitle">Check the real earnings</div>
+            <div className="pdesc">See what the business really earns, and catch the surprises that change the price.</div>
+          </div>
+        </div>
+        <div className="pillar">
+          <div className="pnum">02</div>
+          <div className="ptext">
+            <div className="ptitle">Structure the deal for taxes</div>
+            <div className="pdesc">How you buy changes what you owe. Get the setup right before you sign.</div>
+          </div>
+        </div>
+        <div className="pillar">
+          <div className="pnum">03</div>
+          <div className="ptext">
+            <div className="ptitle">Walk in with a plan</div>
+            <div className="pdesc">Know your first moves so day one is not guesswork.</div>
+          </div>
+        </div>
+      </div>
+      <div className="footer">
+        <div className="when">Fri, June 26 · <b>3:00 PM MT</b></div>
+        <div className="cta">ashfordsky.com/webinar</div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- C · Light Paper ---------- */
+function AdC() {
+  return (
+    <div className="ad adC">
+      <div className="topbar">
+        <img className="logo" src="assets/logo-color.png" alt="Ashford Sky" />
+        <div className="badge">Free Live Webinar</div>
+      </div>
+      <div className="stack">
+        <div className="pre eyebrow">For searchers buying under $2M</div>
+        <div className="headline">Know exactly<br/>what you're<br/><span className="hl">buying.</span></div>
+        <div className="sub">Join CPA and acquisition specialist Darin Pierson for a 45-minute webinar on checking the numbers, keeping taxes low, and planning your first 90 days.</div>
+      </div>
+      <div className="footer">
+        <div className="when">Fri, June 26 · 3:00 PM MT<small>ashfordsky.com/webinar</small></div>
+        <div className="cta">Save my seat</div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- G · Warm Cream · $2M hero ---------- */
+function AdG() {
+  return (
+    <div className="ad adG">
+      <div className="topbar">
+        <img className="logo" src="assets/logo-color.png" alt="Ashford Sky" />
+        <div className="badge">Free Live Webinar</div>
+      </div>
+      <div className="center">
+        <div className="pre eyebrow">Buying a business under</div>
+        <div className="hero">$2M<span className="q">?</span></div>
+        <div className="headline">Do the <span className="hl">diligence</span><br/>that fits the deal.</div>
+        <div className="sub">Join CPA and acquisition specialist Darin Pierson for a 45-minute webinar on checking the numbers, keeping taxes low, and planning your first 90 days.</div>
+        <div className="chips">
+          <div className="chip">Check the numbers</div>
+          <div className="chip">Keep taxes low</div>
+          <div className="chip">Plan day one</div>
+        </div>
+      </div>
+      <div className="footer">
+        <div className="when">Fri, June 26 · <b>3:00 PM MT</b></div>
+        <div className="cta">ashfordsky.com/webinar</div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- D · Lead hook · Brand Blue ---------- */
+function AdD() {
+  return (
+    <div className="ad adD lead-set">
+      <div className="topbar">
+        <img className="logo" src="assets/logo-white.png" alt="Ashford Sky" />
+        <div className="badge">Free Live Webinar</div>
+      </div>
+      <div className="stack">
+        <div className="lead">Free Webinar · For Entrepreneurs</div>
+        <div className="headline">Buying a business?</div>
+        <div className="punch">Don't miss this.</div>
+        <div className="sub">Join CPA and acquisition specialist Darin Pierson for a 45-minute webinar on checking the numbers, keeping taxes low, and planning your first 90 days.</div>
+      </div>
+      <div className="footer">
+        <div className="when">Fri, June 26 · <b>3:00 PM MT</b></div>
+        <div className="cta">ashfordsky.com/webinar</div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- E · Lead hook · Deep Navy, centered ---------- */
+function AdE() {
+  return (
+    <div className="ad adE lead-set">
+      <div className="topbar">
+        <img className="logo" src="assets/logo-white.png" alt="Ashford Sky" />
+        <div className="badge">Free Live Webinar</div>
+      </div>
+      <div className="stack">
+        <div className="lead">Free Webinar for Entrepreneurs</div>
+        <div className="rule"></div>
+        <div className="headline">Buying a business?</div>
+        <div className="punch">Don't miss this.</div>
+        <div className="sub">Join CPA and acquisition specialist Darin Pierson for a 45-minute webinar on checking the numbers, keeping taxes low, and planning your first 90 days.</div>
+      </div>
+      <div className="footer">
+        <div className="when">Fri, June 26 · <b>3:00 PM MT</b></div>
+        <div className="cta">Save my seat → ashfordsky.com/webinar</div>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- F · Lead hook · Light Paper ---------- */
+function AdF() {
+  return (
+    <div className="ad adF lead-set">
+      <div className="topbar">
+        <img className="logo" src="assets/logo-color.png" alt="Ashford Sky" />
+        <div className="badge">Free Live Webinar</div>
+      </div>
+      <div className="stack">
+        <div className="lead">Free Webinar · For Entrepreneurs</div>
+        <div className="headline">Buying a business?</div>
+        <div className="punch"><span className="hl">Don't miss this.</span></div>
+        <div className="sub">Join CPA and acquisition specialist Darin Pierson for a 45-minute webinar on checking the numbers, keeping taxes low, and planning your first 90 days.</div>
+      </div>
+      <div className="footer">
+        <div className="when">Fri, June 26 · 3:00 PM MT</div>
+        <div className="cta">Save my seat</div>
+      </div>
+    </div>
+  );
+}
+
+const EXPORTS = [
+  { id: 'A-brand-blue', C: AdA },
+  { id: 'B-deep-navy', C: AdB },
+  { id: 'C-light-paper', C: AdC },
+  { id: 'D-warm-cream', C: AdG },
+  { id: 'E-hook-brand-blue', C: AdD },
+  { id: 'F-hook-navy-centered', C: AdE },
+  { id: 'G-hook-light-paper', C: AdF },
+];
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <>{EXPORTS.map(e => <div className="page" data-id={e.id} key={e.id}><e.C /></div>)}</>
+);
+</script>
+</body>
+</html>

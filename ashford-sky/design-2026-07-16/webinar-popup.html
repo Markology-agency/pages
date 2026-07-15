@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ashford Sky — Webinar Popup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #024070;
+    --blue-deep: #012339;
+    --sky: #9ED0F0;
+    --paper: #EBECED;
+    --serif: 'Gelica', 'Bitter', Georgia, serif;
+    --sans: 'General Sans', system-ui, sans-serif;
+  }
+
+  a { color: var(--blue); text-decoration: none; }
+  a:hover { color: #035a9e; }
+
+  /* ============ demo homepage backdrop (NOT part of the popup) ============ */
+  body { font-family: var(--sans); background: #f4f2ee; color: #16324a; -webkit-font-smoothing: antialiased; min-height: 100vh; }
+  .demo-nav { display: flex; align-items: center; justify-content: space-between; padding: 26px 56px; border-bottom: 1px solid rgba(2,64,112,0.08); }
+  .demo-nav .brand { font-family: var(--serif); font-weight: 800; font-size: 22px; color: var(--blue); letter-spacing: -0.01em; }
+  .demo-nav .links { display: flex; gap: 34px; font-size: 15px; font-weight: 500; color: rgba(22,50,74,0.7); }
+  .demo-hero { max-width: 900px; margin: 0 auto; padding: 120px 40px 200px; text-align: center; }
+  .demo-hero .kicker { font-size: 13px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(2,64,112,0.55); }
+  .demo-hero h1 { font-family: var(--serif); font-weight: 800; font-size: 68px; line-height: 1.04; letter-spacing: -0.025em; color: var(--blue); margin: 22px 0 24px; }
+  .demo-hero p { font-size: 20px; line-height: 1.55; color: rgba(22,50,74,0.68); max-width: 640px; margin: 0 auto; }
+  .demo-note { position: fixed; top: 92px; left: 56px; font-size: 12.5px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(2,64,112,0.32); }
+
+  /* ============================ THE POPUP ============================ */
+  .aswp {
+    position: fixed; right: 28px; bottom: 28px; z-index: 9999;
+    width: 384px; max-width: calc(100vw - 40px);
+    font-family: var(--sans);
+  }
+
+  /* --- expanded card --- */
+  .aswp-card {
+    position: relative; overflow: hidden;
+    border-radius: 20px;
+    background:
+      radial-gradient(ellipse 130% 100% at 15% 0%, #0a4a7a 0%, #063457 46%, #012339 100%);
+    box-shadow: 0 24px 60px -18px rgba(1,20,40,0.55), 0 2px 0 rgba(255,255,255,0.04) inset;
+    color: #fff;
+    padding: 26px 26px 24px;
+    transform-origin: bottom right;
+    animation: aswp-in 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .aswp.is-hidden { display: none; }
+
+  @keyframes aswp-in {
+    from { opacity: 0; transform: translateY(24px) scale(0.94); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .aswp-card { animation: none; }
+  }
+
+  /* faint sky glow accent */
+  .aswp-card::after {
+    content: ""; position: absolute; top: -70px; right: -70px;
+    width: 190px; height: 190px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(158,208,240,0.28) 0%, rgba(158,208,240,0) 70%);
+    pointer-events: none;
+  }
+
+  .aswp-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .aswp-logo { height: 30px; width: auto; display: block; }
+  .aswp-close {
+    appearance: none; border: 0; cursor: pointer;
+    width: 30px; height: 30px; border-radius: 50%;
+    background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.8);
+    font-size: 17px; line-height: 1; display: flex; align-items: center; justify-content: center;
+    transition: background 0.18s ease, color 0.18s ease;
+  }
+  .aswp-close:hover { background: rgba(255,255,255,0.16); color: #fff; }
+
+  .aswp-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--sky);
+  }
+  .aswp-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sky); box-shadow: 0 0 0 4px rgba(158,208,240,0.18); }
+
+  .aswp-title {
+    font-family: var(--serif); font-weight: 800;
+    font-size: 25px; line-height: 1.12; letter-spacing: -0.015em;
+    margin: 12px 0 10px;
+  }
+  .aswp-title .hl { color: var(--sky); }
+
+  .aswp-sub { font-size: 13.5px; line-height: 1.5; color: rgba(235,236,237,0.72); margin-bottom: 18px; }
+
+  .aswp-when {
+    display: flex; align-items: center; gap: 10px;
+    padding: 11px 14px; margin-bottom: 18px;
+    background: rgba(255,255,255,0.055); border: 1px solid rgba(158,208,240,0.16);
+    border-radius: 12px;
+  }
+  .aswp-when svg { flex: none; width: 17px; height: 17px; stroke: var(--sky); }
+  .aswp-when .txt { font-size: 13.5px; font-weight: 500; color: #eef4f9; }
+  .aswp-when .txt b { font-weight: 700; color: #fff; }
+
+  .aswp-cta {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 14px 20px;
+    background: var(--sky); color: #012339;
+    font-size: 14.5px; font-weight: 700; letter-spacing: 0.01em;
+    border-radius: 12px; border: 0; cursor: pointer;
+    transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+  }
+  .aswp-cta:hover { background: #b6dcf5; transform: translateY(-1px); box-shadow: 0 10px 22px -8px rgba(158,208,240,0.6); color: #012339; }
+  .aswp-cta svg { width: 16px; height: 16px; stroke: currentColor; transition: transform 0.16s ease; }
+  .aswp-cta:hover svg { transform: translateX(3px); }
+
+  .aswp-fine { text-align: center; font-size: 11.5px; color: rgba(235,236,237,0.5); margin-top: 11px; }
+
+  /* --- collapsed tab (after dismiss) --- */
+  .aswp-tab {
+    display: none; align-items: center; gap: 10px; cursor: pointer;
+    padding: 12px 18px; border-radius: 999px; border: 0;
+    background: radial-gradient(ellipse 140% 130% at 20% 0%, #0a4a7a 0%, #012339 100%);
+    color: #fff; font-family: var(--sans); font-size: 13.5px; font-weight: 600;
+    box-shadow: 0 14px 32px -12px rgba(1,20,40,0.55);
+    animation: aswp-in 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .aswp.is-collapsed .aswp-card { display: none; }
+  .aswp.is-collapsed .aswp-tab { display: inline-flex; }
+  .aswp-tab .pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--sky); box-shadow: 0 0 0 0 rgba(158,208,240,0.6); animation: aswp-pulse 2s infinite; }
+  @keyframes aswp-pulse {
+    0% { box-shadow: 0 0 0 0 rgba(158,208,240,0.5); }
+    70% { box-shadow: 0 0 0 9px rgba(158,208,240,0); }
+    100% { box-shadow: 0 0 0 0 rgba(158,208,240,0); }
+  }
+
+  @media (max-width: 480px) {
+    .aswp { right: 12px; bottom: 12px; left: 12px; width: auto; }
+    .demo-hero h1 { font-size: 44px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- demo homepage backdrop (delete when embedding) -->
+  <nav class="demo-nav">
+    <div class="brand">Ashford Sky</div>
+    <div class="links"><span>Services</span><span>Quality of Earnings</span><span>About</span><span>Contact</span></div>
+  </nav>
+  <div class="demo-note">Demo homepage · popup shown bottom-right</div>
+  <section class="demo-hero">
+    <div class="kicker">CPA-led M&amp;A diligence</div>
+    <h1>Buy your business with confidence.</h1>
+    <p>Right-sized financial due diligence for entrepreneurs acquiring companies under $2M.</p>
+  </section>
+
+  <!-- ============ WEBINAR POPUP (embed this block) ============ -->
+  <aside class="aswp" id="aswp" role="dialog" aria-label="Free webinar invitation">
+    <div class="aswp-card">
+      <div class="aswp-head">
+        <img class="aswp-logo" src="assets/popup-logo-white.png" alt="Ashford Sky" />
+        <button class="aswp-close" id="aswpClose" aria-label="Dismiss">&times;</button>
+      </div>
+
+      <span class="aswp-badge"><span class="dot"></span>Free Live Webinar</span>
+
+      <h2 class="aswp-title">Do you need a <span class="hl">Quality of Earnings</span> report?</h2>
+      <p class="aswp-sub">What diligence you actually need, what it should cost, and when a right-sized QoE is enough. 45 minutes with CPA Darin Pierson.</p>
+
+      <div class="aswp-when">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
+        <span class="txt">Thu, July 23 &middot; <b>1:00 PM MT</b></span>
+      </div>
+
+      <a class="aswp-cta" href="https://ashfordsky.com/webinar" target="_blank" rel="noopener">
+        Save my seat
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </a>
+      <p class="aswp-fine">Free to attend &middot; Live Q&amp;A included</p>
+    </div>
+
+    <button class="aswp-tab" id="aswpTab" aria-label="Open webinar invitation">
+      <span class="pulse"></span>Free Webinar &middot; July 23
+    </button>
+  </aside>
+
+  <script>
+    (function () {
+      var wrap = document.getElementById('aswp');
+      var closeBtn = document.getElementById('aswpClose');
+      var tab = document.getElementById('aswpTab');
+      var KEY = 'aswp-webinar-dismissed-v1';
+
+      // Respect a prior dismissal (collapse to tab instead of hard-hiding)
+      try {
+        if (localStorage.getItem(KEY) === '1') wrap.classList.add('is-collapsed');
+      } catch (e) {}
+
+      closeBtn.addEventListener('click', function () {
+        wrap.classList.add('is-collapsed');
+        try { localStorage.setItem(KEY, '1'); } catch (e) {}
+      });
+
+      tab.addEventListener('click', function () {
+        wrap.classList.remove('is-collapsed');
+        try { localStorage.removeItem(KEY); } catch (e) {}
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Core Advisors: Practice Value Calculator v2 (Native, Full Mockup)</title>
+<style>
+@font-face{font-family:'Euclid Circular B';src:url('https://coreadvisors.com/wp-content/uploads/2024/12/Euclid-Circular-B-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Euclid Circular B';src:url('https://coreadvisors.com/wp-content/uploads/2024/12/Euclid-Circular-B-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Euclid Circular B';src:url('https://coreadvisors.com/wp-content/uploads/2024/12/Euclid-Circular-B-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'Euclid Circular B';src:url('https://coreadvisors.com/wp-content/uploads/2024/12/Euclid-Circular-B-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+
+:root{
+  --navy:#092d4f; --navy-2:#123f68; --green:#3a975b; --amber:#c98a1e;
+  --muted:#5d7186; --line:#dde7f1; --bg:#eef4fa; --card:#fff;
+  --radius:16px; --shadow:0 6px 32px rgba(9,45,79,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--navy);
+  font-family:'Euclid Circular B','Poppins',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+  -webkit-font-smoothing:antialiased;line-height:1.5}
+.wrap{max-width:900px;margin:0 auto;padding:28px 20px 80px}
+
+.sample-flag{background:#fff6e5;border:1px solid #f0d9a8;color:#7a5410;border-radius:10px;padding:12px 16px;font-size:13px;margin-bottom:22px}
+.sample-flag b{color:#5c3f0c}
+
+.calc{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+
+/* progress */
+.prog-head{padding:22px 32px 0}
+.prog-meta{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--muted);margin-bottom:10px}
+.part-name{font-weight:600;color:var(--navy);letter-spacing:.02em}
+.track{height:6px;background:#e6eef6;border-radius:99px;overflow:hidden}
+.fill{height:100%;width:0;background:var(--navy);border-radius:99px;transition:width .35s ease}
+
+/* steps */
+.step{padding:30px 32px 34px;display:none}
+.step.active{display:block;animation:fade .28s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.q{font-size:23px;font-weight:600;margin:0 0 8px;line-height:1.3}
+.help{font-size:14px;color:var(--muted);margin:0 0 20px;max-width:60ch}
+
+.money{display:flex;align-items:stretch;border:2px solid var(--navy);border-radius:10px;overflow:hidden;max-width:420px}
+.money span{background:#eef3f8;padding:14px 18px;font-weight:600;color:var(--muted);display:flex;align-items:center}
+.money input{border:0;outline:0;padding:14px 16px;font-size:17px;width:100%;font-family:inherit;color:var(--navy)}
+.suffix{font-size:13px;color:var(--muted);margin-top:8px}
+
+.opts{display:grid;gap:10px;max-width:560px}
+.opt{display:flex;align-items:center;gap:13px;border:1.5px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer;font-size:15px;transition:.15s;background:#fff}
+.opt:hover{border-color:#9db8d0;background:#f8fbfe}
+.opt.sel{border-color:var(--navy);background:#f2f7fc}
+.radio{flex:0 0 18px;height:18px;border-radius:50%;border:2px solid #b9cbdc;position:relative}
+.opt.sel .radio{border-color:var(--navy)}
+.opt.sel .radio:after{content:'';position:absolute;inset:3px;border-radius:50%;background:var(--navy)}
+
+.nav{display:flex;justify-content:space-between;align-items:center;background:var(--navy);padding:16px 32px}
+.nav button{font-family:inherit;font-size:15px;border-radius:99px;padding:11px 24px;cursor:pointer;border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff;font-weight:500}
+.nav button.primary{background:#fff;color:var(--navy);border-color:#fff;font-weight:600}
+.nav button:disabled{opacity:.35;cursor:not-allowed}
+.counter{color:#fff;font-size:13px;opacity:.85;font-weight:500}
+.err{color:#ffb4b4;font-size:13px;margin-top:10px;display:none}
+
+/* gate */
+.field{max-width:420px;margin-bottom:16px}
+.field label{display:block;font-size:14px;font-weight:500;margin-bottom:7px}
+.field input{width:100%;border:2px solid var(--navy);border-radius:10px;padding:13px 15px;font-size:16px;font-family:inherit;outline:0;color:var(--navy)}
+.privacy{font-size:12px;color:var(--muted);max-width:52ch;margin-top:4px}
+
+/* ===== RESULT ===== */
+#result{display:none}
+#result.active{display:block}
+.res-head{background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;padding:34px 32px}
+.eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin:0 0 9px}
+.res-head h1{margin:0 0 6px;font-size:28px;line-height:1.25;font-weight:700}
+.res-head p{margin:0;opacity:.85;font-size:15px;max-width:62ch}
+.res-body{padding:32px}
+
+.numbers{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:700px){.numbers{grid-template-columns:1fr}}
+.ncard{border:1px solid var(--line);border-radius:12px;padding:20px}
+.ncard.today{background:#f7fafd}
+.ncard.bic{background:#f4faf6;border-color:#cfe8d8}
+.nlabel{font-size:13px;color:var(--muted);margin:0 0 8px;font-weight:500}
+.nval{font-size:30px;font-weight:700;margin:0 0 4px;letter-spacing:-.01em}
+.ncard.bic .nval{color:var(--green)}
+.nsub{font-size:12px;color:var(--muted);margin:0}
+
+.sde-strip{margin-top:18px;background:#f2f7fc;border:1px solid var(--line);border-radius:10px;padding:14px 16px;font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.sde-strip b{font-weight:700}
+
+.gapwrap{margin-top:28px}
+.gap-title{font-size:15px;font-weight:600;margin:0 0 12px}
+.bar{position:relative;height:42px;background:#eaf1f8;border-radius:8px;overflow:hidden}
+.bar-today{position:absolute;left:0;top:0;bottom:0;background:var(--navy);border-radius:8px 0 0 8px;transition:width .6s ease}
+.bar-gap{position:absolute;top:0;bottom:0;right:0;background:repeating-linear-gradient(45deg,#f6e7c8,#f6e7c8 8px,#fbf2e0 8px,#fbf2e0 16px)}
+.bar-labels{display:flex;justify-content:space-between;margin-top:9px;font-size:12px;color:var(--muted)}
+.gap-callout{margin-top:16px;background:#fdf7ec;border:1px solid #f0dcb4;border-radius:12px;padding:15px 17px;font-size:15px}
+.gap-callout b{color:var(--amber);font-size:18px}
+
+.score{margin-top:30px;border:1px solid var(--line);border-radius:12px;padding:20px;background:#f7fafd}
+.score-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.score-top h2{margin:0;font-size:16px}
+.score-num{font-size:26px;font-weight:700}
+.strack{height:10px;background:#e2ebf4;border-radius:99px;position:relative;overflow:hidden}
+.sfill{position:absolute;left:0;top:0;bottom:0;background:var(--navy);border-radius:99px;transition:width .6s ease}
+.thresh{position:absolute;left:72%;top:-5px;bottom:-5px;width:2px;background:var(--green)}
+.slegend{display:flex;justify-content:space-between;margin-top:9px;font-size:12px;color:var(--muted)}
+.snote{margin:13px 0 0;font-size:13px;color:var(--muted)}
+.tier{display:inline-block;border-radius:6px;padding:3px 9px;font-size:12px;font-weight:600;margin-left:8px}
+.tier.bic{background:#e8f5ed;color:#1f6b3b}
+.tier.avg{background:#fdf3e3;color:#8a5f14}
+.tier.disc{background:#fdeaea;color:#9b2c2c}
+
+.drivers{margin-top:30px}
+.drivers h2{font-size:17px;margin:0 0 5px}
+.drivers .sub{font-size:13px;color:var(--muted);margin:0 0 14px}
+.driver{display:flex;gap:13px;align-items:flex-start;padding:15px 0;border-top:1px solid var(--line)}
+.dot{flex:0 0 8px;height:8px;border-radius:50%;margin-top:8px;background:var(--amber)}
+.driver h3{margin:0 0 4px;font-size:15px;font-weight:600}
+.driver p{margin:0;font-size:14px;color:var(--muted)}
+
+.cta{margin-top:30px;background:var(--navy);border-radius:14px;padding:28px 30px;color:#fff;display:flex;gap:22px;align-items:center;justify-content:space-between}
+@media(max-width:700px){.cta{flex-direction:column;align-items:flex-start}}
+.cta h2{margin:0 0 6px;font-size:20px}
+.cta p{margin:0;opacity:.85;font-size:14px;max-width:46ch}
+.cta button{background:#fff;color:var(--navy);border:0;border-radius:99px;padding:14px 26px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap}
+.badges{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap}
+.badge{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:6px;padding:5px 9px;font-size:11px;letter-spacing:.04em}
+.restart{margin-top:18px;text-align:center}
+.restart button{background:none;border:0;color:var(--muted);font-size:13px;text-decoration:underline;cursor:pointer;font-family:inherit}
+.disclaimer{margin-top:20px;font-size:12px;color:var(--muted);line-height:1.6}
+.tok{background:#fdeaea;border:1px solid #f2c0c0;color:#9b2c2c;border-radius:5px;padding:1px 7px;font-size:13px;font-weight:600;white-space:nowrap}
+
+/* notes */
+.divider{margin:52px 0 26px;border:0;border-top:2px dashed #c6d5e4}
+.notes{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:28px 32px}
+.notes h2{margin:0 0 4px;font-size:20px}
+.notes .lede{color:var(--muted);font-size:14px;margin:0 0 20px}
+.notes h3{margin:22px 0 8px;font-size:15px}
+.notes li{margin-bottom:7px;font-size:14px;color:#3d5266}
+.ok{background:#e8f5ed;border:1px solid #b9dfc8;color:#1f6b3b;border-radius:5px;padding:1px 7px;font-size:12px;font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:10px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{background:#f4f8fc;font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="sample-flag">
+    <b>Native calculator mockup, fully working.</b> No Outgrow. Answer it and the numbers move: SDE and the transferability score are computed live from your answers. Only the figures that need a <b>valuation multiple</b> stay as a red <span class="tok">TOKEN</span>, because dental multiples are not yet sourced. Type in the brand face (Euclid Circular B) is loaded live from coreadvisors.com.
+  </div>
+
+  <div class="calc">
+    <div class="prog-head" id="progHead">
+      <div class="prog-meta">
+        <span class="part-name" id="partName">The numbers</span>
+        <span id="stepCount">Step 1 of 11</span>
+      </div>
+      <div class="track"><div class="fill" id="fill"></div></div>
+    </div>
+
+    <!-- PART 1: THE NUMBERS -->
+    <div class="step active" data-part="The numbers">
+      <p class="q">What are your gross collections?</p>
+      <p class="help">Your annual revenue, before any expenses.</p>
+      <div class="money"><span>$</span><input type="text" inputmode="numeric" id="collections" placeholder="1,200,000"/></div>
+      <p class="err">Enter a number to continue.</p>
+    </div>
+
+    <div class="step" data-part="The numbers">
+      <p class="q">What is the owner's compensation?</p>
+      <p class="help">Include any salary, bonuses, or other compensation you take from the practice. We add this back, because a buyer would set their own.</p>
+      <div class="money"><span>$</span><input type="text" inputmode="numeric" id="ownerComp" placeholder="250,000"/></div>
+      <p class="suffix">Per year</p>
+      <p class="err">Enter a number to continue.</p>
+    </div>
+
+    <div class="step" data-part="The numbers">
+      <p class="q">Monthly staff overhead costs</p>
+      <p class="help">Everyone but you. Wages, payroll taxes, and benefits for your team.</p>
+      <div class="money"><span>$</span><input type="text" inputmode="numeric" id="staff" placeholder="35,000"/></div>
+      <p class="suffix">Per month</p>
+      <p class="err">Enter a number to continue.</p>
+    </div>
+
+    <div class="step" data-part="The numbers">
+      <p class="q">Monthly operating expenses</p>
+      <p class="help">Everything else it takes to run the practice: rent, supplies, lab, software, insurance. Not owner compensation, not staff overhead.</p>
+      <div class="money"><span>$</span><input type="text" inputmode="numeric" id="opex" placeholder="18,000"/></div>
+      <p class="suffix">Per month</p>
+      <p class="err">Enter a number to continue.</p>
+    </div>
+
+    <div class="step" data-part="The numbers">
+      <p class="q">Any personal expenses run through the practice?</p>
+      <p class="help">Car payments, travel, meals, that sort of thing. These get added back too, because they are not really costs of running the practice.</p>
+      <div class="money"><span>$</span><input type="text" inputmode="numeric" id="personal" placeholder="24,000"/></div>
+      <p class="suffix">Per year. Enter 0 if none.</p>
+      <p class="err">Enter a number to continue.</p>
+    </div>
+
+    <!-- PART 2: TRANSFERABILITY -->
+    <div class="step" data-part="What makes it transferable">
+      <p class="q">If you stepped away for a month, what happens to production?</p>
+      <p class="help">This is the single biggest driver of what a buyer will pay.</p>
+      <div class="opts" data-score="q6">
+        <label class="opt" data-v="3"><span class="radio"></span>It runs normally. The team and associates carry it.</label>
+        <label class="opt" data-v="2"><span class="radio"></span>It dips a little, but holds up.</label>
+        <label class="opt" data-v="1"><span class="radio"></span>It drops noticeably.</label>
+        <label class="opt" data-v="0"><span class="radio"></span>It basically stops.</label>
+      </div>
+      <p class="err">Pick one to continue.</p>
+    </div>
+
+    <div class="step" data-part="What makes it transferable">
+      <p class="q">Are your core systems written down?</p>
+      <p class="help">Scheduling, hygiene recall, case presentation, billing, and collections.</p>
+      <div class="opts" data-score="q7">
+        <label class="opt" data-v="3"><span class="radio"></span>All documented, and the team actually follows them.</label>
+        <label class="opt" data-v="2"><span class="radio"></span>Mostly documented.</label>
+        <label class="opt" data-v="1"><span class="radio"></span>A few are.</label>
+        <label class="opt" data-v="0"><span class="radio"></span>It lives in my head, or in one long-time team member's head.</label>
+      </div>
+      <p class="err">Pick one to continue.</p>
+    </div>
+
+    <div class="step" data-part="What makes it transferable">
+      <p class="q">Who do your patients feel they belong to?</p>
+      <p class="help">A buyer is asking whether the patients stay after you leave.</p>
+      <div class="opts" data-score="q8">
+        <label class="opt" data-v="3"><span class="radio"></span>The practice and the whole care team.</label>
+        <label class="opt" data-v="2"><span class="radio"></span>A mix of me and the team.</label>
+        <label class="opt" data-v="1"><span class="radio"></span>Mostly me.</label>
+        <label class="opt" data-v="0"><span class="radio"></span>Almost entirely me.</label>
+      </div>
+      <p class="err">Pick one to continue.</p>
+    </div>
+
+    <div class="step" data-part="What makes it transferable">
+      <p class="q">Do you have a leadership bench?</p>
+      <p class="help">An office manager, a lead hygienist, a lead assistant. People who can decide things without you.</p>
+      <div class="opts" data-score="q9">
+        <label class="opt" data-v="3"><span class="radio"></span>Yes, and decisions do not bottleneck at me.</label>
+        <label class="opt" data-v="2"><span class="radio"></span>Partly. Some decisions still route to me.</label>
+        <label class="opt" data-v="1"><span class="radio"></span>One person, and they are stretched.</label>
+        <label class="opt" data-v="0"><span class="radio"></span>Everything routes to me.</label>
+      </div>
+      <p class="err">Pick one to continue.</p>
+    </div>
+
+    <div class="step" data-part="What makes it transferable">
+      <p class="q">Do you track your numbers and act on them?</p>
+      <p class="help">Production, collections, hygiene %, case acceptance, chair utilization.</p>
+      <div class="opts" data-score="q10">
+        <label class="opt" data-v="3"><span class="radio"></span>Monthly, and we change things based on what we see.</label>
+        <label class="opt" data-v="2"><span class="radio"></span>We track them, but rarely act.</label>
+        <label class="opt" data-v="1"><span class="radio"></span>We look at some of them, sometimes.</label>
+        <label class="opt" data-v="0"><span class="radio"></span>Not really.</label>
+      </div>
+      <p class="err">Pick one to continue.</p>
+    </div>
+
+    <!-- GATE -->
+    <div class="step" data-part="Your result">
+      <p class="q">Where should we send your valuation?</p>
+      <p class="help">We will email you a copy so you have it, along with the breakdown of what is driving your number.</p>
+      <div class="field">
+        <label for="name">Your name</label>
+        <input type="text" id="name" placeholder="Dr. Jane Smith"/>
+      </div>
+      <div class="field">
+        <label for="email">Your practice email</label>
+        <input type="email" id="email" placeholder="jane@yourpractice.com"/>
+      </div>
+      <p class="privacy">We use this to send your valuation and follow up once. No lists, no selling your details on.</p>
+      <p class="err">Add your name and a valid email to continue.</p>
+    </div>
+
+    <div class="nav" id="nav">
+      <button id="prev">Back</button>
+      <span class="counter" id="counter">1 of 11</span>
+      <button id="next" class="primary">Next</button>
+    </div>
+
+    <!-- RESULT -->
+    <div id="result">
+      <div class="res-head">
+        <p class="eyebrow">Your practice valuation</p>
+        <h1>Here's your number, and the one you're leaving on the table.</h1>
+        <p>What your practice is worth today, what a best-in-class version of the same practice is worth, and what's causing the difference.</p>
+      </div>
+      <div class="res-body">
+
+        <div class="numbers">
+          <div class="ncard today">
+            <p class="nlabel">Your estimated value today</p>
+            <p class="nval"><span class="tok">SDE × MULT_TODAY</span></p>
+            <p class="nsub" id="sdeNote">Based on your discretionary earnings</p>
+          </div>
+          <div class="ncard bic">
+            <p class="nlabel">Best-in-class potential</p>
+            <p class="nval"><span class="tok">SDE × MULT_BIC</span></p>
+            <p class="nsub">Same collections. Same chairs. Different structure.</p>
+          </div>
+        </div>
+
+        <div class="sde-strip">
+          <span>Your seller's discretionary earnings</span>
+          <span><b id="sdeVal">$0</b> <span style="color:var(--muted)">(computed from your five inputs)</span></span>
+        </div>
+
+        <div class="gapwrap">
+          <p class="gap-title">The gap</p>
+          <div class="bar">
+            <div class="bar-today" id="barToday"></div>
+            <div class="bar-gap" id="barGap"></div>
+          </div>
+          <div class="bar-labels"><span>Value today</span><span>Best-in-class potential</span></div>
+          <div class="gap-callout" id="gapCallout"></div>
+        </div>
+
+        <div class="score">
+          <div class="score-top">
+            <h2>Your transferability score <span class="tier" id="tier"></span></h2>
+            <span class="score-num" id="scoreNum">0%</span>
+          </div>
+          <div class="strack"><div class="sfill" id="sfill"></div><div class="thresh"></div></div>
+          <div class="slegend"><span>Discounted</span><span>Above average</span><span>Best-in-class (72%)</span></div>
+          <p class="snote">Modeled on the Exit Planning Institute's Attractiveness Index, adapted for dental practices. Above 72% is best-in-class.</p>
+        </div>
+
+        <div class="drivers">
+          <h2 id="driversTitle">What's holding your number down</h2>
+          <p class="sub">Your biggest gaps, based on your answers.</p>
+          <div id="driverList"></div>
+        </div>
+
+        <div class="cta">
+          <div>
+            <h2>Want the real number?</h2>
+            <p>This is an estimate from a handful of inputs. A proper valuation looks at your actual books, and the conversation about closing the gap is the one worth having.</p>
+            <div class="badges">
+              <span class="badge">CEPA® CERTIFIED EXIT PLANNING ADVISOR</span>
+              <span class="badge">EXIT PLANNING INSTITUTE</span>
+            </div>
+          </div>
+          <button>Book a call with Jeremiah</button>
+        </div>
+
+        <div class="restart"><button id="restart">Start over</button></div>
+
+        <p class="disclaimer">
+          This calculator provides an estimate for educational purposes only. It is not a formal valuation, an appraisal, or a promise of any sale price or outcome. Actual practice value depends on many factors this tool does not capture. Core Advisors, Ltd. is a registered investment advisor. Please visit coreadvisors.com for important disclosures.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NOTES ===== -->
+  <hr class="divider"/>
+  <div class="notes">
+    <h2>Build notes for Claude Design</h2>
+    <p class="lede">Native replacement for the Outgrow calculator. This file is a working prototype, not production code.</p>
+
+    <h3>What changed from the live Outgrow version</h3>
+    <ul>
+      <li>The live version asks <b>5 financial questions</b> and returns <b>one number</b>. It measures money only.</li>
+      <li>Questions 1 to 5 here are the <b>same five</b>, reworded slightly to explain <i>why</i> each is being asked (the add-back logic in particular).</li>
+      <li>Questions 6 to 10 are <b>new</b>, drawn from <b>Jeremiah's Lifestyle vs. Best-In-Class list</b> in his 2026-07-01 email. They measure transferability, which is what actually moves a dental multiple.</li>
+      <li>Those five answers drive the <b>transferability score</b>, the <b>gap bar</b>, and the <b>personalized drivers</b>. The result explains itself and earns the call.</li>
+    </ul>
+
+    <h3>The math (real, verifiable)</h3>
+    <ul>
+      <li><b>SDE</b> = collections − (staff × 12) − (opex × 12) + personal add-backs. Owner compensation is collected then added back, so it cancels out. This mirrors the live calculator's inputs.</li>
+      <li><b>Transferability score</b> = sum of Q6 to Q10 (0 to 3 each, 15 max) as a percentage. Thresholds are EPI's: 50% or below is discounted, 58% to 72% is above average, above 72% is best-in-class.</li>
+      <li><b>Drivers</b> are the lowest-scoring answers, surfaced worst-first. Score 3 on everything and the section flips to a strengths message rather than inventing problems.</li>
+    </ul>
+
+    <h3>Still blocked on sourcing</h3>
+    <ul>
+      <li><span class="tok">MULT_TODAY</span> <span class="tok">MULT_BIC</span> <span class="tok">GAP_$</span> (no sourced dental multiples yet). EPI's 6× vs 3.5× is <b>manufacturing</b>. Until real dental/DSO comps land, these stay tokens. Do not fill them with a plausible guess.</li>
+      <li>The gap bar's proportions are currently driven by the <b>transferability score</b>, which is honest and computable, rather than by a fake dollar gap.</li>
+    </ul>
+
+    <h3>Verified and cleared</h3>
+    <ul>
+      <li><span class="ok">CLEARED</span> CEPA® and EPI logos: Jeremiah confirmed in writing (2026-07-01) that Core may use both on the website and in ads.</li>
+      <li><span class="ok">CLEARED</span> Jeremiah D. Barwick is a real CEPA® and Core's Lead Advisor, so the badge and the CTA are both honest.</li>
+      <li><span class="ok">REAL</span> The 72% best-in-class threshold is EPI's own. The dental-adapted question weighting behind it is ours to defend.</li>
+    </ul>
+
+    <h3>Brand tokens (from the live site, 2026-07-15)</h3>
+    <table>
+      <tr><th>Token</th><th>Value</th><th>Source</th></tr>
+      <tr><td>Navy</td><td>#092d4f</td><td>coreadvisors.com and Jeremiah's signature</td></tr>
+      <tr><td>Green</td><td>#3a975b</td><td>Signature accent</td></tr>
+      <tr><td>Type</td><td>Euclid Circular B</td><td>Loaded live from the site's /wp-content/uploads/2024/12/</td></tr>
+    </table>
+
+    <h3>Decisions still open</h3>
+    <ul>
+      <li><b>The email gate</b> (step 11) is included here to match current behavior. Gating protects lead capture but costs completion on paid traffic. Alternative: show the score and gap free, gate the emailed breakdown.</li>
+      <li><b>Lead handling.</b> Dropping Outgrow means rebuilding capture, email delivery, storage, and spam protection. Gravity Forms is already on the site and is the obvious candidate.</li>
+      <li><b>Where it lives.</b> This is designed to sit inline on the new exit-planning landing page, no iframe.</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+(function(){
+  const steps=[...document.querySelectorAll('.step')];
+  const fill=document.getElementById('fill'), counter=document.getElementById('counter'),
+        stepCount=document.getElementById('stepCount'), partName=document.getElementById('partName'),
+        prev=document.getElementById('prev'), next=document.getElementById('next'),
+        nav=document.getElementById('nav'), progHead=document.getElementById('progHead'),
+        result=document.getElementById('result');
+  let i=0;
+  const scores={};
+
+  // money formatting
+  document.querySelectorAll('.money input').forEach(inp=>{
+    inp.addEventListener('input',e=>{
+      let v=e.target.value.replace(/[^\d]/g,'');
+      e.target.value = v ? Number(v).toLocaleString('en-US') : '';
+    });
+  });
+  const num = id => Number((document.getElementById(id).value||'').replace(/[^\d]/g,''))||0;
+  const raw = id => (document.getElementById(id).value||'').replace(/[^\d]/g,'');
+
+  // option select
+  document.querySelectorAll('.opts').forEach(group=>{
+    group.querySelectorAll('.opt').forEach(opt=>{
+      opt.addEventListener('click',()=>{
+        group.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));
+        opt.classList.add('sel');
+        scores[group.dataset.score]=Number(opt.dataset.v);
+        group.parentElement.querySelector('.err').style.display='none';
+      });
+    });
+  });
+
+  function show(n){
+    steps.forEach((s,k)=>s.classList.toggle('active',k===n));
+    i=n;
+    const pct=((n)/steps.length)*100;
+    fill.style.width=pct+'%';
+    counter.textContent=(n+1)+' of '+steps.length;
+    stepCount.textContent='Step '+(n+1)+' of '+steps.length;
+    partName.textContent=steps[n].dataset.part;
+    prev.disabled = n===0;
+    next.textContent = n===steps.length-1 ? 'Get my valuation' : 'Next';
+  }
+
+  function valid(n){
+    const s=steps[n], err=s.querySelector('.err');
+    const money=s.querySelector('.money input');
+    if(money){
+      const ok = raw(money.id)!=='';
+      err.style.display = ok?'none':'block';
+      return ok;
+    }
+    const opts=s.querySelector('.opts');
+    if(opts){
+      const ok = scores[opts.dataset.score]!==undefined;
+      err.style.display = ok?'none':'block';
+      return ok;
+    }
+    const nm=document.getElementById('name'), em=document.getElementById('email');
+    if(nm){
+      const ok = nm.value.trim().length>1 && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(em.value.trim());
+      err.style.display = ok?'none':'block';
+      return ok;
+    }
+    return true;
+  }
+
+  next.addEventListener('click',()=>{
+    if(!valid(i)) return;
+    if(i===steps.length-1){ render(); return; }
+    show(i+1);
+  });
+  prev.addEventListener('click',()=>{ if(i>0) show(i-1); });
+
+  const driverCopy = {
+    q6:{t:"The practice depends on you being in the building",p:"Production drops when you step away. Buyers discount what they cannot transfer, because they would be buying a job rather than an asset."},
+    q7:{t:"Your systems live in someone's head",p:"Scheduling, hygiene recall, case presentation, billing. Undocumented process is value a buyer cannot verify or take over."},
+    q8:{t:"Patients belong to you, not the practice",p:"When the relationship is with the owner-doctor rather than the team and the brand, it does not survive the sale, and the multiple reflects that."},
+    q9:{t:"Decisions bottleneck at you",p:"Without a leadership bench, a buyer is not acquiring a management team. They are acquiring your calendar."},
+    q10:{t:"Your numbers are not driving decisions",p:"When KPIs are not tracked and acted on, problems surface late, and a buyer sees risk they cannot price."}
+  };
+
+  function render(){
+    const collections=num('collections'), staff=num('staff'), opex=num('opex'), personal=num('personal');
+    const sde = collections - (staff*12) - (opex*12) + personal;
+
+    document.getElementById('sdeVal').textContent = '$'+Math.round(sde).toLocaleString('en-US');
+    document.getElementById('sdeNote').textContent = "Based on discretionary earnings of $"+Math.round(sde).toLocaleString('en-US');
+
+    const keys=['q6','q7','q8','q9','q10'];
+    const total=keys.reduce((a,k)=>a+(scores[k]||0),0);
+    const pct=Math.round((total/15)*100);
+
+    document.getElementById('scoreNum').textContent=pct+'%';
+    document.getElementById('sfill').style.width=pct+'%';
+
+    const tier=document.getElementById('tier');
+    if(pct>72){ tier.textContent='Best-in-class'; tier.className='tier bic'; }
+    else if(pct>=58){ tier.textContent='Above average'; tier.className='tier avg'; }
+    else if(pct<=50){ tier.textContent='Discounted'; tier.className='tier disc'; }
+    else { tier.textContent='Middle of the pack'; tier.className='tier avg'; }
+
+    // gap bar driven by score (honest), not by an invented dollar gap
+    const w=Math.max(8,pct);
+    document.getElementById('barToday').style.width=w+'%';
+    document.getElementById('barGap').style.left=w+'%';
+
+    const gc=document.getElementById('gapCallout');
+    if(pct>72){
+      gc.innerHTML = "Your practice already carries most of what a buyer pays a premium for. The remaining gap is <b><span class='tok'>GAP_$</span></b>, and it is a refinement, not a rebuild.";
+    } else {
+      gc.innerHTML = "You're leaving roughly <b><span class='tok'>GAP_$</span></b> on the table. That gap isn't dentistry. It's structure, and it's the part you can actually change.";
+    }
+
+    // drivers: worst first, only real weaknesses
+    const weak = keys.map(k=>({k,v:scores[k]||0})).filter(x=>x.v<3).sort((a,b)=>a.v-b.v).slice(0,3);
+    const list=document.getElementById('driverList');
+    const title=document.getElementById('driversTitle');
+    list.innerHTML='';
+    if(weak.length===0){
+      title.textContent='What you have already built';
+      list.innerHTML='<div class="driver"><div class="dot" style="background:var(--green)"></div><div><h3>Your practice is genuinely transferable</h3><p>You scored at the top of every driver we asked about. That is rare, and it is exactly what earns the higher end of the range. The conversation worth having now is about timing and options, not repairs.</p></div></div>';
+    } else {
+      weak.forEach(x=>{
+        const d=driverCopy[x.k];
+        list.insertAdjacentHTML('beforeend',
+          '<div class="driver"><div class="dot"></div><div><h3>'+d.t+'</h3><p>'+d.p+'</p></div></div>');
+      });
+    }
+
+    progHead.style.display='none';
+    nav.style.display='none';
+    steps.forEach(s=>s.classList.remove('active'));
+    result.classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  document.getElementById('restart').addEventListener('click',()=>{
+    result.classList.remove('active');
+    progHead.style.display='';
+    nav.style.display='';
+    show(0);
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+
+  show(0);
+})();
+</script>
+</body>
+</html>

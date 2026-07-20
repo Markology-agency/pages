@@ -3,204 +3,119 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cherry Hill: AI Services Launch Plan v2</title>
+<title>Cherry Hill: AI Services Launch Plan</title>
 <style>
 :root{
   --paper:#EEF2F7; --card:#FFFFFF; --line:#DCE3EC; --body:#141C2B; --slate:#5C6B85;
   --navy:#0B2C60; --blue:#2B8CEE; --e:#089BFF; --mike:#7A4FD0;
-  --ask:#A76A12; --ask-bg:#FBF1E1; --cut:#C8443B; --cut-bg:#FBEBEA; --ok:#20805F; --ok-bg:#E6F4EF;
   --sh:0 1px 2px rgba(10,30,60,.07), 0 8px 26px rgba(10,30,60,.07);
   --fd:"Avenir Next","Poppins","Segoe UI",system-ui,sans-serif;
   --fb:system-ui,-apple-system,"Segoe UI",sans-serif;
   --fm:ui-monospace,"SF Mono",Menlo,monospace;
 }
 @media (prefers-color-scheme:dark){:root{
-  --paper:#070E1C; --card:#101A2E; --line:#243350; --body:#E3EAF6; --slate:#93A3BF;
-  --blue:#4FA5F5; --mike:#A585E8; --ask:#E6B458; --ask-bg:#2A1F0B; --cut:#F08278; --cut-bg:#2A1210; --ok:#5FC7A1; --ok-bg:#0A2620;
+  --paper:#070E1C; --card:#101A2E; --line:#243350; --body:#E3EAF6; --slate:#93A3BF; --blue:#4FA5F5; --mike:#A585E8;
   --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 26px rgba(0,0,0,.35);
 }}
 :root[data-theme="dark"]{
-  --paper:#070E1C; --card:#101A2E; --line:#243350; --body:#E3EAF6; --slate:#93A3BF;
-  --blue:#4FA5F5; --mike:#A585E8; --ask:#E6B458; --ask-bg:#2A1F0B; --cut:#F08278; --cut-bg:#2A1210; --ok:#5FC7A1; --ok-bg:#0A2620;
+  --paper:#070E1C; --card:#101A2E; --line:#243350; --body:#E3EAF6; --slate:#93A3BF; --blue:#4FA5F5; --mike:#A585E8;
   --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 26px rgba(0,0,0,.35);
 }
 :root[data-theme="light"]{
-  --paper:#EEF2F7; --card:#FFFFFF; --line:#DCE3EC; --body:#141C2B; --slate:#5C6B85;
-  --blue:#2B8CEE; --mike:#7A4FD0; --ask:#A76A12; --ask-bg:#FBF1E1; --cut:#C8443B; --cut-bg:#FBEBEA; --ok:#20805F; --ok-bg:#E6F4EF;
+  --paper:#EEF2F7; --card:#FFFFFF; --line:#DCE3EC; --body:#141C2B; --slate:#5C6B85; --blue:#2B8CEE; --mike:#7A4FD0;
   --sh:0 1px 2px rgba(10,30,60,.07), 0 8px 26px rgba(10,30,60,.07);
 }
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--body);font-family:var(--fb);font-size:15px;line-height:1.6}
-.wrap{max-width:1140px;margin:0 auto;padding:0 22px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 22px}
 h1,h2,h3,h4{font-family:var(--fd);margin:0;text-wrap:balance}
+a{color:var(--blue)}
 :focus-visible{outline:2px solid var(--blue);outline-offset:3px}
 
-.mast{background:linear-gradient(150deg,#0B2C60,#061532);color:#fff;padding:40px 0 30px;border-bottom:3px solid var(--e)}
-.mast .wrap{display:flex;flex-direction:column;gap:12px}
+.mast{background:linear-gradient(150deg,#0B2C60,#061532);color:#fff;padding:38px 0 28px;border-bottom:3px solid var(--e)}
+.mast .wrap{display:flex;flex-direction:column;gap:11px}
 .eyebrow{font-family:var(--fm);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7FB4EE;margin:0}
 .mast h1{font-size:clamp(27px,3.7vw,40px);font-weight:800;letter-spacing:-.02em;line-height:1.05}
-.mast .lede{margin:0;color:#B4CBEA;max-width:64ch;font-size:15.5px}
-.changed{font-size:13px;color:#CFE0F5;background:rgba(8,155,255,.12);border:1px solid rgba(8,155,255,.3);border-radius:9px;padding:12px 15px}
-.changed b{color:#fff;font-family:var(--fd)}
-.spine{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1px;background:rgba(255,255,255,.14);
-  border:1px solid rgba(255,255,255,.14);border-radius:10px;overflow:hidden;margin-top:4px}
+.mast .lede{margin:0;color:#B4CBEA;max-width:62ch;font-size:15.5px}
+.spine{display:grid;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:1px;background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.14);border-radius:10px;overflow:hidden;margin-top:6px}
 .sp{background:#08203F;padding:11px 12px;display:flex;flex-direction:column;gap:2px}
 .sp .d{font-family:var(--fm);font-size:9px;letter-spacing:.1em;color:#7FA3D4;text-transform:uppercase}
 .sp .w{font-family:var(--fd);font-weight:700;font-size:13px;color:#fff;line-height:1.25}
 .sp.hero{background:var(--e)}.sp.hero .d{color:#DCF0FF}
 
-nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 93%,transparent);
-  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 93%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 nav .wrap{display:flex;gap:3px;overflow-x:auto;padding:9px 22px}
-nav a{font-family:var(--fm);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--slate);
-  text-decoration:none;padding:7px 11px;border-radius:6px;white-space:nowrap}
+nav a{font-family:var(--fm);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--slate);text-decoration:none;padding:7px 11px;border-radius:6px;white-space:nowrap}
 nav a:hover{background:var(--card);color:var(--blue)}
 
-section{padding:40px 0;border-bottom:1px solid var(--line)}
+section{padding:38px 0;border-bottom:1px solid var(--line)}
 .dayhead{display:flex;align-items:center;gap:12px;margin-bottom:16px;flex-wrap:wrap}
-.dnum{font-family:var(--fd);font-size:12.5px;font-weight:800;background:var(--navy);color:#fff;
-  padding:6px 12px;border-radius:7px;letter-spacing:.05em;white-space:nowrap}
-.dnum.hero{background:var(--e)}
+.dnum{font-family:var(--fd);font-size:12.5px;font-weight:800;background:var(--e);color:#fff;padding:6px 12px;border-radius:7px;letter-spacing:.05em;white-space:nowrap}
 .dayhead h2{font-size:23px;font-weight:800;letter-spacing:-.02em}
-.sub{color:var(--slate);margin:0 0 20px;max-width:76ch;font-size:14.5px}
+.sub{color:var(--slate);margin:0 0 20px;max-width:78ch;font-size:14.5px}
+.pill{display:inline-block;font-family:var(--fm);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:20px;font-weight:600;background:color-mix(in srgb,var(--blue) 15%,transparent);color:var(--blue)}
 
-.pill{display:inline-block;font-family:var(--fm);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;
-  padding:3px 8px;border-radius:20px;font-weight:600;white-space:nowrap}
-.p-ask{background:var(--ask-bg);color:var(--ask)}
-.p-cut{background:var(--cut-bg);color:var(--cut)}
-.p-ok{background:var(--ok-bg);color:var(--ok)}
-.p-blue{background:color-mix(in srgb,var(--blue) 15%,transparent);color:var(--blue)}
-
-.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px;align-items:start}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;align-items:start}
 .slot{display:flex;flex-direction:column;gap:8px}
-.slotlbl{display:flex;align-items:center;gap:8px;font-family:var(--fm);font-size:10.5px;letter-spacing:.09em;
-  text-transform:uppercase;color:var(--slate);flex-wrap:wrap}
+.slotlbl{display:flex;align-items:center;gap:8px;font-family:var(--fm);font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--slate)}
 .slotlbl .dot{width:9px;height:9px;border-radius:50%;flex:none}
-.dot.co{background:var(--blue)}
-.dot.mi{background:var(--mike)}
-
+.dot.co{background:var(--blue)}.dot.mi{background:var(--mike)}
 .post{background:var(--card);border:1px solid var(--line);border-radius:10px;box-shadow:var(--sh);overflow:hidden}
-.phead{display:flex;gap:9px;padding:12px 13px 8px;align-items:flex-start}
-.av{width:42px;height:42px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;
-  font-family:var(--fd);font-weight:800;font-size:14px;color:#fff}
-.av.mike{background:linear-gradient(140deg,#7A4FD0,#4A2C8F)}
-.av.co{background:linear-gradient(140deg,#1E7FE0,#0B2C60)}
-.pmeta{flex:1;min-width:0}
-.pmeta b{display:block;font-size:13.5px;font-weight:600;line-height:1.25}
-.pmeta span{display:block;font-size:11px;color:var(--slate);line-height:1.35}
-.pbody{padding:2px 13px 11px;font-size:13px;line-height:1.55;white-space:pre-wrap}
-.pbody .fill{background:var(--ask-bg);color:var(--ask);border-radius:4px;padding:1px 5px;font-style:italic}
-.pimg{width:100%;display:block;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.pimg.ghost{aspect-ratio:4/5;background:repeating-linear-gradient(45deg,var(--paper),var(--paper) 8px,transparent 8px,transparent 16px);
-  display:flex;align-items:center;justify-content:center;text-align:center;padding:16px;font-family:var(--fm);
-  font-size:10.5px;color:var(--slate);line-height:1.7}
-.vid{position:relative;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
-  aspect-ratio:16/9;background:linear-gradient(150deg,#0B2C60,#04102A);display:flex;align-items:center;
-  justify-content:center;flex-direction:column;gap:7px}
-.vid .play{width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.94);display:flex;align-items:center;
-  justify-content:center;color:#0B2C60;font-size:17px;padding-left:4px}
-.vid .vlab{font-family:var(--fm);font-size:9.5px;letter-spacing:.1em;color:#8FB6E8;text-align:center}
-.pbar{display:flex;gap:15px;padding:9px 13px;font-size:11px;color:var(--slate);border-top:1px solid var(--line)}
+.phead{display:flex;gap:9px;padding:12px 13px 8px}
+.av{width:40px;height:40px;border-radius:50%;flex:none;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-weight:800;font-size:13px;color:#fff}
+.av.mike{background:linear-gradient(140deg,#7A4FD0,#4A2C8F)}.av.co{background:linear-gradient(140deg,#1E7FE0,#0B2C60)}
+.pmeta b{display:block;font-size:13px;font-weight:600;line-height:1.25}
+.pmeta span{display:block;font-size:11px;color:var(--slate)}
+.pbody{padding:2px 13px 12px;font-size:13px;line-height:1.55;white-space:pre-wrap}
+.vid{aspect-ratio:16/9;background:linear-gradient(150deg,#0B2C60,#04102A);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:6px;border-top:1px solid var(--line)}
+.vid .play{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:center;color:#0B2C60;font-size:16px;padding-left:3px}
+.vid .vlab{font-family:var(--fm);font-size:9px;letter-spacing:.1em;color:#8FB6E8}
 .hash{color:var(--blue)}
 
-.ask{display:flex;align-items:flex-start;gap:10px;margin-top:16px;background:var(--card);border:1px solid var(--line);
-  border-left:3px solid var(--ask);border-radius:8px;padding:11px 14px;font-size:13.5px;color:var(--slate);box-shadow:var(--sh)}
-.ask b{color:var(--body);font-family:var(--fd)}
-.ask.cut{border-left-color:var(--cut)}
-.ask.ok{border-left-color:var(--ok)}
-.ask .t{font-family:var(--fm);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ask);
-  padding-top:3px;white-space:nowrap;font-weight:700}
-.ask.cut .t{color:var(--cut)}
-.ask.ok .t{color:var(--ok)}
+.herocopy{background:var(--card);border:1px solid var(--line);border-radius:11px;padding:16px 18px;box-shadow:var(--sh);margin-bottom:18px}
+.herocopy .k{font-family:var(--fm);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);width:70px;flex:none;padding-top:2px}
+.herocopy .row{display:flex;gap:14px;padding:8px 0;border-top:1px solid var(--line);font-size:14px;line-height:1.5}
+.herocopy .row:first-of-type{border-top:0}
+.herocopy .row b{font-family:var(--fd)}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.opt{background:var(--card);border:1px solid var(--line);border-radius:11px;overflow:hidden;box-shadow:var(--sh)}
+.opt img{width:100%;display:block;aspect-ratio:16/9;object-fit:cover;background:var(--navy)}
+.opt .ob{padding:12px 14px}
+.opt h4{font-size:14px;font-weight:700;margin-bottom:3px}
+.opt p{margin:0;font-size:12.5px;color:var(--slate);line-height:1.5}
 
-.checks{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.chk{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:13px 15px;box-shadow:var(--sh)}
-.chk h4{font-size:14px;font-weight:700;margin-bottom:5px;display:flex;align-items:center;gap:7px}
-.chk h4 .n{width:19px;height:19px;border-radius:5px;background:var(--e);color:#fff;font-family:var(--fm);font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;flex:none}
-.chk p{margin:0;font-size:12.5px;color:var(--slate);line-height:1.5}
-.chk.paused h4 .n{background:var(--ask)}
-.chk.paused{opacity:.9}
+.list{background:var(--card);border:1px solid var(--line);border-radius:11px;box-shadow:var(--sh);overflow:hidden}
+.li{display:flex;gap:13px;padding:13px 16px;border-top:1px solid var(--line);font-size:14px;line-height:1.5}
+.li:first-child{border-top:0}
+.li .lb{font-family:var(--fd);font-weight:700;min-width:118px;flex:none}
+.li .lt{color:var(--slate)}
+.li .lt b{color:var(--body);font-weight:600}
 
-.browser{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;box-shadow:var(--sh)}
-.chrome{display:flex;align-items:center;gap:8px;padding:9px 12px;background:var(--paper);border-bottom:1px solid var(--line)}
-.chrome .dots{display:flex;gap:5px}
-.chrome .dots i{width:10px;height:10px;border-radius:50%;background:var(--line);display:block}
-.chrome .url{flex:1;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:4px 10px;
-  font-family:var(--fm);font-size:10.5px;color:var(--slate);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.viewport{position:relative;background:linear-gradient(170deg,#0B2C60,#061532);min-height:340px;overflow:hidden}
-.vbar{background:var(--e);color:#04102A;font-size:10px;padding:6px 14px;text-align:center;font-family:var(--fm);
-  letter-spacing:.05em;font-weight:700}
-.vbar.old{background:#04102A;color:#8FB6E8;font-weight:400}
-.vnav{display:flex;align-items:center;gap:12px;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.1)}
-.vlogo{font-family:var(--fd);font-weight:800;color:#fff;font-size:14px}
-.vlinks{display:flex;gap:11px;font-size:10.5px;color:#A9C6EC;margin-left:auto;flex-wrap:wrap}
-.vlinks b{color:#fff;font-weight:600}
-.vhero{padding:26px 22px 30px;text-align:center}
-.vhero h3{color:#fff;font-size:22px;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
-.vhero p{color:#A9C6EC;font-size:12px;max-width:52ch;margin:0 auto 13px}
-.vbtns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-.vbtn{font-size:11px;padding:7px 14px;border-radius:6px;font-weight:600}
-.vbtn.solid{background:var(--e);color:#fff}
-.vbtn.ghost{border:1px solid rgba(255,255,255,.35);color:#fff}
-.vfade{height:44px;background:linear-gradient(to bottom,transparent,#061532)}
-.popup{position:absolute;right:16px;bottom:16px;width:min(300px,72%);background:#fff;border-radius:11px;
-  box-shadow:0 18px 50px rgba(0,0,0,.5);overflow:hidden}
-.popup .pv{position:relative;aspect-ratio:16/9;background:linear-gradient(150deg,#0B2C60,#04102A);display:flex;
-  align-items:center;justify-content:center;flex-direction:column;gap:5px}
-.popup .pv .x{position:absolute;top:7px;right:9px;color:#CBDDF2;font-size:12px;background:rgba(0,0,0,.4);border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center}
-.popup .pv .bd{position:absolute;top:8px;left:9px;background:var(--e);color:#fff;font-family:var(--fm);font-size:7.5px;letter-spacing:.11em;padding:3px 6px;border-radius:20px;font-weight:700}
-.popup .pv .pl{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.94);display:flex;align-items:center;justify-content:center;color:#0B2C60;font-size:14px;padding-left:3px}
-.popup .pv .lb{font-family:var(--fm);font-size:7.5px;letter-spacing:.1em;color:#8FB6E8}
-.popup .pbot{padding:11px 14px 13px;background:#fff;color:#141C2B}
-.popup .pbot h4{font-size:13.5px;font-weight:800;margin-bottom:4px}
-.popup .pbot p{margin:0 0 9px;font-size:11px;color:#4A5A75;line-height:1.45}
-.popup .pcta{display:block;background:var(--e);color:#fff;text-align:center;padding:8px;border-radius:7px;font-size:12px;font-weight:700;font-family:var(--fd)}
-.vband{background:linear-gradient(100deg,#062a5f,#0a3a7a);padding:14px 18px;display:flex;align-items:center;gap:14px;border-top:1px solid rgba(8,155,255,.35);flex-wrap:wrap}
-.vband .bl{flex:1;min-width:180px}
-.vband .tagf{display:inline-flex;align-items:center;gap:6px;background:rgba(8,155,255,.22);color:#8CCBFF;border:1px solid rgba(8,155,255,.5);font-family:var(--fm);font-size:8.5px;letter-spacing:.11em;padding:3px 9px;border-radius:20px;font-weight:700;margin-bottom:6px}
-.vband h4{color:#fff;font-size:15px;font-weight:800;margin-bottom:3px}
-.vband p{color:#AECBEE;font-size:11px;margin:0}
-.vband .bbtn{background:var(--e);color:#fff;font-size:11px;font-weight:800;padding:9px 15px;border-radius:6px;font-family:var(--fd);white-space:nowrap}
-
-.eng{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:11px;overflow:hidden;box-shadow:var(--sh);margin-bottom:14px}
-@media(max-width:620px){.eng{grid-template-columns:1fr}}
-.eng .h{background:var(--card);padding:12px 15px;font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--slate);display:flex;align-items:center;gap:8px}
-.eng .c{background:var(--card);padding:13px 15px;font-size:13px;line-height:1.5}
-.eng .c b{font-family:var(--fd)}
-.eng .c span{color:var(--slate);font-size:12px;display:block;margin-top:2px}
-
-.wkstrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:11px;overflow:hidden;box-shadow:var(--sh)}
-.wkcell{background:var(--card);padding:14px 13px;display:flex;flex-direction:column;gap:5px;min-height:100px}
+.wkstrip{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:11px;overflow:hidden;box-shadow:var(--sh)}
+.wkcell{background:var(--card);padding:14px 13px;display:flex;flex-direction:column;gap:5px;min-height:96px}
 .wkcell .wn{font-family:var(--fm);font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--slate)}
 .wkcell .ws{font-family:var(--fd);font-weight:700;font-size:14px;letter-spacing:-.01em;line-height:1.25}
 .wkcell small{font-size:11px;color:var(--slate);margin-top:auto}
 .wkcell.on{background:color-mix(in srgb,var(--e) 12%,var(--card))}
 
-.owe{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-.owecard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:15px 17px;box-shadow:var(--sh)}
-.owecard h4{font-size:14px;font-weight:800;margin-bottom:9px;display:flex;align-items:center;gap:8px}
-.owecard h4 .who{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:3px 8px;border-radius:20px;background:var(--paper);color:var(--slate)}
-.owecard ul{margin:0;padding-left:17px;font-size:13px;color:var(--slate);line-height:1.6}
-.owecard li{margin-bottom:4px}
-
-footer{padding:28px 0 44px;color:var(--slate);font-size:12.5px}
-footer p{margin:0}
+footer{padding:26px 0 44px;color:var(--slate);font-size:12.5px}
+footer p{margin:0 0 4px}
 </style>
 </head>
 <body>
 
 <header class="mast">
   <div class="wrap">
-    <p class="eyebrow">Cherry Hill Advisory · Rebuilt from the July 17 call</p>
+    <p class="eyebrow">Cherry Hill Advisory</p>
     <h1>AI-Enabled Services Launch Plan</h1>
-    <p class="lede">Launch is Tuesday. The Screener isn't ready, so it's paused and the video carries the homepage. Then a weekly spotlight of each service, with the webinar series running alongside.</p>
-    <p class="changed"><b>What changed from the call:</b> Launch moved to <b>Tuesday Jul 21</b>, before lunch ET · Screener <b>paused</b> (not ready) so no Friday teaser; homepage runs a video pop-up instead · Anthropic <b>removed</b> (already posted) · Both accounts post the <b>video</b> · <b>Webinar series</b> added as a launch pillar · Captions cut shorter with a controversial hook · IIA logo <b>off</b> all public graphics · Everything schedules in <b>Publer</b>.</p>
+    <p class="lede">Launch Tuesday. Both accounts post the video, the homepage swaps to a "grew by 19" hero, then a weekly spotlight of each service with the webinar series alongside.</p>
     <div class="spine">
-      <div class="sp hero"><span class="d">Tue Jul 21</span><span class="w">LAUNCH · video</span></div>
-      <div class="sp"><span class="d">This week</span><span class="w">Site + banner + newsletter</span></div>
+      <div class="sp hero"><span class="d">Tue Jul 21</span><span class="w">Launch · video</span></div>
+      <div class="sp"><span class="d">This week</span><span class="w">Hero + site + newsletter</span></div>
       <div class="sp"><span class="d">Then</span><span class="w">Meet the Bench</span></div>
       <div class="sp"><span class="d">Weekly</span><span class="w">Service spotlights</span></div>
-      <div class="sp"><span class="d">Aug · Oct · Nov</span><span class="w">Webinar series</span></div>
+      <div class="sp"><span class="d">Aug–Nov</span><span class="w">Webinar series</span></div>
     </div>
   </div>
 </header>
@@ -209,26 +124,23 @@ footer p{margin:0}
   <div class="wrap">
     <a href="./briefs.html">Design briefs →</a>
     <a href="#launch">Launch day</a>
+    <a href="#hero">Hero options</a>
     <a href="#site">Website</a>
-    <a href="#spotlights">Spotlights</a>
-    <a href="#captions">All captions</a>
+    <a href="#schedule">Schedule</a>
+    <a href="#captions">Captions</a>
     <a href="#webinars">Webinars</a>
-    <a href="#rules">Rules</a>
-    <a href="#paused">Paused / out</a>
-    <a href="#owe">Who owes what</a>
   </div>
 </nav>
 
 <section id="launch">
   <div class="wrap">
-    <div class="dayhead"><span class="dnum hero">TUE JUL 21</span><h2>Launch day</h2><span class="pill p-ok">Before lunch, ET</span></div>
-    <p class="sub">Both accounts post the video. Every caption below leads with a profession-level tension and makes the service the answer, not the pitch, the way Mike wants it. Controversial hook first, checklist not paragraphs, a practitioner signs every finding. Mike does the final pass in Publer.</p>
-
+    <div class="dayhead"><span class="dnum">TUE JUL 21</span><h2>Launch day</h2></div>
+    <p class="sub">Both accounts post the video. Mike does the final pass in Publer.</p>
     <div class="two">
       <div class="slot">
-        <div class="slotlbl"><span class="dot mi"></span>Mike Levy · video <span class="pill p-ask">Mike finalizes</span></div>
+        <div class="slotlbl"><span class="dot mi"></span>Mike Levy · video</div>
         <div class="post">
-          <div class="phead"><div class="av mike">ML</div><div class="pmeta"><b>Mike Levy</b><span>CEO &amp; Managing Principal, Cherry Hill Advisory</span><span>Tue · 🌐</span></div></div>
+          <div class="phead"><div class="av mike">ML</div><div class="pmeta"><b>Mike Levy</b><span>CEO &amp; Managing Principal, Cherry Hill Advisory</span></div></div>
           <div class="pbody">𝗜 𝗷𝘂𝘀𝘁 𝗴𝗿𝗲𝘄 𝗺𝘆 𝗮𝘂𝗱𝗶𝘁 𝘁𝗲𝗮𝗺 𝗯𝘆 𝟭𝟵. 𝗡𝗼𝗻𝗲 𝗼𝗳 𝘁𝗵𝗲𝗺 𝗮𝗿𝗲 𝗵𝘂𝗺𝗮𝗻.
 
 The profession can stop debating whether to use AI. It's time to move internal audit forward.
@@ -237,25 +149,23 @@ I have sat in the CAE seat. I know what it feels like to be asked sharper questi
 
 Nineteen AI specialists, across risk, SOX, cyber, fraud, and third-party. What they do not do is sign a finding. That is still the practitioner's job, and always will be.
 
-<span class="fill">[Mike: the CAE conversation that pushed us to build this]</span>
-
 This is internal audit's moment to lead on AI, not to write the policy two years after everyone is already using it. The profession moves forward when someone does the hard thing first, in their own shop.
 
 If you are a CAE thinking about what AI in your function should look like, my inbox is open.
 
 <span class="hash">#InternalAudit #AIGovernance #CherryHillAdvisory</span></div>
           <div class="vid"><span class="play">▶</span><span class="vlab">AI-ENABLED SERVICES · EXPLAINER</span></div>
-          <div class="pbar"><span>👍 Like</span><span>💬 Comment</span><span>🔁 Repost</span><span>📩 Send</span></div>
         </div>
       </div>
-
       <div class="slot">
         <div class="slotlbl"><span class="dot co"></span>Cherry Hill Advisory · video</div>
         <div class="post">
-          <div class="phead"><div class="av co">CH</div><div class="pmeta"><b>Cherry Hill Advisory</b><span>Internal Audit · Risk · AI Governance</span><span>Tue · 🌐</span></div></div>
-          <div class="pbody">𝗜𝗻𝘁𝗲𝗿𝗻𝗮𝗹 𝗮𝘂𝗱𝗶𝘁 𝗵𝗮𝘀 𝗯𝗲𝗲𝗻 𝗽𝗿𝗼𝗺𝗶𝘀𝗲𝗱 𝗔𝗜 𝗹𝗲𝘃𝗲𝗿𝗮𝗴𝗲 𝗳𝗼𝗿 𝘆𝗲𝗮𝗿𝘀. 𝗧𝗼𝗱𝗮𝘆 𝘄𝗲 𝗱𝗲𝗹𝗶𝘃𝗲𝗿𝗲𝗱 𝗶𝘁.
+          <div class="phead"><div class="av co">CH</div><div class="pmeta"><b>Cherry Hill Advisory</b><span>Internal Audit · Risk · AI Governance</span></div></div>
+          <div class="pbody">𝗔𝗜 𝗶𝘀 𝗮𝗿𝗿𝗶𝘃𝗶𝗻𝗴 𝗶𝗻 𝗲𝘃𝗲𝗿𝘆 𝗼𝗿𝗴𝗮𝗻𝗶𝘇𝗮𝘁𝗶𝗼𝗻 𝘄𝗵𝗲𝘁𝗵𝗲𝗿 𝗶𝗻𝘁𝗲𝗿𝗻𝗮𝗹 𝗮𝘂𝗱𝗶𝘁 𝗴𝗼𝘃𝗲𝗿𝗻𝘀 𝗶𝘁 𝗼𝗿 𝗻𝗼𝘁.
 
-Cherry Hill just grew its team by 19. Not consultants, not software. An AI workforce that works alongside our practitioners:
+The profession either leads on it or has it done to us. The gap between what a manual review can find and what is actually happening keeps widening, and hiring does not close it fast enough.
+
+So today Cherry Hill grew its team by 19. Not consultants, not software. An AI workforce that works alongside our practitioners:
 
 → Scopes engagements and builds the workplan
 → Tests the full population, not a sample
@@ -264,93 +174,78 @@ Cherry Hill just grew its team by 19. Not consultants, not software. An AI workf
 
 What stays human is the judgment. A practitioner reads every output, makes the call, and signs the finding.
 
-This is internal audit's moment to lead on AI, not follow. That is why we built it.
+This is internal audit leading on AI, not following.
 
 Human-Led. AI-Enabled.
 
 <span class="hash">#InternalAudit #AIGovernance #CherryHillAdvisory</span></div>
           <div class="vid"><span class="play">▶</span><span class="vlab">AI-ENABLED SERVICES · EXPLAINER</span></div>
-          <div class="pbar"><span>👍 Like</span><span>💬 Comment</span><span>🔁 Repost</span><span>📩 Send</span></div>
         </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="ask ok"><span class="t">Profession-first</span><div>Both open with what is changing in the field, not "buy our service." Mike's leads with the combined hook you picked (grew by 19 / none are human), pivots straight to "it's time to move internal audit forward," and keeps "a practitioner signs every finding" so it does not read as robots doing the audit.</div></div>
-    <div class="ask"><span class="t">Mike owes</span><div>The one bracket: <b>the CAE story</b> for his caption. He said he'll rewrite the whole thing in Publer anyway, so we hold the placeholder.</div></div>
+<section id="hero">
+  <div class="wrap">
+    <div class="dayhead"><span class="dnum">TUE JUL 21</span><h2>Homepage hero: grew by 19</h2></div>
+    <p class="sub">Same copy on all of them. Three images below, each in three layouts (left-aligned, centered, or hard split), so nine combinations to pick from. Swaps for the week, then the old hero comes back.</p>
+
+    <div class="herocopy">
+      <div class="row"><span class="k">Eyebrow</span><div>Now Live: AI-Enabled Services</div></div>
+      <div class="row"><span class="k">H1</span><div><b>Cherry Hill just grew by 19.</b> (the "19" in electric blue)</div></div>
+      <div class="row"><span class="k">Sub</span><div>A new AI agent team, working alongside the practitioners who lead every engagement. It's time to move our profession forward.</div></div>
+      <div class="row"><span class="k">Buttons</span><div>Meet the team →  ·  Introductory Call</div></div>
+    </div>
+
+    <div class="opts">
+      <div class="opt"><img src="img/heroA.jpg" alt="Hero option A: humans with floating AI name cards">
+        <div class="ob"><h4>A · Team cards</h4><p>Real humans, AI shown as floating name cards (Helena, Marcus, Priya). Most credible, clearly AI without robots.</p></div></div>
+      <div class="opt"><img src="img/heroB.jpg" alt="Hero option B: the team walking in">
+        <div class="ob"><h4>B · Walk-in</h4><p>The team arriving with a subtle digital shimmer, two practitioners greeting them. Warm, the AI signal is soft.</p></div></div>
+      <div class="opt"><img src="img/heroC.jpg" alt="Hero option C: synthetic agents arriving">
+        <div class="ob"><h4>C · Agents arriving</h4><p>Overtly synthetic agents walking in, greeted by two practitioners. Boldest, closest to Mike's "stadium of agents." Likely too fun for the homepage, strong for his personal.</p></div></div>
+    </div>
   </div>
 </section>
 
 <section id="site">
   <div class="wrap">
-    <div class="dayhead"><span class="dnum hero">TUE JUL 21</span><h2>The website on launch day</h2></div>
-    <p class="sub">Five site pieces go live with the launch. The homepage swaps its hero for the week, the video carries the top, and a banner turns the whole site into a launch announcement.</p>
-
-    <div class="browser" style="margin-bottom:16px">
-      <div class="chrome"><span class="dots"><i></i><i></i><i></i></span><span class="url">cherryhilladvisory.com</span></div>
-      <div class="viewport">
-        <div class="vbar">NEW: Cherry Hill launches AI-Enabled Services + our AI webinar series →</div>
-        <div class="vnav"><span class="vlogo">🌳 CherryHill</span><span class="vlinks"><span>Services</span><span>Insights</span><span>About</span><b>AI-Enabled Services</b></span></div>
-        <div class="vhero">
-          <span class="pill" style="background:rgba(8,155,255,.2);color:#8CCBFF;border:1px solid rgba(8,155,255,.5);margin-bottom:9px">● NOW LIVE: AI-ENABLED SERVICES</span>
-          <h3>Cherry Hill just grew by 19.</h3>
-          <p>A new AI agent team, working alongside the practitioners who lead every engagement. Time for our profession to move forward.</p>
-          <div class="vbtns"><span class="vbtn solid">Meet the team →</span><span class="vbtn ghost">Introductory Call</span></div>
-        </div>
-        <div class="vfade"></div>
-        <div class="popup">
-          <div class="pv"><span class="x">✕</span><span class="bd">NEW</span><span class="pl">▶</span><span class="lb">AI-ENABLED SERVICES</span></div>
-          <div class="pbot"><h4>Meet the audit team that never sleeps.</h4><p>90 seconds on how it works. Nothing to license, nothing to install.</p><a class="pcta" href="#">Watch →</a></div>
-        </div>
-      </div>
+    <div class="dayhead"><span class="dnum">TUE JUL 21</span><h2>Website on launch day</h2></div>
+    <div class="list">
+      <div class="li"><span class="lb">Hero</span><span class="lt">Swap to the "grew by 19" hero for the week. Old hero saved, comes back after.</span></div>
+      <div class="li"><span class="lb">Video</span><span class="lt">The 90-second explainer at the top of the homepage and the AI-Enabled Services page.</span></div>
+      <div class="li"><span class="lb">Popup</span><span class="lt">Video popup sitewide, bottom-right on a delay. On the blog / EQA / co-sourcing pages it's the popup rather than the hero.</span></div>
+      <div class="li"><span class="lb">Banner</span><span class="lt">The "Here's Where We're Speaking This Month" bar becomes the launch + webinar series, like a press release across the site, for a month.</span></div>
+      <div class="li"><span class="lb">Screener</span><span class="lt">Paused, the tool is not ready. Ships after go-live. Band recolored to brand navy/blue, no green.</span></div>
     </div>
-
-    <div class="checks">
-      <div class="chk"><h4><span class="n">1</span>Hero swap</h4><p>Homepage hero changes to the AI team for the week. Mike wants it more fun and forward-leaning, "Cherry Hill just grew by 19," not the stodgy boardroom photo. Regenerate in ChatGPT. Formal cut for the company, a fun cut for Mike's personal.</p></div>
-      <div class="chk"><h4><span class="n">2</span>Video at the top</h4><p>The 90-second explainer sits at the top of the homepage and the top of the AI-Enabled Services page.</p></div>
-      <div class="chk"><h4><span class="n">3</span>Video pop-up</h4><p>Sitewide, bottom-right, on a delay. On the EQA, co-sourcing and blog pages it's the pop-up rather than the hero.</p></div>
-      <div class="chk"><h4><span class="n">4</span>Launch banner</h4><p>The "Here's Where We're Speaking This Month" bar becomes the AI launch + webinar series, like a press release across the whole site, for a month.</p></div>
-      <div class="chk paused"><h4><span class="n">5</span>Screener band: paused</h4><p>Recolored to brand navy and blue, no green. But the tool isn't ready (dev doesn't work Friday), so it's paused on the homepage. Deploy after go-live.</p></div>
-    </div>
-
-    <div class="ask cut"><span class="t">Design owns</span><div>Make the AI figures <b>read as AI</b>, not real colleagues, "they're not part of the real team." Mike's direction: humanoid, uniformed, names on them (Helena, Renata), roboty but not cartoonish. ChatGPT over Gemini for the generation.</div></div>
-    <div class="ask"><span class="t">Not urgent for launch</span><div>The AI-Enabled Services page restructure: shrink the agent tiles (all one size, ideally one row), reorder to <b>Agents → Toolbox → Why This Model Works → deep dive</b>, make toolbox and agents clickable cards with the bench and industry specialists hidden behind a click, add agents to the jump nav, and black out the IIA logo anywhere it shows in the photos. Mike flagged all of this as "not urgent for Monday."</div></div>
+    <p class="sub" style="margin:16px 0 0">Not urgent for launch: the AI-Enabled Services page restructure (smaller agent tiles, reorder to agents → toolbox → why it works, clickable cards, IIA logo removed). Full detail in the <a href="./briefs.html">design briefs</a>.</p>
   </div>
 </section>
 
-<section id="spotlights">
+<section id="schedule">
   <div class="wrap">
-    <div class="dayhead"><h2>The weekly spotlight engine</h2></div>
-    <p class="sub">After launch week, one service a week. Same shape every time: the company posts a fun, modern graphic; Mike posts a casual screen-share snippet of the same service, the same day. Meet the Bench kicks it off on both accounts at once.</p>
-
-    <div class="eng">
-      <div class="h"><span class="dot co" style="width:9px;height:9px;border-radius:50%;background:var(--blue)"></span>Company account</div>
-      <div class="h"><span class="dot mi" style="width:9px;height:9px;border-radius:50%;background:var(--mike)"></span>Mike, personal</div>
-      <div class="c"><b>Fun, modern graphic</b><span>Not the stodgy stock look. Color bars, motion, the AI vibe from the video. Short caption, hook first.</span></div>
-      <div class="c"><b>Casual screen-share snippet</b><span>Mike in the actual tool, talking through what he loves about it. 60–90 seconds, unpolished on purpose.</span></div>
-    </div>
-
+    <div class="dayhead"><h2>Weekly spotlights</h2></div>
+    <p class="sub">One service a week. Company posts a fun, modern graphic; Mike posts a casual screen-recording of the same service, the same day. Meet the Bench kicks it off on both accounts.</p>
     <div class="wkstrip">
-      <div class="wkcell on"><span class="wn">Kickoff</span><span class="ws">Meet the Bench</span><small>Both accounts, same day.</small></div>
-      <div class="wkcell"><span class="wn">Spotlight 1</span><span class="ws">Predictive Risk Assessment</span><small>81 external factors, consensus across 3 models.</small></div>
-      <div class="wkcell"><span class="wn">Spotlight 2</span><span class="ws">Calibr</span><small>AI governance, Trust methodology.</small></div>
-      <div class="wkcell"><span class="wn">Spotlight 3</span><span class="ws">AssureLens</span><small>Coverage map, providers graded 1–5.</small></div>
-      <div class="wkcell"><span class="wn">Spotlight 4</span><span class="ws">Segra</span><small>SoD across 26 systems.</small></div>
-      <div class="wkcell"><span class="wn">Spotlight 5</span><span class="ws">Prism</span><small>Audits the TPRM programme. Before Sept 15.</small></div>
-      <div class="wkcell"><span class="wn">Spotlight 6</span><span class="ws">Hadley</span><small>SOC 1/2/3 reviews in Excel.</small></div>
-      <div class="wkcell"><span class="wn">Free tools</span><span class="ws">Screener + Audit Pulse</span><small>Once the Screener is live.</small></div>
+      <div class="wkcell on"><span class="wn">Kickoff</span><span class="ws">Meet the Bench</span><small>Both accounts.</small></div>
+      <div class="wkcell"><span class="wn">1</span><span class="ws">Predictive Risk Assessment</span><small>81 factors, 3-model consensus.</small></div>
+      <div class="wkcell"><span class="wn">2</span><span class="ws">Calibr</span><small>AI governance, Trust methodology.</small></div>
+      <div class="wkcell"><span class="wn">3</span><span class="ws">AssureLens</span><small>Coverage map, providers 1–5.</small></div>
+      <div class="wkcell"><span class="wn">4</span><span class="ws">Segra</span><small>SoD across 26 systems.</small></div>
+      <div class="wkcell"><span class="wn">5</span><span class="ws">Prism</span><small>Audits the TPRM program. Before Sept 15.</small></div>
+      <div class="wkcell"><span class="wn">6</span><span class="ws">Hadley</span><small>SOC 1/2/3 in Excel.</small></div>
+      <div class="wkcell"><span class="wn">Free</span><span class="ws">Screener + Audit Pulse</span><small>Once the Screener ships.</small></div>
     </div>
-
-    <div class="ask"><span class="t">The FAQ post</span><div>The "five questions we've gotten" post moves to the <b>company account</b>, not Mike's personal. Mike liked it but worried it would flop on his page because it reads like announcing a service rather than a profession take. The company account cares less about the like count.</div></div>
-    <div class="ask cut"><span class="t">Graphics back to design</span><div>The service graphics get reworked to the fun/modern look, and two still have defects from before: <b>Calibr</b> carries the Anthropic subline by mistake, and <b>Prism</b> has a literal "/" in the headline plus garbled "CONTROL EFFECTIVESS" text baked into the image.</div></div>
   </div>
 </section>
 
 <section id="captions">
   <div class="wrap">
-    <div class="dayhead"><h2>Every caption, profession-first</h2><span class="pill p-ok">Rewritten</span></div>
-    <p class="sub">The full set, all leaning into the industry. Each opens with a tension the whole field lives with, makes the service the answer, and keeps "a practitioner signs every finding." Also in the Publer handoff file. Mike does the final pass.</p>
+    <div class="dayhead"><h2>Every caption</h2></div>
+    <p class="sub">Each opens with a tension the whole field lives with and keeps "a practitioner signs every finding." Same as the Publer file. Mike does the final pass.</p>
 
-    <div class="two" style="margin-bottom:20px">
+    <div class="two" style="margin-bottom:18px">
       <div class="slot">
         <div class="slotlbl"><span class="dot co"></span>Meet the Bench · Company</div>
         <div class="post"><div class="pbody">𝗠𝗲𝗲𝘁 𝘁𝗵𝗲 𝟭𝟵. 𝗬𝗲𝘀, 𝘁𝗵𝗲𝘆 𝗮𝗿𝗲 𝗔𝗜.
@@ -382,13 +277,13 @@ That is the standard I think we have to hold as a profession. Not "did AI do it,
       </div>
     </div>
 
-    <p class="sub" style="margin-bottom:14px"><b style="color:var(--body);font-family:var(--fd)">The six spotlights</b>, company caption each week, with Mike's casual screen-recording the same day.</p>
+    <p class="sub" style="margin-bottom:14px">The six spotlights, company caption each week with Mike's screen-recording the same day.</p>
     <div class="two">
       <div class="slot">
         <div class="slotlbl"><span class="dot co"></span>Predictive Risk Assessment</div>
         <div class="post"><div class="pbody">𝗠𝗼𝘀𝘁 𝗿𝗶𝘀𝗸 𝗮𝘀𝘀𝗲𝘀𝘀𝗺𝗲𝗻𝘁𝘀 𝗮𝗿𝗲 𝗹𝗮𝘀𝘁 𝘆𝗲𝗮𝗿'𝘀, 𝗿𝗲𝗵𝗲𝗮𝘁𝗲𝗱.
 
-The audit universe gets refreshed with whatever felt urgent last quarter. The fastest-moving risks, the ones that emerged in the last six months, miss the cut. That is how blind spots survive, and the whole profession knows it.
+The audit universe gets refreshed with whatever felt urgent last quarter. The fastest-moving risks, the ones from the last six months, miss the cut. That is how blind spots survive, and the whole profession knows it.
 
 Predictive Risk Assessment breaks the loop:
 → Three AI models run the analysis independently, then reconcile
@@ -489,7 +384,7 @@ Part of Cherry Hill's AI Toolbox.
       </div>
     </div>
 
-    <p class="sub" style="margin:20px 0 14px"><b style="color:var(--body);font-family:var(--fd)">The FAQ</b>, on the company account.</p>
+    <p class="sub" style="margin:18px 0 14px">The FAQ, on the company account.</p>
     <div class="post" style="max-width:560px"><div class="pbody">𝗙𝗶𝘃𝗲 𝗾𝘂𝗲𝘀𝘁𝗶𝗼𝗻𝘀 𝘄𝗲 𝗴𝗼𝘁 𝘁𝗵𝗶𝘀 𝘄𝗲𝗲𝗸, 𝗮𝗻𝘀𝘄𝗲𝗿𝗲𝗱 𝘀𝘁𝗿𝗮𝗶𝗴𝗵𝘁.
 
 We announced our AI-enabled team. Here is what people actually asked.
@@ -506,86 +401,26 @@ We announced our AI-enabled team. Here is what people actually asked.
 
 The bigger point: this is where the profession is going. Better to lead it than inherit it.
 <span class="hash">#InternalAudit #AIGovernance #CherryHillAdvisory</span></div></div>
-
-    <div class="ask"><span class="t">Mike's snippets</span><div>Each spotlight also gets Mike's casual screen-recording with a one-line hook (in the Publer file): PRA "three signals beat one," Calibr "most AI governance is a document not a program," Prism "Sept 15 is coming and most TPRM programs have never been audited," and so on. Same profession-first frame, 60 to 90 seconds in the tool.</div></div>
   </div>
 </section>
 
 <section id="webinars">
   <div class="wrap">
-    <div class="dayhead"><h2>Webinar series</h2><span class="pill p-blue">New pillar</span></div>
-    <p class="sub">This is the biggest addition from the call. Three Diligent-sponsored webinars on AI agents, announced as part of the launch, with ads pointing at Cherry Hill's site to register. The whole point is lead gen.</p>
-
-    <div class="checks">
-      <div class="chk"><h4><span class="n" style="background:var(--blue)">🎯</span>The target</h4><p><b>2,000 registrations</b> across all three. Mike's number, "audacious" on purpose. Reference point: 1,200 came in with MindBridge, and he thinks these topics are stronger.</p></div>
-      <div class="chk"><h4><span class="n" style="background:var(--blue)">📅</span>The dates</h4><p><b>August, October, November.</b> First one lands late August. All three focused on AI agents.</p></div>
-      <div class="chk"><h4><span class="n" style="background:var(--blue)">📏</span>The guardrail</h4><p>NASBA-eligible and educational on AI agents in general. <b>Not a Diligent product pitch</b>, and not a hard sell of our own services. Ads direct to our site → the webinar.</p></div>
-      <div class="chk"><h4><span class="n" style="background:var(--blue)">💰</span>The ads</h4><p>Ad spend drives registration. Budget is open to increase, Mike offered to support it, because strong Diligent numbers pull our own practice along.</p></div>
-    </div>
-
-    <div class="ask"><span class="t">Whitney owes</span><div>The <b>August webinar materials + ad copy</b> to the team by the Tuesday meeting. Alison drafts a few webinar posts tied to the launch. Everything else non-launch goes straight into Publer.</div></div>
-  </div>
-</section>
-
-<section id="rules">
-  <div class="wrap">
-    <div class="dayhead"><h2>The rules that apply to everything</h2></div>
-    <div class="checks">
-      <div class="chk"><h4><span class="n" style="background:var(--cut)">✕</span>No IIA logo</h4><p>Off every public graphic, image and the newsletter, black it out where it appears. Allowed, but Mike wants it kept to proposals only. It adds friction, not value, on social.</p></div>
-      <div class="chk"><h4><span class="n" style="background:var(--ask)">✎</span>Attribute the IIA</h4><p>Say "the IIA released…" explicitly in copy. Never anything that reads as if Cherry Hill wrote the Topical Requirements. Mike is sensitive here from his former board role.</p></div>
-      <div class="chk"><h4><span class="n">✂</span>Shorter captions</h4><p>Controversial hook first, then a checklist, not paragraphs. "For the good of the profession," not "buy our service." That framing is what gets the engagement.</p></div>
-      <div class="chk"><h4><span class="n">81</span>PRA number</h4><p>Predictive Risk Assessment reads <b>81 external factors</b>, not 45. It moved the morning of the call.</p></div>
-      <div class="chk"><h4><span class="n">📋</span>Publer</h4><p>All launch content schedules in Publer. The team reviews and comments there; Mike tweaks his own captions in Publer.</p></div>
-      <div class="chk"><h4><span class="n">🎨</span>Fun + modern</h4><p>Everything leans more forward and provocative. ChatGPT for image generation, the video's color-bar vibe as the reference, less stock-photo formality.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="paused">
-  <div class="wrap">
-    <div class="dayhead"><h2>Paused and removed</h2></div>
-    <div class="two">
-      <div class="slot">
-        <div class="ask cut" style="margin-top:0"><span class="t">Paused</span><div><b>The Screener teaser.</b> The tool isn't ready, so there's no Friday "go break it" post and no live screener on the homepage. It can be mentioned on the AI-Enabled Services page (fine that it's not live yet), and it deploys after go-live. The band is recolored and ready when the tool is.</div></div>
-      </div>
-      <div class="slot">
-        <div class="ask cut" style="margin-top:0"><span class="t">Removed</span><div><b>The Anthropic posts.</b> Already went live this week, so they come out of the plan entirely. The Wednesday/Thursday "who audits the code" + partnership sequence I built last round is gone.</div></div>
-      </div>
-    </div>
-    <div class="ask"><span class="t">Dropped my own flag</span><div>I'd been calling the video's audio the blocker for Monday. It never came up in this call, Mike had "no major changes" to the launch and the video's the centerpiece, so I've stopped treating it as an issue unless you say otherwise.</div></div>
-  </div>
-</section>
-
-<section id="owe">
-  <div class="wrap">
-    <div class="dayhead"><h2>Who owes what</h2></div>
-    <div class="owe">
-      <div class="owecard"><h4>Whitney / Markology <span class="who">most of it</span></h4><ul>
-        <li>Rework all graphics to fun/modern, IIA logo off</li>
-        <li>Website: hero swap + video + banner + pop-up live for Tuesday</li>
-        <li>AI-Enabled Services page restructure (after launch)</li>
-        <li>August webinar materials + ad copy by the Tuesday meeting</li>
-        <li>Schedule everything in Publer for review</li>
-        <li>Rewrite captions shorter, "for the good of the profession"</li>
-      </ul></div>
-      <div class="owecard"><h4>Mike <span class="who">Cherry Hill</span></h4><ul>
-        <li>The CAE story for his launch caption</li>
-        <li>Final pass on his own captions in Publer</li>
-        <li>Record the casual screen-share snippets, one per service</li>
-        <li>Send fun/roboty hero image references (ChatGPT)</li>
-        <li>Green-light everything by Monday to fully market</li>
-      </ul></div>
-      <div class="owecard"><h4>Alexandrea / Alison <span class="who">Cherry Hill</span></h4><ul>
-        <li>Alexandrea: AI-agent inspiration links, engagement feedback</li>
-        <li>Alison: a few webinar posts tied to the launch</li>
-      </ul></div>
+    <div class="dayhead"><h2>Webinar series</h2></div>
+    <p class="sub">Announced as part of the launch. Three Diligent-sponsored webinars on AI agents, ads pointing at our site to register.</p>
+    <div class="list">
+      <div class="li"><span class="lb">Dates</span><span class="lt">August, October, November. All on AI agents.</span></div>
+      <div class="li"><span class="lb">Target</span><span class="lt"><b>2,000 registrations</b> across the three (1,200 came in with MindBridge, and these topics are stronger).</span></div>
+      <div class="li"><span class="lb">Guardrail</span><span class="lt">NASBA-eligible, educational on AI agents in general. Not a Diligent product pitch, not a hard sell of our services.</span></div>
+      <div class="li"><span class="lb">Ads</span><span class="lt">Drive registration, direct to our site → the webinar. Budget open to increase.</span></div>
+      <div class="li"><span class="lb">Whitney</span><span class="lt">August materials + ad copy to the team by the Tuesday meeting. Alison drafts a few webinar posts tied to the launch.</span></div>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="wrap">
-    <p>Rebuilt from the July 17 Website Enhancements &amp; Marketing Strategy call. Mockups for approval; post furniture is illustrative and captions are drafts Mike will finalize.</p>
+    <p>Rebuilt from the July 17 call. Design briefs: <a href="./briefs.html">reports.markology.io/cherry-hill-advisory/ai-launch/briefs.html</a></p>
   </div>
 </footer>
 

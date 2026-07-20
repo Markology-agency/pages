@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cherry Hill: Launch Design Briefs</title>
+<style>
+:root{
+  --paper:#EEF2F7; --card:#FFFFFF; --line:#DCE3EC; --body:#141C2B; --slate:#5C6B85;
+  --navy:#0B2C60; --blue:#2B8CEE; --e:#089BFF;
+  --cut:#C8443B; --cut-bg:#FBEBEA; --ok:#20805F; --ok-bg:#E6F4EF; --ask:#A76A12; --ask-bg:#FBF1E1;
+  --sh:0 1px 2px rgba(10,30,60,.07), 0 8px 26px rgba(10,30,60,.07);
+  --fd:"Avenir Next","Poppins","Segoe UI",system-ui,sans-serif;
+  --fb:system-ui,-apple-system,"Segoe UI",sans-serif;
+  --fm:ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root{
+  --paper:#070E1C; --card:#101A2E; --line:#243350; --body:#E3EAF6; --slate:#93A3BF;
+  --blue:#4FA5F5; --cut:#F08278; --cut-bg:#2A1210; --ok:#5FC7A1; --ok-bg:#0A2620; --ask:#E6B458; --ask-bg:#2A1F0B;
+  --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 26px rgba(0,0,0,.35);
+}}
+:root[data-theme="dark"]{
+  --paper:#070E1C; --card:#101A2E; --line:#243350; --body:#E3EAF6; --slate:#93A3BF;
+  --blue:#4FA5F5; --cut:#F08278; --cut-bg:#2A1210; --ok:#5FC7A1; --ok-bg:#0A2620; --ask:#E6B458; --ask-bg:#2A1F0B;
+  --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 26px rgba(0,0,0,.35);
+}
+:root[data-theme="light"]{
+  --paper:#EEF2F7; --card:#FFFFFF; --line:#DCE3EC; --body:#141C2B; --slate:#5C6B85;
+  --blue:#2B8CEE; --cut:#C8443B; --cut-bg:#FBEBEA; --ok:#20805F; --ok-bg:#E6F4EF; --ask:#A76A12; --ask-bg:#FBF1E1;
+  --sh:0 1px 2px rgba(10,30,60,.07), 0 8px 26px rgba(10,30,60,.07);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--body);font-family:var(--fb);font-size:15px;line-height:1.62}
+.wrap{max-width:940px;margin:0 auto;padding:0 22px}
+h1,h2,h3,h4{font-family:var(--fd);margin:0;text-wrap:balance}
+a{color:var(--blue)}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+
+.mast{background:linear-gradient(150deg,#0B2C60,#061532);color:#fff;padding:38px 0 30px;border-bottom:3px solid var(--e)}
+.mast .wrap{display:flex;flex-direction:column;gap:11px}
+.eyebrow{font-family:var(--fm);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#7FB4EE;margin:0}
+.mast h1{font-size:clamp(26px,3.6vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.05}
+.mast p{margin:0;color:#B4CBEA;max-width:62ch;font-size:15px}
+.mast a{color:#8CCBFF}
+
+nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 93%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:3px;overflow-x:auto;padding:9px 22px}
+nav a{font-family:var(--fm);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--slate);text-decoration:none;padding:7px 11px;border-radius:6px;white-space:nowrap}
+nav a:hover{background:var(--card);color:var(--blue)}
+
+section{padding:38px 0;border-bottom:1px solid var(--line)}
+.h{display:flex;align-items:center;gap:12px;margin-bottom:8px;flex-wrap:wrap}
+.h h2{font-size:23px;font-weight:800;letter-spacing:-.02em}
+.h .n{font-family:var(--fm);font-size:12px;color:var(--e);letter-spacing:.1em}
+.lede{color:var(--slate);margin:0 0 20px;max-width:74ch}
+
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.rule{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:13px 15px;box-shadow:var(--sh)}
+.rule b{font-family:var(--fd);display:block;margin-bottom:3px;font-size:13.5px}
+.rule span{font-size:12.5px;color:var(--slate);line-height:1.5}
+.sw{display:inline-flex;gap:6px;margin-top:8px}
+.sw i{width:22px;height:22px;border-radius:5px;display:block;border:1px solid rgba(0,0,0,.1)}
+
+.brief{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px 22px;box-shadow:var(--sh);margin-bottom:16px}
+.brief h3{font-size:17px;font-weight:800;letter-spacing:-.01em;margin-bottom:4px;display:flex;align-items:center;gap:9px}
+.brief h3 .tag{font-family:var(--fm);font-size:9px;letter-spacing:.09em;text-transform:uppercase;padding:3px 8px;border-radius:20px;background:var(--paper);color:var(--slate);font-weight:700}
+.brief p{margin:0 0 11px;font-size:14px;line-height:1.6}
+.brief p:last-child{margin-bottom:0}
+.brief .k{color:var(--slate)}
+.brief ul{margin:0 0 11px;padding-left:18px;font-size:14px;line-height:1.6}
+.brief li{margin-bottom:4px}
+.copyblock{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--e);border-radius:0 8px 8px 0;padding:12px 15px;font-size:13.5px;line-height:1.6;margin:0 0 11px;white-space:pre-wrap}
+.prompt{background:#0B1B3A;color:#DCE6F5;border-radius:8px;padding:13px 15px;font-family:var(--fm);font-size:12.5px;line-height:1.6;white-space:pre-wrap;margin:0 0 4px}
+.prompt .pl{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#6FB6F7;display:block;margin-bottom:7px}
+.flag{display:flex;align-items:flex-start;gap:9px;background:var(--cut-bg);border-radius:8px;padding:10px 13px;font-size:13px;color:var(--body);margin:0 0 11px;line-height:1.55}
+.flag .t{font-family:var(--fm);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--cut);font-weight:700;padding-top:2px;white-space:nowrap}
+.flag b{font-family:var(--fd)}
+.specs{font-family:var(--fm);font-size:11.5px;color:var(--slate);letter-spacing:.02em}
+footer{padding:26px 0 44px;color:var(--slate);font-size:12.5px}
+footer p{margin:0 0 4px}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <p class="eyebrow">Cherry Hill Advisory · Design handoff · from the July 17 call</p>
+    <h1>Launch Design Briefs</h1>
+    <p>Hero image and social graphics for the AI-Enabled Services launch. Every direction here comes straight from the call with Mike. The launch plan itself is <a href="./">here</a>.</p>
+  </div>
+</header>
+
+<nav>
+  <div class="wrap">
+    <a href="#rules">Brand rules</a>
+    <a href="#hero">Hero</a>
+    <a href="#screener">Screener</a>
+    <a href="#spotlights">Spotlights</a>
+    <a href="#bench">Meet the Bench</a>
+    <a href="#newsletter">Newsletter</a>
+  </div>
+</nav>
+
+<section id="rules">
+  <div class="wrap">
+    <div class="h"><span class="n">00</span><h2>Rules for every graphic</h2></div>
+    <div class="rules">
+      <div class="rule"><b>Brand colors, no green</b><span>Navy #011E51 / #0B2C60 and electric blue #089BFF. Mike killed the green screener band by name.</span><span class="sw"><i style="background:#011E51"></i><i style="background:#0B2C60"></i><i style="background:#089BFF"></i></span></div>
+      <div class="rule"><b>Sora + Inter</b><span>Sora for headlines, Inter for body. Already on the site.</span></div>
+      <div class="rule"><b>No IIA logo</b><span>Black out the "Authorized Licensee" mark on every public graphic. Proposals only.</span></div>
+      <div class="rule"><b>Less text</b><span>Short headline, message in the caption. "Will I read this scrolling in bed? No." No text galore.</span></div>
+      <div class="rule"><b>Fun + modern</b><span>The explainer video's look, color bars, motion, a data feel. Not stock boardroom photos.</span></div>
+      <div class="rule"><b>Attribute the IIA</b><span>"The IIA released…" in copy. Never anything that reads as if Cherry Hill wrote the Topical Requirements.</span></div>
+      <div class="rule"><b>ChatGPT, not Gemini</b><span>Mike's call. ChatGPT's latest image gen beats Gemini and hallucinates less.</span></div>
+      <div class="rule"><b>No em dashes, use %</b><span>Client copy rules. Commas or colons, and the % symbol, never the word.</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="hero">
+  <div class="wrap">
+    <div class="h"><span class="n">01</span><h2>Homepage hero</h2><span class="specs">temporary · one week</span></div>
+    <p class="lede">Cherry Hill grew: its human team, joined by a visibly-AI agent bench. The current image is too formal and reads too close to the old hero. Push it forward-leaning and a little provocative.</p>
+
+    <div class="brief">
+      <h3>The concept</h3>
+      <p>"Cherry Hill just grew by 19." Human practitioners on one side, a larger bench of clearly-AI agents on the other. Two cuts: a <b>buttoned-up version for the company homepage</b>, a <b>fun version for Mike's personal</b>.</p>
+      <div class="flag"><span class="t">Must fix</span><div><b>The figures must read as AI, not real colleagues.</b> "They're not part of the real team." Give the agent figures a clearly synthetic treatment, humanoid but obviously digital: a subtle wireframe or particle edge, a cooler blue tint, an "AI" signal, ideally with names surfacing (Helena, Renata). The real practitioners stay human. The contrast is the whole point.</div></div>
+
+      <p class="k" style="margin-bottom:5px">Hero copy (company):</p>
+      <div class="copyblock">Eyebrow: NOW LIVE: AI-ENABLED SERVICES
+H1: Cherry Hill just grew by 19.
+Sub: A new AI agent team, working alongside the practitioners who lead every engagement. It's time to move our profession forward.
+Buttons: Meet the team → · Introductory Call</div>
+
+      <div class="prompt"><span class="pl">ChatGPT image prompt</span>A wide, modern hero image for an internal-audit firm launching AI services. Left side: a small group of real human professionals in business attire around a table, warm and credible. Right side: a larger group of clearly synthetic AI "agents", humanoid figures with a subtle digital wireframe/particle treatment and a cool blue glow, visibly not human, arranged like a growing team. Deep navy background (#011E51) with electric-blue (#089BFF) accents and soft data-visualization light bars. Cinematic, forward-leaning, premium, not cheesy. No text, no logos.</div>
+      <p class="specs">Specs: match the existing hero container + a 1200×627 announcement cut.</p>
+    </div>
+  </div>
+</section>
+
+<section id="screener">
+  <div class="wrap">
+    <div class="h"><span class="n">02</span><h2>Screener graphic</h2><span class="specs">on hold until the tool is live</span></div>
+    <div class="brief">
+      <p>The current one is too wordy and doesn't convey what the tool does. It must sell: <b>AI-powered, free, live on the site, automatically screens your organization for IIA Topical Requirement conformance.</b></p>
+      <ul>
+        <li>Cut the copy to one short line. Lead with AI + free + instant, not a paragraph.</li>
+        <li>Keep the tool screenshot minimal or drop it if it adds text noise.</li>
+        <li>Attribute the IIA. Brand navy/blue, no green.</li>
+      </ul>
+      <p class="k">Headline options: "Free, AI-powered Topical Requirement screening" · "See where you stand on the IIA Topical Requirements, free, in minutes."</p>
+      <div class="flag"><span class="t">Fix</span><div>The current graphic gives two different times, "about 15 minutes" and "2 minutes to complete." Pick one.</div></div>
+      <p class="specs">Specs: 1200×627 + 1080×1350.</p>
+    </div>
+  </div>
+</section>
+
+<section id="spotlights">
+  <div class="wrap">
+    <div class="h"><span class="n">03</span><h2>Service spotlight graphics</h2><span class="specs">weekly</span></div>
+    <p class="lede">The fun/modern treatment, one per service: color bars, motion, an AI/data feel like the video, not stock photos. Short headline, message in the caption.</p>
+
+    <div class="brief">
+      <h3>Predictive Risk Assessment</h3>
+      <p>Reference the explainer video's look, the color bars and modern feel, not the actual tool.</p>
+      <div class="flag" style="background:var(--ask-bg)"><span class="t" style="color:var(--ask)">Update</span><div><b>81 external factors</b>, not 45. The number changed the morning of the call.</div></div>
+    </div>
+
+    <div class="brief">
+      <h3>Two graphics need fixing before they run</h3>
+      <div class="flag"><span class="t">Calibr</span><div>The subline is wrong. It reads "Powering us to bring more customized AI solutions to internal audit," which is the <b>Anthropic partnership</b> line pasted onto a Calibr graphic. Replace with the Trust-methodology line: AI governance assessed and built against Cherry Hill's Trust methodology.</div></div>
+      <div class="flag"><span class="t">Prism</span><div>Two defects. The headline typesets a literal slash ("Prism audits your TPRM program. <b>/</b> Not the third parties") that was meant to be a line break. And the background image has garbled AI text baked in, "CONTROL EFFECTIVESS" (missing an N) and "ORIITA EFFECTIVENESS." Rebuild clean, text-only if needed.</div></div>
+      <p class="specs">Specs: 1080×1350 portrait.</p>
+    </div>
+  </div>
+</section>
+
+<section id="bench">
+  <div class="wrap">
+    <div class="h"><span class="n">04</span><h2>Meet the Bench</h2></div>
+    <div class="brief">
+      <p>Both accounts run this. Same synthetic-AI treatment as the hero: the six core agents as clearly-digital figures with names (Helena, Marcus, Renata, Tomasz, Priya, Diego), robotic and uniform but not cartoonish. Short headline, no IIA logo.</p>
+    </div>
+  </div>
+</section>
+
+<section id="newsletter">
+  <div class="wrap">
+    <div class="h"><span class="n">05</span><h2>Newsletter image</h2></div>
+    <div class="brief">
+      <p>Can go edgy and fun, you've done "Auditors vs. Zombies" before. No IIA logo. Reuse the hero's fun cut or Mike's personal cut as the anchor image.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Design handoff for the AI-Enabled Services launch. Directions taken from the July 17 Website Enhancements &amp; Marketing Strategy call.</p>
+    <p>Launch plan: <a href="./">reports.markology.io/cherry-hill-advisory/ai-launch/</a></p>
+  </div>
+</footer>
+
+</body>
+</html>

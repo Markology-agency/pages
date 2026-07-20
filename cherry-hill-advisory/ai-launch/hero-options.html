@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cherry Hill: 9 Homepage Hero Options</title>
+<style>
+:root{ --navy:#011E51; --e:#089BFF; --paper:#0a1424; --card:#0f1c33; --line:#22314f; --slate:#9fb1cd;
+  --fd:"Sora","Avenir Next","Poppins",system-ui,sans-serif; --fb:"Inter",system-ui,sans-serif; --fm:ui-monospace,Menlo,monospace; }
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:#e6edf8;font-family:var(--fb);font-size:15px;line-height:1.55}
+.wrap{max-width:1280px;margin:0 auto;padding:0 22px}
+.top{padding:30px 0 18px;border-bottom:1px solid var(--line)}
+.top h1{font-family:var(--fd);font-size:26px;font-weight:800;margin:0 0 6px;letter-spacing:-.02em}
+.top p{margin:0;color:var(--slate);max-width:76ch;font-size:14px}
+.top a{color:var(--e)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:12.5px;color:var(--slate)}
+.legend b{color:#e6edf8;font-family:var(--fd)}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:18px;padding:26px 0 60px}
+.cell{display:flex;flex-direction:column;gap:8px}
+.cap{display:flex;align-items:center;gap:9px;font-family:var(--fm);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--slate)}
+.cap b{color:#fff;font-family:var(--fd);letter-spacing:0;text-transform:none;font-size:13px}
+.cap .tag{background:rgba(8,155,255,.18);color:#8CCBFF;border:1px solid rgba(8,155,255,.4);padding:2px 8px;border-radius:20px;font-size:9px;letter-spacing:.08em}
+
+/* the hero mock */
+.hero{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:var(--navy);border:1px solid var(--line)}
+.hero .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero .scrim{position:absolute;inset:0;z-index:1}
+.hero .nav{position:absolute;top:0;left:0;right:0;z-index:3;display:flex;align-items:center;gap:12px;padding:12px 16px}
+.hero .logo{font-family:var(--fd);font-weight:800;color:#fff;font-size:13px;display:flex;align-items:center;gap:5px}
+.hero .links{margin-left:auto;display:flex;gap:11px;font-size:9.5px;color:rgba(255,255,255,.72)}
+.hero .links b{color:#fff;font-weight:600}
+.hero .copy{position:absolute;z-index:3;display:flex;flex-direction:column;gap:9px}
+.hero .eyebrow{display:inline-flex;align-items:center;gap:6px;align-self:flex-start;font-family:var(--fb);font-weight:700;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(8,155,255,.25);border:1px solid rgba(8,155,255,.55);border-radius:80px;padding:5px 12px}
+.hero .eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--e);box-shadow:0 0 7px var(--e)}
+.hero h2{font-family:var(--fd);font-weight:800;color:#fff;font-size:28px;line-height:1.04;letter-spacing:-.02em;margin:0}
+.hero h2 em{font-style:italic;color:var(--e)}
+.hero .subh{color:rgba(255,255,255,.9);font-size:12px;line-height:1.45;max-width:42ch;margin:0}
+.hero .btns{display:flex;gap:8px;margin-top:3px}
+.hero .btns a{font-size:11px;font-weight:700;padding:8px 15px;border-radius:80px;font-family:var(--fd);text-decoration:none}
+.hero .btns .primary{background:var(--e);color:#fff}
+.hero .btns .ghost{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.35);color:#fff}
+
+/* LAYOUT 1: left-band */
+.left .bg{object-position:right 20%}
+.left .scrim{background:linear-gradient(100deg, rgba(1,20,58,.96) 0%, rgba(1,30,81,.92) 34%, rgba(1,30,81,.55) 55%, rgba(1,30,81,.12) 78%, rgba(1,20,58,.35) 100%)}
+.left .copy{left:6%;right:44%;top:50%;transform:translateY(-50%);align-items:flex-start;text-align:left}
+
+/* LAYOUT 2: centered */
+.center .scrim{background:linear-gradient(180deg, rgba(1,30,81,.86) 0%, rgba(1,30,81,.5) 42%, rgba(1,30,81,.2) 74%, rgba(1,20,58,.72) 100%), radial-gradient(58% 64% at 50% 54%, rgba(1,20,58,.8) 0%, rgba(1,20,58,.4) 55%, transparent 100%)}
+.center .copy{left:8%;right:8%;top:50%;transform:translateY(-50%);align-items:center;text-align:center}
+.center .eyebrow{align-self:center}
+.center h2,.center .subh{text-shadow:0 2px 22px rgba(1,20,58,.6)}
+.center .subh{margin-left:auto;margin-right:auto}
+.center .btns{justify-content:center}
+
+/* LAYOUT 3: split */
+.split .bg{object-position:right center;left:42%;width:58%}
+.split .panel{position:absolute;left:0;top:0;bottom:0;width:44%;background:var(--navy);z-index:2}
+.split .seam{position:absolute;left:42%;top:0;bottom:0;width:12%;z-index:2;background:linear-gradient(90deg,var(--navy) 0%,transparent 100%)}
+.split .copy{left:6%;right:58%;top:50%;transform:translateY(-50%);align-items:flex-start;text-align:left}
+.split h2{font-size:25px}
+
+@media(max-width:520px){.hero h2{font-size:22px}.split h2{font-size:20px}}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="wrap">
+    <h1>Homepage hero, 9 options</h1>
+    <p>Every image (A team cards · B walk-in · C agents arriving) in every layout (left-aligned · centered · split). Same copy on all nine. Pick an image and a layout. Back to the <a href="./">launch plan</a>.</p>
+    <div class="legend"><span><b>A</b> real humans, AI as floating name cards</span><span><b>B</b> the team walking in, soft digital shimmer</span><span><b>C</b> overtly synthetic agents arriving</span></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="grid" id="grid"></div>
+</div>
+
+<script>
+const IMAGES = [
+  {k:'A', src:'img/heroA.jpg', name:'Team cards'},
+  {k:'B', src:'img/heroB.jpg', name:'Walk-in'},
+  {k:'C', src:'img/heroC.jpg', name:'Agents arriving'},
+];
+const LAYOUTS = [
+  {c:'left',   name:'Left-aligned'},
+  {c:'center', name:'Centered'},
+  {c:'split',  name:'Split'},
+];
+const hero = (img, lay) => `
+  <div class="cell">
+    <div class="cap"><span class="tag">${img.k}${lay.c==='left'?'1':lay.c==='center'?'2':'3'}</span><b>${img.k} · ${img.name}</b> · ${lay.name}</div>
+    <div class="hero ${lay.c}">
+      <img class="bg" src="${img.src}" alt="${img.name} ${lay.name}">
+      ${lay.c==='split'?'<div class="panel"></div><div class="seam"></div>':''}
+      <div class="scrim"></div>
+      <div class="nav"><span class="logo">🌳 CherryHill</span><span class="links"><span>Services</span><span>Insights</span><span>About</span><b>AI-Enabled Services</b></span></div>
+      <div class="copy">
+        <span class="eyebrow"><i></i>Now Live: AI-Enabled Services</span>
+        <h2>Cherry Hill just grew by <em>19</em>.</h2>
+        <p class="subh">A new AI agent team, working alongside the practitioners who lead every engagement. It's time to move our profession forward.</p>
+        <div class="btns"><a class="primary" href="#">Meet the team →</a><a class="ghost" href="#">Introductory Call</a></div>
+      </div>
+    </div>
+  </div>`;
+const g = document.getElementById('grid');
+IMAGES.forEach(img => LAYOUTS.forEach(lay => g.insertAdjacentHTML('beforeend', hero(img, lay))));
+</script>
+
+</body>
+</html>

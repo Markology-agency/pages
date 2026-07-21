@@ -1,0 +1,1794 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Fitness CPA, Founder-Voice Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Anton&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0b1e3f;
+    --navy-2: #1e3a8a;
+    --blue: #2563eb;
+    --lilac: #a78bfa;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --border: #e2e8f0;
+    --text: #0f172a;
+    --muted: #64748b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+  body { padding: 0 0 80px; }
+
+  .topbar {
+    background: linear-gradient(135deg, var(--navy) 0%, var(--navy-2) 100%);
+    color: white;
+    padding: 32px 48px 28px;
+  }
+  .topbar-brand { font-family: 'Anton', sans-serif; letter-spacing: 2px; font-size: 14px; opacity: 0.7; margin-bottom: 8px; }
+  .topbar-title { font-size: 32px; font-weight: 800; margin: 0 0 4px; }
+  .topbar-sub { font-size: 15px; opacity: 0.8; }
+
+  .stats-bar {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 18px 48px;
+    display: flex;
+    gap: 48px;
+    flex-wrap: wrap;
+  }
+  .stat-block { }
+  .stat-num { font-size: 28px; font-weight: 700; color: var(--navy); line-height: 1; }
+  .stat-label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px; }
+
+  main { padding: 32px 48px; max-width: 1400px; margin: 0 auto; }
+
+  section { margin-bottom: 48px; }
+  h2 { font-size: 20px; font-weight: 700; margin: 0 0 16px; color: var(--navy); }
+  h2 .h2-hint { font-size: 13px; font-weight: 400; color: var(--muted); margin-left: 12px; }
+
+  /* Topic grid */
+  .topic-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; }
+  .topic-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: inherit;
+  }
+  .topic-card:hover { border-color: var(--blue); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08); }
+  .topic-card.active { background: var(--navy); color: white; border-color: var(--navy); }
+  .topic-card.active .topic-count, .topic-card.active .topic-count-label { color: rgba(255,255,255,0.7); }
+  .topic-name { font-size: 14px; font-weight: 600; line-height: 1.3; margin-bottom: 8px; text-transform: capitalize; }
+  .topic-count { font-size: 22px; font-weight: 700; color: var(--navy); line-height: 1; }
+  .topic-count-label { font-size: 11px; color: var(--muted); font-weight: 400; margin-left: 4px; }
+
+  /* Filter chips */
+  .chips { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+  .chip {
+    border: 1.5px solid var(--chip-color, var(--border));
+    color: var(--chip-color, var(--text));
+    background: white;
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .chip:hover { background: var(--chip-color); color: white; }
+  .chip.active { background: var(--chip-color); color: white; }
+  .chip-count { background: rgba(0,0,0,0.08); border-radius: 999px; padding: 1px 7px; font-size: 11px; font-weight: 700; }
+  .chip.active .chip-count { background: rgba(255,255,255,0.25); }
+  .chip-all { border-color: var(--navy); color: var(--navy); }
+  .chip-all:hover, .chip-all.active { background: var(--navy); color: white; }
+
+  /* Entry cards */
+  .entry-grid { display: grid; gap: 16px; }
+  .entry-card {
+    background: white;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--type-color);
+    border-radius: 10px;
+    padding: 18px 22px;
+  }
+  .entry-header { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+  .type-pill {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background: var(--type-color);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+  }
+  .tag {
+    font-size: 12px;
+    padding: 3px 9px;
+    border-radius: 6px;
+    background: #f1f5f9;
+    color: var(--text);
+  }
+  .tag-primary { background: #dbeafe; color: var(--navy-2); font-weight: 600; }
+  .tag-secondary { background: #f1f5f9; color: var(--muted); }
+  .audience-pill {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 6px;
+    background: #fef3c7;
+    color: #92400e;
+    font-weight: 500;
+  }
+  .entry-content {
+    margin: 8px 0;
+    padding: 0;
+    border-left: none;
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--text);
+    quotes: none;
+  }
+  .entry-content::before, .entry-content::after { content: none; }
+  .entry-footer {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .entry-context { flex: 1 1 auto; font-style: italic; }
+  .verify-pill {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 4px; white-space: nowrap;
+  }
+  .verify-ok   { background: #dcfce7; color: #166534; }
+  .verify-warn { background: #fef3c7; color: #92590c; }
+  .verify-bad  { background: #fee2e2; color: #991b1b; }
+  .source-link { color: var(--blue); text-decoration: none; font-weight: 500; white-space: nowrap; }
+  .source-link:hover { text-decoration: underline; }
+
+  /* Hidden state for filtered-out cards */
+  .entry-card.hidden { display: none; }
+
+  /* Empty state */
+  .empty { text-align: center; padding: 48px; color: var(--muted); font-style: italic; }
+
+  /* Footer */
+  .skill-footer { margin: 60px 48px 0; padding-top: 24px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); text-align: center; }
+  .asr-warn {
+    margin: 0; padding: 18px 48px 20px;
+    background: #fef6e7; border-bottom: 1px solid #f0d9a8;
+    display: grid; gap: 7px;
+  }
+  .asr-warn-title {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.6px;
+    text-transform: uppercase; color: #92590c;
+  }
+  .asr-warn p { margin: 0; font-size: 13px; line-height: 1.5; color: #4a3208; max-width: 100ch; }
+  @media (max-width: 700px) { .asr-warn { padding: 16px 20px; } }
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-brand">MARKOLOGY · FOUNDER-VOICE LIBRARY</div>
+  <h1 class="topbar-title">The Fitness CPA</h1>
+  <div class="topbar-sub">A library of The Fitness CPA's actual voice, extracted from the firm's own webinars, Q&amp;A sessions, and videos. Every entry links to the second it was said on camera.</div>
+</div>
+
+<div class="asr-warn">
+  <div class="asr-warn-title">Read before you use a number from this library</div>
+  <p>The source transcripts are machine-generated (speech recognition). <strong>The voice is
+  real. The digits are not trustworthy on their own.</strong> Benchmark and stat entries are
+  pointers to where the founder said a number, not authorities for the number itself. Each
+  links to its exact second on video, so listen before you publish.</p>
+  <p><strong>Tax figures are stale by default.</strong> A tax number here records what was said
+  on the recording date, never current law. The tax-accuracy gates still apply in full on top
+  of this library.</p>
+  <p><strong>Ranges are hedged out loud</strong> (by stage, size, geography, mix). Never flatten
+  one into a hard target.</p>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-block">
+    <div class="stat-num">111</div>
+    <div class="stat-label">Total Entries</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">14</div>
+    <div class="stat-label">Topics Covered</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">17</div>
+    <div class="stat-label">Founder Takes</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">17</div>
+    <div class="stat-label">Social-Ready Quotes</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">12</div>
+    <div class="stat-label">Voice Phrases</div>
+  </div>
+  <div class="stat-block">
+    <div class="stat-num">19</div>
+    <div class="stat-label">Stories + FAQs + Pain Points</div>
+  </div>
+</div>
+
+<main>
+  <section>
+    <h2>Topics in the library <span class="h2-hint">click a topic to filter ↓ entries below</span></h2>
+    <div class="topic-grid">
+      <button class="topic-card" data-topic="gym profitability and margin">
+            <div class="topic-name">gym profitability and margin</div>
+            <div class="topic-count">20 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="generalist CPA vs fitness specialist">
+            <div class="topic-name">generalist CPA vs fitness specialist</div>
+            <div class="topic-count">17 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="owner mindset and habits">
+            <div class="topic-name">owner mindset and habits</div>
+            <div class="topic-count">17 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="gym expense leakage and cost control">
+            <div class="topic-name">gym expense leakage and cost control</div>
+            <div class="topic-count">14 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="revenue vs profit">
+            <div class="topic-name">revenue vs profit</div>
+            <div class="topic-count">11 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="free trials and lead conversion">
+            <div class="topic-name">free trials and lead conversion</div>
+            <div class="topic-count">8 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="lease terms and insurance">
+            <div class="topic-name">lease terms and insurance</div>
+            <div class="topic-count">8 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="membership pricing and intro offers">
+            <div class="topic-name">membership pricing and intro offers</div>
+            <div class="topic-count">4 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="equipment depreciation and build-outs">
+            <div class="topic-name">equipment depreciation and build-outs</div>
+            <div class="topic-count">3 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="passion vs profit">
+            <div class="topic-name">passion vs profit</div>
+            <div class="topic-count">3 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="cash flow for seasonal fitness businesses">
+            <div class="topic-name">cash flow for seasonal fitness businesses</div>
+            <div class="topic-count">2 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="gym KPIs and unit economics">
+            <div class="topic-name">gym KPIs and unit economics</div>
+            <div class="topic-count">2 <span class="topic-count-label">entries</span></div>
+        </button><button class="topic-card" data-topic="multi-location expansion readiness">
+            <div class="topic-name">multi-location expansion readiness</div>
+            <div class="topic-count">1 <span class="topic-count-label">entry</span></div>
+        </button><button class="topic-card" data-topic="staffing and payroll costs">
+            <div class="topic-name">staffing and payroll costs</div>
+            <div class="topic-count">1 <span class="topic-count-label">entry</span></div>
+        </button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Filter by type</h2>
+    <div class="chips">
+      <button class="chip chip-all active" data-type="all">All <span class="chip-count">111</span></button>
+      <button class="chip" data-type="founder_take" style="--chip-color:#1e3a8a">Founder Take <span class="chip-count">17</span></button><button class="chip" data-type="story" style="--chip-color:#7c3aed">Story <span class="chip-count">4</span></button><button class="chip" data-type="learning" style="--chip-color:#4338ca">Learning <span class="chip-count">8</span></button><button class="chip" data-type="example" style="--chip-color:#0369a1">Example <span class="chip-count">3</span></button><button class="chip" data-type="framework" style="--chip-color:#6d28d9">Framework <span class="chip-count">6</span></button><button class="chip" data-type="benchmark" style="--chip-color:#b45309">Benchmark <span class="chip-count">5</span></button><button class="chip" data-type="stat" style="--chip-color:#a16207">Stat <span class="chip-count">11</span></button><button class="chip" data-type="pain_point" style="--chip-color:#dc2626">Pain Point <span class="chip-count">13</span></button><button class="chip" data-type="faq" style="--chip-color:#ea580c">FAQ <span class="chip-count">2</span></button><button class="chip" data-type="social_quote" style="--chip-color:#0891b2">Social-Ready Quote <span class="chip-count">17</span></button><button class="chip" data-type="vocabulary" style="--chip-color:#0d9488">Vocabulary <span class="chip-count">12</span></button><button class="chip" data-type="hook" style="--chip-color:#475569">Hook <span class="chip-count">13</span></button>
+    </div>
+  </section>
+
+  <section>
+    <h2 id="entries-heading">Library entries <span class="h2-hint" id="entries-count">111 showing</span></h2>
+    <div class="entry-grid" id="entry-grid">
+      <article class="entry-card" data-type="founder_take" data-topic="cash flow for seasonal fitness businesses" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">cash flow for seasonal fitness businesses</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">If you don&#x27;t know what it takes to keep the lights on each month, you&#x27;re just guessing.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric on why knowing your break-even number is the first financial habit gym owners need.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=FrJnn5bl5wo" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="cash flow for seasonal fitness businesses" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">cash flow for seasonal fitness businesses</span>
+                <span class="tag tag-secondary">owner mindset and habits</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">If you don&#x27;t know what it takes to keep the lights on each month, you&#x27;re just guessing.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Standalone line on the importance of knowing your break-even number.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=FrJnn5bl5wo" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="story" data-topic="equipment depreciation and build-outs" style="--type-color:#7c3aed">
+            <header class="entry-header">
+                <span class="type-pill">Story</span>
+                <span class="tag tag-primary">equipment depreciation and build-outs</span>
+                <span class="tag tag-secondary">generalist CPA vs fitness specialist</span><span class="tag tag-secondary">revenue vs profit</span>
+                <span class="audience-pill">single location owner</span>
+                <span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">We had one client, a single gym location, about 900 members. They came to us after 4 years of working with the generalist. We reviewed their old returns and found $65,000 in depreciation, money the previous accountant just left on the table. After we were done amending the returns, they actually got the checks in the mail.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Client anecdote used as proof of the cost of working with a generalist CPA; this is a recorded claim on video, not an approved marketing claim, and the dollar figure must be verified before any client-facing use.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=IKBkb1OLGPU&amp;t=30s" target="_blank" rel="noopener">Watch 00:30 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="story" data-topic="equipment depreciation and build-outs" style="--type-color:#7c3aed">
+            <header class="entry-header">
+                <span class="type-pill">Story</span>
+                <span class="tag tag-primary">equipment depreciation and build-outs</span>
+                <span class="tag tag-secondary">generalist CPA vs fitness specialist</span><span class="tag tag-secondary">gym expense leakage and cost control</span>
+                <span class="audience-pill">single location owner</span>
+                <span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">We had a hot yoga studio come to us, we&#x27;re looking at their books, and we don&#x27;t see HVAC expenses for a hot yoga studio. Do you know how much heating it takes to run a hot yoga studio? That&#x27;s a red flag. Turns out the owner had paid for $80,000 worth of HVAC expenses personally that weren&#x27;t accounted for by their generalist accountant. We amended those tax returns, saved them over $20,000 in taxes.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Client anecdote used as proof point that generalist CPAs miss fitness-specific expenses. This is a recorded claim from the video, not an approved marketing claim, and the dollar figures should be treated as unverified.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=K8Uu2knpFTU&amp;t=32s" target="_blank" rel="noopener">Watch 00:32 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="stat" data-topic="equipment depreciation and build-outs" style="--type-color:#a16207">
+            <header class="entry-header">
+                <span class="type-pill">Stat</span>
+                <span class="tag tag-primary">equipment depreciation and build-outs</span>
+                <span class="tag tag-secondary">generalist CPA vs fitness specialist</span>
+                <span class="audience-pill">single location owner</span>
+                <span class="verify-pill verify-warn">Unverified number</span><span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">Owner had paid $80,000 worth of HVAC expenses personally that weren&#x27;t accounted for. After amending returns, saved over $20,000 in taxes. That&#x27;s $20,000 just sitting there.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Specific figures cited from the hot yoga studio client story as proof of value found by switching to a fitness specialist CPA. This is a recorded client-outcome claim, not an approved marketing claim, and should not be used as a promised or typical result.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=K8Uu2knpFTU&amp;t=32s" target="_blank" rel="noopener">Watch 00:32 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="hook" data-topic="free trials and lead conversion" style="--type-color:#475569">
+            <header class="entry-header">
+                <span class="type-pill">hook</span>
+                <span class="tag tag-primary">free trials and lead conversion</span>
+                <span class="tag tag-secondary">membership pricing and intro offers</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Do you know what&#x27;s weird about free trials in the fitness industry? Gyms are offering them thinking that they&#x27;re being generous, but they&#x27;re actually just attracting people who were never going to pay in the first place.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Opening line of the short introducing the problem with free trial offers.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=SfrJ-Zns158" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="free trials and lead conversion" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">free trials and lead conversion</span>
+                <span class="tag tag-secondary">membership pricing and intro offers</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Free doesn&#x27;t inspire value. It inspires bargain hunters who show up, take a week of free classes, ghost you, and never convert to a paying member. Say no to window shoppers and people hopping between trial memberships.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s core argument for why free trials underperform as a conversion tool.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=SfrJ-Zns158" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="stat" data-topic="free trials and lead conversion" style="--type-color:#a16207">
+            <header class="entry-header">
+                <span class="type-pill">Stat</span>
+                <span class="tag tag-primary">free trials and lead conversion</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                
+                <span class="verify-pill verify-warn">Unverified number</span>
+            </header>
+            <blockquote class="entry-content">Eric says he has seen this pattern play out hundreds of times across over 500 gyms The Fitness CPA has worked with.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric cites his firm&#x27;s client base size to establish authority on the free trial pattern.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=SfrJ-Zns158&amp;t=0s" target="_blank" rel="noopener">Watch 00:00 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="story" data-topic="free trials and lead conversion" style="--type-color:#7c3aed">
+            <header class="entry-header">
+                <span class="type-pill">Story</span>
+                <span class="tag tag-primary">free trials and lead conversion</span>
+                <span class="tag tag-secondary">membership pricing and intro offers</span><span class="tag tag-secondary">gym profitability and margin</span>
+                <span class="audience-pill">single location owner</span>
+                <span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">One studio we worked with was giving out over 150 free trials per month. 150 people walking through the door paying them absolutely nothing. And the conversion rate on that? Terrible. Because most of them had no intention of joining.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Recorded client anecdote used to illustrate the free trial trap. This is a recorded claim, not an approved marketing claim, and the figure is unverified against the source video.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=SfrJ-Zns158&amp;t=0s" target="_blank" rel="noopener">Watch 00:00 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="pain_point" data-topic="free trials and lead conversion" style="--type-color:#dc2626">
+            <header class="entry-header">
+                <span class="type-pill">Pain Point</span>
+                <span class="tag tag-primary">free trials and lead conversion</span>
+                <span class="tag tag-secondary">gym KPIs and unit economics</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">So, what&#x27;s your conversion rate on free trials right now? If you don&#x27;t know that number, that tells you everything.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric closes by pointing out that most owners don&#x27;t track their free trial conversion rate.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=SfrJ-Zns158" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="vocabulary" data-topic="free trials and lead conversion" style="--type-color:#0d9488">
+            <header class="entry-header">
+                <span class="type-pill">Vocabulary</span>
+                <span class="tag tag-primary">free trials and lead conversion</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">window shoppers and people hopping between trial memberships</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s phrase for non-serious prospects that free trials attract.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=SfrJ-Zns158" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="free trials and lead conversion" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">free trials and lead conversion</span>
+                <span class="tag tag-secondary">membership pricing and intro offers</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Free doesn&#x27;t inspire value. It inspires bargain hunters.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Punchy standalone line from Eric&#x27;s core argument in the short.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=SfrJ-Zns158" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="faq" data-topic="free trials and lead conversion" style="--type-color:#ea580c">
+            <header class="entry-header">
+                <span class="type-pill">FAQ</span>
+                <span class="tag tag-primary">free trials and lead conversion</span>
+                <span class="tag tag-secondary">gym KPIs and unit economics</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">Q: How many of your free trials have actually turned into paying members? A: If you don&#x27;t know that number, that tells you everything. Charging a paid intro offer instead of giving trials away free tends to filter for serious members and convert at a much higher rate.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric poses this question mid-short and answers it by pointing to the paid intro offer example.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=SfrJ-Zns158" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="learning" data-topic="generalist CPA vs fitness specialist" style="--type-color:#4338ca">
+            <header class="entry-header">
+                <span class="type-pill">Learning</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                <span class="tag tag-secondary">owner mindset and habits</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Most of the owners we work with weren&#x27;t underperforming, it&#x27;s their CPAs that were. Their numbers were just never delivered in a way that allowed those owners to put it into action, and that&#x27;s what we fix.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s closing point reframing owner struggles as a CPA delivery problem rather than an owner performance problem.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=WKtHNS3mysU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="generalist CPA vs fitness specialist" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">Most of the owners we work with weren&#x27;t underperforming, it&#x27;s their CPAs that were.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Punchy closing line reframing the owner&#x27;s problem as a CPA problem.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=WKtHNS3mysU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="hook" data-topic="generalist CPA vs fitness specialist" style="--type-color:#475569">
+            <header class="entry-header">
+                <span class="type-pill">hook</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                <span class="tag tag-secondary">equipment depreciation and build-outs</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Let&#x27;s be real. If your accountant doesn&#x27;t know the difference between a box and a bar studio, they have no business doing your books.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Opening line of the short setting up the case against generalist CPAs for fitness businesses.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=IKBkb1OLGPU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="generalist CPA vs fitness specialist" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                <span class="tag tag-secondary">equipment depreciation and build-outs</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">How would a generalist CPA know about depreciation rules that are specific to fitness business equipment and build-outs? They wouldn&#x27;t. They just file the tax return and they move on, costing you thousands of dollars.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric explaining why generalist CPAs miss fitness-specific depreciation opportunities.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=IKBkb1OLGPU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="stat" data-topic="generalist CPA vs fitness specialist" style="--type-color:#a16207">
+            <header class="entry-header">
+                <span class="type-pill">Stat</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                <span class="tag tag-secondary">equipment depreciation and build-outs</span><span class="tag tag-secondary">tax_strategy</span>
+                
+                <span class="verify-pill verify-warn">Unverified number</span><span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">About half of our new clients end up having prior tax returns amended to claim back thousands in depreciation.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric citing a firm-wide pattern to generalize beyond the single client story; recorded claim on video, not an approved marketing claim.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=IKBkb1OLGPU&amp;t=30s" target="_blank" rel="noopener">Watch 00:30 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="pain_point" data-topic="generalist CPA vs fitness specialist" style="--type-color:#dc2626">
+            <header class="entry-header">
+                <span class="type-pill">Pain Point</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                <span class="tag tag-secondary">equipment depreciation and build-outs</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">If your accountant isn&#x27;t specialized in gyms or fitness businesses, they probably can&#x27;t tell you what deductions they&#x27;re missing out on or leaving on the table.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s closing frame naming the core risk of using a non-specialist accountant.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=IKBkb1OLGPU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="vocabulary" data-topic="generalist CPA vs fitness specialist" style="--type-color:#0d9488">
+            <header class="entry-header">
+                <span class="type-pill">Vocabulary</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">the difference between a box and a bar studio</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s shorthand for the fitness-specific knowledge a generalist CPA lacks.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=IKBkb1OLGPU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="generalist CPA vs fitness specialist" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">If your accountant doesn&#x27;t know the difference between a box and a bar studio, they have no business doing your books.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Standalone punchy line from the hook, suitable for social lift.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=IKBkb1OLGPU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="faq" data-topic="generalist CPA vs fitness specialist" style="--type-color:#ea580c">
+            <header class="entry-header">
+                <span class="type-pill">FAQ</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                <span class="tag tag-secondary">equipment depreciation and build-outs</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Q: If your accountant isn&#x27;t specialized in fitness businesses, what does that cost you? A: They probably can&#x27;t tell you what deductions they&#x27;re missing out on or leaving on the table, and it&#x27;s not rare for that to add up to thousands in missed depreciation.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric poses and answers the implicit question of why specialization matters, closing out the short&#x27;s argument.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=IKBkb1OLGPU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="hook" data-topic="generalist CPA vs fitness specialist" style="--type-color:#475569">
+            <header class="entry-header">
+                <span class="type-pill">hook</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                <span class="tag tag-secondary">gym expense leakage and cost control</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Let me tell you my problem about generalist accountants. And look, I know it&#x27;s biased coming from a guy who&#x27;s all in on fitness, but hear me out because this is costing you money.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Opening line of the short introducing his critique of generalist CPAs.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=K8Uu2knpFTU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="generalist CPA vs fitness specialist" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                <span class="tag tag-secondary">revenue vs profit</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Most of our clients weren&#x27;t underperforming, their CPAs were.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s summary conclusion after describing a decade of working exclusively with gym owners, studio owners, and health club operators and repeatedly finding overpaid taxes.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=K8Uu2knpFTU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="learning" data-topic="generalist CPA vs fitness specialist" style="--type-color:#4338ca">
+            <header class="entry-header">
+                <span class="type-pill">Learning</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                <span class="tag tag-secondary">gym KPIs and unit economics</span><span class="tag tag-secondary">membership pricing and intro offers</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">A generalist would never catch that because they don&#x27;t know to look for it. They don&#x27;t understand what to look for in a fitness build-out. They don&#x27;t know how to categorize membership revenue or labor costs so you can see what&#x27;s happening in your business. They treat your gym the same way as a restaurant, and your gym is not a restaurant.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric explaining why generalist accountants systematically miss fitness-specific expense and revenue categorization.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=K8Uu2knpFTU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="vocabulary" data-topic="generalist CPA vs fitness specialist" style="--type-color:#0d9488">
+            <header class="entry-header">
+                <span class="type-pill">Vocabulary</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">your gym is not a restaurant</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s distinctive framing for why generic accounting treatment fails fitness businesses.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=K8Uu2knpFTU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="pain_point" data-topic="generalist CPA vs fitness specialist" style="--type-color:#dc2626">
+            <header class="entry-header">
+                <span class="type-pill">Pain Point</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                <span class="tag tag-secondary">revenue vs profit</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">We open up last year&#x27;s tax return and we see that they&#x27;ve been overpaying on their taxes by thousands of dollars.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Common pattern Eric describes seeing when new clients switch from a generalist accountant.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=K8Uu2knpFTU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="generalist CPA vs fitness specialist" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                <span class="tag tag-secondary">gym expense leakage and cost control</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">When&#x27;s the last time your CPA found you money that was missing? If you can&#x27;t remember, that tells you something.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s closing rhetorical question challenging viewers to evaluate their current accountant.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=K8Uu2knpFTU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="stat" data-topic="generalist CPA vs fitness specialist" style="--type-color:#a16207">
+            <header class="entry-header">
+                <span class="type-pill">Stat</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                
+                
+                <span class="verify-pill verify-warn">Unverified number</span><span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">I&#x27;ve spent a decade helping 500-plus fitness facilities master their numbers.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s closing credibility claim about his firm&#x27;s client base, recorded claim rather than an approved marketing figure.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wtcMxbXqrKQ&amp;t=30s" target="_blank" rel="noopener">Watch 00:30 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="stat" data-topic="generalist CPA vs fitness specialist" style="--type-color:#a16207">
+            <header class="entry-header">
+                <span class="type-pill">Stat</span>
+                <span class="tag tag-primary">generalist CPA vs fitness specialist</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                
+                <span class="verify-pill verify-warn">Unverified number</span><span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">I&#x27;ve spent a decade helping 500-plus fitness facilities master their numbers.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s closing credibility line summarizing his firm-wide client base experience, a recorded claim rather than an approved marketing figure.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=FrJnn5bl5wo&amp;t=30s" target="_blank" rel="noopener">Watch 00:30 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="hook" data-topic="gym expense leakage and cost control" style="--type-color:#475569">
+            <header class="entry-header">
+                <span class="type-pill">hook</span>
+                <span class="tag tag-primary">gym expense leakage and cost control</span>
+                <span class="tag tag-secondary">cash flow for seasonal fitness businesses</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">One simple way to stop leaking money at your gym is to go through every single reoccurring charge on both your bank and credit card statement.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Opening line of the short introducing the recurring-charge audit exercise.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=kwOxgG2XUQo" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="framework" data-topic="gym expense leakage and cost control" style="--type-color:#6d28d9">
+            <header class="entry-header">
+                <span class="type-pill">Framework</span>
+                <span class="tag tag-primary">gym expense leakage and cost control</span>
+                <span class="tag tag-secondary">cash flow for seasonal fitness businesses</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Sit down, pull up both your bank and credit card statement, and go line by line through every reoccurring charge. For each charge, ask yourself one question: is this worth it? Block 30 minutes this week to do it.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric lays out the exact steps he wants owners to take to find leaking recurring charges.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=kwOxgG2XUQo" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="vocabulary" data-topic="gym expense leakage and cost control" style="--type-color:#0d9488">
+            <header class="entry-header">
+                <span class="type-pill">Vocabulary</span>
+                <span class="tag tag-primary">gym expense leakage and cost control</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">death by $50</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s term for the pattern of small, unwatched recurring charges he finds during client onboarding.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=kwOxgG2XUQo" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="vocabulary" data-topic="gym expense leakage and cost control" style="--type-color:#0d9488">
+            <header class="entry-header">
+                <span class="type-pill">Vocabulary</span>
+                <span class="tag tag-primary">gym expense leakage and cost control</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">quietly walking out the back door</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s phrase describing how small unwatched charges add up and drain cash unnoticed.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=kwOxgG2XUQo" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="pain_point" data-topic="gym expense leakage and cost control" style="--type-color:#dc2626">
+            <header class="entry-header">
+                <span class="type-pill">Pain Point</span>
+                <span class="tag tag-primary">gym expense leakage and cost control</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">A music streaming service you&#x27;re paying for twice because your old manager signed up for one and you signed up for one too. A software subscription you signed up for but stopped using 6 months ago. Some random app your front desk started a trial on and never canceled.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Examples Eric gives of the small recurring charges that go unnoticed on a gym&#x27;s statements.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=kwOxgG2XUQo" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="learning" data-topic="gym expense leakage and cost control" style="--type-color:#4338ca">
+            <header class="entry-header">
+                <span class="type-pill">Learning</span>
+                <span class="tag tag-primary">gym expense leakage and cost control</span>
+                <span class="tag tag-secondary">cash flow for seasonal fitness businesses</span>
+                
+                <span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">It&#x27;s what we call death by $50, these little 20, 30, $50 charges that nobody&#x27;s watching. When these go left unchecked, we often find they add up to over $500 per month just going out the door. That&#x27;s $6,000 a year just quietly walking out the back door of your business.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric describing a pattern he says he sees every time his firm audits a new client&#x27;s recurring charges; recorded claim about typical leakage, not a certified figure or approved marketing claim.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=kwOxgG2XUQo&amp;t=31s" target="_blank" rel="noopener">Watch 00:31 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="gym expense leakage and cost control" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">gym expense leakage and cost control</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">It&#x27;s a little bit like trying to fill the bathtub with the drain open. You should plug the leaks and fill the tub.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s metaphor summarizing the balance between stopping leakage and growing the business.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=kwOxgG2XUQo" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="learning" data-topic="gym expense leakage and cost control" style="--type-color:#4338ca">
+            <header class="entry-header">
+                <span class="type-pill">Learning</span>
+                <span class="tag tag-primary">gym expense leakage and cost control</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">In phase two, you need to start auditing every expense line by line looking for those $50 expenses that are leaking money out the bottom, so you get crystal clear on your margins and know exactly how much is left over after paying for all of your expenses.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Description of what phase two (growth stage) owners need to focus on before expanding.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=VlXrrGwB-lc&amp;t=31s" target="_blank" rel="noopener">Watch 00:31 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="stat" data-topic="gym expense leakage and cost control" style="--type-color:#a16207">
+            <header class="entry-header">
+                <span class="type-pill">Stat</span>
+                <span class="tag tag-primary">gym expense leakage and cost control</span>
+                <span class="tag tag-secondary">cash flow for seasonal fitness businesses</span>
+                
+                <span class="verify-pill verify-warn">Unverified number</span><span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">Put every credit card on auto pay so you stop wasting $40 a month on late fees. That&#x27;s money every single month you&#x27;re just throwing away.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric cites a specific dollar figure for wasted late fee spend as habit #2.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wtcMxbXqrKQ&amp;t=0s" target="_blank" rel="noopener">Watch 00:00 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="stat" data-topic="gym expense leakage and cost control" style="--type-color:#a16207">
+            <header class="entry-header">
+                <span class="type-pill">Stat</span>
+                <span class="tag tag-primary">gym expense leakage and cost control</span>
+                <span class="tag tag-secondary">owner mindset and habits</span>
+                
+                <span class="verify-pill verify-warn">Unverified number</span><span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">Stop wasting 15 hours a week on admin and hire a pro to handle the bookkeeping.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric cites a figure for time owners lose weekly to admin work as habit #5.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wtcMxbXqrKQ&amp;t=30s" target="_blank" rel="noopener">Watch 00:30 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="gym expense leakage and cost control" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">gym expense leakage and cost control</span>
+                <span class="tag tag-secondary">owner mindset and habits</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Stop wasting 15 hours a week on admin and hire a pro to handle the bookkeeping.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s position that owner time spent on admin work should be replaced with a professional bookkeeper.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wtcMxbXqrKQ" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="stat" data-topic="gym expense leakage and cost control" style="--type-color:#a16207">
+            <header class="entry-header">
+                <span class="type-pill">Stat</span>
+                <span class="tag tag-primary">gym expense leakage and cost control</span>
+                <span class="tag tag-secondary">cash flow for seasonal fitness businesses</span>
+                <span class="audience-pill">single location owner</span>
+                <span class="verify-pill verify-warn">Unverified number</span><span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">Eric cites gyms wasting $40 a month on credit card late fees when cards aren&#x27;t set to auto pay.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Second habit in his list, using late fees as an example of avoidable monthly leakage.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=FrJnn5bl5wo&amp;t=0s" target="_blank" rel="noopener">Watch 00:00 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="gym expense leakage and cost control" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">gym expense leakage and cost control</span>
+                <span class="tag tag-secondary">revenue vs profit</span><span class="tag tag-secondary">gym profitability and margin</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">You cannot cut your way to wealth in this industry. At some point, growth is the lever.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s core position on why cost cutting alone will not fix an unprofitable gym model.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=P97GBVDExgc" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="gym expense leakage and cost control" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">gym expense leakage and cost control</span>
+                <span class="tag tag-secondary">revenue vs profit</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">You cannot cut your way to wealth in this industry. At some point, growth is the lever.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Standalone punchy line summarizing Eric&#x27;s stance on cutting costs versus growing revenue.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=P97GBVDExgc" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="framework" data-topic="gym KPIs and unit economics" style="--type-color:#6d28d9">
+            <header class="entry-header">
+                <span class="type-pill">Framework</span>
+                <span class="tag tag-primary">gym KPIs and unit economics</span>
+                <span class="tag tag-secondary">gym profitability and margin</span><span class="tag tag-secondary">revenue vs profit</span>
+                
+                <span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">First, go pull your profit and loss statement. If you don&#x27;t have one, that&#x27;s your first problem. If you do, look at the bottom line. Take that number and divide it by your total revenues. That&#x27;s your profit margin. If it&#x27;s not 20 or 30%, it is not time to panic, it is time to get crystal clear on where your money is going every single month.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s step by step exercise for owners to calculate their own net profit margin.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=nkjt0e-dp48&amp;t=61s" target="_blank" rel="noopener">Watch 01:01 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="framework" data-topic="gym KPIs and unit economics" style="--type-color:#6d28d9">
+            <header class="entry-header">
+                <span class="type-pill">Framework</span>
+                <span class="tag tag-primary">gym KPIs and unit economics</span>
+                <span class="tag tag-secondary">cash flow for seasonal fitness businesses</span><span class="tag tag-secondary">staffing and payroll costs</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">Get three things in front of you: your profit and loss statement, your bank or credit card statement, and a list of every reoccurring charge in a month. If you don&#x27;t have clean financials, that&#x27;s step zero, get on that. Then sit with your profit and loss and ask yourself, where is the money actually going each month. What percentage is going to payroll? What percentage is going to rent? What&#x27;s left over for me?</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric lays out the concrete starting checklist for an owner who feels lost with their gym&#x27;s finances.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=WKtHNS3mysU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="stat" data-topic="gym profitability and margin" style="--type-color:#a16207">
+            <header class="entry-header">
+                <span class="type-pill">Stat</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">revenue vs profit</span>
+                
+                <span class="verify-pill verify-warn">Unverified number</span>
+            </header>
+            <blockquote class="entry-content">When I ask owners if they know their net profit margin, eight out of 10 owners can&#x27;t even give me a number. They know their top line revenue because that number is exciting, but the number that actually matters, most people are guessing.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric cites a client-base observation on how often owners can&#x27;t state their own profit margin.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=nkjt0e-dp48&amp;t=0s" target="_blank" rel="noopener">Watch 00:00 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="benchmark" data-topic="gym profitability and margin" style="--type-color:#b45309">
+            <header class="entry-header">
+                <span class="type-pill">Benchmark</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">revenue vs profit</span><span class="tag tag-secondary">gym KPIs and unit economics</span>
+                
+                <span class="verify-pill verify-warn">Unverified number</span><span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">For healthy facilities, we see net profit typically at 20 to 30% of revenue. That&#x27;s the target. If you&#x27;re below that number, it means something in your business needs attention.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric states his stated operating benchmark range for net profit margin.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=nkjt0e-dp48&amp;t=30s" target="_blank" rel="noopener">Watch 00:30 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="gym profitability and margin" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">owner mindset and habits</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Clarity, it gives you options. Flying blind, it just gives you more anxiety.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s stance on why knowing your profit number matters beyond the number itself.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=nkjt0e-dp48&amp;t=61s" target="_blank" rel="noopener">Watch 01:01 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="gym profitability and margin" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">owner mindset and habits</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Clarity gives you options. Flying blind just gives you more anxiety.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Standalone punchy line pulled from Eric&#x27;s discussion on profit clarity.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=nkjt0e-dp48&amp;t=61s" target="_blank" rel="noopener">Watch 01:01 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="pain_point" data-topic="gym profitability and margin" style="--type-color:#dc2626">
+            <header class="entry-header">
+                <span class="type-pill">Pain Point</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">owner mindset and habits</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">If you don&#x27;t have a profit and loss statement, that&#x27;s your first problem right there.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric names lack of a basic P&amp;L as a common problem among owners he encounters.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=nkjt0e-dp48&amp;t=61s" target="_blank" rel="noopener">Watch 01:01 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="gym profitability and margin" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">gym expense leakage and cost control</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">I&#x27;m definitely not telling you this because cutting cost is the way to make your business successful. You absolutely cannot cut your way to wealth in this industry, but you also can&#x27;t grow effectively if you have all of these leaks quietly draining your cash each month.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric clarifying that the point of the exercise is not cost-cutting as a growth strategy, but plugging leaks so growth is not undermined.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=kwOxgG2XUQo" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="vocabulary" data-topic="gym profitability and margin" style="--type-color:#0d9488">
+            <header class="entry-header">
+                <span class="type-pill">Vocabulary</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">gym expense leakage and cost control</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">It&#x27;s a little bit like trying to fill the bathtub with the drain open. You should plug the leaks and fill the tub.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s metaphor for why plugging expense leaks and growing revenue both matter.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=kwOxgG2XUQo" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="gym profitability and margin" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">You absolutely cannot cut your way to wealth in this industry.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s standalone line on why cost-cutting alone will not build a profitable fitness business.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=kwOxgG2XUQo" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="hook" data-topic="gym profitability and margin" style="--type-color:#475569">
+            <header class="entry-header">
+                <span class="type-pill">hook</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">multi-location expansion readiness</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">There&#x27;s three phases to making money as a gym owner, and most people get stuck at phase one because nobody ever laid this out for them.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Opening line of a short introducing the three phases of gym profitability framework.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=VlXrrGwB-lc&amp;t=0s" target="_blank" rel="noopener">Watch 00:00 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="stat" data-topic="gym profitability and margin" style="--type-color:#a16207">
+            <header class="entry-header">
+                <span class="type-pill">Stat</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">generalist CPA vs fitness specialist</span>
+                
+                <span class="verify-pill verify-warn">Unverified number</span>
+            </header>
+            <blockquote class="entry-content">I spent over a decade helping over 500 fitness businesses figure this out from the beginning.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s stated credential establishing authority at the top of the short.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=VlXrrGwB-lc&amp;t=0s" target="_blank" rel="noopener">Watch 00:00 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="framework" data-topic="gym profitability and margin" style="--type-color:#6d28d9">
+            <header class="entry-header">
+                <span class="type-pill">Framework</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">cash flow for seasonal fitness businesses</span><span class="tag tag-secondary">multi-location expansion readiness</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">The 3 Phases of Gym Profitability. Phase one is survival: you&#x27;re laser-focused on getting past your break-even numbers, every dollar matters, you keep wages tight until you can afford help, and you went efficient on your buildout (potentially a second-generation space) to keep loan payments low. The goal in phase one is don&#x27;t drown, put on your own oxygen mask first. Phase two is where you&#x27;ve got some growth under you and start auditing every expense line by line looking for the $50 expenses leaking money, because you need to get crystal clear on your margins and know exactly how much is left over after expenses. Phase three is scale, multiple location territory: clean books, clear reporting, and a financial partner who understands fitness and can tell you whether your next location is a smart move or a trap.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">The core framework of the short, walked through step by step across all three phases.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=VlXrrGwB-lc" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="hook" data-topic="gym profitability and margin" style="--type-color:#475569">
+            <header class="entry-header">
+                <span class="type-pill">hook</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">owner mindset and habits</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">If you&#x27;re feeling a little lost with your gym&#x27;s finances right now, I want to give you the best place to start right now.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Opening line of the short addressing owners who feel lost with their finances.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=WKtHNS3mysU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="vocabulary" data-topic="gym profitability and margin" style="--type-color:#0d9488">
+            <header class="entry-header">
+                <span class="type-pill">Vocabulary</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">clean financials, step zero</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s shorthand for the baseline an owner needs before they can even start analyzing their numbers.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=WKtHNS3mysU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="hook" data-topic="gym profitability and margin" style="--type-color:#475569">
+            <header class="entry-header">
+                <span class="type-pill">hook</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">gym KPIs and unit economics</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">These are five specific financial habits that if you actually put them in place this week will basically force your gym to hit its break-even targets by the end of the year.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Opening line of a short listing five financial habits for gym owners.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wtcMxbXqrKQ" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="framework" data-topic="gym profitability and margin" style="--type-color:#6d28d9">
+            <header class="entry-header">
+                <span class="type-pill">Framework</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">gym expense leakage and cost control</span><span class="tag tag-secondary">gym KPIs and unit economics</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Five habits to hit break-even targets: 1. Know your break-even number, if you don&#x27;t know what it takes to keep the lights on each month you&#x27;re just guessing. 2. Put every credit card on auto pay so you stop wasting $40 a month on late fees. 3. Check your margins on retail, if you aren&#x27;t pricing it at double what you paid you&#x27;re losing money on every shirt you sell. 4. Get your waivers digitized so you aren&#x27;t hunting for paperwork when someone gets hurt. 5. Stop wasting 15 hours a week on admin and hire a pro to handle the bookkeeping.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric walks through five specific financial habits gym owners should put in place this week.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wtcMxbXqrKQ" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="pain_point" data-topic="gym profitability and margin" style="--type-color:#dc2626">
+            <header class="entry-header">
+                <span class="type-pill">Pain Point</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">gym KPIs and unit economics</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">If you don&#x27;t know what it takes to keep the lights on each month, you&#x27;re just guessing.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric describes the risk of not knowing your break-even number.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wtcMxbXqrKQ" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="gym profitability and margin" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">If you don&#x27;t know what it takes to keep the lights on each month, you&#x27;re just guessing.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Punchy line from the break-even habit in the five habits short.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wtcMxbXqrKQ" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="framework" data-topic="gym profitability and margin" style="--type-color:#6d28d9">
+            <header class="entry-header">
+                <span class="type-pill">Framework</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">cash flow for seasonal fitness businesses</span><span class="tag tag-secondary">gym expense leakage and cost control</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">Five habits to hit your break-even target by year end: 1) know your break-even number, if you don&#x27;t know what it takes to keep the lights on each month you&#x27;re just guessing. 2) put every credit card on auto pay so you stop wasting money on late fees every single month. 3) check your margins on retail, if you aren&#x27;t pricing it at double what you paid you&#x27;re losing money on every shirt you sell. 4) get your waivers digitized so you aren&#x27;t hunting for paperwork when someone gets hurt. 5) stop wasting hours a week on admin and hire a pro to handle the bookkeeping.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s five-step list of financial habits gym owners should put in place immediately.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=FrJnn5bl5wo" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="pain_point" data-topic="gym profitability and margin" style="--type-color:#dc2626">
+            <header class="entry-header">
+                <span class="type-pill">Pain Point</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">revenue vs profit</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">Gyms doing a million a year that still feel broke because there&#x27;s nothing left at the end of the month.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Common frustration Eric names among owners who have hit revenue milestones without profit to show for it.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=P97GBVDExgc" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="benchmark" data-topic="gym profitability and margin" style="--type-color:#b45309">
+            <header class="entry-header">
+                <span class="type-pill">Benchmark</span>
+                <span class="tag tag-primary">gym profitability and margin</span>
+                <span class="tag tag-secondary">multi-location expansion readiness</span>
+                <span class="audience-pill">single location owner</span>
+                <span class="verify-pill verify-warn">Unverified number</span><span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">If your net profit is under 5%, you do not have margin for mistakes, upgrades, or expansion.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric states an operating threshold for net profit margin below which a gym has no cushion for error or growth.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=P97GBVDExgc&amp;t=0s" target="_blank" rel="noopener">Watch 00:00 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="hook" data-topic="lease terms and insurance" style="--type-color:#475569">
+            <header class="entry-header">
+                <span class="type-pill">hook</span>
+                <span class="tag tag-primary">lease terms and insurance</span>
+                <span class="tag tag-secondary">gym expense leakage and cost control</span>
+                <span class="audience-pill">in the process of opening</span>
+                
+            </header>
+            <blockquote class="entry-content">Never sign a commercial gym lease until you&#x27;ve sat down and pushed back on those insurance requirements the landlord&#x27;s lawyer tucked into the back pages.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Opening line of a short on lease insurance requirements.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wzPZ__tbYII" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="example" data-topic="lease terms and insurance" style="--type-color:#0369a1">
+            <header class="entry-header">
+                <span class="type-pill">Example</span>
+                <span class="tag tag-primary">lease terms and insurance</span>
+                <span class="tag tag-secondary">gym expense leakage and cost control</span>
+                <span class="audience-pill">in the process of opening</span>
+                <span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">I&#x27;ve seen landlords demand $5 million in coverage just because they&#x27;re using a template that they used for an anchor tenant. If you don&#x27;t catch that, your insurance budget is going to be blown up by $5,000 a year before you even get the keys.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Illustrating how boilerplate lease templates inflate insurance costs for gym owners.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wzPZ__tbYII&amp;t=0s" target="_blank" rel="noopener">Watch 00:00 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="stat" data-topic="lease terms and insurance" style="--type-color:#a16207">
+            <header class="entry-header">
+                <span class="type-pill">Stat</span>
+                <span class="tag tag-primary">lease terms and insurance</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                <span class="audience-pill">in the process of opening</span>
+                <span class="verify-pill verify-warn">Unverified number</span><span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">In my 12 years of doing this, I have never seen a fitness claim hit $5 million.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s personal claim frequency observation used to argue against inflated landlord insurance demands, a recorded claim not an approved marketing figure.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wzPZ__tbYII&amp;t=0s" target="_blank" rel="noopener">Watch 00:00 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="learning" data-topic="lease terms and insurance" style="--type-color:#4338ca">
+            <header class="entry-header">
+                <span class="type-pill">Learning</span>
+                <span class="tag tag-primary">lease terms and insurance</span>
+                <span class="tag tag-secondary">generalist CPA vs fitness specialist</span>
+                <span class="audience-pill">in the process of opening</span>
+                
+            </header>
+            <blockquote class="entry-content">Most landlords just don&#x27;t understand our industry&#x27;s risks, and a quick phone call is usually all it takes to get those limits reduced.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s takeaway on why insurance requirement pushback usually works.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wzPZ__tbYII&amp;t=31s" target="_blank" rel="noopener">Watch 00:31 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="lease terms and insurance" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">lease terms and insurance</span>
+                <span class="tag tag-secondary">gym expense leakage and cost control</span>
+                <span class="audience-pill">in the process of opening</span>
+                
+            </header>
+            <blockquote class="entry-content">Match your coverage to your real risk, not their boiler plate template.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s core recommendation for negotiating lease insurance requirements.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wzPZ__tbYII" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="lease terms and insurance" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">lease terms and insurance</span>
+                
+                <span class="audience-pill">in the process of opening</span>
+                
+            </header>
+            <blockquote class="entry-content">Match your coverage to your real risk, not their boiler plate template.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Standalone punchy line closing out the lease insurance short.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wzPZ__tbYII" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="pain_point" data-topic="lease terms and insurance" style="--type-color:#dc2626">
+            <header class="entry-header">
+                <span class="type-pill">Pain Point</span>
+                <span class="tag tag-primary">lease terms and insurance</span>
+                <span class="tag tag-secondary">gym expense leakage and cost control</span>
+                <span class="audience-pill">in the process of opening</span>
+                
+            </header>
+            <blockquote class="entry-content">Your insurance budget can get blown up by thousands a year before you even get the keys, just from a landlord&#x27;s boilerplate coverage template that doesn&#x27;t match your actual fitness risk.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Common problem Eric describes with landlord insurance riders in gym leases.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wzPZ__tbYII" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="vocabulary" data-topic="lease terms and insurance" style="--type-color:#0d9488">
+            <header class="entry-header">
+                <span class="type-pill">Vocabulary</span>
+                <span class="tag tag-primary">lease terms and insurance</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">boiler plate template</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s recurring term for generic landlord insurance requirements not tailored to fitness risk.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wzPZ__tbYII" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="example" data-topic="membership pricing and intro offers" style="--type-color:#0369a1">
+            <header class="entry-header">
+                <span class="type-pill">Example</span>
+                <span class="tag tag-primary">membership pricing and intro offers</span>
+                <span class="tag tag-secondary">free trials and lead conversion</span><span class="tag tag-secondary">revenue vs profit</span>
+                <span class="audience-pill">single location owner</span>
+                <span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">We helped our clients switch to a paid intro offer. It&#x27;s $40 to $60 for an intro month. Did fewer people sign up? Sure. But the ones who did converted at a much higher rate because they were serious about making a difference in their lives. And the studio made an extra $36,000 a year just from the paid intro offer fees alone.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Worked example showing the financial impact of moving from free trials to a paid intro offer. This is a recorded client outcome claim, not an approved marketing claim, and the dollar figures are unverified against the source video.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=SfrJ-Zns158&amp;t=32s" target="_blank" rel="noopener">Watch 00:32 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="learning" data-topic="membership pricing and intro offers" style="--type-color:#4338ca">
+            <header class="entry-header">
+                <span class="type-pill">Learning</span>
+                <span class="tag tag-primary">membership pricing and intro offers</span>
+                <span class="tag tag-secondary">gym profitability and margin</span><span class="tag tag-secondary">staffing and payroll costs</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">The weird part about this is that actually charging the fees made it a better experience for everybody. The members felt more committed. The staff wasted less time chasing people who were never going to stick around. And the owner finally had a trial offer that was feeding their business instead of draining it.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s broader takeaway after describing the paid intro offer switch.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=SfrJ-Zns158" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="benchmark" data-topic="membership pricing and intro offers" style="--type-color:#b45309">
+            <header class="entry-header">
+                <span class="type-pill">Benchmark</span>
+                <span class="tag tag-primary">membership pricing and intro offers</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                
+                <span class="verify-pill verify-warn">Unverified number</span><span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">Check your margins on retail, if you aren&#x27;t pricing it at double what you paid, you&#x27;re losing money on every shirt you sell.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric states his operating benchmark for retail markup (2x cost) as habit #3.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=wtcMxbXqrKQ&amp;t=0s" target="_blank" rel="noopener">Watch 00:00 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="benchmark" data-topic="membership pricing and intro offers" style="--type-color:#b45309">
+            <header class="entry-header">
+                <span class="type-pill">Benchmark</span>
+                <span class="tag tag-primary">membership pricing and intro offers</span>
+                <span class="tag tag-secondary">gym profitability and margin</span><span class="tag tag-secondary">gym expense leakage and cost control</span>
+                <span class="audience-pill">single location owner</span>
+                <span class="verify-pill verify-warn">Unverified number</span><span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">Eric&#x27;s stated benchmark: retail should be priced at double what you paid for it, or you&#x27;re losing money on every item sold (used shirts as the example).</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Third habit, framed as a margin check on gym retail/merchandise pricing.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=FrJnn5bl5wo&amp;t=0s" target="_blank" rel="noopener">Watch 00:00 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="benchmark" data-topic="multi-location expansion readiness" style="--type-color:#b45309">
+            <header class="entry-header">
+                <span class="type-pill">Benchmark</span>
+                <span class="tag tag-primary">multi-location expansion readiness</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                <span class="audience-pill">thinking about owning</span>
+                <span class="verify-pill verify-warn">Unverified number</span><span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">You want to consistently be above 10% net profit before you even think about a second location.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s stated threshold for when a single location owner should consider expansion, framed as a floor not a goal.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=P97GBVDExgc&amp;t=30s" target="_blank" rel="noopener">Watch 00:30 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="pain_point" data-topic="owner mindset and habits" style="--type-color:#dc2626">
+            <header class="entry-header">
+                <span class="type-pill">Pain Point</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                <span class="tag tag-secondary">multi-location expansion readiness</span><span class="tag tag-secondary">owner pay and reasonable salary</span>
+                <span class="audience-pill">multi-location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">You end up working 60 hours a week and making less money than your front desk staff.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Consequence Eric names for expanding based on revenue instead of actual profit.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=VlXrrGwB-lc&amp;t=62s" target="_blank" rel="noopener">Watch 01:02 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="pain_point" data-topic="owner mindset and habits" style="--type-color:#dc2626">
+            <header class="entry-header">
+                <span class="type-pill">Pain Point</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">They&#x27;re working hard, they&#x27;ve got a great community, but when it comes to the money side, they honestly just feel like they&#x27;re guessing. Most owners are just scared to even look. They&#x27;ll check their bank balance, but hope for the best.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric describes the common state owners are in before they get financial clarity.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=WKtHNS3mysU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="owner mindset and habits" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                <span class="tag tag-secondary">cash flow for seasonal fitness businesses</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Hope is not a strategy. Action though, action is what will get rewarded. And the reality is that clarity, even when the news isn&#x27;t good, is always better than not knowing.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s core argument for why owners need to stop avoiding their numbers.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=WKtHNS3mysU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="owner mindset and habits" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">Hope is not a strategy.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Punchy standalone line from Eric on why avoiding the numbers doesn&#x27;t work.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=WKtHNS3mysU" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="hook" data-topic="owner mindset and habits" style="--type-color:#475569">
+            <header class="entry-header">
+                <span class="type-pill">hook</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                <span class="tag tag-secondary">passion vs profit</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">The reason I see so many gym owners fail is because they treat it like a passive investment instead of a full-time profession.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Opening line of a short on why gym owners fail when they misjudge the level of commitment the business requires.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=fYlDzVNnwvg" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="owner mindset and habits" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                <span class="tag tag-secondary">passion vs profit</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Successful owners have two things: real business acuity and fire in their belly. If you&#x27;re only half in, the fitness market is going to chew you up.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric names the two traits he sees separating owners who survive from those who don&#x27;t.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=fYlDzVNnwvg" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="vocabulary" data-topic="owner mindset and habits" style="--type-color:#0d9488">
+            <header class="entry-header">
+                <span class="type-pill">Vocabulary</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                <span class="tag tag-secondary">passion vs profit</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">fire in their belly</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s phrase for the drive he says successful owners have alongside business acuity.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=fYlDzVNnwvg" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="owner mindset and habits" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                <span class="tag tag-secondary">passion vs profit</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">If you&#x27;re only half in, the fitness market is going to chew you up.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Closing warning line before the outro, aimed at owners underestimating the commitment required.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=fYlDzVNnwvg" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="hook" data-topic="owner mindset and habits" style="--type-color:#475569">
+            <header class="entry-header">
+                <span class="type-pill">hook</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                <span class="tag tag-secondary">revenue vs profit</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">When a lot of gym owners see their monthly revenue numbers take a dip, they usually start looking for someone to blame. The location, the economy, or their franchise corporate office.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Opening line contrasting blame-based reactions to a revenue dip against proactive owners.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=hpjr0R84RrE" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="owner mindset and habits" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                <span class="tag tag-secondary">membership pricing and intro offers</span><span class="tag tag-secondary">revenue vs profit</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">The A-Team owners that I work with, when they see the same dip, they immediately start asking how to pivot their model to semi-private training within 48 hours.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric describing how his most successful clients react to a revenue dip compared to owners who blame outside factors.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=hpjr0R84RrE" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="owner mindset and habits" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">The difference isn&#x27;t your branding or how much fancy equipment you have. It&#x27;s how fast you can adapt when the market moves.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric summarizing what separates gyms that survive industry shifts from those that don&#x27;t.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=hpjr0R84RrE" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="owner mindset and habits" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">The A-Team doesn&#x27;t wait for permission from anyone. They make it happen while everyone else is still complaining in Facebook groups.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric closing his point on the difference between reactive and proactive gym owners.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=hpjr0R84RrE" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="learning" data-topic="owner mindset and habits" style="--type-color:#4338ca">
+            <header class="entry-header">
+                <span class="type-pill">Learning</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                <span class="tag tag-secondary">membership pricing and intro offers</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">Across a decade of watching who survives industry shifts and who surrenders to them, the owners who last aren&#x27;t the ones with the best branding or the most equipment, they&#x27;re the ones who pivot their model fast, like moving to semi-private training within 48 hours of seeing a dip.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s pattern observed across his client base on what predicts survival through market shifts.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=hpjr0R84RrE" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="vocabulary" data-topic="owner mindset and habits" style="--type-color:#0d9488">
+            <header class="entry-header">
+                <span class="type-pill">Vocabulary</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">The A-Team</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s term for the subset of proactive, fast-adapting gym owners he works with, contrasted implicitly with owners who blame and wait.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=hpjr0R84RrE" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="owner mindset and habits" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">The difference isn&#x27;t your branding or how much fancy equipment you have. It&#x27;s how fast you can adapt when the market moves.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Standalone line on what separates surviving gyms from struggling ones.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=hpjr0R84RrE" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="owner mindset and habits" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">The A-Team doesn&#x27;t wait for permission from anyone. They make it happen while everyone else is still complaining in Facebook groups.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Standalone line contrasting proactive owners with reactive ones.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=hpjr0R84RrE" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="hook" data-topic="owner mindset and habits" style="--type-color:#475569">
+            <header class="entry-header">
+                <span class="type-pill">hook</span>
+                <span class="tag tag-primary">owner mindset and habits</span>
+                <span class="tag tag-secondary">cash flow for seasonal fitness businesses</span><span class="tag tag-secondary">gym profitability and margin</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">These are five specific financial habits that if you actually put them in place this week, will basically force your gym to hit its break-even targets by the end of the year.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Opening line of a short walking through five financial habits for gym owners.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=FrJnn5bl5wo" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="passion vs profit" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">passion vs profit</span>
+                <span class="tag tag-secondary">owner mindset and habits</span>
+                <span class="audience-pill">thinking about owning</span>
+                
+            </header>
+            <blockquote class="entry-content">They end up trading what they want most for what feels easy right now. It actually means working long 12-hour days, and it&#x27;s usually staring at a spreadsheet, not a bench press.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric explains what running a gym actually demands versus what owners expect going in.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=fYlDzVNnwvg" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="pain_point" data-topic="passion vs profit" style="--type-color:#dc2626">
+            <header class="entry-header">
+                <span class="type-pill">Pain Point</span>
+                <span class="tag tag-primary">passion vs profit</span>
+                <span class="tag tag-secondary">owner mindset and habits</span>
+                <span class="audience-pill">thinking about owning</span>
+                
+            </header>
+            <blockquote class="entry-content">Gym owners treating the business like a passive investment instead of a full-time profession, then trading what they want most for what feels easy right now.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">A pattern Eric names as the root cause of owner failure in the fitness industry.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=fYlDzVNnwvg" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="passion vs profit" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">passion vs profit</span>
+                <span class="tag tag-secondary">owner mindset and habits</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">It actually means working long 12-hour days, and it&#x27;s usually staring at a spreadsheet, not a bench press.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Standalone line contrasting the romantic idea of gym ownership with the operational reality.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=fYlDzVNnwvg" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="hook" data-topic="revenue vs profit" style="--type-color:#475569">
+            <header class="entry-header">
+                <span class="type-pill">hook</span>
+                <span class="tag tag-primary">revenue vs profit</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">We can tell how healthy a gym is based off of one question. Do you know your net profit margin? And I don&#x27;t mean your revenue number, and I don&#x27;t mean your member count. I mean the number that actually tells you whether this business is working for you or not.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Opening hook framing net profit margin as the real diagnostic question for gym health.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=nkjt0e-dp48&amp;t=0s" target="_blank" rel="noopener">Watch 00:00 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="vocabulary" data-topic="revenue vs profit" style="--type-color:#0d9488">
+            <header class="entry-header">
+                <span class="type-pill">Vocabulary</span>
+                <span class="tag tag-primary">revenue vs profit</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                
+                
+            </header>
+            <blockquote class="entry-content">Revenue, the top line number, that&#x27;s vanity. Profit, that&#x27;s reality.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s contrarian framing distinguishing revenue from profit.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=nkjt0e-dp48&amp;t=30s" target="_blank" rel="noopener">Watch 00:30 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="example" data-topic="revenue vs profit" style="--type-color:#0369a1">
+            <header class="entry-header">
+                <span class="type-pill">Example</span>
+                <span class="tag tag-primary">revenue vs profit</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                <span class="audience-pill">multi-location owner</span>
+                <span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">You could be running a $2 million facility and making less than the owner down the street who runs a $900,000 facility. We&#x27;ve seen it happen time and time again. It almost always comes down to financial clarity, knowing where your money is going.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric contrasts two hypothetical facility revenue sizes to show revenue size doesn&#x27;t determine profitability.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=nkjt0e-dp48&amp;t=30s" target="_blank" rel="noopener">Watch 00:30 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="social_quote" data-topic="revenue vs profit" style="--type-color:#0891b2">
+            <header class="entry-header">
+                <span class="type-pill">Social-Ready Quote</span>
+                <span class="tag tag-primary">revenue vs profit</span>
+                <span class="tag tag-secondary">multi-location expansion readiness</span>
+                <span class="audience-pill">multi-location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">Revenue is vanity. Profit is reality.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Said while explaining that owners often make expansion decisions based on revenue alone.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=VlXrrGwB-lc&amp;t=31s" target="_blank" rel="noopener">Watch 00:31 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="revenue vs profit" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">revenue vs profit</span>
+                <span class="tag tag-secondary">multi-location expansion readiness</span>
+                <span class="audience-pill">multi-location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">Business owners are making expansion decisions based on revenue alone. And if you don&#x27;t know your actual profit at this stage, then you&#x27;re just guessing. And guessing with a second location, that&#x27;s how you end up working 60 hours a week and making less money than your front desk staff.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Warning about phase two owners moving toward expansion without clear profit visibility.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=VlXrrGwB-lc&amp;t=62s" target="_blank" rel="noopener">Watch 01:02 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="story" data-topic="revenue vs profit" style="--type-color:#7c3aed">
+            <header class="entry-header">
+                <span class="type-pill">Story</span>
+                <span class="tag tag-primary">revenue vs profit</span>
+                <span class="tag tag-secondary">owner pay and reasonable salary</span><span class="tag tag-secondary">multi-location expansion readiness</span>
+                <span class="audience-pill">multi-location owner</span>
+                <span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">We&#x27;ve had clients personally doing millions in revenue and taking home less than $50,000 a year. They look successful on the outside, at least to everybody else, but they were working 7 days a week with not much left over.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Recorded client-outcome claim used to illustrate the gap between top-line revenue and actual owner take-home pay; this is a recorded claim, not an approved marketing claim, and the figure should be verified before any reuse.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=VlXrrGwB-lc&amp;t=62s" target="_blank" rel="noopener">Watch 01:02 ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="pain_point" data-topic="revenue vs profit" style="--type-color:#dc2626">
+            <header class="entry-header">
+                <span class="type-pill">Pain Point</span>
+                <span class="tag tag-primary">revenue vs profit</span>
+                <span class="tag tag-secondary">owner mindset and habits</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">When gym owners see their monthly revenue numbers take a dip, they usually start looking for someone to blame, the location, the economy, or their franchise corporate office, instead of looking at their own model.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric naming a common reflex among owners when revenue softens.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=hpjr0R84RrE" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="hook" data-topic="revenue vs profit" style="--type-color:#475569">
+            <header class="entry-header">
+                <span class="type-pill">hook</span>
+                <span class="tag tag-primary">revenue vs profit</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">If you&#x27;re trying to build a profitable gym that actually pays your mortgage and your kids school, there&#x27;s one move you need to make right now. You have to stop chasing revenue that looks good and start building revenue that actually leaves margin.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Opening hook of the short establishing the central contrast between top line revenue and margin.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=P97GBVDExgc" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="vocabulary" data-topic="revenue vs profit" style="--type-color:#0d9488">
+            <header class="entry-header">
+                <span class="type-pill">Vocabulary</span>
+                <span class="tag tag-primary">revenue vs profit</span>
+                
+                
+                
+            </header>
+            <blockquote class="entry-content">revenue that looks good versus revenue that actually leaves margin</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Distinctive framing Eric uses to describe the gap between top line growth and real profit.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=P97GBVDExgc" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="learning" data-topic="revenue vs profit" style="--type-color:#4338ca">
+            <header class="entry-header">
+                <span class="type-pill">Learning</span>
+                <span class="tag tag-primary">revenue vs profit</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">I see gyms doing a million a year that still feel broke because there&#x27;s nothing left at the end of the month. The problem usually is not runaway expenses. It&#x27;s that the model only works at a higher revenue level than you&#x27;re currently at.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Pattern Eric describes seeing across his client base when explaining why revenue alone does not equal profitability.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=P97GBVDExgc" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="founder_take" data-topic="revenue vs profit" style="--type-color:#1e3a8a">
+            <header class="entry-header">
+                <span class="type-pill">Founder Take</span>
+                <span class="tag tag-primary">revenue vs profit</span>
+                <span class="tag tag-secondary">gym profitability and margin</span>
+                <span class="audience-pill">single location owner</span>
+                
+            </header>
+            <blockquote class="entry-content">So yes, drive revenue, but build it in a way that actually leaves cash in the bank.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Eric&#x27;s closing directive tying together revenue growth with margin discipline.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=P97GBVDExgc" target="_blank" rel="noopener">Watch ↗</a>
+            </footer>
+        </article><article class="entry-card" data-type="pain_point" data-topic="staffing and payroll costs" style="--type-color:#dc2626">
+            <header class="entry-header">
+                <span class="type-pill">Pain Point</span>
+                <span class="tag tag-primary">staffing and payroll costs</span>
+                <span class="tag tag-secondary">gym expense leakage and cost control</span>
+                <span class="audience-pill">single location owner</span>
+                <span class="verify-pill verify-bad">Figure looks garbled</span>
+            </header>
+            <blockquote class="entry-content">Owners are wasting 15 hours a week on admin instead of having a pro handle the bookkeeping.</blockquote>
+            <footer class="entry-footer">
+                <span class="entry-context">Fifth habit, framed as a time cost gym owners absorb by not outsourcing bookkeeping.</span>
+                <a class="source-link" href="https://www.youtube.com/watch?v=FrJnn5bl5wo&amp;t=30s" target="_blank" rel="noopener">Watch 00:30 ↗</a>
+            </footer>
+        </article>
+    </div>
+  </section>
+</main>
+
+<div class="skill-footer">
+  Generated from <code>Clients/The Fitness CPA/founder-voice/</code> · Markology Founder-Voice skill · self-contained HTML, no network calls
+</div>
+
+<script>
+(function() {
+  const grid = document.getElementById('entry-grid');
+  const cards = Array.from(grid.querySelectorAll('.entry-card'));
+  const countEl = document.getElementById('entries-count');
+  let activeType = 'all';
+  let activeTopic = null;
+
+  function applyFilter() {
+    let visible = 0;
+    cards.forEach(c => {
+      const matchType = activeType === 'all' || c.dataset.type === activeType;
+      const matchTopic = !activeTopic || c.dataset.topic === activeTopic;
+      const show = matchType && matchTopic;
+      c.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    const filterLabel = activeTopic ? ` for "${activeTopic}"` : '';
+    countEl.textContent = `${visible} showing${filterLabel}`;
+  }
+
+  document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeType = chip.dataset.type;
+      applyFilter();
+    });
+  });
+
+  document.querySelectorAll('.topic-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const topic = card.dataset.topic;
+      if (activeTopic === topic) {
+        activeTopic = null;
+        card.classList.remove('active');
+      } else {
+        document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+        activeTopic = topic;
+        document.getElementById('entries-heading').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      applyFilter();
+    });
+  });
+})();
+</script>
+</body>
+</html>

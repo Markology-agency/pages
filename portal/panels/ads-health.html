@@ -1,138 +1,114 @@
 <!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tasks Due Today</title>
+<title>Ads Health</title>
 <style>
   :root{--bg:#0d1017;--panel:#151a23;--panel2:#1b212c;--line:#232b38;--ink:#e8edf4;
-    --dim:#8a96a8;--accent:#3872EB;--accent2:#7DA4F4;--warn:#d6a53c;--pos:#3fb37f;--neg:#e5686f;}
+    --dim:#8a96a8;--accent:#3872EB;--pos:#3fb37f;--warn:#d6a53c;--neg:#e5686f;}
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font-size:14px;
+  body{margin:0;background:var(--bg);color:var(--ink);font-size:15px;
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,sans-serif}
-  .wrap{max-width:1080px;margin:0 auto;padding:26px 20px 60px}
+  .wrap{max-width:940px;margin:0 auto;padding:28px 22px 60px}
   h1{font-size:21px;margin:0 0 2px;font-weight:700}
-  .sub{color:var(--dim);font-size:13px;margin-bottom:18px}
-  .row1{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:11px;padding:11px 15px}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:20px}
+  .cards{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;flex:1;min-width:130px}
   .card .k{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.05em}
-  .card .v{font-size:22px;font-weight:700}
-  input{background:var(--panel);border:1px solid var(--line);color:var(--ink);border-radius:9px;
-    padding:8px 12px;font-size:14px;min-width:200px;margin-left:8px}
-  .rerun{margin-left:auto;background:var(--accent);border:0;color:#fff;border-radius:9px;
-    padding:8px 15px;font-size:14px;font-weight:600;cursor:pointer}
-  .rerun:disabled{opacity:.6;cursor:default}
+  .card .v{font-size:23px;font-weight:700;margin-top:5px}
   .tablewrap{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow-x:auto}
-  table{width:100%;border-collapse:collapse;min-width:820px}
-  th,td{text-align:left;padding:10px 14px;vertical-align:top}
-  th{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.04em;
-    border-bottom:1px solid var(--line);cursor:pointer;white-space:nowrap}
+  table{width:100%;border-collapse:collapse;min-width:660px}
+  th,td{text-align:left;padding:12px 15px;vertical-align:top}
+  th{color:var(--dim);font-size:11px;text-transform:uppercase;letter-spacing:.04em;border-bottom:1px solid var(--line)}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   tbody tr{border-bottom:1px solid var(--line)}
   tbody tr:last-child{border-bottom:0}
-  tbody tr:hover{background:var(--panel2)}
-  .client{color:var(--accent2);font-weight:600;white-space:nowrap}
-  .task{max-width:440px}
-  .pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:20px;white-space:nowrap;
-    background:var(--panel2);border:1px solid var(--line);color:var(--dim)}
-  .st-review{color:var(--warn);border-color:rgba(214,165,60,.35)}
-  .st-client{color:var(--accent2);border-color:rgba(125,164,244,.35)}
-  .st-progress{color:var(--pos);border-color:rgba(63,179,127,.35)}
-  .st-notstarted{color:var(--dim)}
-  .owner{color:var(--dim);white-space:nowrap}
+  .client{font-weight:600;color:#c9d6ea;white-space:nowrap}
+  .pill{display:inline-block;font-size:11px;font-weight:700;padding:2px 9px;border-radius:20px}
+  .ok{color:var(--pos);background:rgba(63,179,127,.12)}
+  .watch{color:var(--warn);background:rgba(214,165,60,.14)}
+  .over{color:var(--neg);background:rgba(229,104,111,.14)}
+  .dim{color:var(--dim)}
+  ul.issues{margin:0;padding-left:17px;line-height:1.55}
+  ul.issues li{margin-bottom:4px}
   .foot{color:var(--dim);font-size:12px;margin-top:14px;line-height:1.5}
+  .row-top{display:flex;align-items:center;gap:12px;margin-bottom:2px}
+  .rerun{margin-left:auto;background:var(--accent);border:0;color:#fff;border-radius:9px;
+    padding:8px 15px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap}
+  .rerun:disabled{opacity:.6;cursor:default}
+  .empty{padding:26px 16px;color:var(--dim);text-align:center}
+  .toggle{background:none;border:1px solid var(--line);color:var(--dim);border-radius:8px;
+    padding:6px 11px;font-size:12px;cursor:pointer}
 </style></head>
 <body><div class="wrap">
-  <h1>Tasks Due Today</h1>
-  <div class="sub">Client tasks due today (Markology to-dos are in their own tab) · <span id="gen"></span></div>
-  <div class="row1">
-    <div class="card"><div class="k">Due today</div><div class="v" id="c-n">–</div></div>
-    <div class="card"><div class="k">Clients</div><div class="v" id="c-c">–</div></div>
-    <div class="card"><div class="k">In review</div><div class="v" id="c-r">–</div></div>
-    <button id="rerun" class="rerun" onclick="rerun()">⟳ Rerun</button>
-    <input id="q" placeholder="Filter tasks / clients / owners…" oninput="draw()">
+  <div class="row-top"><h1>Ads Health</h1>
+    <button id="rerun" class="rerun" onclick="rerun()">⟳ Rerun</button></div>
+  <div class="sub">Exception-only. A client with nothing listed is healthy. Live pull, refreshed
+    <span id="gen"></span> · the daily email digest carries the full check set (keyword domination,
+    search-term drift, impression share, disapproved ads, zero-conversion spend)</div>
+  <div class="cards">
+    <div class="card"><div class="k">Accounts checked</div><div class="v" id="c-checked">...</div></div>
+    <div class="card"><div class="k">Need attention</div><div class="v" id="c-flagged">...</div></div>
+    <div class="card"><div class="k">Critical</div><div class="v" id="c-crit">...</div></div>
+    <div class="card"><div class="k">Healthy</div><div class="v" id="c-ok">...</div></div>
   </div>
+  <div style="margin-bottom:12px"><button class="toggle" id="tog" onclick="toggle()">Show healthy accounts</button></div>
   <div class="tablewrap"><table>
-    <thead><tr><th data-k="client">Client</th><th data-k="name">Task</th>
-      <th data-k="dept">Dept</th><th data-k="status">Status</th><th data-k="owner">Owner</th></tr></thead>
+    <thead><tr><th>Client</th><th>Status</th><th>What is wrong</th><th class="num">MTD</th><th class="num">Cap</th></tr></thead>
     <tbody id="rows"></tbody>
   </table></div>
-  <div class="foot">Snapshot of Asana as of the time shown. Refreshes when the daily portal job runs.
-    Owner "Markology Support Team" = unassigned/agency queue.</div>
+  <div class="foot">Checks shown here: dark account ($0 over 3 days on a live retainer), conversion
+    tracking integrity (removed-but-primary, junk category set primary, real leads left non-primary),
+    and budget pace against the cap. Caps read from daily-agents <code>src/config/clients.py</code>,
+    the single source of truth. Read-only: this panel never changes an account.</div>
 </div>
 <script>
-let T=[
-{client:"Llamas Financial",name:"Hub-and-spoke Phase 3: body anchors for 23 remaining blogs",dept:"SEO",status:"In Progress",owner:"Support Team"},
-{client:"Adam Traywick",name:"Directory listings sprint: 4 Fort Worth CPA directories",dept:"SEO",status:"Internal Review",owner:"Support Team"},
-{client:"Ashford Sky",name:"SEO Blog: What Is a Quality of Earnings Report?",dept:"Writing",status:"Internal Review",owner:"Support Team"},
-{client:"Cherry Hill",name:"Review Wikipedia page - Mike Levy",dept:"SEO",status:"Client Review",owner:"alexandrea@cherryhill"},
-{client:"Thompson Flaherty",name:"Look into Zoom API for meeting transcription - voice library",dept:"Strategy",status:"Done",owner:"Tyler Hawkins"},
-{client:"KB Financial",name:"Client Review of blog: 83(b) Election as a Startup Founder?",dept:"Strategy",status:"Not Started",owner:"landon@kb"},
-{client:"KB Financial",name:"OpenAI/Anthropic Pre-IPO Plan (LinkedIn)",dept:"Social",status:"Internal Review",owner:"landon@kb"},
-{client:"The Fitness CPA",name:"Contact Page Changes",dept:"Development",status:"Waiting",owner:"Vita A"},
-{client:"Cherry Hill",name:"Update About Page to have separate page bios",dept:"Development",status:"Not Started",owner:"Vita A"},
-{client:"Cherry Hill",name:"Input blog: The Co-Sourcing Conversation",dept:"Coordinator",status:"Not Started",owner:"Karen"},
-{client:"Steve Ellard",name:"Separate social — Atlantic Payroll own posts + backdate",dept:"Social",status:"—",owner:"Support Team"},
-{client:"Cherry Hill",name:"Create industry template page — plug in new industries",dept:"Design",status:"Not Started",owner:"Support Team"},
-{client:"Ashford Sky",name:"Mockups of ETA services — send to Darin",dept:"Design",status:"Not Started",owner:"Support Team"},
-{client:"The Fitness CPA",name:"Roll out nurture tracks after responding to comments",dept:"Strategy",status:"Not Started",owner:"Support Team"},
-{client:"The Fitness CPA",name:"Hubspot chatbot — why has Eric never gotten a notification",dept:"Strategy",status:"Not Started",owner:"Support Team"},
-{client:"Steve Ellard",name:"Figure out Zoom connection for Voice Library + set up",dept:"Tracking",status:"Not Started",owner:"Will"},
-{client:"Steve Ellard",name:"Payroll leads have dropped off",dept:"Strategy",status:"Not Started",owner:"Support Team"},
-{client:"Affinity",name:"SEO Blog: Outsourced Accounting Cost for a Milwaukee Business?",dept:"SEO",status:"Not Started",owner:"Support Team"},
-{client:"Cherry Hill",name:"Additional post ideas to schedule",dept:"Social",status:"Not Started",owner:"Support Team"},
-{client:"Cherry Hill",name:"Collaborate with Allison on December event ad strategy",dept:"Strategy",status:"Not Started",owner:"Support Team"},
-{client:"Virjee Dental",name:"Create voice library — check on Teams connection",dept:"—",status:"In Progress",owner:"Will"},
-{client:"Cherry Hill",name:"Treat AI output like work from a junior auditor (social)",dept:"Social",status:"Internal Review",owner:"Support Team"},
-{client:"Vast CFO",name:"Restaurant budgeting mistakes (social)",dept:"Social",status:"Internal Review",owner:"Support Team"},
-{client:"Ashford Sky",name:"Create July Newsletter",dept:"Email",status:"Internal Review",owner:"Support Team"},
-{client:"SAS",name:"Bonus depreciation back at 100% under OBBBA (social)",dept:"Social",status:"Internal Review",owner:"Support Team"},
-{client:"Markology",name:"Expand /pricing (547 → 1,200 words)",dept:"SEO",status:"—",owner:"Will"},
-{client:"Core Advisors",name:"Relaunch Search ads on 3 exact-match dental terms",dept:"Ads",status:"Not Started",owner:"Support Team",prio:true},
-{client:"Thompson Flaherty",name:"July Webinar Tasks",dept:"Strategy",status:"Client Review",owner:"Support Team"},
-{client:"Markology / Course",name:"Video script: Why we ask all these questions upfront",dept:"Course",status:"—",owner:"Support Team"},
-{client:"Markology / Course",name:"Build /course-setup skill",dept:"Course",status:"—",owner:"Support Team"},
-{client:"Markology / Course",name:"Workbook: firm profile cheat sheet (PDF)",dept:"Course",status:"—",owner:"Support Team"},
-{client:"Markology / Course",name:"Add new course skills to Skills Playbook board",dept:"Course",status:"—",owner:"Support Team"},
-{client:"Markology / Course",name:"Outline: Module 1 — Onboarding & Firm Profile",dept:"Course",status:"—",owner:"Support Team"},
-{client:"Adam Traywick",name:"Real estate page — low quality leads, what do we do",dept:"—",status:"On Hold",owner:"Support Team"},
-{client:"Cherry Hill",name:"Create content & social calendar for CFO site",dept:"Strategy",status:"Not Started",owner:"Support Team"},
-{client:"U-Nique",name:"Update CoA for 2026",dept:"Development",status:"On Hold",owner:"Support Team"},
-{client:"Llamas",name:"Blog: Payroll for a Winery Tasting Room (tips/IRS)",dept:"Writing",status:"—",owner:"writing@markology"},
-{client:"Traktion",name:"SEO Blog: Multi-State Tax For Therapists",dept:"Writing",status:"Internal Review",owner:"Megan Rinehart"},
-{client:"Markology",name:"[Wk2 Thu · LI] The 3 marketing tasks worth automating first",dept:"Social",status:"—",owner:"unassigned"},
-{client:"Markology",name:"[Wk2 Thu · IG] What ChatGPT says about YOUR firm right now",dept:"Social",status:"—",owner:"unassigned"},
-{client:"Markology",name:"[Wk2 Fri · YAP · Whitney] 3 things I'm obsessed with",dept:"Social",status:"—",owner:"unassigned"},
-{client:"—",name:"Blog: Mid-Year Tax Planning For Insurance Brokers",dept:"Writing",status:"Not Started",owner:"writing@markology"},
-{client:"Adam Traywick",name:"SEO Blog: Accountant Cost for an HVAC Business (TX)",dept:"Writing",status:"Client Review",owner:"Megan Rinehart"},
-{client:"Adam Traywick",name:"SEO Blog: When to Hire a CPA for Your Plumbing Business",dept:"Writing",status:"Client Review",owner:"writing@markology"},
-{client:"Virjee Dental",name:"Blog: Asset vs Stock Purchase for Dentists Buying a Practice",dept:"—",status:"—",owner:"unassigned"},
-];
-async function rerun(){
-  const btn=document.getElementById('rerun');
-  btn.disabled=true; btn.textContent='Refreshing…';
-  try{
-    const r=await fetch('/api/tasks-due',{cache:'no-store'});
-    const d=await r.json();
-    if(d.error){ document.getElementById('gen').textContent='live error: '+d.error; }
-    else { T=(d.tasks||[]).filter(t=>!t.markology); document.getElementById('gen').textContent=(d.generated||'')+' · LIVE'; }
-  }catch(e){ document.getElementById('gen').textContent='snapshot (portal service not running)'; }
-  draw(); btn.disabled=false; btn.textContent='⟳ Rerun';
+let DATA={rows:[]}, showOk=false;
+const money=n=>"$"+(n||0).toLocaleString(undefined,{maximumFractionDigits:0});
+const esc=s=>String(s==null?"":s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+function render(d){
+  DATA=d;
+  document.getElementById('gen').textContent=d.generated||'';
+  const rows=d.rows||[];
+  const ok=rows.filter(r=>r.status==='ok').length;
+  document.getElementById('c-checked').textContent=d.checked||rows.length;
+  document.getElementById('c-flagged').innerHTML=`<span style="color:var(--warn)">${d.flagged||0}</span>`;
+  document.getElementById('c-crit').innerHTML=`<span style="color:var(--neg)">${d.critical||0}</span>`;
+  document.getElementById('c-ok').innerHTML=`<span style="color:var(--pos)">${ok}</span>`;
+  const show=rows.filter(r=>showOk||r.status!=='ok');
+  const tb=document.getElementById('rows');
+  if(!show.length){
+    tb.innerHTML=`<tr><td colspan="5" class="empty">${rows.length?'All clear. Nothing to action.':'No data.'}</td></tr>`;
+    return;
+  }
+  tb.innerHTML=show.map(r=>{
+    const st=r.status==='critical'?["over","CRITICAL"]:r.status==='warning'?["watch","WARNING"]:["ok","OK"];
+    const issues=(r.issues||[]).length
+      ? `<ul class="issues">${r.issues.map(i=>`<li>${esc(i)}</li>`).join('')}</ul>`
+      : '<span class="dim">Nothing flagged</span>';
+    return `<tr>
+      <td class="client">${esc(r.client)}</td>
+      <td><span class="pill ${st[0]}">${st[1]}</span></td>
+      <td>${issues}</td>
+      <td class="num">${money(r.mtd)}</td>
+      <td class="num dim">${r.cap?money(r.cap):'n/a'}</td></tr>`;
+  }).join('');
 }
-function stClass(s){s=(s||'').toLowerCase();
-  if(s.includes('review')&&s.includes('client'))return'st-client';
-  if(s.includes('review'))return'st-review';
-  if(s.includes('progress'))return'st-progress';
-  return'st-notstarted';}
-function draw(){
-  const q=(document.getElementById('q').value||'').toLowerCase().trim();
-  const rows=T.filter(t=>!q||[t.client,t.name,t.dept,t.status,t.owner].join(' ').toLowerCase().includes(q));
-  document.getElementById('c-n').textContent=rows.length;
-  document.getElementById('c-c').textContent=new Set(rows.map(r=>r.client).filter(c=>c!=='—')).size;
-  document.getElementById('c-r').textContent=rows.filter(r=>(r.status||'').toLowerCase().includes('review')).length;
-  document.getElementById('rows').innerHTML=rows.map(t=>`<tr>
-    <td class="client">${t.client}</td>
-    <td class="task">${t.prio?'🔴 ':''}${t.name}</td>
-    <td><span class="pill">${t.dept}</span></td>
-    <td><span class="pill ${stClass(t.status)}">${t.status}</span></td>
-    <td class="owner">${t.owner}</td></tr>`).join('');
+function toggle(){
+  showOk=!showOk;
+  document.getElementById('tog').textContent=showOk?'Hide healthy accounts':'Show healthy accounts';
+  render(DATA);
+}
+async function rerun(){
+  const b=document.getElementById('rerun'); b.disabled=true; b.textContent='Checking…';
+  try{
+    const r=await fetch('/api/ads-health',{cache:'no-store'}); const d=await r.json();
+    if(d.error) throw new Error(d.error);
+    render(d);
+  }catch(e){
+    render({rows:[],checked:0,flagged:0,critical:0});
+    document.getElementById('gen').textContent='live service offline ('+e.message+')';
+  }
+  b.disabled=false; b.textContent='⟳ Rerun';
 }
 rerun();
 </script>

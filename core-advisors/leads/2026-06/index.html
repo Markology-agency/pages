@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Core Advisors — Website Leads · June 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root { --paper:#f7f4ee; --navy:#0b1b3a; --blue:#1f4fff; --lilac:#b9a8ff; --mute:#6a6a72; --hair:#1f1f24; --up:#2a8a3a; --down:#c43a2a; --warn:#a26100; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--paper); font-family:Inter,system-ui,sans-serif; color:var(--hair); line-height:1.5; }
+  .wrap { max-width:1080px; margin:0 auto; padding:32px 24px 80px; }
+  header.hero { margin-bottom:32px; }
+  .pill { display:inline-block; background:var(--navy); color:white; padding:4px 14px; border-radius:999px; font-size:12px; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:16px; }
+  h1 { font-family:Anton,Inter,sans-serif; font-size:56px; line-height:1; color:var(--navy); margin:8px 0 4px; letter-spacing:0.02em; text-transform:uppercase; }
+  h2 { font-family:Anton,Inter,sans-serif; font-size:28px; color:var(--navy); margin:36px 0 14px; letter-spacing:0.02em; text-transform:uppercase; }
+  .lede { font-size:17px; color:var(--hair); max-width:720px; }
+  .meta { color:var(--mute); font-size:13px; margin-top:10px; }
+  .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin:22px 0 36px; }
+  @media (max-width:720px) { .kpis { grid-template-columns:repeat(2,1fr); } h1 { font-size:38px; } }
+  .kpi { background:white; border:2px solid var(--navy); border-radius:6px; padding:16px 14px; box-shadow:5px 5px 0 var(--navy); }
+  .kpi .label { font-size:10px; letter-spacing:0.08em; text-transform:uppercase; color:var(--mute); margin-bottom:6px; }
+  .kpi .value { font-family:Anton,Inter,sans-serif; font-size:34px; color:var(--navy); line-height:1; }
+  .kpi .sub { font-size:12px; color:var(--mute); margin-top:6px; }
+  .table-scroll { overflow-x:auto; }
+  table { width:100%; border-collapse:collapse; background:white; border:2px solid var(--navy); border-radius:6px; overflow:hidden; box-shadow:5px 5px 0 var(--navy); margin-bottom:22px; }
+  thead { background:var(--navy); color:white; }
+  th,td { padding:11px 13px; text-align:left; border-bottom:1px solid #eee; font-size:13px; vertical-align:top; }
+  th { font-size:11px; letter-spacing:0.06em; text-transform:uppercase; }
+  tbody tr:last-child td { border-bottom:none; }
+  td.num { text-align:right; font-variant-numeric:tabular-nums; }
+  th.num { text-align:right; }
+  .notes { background:white; border-left:4px solid var(--blue); padding:14px 18px; margin-top:14px; border-radius:4px; font-size:14px; }
+  .notes.warn { border-left-color:var(--warn); background:#fff8eb; color:#5a4400; }
+  .chart-box { background:white; border:2px solid var(--navy); border-radius:6px; padding:20px; box-shadow:5px 5px 0 var(--navy); position:relative; height:340px; margin-bottom:24px; }
+  .pill-cat { display:inline-block; padding:2px 10px; border-radius:999px; font-size:11px; font-weight:700; }
+  .cat-a { background:#dff5e3; color:#2a8a3a; }
+  .cat-b { background:#e6e9ff; color:#1740c9; }
+  .cat-c { background:#fff4dd; color:#a26100; }
+  .cat-d { background:#f0e8ff; color:#5b3fa8; }
+  .cat-e { background:#d7f4ff; color:#0b6b8a; }
+  .cat-f { background:#ffeadf; color:#a34a10; }
+  .cat-g { background:#e5f5e0; color:#356b1f; }
+  .cat-h { background:#ffe1e1; color:#c43a2a; }
+  .cat-junk { background:#eee; color:var(--mute); }
+  .cat-other { background:#f5f5f5; color:#555; }
+  .src { display:inline-block; padding:2px 10px; border-radius:999px; font-size:11px; font-weight:700; white-space:nowrap; }
+  .src-paid { background:#e6e9ff; color:#1740c9; }
+  .src-organic { background:#dff5e3; color:#2a8a3a; }
+  .src-referral { background:#fff4dd; color:#a26100; }
+  .src-meta { background:#f0e8ff; color:#5b3fa8; }
+  .src-linkedin { background:#d7f4ff; color:#0b6b8a; }
+  .src-email { background:#ffeadf; color:#a34a10; }
+  .src-other { background:#f5f5f5; color:#555; }
+  .src-none { background:#eee; color:var(--mute); }
+  .source-tag { display:inline-block; padding:1px 8px; border-radius:999px; font-size:11px; font-weight:600; background:#eef; color:#334; }
+  footer { margin-top:60px; color:var(--mute); font-size:12px; text-align:center; }
+  footer a { color:var(--blue); text-decoration:none; }
+  .brand { font-family:Anton,Inter,sans-serif; font-size:18px; letter-spacing:2px; color:var(--navy); text-transform:uppercase; }
+  .snippet { color:var(--mute); font-size:12px; max-width:420px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <span class="pill">Monthly Website Leads Report</span>
+  <h1>Core Advisors</h1>
+  <div class="lede">Every enquiry Core Advisors received this month, classified by what the person asked for and where they came from. Spam and non-lead entries are flagged separately so real intake volume is clean.</div>
+  <div class="meta">Source: Core Advisors Website Leads &middot; Date range: <strong>June 2026</strong> &middot; Generated Jul 23, 2026</div>
+</header>
+
+<section class="kpis">
+  <div class="kpi">
+    <div class="label">Total submissions</div>
+    <div class="value">1</div>
+    <div class="sub">raw entries</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Real leads</div>
+    <div class="value">1</div>
+    <div class="sub">after spam &amp; job filter</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Top lead source</div>
+    <div class="value" style="font-size:22px; line-height:1.2;">Not captured</div>
+    <div class="sub">1 of 1 real leads</div>
+  </div>
+  <div class="kpi">
+    <div class="label">Top category</div>
+    <div class="value" style="font-size:22px; line-height:1.2;">Bookkeeping &amp; Accounting</div>
+    <div class="sub">1 lead</div>
+  </div>
+</section>
+
+<h2>Where the leads came from</h2>
+<div class='notes warn'><strong>Attribution isn't captured for Core Advisors yet.</strong> Leads arrive as OnceHub bookings, which don't carry the landing-page URL. Turning on UTM passthrough in OnceHub (or adding a hidden source field to the booking form) is what makes paid-vs-organic attribution possible.</div>
+
+<h2>Leads by category</h2>
+<div class="chart-box"><canvas id="catChart"></canvas></div>
+
+<div class="table-scroll"><table>
+  <thead>
+    <tr><th>Category</th><th class="num">Leads</th><th class="num">Share</th><th>Read</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><span class='pill-cat cat-f'>Bookkeeping &amp; Accounting</span></td><td class='num'>1</td><td class='num'>100%</td><td class='snippet'>I am purchasing a practice, closing date is tentativel…</td></tr>
+  </tbody>
+</table></div>
+
+
+
+<h2>All leads this month</h2>
+<div class="table-scroll"><table>
+  <thead>
+    <tr><th>Date</th><th>Name</th><th>Lead source</th><th>Category</th><th>What they asked for</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Jun 26</td><td>Sirisha Gogineni</td><td><span class='src src-none'>Not captured</span></td><td><span class='pill-cat cat-f'>Bookkeeping &amp; Accounting</span></td><td class='snippet'>I am purchasing a practice, closing date is tentatively July 6th. I am looking to establi…</td></tr>
+  </tbody>
+</table></div>
+
+<div class="notes">
+  <strong>How to read this:</strong> "Real leads" excludes obvious spam (SEO cold outreach, "free website" pitches, RFQ blasts) and job inquiries. Categories are keyword-matched from what the person typed into the form, so a handful may need manual reclassification if the wording is ambiguous. Lead source is read from nothing — this intake doesn't capture attribution yet.
+</div>
+
+<footer>
+  <div class="brand">MARKOLOGY</div>
+  <div>Built by <a href="https://markology.io" target="_blank" rel="noopener">markology.io</a> · Core Advisors · June 2026</div>
+</footer>
+
+</div>
+
+<script>
+const catData = {"labels": ["Bookkeeping & Accounting"], "values": [1]};
+new Chart(document.getElementById('catChart'), {
+  type:'bar',
+  data: {
+    labels: catData.labels,
+    datasets: [{ label:'Leads', data: catData.values, backgroundColor:'#1f4fff', borderColor:'#0b1b3a', borderWidth:1 }]
+  },
+  options: {
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins: { legend: { display:false } },
+    scales: {
+      x: { beginAtZero:true, ticks:{ precision:0 }, title:{ display:true, text:'Leads' } },
+      y: { grid:{ display:false } }
+    }
+  }
+});
+
+</script>
+
+</body>
+</html>

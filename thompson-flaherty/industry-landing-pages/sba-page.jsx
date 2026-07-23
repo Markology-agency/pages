@@ -27,15 +27,6 @@ function SBAHero({ accent }) {
        <div className="sba-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.05fr 0.95fr',
                      gap: 48, alignItems: 'center' }}>
         <div>
-        <div style={{ fontFamily: FONT_DISPLAY, fontSize: 12, fontWeight: 600,
-                      letterSpacing: '0.18em', textTransform: 'uppercase',
-                      color: TF.inkMute, marginBottom: 24 }}>
-          <a href="https://thompsonflaherty.com" style={{ color: TF.inkSoft, textDecoration: 'none' }}>
-            Thompson Flaherty
-          </a>
-          {' › SBA Loan Support'}
-        </div>
-
         <h1 style={{ fontFamily: FONT_DISPLAY, fontWeight: 700,
                      fontSize: 'clamp(36px, 5.5vw, 56px)', lineHeight: 1.06,
                      letterSpacing: '-0.022em', color: TF.ink,

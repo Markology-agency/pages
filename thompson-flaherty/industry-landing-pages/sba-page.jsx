@@ -24,6 +24,9 @@ function SBAHero({ accent }) {
     <div style={{ padding: '80px 56px 72px', background: TF.paper,
                   borderBottom: `1px solid ${TF.border}` }}>
       <div style={{ maxWidth: 1080, margin: '0 auto' }}>
+       <div className="sba-hero-grid" style={{ display: 'grid', gridTemplateColumns: '1.05fr 0.95fr',
+                     gap: 48, alignItems: 'center' }}>
+        <div>
         <div style={{ fontFamily: FONT_DISPLAY, fontSize: 12, fontWeight: 600,
                       letterSpacing: '0.18em', textTransform: 'uppercase',
                       color: TF.inkMute, marginBottom: 24 }}>
@@ -75,6 +78,12 @@ function SBAHero({ accent }) {
           Talk to us about your SBA loan
           <span style={{ display: 'inline-flex' }}>{Icons.arrowUR}</span>
         </a>
+        </div>
+        <img src="https://thompsonflaherty.com/wp-content/uploads/2026/07/tf-sba-hero.jpg"
+             alt="Two small business owners in their shop"
+             style={{ width: '100%', height: 460, objectFit: 'cover',
+                      borderRadius: 20, boxShadow: TF.shadowLg, display: 'block' }} />
+       </div>
       </div>
     </div>
   );
@@ -282,8 +291,8 @@ function SBAWhySection({ accent }) {
   const WHY_POINTS = [
     { title: 'SBA underwriting is a paper exercise.',
       body: 'The underwriter has never met you. They look at documents. A CPA signature puts your file in a different pile.' },
-    { title: 'We work across Metro East IL, St. Louis, and Chicago.',
-      body: "Dozens of SBA loans completed. We know what each region's lenders flag, and we build the package around it." },
+    { title: 'We work across Metro East IL, St. Louis, Chicago, and nationwide.',
+      body: "Dozens of SBA loans completed. We know what each region's lenders flag, and for clients anywhere in the country we build the package around it virtually." },
     { title: '2 to 4 weeks is typical, not 4 months.',
       body: 'Files drag when the financials are not right. We make sure nothing in the package gives the underwriter a reason to slow down.' },
     { title: 'Clean books come first.',

@@ -33,7 +33,12 @@ td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}
 tbody tr:hover{background:var(--wash)}
 tr.dim td{color:#9AA0A4}tr.dim strong{font-weight:600}
 .sm{font-size:.79rem;color:#4a5150}
-.msg{font-size:.82rem;color:#333;max-width:520px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}
+/* break-word, not anywhere: `anywhere` lets the browser count this column's
+   minimum width as one character, so on a six-column table it collapsed to a
+   word per line and pushed the table past the page. */
+.msg{font-size:.82rem;color:#333;min-width:280px;max-width:520px;white-space:pre-wrap;
+  overflow-wrap:break-word;line-height:1.5}
+.tablewrap{overflow-x:auto}
 .co{color:var(--grey);font-size:.76rem;margin-top:2px}
 .nowrap{white-space:nowrap}
 .empty{color:var(--grey);text-align:center;padding:22px 10px}
@@ -47,6 +52,14 @@ tr.dim td{color:#9AA0A4}tr.dim strong{font-weight:600}
 .seg{padding:3px 10px;border-radius:56px;font-size:.72rem;font-weight:700;display:inline-block;white-space:nowrap}
 .seg-goal{background:var(--accent);color:#fff}
 .seg-other{background:#EDEDED;color:#6E7478}
+.monthhead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 18px;
+  padding:12px 16px;border-radius:12px;background:var(--wash);border-left:5px solid var(--accent)}
+.monthhead h2{font-size:1.15rem}
+.monthblock{margin:44px 0 38px;padding-top:6px;border-top:1px solid var(--line)}
+.monthsum{color:var(--grey);font-size:.88rem;margin:-8px 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.chip{padding:4px 12px;border-radius:56px;font-size:.75rem;font-weight:600}
+.chip b{font-weight:800}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 @media(max-width:900px){.grid{grid-template-columns:1fr}}
 .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
@@ -58,7 +71,8 @@ canvas{max-height:290px}
 .stamp .sep{color:rgba(255,255,255,.3)}
 .stamp .dot{width:7px;height:7px;border-radius:50%;background:var(--light)}
 @media print{.hero{background:#fff;color:#111}.eyebrow{color:var(--accent)}.sub{color:#555}
-  .kpi{box-shadow:none}.stamp{color:#555}.stamp strong{color:#111}}
+  .kpi{box-shadow:none}.stamp{color:#555}.stamp strong{color:#111}
+  .tablewrap{overflow:visible}.monthblock{break-before:page}}
 </style>
 <div class="hero"><div class="wrap">
 <div class="eyebrow">Thompson Flaherty CPA &middot; Lead Report</div>
@@ -66,7 +80,7 @@ canvas{max-height:290px}
 <div class="sub">Every enquiry, read directly from Gravity Forms and classified by what the person asked for. Tests and duplicates removed; spam and job inquiries kept visible but excluded from the lead count.</div>
 <div class="stamp">
   <span class="dot"></span>
-  <span>Data refreshed <strong>Aug 4, 7:18am UTC</strong></span>
+  <span>Data refreshed <strong>Aug 4, 9:05am UTC</strong></span>
   <span class="sep">&middot;</span>
   <span>most recent submission <strong>2026-08-03 15:05</strong></span>
   <span class="sep">&middot;</span>
@@ -77,6 +91,7 @@ canvas{max-height:290px}
 <div class="kpis">
 <div class="kpi big"><div class="n">1</div><div class="l">Real leads &mdash; Aug</div></div>
 <div class="kpi"><div class="n">1</div><div class="l">All submissions, Aug</div></div>
+<div class="kpi"><div class="n">8</div><div class="l">Real leads &mdash; Jul (final)</div></div>
 
 <div class="kpi big"><div class="n">1</div><div class="l">Business leads &mdash; the goal</div></div><div class="kpi"><div class="n">0</div><div class="l">Chart of Accounts template</div></div>
 <div class="kpi"><div class="n">0</div><div class="l">Spam &amp; job inquiries</div></div>
@@ -85,7 +100,8 @@ canvas{max-height:290px}
 </div>
 
 
-<section><div class='head'><h2>Enquiries</h2><span class='count'>1 real</span><span class='note'>thompsonflaherty.com &middot; spam and job inquiries greyed out, not counted</span></div><table><thead><tr><th>Submitted</th><th>Name</th><th>Inquiry type</th><th>Category</th><th>What they asked for</th><th>Channel</th><th>Page</th></tr></thead><tbody><tr class=""><td class='nowrap'>Aug 3, 3:05pm</td><td><strong>Manish Vaghela</strong><div class='co'>manishv@sndjglobal.com</div></td><td><span class='seg seg-goal'>Business</span></td><td><span class='pill c2'>Tax Prep &amp; Filing</span></td><td class='msg'>Hi Athar,
+<div class='monthhead'><h2>Aug 2026 &mdash; so far this month</h2><span class='count'>1 real leads</span><span class='note'>through Aug 3, 3:05pm</span></div>
+<section><div class='head'><h2>Enquiries</h2><span class='count'>1 real</span><span class='note'>thompsonflaherty.com &middot; spam and job inquiries greyed out, not counted</span></div><div class='tablewrap'><table><thead><tr><th>Submitted</th><th>Name</th><th>Inquiry type</th><th>Category</th><th>What they asked for</th><th>Channel</th><th>Page</th></tr></thead><tbody><tr class=""><td class='nowrap'>Aug 3, 3:05pm</td><td><strong>Manish Vaghela</strong><div class='co'>manishv@sndjglobal.com</div></td><td><span class='seg seg-goal'>Business</span></td><td><span class='pill c2'>Tax Prep &amp; Filing</span></td><td class='msg'>Hi Athar,
 
 I came across your recent job posting and thought to reach out.  
 
@@ -108,12 +124,98 @@ Manish Vaghela
 BDM, SNDJ Global Consultancy Inc. &amp; SNDJ CPA Inc.
 +1 310-744-1011 (US) +91 7046958215 (INDIA)
 www.sndjglobal.com |  Manishv@sndjglobal.com
-California, Washington, New York &amp; India</td><td><span class='chan'>Google Organic</span></td><td class='sm co'>/</td></tr></tbody></table></section>
+California, Washington, New York &amp; India</td><td><span class='chan'>Google Organic</span></td><td class='sm co'>/</td></tr></tbody></table></div></section>
 
-<section><div class='head'><h2>Chart of Accounts template</h2><span class='count'>0</span><span class='note'>tracked separately from enquiries</span></div><table><thead><tr><th>Submitted</th><th>Name</th><th>How they heard (self-reported)</th></tr></thead><tbody><tr><td colspan="3" class="empty">No downloads yet this month.</td></tr></tbody></table></section>
+<section><div class='head'><h2>Chart of Accounts template</h2><span class='count'>0</span><span class='note'>tracked separately from enquiries</span></div><div class='tablewrap'><table><thead><tr><th>Submitted</th><th>Name</th><th>How they heard (self-reported)</th></tr></thead><tbody><tr><td colspan="3" class="empty">No downloads yet this month.</td></tr></tbody></table></div></section>
+
+<div class='monthblock'><div class='monthhead'><h2>Jul 2026 &mdash; the full month</h2><span class='count'>8 real leads</span><span class='note'>closed month, kept for review</span></div><p class='monthsum'>8 real leads from 11 submissions, 3 spam or job.</p><div class='chips'><span class='chip c4'>Entity Setup / S-Corp <b>2</b></span><span class='chip c6'>Payroll <b>2</b></span><span class='chip c2'>Tax Prep &amp; Filing <b>2</b></span><span class='chip c-other'>Other / Miscellaneous <b>1</b></span><span class='chip c3'>Tax Planning &amp; Strategy <b>1</b></span></div><section><div class='head'><h2>Enquiries</h2><span class='count'>8 real</span><span class='note'>thompsonflaherty.com &middot; spam and job inquiries greyed out, not counted</span></div><div class='tablewrap'><table><thead><tr><th>Submitted</th><th>Name</th><th>Inquiry type</th><th>Category</th><th>What they asked for</th><th>Channel</th><th>Page</th></tr></thead><tbody><tr class=""><td class='nowrap'>Jul 1, 5:45pm</td><td><strong>Amy Wood</strong><div class='co'>Amy_Wood67@outlook.com</div></td><td><span class='seg seg-goal'>Business</span></td><td><span class='pill c2'>Tax Prep &amp; Filing</span></td><td class='msg'>Hello,
+
+I hope you are doing well.
+
+ I have filed an extension for my tax return and would like to be scheduled for preparation services at your earliest availability. Please let me know what documents and information you will need from me to move forward.
+Thank you for your time and consideration, and I appreciate your assistance during this busy season.
+
+Amy Wood.</td><td><span class='chan'>Unknown</span></td><td class='sm co'>/</td></tr><tr class=""><td class='nowrap'>Jul 8, 1:14am</td><td><strong>Shawn Comer</strong><div class='co'>shawncomer@gmail.com</div></td><td><span class='seg seg-goal'>Business</span></td><td><span class='pill c4'>Entity Setup / S-Corp</span></td><td class='msg'>I am purchasing an existing business and have formed a new LLC. I am new to business ownership and am examining my accounting options.</td><td><span class='chan'>Unknown</span></td><td class='sm co'>/contact/</td></tr><tr class=""><td class='nowrap'>Jul 15, 10:28pm</td><td><strong>ARUN NEBHNANI</strong><div class='co'>arun.n@preferredfurnish.com</div></td><td><span class='seg seg-goal'>Business</span></td><td><span class='pill c6'>Payroll</span></td><td class='msg'>I would like more information about your payroll services.</td><td><span class='chan'>Unknown</span></td><td class='sm co'>/contact/</td></tr><tr class="dim"><td class='nowrap'>Jul 17, 6:22pm</td><td><strong>Jeff Baumen</strong><div class='co'>jeff.b@gopiperich.com</div></td><td><span class='seg seg-goal'>Business</span></td><td><span class='pill c-junk'>Spam / Cold Outreach</span></td><td class='msg'>Hi Team,
+
+I read about your year round tax strategy and monthly bookkeeping services here on your site and wanted to reach out.
+
+It looks like you support small business owners and families, and the note you&#x27;re reading now is a live example of what we do. We use AI to reach ideal prospects through their website contact forms, which is a channel owners actually check, and we book qualified consults for you.
+
+No cold email noise, no hiring a sales team, just a steady stream of new clients.
+
+Would you be open to a quick call?
+
+All the best,
+Jeff Baumen</td><td><span class='chan'>Unknown</span></td><td class='sm co'>/contact/</td></tr><tr class="dim"><td class='nowrap'>Jul 17, 7:53pm</td><td><strong>Jan Vance</strong><div class='co'>jan@ioncleanservices.com</div></td><td><span class='seg seg-goal'>Business</span></td><td><span class='pill c-junk'>Spam / Cold Outreach</span></td><td class='msg'>Hi,
+ 
+I work in Edwardsville and help many local companies. I was hoping I could come by and offer a complimentary cleaning bid?
+ 
+Thank you in advance for your response.
+ 
+All the best,
+
+Jan Vance
+IonClean Services
+jan@ioncleanservices.com
+ 
+Respond with stop to optout.</td><td><span class='chan'>Unknown</span></td><td class='sm co'>/contact/</td></tr><tr class="dim"><td class='nowrap'>Jul 17, 8:25pm</td><td><strong>Jan Vance</strong><div class='co'>jan@ioncleanservices.com</div></td><td><span class='seg seg-other'>Individual</span></td><td><span class='pill c-junk'>Spam / Cold Outreach</span></td><td class='msg'>Hi,
+ 
+I work in Edwardsville and help many local companies. I was hoping I could come by and offer a complimentary cleaning bid?
+ 
+Thank you in advance for your response.
+ 
+All the best,
+
+Jan Vance
+IonClean Services
+jan@ioncleanservices.com
+ 
+Respond with stop to optout.</td><td><span class='chan'>Unknown</span></td><td class='sm co'>/contact/</td></tr><tr class=""><td class='nowrap'>Jul 20, 12:54pm</td><td><strong>Jonathon Cottone</strong><div class='co'>Jonathon.cottone@legomis.com</div></td><td><span class='seg seg-other'>Individual</span></td><td><span class='pill c2'>Tax Prep &amp; Filing</span></td><td class='msg'>Hello,
+
+I hope this note finds you well.
+
+I&#x27;ve been handling my own tax filings for years, but this year my financial circumstances have become more layered, and I&#x27;ve decided it&#x27;s time to work with a professional who can offer guidance and peace of mind. Your firm came to my attention through the strong reviews I read online, and I was particularly drawn to the thoughtful approach reflected in your client feedback.
+
+At this stage, I&#x27;m exploring whether you&#x27;re currently accepting new clients and, if so, whether a brief initial conversation might be mutually worthwhile — both to discuss my situation and to get a sense of how we might work together.
+
+I appreciate your time and consideration and look forward to the possibility of connecting.
+
+Sincerely,
+Jonathon Cottone</td><td><span class='chan'>Unknown</span></td><td class='sm co'>/contact/</td></tr><tr class=""><td class='nowrap'>Jul 20, 6:10pm</td><td><strong>Jaason White</strong><div class='co'>punchincoffee@outlook.com</div></td><td><span class='seg seg-goal'>Business</span></td><td><span class='pill c3'>Tax Planning &amp; Strategy</span></td><td class='msg'>Looking for insight on bookkeeping, taxes on Missouri LLC while living in Illinois and tax advice on hiring 1099 contractors</td><td><span class='chan'>Unknown</span></td><td class='sm co'>/contact/</td></tr><tr class=""><td class='nowrap'>Jul 25, 7:19pm</td><td><strong>TURQUOIS WHITE</strong><div class='co'>Turquoiswhite27@gmail.com</div></td><td><span class='seg seg-goal'>Business</span></td><td><span class='pill c-other'>Other / Miscellaneous</span></td><td class='msg'>Need assistance with filing business taxes</td><td><span class='chan'>Google Organic</span></td><td class='sm co'>/tax-business/</td></tr><tr class=""><td class='nowrap'>Jul 27, 11:55am</td><td><strong>CHRISTOPHER CAMPIONE</strong><div class='co'>jaxarmadarealestatellc@gmail.com</div></td><td><span class='seg seg-goal'>Business</span></td><td><span class='pill c4'>Entity Setup / S-Corp</span></td><td class='msg'>I am looking for a payroll pricing quote for my business. We currently  your payroll have 5 employees.
+
+Could you please send over your pricing structure, including any base fees and per-employee weekly and monthly costs? Let me know what additional details you need from me to provide an accurate estimate and Payroll software are you using to process
+
+Thank you,
+
+JAX ARMADA REAL ESTATE LLC
+CHRISTOPHER CAMPIONE
+501 W BAY STREET, STE 100
+JACKSONVILLE, FL 32202</td><td><span class='chan'>Unknown</span></td><td class='sm co'>/contact/</td></tr><tr class=""><td class='nowrap'>Jul 29, 5:51am</td><td><strong>Gary Olney</strong><div class='co'>info@boulevardministorageinc.site</div></td><td><span class='seg seg-goal'>Business</span></td><td><span class='pill c6'>Payroll</span></td><td class='msg'>Hello Team,
+
+I am reaching out on behalf of Boulevard Mini Storage Inc. We are looking for a payroll provider that can offer a fully managed payroll solution for our business.
+
+We are rebuilding our company after pausing operations during COVID and are transitioning away from manual paper checks to a professional payroll system with direct deposit and compliance support.
+
+Our requirements:
+• Approximately 10-20 employees
+• Weekly payroll processing
+• Florida-based company
+• Direct deposit setup and ongoing payroll administration
+
+We are looking for a provider that can handle the payroll workflow from your end while we provide employee information, documentation, approvals, and e-signatures.
+
+We are ready to move quickly and would appreciate connecting with a team that can support our requirements.
+
+Please contact me at this email address so we can discuss next steps.
+
+Thank you.
+
+Best regards,
+Gary J. Olney
+Owner | Boulevard Mini Storage Inc.</td><td><span class='chan'>Referral</span></td><td class='sm co'>/</td></tr></tbody></table></div></section><section><div class='head'><h2>Chart of Accounts template</h2><span class='count'>0</span><span class='note'>tracked separately from enquiries</span></div><div class='tablewrap'><table><thead><tr><th>Submitted</th><th>Name</th><th>How they heard (self-reported)</th></tr></thead><tbody><tr><td colspan="3" class="empty">No downloads in Jul.</td></tr></tbody></table></div></section></div>
 
 <div class='grid'><div class='card'><h3>Real leads by month</h3><canvas id='c1'></canvas></div><div class='card'><h3>Leads by category &mdash; YTD</h3><canvas id='c2'></canvas></div></div><div style='height:18px'></div><div class='grid'><div class='card'><h3>Entry pages &mdash; YTD</h3><canvas id='c5'></canvas></div><div class='card'><h3>How this is measured</h3><p class='chartnote' style='line-height:1.7'><strong>Real lead</strong> &mdash; an enquiry-form submission that isn't spam or a job inquiry. Guide downloads are counted separately.<br><strong>Category</strong> &mdash; keyword-matched from what the person typed, so an ambiguously worded submission may need reclassifying by eye.<br><strong>Removed this run</strong> &mdash; 17 test, internal and duplicate submissions.</p></div></div><div style='height:18px'></div>
-<p class="foot">Generated 2026-08-04 07:18 UTC &middot; source: Gravity Forms on thompsonflaherty.com &middot; ad spend unavailable this run</p>
+<p class="foot">Generated 2026-08-04 09:05 UTC &middot; source: Gravity Forms on thompsonflaherty.com &middot; ad spend unavailable this run</p>
 </div></main>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>

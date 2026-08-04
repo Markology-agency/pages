@@ -33,7 +33,12 @@ td{padding:11px 10px;border-bottom:1px solid var(--line);vertical-align:top}
 tbody tr:hover{background:var(--wash)}
 tr.dim td{color:#9AA0A4}tr.dim strong{font-weight:600}
 .sm{font-size:.79rem;color:#4a5150}
-.msg{font-size:.82rem;color:#333;max-width:520px;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}
+/* break-word, not anywhere: `anywhere` lets the browser count this column's
+   minimum width as one character, so on a six-column table it collapsed to a
+   word per line and pushed the table past the page. */
+.msg{font-size:.82rem;color:#333;min-width:280px;max-width:520px;white-space:pre-wrap;
+  overflow-wrap:break-word;line-height:1.5}
+.tablewrap{overflow-x:auto}
 .co{color:var(--grey);font-size:.76rem;margin-top:2px}
 .nowrap{white-space:nowrap}
 .empty{color:var(--grey);text-align:center;padding:22px 10px}
@@ -47,6 +52,14 @@ tr.dim td{color:#9AA0A4}tr.dim strong{font-weight:600}
 .seg{padding:3px 10px;border-radius:56px;font-size:.72rem;font-weight:700;display:inline-block;white-space:nowrap}
 .seg-goal{background:var(--accent);color:#fff}
 .seg-other{background:#EDEDED;color:#6E7478}
+.monthhead{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:0 0 18px;
+  padding:12px 16px;border-radius:12px;background:var(--wash);border-left:5px solid var(--accent)}
+.monthhead h2{font-size:1.15rem}
+.monthblock{margin:44px 0 38px;padding-top:6px;border-top:1px solid var(--line)}
+.monthsum{color:var(--grey);font-size:.88rem;margin:-8px 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.chip{padding:4px 12px;border-radius:56px;font-size:.75rem;font-weight:600}
+.chip b{font-weight:800}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 @media(max-width:900px){.grid{grid-template-columns:1fr}}
 .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
@@ -58,7 +71,8 @@ canvas{max-height:290px}
 .stamp .sep{color:rgba(255,255,255,.3)}
 .stamp .dot{width:7px;height:7px;border-radius:50%;background:var(--light)}
 @media print{.hero{background:#fff;color:#111}.eyebrow{color:var(--accent)}.sub{color:#555}
-  .kpi{box-shadow:none}.stamp{color:#555}.stamp strong{color:#111}}
+  .kpi{box-shadow:none}.stamp{color:#555}.stamp strong{color:#111}
+  .tablewrap{overflow:visible}.monthblock{break-before:page}}
 </style>
 <div class="hero"><div class="wrap">
 <div class="eyebrow">Vast CFO &middot; Lead Report</div>
@@ -66,7 +80,7 @@ canvas{max-height:290px}
 <div class="sub">Every enquiry, read directly from Gravity Forms and classified by what the person asked for. Tests and duplicates removed; spam and job inquiries kept visible but excluded from the lead count.</div>
 <div class="stamp">
   <span class="dot"></span>
-  <span>Data refreshed <strong>Aug 4, 7:18am UTC</strong></span>
+  <span>Data refreshed <strong>Aug 4, 9:05am UTC</strong></span>
   <span class="sep">&middot;</span>
   <span>most recent submission <strong>2026-07-28 11:03</strong></span>
   <span class="sep">&middot;</span>
@@ -77,6 +91,7 @@ canvas{max-height:290px}
 <div class="kpis">
 <div class="kpi big"><div class="n">0</div><div class="l">Real leads &mdash; Aug</div></div>
 <div class="kpi"><div class="n">0</div><div class="l">All submissions, Aug</div></div>
+<div class="kpi"><div class="n">6</div><div class="l">Real leads &mdash; Jul (final)</div></div>
 
 <div class="kpi"><div class="n">0</div><div class="l">Benchmark guide</div></div><div class="kpi"><div class="n">0</div><div class="l">Benchmark guide (popup)</div></div><div class="kpi"><div class="n">0</div><div class="l">Chart of Accounts download</div></div><div class="kpi"><div class="n">0</div><div class="l">Restaurant webinar</div></div>
 <div class="kpi"><div class="n">0</div><div class="l">Spam &amp; job inquiries</div></div>
@@ -85,12 +100,52 @@ canvas{max-height:290px}
 </div>
 
 
-<section><div class='head'><h2>Enquiries</h2><span class='count'>0 real</span><span class='note'>vastcfo.com &middot; spam and job inquiries greyed out, not counted</span></div><table><thead><tr><th>Submitted</th><th>Name</th><th>Category</th><th>What they asked for</th></tr></thead><tbody><tr><td colspan="4" class="empty">Nothing yet this month.</td></tr></tbody></table></section>
+<div class='monthhead'><h2>Aug 2026 &mdash; so far this month</h2><span class='count'>0 real leads</span><span class='note'>no submissions yet this month</span></div>
+<section><div class='head'><h2>Enquiries</h2><span class='count'>0 real</span><span class='note'>vastcfo.com &middot; spam and job inquiries greyed out, not counted</span></div><div class='tablewrap'><table><thead><tr><th>Submitted</th><th>Name</th><th>Category</th><th>What they asked for</th></tr></thead><tbody><tr><td colspan="4" class="empty">Nothing yet this month.</td></tr></tbody></table></div></section>
 
-<section><div class='head'><h2>Benchmark guide</h2><span class='count'>0</span><span class='note'>tracked separately from enquiries</span></div><table><thead><tr><th>Submitted</th><th>Name</th><th>How they heard (self-reported)</th></tr></thead><tbody><tr><td colspan="3" class="empty">No downloads yet this month.</td></tr></tbody></table></section><section><div class='head'><h2>Benchmark guide (popup)</h2><span class='count'>0</span><span class='note'>tracked separately from enquiries</span></div><table><thead><tr><th>Submitted</th><th>Name</th><th>How they heard (self-reported)</th></tr></thead><tbody><tr><td colspan="3" class="empty">No downloads yet this month.</td></tr></tbody></table></section><section><div class='head'><h2>Chart of Accounts download</h2><span class='count'>0</span><span class='note'>tracked separately from enquiries</span></div><table><thead><tr><th>Submitted</th><th>Name</th><th>How they heard (self-reported)</th></tr></thead><tbody><tr><td colspan="3" class="empty">No downloads yet this month.</td></tr></tbody></table></section><section><div class='head'><h2>Restaurant webinar</h2><span class='count'>0</span><span class='note'>tracked separately from enquiries</span></div><table><thead><tr><th>Submitted</th><th>Name</th><th>How they heard (self-reported)</th></tr></thead><tbody><tr><td colspan="3" class="empty">No downloads yet this month.</td></tr></tbody></table></section>
+<section><div class='head'><h2>Benchmark guide</h2><span class='count'>0</span><span class='note'>tracked separately from enquiries</span></div><div class='tablewrap'><table><thead><tr><th>Submitted</th><th>Name</th><th>How they heard (self-reported)</th></tr></thead><tbody><tr><td colspan="3" class="empty">No downloads yet this month.</td></tr></tbody></table></div></section><section><div class='head'><h2>Benchmark guide (popup)</h2><span class='count'>0</span><span class='note'>tracked separately from enquiries</span></div><div class='tablewrap'><table><thead><tr><th>Submitted</th><th>Name</th><th>How they heard (self-reported)</th></tr></thead><tbody><tr><td colspan="3" class="empty">No downloads yet this month.</td></tr></tbody></table></div></section><section><div class='head'><h2>Chart of Accounts download</h2><span class='count'>0</span><span class='note'>tracked separately from enquiries</span></div><div class='tablewrap'><table><thead><tr><th>Submitted</th><th>Name</th><th>How they heard (self-reported)</th></tr></thead><tbody><tr><td colspan="3" class="empty">No downloads yet this month.</td></tr></tbody></table></div></section><section><div class='head'><h2>Restaurant webinar</h2><span class='count'>0</span><span class='note'>tracked separately from enquiries</span></div><div class='tablewrap'><table><thead><tr><th>Submitted</th><th>Name</th><th>How they heard (self-reported)</th></tr></thead><tbody><tr><td colspan="3" class="empty">No downloads yet this month.</td></tr></tbody></table></div></section>
+
+<div class='monthblock'><div class='monthhead'><h2>Jul 2026 &mdash; the full month</h2><span class='count'>6 real leads</span><span class='note'>closed month, kept for review</span></div><p class='monthsum'>6 real leads from 6 submissions &middot; 2 guide downloads.</p><div class='chips'><span class='chip c-other'>Other / Miscellaneous <b>2</b></span><span class='chip c6'>Payroll <b>2</b></span><span class='chip c7'>Bookkeeping &amp; Accounting <b>1</b></span><span class='chip c6'>General guidance / advice <b>1</b></span></div><section><div class='head'><h2>Enquiries</h2><span class='count'>6 real</span><span class='note'>vastcfo.com &middot; spam and job inquiries greyed out, not counted</span></div><div class='tablewrap'><table><thead><tr><th>Submitted</th><th>Name</th><th>Category</th><th>What they asked for</th><th>Channel</th></tr></thead><tbody><tr class=""><td class='nowrap'>Jul 2, 4:50pm</td><td><strong>Greg Judkins</strong><div class='co'>GregDJ@riverlandhomes.us</div></td><td><span class='pill c6'>Payroll</span></td><td class='msg'>Hi,
+
+I’m looking for a seasoned accounting professional to take the lead on my bookkeeping and payroll functions and something tells me your approach might be exactly what I need right now.
+
+This isn’t about a routine handover. I’m hoping for a fresh set of eyes and a collaborative mindset to help refine how things run. If you’re open to it, I’d love to schedule a brief video call to walk you through the current workflow, the scope of the work, and what I’d consider a strong six-month outcome.
+
+Let me know if you have 30 minutes in the coming days. I’d genuinely enjoy the chance to explore this with you.
+
+Thanks for considering, and I look forward to hearing your thoughts.
+
+Best regards,
+Greg Judkins.</td><td><span class='chan'>Unknown</span></td></tr><tr class=""><td class='nowrap'>Jul 3, 10:42pm</td><td><strong>Greg Judkins</strong><div class='co'>gregdj@riverlandhomes.us</div></td><td><span class='pill c6'>Payroll</span></td><td class='msg'>I’m reaching out because I’m not simply looking for someone to manage transactions and payroll cycles. I’m looking for a thinker who can bring clarity, insight, and a fresh lens to the financial rhythm of my business. After looking closely at your background, I get the sense that your perspective aligns well with where we’re headed.</td><td><span class='chan'>Unknown</span></td></tr><tr class=""><td class='nowrap'>Jul 6, 8:19pm</td><td><strong>Alfonso Icochea</strong><div class='co'>alfonso.icochea@coolvu.com</div></td><td><span class='pill c-other'>Other / Miscellaneous</span></td><td class='msg'>Hello
+
+We have a new project that requires your company&#x27;s specialization to fulfil our project requirements. We look forward to hearing from you.
+
+Looking forward to your response.
+Best regards
+Regards,
+Coolvu</td><td><span class='chan'>Unknown</span></td></tr><tr class=""><td class='nowrap'>Jul 7, 4:20pm</td><td><strong>ALLISON DICKENS</strong><div class='co'>allison@ludgers.com</div></td><td><span class='pill c7'>Bookkeeping &amp; Accounting</span></td><td class='msg'>I&#x27;m reaching out because we&#x27;re looking for a bookkeeping and financial advisory partner with experience working with restaurants, bakeries, cafés, or other small businesses.
+
+To provide a little background, our bakery and café has been established for many years and generates solid revenue. Historically, we&#x27;ve handled much of the bookkeeping ourselves. More recently, we worked with a bookkeeper for a period of time, and we believe our books may be up to date through the end of 2025. However, we&#x27;re not completely certain and would like someone to review everything, identify any gaps, and ensure our financial records are accurate moving forward.
+
+We&#x27;re also looking for a true financial partner. Like many small businesses, we&#x27;ve found ourselves relying on higher-cost short-term financing over the years. While those decisions helped us navigate challenges and continue operating, they&#x27;ve also created ongoing pressure on our cash flow. We know we need a better long-term strategy, and we&#x27;re ready to do the work to get there.
+
+We&#x27;re looking for someone who is comfortable having honest conversations about debt, cash flow, and profitability without judgment. Our goal is to gain a clear understanding of where we stand today, identify opportunities to strengthen the business, and build a realistic plan to reduce debt and improve our long-term financial health. We want someone who can help us see the full financial potential of the business—not just keep the books balanced.
+
+Experience in the restaurant, bakery, café, or hospitality industry is especially important to us, as we value someone who understands the unique challenges of food costs, labor, inventory, seasonality, and daily operations.
+
+If this sounds like the type of partnership you provide, we&#x27;d love to learn more about your services, your experience working with businesses like ours, your pricing structure, and what your onboarding process looks like.
+
+Thank you for your time, and I look forward to hearing from you.</td><td><span class='chan'>Unknown</span></td></tr><tr class=""><td class='nowrap'>Jul 17, 12:02am</td><td><strong>Justin Moore</strong><div class='co'>justin@momocharleston.com</div></td><td><span class='pill c6'>General guidance / advice</span></td><td class='msg'>Have 2 locations. We parted ways with our CPA and need help catching up and getting our financials and returns in order</td><td><span class='chan'>Unknown</span></td></tr><tr class=""><td class='nowrap'>Jul 28, 11:03am</td><td><strong>Tadanobu Nagumo</strong><div class='co'>tadanobunagumo916@gmail.com</div></td><td><span class='pill c-other'>Other / Miscellaneous</span></td><td class='msg'>Good Day,
+Our Company Yokohama Rubber Company is interested in Employing your Services in Payment Collections from our CANADA/USA Customer as
+a part time job for you which entitles you 20% and other benefits you will make from the part time offer, 
+
+kindly reply to (tadanobunagumo916@gmail.com).
+
+Your Sincerely
+Ms Julian Arashiro</td><td><span class='chan'>Referral</span></td></tr></tbody></table></div></section><section><div class='head'><h2>Benchmark guide</h2><span class='count'>1</span><span class='note'>tracked separately from enquiries</span></div><div class='tablewrap'><table><thead><tr><th>Submitted</th><th>Name</th><th>How they heard (self-reported)</th></tr></thead><tbody><tr><td class='nowrap'>Jul 20, 8:43pm</td><td><strong>Tanya</strong><div class='co'>tanya@vastcfo.com</div></td><td class='sm'>—</td></tr></tbody></table></div></section><section><div class='head'><h2>Benchmark guide (popup)</h2><span class='count'>0</span><span class='note'>tracked separately from enquiries</span></div><div class='tablewrap'><table><thead><tr><th>Submitted</th><th>Name</th><th>How they heard (self-reported)</th></tr></thead><tbody><tr><td colspan="3" class="empty">No downloads in Jul.</td></tr></tbody></table></div></section><section><div class='head'><h2>Chart of Accounts download</h2><span class='count'>1</span><span class='note'>tracked separately from enquiries</span></div><div class='tablewrap'><table><thead><tr><th>Submitted</th><th>Name</th><th>How they heard (self-reported)</th></tr></thead><tbody><tr><td class='nowrap'>Jul 3, 10:10pm</td><td><strong>mary rogan</strong><div class='co'>mary.sammich@gmail.com</div></td><td class='sm'>—</td></tr></tbody></table></div></section><section><div class='head'><h2>Restaurant webinar</h2><span class='count'>0</span><span class='note'>tracked separately from enquiries</span></div><div class='tablewrap'><table><thead><tr><th>Submitted</th><th>Name</th><th>How they heard (self-reported)</th></tr></thead><tbody><tr><td colspan="3" class="empty">No downloads in Jul.</td></tr></tbody></table></div></section></div>
 
 <div class='grid'><div class='card'><h3>Real leads by month</h3><canvas id='c1'></canvas></div><div class='card'><h3>Leads by category &mdash; YTD</h3><canvas id='c2'></canvas></div></div><div style='height:18px'></div><div class='grid'><div class='card'><h3>Ad spend vs real leads</h3><p class='chartnote'>Grey bars = Google Ads spend (left). Line = real leads (right).</p><canvas id='c3'></canvas></div><div class='card'><h3>How this is measured</h3><p class='chartnote' style='line-height:1.7'><strong>Real lead</strong> &mdash; an enquiry-form submission that isn't spam or a job inquiry. Guide downloads are counted separately.<br><strong>Category</strong> &mdash; keyword-matched from what the person typed, so an ambiguously worded submission may need reclassifying by eye.<br><strong>Removed this run</strong> &mdash; 74 test, internal and duplicate submissions.</p></div></div><div style='height:18px'></div>
-<p class="foot">Generated 2026-08-04 07:18 UTC &middot; source: Gravity Forms on vastcfo.com &middot; ad spend: Google Ads</p>
+<p class="foot">Generated 2026-08-04 09:05 UTC &middot; source: Gravity Forms on vastcfo.com &middot; ad spend: Google Ads</p>
 </div></main>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>

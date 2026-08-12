@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Core Advisors: Practice Value Calculator</title>
+</head><body style="margin:0;background:#fff;">
+<style>
+@font-face{font-family:'Euclid Circular B';src:url('https://coreadvisors.com/wp-content/uploads/2024/12/Euclid-Circular-B-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+@font-face{font-family:'Euclid Circular B';src:url('https://coreadvisors.com/wp-content/uploads/2024/12/Euclid-Circular-B-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+@font-face{font-family:'Euclid Circular B';src:url('https://coreadvisors.com/wp-content/uploads/2024/12/Euclid-Circular-B-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+@font-face{font-family:'Euclid Circular B';src:url('https://coreadvisors.com/wp-content/uploads/2024/12/Euclid-Circular-B-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+body{margin:0;background:#fff;-webkit-font-smoothing:antialiased}
+a{color:#092d4f}a:hover{color:#123f68}
+</style>
+<div style="font-family:'Euclid Circular B','Poppins',system-ui,sans-serif;color:#092d4f;background:linear-gradient(158deg,#092d4f 0%,#0e3a63 60%,#123f68 100%);padding:64px 24px 40px;text-align:center;">
+  <a href="/"><img src="https://coreadvisors.com/wp-content/uploads/2025/06/Core-Logo@3x.png" alt="Core Advisors" style="height:44px;width:auto;margin:0 auto 26px;display:block;filter:brightness(0) invert(1);"></a>
+  <span style="display:inline-block;background:rgba(213,236,246,0.14);border:1.5px solid rgba(213,236,246,0.34);border-radius:80px;padding:9px 22px;font-size:12px;font-weight:700;letter-spacing:0.1em;color:#d5ecf6;margin-bottom:20px;">FREE PRACTICE VALUATION</span>
+  <h1 style="font-size:42px;line-height:1.12;font-weight:700;letter-spacing:-0.02em;margin:0 auto 16px;max-width:20ch;color:#fff;">Find out what your practice is worth, and what it could be.</h1>
+  <p style="font-size:18px;color:rgba(255,255,255,0.78);margin:0 auto;max-width:54ch;">Eight questions. About two minutes. Nothing you need to look up, and no obligation at the end.</p>
+</div>
+<div id="calc" style="background:#eef4fa;padding:40px 16px 64px;">
+<!--
+  Core Advisors: Practice Value Calculator (v3, native)
+  Built 2026-08-12 from "CoreAdvisors meta ads brainstorm (6)" -> Practice Value Calculator.
+  Fragment. Drop into any page; all rules are scoped under .pvc.
+
+  BLOCKING: MULT_TODAY / MULT_BIC are null until Jeremiah D. Barwick, CEPA verifies
+  the SDE multiple. While null the result screen shows the pending chip instead of a dollar
+  figure, so this page cannot quote a dentist a number that has not been signed off.
+  Never use an EBITDA multiple here. This is SDE.
+-->
+<style>
+.pvc{font-family:'Euclid Circular B','Poppins',system-ui,-apple-system,sans-serif;color:#092d4f;line-height:1.5;max-width:860px;margin:0 auto;padding:8px;box-sizing:border-box}
+.pvc *{box-sizing:border-box}
+.pvc-card{background:#fff;border-radius:16px;box-shadow:0 6px 32px rgba(9,45,79,.08);overflow:hidden}
+.pvc-prog{padding:22px 32px 0}
+.pvc-prog-top{display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#5d7186;margin-bottom:10px}
+.pvc-part{font-weight:600;color:#092d4f;letter-spacing:.02em}
+.pvc-track{height:6px;background:#e6eef6;border-radius:99px;overflow:hidden}
+.pvc-fill{height:100%;width:0;background:#092d4f;border-radius:99px;transition:width .35s ease}
+.pvc-body{padding:30px 32px 34px}
+.pvc-q{font-size:23px;font-weight:600;margin:0 0 8px;line-height:1.3}
+.pvc-help{font-size:14px;color:#5d7186;margin:0 0 20px;max-width:60ch}
+.pvc-moneybox{display:flex;align-items:stretch;border:2px solid #092d4f;border-radius:10px;overflow:hidden;max-width:420px}
+.pvc-moneybox span{background:#eef3f8;padding:14px 18px;font-weight:600;color:#5d7186;display:flex;align-items:center}
+.pvc-moneybox input{border:0;outline:0;padding:14px 16px;font-size:17px;width:100%;font-family:inherit;color:#092d4f;background:#fff}
+.pvc-suffix{font-size:13px;color:#5d7186;margin-top:8px}
+.pvc-opts{display:grid;gap:10px;max-width:560px}
+.pvc-opt{display:flex;align-items:center;gap:13px;border:1.5px solid #dde7f1;border-radius:10px;padding:14px 16px;cursor:pointer;font-size:15px;transition:.15s;background:#fff}
+.pvc-opt:hover{border-color:#9db8d0;background:#f8fbfe}
+.pvc-opt.on{border-color:#092d4f;background:#f2f7fc}
+.pvc-radio{flex:0 0 18px;height:18px;border-radius:50%;border:2px solid #b9cbdc;position:relative}
+.pvc-opt.on .pvc-radio{border-color:#092d4f}
+.pvc-radio i{position:absolute;inset:3px;border-radius:50%;background:transparent}
+.pvc-opt.on .pvc-radio i{background:#092d4f}
+.pvc-field{max-width:420px;margin-bottom:16px}
+.pvc-field label{display:block;font-size:14px;font-weight:500;margin-bottom:7px}
+.pvc-field input{width:100%;border:2px solid #092d4f;border-radius:10px;padding:13px 15px;font-size:16px;font-family:inherit;outline:0;color:#092d4f}
+.pvc-privacy{font-size:12px;color:#5d7186;max-width:52ch;margin-top:4px}
+.pvc-err{color:#c0392b;font-size:13px;margin-top:10px;display:none}
+.pvc-nav{display:flex;justify-content:space-between;align-items:center;background:#092d4f;padding:16px 32px}
+.pvc-nav button{font-family:inherit;font-size:15px;border-radius:99px;padding:11px 24px;cursor:pointer;font-weight:500}
+.pvc-back{border:1px solid rgba(255,255,255,.4);background:transparent;color:#fff}
+.pvc-back[disabled]{opacity:.35;cursor:not-allowed}
+.pvc-count{color:#fff;font-size:13px;opacity:.85;font-weight:500}
+.pvc-next{border:1px solid #fff;background:#fff;color:#092d4f;font-weight:600}
+.pvc-res{display:none}
+.pvc-res-head{background:linear-gradient(135deg,#092d4f,#123f68);color:#fff;padding:34px 32px}
+.pvc-eyebrow{font-size:12px;letter-spacing:.12em;text-transform:uppercase;opacity:.75;margin:0 0 9px}
+.pvc-res-head h2{margin:0 0 6px;font-size:28px;line-height:1.25;font-weight:700}
+.pvc-res-head p{margin:0;opacity:.85;font-size:15px;max-width:62ch}
+.pvc-res-body{padding:32px}
+.pvc-two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.pvc-num{border:1px solid #dde7f1;border-radius:12px;padding:20px;background:#f7fafd}
+.pvc-num.bic{border-color:#cfe8d8;background:#f4faf6}
+.pvc-num p:first-child{font-size:13px;color:#5d7186;margin:0 0 8px;font-weight:500}
+.pvc-big{font-size:30px;font-weight:700;margin:0 0 4px;letter-spacing:-.01em}
+.pvc-num.bic .pvc-big{color:#3a975b}
+.pvc-note{font-size:12px;color:#5d7186;margin:0}
+.pvc-pending{background:#fdeaea;border:1px solid #f2c0c0;color:#9b2c2c;border-radius:5px;padding:1px 7px;font-size:14px;font-weight:600;white-space:nowrap;vertical-align:middle}
+.pvc-sde{margin-top:18px;background:#f2f7fc;border:1px solid #dde7f1;border-radius:10px;padding:14px 16px;font-size:14px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.pvc-gap{margin-top:28px}
+.pvc-gap h3{font-size:15px;font-weight:600;margin:0 0 12px}
+.pvc-bar{position:relative;height:42px;background:#eaf1f8;border-radius:8px;overflow:hidden}
+.pvc-bar-today{position:absolute;left:0;top:0;bottom:0;width:8%;background:#092d4f;border-radius:8px 0 0 8px;transition:width .6s ease}
+.pvc-bar-gap{position:absolute;top:0;bottom:0;left:8%;right:0;background:repeating-linear-gradient(45deg,#f6e7c8,#f6e7c8 8px,#fbf2e0 8px,#fbf2e0 16px)}
+.pvc-scale{display:flex;justify-content:space-between;margin-top:9px;font-size:12px;color:#5d7186}
+.pvc-gapnote{margin-top:16px;background:#fdf7ec;border:1px solid #f0dcb4;border-radius:12px;padding:15px 17px;font-size:15px}
+.pvc-gapnote b{color:#c98a1e}
+.pvc-score{margin-top:30px;border:1px solid #dde7f1;border-radius:12px;padding:20px;background:#f7fafd}
+.pvc-score-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+.pvc-score-top h3{margin:0;font-size:16px;font-weight:600}
+.pvc-tier{display:inline-block;border-radius:6px;padding:3px 9px;font-size:12px;font-weight:600;margin-left:8px}
+.pvc-pct{font-size:26px;font-weight:700}
+.pvc-meter{height:10px;background:#e2ebf4;border-radius:99px;position:relative}
+.pvc-meter i{position:absolute;left:0;top:0;bottom:0;width:0;background:#092d4f;border-radius:99px;transition:width .6s ease}
+.pvc-meter u{position:absolute;left:72%;top:-5px;bottom:-5px;width:2px;background:#3a975b}
+.pvc-score p{margin:13px 0 0;font-size:13px;color:#5d7186}
+.pvc-drivers{margin-top:30px}
+.pvc-drivers h3{font-size:17px;margin:0 0 5px;font-weight:600}
+.pvc-drivers-sub{font-size:13px;color:#5d7186;margin:0 0 14px}
+.pvc-driver{display:flex;gap:13px;align-items:flex-start;padding:15px 0;border-top:1px solid #dde7f1}
+.pvc-dot{flex:0 0 8px;height:8px;border-radius:50%;margin-top:8px;background:#c98a1e}
+.pvc-driver h4{margin:0 0 4px;font-size:15px;font-weight:600}
+.pvc-driver p{margin:0;font-size:14px;color:#5d7186}
+.pvc-cta{margin-top:30px;background:#092d4f;border-radius:14px;padding:28px 30px;color:#fff;display:flex;gap:22px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.pvc-cta h3{margin:0 0 6px;font-size:20px;font-weight:700}
+.pvc-cta p{margin:0;opacity:.85;font-size:14px;max-width:46ch}
+.pvc-badges{display:flex;gap:9px;margin-top:14px;flex-wrap:wrap}
+.pvc-badges span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:6px;padding:5px 9px;font-size:11px;letter-spacing:.04em}
+.pvc-cta a{background:#fff;color:#092d4f;border:0;border-radius:99px;padding:14px 26px;font-size:15px;font-weight:600;text-decoration:none;white-space:nowrap;display:inline-block}
+.pvc-restart{margin-top:18px;text-align:center}
+.pvc-restart button{background:none;border:0;color:#5d7186;font-size:13px;text-decoration:underline;cursor:pointer;font-family:inherit}
+.pvc-disc{margin-top:20px;font-size:12px;color:#5d7186;line-height:1.6}
+@media(max-width:640px){
+  .pvc-prog,.pvc-nav{padding-left:20px;padding-right:20px}
+  .pvc-body,.pvc-res-body,.pvc-res-head{padding:24px 20px}
+  .pvc-q{font-size:20px}
+  .pvc-two{grid-template-columns:1fr}
+  .pvc-res-head h2{font-size:23px}
+}
+</style>
+
+<div class="pvc" id="pvc">
+  <div class="pvc-card">
+
+    <div class="pvc-quiz">
+      <div class="pvc-prog">
+        <div class="pvc-prog-top">
+          <span class="pvc-part"></span>
+          <span class="pvc-steplabel"></span>
+        </div>
+        <div class="pvc-track"><div class="pvc-fill"></div></div>
+      </div>
+
+      <div class="pvc-body">
+        <p class="pvc-q"></p>
+        <p class="pvc-help"></p>
+
+        <div class="pvc-money" hidden>
+          <div class="pvc-moneybox">
+            <span>$</span>
+            <input type="text" inputmode="numeric" class="pvc-money-input" autocomplete="off">
+          </div>
+          <p class="pvc-suffix"></p>
+        </div>
+
+        <div class="pvc-opts" hidden></div>
+
+        <div class="pvc-gate" hidden>
+          <div class="pvc-field">
+            <label for="pvc-name">Your name</label>
+            <input type="text" id="pvc-name" placeholder="Dr. Jane Smith" autocomplete="name">
+          </div>
+          <div class="pvc-field">
+            <label for="pvc-email">Your practice email</label>
+            <input type="email" id="pvc-email" placeholder="jane@yourpractice.com" autocomplete="email">
+          </div>
+          <p class="pvc-privacy">We use this to send your valuation and follow up once. No lists, and we don't sell your details on.</p>
+        </div>
+
+        <p class="pvc-err"></p>
+      </div>
+
+      <div class="pvc-nav">
+        <button type="button" class="pvc-back" disabled>Back</button>
+        <span class="pvc-count"></span>
+        <button type="button" class="pvc-next">Next</button>
+      </div>
+    </div>
+
+    <div class="pvc-res">
+      <div class="pvc-res-head">
+        <p class="pvc-eyebrow">Your practice valuation</p>
+        <h2>Here's your number, and the one you're leaving on the table.</h2>
+        <p>What your practice is worth today, what a best-in-class version of the same practice is worth, and what's causing the difference.</p>
+      </div>
+      <div class="pvc-res-body">
+        <div class="pvc-two">
+          <div class="pvc-num">
+            <p>Your estimated value today</p>
+            <p class="pvc-big pvc-val-today"></p>
+            <p class="pvc-note pvc-sde-note"></p>
+          </div>
+          <div class="pvc-num bic">
+            <p>Best-in-class potential</p>
+            <p class="pvc-big pvc-val-bic"></p>
+            <p class="pvc-note">Same collections. Same chairs. Different structure.</p>
+          </div>
+        </div>
+
+        <div class="pvc-sde">
+          <span>Your seller's discretionary earnings</span>
+          <span><b class="pvc-sde-val"></b> <span style="color:#5d7186;">(computed from your answers)</span></span>
+        </div>
+
+        <div class="pvc-gap">
+          <h3>The gap</h3>
+          <div class="pvc-bar">
+            <div class="pvc-bar-today"></div>
+            <div class="pvc-bar-gap"></div>
+          </div>
+          <div class="pvc-scale"><span>Value today</span><span>Best-in-class potential</span></div>
+          <div class="pvc-gapnote"></div>
+        </div>
+
+        <div class="pvc-score">
+          <div class="pvc-score-top">
+            <h3>Your transferability score <span class="pvc-tier"></span></h3>
+            <span class="pvc-pct"></span>
+          </div>
+          <div class="pvc-meter"><i></i><u></u></div>
+          <div class="pvc-scale"><span>Discounted</span><span>Above average</span><span>Best-in-class (72%)</span></div>
+          <p>Modeled on the Exit Planning Institute's Attractiveness Index, adapted for dental practices. Above 72% is best-in-class.</p>
+        </div>
+
+        <div class="pvc-drivers">
+          <h3 class="pvc-drivers-title"></h3>
+          <p class="pvc-drivers-sub"></p>
+          <div class="pvc-drivers-list"></div>
+        </div>
+
+        <div class="pvc-cta">
+          <div style="min-width:280px;flex:1;">
+            <h3>Want the real number?</h3>
+            <p>This is an estimate from a handful of inputs. A proper valuation looks at your actual books, and the conversation about closing the gap is the one worth having.</p>
+            <div class="pvc-badges">
+              <span>CEPA&reg; CERTIFIED EXIT PLANNING ADVISOR</span>
+              <span>EXIT PLANNING INSTITUTE</span>
+            </div>
+          </div>
+          <a href="/contact/" class="pvc-cta-link">Book a call with Jeremiah</a>
+        </div>
+
+        <div class="pvc-restart"><button type="button">Start over</button></div>
+
+        <p class="pvc-disc">This calculator provides an estimate for educational purposes only. It is not a formal valuation, an appraisal, or a promise of any sale price or outcome. Actual practice value depends on many factors this tool does not capture. Core Advisors, Ltd. is a registered investment advisor. Please visit <a href="https://coreadvisors.com/adv-disclosures/">coreadvisors.com</a> for important disclosures.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('pvc');
+  if (!root || root.dataset.on) return;
+  root.dataset.on = '1';
+  /* ---- PENDING JEREMIAH BARWICK, CEPA ------------------------------------
+     SDE multiples. Leave null until the 1.0x-2.0x range is verified in writing.
+     While null, the result screen shows the pending chip instead of a dollar
+     figure, so nothing quotes a dentist an unsigned-off number.
+     These are SDE multiples, never EBITDA. ------------------------------- */
+  var MULT_TODAY = null;
+  var MULT_BIC   = null;
+  var GF_FORM_ID = 3;   // Gravity Forms "Practice Value Calculator"
+  var GF_URL = 'https://coreadvisors.com/wp-json/gf/v2/forms/' + GF_FORM_ID + '/submissions';
+  var MONEY = [
+    {id:'collections', q:'What are your gross collections?', help:'Your annual revenue, before any expenses.', ph:'1,200,000', suffix:''},
+    {id:'ownerComp',   q:"What is the owner's compensation?", help:'Salary, bonuses, anything you take from the practice. We add this back, because a buyer would set their own.', ph:'250,000', suffix:'Per year'},
+    {id:'staff',       q:'Monthly staff overhead costs', help:'Everyone but you. Wages, payroll taxes, benefits.', ph:'35,000', suffix:'Per month'},
+    {id:'opex',        q:'Monthly operating expenses', help:'Everything else it takes to run the place: rent, supplies, lab, software, insurance.', ph:'18,000', suffix:'Per month'},
+    {id:'personal',    q:'Any personal expenses run through the practice?', help:"Car payments, travel, meals. These get added back too, because they aren't really costs of running the practice.", ph:'24,000', suffix:'Per year. Enter 0 if none.'}
+  ];
+  var OPTS = [
+    {key:'q6', q:'If you stepped away for a month, what happens to production?', help:'This is the single biggest driver of what a buyer will pay.', opts:[[3,'It runs normally. The team and associates carry it.'],[2,'It dips a little, but holds up.'],[1,'It drops noticeably.'],[0,'It basically stops.']]},
+    {key:'q7', q:'Are your core systems written down?', help:'Scheduling, hygiene recall, case presentation, billing, collections.', opts:[[3,'All documented, and the team follows them.'],[2,'Mostly documented.'],[1,'A few are.'],[0,"It lives in my head, or one long-time team member's head."]]},
+    {key:'q10', q:'Do you track your numbers and act on them?', help:'Production, collections, hygiene %, case acceptance, chair utilization.', opts:[[3,'Monthly, and we change things based on what we see.'],[2,'We track them, but rarely act.'],[1,'We look at some, sometimes.'],[0,'Not really.']]}
+  ];
+  var DRIVERS = {
+    q6:{t:'The practice depends on you being in the building', p:"Production drops when you step away. Buyers discount what they can't transfer, because they'd be buying a job rather than an asset."},
+    q7:{t:"Your systems live in someone's head", p:"Scheduling, hygiene recall, case presentation, billing. Undocumented process is value a buyer can't verify or take over."},
+    q10:{t:"Your numbers aren't driving decisions", p:"When KPIs aren't tracked and acted on, problems surface late, and a buyer sees risk they can't price."}
+  };
+  var steps = MONEY.map(function(m){ var o={type:'money',part:'The numbers'}; for(var k in m) o[k]=m[k]; return o; })
+    .concat(OPTS.map(function(m){ var o={type:'opts',part:'What makes it transferable'}; for(var k in m) o[k]=m[k]; return o; }));
+  steps.push({type:'gate', part:'Your result', q:'Where should we send your valuation?', help:"We'll email you a copy so you have it, along with the breakdown of what's driving your number."});
+  var qCount = steps.length - 1;
+  var i = 0, vals = {}, scores = {};
+  var $ = function(s){ return root.querySelector(s); };
+  var quiz = $('.pvc-quiz'), res = $('.pvc-res');
+  var elPart = $('.pvc-part'), elStep = $('.pvc-steplabel'), elFill = $('.pvc-fill');
+  var elQ = $('.pvc-q'), elHelp = $('.pvc-help'), elErr = $('.pvc-err');
+  var boxMoney = $('.pvc-money'), inpMoney = $('.pvc-money-input'), elSuffix = $('.pvc-suffix');
+  var boxOpts = $('.pvc-opts'), boxGate = $('.pvc-gate');
+  var elCount = $('.pvc-count'), btnBack = $('.pvc-back'), btnNext = $('.pvc-next');
+  var inpName = $('#pvc-name'), inpEmail = $('#pvc-email');
+  function digits(v){ return (v||'').replace(/[^\d]/g,''); }
+  function fmt(v){ var d = digits(v); return d ? Number(d).toLocaleString('en-US') : ''; }
+  function money(n){ return '$' + Math.round(n).toLocaleString('en-US'); }
+  function num(id){ return Number(digits(vals[id])) || 0; }
+  inpMoney.addEventListener('input', function(){
+    var s = steps[i];
+    inpMoney.value = fmt(inpMoney.value);
+    vals[s.id] = inpMoney.value;
+    elErr.style.display = 'none';
+  });
+  [inpName, inpEmail].forEach(function(el){
+    el.addEventListener('input', function(){ elErr.style.display = 'none'; });
+  });
+  function draw(){
+    var s = steps[i];
+    elPart.textContent = s.part;
+    elStep.textContent = s.type === 'gate' ? 'Last step' : 'Step ' + (i + 1) + ' of ' + qCount;
+    elCount.textContent = s.type === 'gate' ? 'Last step' : (i + 1) + ' of ' + qCount;
+    elFill.style.width = (i / steps.length * 100) + '%';
+    elQ.textContent = s.q;
+    elHelp.textContent = s.help;
+    elErr.style.display = 'none';
+    btnBack.disabled = i === 0;
+    btnNext.textContent = i === steps.length - 1 ? 'Get my valuation' : 'Next';
+    boxMoney.hidden = s.type !== 'money';
+    boxOpts.hidden = s.type !== 'opts';
+    boxGate.hidden = s.type !== 'gate';
+    if (s.type === 'money') {
+      inpMoney.placeholder = s.ph;
+      inpMoney.value = vals[s.id] || '';
+      elSuffix.textContent = s.suffix || '';
+      elSuffix.style.display = s.suffix ? '' : 'none';
+      inpMoney.focus();
+    }
+    if (s.type === 'opts') {
+      boxOpts.innerHTML = '';
+      s.opts.forEach(function(o){
+        var v = o[0], label = o[1];
+        var d = document.createElement('div');
+        d.className = 'pvc-opt' + (scores[s.key] === v ? ' on' : '');
+        d.innerHTML = '\x3Cspan class="pvc-radio">\x3Ci>\x3C/i>\x3C/span>\x3Cspan>\x3C/span>';
+        d.lastChild.textContent = label;
+        d.addEventListener('click', function(){
+          scores[s.key] = v;
+          elErr.style.display = 'none';
+          draw();
+        });
+        boxOpts.appendChild(d);
+      });
+    }
+  }
+  function valid(){
+    var s = steps[i];
+    if (s.type === 'money') return digits(vals[s.id]) !== '';
+    if (s.type === 'opts')  return scores[s.key] !== undefined;
+    return inpName.value.trim().length > 1 && /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(inpEmail.value.trim());
+  }
+  function errMsg(){
+    var t = steps[i].type;
+    return t === 'money' ? 'Enter a number to continue.'
+         : t === 'opts'  ? 'Pick one to continue.'
+         : 'Add your name and a valid email to continue.';
+  }
+  /* Owner compensation is collected but is NOT subtracted anywhere above it
+     (staff overhead is "everyone but you"), so it is already inside this
+     figure. Adding it again would double count it. */
+  function sde(){
+    return num('collections') - num('staff') * 12 - num('opex') * 12 + num('personal');
+  }
+  function tierFor(pct){
+    if (pct > 72)  return {text:'Best-in-class',      bg:'#e8f5ed', col:'#1f6b3b'};
+    if (pct >= 58) return {text:'Above average',      bg:'#fdf3e3', col:'#8a5f14'};
+    if (pct <= 50) return {text:'Discounted',         bg:'#fdeaea', col:'#9b2c2c'};
+    return               {text:'Middle of the pack',  bg:'#fdf3e3', col:'#8a5f14'};
+  }
+  function pending(label){
+    return '\x3Cspan class="pvc-pending">' + label + '\x3C/span>';
+  }
+  function send(payload){
+    try {
+      var body = {
+        input_1: payload.name,
+        input_2: payload.email,
+        input_3: payload.sde,
+        input_4: payload.pct,
+        input_5: payload.tier,
+        input_6: payload.drivers,
+        input_7: (typeof location !== 'undefined' ? location.pathname : '')
+      };
+      fetch(GF_URL, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(body)
+      })['catch'](function(){});
+    } catch (e) {}
+  }
+  function render(){
+    var v = sde();
+    var keys = ['q6','q7','q10'];
+    var total = keys.reduce(function(a,k){ return a + (scores[k] || 0); }, 0);
+    var pct = Math.round(total / (keys.length * 3) * 100);
+    var t = tierFor(pct);
+    var w = Math.max(8, pct);
+    $('.pvc-val-today').innerHTML = MULT_TODAY ? money(v * MULT_TODAY) : pending('SDE × MULT_TODAY');
+    $('.pvc-val-bic').innerHTML   = MULT_BIC   ? money(v * MULT_BIC)   : pending('SDE × MULT_BIC');
+    $('.pvc-sde-note').textContent = 'Based on discretionary earnings of ' + money(v);
+    $('.pvc-sde-val').textContent = money(v);
+    $('.pvc-bar-today').style.width = w + '%';
+    $('.pvc-bar-gap').style.left = w + '%';
+    var gapAmt = (MULT_TODAY && MULT_BIC) ? money(v * MULT_BIC - v * MULT_TODAY) : null;
+    var gapHtml = gapAmt ? '\x3Cb>' + gapAmt + '\x3C/b>' : '\x3Cb>' + pending('GAP_$') + '\x3C/b>';
+    $('.pvc-gapnote').innerHTML = pct > 72
+      ? "Your practice already carries most of what a buyer pays a premium for. The remaining gap is " + gapHtml + ", and it's a refinement rather than a rebuild."
+      : "You're leaving roughly " + gapHtml + " on the table. That gap isn't dentistry. It's structure, and it's the part you can actually change.";
+    var tier = $('.pvc-tier');
+    tier.textContent = t.text;
+    tier.style.background = t.bg;
+    tier.style.color = t.col;
+    $('.pvc-pct').textContent = pct + '%';
+    $('.pvc-meter i').style.width = pct + '%';
+    var weak = keys.map(function(k){ return {k:k, v:scores[k] || 0}; })
+                   .filter(function(x){ return x.v < 3; })
+                   .sort(function(a,b){ return a.v - b.v; });
+    var list = $('.pvc-drivers-list');
+    list.innerHTML = '';
+    if (weak.length) {
+      $('.pvc-drivers-title').textContent = "What's holding your number down";
+      $('.pvc-drivers-sub').textContent = 'Your biggest gaps, based on your answers.';
+      weak.forEach(function(x){
+        var d = DRIVERS[x.k];
+        var row = document.createElement('div');
+        row.className = 'pvc-driver';
+        row.innerHTML = '\x3Cdiv class="pvc-dot">\x3C/div>\x3Cdiv>\x3Ch4>\x3C/h4>\x3Cp>\x3C/p>\x3C/div>';
+        row.querySelector('h4').textContent = d.t;
+        row.querySelector('p').textContent = d.p;
+        list.appendChild(row);
+      });
+    } else {
+      $('.pvc-drivers-title').textContent = 'What you have already built';
+      $('.pvc-drivers-sub').textContent = '';
+      var row = document.createElement('div');
+      row.className = 'pvc-driver';
+      row.innerHTML = '\x3Cdiv class="pvc-dot" style="background:#3a975b">\x3C/div>\x3Cdiv>\x3Ch4>Your practice is genuinely transferable\x3C/h4>\x3Cp>You scored at the top of every driver we asked about. That\'s rare, and it\'s exactly what earns the higher end of the range. The conversation worth having now is about timing and options, not repairs.\x3C/p>\x3C/div>';
+      list.appendChild(row);
+    }
+    send({
+      name: inpName.value.trim(),
+      email: inpEmail.value.trim(),
+      sde: money(v),
+      pct: pct + '%',
+      tier: t.text,
+      drivers: weak.length ? weak.map(function(x){ return DRIVERS[x.k].t; }).join('; ') : 'None, scored at the top'
+    });
+    quiz.style.display = 'none';
+    res.style.display = 'block';
+    res.scrollIntoView({behavior:'smooth', block:'start'});
+  }
+  btnNext.addEventListener('click', function(){
+    if (!valid()) { elErr.textContent = errMsg(); elErr.style.display = 'block'; return; }
+    if (i === steps.length - 1) { render(); return; }
+    i++; draw();
+  });
+  btnBack.addEventListener('click', function(){ if (i > 0) { i--; draw(); } });
+  $('.pvc-restart button').addEventListener('click', function(){
+    i = 0; vals = {}; scores = {};
+    inpName.value = ''; inpEmail.value = '';
+    res.style.display = 'none'; quiz.style.display = 'block';
+    draw();
+    root.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+  document.addEventListener('click', function(e){
+    var a = e.target.closest ? e.target.closest('a[href="#calc"]') : null;
+    if (!a) return;
+    var t = document.getElementById('calc');
+    if (!t) return;
+    e.preventDefault();
+    window.scrollTo({top: t.getBoundingClientRect().top + window.pageYOffset - 20, behavior:'smooth'});
+  });
+  draw();
+})();
+</script>
+
+</div>
+<footer style="font-family:'Euclid Circular B','Poppins',system-ui,sans-serif;background:#061f38;color:rgba(255,255,255,0.55);padding:34px 24px;font-size:12px;line-height:1.7;">
+  <div style="max-width:1080px;margin:0 auto;">Core Advisors, Ltd. is a registered investment advisor. The valuation calculator provides an estimate for educational purposes only and is not a formal valuation, an appraisal, or a promise of any outcome. Nothing here is investment, tax, or legal advice, and no specific result is guaranteed. Every practice's situation differs. Please visit <a href="/adv-disclosures/" style="color:rgba(255,255,255,0.75);">coreadvisors.com</a> for important disclosures.</div>
+</footer>
+
+</body></html>

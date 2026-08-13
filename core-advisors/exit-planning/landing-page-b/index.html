@@ -233,7 +233,7 @@ a{color:#092d4f}a:hover{color:#123f68}
     <div style="max-width:1080px;margin:0 auto;padding:0 24px;position:relative;">
       <div style="max-width:760px;margin:0 auto;text-align:center;">
         <span style="display:inline-flex;align-items:center;gap:9px;background:rgba(213,236,246,0.14);border:1.5px solid rgba(213,236,246,0.34);border-radius:80px;padding:9px 22px;font-size:12px;font-weight:700;letter-spacing:0.1em;color:#d5ecf6;margin-bottom:22px;">FREE PRACTICE VALUATION</span>
-        <h2 style="font-size:46px;line-height:1.1;font-weight:700;letter-spacing:-0.02em;margin:0 0 18px;color:#fff;">Find out what your practice is worth, and what it could be.</h2>
+        <h2 style="font-size:46px;line-height:1.1;font-weight:700;letter-spacing:-0.02em;margin:0 0 18px;color:#fff;">Find out what your practice is worth,<br>and what it could be.</h2>
         <p style="font-size:19px;color:rgba(255,255,255,0.76);margin:0 auto;max-width:52ch;">Eight questions. About two minutes. Nothing you need to look up, and no obligation at the end.</p>
       </div>
 
@@ -263,10 +263,10 @@ a{color:#092d4f}a:hover{color:#123f68}
   Multiples are real and confirmed by Thomas, 2026-08-12, so the result screen now prints
   dollar figures. The pending-chip safety net from v3 is gone.
 
-  REASONABLE_COMP below is 0, which is what the handoff's own code does. The README shipped
-  in the same handoff says the $1.2m worked example should land on $368,000 earnings and a
-  $1,104,000 to $2,024,000 range, which only happens at 220000. At 0 the same practice reads
-  $1,764,000 to $3,234,000. Thomas's call, not ours. One constant, one rebuild.
+  REASONABLE_COMP is 220000, confirmed by Whitney 2026-08-13. The handoff's own code shipped
+  it at 0, which read $1,764,000 to $3,234,000 on the $1.2m worked example; the handoff README
+  and the client both want the $220,000 reasonable salary out first, which gives $368,000 of
+  earnings and $1,104,000 to $2,024,000.
 -->
 <style>
 .pvc{font-family:'Euclid Circular B','Poppins',system-ui,-apple-system,sans-serif;color:#092d4f;line-height:1.5;max-width:860px;margin:0 auto;padding:8px;box-sizing:border-box}
@@ -509,9 +509,9 @@ a{color:#092d4f}a:hover{color:#123f68}
   var MULT = { small: {ind: 3.0, corp: 5.5}, big: {ind: 4.0, corp: 8.0} };
   var BIG_TIER = 4000000;
   /* Reasonable owner compensation, subtracted before the multiples.
-     0 matches the handoff code. 220000 matches the handoff README's worked example and
-     lands the $1.2m practice on $1,104,000 to $2,024,000. Pending Thomas. */
-  var REASONABLE_COMP = 0;
+     Whitney confirmed 2026-08-13: subtract it. This matches the handoff README's worked
+     example, and lands the $1.2m practice on $1,104,000 to $2,024,000. */
+  var REASONABLE_COMP = 220000;
   var GF_URL = 'https://coreadvisors.com/wp-json/gf/v2/forms/3/submissions';
   var MONEY = [
     {id:'collections', q:'What are your gross collections?', help:'Your annual revenue, before any expenses.', ph:'1,200,000', suffix:''},

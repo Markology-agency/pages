@@ -148,12 +148,28 @@ table.map tr.ignored{opacity:.45}
 .bench-card .src{margin-top:11px;font-size:12px;color:#85857c}
 .bench-card .src a{text-decoration:underline}
 
-.deepdive{background:var(--aqua);padding:clamp(22px,3.4vw,32px);display:grid;grid-template-columns:1fr auto;
-  gap:24px;align-items:center;margin-bottom:26px}
-@media(max-width:680px){.deepdive{grid-template-columns:1fr}}
-.deepdive h3{font-family:var(--font-display);font-weight:900;font-size:clamp(20px,2.8vw,26px);
-  letter-spacing:-.02em;margin:0 0 9px;color:var(--black)}
-.deepdive p{margin:0;font-size:15px;line-height:1.55;color:#14231f;max-width:520px}
+.deepdive{background:var(--black);color:#fff;margin-bottom:26px;position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 300px;align-items:stretch}
+@media(max-width:720px){.deepdive{grid-template-columns:1fr}}
+.deepdive::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:var(--aqua);z-index:2}
+.deepdive .dd-body{padding:clamp(26px,4vw,44px)}
+.deepdive .dd-photo{position:relative;min-height:260px}
+.deepdive .dd-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top}
+.deepdive .dd-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to right,#111 0%,rgba(17,17,17,0) 26%)}
+@media(max-width:720px){.deepdive .dd-photo{min-height:220px;order:-1}.deepdive .dd-photo::after{background:linear-gradient(to top,#111 0%,rgba(17,17,17,0) 30%)}}
+.deepdive .dd-cap{position:absolute;left:0;right:0;bottom:0;padding:14px 18px;background:linear-gradient(to top,rgba(17,17,17,.92),rgba(17,17,17,0));z-index:1}
+.deepdive .dd-cap .n{font-family:var(--font-display);font-weight:800;font-size:14px;color:#fff}
+.deepdive .dd-cap .r{font-size:12.5px;color:var(--aqua)}
+.deepdive .dd-eyebrow{font-family:var(--font-display);font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--aqua);margin-bottom:14px}
+.deepdive h3{font-family:var(--font-display);font-weight:900;font-size:clamp(24px,3.6vw,36px);line-height:1.08;letter-spacing:-.025em;margin:0 0 12px;color:#fff;max-width:640px}
+.deepdive h3 .hi-aqua{color:var(--aqua)}
+.deepdive .dd-sub{margin:0 0 22px;font-size:16px;line-height:1.6;color:#c9c9c2;max-width:560px}
+.deepdive ul.dd-list{list-style:none;margin:0 0 26px;padding:0;display:grid;gap:10px;max-width:560px}
+.deepdive ul.dd-list li{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.5;color:#e6e6e0}
+.deepdive ul.dd-list li::before{content:"";flex:0 0 10px;width:10px;height:10px;background:var(--aqua);margin-top:5px}
+.deepdive .dd-cta-row{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.deepdive .btn-aqua{display:inline-block;font-family:var(--font-display);font-weight:900;font-size:16px;text-transform:uppercase;letter-spacing:.04em;background:var(--aqua);color:var(--black);padding:19px 38px;border:none;text-decoration:none;cursor:pointer;transition:.15s}
+.deepdive .btn-aqua:hover{background:#fff}
+.deepdive .dd-reassure{font-size:13.5px;line-height:1.5;color:#9a9a93;max-width:240px}
 
 .secondary-band{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-bottom:26px}
 .secondary-card{background:#fff;border:1.5px solid var(--line);padding:22px}
@@ -364,11 +380,23 @@ table.map tr.ignored{opacity:.45}
   <div class="benchmark-grid" id="benchGrid"></div>
 
   <div class="deepdive">
-    <div>
-      <h3>This is the surface. The real money is in the deep dive.</h3>
-      <p>The benchmarks above tell you where you are off. A 30 minute call tells you why, and what to fix first. We walk through your specific numbers, not a generic playbook.</p>
+    <div class="dd-body">
+    <div class="dd-eyebrow">Your next step</div>
+    <h3 id="ddHead">Walk through these numbers with a restaurant CFO.</h3>
+    <p class="dd-sub" id="ddSub">This report tells you where you are outside the range. A 30 minute call tells you why, and what to fix first.</p>
+    <ul class="dd-list" id="ddList">
+      <li>A review call with a CFO who has spent decades in restaurant finance, not a sales rep reading a script</li>
+      <li>We go through your actual P&amp;L line by line and you leave with the one change to make first</li>
+      <li>No charge, no obligation, no prep. Your numbers are already in hand.</li>
+    </ul>
+    <div class="dd-cta-row">
+      <a class="btn-aqua" id="bookBtn" target="_blank" rel="noopener">Book my free 30-minute review &rarr;</a>
     </div>
-    <a class="btn" id="bookBtn" target="_blank" rel="noopener">Book a Call</a>
+    </div>
+    <div class="dd-photo">
+      <img src="assets/tanya.png" alt="Tanya McCaffery, founder and CEO of Vast CFO">
+      <div class="dd-cap"><div class="n">Tanya McCaffery</div><div class="r">Founder &amp; CEO, Vast CFO</div></div>
+    </div>
   </div>
 
   <div class="secondary-band">
@@ -498,6 +526,12 @@ const BENCHMARKS = {
   }
 };
 
+/* Prime cost is cost of goods plus labor; net profit is what is left after every
+   line. Both are aggregates of the categories beneath them, so they are excluded
+   anywhere lines are counted, and net profit is excluded from the "what do we
+   talk about first" pick because it is an outcome rather than a lever. */
+const DERIVED_LINES = ['prime', 'netProfit'];
+
 /* Beverage is reported as a component, not graded, because Vast publishes a
    liquor-specific range and an uploaded P&L rarely isolates liquor cleanly. */
 const LIQUOR_NOTE = {
@@ -515,21 +549,76 @@ const PERIODS = [
 ];
 
 /* ---------------------------------------------------------------------------
-   grade(): counts how many graded lines sit inside their published band.
-   Prime cost over the 65% hard ceiling caps the grade, because Vast's own
-   article treats that as the point where nothing else can compensate.
+   grade(): a WEIGHTED score, not a headcount.
+
+   The first version counted how many lines sat inside their band and divided
+   by the number of lines. That treated net profit as a peer of the utilities
+   bill, and it produced this: a full-service restaurant running an 18.5% net
+   margin (Vast benchmarks 12.5%) with prime cost inside its band scored 4/7
+   and was told "C, Below benchmark". The tool was calling a business below
+   benchmark on the one number it was beating, which is both wrong and the
+   fastest way for a good operator to dismiss the whole report.
+
+   Two changes:
+
+   1. WEIGHTS. Net profit is the outcome, not another cost line, and prime cost
+      is what Vast's own article calls the headline. Rent, utilities and
+      marketing are small allocations and are weighted accordingly. A line the
+      operator has no figure for drops out of the denominator entirely, so a
+      partial P&L is scored on what it actually contains.
+
+   2. PARTIAL CREDIT. A category 1 point over its band used to score the same
+      zero as one 20 points over. `warn` now earns half credit, which is what
+      "slightly over" means in a conversation with an operator.
+
+   The prime-cost hard ceiling still caps the grade. Vast's article treats 65%
+   as the point where nothing else can compensate, and that stays true no
+   matter how the rest of the P&L reads.
    --------------------------------------------------------------------------- */
+
+/* Weights sum to 100. Change these and the grade meaning changes, so they
+   belong here next to the bands rather than buried in the scoring function. */
+const GRADE_WEIGHTS = {
+  netProfit: 30,  /* the outcome every other line rolls up into */
+  prime:     25,  /* Vast's headline number */
+  cogs:      15,
+  labor:     15,
+  occupancy:  8,
+  utilities:  4,
+  marketing:  3   /* under-spend is explicitly not a problem in Vast's own copy */
+};
+
+/* A category inside its band scores full weight; slightly over scores half. */
+const STATUS_CREDIT = { good: 1, warn: 0.5, bad: 0 };
 function gradeFromResults(rows, primePct) {
   const graded = rows.filter(r => r.graded);
   if (!graded.length) return { letter:'-', text:'Not enough data' };
-  const inBand = graded.filter(r => r.status === 'good').length;
-  const pct = inBand / graded.length;
+
+  let earned = 0, possible = 0;
+  for (const r of graded) {
+    const w = GRADE_WEIGHTS[r.key];
+    if (w == null) continue;              /* unweighted line, not scored */
+    possible += w;
+    earned   += w * (STATUS_CREDIT[r.status] ?? 0);
+  }
+  if (!possible) return { letter:'-', text:'Not enough data' };
+  const pct = earned / possible;
   let letter;
   if (pct >= 0.9) letter = 'A';
   else if (pct >= 0.75) letter = 'B';
   else if (pct >= 0.55) letter = 'C';
   else if (pct >= 0.35) letter = 'D';
   else letter = 'F';
+  /* No A while a category is genuinely blown out. Weighting alone let a
+     restaurant with rent at 11% of sales, more than double the published
+     allocation, still score an A because everything else carried it. That is
+     not how anyone would describe that P&L out loud. */
+  if (letter === 'A' && graded.some(r => r.status === 'bad' && GRADE_WEIGHTS[r.key] != null)) {
+    letter = 'B';
+  }
+
+  /* Prime cost over the hard ceiling caps the grade regardless. Vast's own
+     article treats 65% as the point where nothing else can compensate. */
   if (primePct != null && primePct > BENCHMARKS.prime.hardCeiling) {
     const cap = ['C','D','F'];
     if (!cap.includes(letter)) letter = 'C';
@@ -992,7 +1081,11 @@ function compute() {
        A projected dollar saving would be a financial-outcome claim, which this
        client never makes. The operator's own spend is a fact and is fine to
        show; a modelled saving is not. */
-    if (hasData && status !== 'good' && key !== 'prime') outOfBand++;
+    /* Prime cost and net profit are aggregates of the lines below them, so
+       counting them alongside their own components double counts the problem.
+       An operator with high labor would otherwise be told three lines are out
+       when only one thing is actually wrong. */
+    if (hasData && status !== 'good' && !DERIVED_LINES.includes(key)) outOfBand++;
 
     rows.push({
       key, name:b.name, val, band, status, graded:hasData && status !== 'info',
@@ -1028,7 +1121,7 @@ function renderResults() {
     ? pct(prime.val) + ` <span style="color:#a8a8a0;font-size:17px;font-weight:600">vs. ${prime.band.lo} to ${prime.band.hi}% published range</span>`
     : '-';
   $('resLeakSub').textContent = r.outOfBand > 0
-    ? `${r.outOfBand} of your ${r.gradedCount} benchmarked lines sit outside the published range. Cost of goods plus labor is the line Vast treats as the headline, because when it is out of range the rest of the P&L cannot make the difference up.`
+    ? `${r.outOfBand} of your benchmarked lines sit outside the published range. Cost of goods plus labor is the line Vast treats as the headline, because when it is out of range the rest of the P&L cannot make the difference up.`
     : 'Cost of goods plus labor. Every benchmarked line on your P&L sits inside its published range.';
   $('resMargin').innerHTML = pct(r.measured.netProfit) +
     ` <span style="color:#a8a8a0;font-size:17px;font-weight:600">vs. ${BENCHMARKS.netProfit.target}% benchmark</span>`;
@@ -1085,6 +1178,26 @@ function renderResults() {
       <div class="note">Vast publishes a healthy <strong>liquor</strong> cost range of ${LIQUOR_NOTE.lo}% to ${LIQUOR_NOTE.hi}%. Most P&amp;Ls bundle liquor with beer, wine, and non-alcoholic drinks, so we do not grade this line without a split. Your combined beverage cost is above for reference.</div>
       <div class="src">Benchmark: <a href="${VAST_SOURCES[LIQUOR_NOTE.source]}" target="_blank" rel="noopener">${LIQUOR_NOTE.sourceText}</a></div>
     </div>`);
+  }
+
+  /* CTA headline speaks to THEIR worst line, facts only.
+     Net profit is excluded from the pick: it is the outcome of the other lines,
+     so opening on it hands the operator a symptom when the sub-line has just
+     promised to separate cause from symptom. Prime cost stays eligible, since
+     it is the number Vast leads with and it is actionable through its parts. */
+  const worst = r.rows
+    .filter(x => x.graded && x.status !== 'good' && x.deltaPts > 0.05 && x.key !== 'netProfit')
+    .sort((a, b) => (GRADE_WEIGHTS[b.key] || 0) * b.deltaPts - (GRADE_WEIGHTS[a.key] || 0) * a.deltaPts)[0];
+
+  if (worst) {
+    $('ddHead').innerHTML = `Your ${worst.name.toLowerCase()} is <span class="hi-aqua">${(Math.round(worst.deltaPts * 10) / 10)} points outside</span> Vast's published range. That is the first conversation.`;
+    /* Same count as the score band, so one screen never states two numbers. */
+    $('ddSub').textContent = r.outOfBand > 1
+      ? `${r.outOfBand} lines on this report sit outside their range. A 30 minute review call with an experienced restaurant CFO sorts out which one is cause and which are symptoms, and what to fix first.`
+      : 'This report tells you where you are outside the range. A 30 minute review call with an experienced restaurant CFO tells you why, and what to fix first.';
+  } else {
+    $('ddHead').innerHTML = `Your lines are in range. The next question is <span class="hi-aqua">whether they stay there</span>.`;
+    $('ddSub').textContent = 'Operators at benchmark use a CFO to hold the line through seasonality, hiring, and growth. A 30 minute call shows you what that looks like.';
   }
 
   /* Booking link carries name and email so nothing is re-entered. */
@@ -1204,7 +1317,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   $('printBtn').addEventListener('click', () => window.print());
 });
-
 </script>
 </body>
 </html>

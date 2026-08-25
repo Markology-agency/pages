@@ -1,0 +1,1210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Restaurant Profitability Benchmark - Vast CFO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+:root{
+  --black:#111111; --ink:#1d1d1d; --aqua:#4AFEE5; --aqua-deep:#2fe6cd;
+  --paper:#F7F7F6; --white:#ffffff; --line:#e7e6e1; --muted:#56564f;
+  --good:#0a8f5a; --warn:#c8801f; --bad:#c8331f;
+  --font-display:"Archivo", system-ui, -apple-system, sans-serif;
+  --font-body:"Hanken Grotesk", system-ui, -apple-system, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+  font-family:var(--font-body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1060px;margin:0 auto;padding:32px 24px 90px}
+
+.eyebrow{font-family:var(--font-display);font-weight:800;font-size:12px;text-transform:uppercase;
+  letter-spacing:.12em;color:#5f5f57;margin-bottom:12px}
+h1{font-family:var(--font-display);font-weight:900;font-size:clamp(32px,4.6vw,54px);line-height:1.03;
+  letter-spacing:-.025em;margin:0 0 16px;color:var(--black)}
+h1 .hi{background:var(--aqua);padding:.02em .14em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.lede{font-size:18px;line-height:1.55;color:#2a2a2a;max-width:620px;margin:0 0 34px}
+
+/* progress */
+.progress{display:flex;gap:6px;margin-bottom:26px}
+.progress .seg{flex:1;height:4px;background:#e2e2dc}
+.progress .seg.done{background:var(--black)}
+.progress .seg.now{background:var(--aqua-deep)}
+
+/* steps */
+.step{display:none;background:var(--white);border:1.5px solid var(--ink);padding:clamp(22px,3.4vw,40px);margin-bottom:30px}
+.step.active{display:block}
+.step-head{margin-bottom:22px}
+.step-num{display:inline-block;font-family:var(--font-display);font-weight:900;font-size:12px;
+  letter-spacing:.1em;text-transform:uppercase;background:var(--ink);color:#fff;padding:6px 12px;margin-bottom:12px}
+.step h2{font-family:var(--font-display);font-weight:900;font-size:clamp(24px,3.2vw,34px);line-height:1.07;
+  letter-spacing:-.02em;margin:0;color:var(--black)}
+.step-sub{margin:8px 0 0;color:var(--muted);font-size:16px;line-height:1.55;max-width:700px}
+
+/* buttons */
+.btn{display:inline-block;font-family:var(--font-display);font-weight:800;font-size:14px;text-transform:uppercase;
+  letter-spacing:.05em;background:var(--black);color:#fff;padding:15px 26px;border:1.5px solid var(--black);
+  text-decoration:none;cursor:pointer;transition:.15s}
+.btn:hover{background:var(--aqua);color:var(--black)}
+.btn.secondary{background:transparent;color:var(--ink)}
+.btn.secondary:hover{background:var(--ink);color:#fff}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;align-items:center}
+
+/* upload */
+.upload-zone{border:2.5px dashed #b8b8ae;background:var(--paper);padding:clamp(32px,6vw,58px) 24px;text-align:center;
+  transition:.18s;cursor:pointer}
+.upload-zone:hover,.upload-zone.drag{border-color:var(--ink);background:#fff}
+.upload-zone .icon{font-family:var(--font-display);font-weight:900;font-size:42px;color:var(--ink);margin-bottom:10px}
+.upload-zone h3{font-family:var(--font-display);font-weight:800;font-size:21px;margin:0 0 8px;letter-spacing:-.01em}
+.upload-zone p{margin:0;color:var(--muted);font-size:15px}
+.upload-zone .formats{margin-top:14px;font-family:var(--font-display);font-weight:700;font-size:11px;
+  text-transform:uppercase;letter-spacing:.1em;color:#85857c}
+.upload-help{display:flex;gap:14px;margin-top:22px;padding:18px 22px;background:#FFF8E6;
+  border-left:4px solid #E2B23A;font-size:14px;line-height:1.55}
+.upload-help strong{font-family:var(--font-display);font-weight:800;display:block;margin-bottom:4px;
+  font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.upload-alt{margin-top:20px;text-align:center;font-size:14px;color:var(--muted)}
+.upload-alt a{font-weight:700;color:var(--ink);text-decoration:underline;cursor:pointer}
+.err{margin-top:16px;padding:14px 18px;background:#FDECEA;border-left:4px solid var(--bad);
+  font-size:14px;line-height:1.5;display:none}
+.err.show{display:block}
+
+/* fields */
+.field{margin-bottom:16px}
+.field label{display:block;font-family:var(--font-display);font-weight:700;font-size:12px;text-transform:uppercase;
+  letter-spacing:.06em;margin-bottom:6px;color:#3a3a35}
+.field input,.field select{width:100%;padding:13px 14px;border:1.5px solid var(--line);background:#fff;
+  font-family:var(--font-body);font-size:16px;color:var(--ink);border-radius:0}
+.field input:focus,.field select:focus{outline:none;border-color:var(--ink)}
+.field .hint{font-size:13px;color:var(--muted);margin-top:5px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.field-row{grid-template-columns:1fr}}
+
+/* mapping table */
+.map-note{padding:16px 20px;background:var(--paper);border-left:4px solid var(--aqua-deep);font-size:14px;
+  line-height:1.55;margin-bottom:20px}
+.map-warn{padding:16px 20px;background:#FFF8E6;border-left:4px solid #E2B23A;font-size:14px;
+  line-height:1.55;margin-bottom:20px;display:none}
+.map-warn.show{display:block}
+.map-scroll{overflow-x:auto;border:1px solid var(--line)}
+table.map{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+table.map th{font-family:var(--font-display);font-weight:800;font-size:11px;text-transform:uppercase;
+  letter-spacing:.07em;text-align:left;padding:11px 12px;background:var(--paper);border-bottom:1.5px solid var(--ink);
+  position:sticky;top:0}
+table.map td{padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.map td.amt{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.map select{width:100%;padding:7px 8px;border:1.5px solid var(--line);background:#fff;
+  font-family:var(--font-body);font-size:13px;border-radius:0}
+table.map tr.ignored{opacity:.45}
+.map-totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);
+  border:1px solid var(--line);margin-top:20px}
+.map-totals div{background:#fff;padding:14px 16px}
+.map-totals .k{font-family:var(--font-display);font-weight:700;font-size:11px;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--muted);margin-bottom:4px}
+.map-totals .v{font-family:var(--font-display);font-weight:900;font-size:19px;font-variant-numeric:tabular-nums}
+
+/* results */
+.score-band{display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;background:var(--black);
+  color:#fff;padding:clamp(22px,3.4vw,34px);margin-bottom:28px}
+@media(max-width:680px){.score-band{grid-template-columns:1fr}}
+.headline-stat{margin-bottom:22px}
+.headline-stat:last-child{margin-bottom:0}
+.headline-stat .lbl{font-family:var(--font-display);font-weight:700;font-size:11px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--aqua);margin-bottom:6px}
+.headline-stat .val{font-family:var(--font-display);font-weight:900;font-size:clamp(30px,4.6vw,44px);
+  line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.headline-stat .sub{font-size:14px;color:#b9b9b2;margin-top:7px;max-width:420px;line-height:1.5}
+.grade-box{text-align:center;border:2px solid var(--aqua);padding:20px 26px;min-width:140px}
+.grade-label{font-family:var(--font-display);font-weight:700;font-size:11px;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--aqua)}
+.grade{font-family:var(--font-display);font-weight:900;font-size:60px;line-height:1;margin:5px 0}
+.grade-text{font-size:12px;color:#b9b9b2}
+
+.benchmark-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:18px;margin-bottom:28px}
+.bench-card{background:#fff;border:1.5px solid var(--line);padding:22px}
+.bench-card .name{font-family:var(--font-display);font-weight:900;font-size:16px;letter-spacing:-.01em;margin-bottom:12px}
+.you-vs{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.you-vs .you{font-family:var(--font-display);font-weight:900;font-size:31px;line-height:1;font-variant-numeric:tabular-nums}
+.you-vs .vs{font-size:13px;color:#a8a8a0}
+.you-vs .target{font-size:14px;color:var(--muted);font-weight:600}
+.bar-wrap{position:relative;height:9px;background:#eeeee9;margin-bottom:12px}
+.bar{position:absolute;top:0;height:9px}
+.target-marker{position:absolute;top:-4px;width:2px;height:17px;background:var(--black)}
+.status{display:inline-block;font-family:var(--font-display);font-weight:800;font-size:10px;text-transform:uppercase;
+  letter-spacing:.07em;padding:4px 9px;margin-bottom:10px}
+.status.good{background:#e4f5ec;color:var(--good)}
+.status.warn{background:#fbf0e0;color:var(--warn)}
+.status.bad{background:#fbe6e2;color:var(--bad)}
+.status.info{background:#eeeee9;color:var(--muted)}
+.bench-card .note{font-size:14px;line-height:1.55;color:#38383299}
+.bench-card .note{color:#3a3a35}
+.bench-card .leak{font-weight:700;color:var(--bad)}
+.bench-card .src{margin-top:11px;font-size:12px;color:#85857c}
+.bench-card .src a{text-decoration:underline}
+
+.deepdive{background:var(--aqua);padding:clamp(22px,3.4vw,32px);display:grid;grid-template-columns:1fr auto;
+  gap:24px;align-items:center;margin-bottom:26px}
+@media(max-width:680px){.deepdive{grid-template-columns:1fr}}
+.deepdive h3{font-family:var(--font-display);font-weight:900;font-size:clamp(20px,2.8vw,26px);
+  letter-spacing:-.02em;margin:0 0 9px;color:var(--black)}
+.deepdive p{margin:0;font-size:15px;line-height:1.55;color:#14231f;max-width:520px}
+
+.secondary-band{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-bottom:26px}
+.secondary-card{background:#fff;border:1.5px solid var(--line);padding:22px}
+.secondary-card h4{font-family:var(--font-display);font-weight:800;font-size:15px;margin:0 0 7px}
+.secondary-card p{margin:0 0 12px;font-size:14px;line-height:1.5;color:var(--muted)}
+.secondary-card a{font-family:var(--font-display);font-weight:800;font-size:13px;text-transform:uppercase;
+  letter-spacing:.05em;text-decoration:underline;cursor:pointer}
+
+.disclosure{border-top:1px solid var(--line);padding-top:18px;font-size:12.5px;line-height:1.6;color:#7a7a73}
+.disclosure a{text-decoration:underline}
+
+.spinner{display:none;align-items:center;gap:11px;margin-top:18px;font-size:14px;color:var(--muted)}
+.spinner.show{display:flex}
+.spinner .dot{width:9px;height:9px;background:var(--aqua-deep);border-radius:50%;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+@media print{.btn,.deepdive .btn,.progress{display:none}.step{border:0;padding:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="eyebrow">Restaurant Profitability Benchmark</div>
+<h1>See where your <span class="hi">profit is leaking</span>.</h1>
+<p class="lede">Upload your P&amp;L. We compare every line against the benchmarks Vast publishes for restaurants like yours and show you where the margin is going.</p>
+
+<div class="progress" id="progress">
+  <div class="seg now"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div>
+</div>
+
+<!-- ============================ STEP 1: UPLOAD ============================ -->
+<div class="step active" id="step1">
+  <div class="step-head">
+    <div class="step-num">Step 1 of 4</div>
+    <h2>Upload your profit &amp; loss statement.</h2>
+    <p class="step-sub">We accept exports from QuickBooks, Xero, Restaurant365, Toast, or a plain CSV or Excel file. Nothing leaves your browser until you ask for the report.</p>
+  </div>
+
+  <div class="upload-zone" id="dropzone">
+    <div class="icon">&uarr;</div>
+    <h3>Drop your P&amp;L here</h3>
+    <p>or click to choose a file</p>
+    <div class="formats">CSV &middot; XLSX &middot; XLS &middot; TSV</div>
+  </div>
+  <input type="file" id="fileInput" accept=".csv,.tsv,.txt,.xlsx,.xls" style="display:none" />
+
+  <div class="err" id="uploadErr"></div>
+
+  <div class="upload-help">
+    <div>
+      <strong>Where to find it</strong>
+      QuickBooks Online: Reports &rarr; Profit &amp; Loss &rarr; set your date range &rarr; Export to Excel or CSV.
+      Xero: Accounting &rarr; Reports &rarr; Profit and Loss &rarr; Export.
+      Toast and Restaurant365 both export a P&amp;L from their reporting menu.
+    </div>
+  </div>
+
+  <div class="upload-alt">
+    Don't have a P&amp;L handy? <a id="manualLink">Enter your numbers manually instead &rarr;</a>
+  </div>
+</div>
+
+<!-- ======================= STEP 1b: MANUAL ENTRY ========================== -->
+<div class="step" id="stepManual">
+  <div class="step-head">
+    <div class="step-num">Step 1 of 4</div>
+    <h2>Enter your numbers.</h2>
+    <p class="step-sub">Use whatever period you have in front of you. Totals for the period, not percentages. Leave a line blank if it does not apply.</p>
+  </div>
+
+  <div class="field-row">
+    <div class="field"><label>Total sales</label><input type="text" id="m_revenue" inputmode="decimal" placeholder="254,710" /><div class="hint">Gross sales for the period</div></div>
+    <div class="field"><label>Discounts and comps</label><input type="text" id="m_discounts" inputmode="decimal" placeholder="3,840" /></div>
+  </div>
+  <div class="field-row">
+    <div class="field"><label>Food cost of goods</label><input type="text" id="m_food" inputmode="decimal" placeholder="62,030" /></div>
+    <div class="field"><label>Beverage cost of goods</label><input type="text" id="m_beverage" inputmode="decimal" placeholder="19,890" /></div>
+  </div>
+  <div class="field-row">
+    <div class="field"><label>Total labor</label><input type="text" id="m_labor" inputmode="decimal" placeholder="111,100" /><div class="hint">Wages, payroll taxes, benefits, workers comp</div></div>
+    <div class="field"><label>Occupancy (rent)</label><input type="text" id="m_occupancy" inputmode="decimal" placeholder="24,340" /></div>
+  </div>
+  <div class="field-row">
+    <div class="field"><label>Marketing</label><input type="text" id="m_marketing" inputmode="decimal" placeholder="4,400" /></div>
+    <div class="field"><label>Utilities</label><input type="text" id="m_utilities" inputmode="decimal" placeholder="6,100" /></div>
+  </div>
+  <div class="field">
+    <label>All other operating costs</label>
+    <input type="text" id="m_other" inputmode="decimal" placeholder="19,770" />
+    <div class="hint">Repairs, insurance, processing fees, software, supplies, everything else. Leave out loan interest and depreciation.</div>
+  </div>
+
+  <div class="err" id="manualErr"></div>
+
+  <div class="btn-row">
+    <button class="btn secondary" id="manualBack">&larr; Back to upload</button>
+    <button class="btn" id="manualNext">Continue &rarr;</button>
+  </div>
+</div>
+
+<!-- ===================== STEP 2: CONFIRM THE MAPPING ====================== -->
+<div class="step" id="step2">
+  <div class="step-head">
+    <div class="step-num">Step 2 of 4</div>
+    <h2>Check what we read.</h2>
+    <p class="step-sub">We matched your accounts to standard restaurant categories. Fix anything we got wrong, then continue.</p>
+  </div>
+
+  <div class="field-row">
+    <div class="field">
+      <label>Your concept</label>
+      <select id="concept"></select>
+      <div class="hint">This decides which benchmark range we compare you against.</div>
+    </div>
+    <div class="field">
+      <label>Period this P&amp;L covers</label>
+      <select id="period"></select>
+      <div class="hint">So the annual figures are right.</div>
+    </div>
+  </div>
+  <div class="field" id="ytdWrap" style="display:none">
+    <label>How many months does year to date cover?</label>
+    <input type="number" id="ytdMonths" min="1" max="12" step="1" value="6" />
+  </div>
+
+  <div class="map-note" id="mapNote"></div>
+  <div class="map-warn" id="mapWarn"></div>
+
+  <div class="map-scroll" id="mapScroll">
+    <table class="map">
+      <thead><tr><th>Line from your P&amp;L</th><th style="width:210px">Category</th><th class="amt" style="width:120px">Amount</th></tr></thead>
+      <tbody id="mapBody"></tbody>
+    </table>
+  </div>
+
+  <div class="map-totals" id="mapTotals"></div>
+
+  <div class="btn-row">
+    <button class="btn secondary" id="back1">&larr; Back</button>
+    <button class="btn" id="toStep3">Looks right, continue &rarr;</button>
+  </div>
+</div>
+
+<!-- ========================= STEP 3: CONTACT GATE ========================= -->
+<div class="step" id="step3">
+  <div class="step-head">
+    <div class="step-num">Step 3 of 4</div>
+    <h2>Where should we send your benchmark report?</h2>
+    <p class="step-sub">Your results appear on the next screen. We email a copy so you can find it again, and so we do not have to ask for your details twice if you book a call.</p>
+  </div>
+
+  <div class="field-row">
+    <div class="field"><label>Your name</label><input type="text" id="leadName" placeholder="First and last name" /></div>
+    <div class="field"><label>Email</label><input type="email" id="leadEmail" placeholder="you@yourrestaurant.com" /></div>
+  </div>
+  <div class="field">
+    <label>Restaurant website</label>
+    <input type="url" id="leadWebsite" placeholder="yourrestaurant.com" />
+    <div class="hint">So we can see the concept before the call. Optional.</div>
+  </div>
+
+  <div class="field" style="display:flex;gap:10px;align-items:flex-start">
+    <input type="checkbox" id="optin" checked style="width:auto;margin-top:4px" />
+    <label for="optin" style="text-transform:none;letter-spacing:0;font-family:var(--font-body);font-weight:400;font-size:14px;color:var(--muted)">
+      Send me Vast's monthly restaurant operator newsletter. One email a month, unsubscribe anytime.
+    </label>
+  </div>
+
+  <div class="err" id="gateErr"></div>
+
+  <div class="btn-row">
+    <button class="btn secondary" id="back2">&larr; Back</button>
+    <button class="btn" id="toStep4">Show my benchmark report &rarr;</button>
+  </div>
+  <div class="spinner" id="gateSpin"><div class="dot"></div> Building your report</div>
+
+  <div class="disclosure" style="margin-top:22px">
+    Your figures are used to generate this report and are stored securely. We never sell your information.
+    <a href="https://www.vastcfo.com/privacy-policy/" target="_blank" rel="noopener">Privacy policy</a>.
+  </div>
+</div>
+
+<!-- =========================== STEP 4: RESULTS =========================== -->
+<div class="step" id="step4">
+  <div class="step-head">
+    <div class="step-num">Your Report</div>
+    <h2 id="resTitle">Your benchmark report</h2>
+    <p class="step-sub" id="resSub"></p>
+  </div>
+
+  <div class="score-band">
+    <div>
+      <div class="headline-stat">
+        <div class="lbl">Prime cost</div>
+        <div class="val" id="resLeak">-</div>
+        <div class="sub" id="resLeakSub">Cost of goods plus labor. The line Vast treats as the headline, because when it is out of range the rest of the P&amp;L cannot make the difference up.</div>
+      </div>
+      <div class="headline-stat">
+        <div class="lbl">Your net profit margin</div>
+        <div class="val" id="resMargin">-</div>
+      </div>
+    </div>
+    <div class="grade-box">
+      <div class="grade-label">Overall</div>
+      <div class="grade" id="resGrade">-</div>
+      <div class="grade-text" id="resGradeText">-</div>
+    </div>
+  </div>
+
+  <div class="benchmark-grid" id="benchGrid"></div>
+
+  <div class="deepdive">
+    <div>
+      <h3>This is the surface. The real money is in the deep dive.</h3>
+      <p>The benchmarks above tell you where you are off. A 30 minute call tells you why, and what to fix first. We walk through your specific numbers, not a generic playbook.</p>
+    </div>
+    <a class="btn" id="bookBtn" target="_blank" rel="noopener">Book a Call</a>
+  </div>
+
+  <div class="secondary-band">
+    <div class="secondary-card">
+      <h4>Save your report</h4>
+      <p id="emailedTo">We have emailed a copy so you can find it later.</p>
+      <a id="printBtn">Download as PDF &rarr;</a>
+    </div>
+    <div class="secondary-card">
+      <h4>Read: what good actually looks like</h4>
+      <p>Vast's breakdown of prime cost, labor, and cost of goods across full service and quick service.</p>
+      <a href="https://www.vastcfo.com/good-prime-cost-for-restaurant/" target="_blank" rel="noopener">Read the guide &rarr;</a>
+    </div>
+  </div>
+
+  <div class="disclosure" id="resDisclosure"></div>
+</div>
+
+</div>
+<script>
+/* =============================================================================
+   Vast CFO: Restaurant Benchmark Engine
+   Every benchmark below is sourced from Vast CFO's OWN published pages.
+   Do not add a benchmark here without a vastcfo.com URL to back it.
+   ============================================================================= */
+
+const VAST_SOURCES = {
+  prime:     'https://www.vastcfo.com/good-prime-cost-for-restaurant/',
+  labor:     'https://www.vastcfo.com/restaurant-labor-cost-percentage/',
+  laborSplit:'https://www.vastcfo.com/labor-percentage-for-restaurants/',
+  cogs:      'https://www.vastcfo.com/cost-of-goods-sold-in-restaurant/',
+  liquor:    'https://www.vastcfo.com/measure-liquor-profitability/',
+  budget:    'https://www.vastcfo.com/restaurant-budget-breakdown-2025/'
+};
+
+/* Concept types mirror the options Vast already uses on their own contact form. */
+const CONCEPTS = [
+  { id:'fsr_fine',   label:'Full service, fine dining' },
+  { id:'fsr_casual', label:'Full service, casual or pub' },
+  { id:'qsr',        label:'Quick service or fast casual' }
+];
+
+/* -----------------------------------------------------------------------------
+   Benchmark bands, as percentages of total sales.
+   `lo`/`hi` = the published healthy range. `target` = the single figure Vast
+   publishes in its budget breakdown, used for the "money on the table" math.
+   ----------------------------------------------------------------------------- */
+const BENCHMARKS = {
+  prime: {
+    name: 'Prime cost',
+    blurb: 'Cost of goods sold plus total labor. The number Vast treats as the headline.',
+    bands: {
+      fsr_fine:   { lo:60, hi:65 },
+      fsr_casual: { lo:60, hi:65 },
+      qsr:        { lo:55, hi:60 }
+    },
+    hardCeiling: 65,
+    source: 'prime',
+    sourceText: 'Vast CFO, What Is a Good Prime Cost for a Restaurant',
+    overNote: 'This is the line that decides whether the rest of the P&L can breathe. Above 65% the other categories cannot catch up.',
+    underNote: 'Prime cost is inside the published range for your concept.'
+  },
+  cogs: {
+    name: 'Cost of goods sold',
+    blurb: 'Food plus beverage cost as a share of sales.',
+    bands: { fsr_fine:{lo:28,hi:35}, fsr_casual:{lo:28,hi:35}, qsr:{lo:28,hi:35} },
+    target: 30,
+    source: 'cogs',
+    sourceText: 'Vast CFO, Cost of Goods Sold in a Restaurant',
+    overNote: 'Usually vendor price creep, portion drift, or waste that nobody is counting. Each one has a different fix.',
+    underNote: 'Cost of goods is inside the published range.'
+  },
+  labor: {
+    name: 'Labor',
+    blurb: 'All wages, payroll taxes, and benefits as a share of sales.',
+    bands: {
+      fsr_fine:   { lo:30, hi:35 },
+      fsr_casual: { lo:30, hi:35 },
+      qsr:        { lo:25, hi:30 }
+    },
+    source: 'labor',
+    sourceText: 'Vast CFO, Restaurant Labor Cost Percentage',
+    overNote: 'Worth splitting front of house from back of house before touching a schedule. Vast publishes 8% to 12% for front of house and 12% to 18% for back of house in full service.',
+    underNote: 'Labor is inside the published range for your concept.'
+  },
+  occupancy: {
+    name: 'Occupancy (rent)',
+    blurb: 'Base rent as a share of sales.',
+    bands: { fsr_fine:{lo:0,hi:5}, fsr_casual:{lo:0,hi:5}, qsr:{lo:0,hi:5} },
+    target: 5,
+    source: 'budget',
+    sourceText: 'Vast CFO, Restaurant Budget Breakdown',
+    overNote: 'Rent is fixed until it is renegotiated, so this one is solved with revenue per square foot rather than cost cutting.',
+    underNote: 'Rent is at or under the published allocation.'
+  },
+  marketing: {
+    name: 'Marketing',
+    blurb: 'Advertising, email, events, and social as a share of sales.',
+    bands: { fsr_fine:{lo:0,hi:4}, fsr_casual:{lo:0,hi:4}, qsr:{lo:0,hi:4} },
+    target: 4,
+    lowIsNotGood: true,
+    source: 'budget',
+    sourceText: 'Vast CFO, Restaurant Budget Breakdown',
+    overNote: 'Above the published allocation. Worth checking what it is actually returning before trimming it.',
+    underNote: 'Under the published allocation. Not a problem on its own, but if covers are flat there is room to test.'
+  },
+  utilities: {
+    name: 'Utilities',
+    blurb: 'Power, gas, water, internet, and phone as a share of sales.',
+    bands: { fsr_fine:{lo:0,hi:3.5}, fsr_casual:{lo:0,hi:3.5}, qsr:{lo:0,hi:3.5} },
+    target: 3.5,
+    source: 'budget',
+    sourceText: 'Vast CFO, Restaurant Budget Breakdown',
+    overNote: 'Often equipment running longer than it needs to, or a rate that has not been shopped in years.',
+    underNote: 'Utilities are at or under the published allocation.'
+  },
+  netProfit: {
+    name: 'Net profit',
+    blurb: 'What is left after every cost above.',
+    bands: { fsr_fine:{lo:12.5,hi:100}, fsr_casual:{lo:12.5,hi:100}, qsr:{lo:12.5,hi:100} },
+    target: 12.5,
+    higherIsBetter: true,
+    source: 'budget',
+    sourceText: 'Vast CFO, Restaurant Budget Breakdown',
+    overNote: 'At or above the profit allocation Vast budgets to.',
+    underNote: 'Below the profit and emergency fund allocation Vast budgets to.'
+  }
+};
+
+/* Beverage is reported as a component, not graded, because Vast publishes a
+   liquor-specific range and an uploaded P&L rarely isolates liquor cleanly. */
+const LIQUOR_NOTE = {
+  lo: 15, hi: 18,
+  source: 'liquor',
+  sourceText: 'Vast CFO, How to Measure Liquor Profitability'
+};
+
+/* Periods drive annualization. Never guess: the operator picks one. */
+const PERIODS = [
+  { id:'month',   label:'One month',            multiplier:12 },
+  { id:'quarter', label:'One quarter',          multiplier:4  },
+  { id:'ytd',     label:'Year to date',         multiplier:null }, /* asks month count */
+  { id:'year',    label:'A full 12 months',     multiplier:1  }
+];
+
+/* ---------------------------------------------------------------------------
+   grade(): counts how many graded lines sit inside their published band.
+   Prime cost over the 65% hard ceiling caps the grade, because Vast's own
+   article treats that as the point where nothing else can compensate.
+   --------------------------------------------------------------------------- */
+function gradeFromResults(rows, primePct) {
+  const graded = rows.filter(r => r.graded);
+  if (!graded.length) return { letter:'-', text:'Not enough data' };
+  const inBand = graded.filter(r => r.status === 'good').length;
+  const pct = inBand / graded.length;
+  let letter;
+  if (pct >= 0.9) letter = 'A';
+  else if (pct >= 0.75) letter = 'B';
+  else if (pct >= 0.55) letter = 'C';
+  else if (pct >= 0.35) letter = 'D';
+  else letter = 'F';
+  if (primePct != null && primePct > BENCHMARKS.prime.hardCeiling) {
+    const cap = ['C','D','F'];
+    if (!cap.includes(letter)) letter = 'C';
+  }
+  const text = { A:'At or near benchmark', B:'Mostly on benchmark', C:'Below benchmark',
+                 D:'Well below benchmark', F:'Significantly below benchmark' }[letter];
+  return { letter, text };
+}
+
+/* =============================================================================
+   Vast CFO: P&L parser
+   Takes a CSV / TSV / XLSX export from QuickBooks, Xero, Restaurant365, Toast
+   or a plain spreadsheet, and returns { lines:[{label, amount, category}] }.
+
+   Design notes:
+   - Every keyword match is WORD-BOUNDED. Substring matching invents categories
+     at scale (a bare "coa" matches "coach", "cocoa", "coast").
+   - "Total ..." rows are skipped for summing so subtotals are never double
+     counted, but they are kept aside as a cross-check on revenue.
+   - Cost markers are tested BEFORE revenue markers, so "Liquor Cost" lands in
+     cost of goods and "Liquor Sales" lands in revenue.
+   ============================================================================= */
+
+const CATEGORIES = {
+  revenue:   { label:'Sales / revenue',        sign:1  },
+  discounts: { label:'Discounts and comps',     sign:-1 },
+  food:      { label:'Food cost of goods',     sign:-1 },
+  beverage:  { label:'Beverage cost of goods', sign:-1 },
+  labor:     { label:'Labor',                  sign:-1 },
+  occupancy: { label:'Occupancy (rent)',       sign:-1 },
+  marketing: { label:'Marketing',              sign:-1 },
+  utilities: { label:'Utilities',              sign:-1 },
+  other:     { label:'Other operating cost',   sign:-1 },
+  ignore:    { label:'Not counted',            sign:0  }
+};
+
+/* Word-bounded matcher. Terms may contain spaces; short/ambiguous terms are
+   only ever used inside the multi-word phrases below, never on their own. */
+function hasTerm(text, terms) {
+  for (const t of terms) {
+    const esc = t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+');
+    if (new RegExp('(^|[^a-z0-9])' + esc + '([^a-z0-9]|$)', 'i').test(text)) return true;
+  }
+  return false;
+}
+
+const COST_MARKERS   = ['cost','costs','cogs','cost of goods','cost of sales','purchases','purchase','expense','expenses','used'];
+const REVENUE_MARKERS= ['sales','revenue','income','receipts'];
+
+const RULES = [
+  /* --- explicitly ignored: subtotals, non-operating, balance-sheet noise --- */
+  { cat:'ignore',    terms:['total','subtotal','gross profit','net income','net profit','net ordinary income','net operating income','operating income',
+                            'depreciation','amortization','interest expense','income tax','owner draw','owners draw',
+                            'distributions','loan payment','principal','opening balance','retained earnings'] },
+
+  /* --- revenue --- */
+  { cat:'revenue',   terms:['food sales','beverage sales','bar sales','liquor sales','beer sales','wine sales',
+                            'na beverage sales','catering sales','merchandise sales','retail sales','delivery sales',
+                            'banquet sales','event sales','gift card redemption','total income','total revenue',
+                            'total sales','gross sales','net sales','sales','revenue','income'] },
+  { cat:'discounts', terms:['discounts','comps','allowances','voids','promo','employee discount'] },
+
+  /* --- cost of goods --- */
+  { cat:'food',      terms:['food cost','food costs','food cogs','cost of goods sold food','food purchases','food purchase',
+                            'produce','meat','seafood','poultry','dairy','bakery','grocery','dry goods','frozen',
+                            'kitchen supplies','food'] },
+  { cat:'other',     terms:['paper goods','smallwares','supplies','linens','uniforms'] },
+  { cat:'beverage',  terms:['beverage cost','beverage costs','bev cost','liquor cost','beer cost','wine cost',
+                            'bar cost','na beverage cost','soda','coffee cost','beverage purchases','liquor purchases',
+                            'beer purchases','wine purchases','beverage','liquor','beer','wine'] },
+
+  /* --- labor --- */
+  { cat:'labor',     terms:['wages','salaries','salary','payroll','payroll taxes','payroll tax','labor','labour',
+                            'employee benefits','benefits','workers comp','workers compensation','health insurance',
+                            'employer taxes','foh labor','boh labor','front of house labor','back of house labor',
+                            'management salaries','manager salary','kitchen wages','server wages','contract labor',
+                            'staff','employee meals'] },
+
+  /* --- occupancy --- */
+  { cat:'other',     terms:['equipment lease','equipment rental','vehicle lease'] },
+  { cat:'occupancy', terms:['rent','base rent','lease','cam','common area maintenance','occupancy','property tax',
+                            'property taxes','real estate tax','percentage rent'] },
+
+  /* --- marketing --- */
+  { cat:'marketing', terms:['marketing','advertising','promotion','promotions','social media','website','seo',
+                            'google ads','facebook ads','print ads','email marketing','public relations','sponsorship'] },
+
+  /* --- utilities --- */
+  { cat:'utilities', terms:['utilities','electric','electricity','gas','water','sewer','internet','phone','telephone',
+                            'cable','trash','waste removal','garbage'] }
+];
+
+/* Section headers in a P&L carry meaning: a row under "Expenses" is an expense
+   even when its name contains no cost word ("Linens & Uniforms"). We track the
+   current section and use it as the fallback instead of dropping the row. */
+const SECTION_HEADERS = [
+  { section:'revenue', terms:['income','revenue','sales','ordinary income'] },
+  { section:'cogs',    terms:['cost of goods sold','cogs','cost of sales'] },
+  { section:'expense', terms:['expenses','expense','operating expenses','overhead','other expenses'] }
+];
+
+function sectionHeaderFor(label) {
+  const l = String(label || '').toLowerCase().trim();
+  for (const h of SECTION_HEADERS) if (hasTerm(l, h.terms)) return h.section;
+  return null;
+}
+
+function classify(label, section) {
+  const l = String(label || '').toLowerCase().trim();
+  if (!l) return 'ignore';
+
+  /* Subtotal / non-operating rows never get summed. */
+  if (hasTerm(l, RULES[0].terms)) {
+    if (hasTerm(l, ['total income','total revenue','total sales'])) return 'revenue_total';
+    return 'ignore';
+  }
+
+  const looksLikeCost = hasTerm(l, COST_MARKERS);
+  const looksLikeRev  = hasTerm(l, REVENUE_MARKERS);
+
+  /* Cost wins the tie: "Liquor Cost" is not revenue. */
+  if (looksLikeCost && !looksLikeRev) {
+    for (const r of RULES) {
+      if (r.cat === 'revenue' || r.cat === 'ignore') continue;
+      if (hasTerm(l, r.terms)) return r.cat;
+    }
+    return 'other';
+  }
+
+  for (const r of RULES.slice(1)) {
+    if (hasTerm(l, r.terms)) {
+      /* A revenue-named row sitting in the expense section is an expense
+         ("Merchant Processing Fees" under Expenses is not income). */
+      if (r.cat === 'revenue' && section === 'expense') return 'other';
+      return r.cat;
+    }
+  }
+
+  /* Nothing matched. Fall back to the section the row sits under. */
+  if (section === 'revenue') return 'revenue';
+  if (section === 'cogs')    return 'other';
+  if (section === 'expense') return 'other';
+  return looksLikeCost ? 'other' : 'ignore';
+}
+
+/* --- number parsing: handles $1,234.56  (1,234.56)  -1234.56  1 234,56 --- */
+function toNumber(raw) {
+  if (raw == null) return null;
+  if (typeof raw === 'number') return isFinite(raw) ? raw : null;
+  let s = String(raw).trim();
+  if (!s) return null;
+  let neg = false;
+  if (/^\(.*\)$/.test(s)) { neg = true; s = s.slice(1, -1); }
+  s = s.replace(/[$£€\s]/g, '').replace(/,/g, '');
+  if (s.startsWith('-')) { neg = true; s = s.slice(1); }
+  if (!/^\d*\.?\d+$/.test(s)) return null;
+  const n = parseFloat(s);
+  if (!isFinite(n)) return null;
+  return neg ? -n : n;
+}
+
+/* --- CSV / TSV parsing with quoted-field support --- */
+function parseDelimited(text) {
+  const delim = (text.split('\t').length > text.split(',').length) ? '\t' : ',';
+  const rows = [];
+  let row = [], field = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQ) {
+      if (c === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; }
+        else inQ = false;
+      } else field += c;
+    } else if (c === '"') inQ = true;
+    else if (c === delim) { row.push(field); field = ''; }
+    else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+    else if (c === '\r') { /* skip */ }
+    else field += c;
+  }
+  row.push(field);
+  if (row.some(f => f !== '')) rows.push(row);
+  return rows;
+}
+
+/* --- turn a grid of cells into labelled line items --- */
+function rowsToLines(rows) {
+  const lines = [];
+  let revenueTotal = null;
+  let section = null;
+
+  for (const cells of rows) {
+    if (!cells || !cells.length) continue;
+
+    /* label = first cell with letters in it */
+    let label = '';
+    for (const c of cells) {
+      const s = String(c == null ? '' : c).trim();
+      if (s && /[a-z]/i.test(s)) { label = s; break; }
+    }
+    if (!label) continue;
+
+    /* A row with a label and no amount is a section header. */
+    const hasAnyNumber = cells.some(c => toNumber(c) != null);
+    if (!hasAnyNumber) {
+      const sec = sectionHeaderFor(label);
+      if (sec) section = sec;
+      continue;
+    }
+
+    /* amount = last cell that parses as a number.
+       P&L exports often carry a % column at the end, so a bare value under 100
+       that sits after a larger number is treated as a percentage, not an amount. */
+    let amount = null, seenLarger = false;
+    for (const c of cells) {
+      const n = toNumber(c);
+      if (n == null) continue;
+      if (Math.abs(n) >= 1000) { amount = n; seenLarger = true; }
+      else if (!seenLarger) amount = n;
+    }
+    if (amount == null || amount === 0) continue;
+
+    const cat = classify(label, section);
+    if (cat === 'revenue_total') { revenueTotal = Math.abs(amount); continue; }
+    if (cat === 'ignore') continue;
+
+    /* Discounts arrive negative in most exports; store them positive and
+       subtract them from gross sales when totalling. */
+    lines.push({ label, amount: Math.abs(amount), category: cat });
+  }
+  return { lines, revenueTotal };
+}
+
+/* --- public entry points --- */
+function parseCSVText(text) { return rowsToLines(parseDelimited(text)); }
+
+function parseWorkbook(arrayBuffer) {
+  /* SheetJS is loaded on the page; if it is missing we fail loudly rather than
+     silently returning nothing. */
+  if (typeof XLSX === 'undefined') {
+    throw new Error('Spreadsheet reader did not load. Please export your P&L as CSV and try again.');
+  }
+  const wb = XLSX.read(arrayBuffer, { type:'array' });
+  const sheet = wb.Sheets[wb.SheetNames[0]];
+  const rows = XLSX.utils.sheet_to_json(sheet, { header:1, raw:true, defval:'' });
+  return rowsToLines(rows);
+}
+
+/* =============================================================================
+   Vast CFO: Restaurant Benchmark Tool: application layer
+   ============================================================================= */
+
+/* --- CONFIG: set these two before go-live -------------------------------- */
+const CONFIG = {
+  /* Google Apps Script web-app URL (the Google Sheet middleman). See apps-script/Code.gs */
+  sheetEndpoint: 'REPLACE_WITH_APPS_SCRIPT_WEB_APP_URL',
+  /* Booking page. Name and email are appended so nobody re-enters them. */
+  bookingUrl: 'https://www.vastcfo.com/contact/'
+};
+
+const S = {
+  lines: [], revenueTotalStated: null, source: 'upload',
+  concept: 'fsr_casual', period: 'month', ytdMonths: 6,
+  lead: {}, results: null
+};
+
+const $  = id => document.getElementById(id);
+const money = n => '$' + Math.round(n).toLocaleString('en-US');
+const pct   = n => (Math.round(n * 10) / 10).toFixed(1) + '%';
+
+/* ------------------------------ navigation ------------------------------- */
+const STEP_INDEX = { step1:0, stepManual:0, step2:1, step3:2, step4:3 };
+function go(id) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  $(id).classList.add('active');
+  const i = STEP_INDEX[id];
+  [...$('progress').children].forEach((seg, n) => {
+    seg.className = 'seg' + (n < i ? ' done' : n === i ? ' now' : '');
+  });
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+function showErr(id, msg) { const e = $(id); e.textContent = msg; e.classList.add('show'); }
+function hideErr(id) { $(id).classList.remove('show'); }
+
+/* -------------------------------- upload -------------------------------- */
+function handleFile(file) {
+  hideErr('uploadErr');
+  if (!file) return;
+  if (file.size > 8 * 1024 * 1024) {
+    return showErr('uploadErr', 'That file is larger than 8MB. A P&L export should be well under that. Please check you picked the right file.');
+  }
+  const name = file.name.toLowerCase();
+  const reader = new FileReader();
+
+  reader.onerror = () => showErr('uploadErr', 'We could not read that file. Please try again, or enter your numbers manually.');
+  reader.onload = e => {
+    try {
+      const out = /\.(xlsx|xls)$/.test(name)
+        ? parseWorkbook(e.target.result)
+        : parseCSVText(e.target.result);
+
+      if (!out.lines.length) {
+        return showErr('uploadErr', 'We could not find any line items in that file. Make sure it is a Profit & Loss export with account names and amounts, or enter your numbers manually below.');
+      }
+      const rev = out.lines.filter(l => l.category === 'revenue').reduce((a, b) => a + b.amount, 0);
+      if (rev <= 0 && !out.revenueTotal) {
+        return showErr('uploadErr', 'We found line items but no sales figures. Please check this is a Profit & Loss rather than a balance sheet or trial balance.');
+      }
+      S.lines = out.lines;
+      S.revenueTotalStated = out.revenueTotal;
+      S.source = 'upload';
+      buildMapping();
+      go('step2');
+    } catch (err) {
+      showErr('uploadErr', err.message || 'We could not read that file. Please export as CSV and try again.');
+    }
+  };
+  if (/\.(xlsx|xls)$/.test(name)) reader.readAsArrayBuffer(file);
+  else reader.readAsText(file);
+}
+
+/* -------------------------- manual entry fallback ------------------------ */
+function manualToLines() {
+  const g = id => {
+    const v = toNumber($(id).value);
+    return v == null ? 0 : Math.abs(v);
+  };
+  const map = [
+    ['m_revenue','Total sales','revenue'], ['m_discounts','Discounts and comps','discounts'],
+    ['m_food','Food cost of goods','food'], ['m_beverage','Beverage cost of goods','beverage'],
+    ['m_labor','Total labor','labor'], ['m_occupancy','Occupancy (rent)','occupancy'],
+    ['m_marketing','Marketing','marketing'], ['m_utilities','Utilities','utilities'],
+    ['m_other','All other operating costs','other']
+  ];
+  const lines = [];
+  for (const [id, label, cat] of map) {
+    const v = g(id);
+    if (v > 0) lines.push({ label, amount:v, category:cat });
+  }
+  return lines;
+}
+
+/* ------------------------------- mapping -------------------------------- */
+function buildMapping() {
+  const body = $('mapBody');
+  body.innerHTML = '';
+  S.lines.forEach((line, i) => {
+    const tr = document.createElement('tr');
+    if (line.category === 'ignore') tr.className = 'ignored';
+    const sel = Object.entries(CATEGORIES).map(([k, v]) =>
+      `<option value="${k}"${k === line.category ? ' selected' : ''}>${v.label}</option>`).join('');
+    tr.innerHTML =
+      `<td>${escapeHtml(line.label)}</td>` +
+      `<td><select data-i="${i}">${sel}</select></td>` +
+      `<td class="amt">${money(line.amount)}</td>`;
+    body.appendChild(tr);
+  });
+  body.querySelectorAll('select').forEach(sel => {
+    sel.addEventListener('change', e => {
+      const i = +e.target.dataset.i;
+      S.lines[i].category = e.target.value;
+      e.target.closest('tr').className = e.target.value === 'ignore' ? 'ignored' : '';
+      renderTotals();
+    });
+  });
+  $('mapNote').innerHTML = S.source === 'manual'
+    ? 'These are the numbers you entered. Change a category if anything is in the wrong place.'
+    : `We read <strong>${S.lines.length}</strong> lines from your P&amp;L. Subtotals, loan interest, and depreciation are left out on purpose so nothing is counted twice.`;
+  renderTotals();
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c =>
+    ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+}
+
+function totals() {
+  const t = {};
+  for (const k of Object.keys(CATEGORIES)) t[k] = 0;
+  S.lines.forEach(l => { t[l.category] = (t[l.category] || 0) + l.amount; });
+  t.netSales = t.revenue - t.discounts;
+  t.cogs     = t.food + t.beverage;
+  t.prime    = t.cogs + t.labor;
+  t.opex     = t.occupancy + t.marketing + t.utilities + t.other;
+  t.netProfit= t.netSales - t.cogs - t.labor - t.opex;
+  return t;
+}
+
+function renderTotals() {
+  const t = totals();
+  $('mapTotals').innerHTML = [
+    ['Net sales', money(t.netSales)],
+    ['Cost of goods', money(t.cogs)],
+    ['Labor', money(t.labor)],
+    ['Other operating', money(t.opex)],
+    ['Net profit', money(t.netProfit)]
+  ].map(([k, v]) => `<div><div class="k">${k}</div><div class="v">${v}</div></div>`).join('');
+
+  /* Cross-check against the P&L's own stated total. A mismatch usually means a
+     line was miscategorised, so say so rather than quietly reporting a wrong %. */
+  const w = $('mapWarn');
+  if (S.revenueTotalStated && Math.abs(t.netSales - S.revenueTotalStated) > 1) {
+    const diff = t.netSales - S.revenueTotalStated;
+    w.innerHTML = `Heads up: your P&amp;L states total income of <strong>${money(S.revenueTotalStated)}</strong> but the lines we categorised as sales come to <strong>${money(t.netSales)}</strong>, a difference of ${money(Math.abs(diff))}. Check the sales rows below before continuing.`;
+    w.classList.add('show');
+  } else w.classList.remove('show');
+
+  $('toStep3').disabled = t.netSales <= 0;
+}
+
+/* ------------------------------ computation ----------------------------- */
+function annualMultiplier() {
+  if (S.period === 'ytd') return 12 / Math.max(1, Math.min(12, S.ytdMonths || 6));
+  return (PERIODS.find(p => p.id === S.period) || {}).multiplier || 1;
+}
+
+function compute() {
+  const t = totals();
+  const rev = t.netSales;
+  const mult = annualMultiplier();
+  const P = k => (t[k] / rev) * 100;
+
+  const measured = {
+    prime:      (t.prime / rev) * 100,
+    cogs:       (t.cogs / rev) * 100,
+    labor:      P('labor'),
+    occupancy:  P('occupancy'),
+    marketing:  P('marketing'),
+    utilities:  P('utilities'),
+    netProfit:  (t.netProfit / rev) * 100
+  };
+
+  const rows = [];
+  let outOfBand = 0;
+
+  for (const key of ['prime','cogs','labor','occupancy','marketing','utilities','netProfit']) {
+    const b = BENCHMARKS[key];
+    const band = b.bands[S.concept];
+    const val = measured[key];
+    if (!isFinite(val)) continue;
+
+    /* A category the operator has no figure for is reported, never graded. */
+    const hasData = key === 'netProfit' || key === 'prime' || key === 'cogs'
+      ? true : (t[key] > 0);
+
+    let status, deltaPts = 0;
+    if (!hasData) {
+      status = 'info';
+    } else if (b.higherIsBetter) {
+      status = val >= band.lo ? 'good' : (val >= band.lo - 5 ? 'warn' : 'bad');
+      if (val < band.lo) deltaPts = band.lo - val;
+    } else {
+      if (val <= band.hi) status = 'good';
+      else if (val <= band.hi + 3) status = 'warn';
+      else status = 'bad';
+      if (val > band.hi) deltaPts = val - band.hi;
+    }
+    if (key === 'prime' && val > b.hardCeiling) status = 'bad';
+
+    /* We report the gap in percentage points only.
+       A projected dollar saving would be a financial-outcome claim, which this
+       client never makes. The operator's own spend is a fact and is fine to
+       show; a modelled saving is not. */
+    if (hasData && status !== 'good' && key !== 'prime') outOfBand++;
+
+    rows.push({
+      key, name:b.name, val, band, status, graded:hasData && status !== 'info',
+      deltaPts, spend: t[key] || 0,
+      note: hasData
+        ? (status === 'good' ? b.underNote : b.overNote)
+        : 'We did not find this line in your P&L, so there is nothing to compare yet.',
+      source: VAST_SOURCES[b.source], sourceText: b.sourceText,
+      hasData
+    });
+  }
+
+  const g = gradeFromResults(rows, measured.prime);
+  const gradedCount = rows.filter(r => r.graded).length;
+
+  return { t, rev, mult, measured, rows, outOfBand, gradedCount, grade:g };
+}
+
+/* ------------------------------- rendering ------------------------------ */
+function renderResults() {
+  const r = S.results;
+  const conceptLabel = (CONCEPTS.find(c => c.id === S.concept) || {}).label;
+  const periodLabel  = (PERIODS.find(p => p.id === S.period) || {}).label;
+
+  $('resTitle').textContent = S.lead.website
+    ? S.lead.website.replace(/^https?:\/\//, '').replace(/\/$/, '')
+    : (S.lead.name ? S.lead.name + "'s restaurant" : 'Your benchmark report');
+  $('resSub').textContent =
+    `Based on ${periodLabel.toLowerCase()} of figures, compared against Vast's published benchmarks for ${conceptLabel.toLowerCase()}.`;
+
+  const prime = r.rows.find(x => x.key === 'prime');
+  $('resLeak').innerHTML = prime
+    ? pct(prime.val) + ` <span style="color:#a8a8a0;font-size:17px;font-weight:600">vs. ${prime.band.lo} to ${prime.band.hi}% published range</span>`
+    : '-';
+  $('resLeakSub').textContent = r.outOfBand > 0
+    ? `${r.outOfBand} of your ${r.gradedCount} benchmarked lines sit outside the published range. Cost of goods plus labor is the line Vast treats as the headline, because when it is out of range the rest of the P&L cannot make the difference up.`
+    : 'Cost of goods plus labor. Every benchmarked line on your P&L sits inside its published range.';
+  $('resMargin').innerHTML = pct(r.measured.netProfit) +
+    ` <span style="color:#a8a8a0;font-size:17px;font-weight:600">vs. ${BENCHMARKS.netProfit.target}% benchmark</span>`;
+  $('resGrade').textContent = r.grade.letter;
+  $('resGradeText').textContent = r.grade.text;
+
+  $('benchGrid').innerHTML = r.rows.map(row => {
+    const b = BENCHMARKS[row.key];
+    const targetTxt = b.higherIsBetter
+      ? `${row.band.lo}% benchmark`
+      : (row.band.lo > 0 ? `${row.band.lo} to ${row.band.hi}% target` : `${row.band.hi}% or under`);
+    const scaleMax = Math.max(row.band.hi * 1.6, row.val * 1.15, 10);
+    const barW = Math.min(100, (row.val / scaleMax) * 100);
+    const markL = Math.min(100, (row.band.hi / scaleMax) * 100);
+    const barColor = row.status === 'good' ? 'var(--good)'
+                   : row.status === 'warn' ? 'var(--warn)'
+                   : row.status === 'bad'  ? 'var(--bad)' : '#c4c4bd';
+    const statusTxt = !row.hasData ? 'Not found'
+      : row.status === 'good' ? 'Inside range'
+      : row.status === 'warn' ? `${(Math.round(row.deltaPts * 10) / 10)} pts out`
+      : `${(Math.round(row.deltaPts * 10) / 10)} pts out`;
+    /* Facts only: what they actually spent, and how many points out of range.
+       No modelled saving. */
+    const spendTxt = (row.spend > 0 && !['prime','cogs','netProfit'].includes(row.key))
+      ? ` You spent <strong>${money(row.spend)}</strong> on this line in the period.` : '';
+    const leakTxt = (row.deltaPts > 0.05)
+      ? ` <span class="leak">${(Math.round(row.deltaPts * 10) / 10)} points outside the range.</span>` : '';
+
+    return `<div class="bench-card">
+      <div class="name">${b.name}</div>
+      <div class="you-vs">
+        <div class="you">${row.hasData ? pct(row.val) : '-'}</div>
+        <div class="vs">vs.</div>
+        <div class="target">${targetTxt}</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="bar" style="left:0;width:${barW}%;background:${barColor}"></div>
+        <div class="target-marker" style="left:${markL}%"></div>
+      </div>
+      <span class="status ${row.status}">${statusTxt}</span>
+      <div class="note">${row.note}${leakTxt}${spendTxt}</div>
+      <div class="src">Benchmark: <a href="${row.source}" target="_blank" rel="noopener">${row.sourceText}</a></div>
+    </div>`;
+  }).join('');
+
+  /* Beverage is shown as context, never graded, because a P&L rarely isolates liquor. */
+  const t = r.t;
+  if (t.beverage > 0) {
+    const bevPct = (t.beverage / r.rev) * 100;
+    $('benchGrid').insertAdjacentHTML('beforeend', `<div class="bench-card">
+      <div class="name">Beverage cost (context only)</div>
+      <div class="you-vs"><div class="you">${pct(bevPct)}</div><div class="vs">of sales</div></div>
+      <span class="status info">Not graded</span>
+      <div class="note">Vast publishes a healthy <strong>liquor</strong> cost range of ${LIQUOR_NOTE.lo}% to ${LIQUOR_NOTE.hi}%. Most P&amp;Ls bundle liquor with beer, wine, and non-alcoholic drinks, so we do not grade this line without a split. Your combined beverage cost is above for reference.</div>
+      <div class="src">Benchmark: <a href="${VAST_SOURCES[LIQUOR_NOTE.source]}" target="_blank" rel="noopener">${LIQUOR_NOTE.sourceText}</a></div>
+    </div>`);
+  }
+
+  /* Booking link carries name and email so nothing is re-entered. */
+  const q = new URLSearchParams();
+  if (S.lead.name)  q.set('name', S.lead.name);
+  if (S.lead.email) q.set('email', S.lead.email);
+  if (S.lead.website) q.set('website', S.lead.website);
+  q.set('source', 'benchmark-tool');
+  $('bookBtn').href = CONFIG.bookingUrl + (CONFIG.bookingUrl.includes('?') ? '&' : '?') + q.toString();
+
+  $('emailedTo').textContent = S.lead.email
+    ? `We have emailed a copy to ${S.lead.email} so you can find it later.`
+    : 'Use your browser print dialog to save a copy.';
+
+  $('resDisclosure').innerHTML =
+    `Benchmarks are Vast CFO's own published figures, linked on each card above. Comparisons are for educational purposes only and do not constitute accounting, tax, or financial advice. Every restaurant is different. This report compares the figures you supplied against published ranges; it does not project savings or predict results. For analysis specific to your business, <a href="${$('bookBtn').href}" target="_blank" rel="noopener">book a call</a>.`;
+}
+
+/* ------------------------ the Google Sheet middleman -------------------- */
+function postToSheet() {
+  if (!CONFIG.sheetEndpoint || CONFIG.sheetEndpoint.startsWith('REPLACE_')) {
+    console.warn('[vast] sheetEndpoint not configured; skipping submission');
+    return Promise.resolve();
+  }
+  const r = S.results, t = r.t;
+  const payload = {
+    submittedAt: new Date().toISOString(),
+    name: S.lead.name, email: S.lead.email, website: S.lead.website,
+    optIn: S.lead.optIn ? 'Yes' : 'No',
+    concept: (CONCEPTS.find(c => c.id === S.concept) || {}).label,
+    period: (PERIODS.find(p => p.id === S.period) || {}).label,
+    ytdMonths: S.period === 'ytd' ? S.ytdMonths : '',
+    entryMethod: S.source,
+    netSales: Math.round(t.netSales),
+    foodCogs: Math.round(t.food), beverageCogs: Math.round(t.beverage),
+    totalCogs: Math.round(t.cogs), labor: Math.round(t.labor),
+    occupancy: Math.round(t.occupancy), marketing: Math.round(t.marketing),
+    utilities: Math.round(t.utilities), otherOpex: Math.round(t.other),
+    netProfit: Math.round(t.netProfit),
+    primePct: +r.measured.prime.toFixed(1), cogsPct: +r.measured.cogs.toFixed(1),
+    laborPct: +r.measured.labor.toFixed(1), occupancyPct: +r.measured.occupancy.toFixed(1),
+    marketingPct: +r.measured.marketing.toFixed(1), utilitiesPct: +r.measured.utilities.toFixed(1),
+    netProfitPct: +r.measured.netProfit.toFixed(1),
+    grade: r.grade.letter,
+    linesOutOfBand: r.outOfBand,
+    outOfBand: r.rows.filter(x => x.graded && x.status !== 'good')
+      .map(x => `${x.name} ${x.val.toFixed(1)}% (range ${x.band.lo}-${x.band.hi}%)`).join('; '),
+    lines: S.lines.map(l => `${l.label} | ${l.category} | ${Math.round(l.amount)}`).join('\n')
+  };
+  /* text/plain keeps this a CORS "simple request", so Apps Script needs no preflight. */
+  return fetch(CONFIG.sheetEndpoint, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload)
+  }).catch(err => { console.warn('[vast] submission failed', err); });
+}
+
+/* --------------------------------- wiring ------------------------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  $('concept').innerHTML = CONCEPTS.map(c => `<option value="${c.id}">${c.label}</option>`).join('');
+  $('period').innerHTML  = PERIODS.map(p => `<option value="${p.id}">${p.label}</option>`).join('');
+
+  const dz = $('dropzone'), fi = $('fileInput');
+  dz.addEventListener('click', () => fi.click());
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
+  dz.addEventListener('drop', e => {
+    e.preventDefault(); dz.classList.remove('drag');
+    handleFile(e.dataTransfer.files[0]);
+  });
+  fi.addEventListener('change', e => handleFile(e.target.files[0]));
+
+  $('manualLink').addEventListener('click', () => go('stepManual'));
+  $('manualBack').addEventListener('click', () => go('step1'));
+  $('manualNext').addEventListener('click', () => {
+    hideErr('manualErr');
+    const lines = manualToLines();
+    const rev = lines.filter(l => l.category === 'revenue').reduce((a, b) => a + b.amount, 0);
+    if (rev <= 0) return showErr('manualErr', 'Please enter your total sales for the period. Everything else is optional.');
+    S.lines = lines; S.revenueTotalStated = null; S.source = 'manual';
+    buildMapping(); go('step2');
+  });
+
+  $('concept').addEventListener('change', e => { S.concept = e.target.value; });
+  $('period').addEventListener('change', e => {
+    S.period = e.target.value;
+    $('ytdWrap').style.display = S.period === 'ytd' ? 'block' : 'none';
+  });
+  $('ytdMonths').addEventListener('input', e => { S.ytdMonths = +e.target.value || 6; });
+
+  $('back1').addEventListener('click', () => go(S.source === 'manual' ? 'stepManual' : 'step1'));
+  $('toStep3').addEventListener('click', () => go('step3'));
+  $('back2').addEventListener('click', () => go('step2'));
+
+  $('toStep4').addEventListener('click', async () => {
+    hideErr('gateErr');
+    const name = $('leadName').value.trim();
+    const email = $('leadEmail').value.trim();
+    let website = $('leadWebsite').value.trim();
+    if (!name) return showErr('gateErr', 'Please add your name so we know who the report belongs to.');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) return showErr('gateErr', 'Please enter a valid email address so we can send your copy.');
+    if (website && !/^https?:\/\//i.test(website)) website = 'https://' + website;
+
+    S.lead = { name, email, website, optIn: $('optin').checked };
+    S.results = compute();
+
+    $('gateSpin').classList.add('show');
+    $('toStep4').disabled = true;
+    await postToSheet();
+    $('gateSpin').classList.remove('show');
+    $('toStep4').disabled = false;
+
+    renderResults();
+    go('step4');
+  });
+
+  $('printBtn').addEventListener('click', () => window.print());
+});
+
+</script>
+</body>
+</html>

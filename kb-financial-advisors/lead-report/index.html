@@ -64,7 +64,14 @@ section .card .mini{max-width:560px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 @media(max-width:900px){.grid{grid-template-columns:1fr}}
 .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
-.kpis{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+ gap:12px;margin:0 0 4px}
+.band:first-of-type{margin-top:28px}
+.band{margin-bottom:26px}
+.bandlab{font-size:.72rem;font-weight:800;letter-spacing:.10em;text-transform:uppercase;
+ color:var(--grey);margin:0 0 10px;display:flex;align-items:center;gap:10px}
+.bandlab::after{content:"";flex:1;height:1px;background:var(--line)}
+.bandlab b{font-weight:600;letter-spacing:0;text-transform:none;color:var(--grey);opacity:.8}
 .trend{display:flex;align-items:flex-end;gap:6px;height:150px;margin-top:6px}
 .trend .tb{flex:1;background:var(--accent);border-radius:4px 4px 0 0;position:relative;
  min-height:4px;opacity:.85}
@@ -94,23 +101,34 @@ canvas{max-height:290px}
 <div class="sub">Every discovery call booked, read directly from the booking sheet. Tests and duplicates removed; onboarding, follow-ups and existing-client calls excluded so the count is new demand only.</div>
 <div class="stamp">
   <span class="dot"></span>
-  <span>Data refreshed <strong>Aug 31, 6:00am UTC</strong></span>
+  <span>Data refreshed <strong>Aug 31, 2:20pm UTC</strong></span>
   <span class="sep">&middot;</span>
   <span>latest booking on file <strong>2026-08-30 03:42</strong></span>
   <span class="sep">&middot;</span>
-  <span>refreshes hourly</span>
+  <span>refreshes every 6 hours</span>
 </div>
 </div></div>
 <main><div class="wrap">
+<div class="band"><h4 class="bandlab">Last week <b>Aug 24&ndash;30</b></h4><div class="kpis"><div class="kpi"><div class="n">4</div><div class="l">Real leads</div></div></div></div>
+<div class="band">
+<h4 class="bandlab">Aug so far</h4>
 <div class="kpis">
-<div class="kpi big"><div class="n">18</div><div class="l">Real leads &mdash; Aug</div></div>
-<div class="kpi"><div class="n">18</div><div class="l">All submissions, Aug</div></div>
-<div class="kpi"><div class="n">14</div><div class="l">Real leads &mdash; Jul (final)</div></div>
+<div class="kpi big"><div class="n">18</div><div class="l">Real leads</div></div>
+<div class="kpi"><div class="n">18</div><div class="l">All submissions</div></div>
 
-<div class="kpi"><div class="n">$178.15</div><div class="l">Ad spend &mdash; MTD</div></div><div class="kpi"><div class="n">$0.62</div><div class="l">Cost per click &mdash; MTD</div><div class="co">289 clicks</div></div><div class="kpi"><div class="n">3.04%</div><div class="l">Click-through rate &mdash; MTD</div><div class="co">9,520 impressions</div></div>
+
+
+</div>
+</div>
+<div class="band"><h4 class="bandlab">Google Ads <b>Aug 2026 so far</b></h4><div class="kpis"><div class="kpi"><div class="n">$178.15</div><div class="l">Ad spend</div><div class="co">289 clicks &middot; 3.04% CTR</div></div><div class="kpi"><div class="n">$3.92</div><div class="l">Search CPC</div><div class="co">$90.17 &middot; 23 clicks &middot; 2.9% CTR</div></div><div class="kpi"><div class="n">$0.33</div><div class="l">Performance Max CPC</div><div class="co">$87.97 &middot; 266 clicks &middot; 3.1% CTR</div></div></div></div>
+<div class="band">
+<h4 class="bandlab">Totals &amp; context</h4>
+<div class="kpis">
+<div class="kpi big"><div class="n">114</div><div class="l">Real leads &mdash; year to date</div></div>
+<div class="kpi"><div class="n">14</div><div class="l">Real leads &mdash; Jul (final)</div></div>
 <div class="kpi"><div class="n">0</div><div class="l">Spam &amp; job inquiries</div></div>
 <div class="kpi"><div class="t">IPO / liquidity event</div><div class="l">Top category &mdash; 8 leads</div></div>
-<div class="kpi big"><div class="n">114</div><div class="l">Real leads &mdash; YTD</div></div>
+</div>
 </div>
 
 
@@ -151,7 +169,7 @@ A few questions before we go further:
 
 <div class='grid'><div class='card'><h3>Real leads by month</h3><canvas id='c1'></canvas></div><div class='card'><h3>Leads by category &mdash; YTD</h3><canvas id='c2'></canvas></div></div><div style='height:18px'></div><div class='grid'><div class='card'><h3>Ad spend vs real leads</h3><p class='chartnote'>Grey bars = Google Ads spend (left). Line = real leads (right).</p><canvas id='c3'></canvas></div><div class='card'><h3>How this is measured</h3><p class='chartnote' style='line-height:1.7'><strong>Real lead</strong> &mdash; a new discovery call booked, not an onboarding or existing-client call.<br><strong>Category</strong> &mdash; keyword-matched from what the person typed, so an ambiguously worded submission may need reclassifying by eye.<br><strong>Removed this run</strong> &mdash; 0 test, internal and duplicate submissions.</p></div></div><div style='height:18px'></div>
 
-<p class="foot">Generated 2026-08-31 06:00 UTC &middot; source: Discovery calls sheet &middot; ad spend: Google Ads</p>
+<p class="foot">Generated 2026-08-31 14:20 UTC &middot; source: Discovery calls sheet &middot; ad spend: Google Ads</p>
 </div></main>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>

@@ -56,7 +56,6 @@ tr.dim td{color:#9AA0A4}tr.dim strong{font-weight:600}
   padding:12px 16px;border-radius:12px;background:var(--wash);border-left:5px solid var(--accent)}
 .monthhead h2{font-size:1.15rem}
 section .card .mini{max-width:560px}
-.mini.titles{max-width:none} .mini.titles td.rank{color:var(--muted,#98A3AA);width:28px} .mini.titles td.rowlab{text-align:left;white-space:normal}
 .monthblock{margin:44px 0 38px;padding-top:6px;border-top:1px solid var(--line)}
 .monthsum{color:var(--grey);font-size:.88rem;margin:-8px 0 12px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
@@ -65,7 +64,14 @@ section .card .mini{max-width:560px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 @media(max-width:900px){.grid{grid-template-columns:1fr}}
 .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}
-.kpis{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+ gap:12px;margin:0 0 4px}
+.band:first-of-type{margin-top:28px}
+.band{margin-bottom:26px}
+.bandlab{font-size:.72rem;font-weight:800;letter-spacing:.10em;text-transform:uppercase;
+ color:var(--grey);margin:0 0 10px;display:flex;align-items:center;gap:10px}
+.bandlab::after{content:"";flex:1;height:1px;background:var(--line)}
+.bandlab b{font-weight:600;letter-spacing:0;text-transform:none;color:var(--grey);opacity:.8}
 .trend{display:flex;align-items:flex-end;gap:6px;height:150px;margin-top:6px}
 .trend .tb{flex:1;background:var(--accent);border-radius:4px 4px 0 0;position:relative;
  min-height:4px;opacity:.85}
@@ -95,23 +101,34 @@ canvas{max-height:290px}
 <div class="sub">Every discovery call booked, read directly from the booking sheet. Tests and duplicates removed; onboarding, follow-ups and existing-client calls excluded so the count is new demand only.</div>
 <div class="stamp">
   <span class="dot"></span>
-  <span>Data refreshed <strong>Sep 10, 3:55pm UTC</strong></span>
+  <span>Data refreshed <strong>Sep 10, 4:38pm UTC</strong></span>
   <span class="sep">&middot;</span>
   <span>latest booking on file <strong>2026-09-08 20:07</strong></span>
   <span class="sep">&middot;</span>
-  <span>refreshes hourly</span>
+  <span>refreshes every 6 hours</span>
 </div>
 </div></div>
 <main><div class="wrap">
+<div class="band"><h4 class="bandlab">Last week <b>Aug 31&ndash;6</b></h4><div class="kpis"><div class="kpi"><div class="n">1</div><div class="l">Real leads</div></div></div></div>
+<div class="band">
+<h4 class="bandlab">Sep so far</h4>
 <div class="kpis">
-<div class="kpi big"><div class="n">4</div><div class="l">Real leads &mdash; Sep</div></div>
-<div class="kpi"><div class="n">4</div><div class="l">All submissions, Sep</div></div>
-<div class="kpi"><div class="n">18</div><div class="l">Real leads &mdash; Aug (final)</div></div>
+<div class="kpi big"><div class="n">4</div><div class="l">Real leads</div></div>
+<div class="kpi"><div class="n">4</div><div class="l">All submissions</div></div>
 
-<div class="kpi"><div class="n">$57.04</div><div class="l">Ad spend &mdash; MTD</div></div><div class="kpi"><div class="n">$0.56</div><div class="l">Cost per click &mdash; MTD</div><div class="co">102 clicks</div></div><div class="kpi"><div class="n">4.66%</div><div class="l">Click-through rate &mdash; MTD</div><div class="co">2,189 impressions</div></div>
+
+
+</div>
+</div>
+<div class="band"><h4 class="bandlab">Google Ads <b>Sep 2026 so far</b></h4><div class="kpis"><div class="kpi"><div class="n">$57.04</div><div class="l">Ad spend</div><div class="co">102 clicks &middot; 4.63% CTR</div></div><div class="kpi"><div class="n">$4.15</div><div class="l">Search CPC</div><div class="co">$29.02 &middot; 7 clicks &middot; 2.5% CTR</div></div><div class="kpi"><div class="n">$0.29</div><div class="l">Performance Max CPC</div><div class="co">$28.02 &middot; 95 clicks &middot; 4.9% CTR</div></div></div></div>
+<div class="band">
+<h4 class="bandlab">Totals &amp; context</h4>
+<div class="kpis">
+<div class="kpi big"><div class="n">118</div><div class="l">Real leads &mdash; year to date</div></div>
+<div class="kpi"><div class="n">18</div><div class="l">Real leads &mdash; Aug (final)</div></div>
 <div class="kpi"><div class="n">0</div><div class="l">Spam &amp; job inquiries</div></div>
 <div class="kpi"><div class="t">Equity comp / RSU / options</div><div class="l">Top category &mdash; 1 lead</div></div>
-<div class="kpi big"><div class="n">118</div><div class="l">Real leads &mdash; YTD</div></div>
+</div>
 </div>
 
 
@@ -132,8 +149,7 @@ I&#x27;ve never gotten financial advice before, and I&#x27;m not a sophisticated
 
 <div class='grid'><div class='card'><h3>Real leads by month</h3><canvas id='c1'></canvas></div><div class='card'><h3>Leads by category &mdash; YTD</h3><canvas id='c2'></canvas></div></div><div style='height:18px'></div><div class='grid'><div class='card'><h3>Ad spend vs real leads</h3><p class='chartnote'>Grey bars = Google Ads spend (left). Line = real leads (right).</p><canvas id='c3'></canvas></div><div class='card'><h3>How this is measured</h3><p class='chartnote' style='line-height:1.7'><strong>Real lead</strong> &mdash; a new discovery call booked, not an onboarding or existing-client call.<br><strong>Category</strong> &mdash; keyword-matched from what the person typed, so an ambiguously worded submission may need reclassifying by eye.<br><strong>Removed this run</strong> &mdash; 0 test, internal and duplicate submissions.</p></div></div><div style='height:18px'></div>
 
-
-<p class="foot">Generated 2026-09-10 15:55 UTC &middot; source: Discovery calls sheet &middot; ad spend: Google Ads</p>
+<p class="foot">Generated 2026-09-10 16:38 UTC &middot; source: Discovery calls sheet &middot; ad spend: Google Ads</p>
 </div></main>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script>

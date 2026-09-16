@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Two-Step Form Demo | The Fitness CPA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#C8102E;--gray:#888B8D;--ink:#212121;--bg:#f5f5f5;--line:#dcdcdc;--ok:#1b7f3b}
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Raleway,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.5}
+  .top{background:#fff;border-bottom:1px solid var(--line);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+  .brand{font-weight:800;font-style:italic;font-size:20px;letter-spacing:.5px}
+  .brand span{color:var(--red)}
+  .tag{font-size:12px;font-weight:700;color:#fff;background:var(--ink);padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:.6px}
+  .wrap{max-width:1120px;margin:0 auto;padding:28px 16px 60px}
+  h1{font-size:34px;font-weight:800;margin:0 0 6px;line-height:1.15}
+  .lede{color:#444;margin:0 0 26px;max-width:720px}
+  .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;align-items:start}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:10px;padding:26px}
+  .steps{display:flex;gap:10px;margin:0 0 22px;padding:0;list-style:none}
+  .steps li{flex:1;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;color:var(--gray)}
+  .steps li b{width:30px;height:30px;border-radius:50%;background:var(--gray);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+  .steps li.on{color:var(--ink)} .steps li.on b{background:var(--red)}
+  .steps li.done{color:var(--ok)} .steps li.done b{background:var(--ok)}
+  label{display:block;font-weight:700;font-size:14px;margin:14px 0 6px}
+  label i{color:var(--red);font-style:normal}
+  input,select,textarea{width:100%;font:inherit;font-size:15px;padding:11px 12px;border:1px solid #bbb;border-radius:4px;background:#fff}
+  textarea{min-height:84px;resize:vertical}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:560px){.row{grid-template-columns:1fr}}
+  .btn{margin-top:22px;background:var(--red);color:#fff;border:0;border-radius:4px;padding:14px 26px;font:inherit;font-weight:800;font-size:15px;letter-spacing:.5px;text-transform:uppercase;cursor:pointer}
+  .btn.ghost{background:#fff;color:var(--ink);border:1px solid #bbb;margin-left:10px;text-transform:none;font-weight:600;letter-spacing:0}
+  .note{font-size:13px;color:#555;margin-top:10px}
+  .hide{display:none}
+  .banner{background:#eaf6ee;border:1px solid #bfe3ca;color:#154d2a;border-radius:6px;padding:12px 14px;font-size:14px;margin-bottom:6px}
+  .done-box{text-align:center;padding:30px 10px}
+  .done-box h2{margin:0 0 8px;font-size:26px;font-weight:800}
+  /* HubSpot side panel */
+  .hs h3{margin:0 0 4px;font-size:13px;text-transform:uppercase;letter-spacing:.8px;color:var(--gray)}
+  .hs .sub{font-size:13px;color:#555;margin:0 0 16px}
+  .card{border:1px solid var(--line);border-radius:8px;padding:14px;margin-bottom:12px;background:#fafafa}
+  .card .k{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--gray);font-weight:700}
+  .card .v{font-size:15px;font-weight:700;margin:2px 0 8px}
+  .props{font-size:13px;margin:0;padding:0;list-style:none}
+  .props li{display:flex;justify-content:space-between;gap:10px;border-top:1px dashed var(--line);padding:5px 0}
+  .props li span:first-child{color:#555}
+  .props li.new span:last-child{color:var(--ok);font-weight:700}
+  .empty{font-size:14px;color:var(--gray);padding:18px;border:1px dashed var(--line);border-radius:8px;text-align:center}
+  .log{font-size:13px;margin:12px 0 0;padding:0;list-style:none}
+  .log li{padding:7px 0;border-top:1px solid var(--line)}
+  .log li time{color:var(--gray);margin-right:8px;font-variant-numeric:tabular-nums}
+  .how{margin-top:34px}
+  .how h2{font-size:22px;font-weight:800;margin:0 0 6px}
+  .how ol{padding-left:20px;margin:10px 0 0}
+  .how li{margin:8px 0}
+  .how code{background:#eee;padding:1px 5px;border-radius:3px;font-size:13px}
+  .cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  @media(max-width:700px){.cmp{grid-template-columns:1fr}}
+  .cmp div{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px;font-size:14px}
+  .cmp b{display:block;margin-bottom:6px}
+  .cmp .bad b{color:var(--red)} .cmp .good b{color:var(--ok)}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="brand">THE <span>FITNESS</span> CPA</div>
+  <span class="tag">Demo, not live. Nothing is sent to HubSpot.</span>
+</div>
+
+<div class="wrap">
+  <h1>Two-step form: the lead is saved after screen one.</h1>
+  <p class="lede">Fill in the short form on the left and watch the right-hand panel. The contact is created the moment screen one is submitted. Screen two only adds detail to the same record, so a visitor who leaves early is still a lead.</p>
+
+  <div class="grid">
+    <div class="panel">
+      <ol class="steps">
+        <li id="s1" class="on"><b>1</b> Tell us about you</li>
+        <li id="s2"><b>2</b> About your business</li>
+        <li id="s3"><b>3</b> Done</li>
+      </ol>
+
+      <form id="f1" onsubmit="return step1(event)">
+        <div class="row">
+          <div><label>First Name<i>*</i></label><input name="firstname" required></div>
+          <div><label>Last Name<i>*</i></label><input name="lastname" required></div>
+        </div>
+        <label>Email<i>*</i></label><input name="email" type="email" required>
+        <label>What is the name of your business?<i>*</i></label><input name="company" required>
+        <label>Website URL<i>*</i></label><input name="website" required>
+        <label>Where did you hear about us?<i>*</i></label>
+        <select name="source" required>
+          <option value="">Select</option><option>Google search</option><option>Referral</option><option>Social media</option><option>Podcast or event</option><option>Other</option>
+        </select>
+        <button class="btn" type="submit">Submit</button>
+        <p class="note">In production this is HubSpot form 1 (the six fields already live on /get-in-touch/).</p>
+      </form>
+
+      <form id="f2" class="hide" onsubmit="return step2(event)">
+        <div class="banner" id="thanks"></div>
+        <p class="note" style="margin:0 0 4px">Optional. Two minutes. Helps us prepare for your discovery call.</p>
+        <input type="hidden" name="email" id="f2email">
+        <label>What kind of business do you have?<i>*</i></label>
+        <select name="what_business" required>
+          <option value="">Select</option><option>Fitness Franchise</option><option>Gym</option><option>Gym &amp; Personal Training</option><option>Tennis / Racquet Sports Club</option><option>Crossfit / HIIT</option><option>Yoga Studio</option><option>Barre Studio</option><option>Cycling Studio</option><option>Dance Studio</option><option>MMA</option><option>Aquatics</option><option>Other</option>
+        </select>
+        <div class="row">
+          <div><label>How many locations?<i>*</i></label><select name="locations" required><option value="">Select</option><option>1</option><option>2 to 3</option><option>4 to 9</option><option>10+</option></select></div>
+          <div><label>Annual revenue<i>*</i></label><select name="annualrevenue" required><option value="">Select</option><option>Under $1M</option><option>$1M to $3M</option><option>$3M to $10M</option><option>$10M+</option></select></div>
+        </div>
+        <div class="row">
+          <div><label>Number of employees<i>*</i></label><select name="numemployees" required><option value="">Select</option><option>1 to 10</option><option>11 to 25</option><option>26 to 50</option><option>51+</option></select></div>
+          <div><label>Own brand, franchise, or license?<i>*</i></label><input name="brand_type" required></div>
+        </div>
+        <label>What challenges are you currently facing in your business?<i>*</i></label><textarea name="challenges" required></textarea>
+        <label>Have a question? Ask us and we'll answer it.</label><textarea name="question"></textarea>
+        <button class="btn" type="submit">Send and finish</button>
+        <button class="btn ghost" type="button" onclick="abandon()">Leave without finishing</button>
+        <p class="note">In production this is HubSpot form 2 (the longer form already live on /get-in-touch-npe/), with the email field carried over so HubSpot updates the same contact.</p>
+      </form>
+
+      <div id="f3" class="hide done-box">
+        <h2 id="doneTitle">Thanks. We'll be in touch shortly.</h2>
+        <p id="doneText"></p>
+        <button class="btn" type="button" onclick="reset()">Run the demo again</button>
+      </div>
+    </div>
+
+    <div class="panel hs">
+      <h3>What HubSpot sees</h3>
+      <p class="sub">Simulated contact record. Updates as you go.</p>
+      <div id="contact"><div class="empty">No contact yet. Nothing has been submitted.</div></div>
+      <h3 style="margin-top:18px">Activity</h3>
+      <ul class="log" id="log"><li style="color:var(--gray)">Waiting for screen one.</li></ul>
+    </div>
+  </div>
+
+  <div class="how">
+    <h2>How it works in HubSpot</h2>
+    <p style="margin:0;max-width:760px">HubSpot's own multi-step form only creates the contact on the final step, and there's no setting to change that. So the fix isn't one multi-step form, it's two ordinary forms chained together.</p>
+    <ol>
+      <li><b>Form 1</b> stays as it is on /get-in-touch/ (six fields). Its "after submit" action redirects to a new page, /get-in-touch/step-2/, passing the email in the URL.</li>
+      <li><b>Form 2</b> is the existing longer form (business type, locations, revenue, employees, challenges). Its email field is prefilled from the URL and hidden.</li>
+      <li>Because both forms carry the same email, HubSpot writes form 2's answers onto the contact form 1 created. One record, two submissions.</li>
+      <li>Leads who stop after form 1 are still in HubSpot with name, email, business name, website and source. Today those leads would be lost if the form were built as a single multi-step form.</li>
+    </ol>
+    <div class="cmp">
+      <div class="bad"><b>One multi-step HubSpot form</b>Visitor fills screen one, gets distracted on screen two, closes the tab. HubSpot saves nothing. No contact, no follow-up.</div>
+      <div class="good"><b>Two chained forms (this demo)</b>Visitor fills screen one. Contact exists immediately. Screen two is a bonus. Sales can follow up either way.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var contact=null, t0=null;
+  function stamp(){var s=Math.round((Date.now()-t0)/1000);return '+'+s+'s';}
+  function log(msg){var l=document.getElementById('log');if(l.firstChild&&l.firstChild.style.color)l.innerHTML='';var li=document.createElement('li');li.innerHTML='<time>'+stamp()+'</time>'+msg;l.appendChild(li);}
+  function render(newKeys){
+    var c=document.getElementById('contact');
+    var order=['firstname','lastname','email','company','website','source','what_business','locations','annualrevenue','numemployees','brand_type','challenges','question'];
+    var names={firstname:'First name',lastname:'Last name',email:'Email',company:'Company',website:'Website',source:'Lead source',what_business:'Business type',locations:'Locations',annualrevenue:'Annual revenue',numemployees:'Employees',brand_type:'Brand / franchise',challenges:'Challenges',question:'Question'};
+    var rows='';order.forEach(function(k){if(contact[k]){rows+='<li class="'+(newKeys.indexOf(k)>-1?'new':'')+'"><span>'+names[k]+'</span><span>'+esc(contact[k])+'</span></li>';}});
+    c.innerHTML='<div class="card"><div class="k">Contact</div><div class="v">'+esc(contact.firstname+' '+contact.lastname)+'</div><ul class="props">'+rows+'</ul></div>';
+  }
+  function esc(s){return String(s).replace(/[&<>"]/g,function(ch){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch];});}
+  function data(form){var o={};new FormData(form).forEach(function(v,k){if(v)o[k]=v;});return o;}
+  function step1(e){
+    e.preventDefault();t0=Date.now();
+    contact=data(e.target);
+    render(Object.keys(contact));
+    log('<b>Form 1 submitted.</b> Contact created in HubSpot with 6 properties.');
+    log('Redirect to /get-in-touch/step-2/?email='+esc(contact.email));
+    document.getElementById('f1').classList.add('hide');
+    document.getElementById('f2').classList.remove('hide');
+    document.getElementById('f2email').value=contact.email;
+    document.getElementById('thanks').textContent='Thanks '+contact.firstname+', you\'re booked in. One more step and we can make the call count.';
+    document.getElementById('s1').className='done';document.getElementById('s2').className='on';
+    window.scrollTo({top:0,behavior:'smooth'});
+    return false;
+  }
+  function step2(e){
+    e.preventDefault();
+    var d=data(e.target);var keys=Object.keys(d).filter(function(k){return k!=='email';});
+    keys.forEach(function(k){contact[k]=d[k];});
+    render(keys);
+    log('<b>Form 2 submitted.</b> Matched on email, same contact updated with '+keys.length+' more properties.');
+    finish('Thanks. We\'ll be in touch shortly.','Both screens completed. HubSpot holds one contact with everything on it.');
+    return false;
+  }
+  function abandon(){
+    log('<b>Visitor left on screen two.</b> Contact from form 1 is still in HubSpot. Follow-up can go out.');
+    finish('Lead kept.','The visitor never finished screen two, and it didn\'t matter. Name, email, business and source are already in HubSpot.');
+  }
+  function finish(title,text){
+    document.getElementById('f2').classList.add('hide');
+    document.getElementById('f3').classList.remove('hide');
+    document.getElementById('doneTitle').textContent=title;
+    document.getElementById('doneText').textContent=text;
+    document.getElementById('s2').className='done';document.getElementById('s3').className='done';
+  }
+  function reset(){
+    contact=null;
+    document.getElementById('f1').reset();document.getElementById('f2').reset();
+    document.getElementById('f3').classList.add('hide');document.getElementById('f1').classList.remove('hide');
+    document.getElementById('s1').className='on';document.getElementById('s2').className='';document.getElementById('s3').className='';
+    document.getElementById('contact').innerHTML='<div class="empty">No contact yet. Nothing has been submitted.</div>';
+    document.getElementById('log').innerHTML='<li style="color:#888B8D">Waiting for screen one.</li>';
+  }
+</script>
+</body>
+</html>

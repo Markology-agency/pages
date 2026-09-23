@@ -212,11 +212,20 @@ a:hover{color:#006489}
     <h3>Your rates</h3>
 
     <div class="tldr-pc-field">
-      <label>Average private pay rate per session</label>
+      <label id="pc_pp_label">Average private pay rate per session</label>
       <div class="tldr-pc-slider-row">
         <input type="range" id="pc_pp_slider" min="60" max="350" step="5" value="150">
         <input type="number" id="pc_pp" min="0" max="500" value="150">
       </div>
+    </div>
+
+    <div class="tldr-pc-field" id="pc_owner_pp_wrap" style="display:none">
+      <label>Your own private pay rate per session</label>
+      <div class="tldr-pc-slider-row">
+        <input type="range" id="pc_owner_pp_slider" min="60" max="350" step="5" value="150">
+        <input type="number" id="pc_owner_pp" min="0" max="500" value="150">
+      </div>
+      <div class="tldr-pc-hint">What you charge for your own sessions. Many owners charge more than their associates.</div>
     </div>
 
     <div class="tldr-pc-field">
@@ -335,7 +344,7 @@ a:hover{color:#006489}
   var fmt=function(n){return '$'+Math.round(n).toLocaleString('en-US')};
   var WEEKS_PER_MO=4.33;
 
-  var pairs=[['pc_clin_slider','pc_clinicians'],['pc_cpw_slider','pc_cpw'],['pc_owner_cpw_slider','pc_owner_cpw'],['pc_pp_slider','pc_pp'],['pc_ins_slider','pc_ins'],['pc_mix_slider','pc_mix'],['pc_owner_slider','pc_owner']];
+  var pairs=[['pc_clin_slider','pc_clinicians'],['pc_cpw_slider','pc_cpw'],['pc_owner_cpw_slider','pc_owner_cpw'],['pc_pp_slider','pc_pp'],['pc_ins_slider','pc_ins'],['pc_mix_slider','pc_mix'],['pc_owner_slider','pc_owner'],['pc_owner_pp_slider','pc_owner_pp']];
   pairs.forEach(function(p){
     var s=$(p[0]),n=$(p[1]);
     if(!s||!n)return;
@@ -365,6 +374,9 @@ a:hover{color:#006489}
     // Owner-specific caseload only applies when the owner is actually seeing clients.
     $('pc_owner_cpw_wrap').style.display=(isGroup&&ownerSees)?'block':'none';
     $('pc_cpw_label').textContent=(isGroup&&ownerSees)?'Clients per associate per week':(isGroup?'Clients per clinician per week':'Clients per week');
+    // Owner-specific rate, same condition as the owner caseload.
+    $('pc_owner_pp_wrap').style.display=(isGroup&&ownerSees)?'block':'none';
+    $('pc_pp_label').textContent=(isGroup&&ownerSees)?"Associates' average private pay rate per session":'Average private pay rate per session';
   }
 
   document.querySelectorAll('input[name="pc_type"]').forEach(function(r){
@@ -395,17 +407,21 @@ a:hover{color:#006489}
 
     // associates = non-owner clinicians whose profit is split at ownerPct.
     // The owner carries their OWN caseload (ownerCpw), separate from the associates' (cpw).
-    var associates, ownerCpw;
+    var associates, ownerCpw, ownerPp=pp;
     if(!isGroup){
       associates=0; ownerCpw=cpw;
     } else if(ownerSees){
       associates=clinInput-1; ownerCpw=Math.max(0,parseFloat($('pc_owner_cpw').value)||0);
+      var ownerPpRaw=parseFloat($('pc_owner_pp').value);
+      ownerPp=isNaN(ownerPpRaw)?pp:Math.max(0,ownerPpRaw);
     } else {
       associates=clinInput; ownerCpw=0;
     }
 
+    // rps = associate (or solo) revenue per session; ownerRps uses the owner's own private pay rate.
     var rps=mix*pp+(1-mix)*ins;
-    var ownerRevPerWk=ownerCpw*rps;
+    var ownerRps=mix*ownerPp+(1-mix)*ins;
+    var ownerRevPerWk=ownerCpw*ownerRps;
     var assocRevPerWk=cpw*rps;
     var monthlyRev=(ownerRevPerWk+assocRevPerWk*associates)*WEEKS_PER_MO;
     var margin=isGroup?0.45:0.55;
@@ -432,14 +448,16 @@ a:hover{color:#006489}
 
     // Owner-weighted sessions: the owner's own sessions reach them at 100%, each associate's at ownerPct.
     // Caseload-weighted for per-session levers, headcount-weighted for per-clinician levers.
-    var ownerWeightedCaseload=ownerCpw+cpw*associates*ownerPct;
-    var ownerWeightedClin=(ownerCpw>0?1:0)+associates*ownerPct;
+    // Owner and associate sessions are priced separately, so each lever sums the two parts.
+    var assocWeightedCaseload=cpw*associates*ownerPct;
+    var perMo=WEEKS_PER_MO*margin;
 
-    var lever1Delta=(pp*0.10)*mix*WEEKS_PER_MO*margin*ownerWeightedCaseload;
+    var lever1Delta=0.10*mix*perMo*(ownerPp*ownerCpw+pp*assocWeightedCaseload);
     var newMix=Math.min(1,mix+0.10);
     var newRps=newMix*pp+(1-newMix)*ins;
-    var lever2Delta=(newRps-rps)*WEEKS_PER_MO*margin*ownerWeightedCaseload;
-    var lever3Delta=rps*WEEKS_PER_MO*margin*ownerWeightedClin;
+    var newOwnerRps=newMix*ownerPp+(1-newMix)*ins;
+    var lever2Delta=perMo*((newOwnerRps-ownerRps)*ownerCpw+(newRps-rps)*assocWeightedCaseload);
+    var lever3Delta=perMo*((ownerCpw>0?ownerRps:0)+rps*associates*ownerPct);
     // Adding one more clinician always means adding an associate, at the associate caseload.
     var lever4Delta=isGroup?(cpw*rps*WEEKS_PER_MO*margin*ownerPct):null;
 

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex,nofollow" />
+<meta charset="UTF-8" />
+<meta name="design_doc_mode" content="canvas" />
+<title>Ashford Sky — Booking + Franchise Ads (Sept 2026)</title>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link href="https://api.fontshare.com/v2/css?f%5B%5D=general-sans@400,500,600,700&display=swap" rel="stylesheet" />
+<link href="assets/gelica.css" rel="stylesheet" />
+<style>
+:root{--blue:#024070;--deep:#0d2f4f;--sky:#9ED0F0;--cream:#f0ede9;--ink:#133048;--serif:'Gelica','Bitter',Georgia,serif;--sans:'General Sans',system-ui,sans-serif}
+a{color:var(--blue);text-decoration:none}a:hover{color:#035a9e}
+.flabel{position:absolute;font-family:var(--sans);font-size:15px;font-weight:600;color:#8a8f94;white-space:nowrap}
+.ad{position:absolute;width:1080px;height:1080px;overflow:hidden;padding:72px;display:flex;flex-direction:column;font-family:var(--serif);-webkit-font-smoothing:antialiased;box-sizing:border-box}
+.ad.tall{height:1350px;padding:76px}
+.ad.dark{background:radial-gradient(ellipse 130% 95% at 50% 118%,#073c65 0%,#0d3658 50%,#12314a 100%);color:#fff}
+.ad.navy{background:#0d2f4f;color:#fff}
+.ad.cream{background:var(--cream);color:var(--ink)}
+.top{display:flex;align-items:center;justify-content:space-between}
+.top .logo{height:58px;width:auto;display:block}
+.badge{font-family:var(--sans);font-weight:600;font-size:13px;letter-spacing:.18em;text-transform:uppercase;padding:10px 17px;border-radius:999px}
+.ad.dark .badge,.ad.navy .badge{border:1.5px solid rgba(158,208,240,.5);color:var(--sky)}
+.ad.cream .badge{border:1.5px solid rgba(2,64,112,.4);color:var(--blue)}
+.mid{flex:1;display:flex;flex-direction:column;justify-content:center}
+.eyebrow{font-family:var(--sans);font-weight:600;font-size:19px;letter-spacing:.22em;text-transform:uppercase}
+.ad.dark .eyebrow,.ad.navy .eyebrow{color:var(--sky)}
+.ad.cream .eyebrow{color:rgba(2,64,112,.55)}
+.foot{display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(235,236,237,.18);padding-top:28px}
+.ad.cream .foot{border-top-color:rgba(2,64,112,.15)}
+.foot .credit{font-family:var(--sans);font-size:17px;font-weight:500;max-width:560px}
+.ad.dark .foot .credit,.ad.navy .foot .credit{color:rgba(235,236,237,.75)}
+.ad.cream .foot .credit{color:rgba(19,48,72,.7)}
+.cta{font-family:var(--sans);font-weight:700;font-size:17px;padding:16px 28px;border-radius:999px;white-space:nowrap}
+.ad.dark .cta,.ad.navy .cta{background:var(--sky);color:#0d2f4f}
+.ad.cream .cta{background:var(--blue);color:#fff}
+.hl{background:var(--sky);padding:0 .1em;border-radius:10px;box-decoration-break:clone;-webkit-box-decoration-break:clone;color:var(--ink)}
+h1{font-weight:800;font-size:64px;line-height:1.08;letter-spacing:-.02em;margin:18px 0 0}
+h1 em{font-style:normal;color:var(--sky)}
+.ad.cream h1 em{color:var(--blue)}
+.cks{margin-top:40px;display:flex;flex-direction:column}
+.ck{display:flex;align-items:baseline;gap:20px;padding:24px 0;border-top:1px solid rgba(235,236,237,.16);font-size:31px;font-weight:600;letter-spacing:-.005em}
+.ad.cream .ck{border-top-color:rgba(2,64,112,.14)}
+.ck .m{font-family:var(--sans);font-weight:700;color:var(--sky);font-size:26px}
+.ad.cream .ck .m{color:var(--blue)}
+.price{font-family:var(--sans);font-size:22px;font-weight:600;color:rgba(235,236,237,.85);margin-top:34px}
+.price b{color:var(--sky);font-weight:700}
+.sub{font-family:var(--sans);font-size:24px;font-weight:500;line-height:1.5;margin-top:26px;max-width:860px}
+.ad.dark .sub,.ad.navy .sub{color:rgba(235,236,237,.8)}
+.ad.cream .sub{color:rgba(19,48,72,.72)}
+/* google ad preview */
+.gad{position:absolute;width:640px;background:#fff;border-radius:14px;padding:26px 28px;font-family:Arial,sans-serif;box-shadow:0 20px 50px -24px rgba(1,20,40,.35)}
+.gad .sp{font-size:12px;font-weight:700;color:#202124;display:flex;gap:8px;align-items:center}
+.gad .sp span{color:#5f6368;font-weight:400}
+.gad .u{font-size:14px;color:#202124;margin-top:6px}
+.gad .h{font-size:20px;color:#1a0dab;margin-top:8px;line-height:1.3}
+.gad .d{font-size:14px;color:#4d5156;line-height:1.5;margin-top:6px}
+.gad .site{display:flex;gap:18px;flex-wrap:wrap;margin-top:12px;font-size:14px}
+.gad .site a{color:#1a0dab}
+.gnote{position:absolute;width:640px;font-family:var(--sans);font-size:14px;line-height:1.6;color:#5b6570}
+.gnote b{color:var(--ink)}
+/* tax ads */
+.tx h1.giant{font-size:96px;line-height:1.02;letter-spacing:-.03em;margin-top:26px}
+.tx .qs{margin-top:56px;display:flex;flex-direction:column}
+.tx .q{display:grid;grid-template-columns:64px 1fr;align-items:baseline;gap:26px;padding:34px 0;border-top:1px solid rgba(235,236,237,.16)}
+.tx .q .n{font-family:var(--sans);font-weight:700;font-size:27px;color:var(--sky)}
+.tx .q .t{font-weight:700;font-size:44px;letter-spacing:-.01em}
+.tx h1.hq{font-size:92px;line-height:1.2;letter-spacing:-.025em;margin-top:22px}
+.tx .sub{font-size:26px}
+</style>
+</head>
+<body>
+
+<div class="flabel" style="left:0;top:-36px;">Meta · Deal screen → booking page (approved aL, updated to $10k / half back) · FB + IG only, no Audience Network</div>
+<div class="ad navy" style="left:0;top:0;" data-screen-label="aL-10k · Booking">
+  <div class="top"><img class="logo" src="assets/logo-white.png" alt="Ashford Sky" /><span class="badge">Deals under $5M</span></div>
+  <div class="mid">
+    <div class="eyebrow">What you get for $10,000</div>
+    <h1>A CPA checks the business <em>before you buy it.</em></h1>
+    <div class="cks">
+      <div class="ck"><span class="m">&#10003;</span>We verify the cash is real</div>
+      <div class="ck"><span class="m">&#10003;</span>We check the taxes that come with it</div>
+      <div class="ck"><span class="m">&#10003;</span>We tell you what it should cost you at close</div>
+    </div>
+    <div class="price"><b>$10,000</b> flat, half credited back over your first 12 months</div>
+  </div>
+  <div class="foot"><span class="credit">Start with a free 30-minute deal screen</span><span class="cta">Book the free call</span></div>
+</div>
+
+<div class="flabel" style="left:1220px;top:-36px;">Meta · Franchise resale buyers → booking page</div>
+<div class="ad dark" style="left:1220px;top:0;" data-screen-label="Franchise resale · navy">
+  <div class="top"><img class="logo" src="assets/logo-white.png" alt="Ashford Sky" /><span class="badge">Franchise resales</span></div>
+  <div class="mid">
+    <div class="eyebrow">Buying an existing franchise location?</div>
+    <h1>A CPA checks the numbers <em>before you sign.</em></h1>
+    <div class="cks">
+      <div class="ck"><span class="m">&#10003;</span>Do the deposits match the sales reported to the franchisor?</div>
+      <div class="ck"><span class="m">&#10003;</span>Are royalties and ad fund current?</div>
+      <div class="ck"><span class="m">&#10003;</span>What does labor cost once the owner leaves?</div>
+    </div>
+  </div>
+  <div class="foot"><span class="credit">Free 30-minute deal screen with Darin Pierson, CPA</span><span class="cta">Book the free call</span></div>
+</div>
+
+<div class="flabel" style="left:2440px;top:-36px;">Meta · Franchise resale buyers, cream variant</div>
+<div class="ad cream" style="left:2440px;top:0;" data-screen-label="Franchise resale · cream">
+  <div class="top"><img class="logo" src="assets/logo-color.png" alt="Ashford Sky" /><span class="badge">Franchise resales</span></div>
+  <div class="mid">
+    <div class="eyebrow">Buying an existing franchise location?</div>
+    <h1>The seller's books tell <span class="hl">the seller's story.</span></h1>
+    <div class="sub">Before you sign, a licensed CPA checks that the sales, the royalties, and the labor line all hold up. Thirty minutes, free, on the calendar.</div>
+  </div>
+  <div class="foot"><span class="credit">Deal screens for franchise resales under $5M</span><span class="cta">Book the free call</span></div>
+</div>
+
+<div class="flabel" style="left:0;top:1264px;">Google Search · new "Franchise" ad group → Accounting for Franchise Owners (RSA preview + assets)</div>
+<div class="gad" style="left:0;top:1300px;">
+  <div class="sp">Sponsored <span>· ashfordsky.com</span></div>
+  <div class="u">ashfordsky.com/accounting-for-franchise-owners</div>
+  <div class="h">Franchise Accounting by a CPA | Books in Your Franchisor's Format</div>
+  <div class="d">Royalty and ad fund tracking, franchisor reporting, and multi-location consolidation. Reviewed by a licensed CPA every month. Book a free 30-minute call.</div>
+  <div class="site"><a href="#">Bookkeeping for Franchisees</a><a href="#">Multi-Location Owners</a><a href="#">Book a Free Call</a></div>
+</div>
+<div class="gnote" style="left:0;top:1560px;">
+  <b>Headlines (30 max):</b> Franchise Accounting by a CPA · Books in Your Franchisor's Format · Royalty and Ad Fund Tracking · Accounting for Franchisees · Multi-Location Reporting · Franchise CPA, Free 30-Min Call · Reviewed by a Licensed CPA · Bookkeeping for Franchisees<br /><br />
+  <b>Descriptions (90 max):</b> Royalty and ad fund tracking, franchisor reporting, and multi-location consolidation from a CPA. · Books built to your franchisor's chart of accounts. Closed on time, reviewed by a licensed CPA. · Own one location or ten. One monthly close, one consolidated view. Book a free 30-minute call.<br /><br />
+  <b>Keywords (phrase):</b> "franchise accountant" · "franchise accounting services" · "bookkeeping for franchisees" · "franchise CPA" · "accounting for franchises"<br />
+  <b>Negatives:</b> jobs, salary, software, free template, franchise for sale
+</div>
+
+<div class="flabel" style="left:0;top:2000px;">Meta · Franchise tax offer → franchise-tax-plan · 1 · Giant headline, navy · 1080×1350</div>
+<div class="ad dark tall tx" style="left:0;top:2036px;" data-screen-label="Tax 1 · Giant headline">
+  <div class="top"><img class="logo" src="assets/logo-white.png" alt="Ashford Sky" /><span class="badge">Franchise owners</span></div>
+  <div class="mid">
+    <div class="eyebrow">Franchise tax plan</div>
+    <h1 class="giant">Find tax savings <em>or get your fee back.</em></h1>
+    <div class="sub">A written tax plan for your franchise from a licensed CPA. If it doesn't find savings bigger than the fee, we refund the fee.</div>
+  </div>
+  <div class="foot"><span class="credit">CPA Darin Pierson</span><span class="cta">Book a free call</span></div>
+</div>
+
+<div class="flabel" style="left:1220px;top:2000px;">2 · Numbered list, navy</div>
+<div class="ad navy tall tx" style="left:1220px;top:2036px;" data-screen-label="Tax 2 · List">
+  <div class="top"><img class="logo" src="assets/logo-white.png" alt="Ashford Sky" /><span class="badge">Franchise owners</span></div>
+  <div class="mid">
+    <div class="eyebrow">Savings or your fee back</div>
+    <h1>What we check in a <em>franchise tax plan.</em></h1>
+    <div class="qs">
+      <div class="q"><span class="n">01</span><span class="t">Your franchise fee</span></div>
+      <div class="q"><span class="n">02</span><span class="t">Build-out and equipment</span></div>
+      <div class="q"><span class="n">03</span><span class="t">Entity and owner pay</span></div>
+      <div class="q"><span class="n">04</span><span class="t">Every location</span></div>
+    </div>
+  </div>
+  <div class="foot"><span class="credit">CPA Darin Pierson</span><span class="cta">Book a free call</span></div>
+</div>
+
+<div class="flabel" style="left:2440px;top:2000px;">3 · Cream, sky highlight box</div>
+<div class="ad cream tall tx" style="left:2440px;top:2036px;" data-screen-label="Tax 3 · Cream">
+  <div class="top"><img class="logo" src="assets/logo-color.png" alt="Ashford Sky" /><span class="badge">Franchise owners</span></div>
+  <div class="mid">
+    <div class="eyebrow">Franchise tax plan</div>
+    <h1 class="hq">Paying too much tax on <span class="hl">your franchise?</span></h1>
+    <div class="sub">A CPA writes you a tax plan. If it doesn't find savings bigger than the fee, you get the fee back.</div>
+  </div>
+  <div class="foot"><span class="credit">CPA Darin Pierson</span><span class="cta">Book a free call</span></div>
+</div>
+
+<div class="flabel" style="left:0;top:3486px;">Google Search · new "Franchise tax" ad group → franchise-tax-plan</div>
+<div class="gad" style="left:0;top:3522px;">
+  <div class="sp">Sponsored <span>· ashfordsky.com</span></div>
+  <div class="u">ashfordsky.com/franchise-tax-plan</div>
+  <div class="h">Franchise Tax Planning | CPA for Franchise Owners | Savings or Your Fee Back</div>
+  <div class="d">A written tax plan for your franchise from a licensed CPA. If it doesn't find savings bigger than the fee, we refund the fee. Book a free 30-minute call.</div>
+  <div class="site"><a href="#">How the Refund Works</a><a href="#">What We Look At</a><a href="#">Book a Free Call</a></div>
+</div>
+<div class="gnote" style="left:0;top:3782px;">
+  <b>Headlines:</b> Franchise Tax Planning · CPA for Franchise Owners · Savings or Your Fee Back · Written Tax Plan by a CPA · Tax Planning for Franchisees · Free 30-Minute Call · Multi-Location Tax Planning<br /><br />
+  <b>Descriptions:</b> A written tax plan for your franchise. If it doesn't find savings bigger than the fee, we refund it. · Franchise fee, build-out, entity setup, and every location, reviewed by a licensed CPA. · Book a free 30-minute call with CPA Darin Pierson.<br /><br />
+  <b>Keywords (phrase):</b> "franchise tax planning" · "tax planning for franchise owners" · "franchise tax accountant" · "franchise tax CPA"<br />
+  <b>Negatives:</b> franchise tax board, california franchise tax, delaware franchise tax, texas franchise tax, jobs, software
+</div>
+
+</body>
+</html>

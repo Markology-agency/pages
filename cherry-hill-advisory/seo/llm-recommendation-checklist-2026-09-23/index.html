@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cherry Hill Checklist</title>
+<style>
+:root{--bg:#fff;--fg:#1a1a1a;--muted:#666;--line:#e3e3e3;--accent:#8b1e2d;--flag:#fff4e5;--flagline:#f0b35a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#141414;--fg:#eee;--muted:#aaa;--line:#333;--accent:#e0707e;--flag:#2a2114;--flagline:#8a6420}}
+body{background:var(--bg);color:var(--fg);font:15px/1.5 -apple-system,Inter,Arial,sans-serif;margin:0;padding:24px 16px}
+main{max-width:820px;margin:0 auto}
+h1{font-size:24px;margin:0 0 4px}h2{font-size:17px;margin:28px 0 8px;color:var(--accent)}
+.sub{color:var(--muted);margin:0 0 16px}
+.box{background:var(--flag);border-left:4px solid var(--flagline);padding:10px 14px;margin:12px 0}
+label{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer}
+input{margin-top:4px;flex:none}
+label:has(input:checked) span{color:var(--muted);text-decoration:line-through}
+code{font-size:13px;background:var(--line);padding:1px 4px;border-radius:3px;word-break:break-all}
+table{border-collapse:collapse;width:100%;font-size:14px}td,th{border-bottom:1px solid var(--line);padding:6px 4px;text-align:left;vertical-align:top}
+</style>
+</head>
+<body><main>
+<h1>Cherry Hill: LLM recommendation checklist</h1>
+<p class="sub">Built 2026-09-23 from the LLM site review, checked against the live site.</p>
+
+<h2>What /core-services is</h2>
+<p>An old Webflow CMS collection ("Core Services") from the previous site build. It has no index page (<code>/core-services</code> 404s) and the homepage doesn't link to it. All 7 items are still live, indexable, in the sitemap, and have no canonical tag. So Google and LLMs treat them as competing service pages.</p>
+<table>
+<tr><th>Old URL</th><th>What it shows</th><th>Action</th></tr>
+<tr><td><code>/core-services/internal-audit-risk-advisory</code></td><td>H1 "Internal Audit Co-Sourcing"</td><td>301 to <code>/internal-audit-co-sourcing</code></td></tr>
+<tr><td><code>/core-services/quality-assessment</code></td><td>H1 "Quality Assessment" plus keynote-speaker content</td><td>301 to <code>/internal-audit-quality-assessment</code></td></tr>
+<tr><td><code>/core-services/cybersecurity</code></td><td>H1 "Cybersecurity" plus keynote-speaker content</td><td>301 to <code>/cyber-risk-consulting-internal-audit</code></td></tr>
+<tr><td><code>/core-services/cfo-services-managed-accounting</code></td><td>CFO arm</td><td>301 to the CFO site once it's live. Until then, noindex.</td></tr>
+<tr><td><code>/core-services/expert-witness</code></td><td>Only page for this service</td><td>Keep. Move to a clean URL and 301 the old one, or leave as is.</td></tr>
+<tr><td><code>/core-services/technology-product-roadmap-advisory</code></td><td>Only page for this service</td><td>Same as expert witness</td></tr>
+<tr><td><code>/core-services/thought-leadership</code></td><td>Speaking/training</td><td>301 to the training/Frontier page, or keep as the speaking page</td></tr>
+</table>
+<div class="box"><b>Correction to the LLM review:</b> the "keynote content on the EQA page" is on the old <code>/core-services/quality-assessment</code> page, not the live EQA page. The live EQA H1 already reads "External Quality Assessments". I found no Lorem ipsum or placeholder names in the live fraud page HTML. Before closing that item, check the fraud page in the Webflow Designer for hidden CMS lists.</div>
+
+<h2>Status as of 2026-09-23 evening</h2>
+<div class="box"><b>Done and live:</b> 3 blogs repointed from /core-services to the current co-sourcing and EQA pages (the only internal links to the old pages).<br>
+<b>Saved in Webflow, not live yet:</b> 301s for /core-services/internal-audit-risk-advisory and /core-services/quality-assessment. These go live on the next full-site publish. Nothing else is waiting to publish, so that publish is safe.<br>
+<b>Not finished:</b> the /core-services/cybersecurity 301. The browser tab closed while the form was open, so check the redirect list and add it if it's missing.<br>
+<b>Also found:</b> About, Insights, and every Library and Tools page have no H1.</div>
+<h2>1. Fix now (technical)</h2>
+<label><input type="checkbox"><span>301 the old /core-services URLs as mapped above (Webflow → Site settings → Publishing → 301 redirects)</span></label>
+<label><input type="checkbox"><span>Remove redirected items from the sitemap by archiving the CMS items or excluding the collection</span></label>
+<label><input type="checkbox"><span>Set self-referencing canonicals site-wide. Live pages currently output an empty <code>rel="canonical"</code>.</span></label>
+<label><input type="checkbox"><span>Fraud page: check the Designer for hidden placeholder people (Isabella Tran, Michael Davis, Thalia Sanchez) and Lorem ipsum, then delete them</span></label>
+<label><input type="checkbox"><span>Fraud and About pages have no H1 in the HTML. Add one to each.</span></label>
+<label><input type="checkbox"><span>Update internal links in blogs so none point to /core-services/*</span></label>
+
+<h2>2. Mike's IIA credential (decision needed)</h2>
+<div class="box">The site conflicts with itself. The homepage and schema say "former IIA North American Board Chair". The About page says "Chairman of the IIA Global Board". Our client file says <b>Mike doesn't want his IIA board history used in marketing</b>. Confirm with Mike before editing: remove it everywhere, or standardize it to one verified wording.</div>
+<label><input type="checkbox"><span>Get Mike's decision on the IIA board wording</span></label>
+<label><input type="checkbox"><span>Apply it on the homepage hero, homepage body, About bio, and the Person schema on both pages</span></label>
+
+<h2>3. Service pages: use SOX as the template</h2>
+<p class="sub">Each page answers: who it's for, what we do, why Cherry Hill, experience, engagement steps, outcomes, and who leads the work.</p>
+<label><input type="checkbox"><span>EQA: make every section about EQA/Q360. Add a proof section, an engagement timeline, FAQs, and named leads.</span></label>
+<label><input type="checkbox"><span>Co-Sourcing: add a SOX-style proof block (years, client types and sizes, former CAE/Big Four credentials) and 2 to 3 mini case examples</span></label>
+<label><input type="checkbox"><span>Cyber: add named practitioner credentials, engagement types, frameworks used, anonymized results, and a "typical engagement" section</span></label>
+<label><input type="checkbox"><span>Fraud: add a proof section and named leads after the cleanup</span></label>
+<label><input type="checkbox"><span>AI Governance: add engagement proof only. The copy is already strong.</span></label>
+<label><input type="checkbox"><span>Add FAQs and FAQPage schema to every service page that lacks them</span></label>
+
+<h2>4. Proof content (client input needed)</h2>
+<label><input type="checkbox"><span>5 to 10 anonymized case studies: challenge, engagement, work performed, result, and why Cherry Hill. Build a Case Studies section.</span></label>
+<label><input type="checkbox"><span>Consulting testimonials (not training), with specific outcomes</span></label>
+<label><input type="checkbox"><span>Client logos, where clients allow it ("Trusted by internal audit teams at")</span></label>
+<label><input type="checkbox"><span>Hard numbers: EQAs completed, professionals trained, combined years, former CAEs on the team, industries and countries, repeat/referral rate. Only numbers Mike verifies.</span></label>
+<label><input type="checkbox"><span>"Who We Work With" page: public, pre-IPO, Fortune 1000, lean IA teams, new IA functions, EQA prep, cyber/AI/SOX specialists, plus industries</span></label>
+
+<h2>5. Third-party corroboration</h2>
+<label><input type="checkbox"><span>List current third-party mentions (IIA, Canisius AUDIT Lab, Wolters Kluwer, Diligent)</span></label>
+<label><input type="checkbox"><span>Ask each to use the firm line: "Cherry Hill Advisory, an internal audit and risk advisory firm", not just "Mike Levy"</span></label>
+<label><input type="checkbox"><span>Pitch AuditBoard, universities, associations, podcasts, and conference speaker pages</span></label>
+<label><input type="checkbox"><span>Link bylined articles and speaker pages back to the relevant service page</span></label>
+</main>
+<script>
+const k='cha-llm-checklist';let s={};try{s=JSON.parse(localStorage.getItem(k))||{}}catch(e){}
+document.querySelectorAll('input').forEach((c,i)=>{c.checked=!!s[i];c.onchange=()=>{s[i]=c.checked;try{localStorage.setItem(k,JSON.stringify(s))}catch(e){}}});
+</script>
+</body></html>

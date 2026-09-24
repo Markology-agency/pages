@@ -26,35 +26,39 @@ table{border-collapse:collapse;width:100%;font-size:14px}td,th{border-bottom:1px
 <h2>What /core-services is</h2>
 <p>An old Webflow CMS collection ("Core Services") from the previous site build. It has no index page (<code>/core-services</code> 404s) and the homepage doesn't link to it. All 7 items are still live, indexable, in the sitemap, and have no canonical tag. So Google and LLMs treat them as competing service pages.</p>
 <table>
-<tr><th>Old URL</th><th>What it shows</th><th>Action</th></tr>
+<tr><th>Old URL</th><th>What it shows</th><th>Action (done 9/24)</th></tr>
 <tr><td><code>/core-services/internal-audit-risk-advisory</code></td><td>H1 "Internal Audit Co-Sourcing"</td><td>301 to <code>/internal-audit-co-sourcing</code></td></tr>
 <tr><td><code>/core-services/quality-assessment</code></td><td>H1 "Quality Assessment" plus keynote-speaker content</td><td>301 to <code>/internal-audit-quality-assessment</code></td></tr>
 <tr><td><code>/core-services/cybersecurity</code></td><td>H1 "Cybersecurity" plus keynote-speaker content</td><td>301 to <code>/cyber-risk-consulting-internal-audit</code></td></tr>
-<tr><td><code>/core-services/cfo-services-managed-accounting</code></td><td>CFO arm</td><td>301 to the CFO site once it's live. Until then, noindex.</td></tr>
-<tr><td><code>/core-services/expert-witness</code></td><td>Only page for this service</td><td>Keep. Move to a clean URL and 301 the old one, or leave as is.</td></tr>
-<tr><td><code>/core-services/technology-product-roadmap-advisory</code></td><td>Only page for this service</td><td>Same as expert witness</td></tr>
-<tr><td><code>/core-services/thought-leadership</code></td><td>Speaking/training</td><td>301 to the training/Frontier page, or keep as the speaking page</td></tr>
+<tr><td><code>/core-services/cfo-services-managed-accounting</code></td><td>CFO arm</td><td>301 to https://www.cherryhillcfo.com</td></tr>
+<tr><td><code>/core-services/expert-witness</code></td><td>Only page for this service</td><td>301 to <code>/expert-witness-litigation-support</code></td></tr>
+<tr><td><code>/core-services/technology-product-roadmap-advisory</code></td><td>Only page for this service</td><td>301 to <code>/technology-product-roadmap</code></td></tr>
+<tr><td><code>/core-services/thought-leadership</code></td><td>Speaking/training</td><td>301 to <code>/thought-leadership</code></td></tr>
 </table>
 <div class="box"><b>Correction to the LLM review:</b> the "keynote content on the EQA page" is on the old <code>/core-services/quality-assessment</code> page, not the live EQA page. The live EQA H1 already reads "External Quality Assessments". I found no Lorem ipsum or placeholder names in the live fraud page HTML. Before closing that item, check the fraud page in the Webflow Designer for hidden CMS lists.</div>
 
-<h2>Status as of 2026-09-23 evening</h2>
-<div class="box"><b>Done and live:</b> 3 blogs repointed from /core-services to the current co-sourcing and EQA pages (the only internal links to the old pages).<br>
-<b>Saved in Webflow, not live yet:</b> 301s for /core-services/internal-audit-risk-advisory and /core-services/quality-assessment. These go live on the next full-site publish. Nothing else is waiting to publish, so that publish is safe.<br>
-<b>Not finished:</b> the /core-services/cybersecurity 301. The browser tab closed while the form was open, so check the redirect list and add it if it's missing.<br>
-<b>Also found:</b> About, Insights, and every Library and Tools page have no H1.</div>
+<h2>Status as of 2026-09-24</h2>
+<div class="box"><b>Live and verified:</b><br>
+• All 7 old /core-services URLs now 301 to the current pages. CFO goes to cherryhillcfo.com, because /cfo is an "8 Reasons" landing page. The old CMS items are unpublished and out of the sitemap.<br>
+• 3 blogs repointed off /core-services.<br>
+• About and Insights now each have one H1.<br>
+• FAQ sections and FAQPage schema are on EQA, Co-Sourcing, Cyber, Fraud and AI. Answers come word for word from the existing /faq page, so there are no new claims.<br>
+• Fraud page is clean: no Lorem ipsum, no placeholder people, and it has an H1.<br>
+<b>Blocked, Whitney to do (2 min):</b> Webflow → Site settings → SEO → Global canonical URL = <code>https://www.cherryhilladvisory.com</code>, then Save and publish. My browser permission was denied for this setting.<br>
+<b>Needs the Designer:</b> the Library and Tools template title is a div. Change it to an H1 in the Designer. The API can't change a div into a heading.<br>
+<b>Found:</b> <code>/wip---ai-transformation</code> is live and in the sitemap. Set it to draft if it isn't meant to be public.</div>
 <h2>1. Fix now (technical)</h2>
-<label><input type="checkbox"><span>301 the old /core-services URLs as mapped above (Webflow → Site settings → Publishing → 301 redirects)</span></label>
-<label><input type="checkbox"><span>Remove redirected items from the sitemap by archiving the CMS items or excluding the collection</span></label>
+<label><input type="checkbox" checked><span>301 the old /core-services URLs as mapped above (Webflow → Site settings → Publishing → 301 redirects)</span></label>
+<label><input type="checkbox" checked><span>Remove redirected items from the sitemap by archiving the CMS items or excluding the collection</span></label>
 <label><input type="checkbox"><span>Set self-referencing canonicals site-wide. Live pages currently output an empty <code>rel="canonical"</code>.</span></label>
-<label><input type="checkbox"><span>Fraud page: check the Designer for hidden placeholder people (Isabella Tran, Michael Davis, Thalia Sanchez) and Lorem ipsum, then delete them</span></label>
-<label><input type="checkbox"><span>Fraud and About pages have no H1 in the HTML. Add one to each.</span></label>
-<label><input type="checkbox"><span>Update internal links in blogs so none point to /core-services/*</span></label>
+<label><input type="checkbox" checked><span>Fraud page: check the Designer for hidden placeholder people (Isabella Tran, Michael Davis, Thalia Sanchez) and Lorem ipsum, then delete them</span></label>
+<label><input type="checkbox" checked><span>Add H1s: About and Insights done. Fraud already had one. Library and Tools template still needs one (Designer).</span></label>
+<label><input type="checkbox" checked><span>Update internal links in blogs so none point to /core-services/*</span></label>
 
-<h2>2. Mike's IIA credential (decision needed)</h2>
-<div class="box">The site conflicts with itself. The homepage and schema say "former IIA North American Board Chair". The About page says "Chairman of the IIA Global Board". Our client file says <b>Mike doesn't want his IIA board history used in marketing</b>. Confirm with Mike before editing: remove it everywhere, or standardize it to one verified wording.</div>
-<label><input type="checkbox"><span>Get Mike's decision on the IIA board wording</span></label>
-<label><input type="checkbox"><span>Apply it on the homepage hero, homepage body, About bio, and the Person schema on both pages</span></label>
-
+<h2>2. Mike's IIA credential</h2>
+<div class="box">Our client rules say never reference any IIA board role for Mike, anywhere. So the fix is to remove it, not pick one wording. The homepage (hero line, body copy, and Person schema) is Markology copy, so I'm removing it there. The About bio ("Chairman of the IIA Global Board") and /mike-levy are Mike's own copy, so ask him before editing those.</div>
+<label><input type="checkbox"><span>Remove the IIA board wording from the homepage hero, homepage body, and homepage Person schema</span></label>
+<label><input type="checkbox"><span>Ask Mike about the IIA board lines in his About bio and on /mike-levy</span></label>
 <h2>3. Service pages: use SOX as the template</h2>
 <p class="sub">Each page answers: who it's for, what we do, why Cherry Hill, experience, engagement steps, outcomes, and who leads the work.</p>
 <label><input type="checkbox"><span>EQA: make every section about EQA/Q360. Add a proof section, an engagement timeline, FAQs, and named leads.</span></label>
@@ -62,7 +66,7 @@ table{border-collapse:collapse;width:100%;font-size:14px}td,th{border-bottom:1px
 <label><input type="checkbox"><span>Cyber: add named practitioner credentials, engagement types, frameworks used, anonymized results, and a "typical engagement" section</span></label>
 <label><input type="checkbox"><span>Fraud: add a proof section and named leads after the cleanup</span></label>
 <label><input type="checkbox"><span>AI Governance: add engagement proof only. The copy is already strong.</span></label>
-<label><input type="checkbox"><span>Add FAQs and FAQPage schema to every service page that lacks them</span></label>
+<label><input type="checkbox" checked><span>Add FAQs and FAQPage schema to every service page that lacks them</span></label>
 
 <h2>4. Proof content (client input needed)</h2>
 <label><input type="checkbox"><span>5 to 10 anonymized case studies: challenge, engagement, work performed, result, and why Cherry Hill. Build a Case Studies section.</span></label>
@@ -79,6 +83,6 @@ table{border-collapse:collapse;width:100%;font-size:14px}td,th{border-bottom:1px
 </main>
 <script>
 const k='cha-llm-checklist';let s={};try{s=JSON.parse(localStorage.getItem(k))||{}}catch(e){}
-document.querySelectorAll('input').forEach((c,i)=>{c.checked=!!s[i];c.onchange=()=>{s[i]=c.checked;try{localStorage.setItem(k,JSON.stringify(s))}catch(e){}}});
+document.querySelectorAll('input').forEach((c,i)=>{if(i in s)c.checked=!!s[i];c.onchange=()=>{s[i]=c.checked;try{localStorage.setItem(k,JSON.stringify(s))}catch(e){}}});
 </script>
 </body></html>

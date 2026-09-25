@@ -1,320 +1,537 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <title>Client Feedback Watch</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-:root{--c-bg:#FFFFFF;--c-bg-alt:#F8FAFC;--c-bg-dark:#0F172A;--c-bg-dark-alt:#1E293B;--c-text:#0F172A;--c-text-muted:#64748B;--c-text-light:#94A3B8;--c-text-on-dark:#F8FAFC;--c-text-on-dark-muted:#CBD5E1;--c-border:#E2E8F0;--c-border-dark:#334155;--c-accent:#0F766E;--c-accent-light:#14B8A6;--c-accent-bg:#F0FDFA;--c-good:#16A34A;--c-good-bg:#F0FDF4;--c-warn:#F59E0B;--c-warn-bg:#FFFBEB;--c-bad:#DC2626;--c-bad-bg:#FEF2F2;--font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--max-w:1100px;--radius:10px;--radius-sm:6px;--shadow-sm:0 1px 2px rgba(15,23,42,0.04);--shadow-md:0 4px 12px rgba(15,23,42,0.06)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:var(--font-sans);font-size:15px;line-height:1.55;color:var(--c-text);background:var(--c-bg);-webkit-font-smoothing:antialiased}h1,h2,h3,h4{margin:0 0 12px;font-weight:600;letter-spacing:-0.01em}h1{font-size:34px;line-height:1.15}h2{font-size:22px;line-height:1.2}h3{font-size:17px}p{margin:0 0 12px}a{color:var(--c-accent);text-decoration:none}a:hover{text-decoration:underline}strong{font-weight:600}
-.topbar{background:var(--c-bg-dark);padding:14px 28px;display:flex;align-items:center;justify-content:space-between}.topbar-brand{font-weight:700;font-size:16px;color:var(--c-text-on-dark);letter-spacing:-0.01em}.topbar-meta{font-size:13px;color:var(--c-text-on-dark-muted)}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Client Feedback Watch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--c-bg:#FFFFFF;--c-bg-alt:#F8FAFC;--c-bg-dark:#0F172A;--c-bg-dark-alt:#1E293B;--c-text:#0F172A;--c-text-muted:#64748B;--c-text-light:#94A3B8;--c-text-on-dark:#F8FAFC;--c-text-on-dark-muted:#CBD5E1;--c-border:#E2E8F0;--c-border-dark:#334155;--c-accent:#0F766E;--c-accent-light:#14B8A6;--c-accent-bg:#F0FDFA;--c-good:#16A34A;--c-good-bg:#F0FDF4;--c-warn:#D97706;--c-warn-bg:#FFFBEB;--c-bad:#DC2626;--c-bad-bg:#FEF2F2;--font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--max-w:1200px;--radius:10px;--radius-sm:6px;--shadow-sm:0 1px 2px rgba(15,23,42,0.04);--shadow-md:0 4px 12px rgba(15,23,42,0.06)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:var(--font-sans);font-size:15px;line-height:1.55;color:var(--c-text);background:var(--c-bg);-webkit-font-smoothing:antialiased}h1,h2,h3,h4{margin:0 0 12px;font-weight:600;letter-spacing:-0.01em}h1{font-size:32px;line-height:1.15}h2{font-size:22px;line-height:1.2}h3{font-size:17px}h4{font-size:14px}p{margin:0 0 12px}a{color:var(--c-accent);text-decoration:none}a:hover{text-decoration:underline}strong{font-weight:600}
+.topnav{position:sticky;top:0;z-index:100;background:var(--c-bg);border-bottom:1px solid var(--c-border);padding:0 28px}.topnav-inner{max-width:var(--max-w);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;height:60px}.brand-mark{font-weight:700;font-size:17px;letter-spacing:-0.02em;color:var(--c-text)}
 .wrap{max-width:var(--max-w);margin:0 auto;padding:0 28px}
-.hero{padding:52px 0 40px;border-bottom:1px solid var(--c-border)}.hero-eyebrow{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-accent);margin-bottom:10px}.hero-title{font-size:34px;margin-bottom:8px}.hero-sub{font-size:15px;color:var(--c-text-muted);max-width:680px}
-.kpi-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;padding:36px 0;border-bottom:1px solid var(--c-border)}.kpi-tile{background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius);padding:18px 20px;box-shadow:var(--shadow-sm)}.kpi-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.07em;color:var(--c-text-muted);margin-bottom:8px}.kpi-value{font-size:30px;font-weight:700;letter-spacing:-0.02em;line-height:1}.kpi-sub{font-size:12px;color:var(--c-text-muted);margin-top:5px}.kpi-value.bad{color:var(--c-bad)}.kpi-value.warn{color:var(--c-warn)}.kpi-value.good{color:var(--c-good)}.kpi-value.neutral{color:var(--c-text)}
-.clients-section{padding:40px 0}
-.client-card{background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius);margin-bottom:20px;overflow:hidden;box-shadow:var(--shadow-sm)}.client-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--c-border)}.client-header.red{background:var(--c-bad-bg);border-bottom-color:#FECACA}.client-header.yellow{background:var(--c-warn-bg);border-bottom-color:#FDE68A}.client-header.green{background:var(--c-good-bg);border-bottom-color:#BBF7D0}.client-name{font-size:16px;font-weight:700;color:var(--c-text)}.client-badge-row{display:flex;align-items:center;gap:10px}.status-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}.status-dot.red{background:var(--c-bad)}.status-dot.yellow{background:var(--c-warn)}.status-dot.green{background:var(--c-good)}.badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase}.badge.urgent{background:var(--c-bad-bg);color:var(--c-bad);border:1px solid #FECACA}.badge.warning{background:var(--c-warn-bg);color:var(--c-warn);border:1px solid #FDE68A}.badge.new{background:var(--c-accent-bg);color:var(--c-accent);border:1px solid #99F6E4}
-.task-list{padding:0 0 4px}.task-row{display:grid;grid-template-columns:1fr auto;gap:16px;padding:14px 20px;border-bottom:1px solid var(--c-border);align-items:start}.task-row:last-child{border-bottom:none}.task-row:hover{background:var(--c-bg-alt)}.task-left{flex:1;min-width:0}.task-name{font-weight:600;font-size:14px;color:var(--c-text);margin-bottom:4px}.task-name a{color:var(--c-text)}.task-name a:hover{color:var(--c-accent)}.task-meta{display:flex;flex-wrap:wrap;gap:6px 12px;font-size:12px;color:var(--c-text-muted);margin-bottom:6px}.task-meta-item{display:flex;align-items:center;gap:4px}.task-comment{background:var(--c-bg-alt);border-left:3px solid var(--c-border);border-radius:2px;padding:8px 12px;font-size:12px;color:var(--c-text-muted);font-style:italic;margin-top:4px;line-height:1.45}.task-comment.urgent{border-left-color:var(--c-bad)}.task-comment.warning{border-left-color:var(--c-warn)}.task-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px;flex-shrink:0}.days-badge{display:inline-flex;align-items:center;justify-content:center;padding:4px 10px;border-radius:var(--radius-sm);font-size:12px;font-weight:700;white-space:nowrap}.days-badge.urgent{background:var(--c-bad-bg);color:var(--c-bad)}.days-badge.warning{background:var(--c-warn-bg);color:var(--c-warn)}.days-badge.new{background:var(--c-accent-bg);color:var(--c-accent)}.type-tag{font-size:11px;font-weight:500;color:var(--c-text-muted);background:var(--c-bg-alt);border:1px solid var(--c-border);border-radius:4px;padding:2px 6px}
-.section-label{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--c-accent);margin-bottom:10px}
-.footer{padding:28px 0;text-align:center;font-size:13px;color:var(--c-text-muted);border-top:1px solid var(--c-border);margin-top:20px}
-@media(max-width:700px){.kpi-row{grid-template-columns:1fr 1fr}.wrap{padding:0 16px}.hero{padding:32px 0 24px}.task-row{grid-template-columns:1fr}.task-right{flex-direction:row;flex-wrap:wrap;margin-top:6px}}
-  </style>
+.hero{padding:52px 0 40px;border-bottom:1px solid var(--c-border);background:var(--c-bg-dark)}.hero-inner{max-width:var(--max-w);margin:0 auto;padding:0 28px}.hero-label{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-accent-light);margin-bottom:10px}.hero-title{font-size:36px;line-height:1.1;margin-bottom:8px;color:var(--c-text-on-dark);font-weight:700}.hero-date{font-size:15px;color:var(--c-text-on-dark-muted);margin-bottom:4px}.hero-updated{font-size:13px;color:var(--c-text-on-dark-muted)}
+.kpi-strip{padding:32px 0;border-bottom:1px solid var(--c-border);background:var(--c-bg)}.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}.kpi-tile{background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm)}.kpi-label{font-size:11px;font-weight:600;color:var(--c-text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}.kpi-value{font-size:28px;font-weight:700;letter-spacing:-0.02em;color:var(--c-text);line-height:1.1}.kpi-sub{font-size:12px;color:var(--c-text-muted);margin-top:4px}.kpi-value.good{color:var(--c-good)}.kpi-value.warn{color:var(--c-warn)}.kpi-value.bad{color:var(--c-bad)}
+.clients-section{padding:40px 0}.client-card{background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius);margin-bottom:24px;overflow:hidden;box-shadow:var(--shadow-sm)}.client-card.urgent{border-left:4px solid var(--c-bad)}.client-card.warning{border-left:4px solid var(--c-warn)}.client-card.clean{border-left:4px solid var(--c-good)}.client-header{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--c-border);gap:16px}.client-name{font-size:17px;font-weight:700;color:var(--c-text)}.client-meta{font-size:12px;color:var(--c-text-muted);margin-top:2px}.client-status{display:flex;align-items:center;gap:10px}.traffic-light{width:13px;height:13px;border-radius:50%;flex-shrink:0}.traffic-light.green{background:var(--c-good);box-shadow:0 0 0 3px var(--c-good-bg)}.traffic-light.yellow{background:var(--c-warn);box-shadow:0 0 0 3px var(--c-warn-bg)}.traffic-light.red{background:var(--c-bad);box-shadow:0 0 0 3px var(--c-bad-bg)}.client-body{padding:0}
+.task-table{width:100%;border-collapse:collapse;font-size:13px}.task-table th{padding:9px 16px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--c-text-muted);background:var(--c-bg-alt);border-bottom:1px solid var(--c-border);white-space:nowrap}.task-table td{padding:11px 16px;border-top:1px solid var(--c-border);vertical-align:top}.task-table tbody tr:hover{background:var(--c-bg-alt)}.task-name{font-weight:500;color:var(--c-text);max-width:380px}.task-name a{color:var(--c-text)}.task-name a:hover{color:var(--c-accent)}.task-comment{font-size:12px;color:var(--c-text-muted);margin-top:3px;max-width:380px;font-style:italic}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;font-size:10px;font-weight:700;border-radius:999px;text-transform:uppercase;letter-spacing:0.05em;white-space:nowrap}.badge-urgent{background:var(--c-bad-bg);color:var(--c-bad)}.badge-warning{background:var(--c-warn-bg);color:var(--c-warn)}.badge-new{background:var(--c-accent-bg);color:var(--c-accent)}.badge-ghost{background:#F3E8FF;color:#7C3AED}
+.type-tag{display:inline-block;padding:1px 6px;font-size:10px;font-weight:600;border-radius:4px;background:var(--c-bg-alt);color:var(--c-text-muted);border:1px solid var(--c-border)}
+.days-num{font-variant-numeric:tabular-nums;font-weight:600}.days-urgent{color:var(--c-bad)}.days-warn{color:var(--c-warn)}.days-new{color:var(--c-accent)}
+.section-heading{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--c-text-muted);padding:20px 28px 8px;border-top:1px solid var(--c-border)}
+.footer{padding:28px 0;text-align:center;font-size:13px;color:var(--c-text-muted);border-top:1px solid var(--c-border)}
+@media(max-width:768px){.hero-title{font-size:26px}.topnav{padding:0 16px}.wrap,.hero-inner{padding:0 16px}.kpi-grid{grid-template-columns:1fr 1fr}.task-table{font-size:12px}.client-header{flex-wrap:wrap}.task-name{max-width:220px}}
+</style>
 </head>
 <body>
 
-<div class="topbar">
-  <div class="topbar-brand">Markology</div>
-  <div class="topbar-meta">Client Feedback Watch &mdash; Updated 2026-09-24 22:00 UTC</div>
+<nav class="topnav">
+  <div class="topnav-inner">
+    <div class="brand-mark">Markology</div>
+    <div style="font-size:13px;color:var(--c-text-muted)">Client Feedback Watch &mdash; Internal</div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Daily watch &mdash; Internal only</div>
+    <h1 class="hero-title">Markology Client Feedback Watch</h1>
+    <p class="hero-date">2026-09-25</p>
+    <p class="hero-updated">Updated 2026-09-25 22:00 UTC &nbsp;&bull;&nbsp; 30 tasks flagged &nbsp;&bull;&nbsp; 12 clients</p>
+  </div>
 </div>
 
-<div class="wrap">
-
-  <div class="hero">
-    <div class="hero-eyebrow">Internal dashboard</div>
-    <h1 class="hero-title">Client Feedback Watch</h1>
-    <p class="hero-sub">Unactioned client revision requests across all active boards. Flags tasks where a client asked for changes but Markology has not yet responded. Updated daily at 8am Sydney / 22:00 UTC.</p>
-  </div>
-
-  <!-- KPI row -->
-  <div class="kpi-row">
-    <div class="kpi-tile">
-      <div class="kpi-label">Urgent (&gt;7d)</div>
-      <div class="kpi-value bad">6</div>
-      <div class="kpi-sub">stale over 1 week</div>
-    </div>
-    <div class="kpi-tile">
-      <div class="kpi-label">Warning (3–7d)</div>
-      <div class="kpi-value warn">4</div>
-      <div class="kpi-sub">stale 3–7 days</div>
-    </div>
-    <div class="kpi-tile">
-      <div class="kpi-label">New (&lt;3d)</div>
-      <div class="kpi-value neutral">0</div>
-      <div class="kpi-sub">just flagged</div>
-    </div>
-    <div class="kpi-tile">
-      <div class="kpi-label">Ghost comments</div>
-      <div class="kpi-value neutral">0</div>
-      <div class="kpi-sub">unanswered in 24h</div>
-    </div>
-    <div class="kpi-tile">
-      <div class="kpi-label">Clients affected</div>
-      <div class="kpi-value bad">6</div>
-      <div class="kpi-sub">with at least 1 flag</div>
+<div class="kpi-strip">
+  <div class="wrap">
+    <div class="kpi-grid">
+      <div class="kpi-tile">
+        <div class="kpi-label">Urgent (&gt;7d stale)</div>
+        <div class="kpi-value bad">12</div>
+        <div class="kpi-sub">Across 6 clients</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-label">Warning (3&ndash;7d)</div>
+        <div class="kpi-value warn">14</div>
+        <div class="kpi-sub">Across 8 clients</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-label">New (&lt;3d)</div>
+        <div class="kpi-value" style="color:var(--c-accent)">4</div>
+        <div class="kpi-sub">Flagged recently</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-label">Ghost comments</div>
+        <div class="kpi-value">0</div>
+        <div class="kpi-sub">Unanswered client msgs</div>
+      </div>
+      <div class="kpi-tile">
+        <div class="kpi-label">Clients flagged</div>
+        <div class="kpi-value bad">12</div>
+        <div class="kpi-sub">At least 1 open task</div>
+      </div>
     </div>
   </div>
+</div>
 
-  <!-- Client cards sorted by # urgent desc -->
-  <div class="clients-section">
-    <div class="section-label">Clients with flagged tasks</div>
+<div class="clients-section">
+  <div class="wrap">
+    <h2 style="margin-bottom:6px;margin-top:0">Clients with Urgent Flags</h2>
+    <p style="color:var(--c-text-muted);font-size:13px;margin-bottom:28px">Sorted by number of urgent tasks. Tasks stale &gt;7 days.</p>
 
-    <!-- Core Advisors — 2 urgent, 1 warning -->
-    <div class="client-card">
-      <div class="client-header red">
-        <div class="client-name">Core Advisors</div>
-        <div class="client-badge-row">
-          <div class="status-dot red"></div>
-          <span class="badge urgent">2 urgent</span>
-          <span class="badge warning">1 warning</span>
+    <!-- SAS: 3 urgent, 6 warning -->
+    <div class="client-card urgent">
+      <div class="client-header">
+        <div>
+          <div class="client-name">Specialized Accounting Services (SAS)</div>
+          <div class="client-meta">9 flagged tasks &mdash; 3 urgent, 6 warning</div>
+        </div>
+        <div class="client-status">
+          <div class="traffic-light red"></div>
+          <span class="badge badge-urgent">Urgent</span>
         </div>
       </div>
-      <div class="task-list">
-
-        <div class="task-row">
-          <div class="task-left">
-            <div class="task-name"><a href="https://app.asana.com/0/0/1211074978455265" target="_blank">Review SEO Blog Post: Should You Use a 401(k) or a SIMPLE IRA for Your Dental Practice's Retirement Plan?</a></div>
-            <div class="task-meta">
-              <span class="task-meta-item">Assignee: writing@markology.io</span>
-              <span class="task-meta-item">Due: 2026-05-22</span>
-              <span class="task-meta-item">Section: Tasks Needing Revision</span>
-            </div>
-            <div class="task-comment urgent">"Made a few comments in doc" — Thomas Gore, 2026-05-07</div>
-          </div>
-          <div class="task-right">
-            <span class="days-badge urgent">94d stale</span>
-            <span class="type-tag">Tasks Needing Revision</span>
-          </div>
-        </div>
-
-        <div class="task-row">
-          <div class="task-left">
-            <div class="task-name"><a href="https://app.asana.com/0/0/1210647471759948" target="_blank">SEO Blog Post: How to Handle Student Loans As a Dentist</a></div>
-            <div class="task-meta">
-              <span class="task-meta-item">Assignee: writing@markology.io</span>
-              <span class="task-meta-item">Due: 2026-05-22</span>
-              <span class="task-meta-item">Section: Tasks Needing Revision</span>
-            </div>
-            <div class="task-comment urgent">"I know this was written a while ago, and everything has changed with student loans. Instead of writing pages of comments, wanted to see if easier to just re-write with updated laws?" — Thomas Gore, 2026-05-07</div>
-          </div>
-          <div class="task-right">
-            <span class="days-badge urgent">91d stale</span>
-            <span class="type-tag">Tasks Needing Revision</span>
-          </div>
-        </div>
-
-        <div class="task-row">
-          <div class="task-left">
-            <div class="task-name"><a href="https://app.asana.com/0/0/1210399652916172" target="_blank">SEO Blog Post: How Much Should Dentists Have In Retirement Savings (By Decade)?</a></div>
-            <div class="task-meta">
-              <span class="task-meta-item">Assignee: writing@markology.io</span>
-              <span class="task-meta-item">Due: 2026-05-22</span>
-              <span class="task-meta-item">Section: Tasks Needing Revision</span>
-            </div>
-            <div class="task-comment warning">"I don't think the multiples listed work. If including the practice value is intended, I would think to mention that. No too many have that much saved at 45, 55 for example." — Thomas Gore, 2026-05-07</div>
-          </div>
-          <div class="task-right">
-            <span class="days-badge warning">6d stale</span>
-            <span class="type-tag">Tasks Needing Revision</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Keen Capital — 2 urgent -->
-    <div class="client-card">
-      <div class="client-header red">
-        <div class="client-name">Keen Capital</div>
-        <div class="client-badge-row">
-          <div class="status-dot red"></div>
-          <span class="badge urgent">2 urgent</span>
-        </div>
-      </div>
-      <div class="task-list">
-
-        <div class="task-row">
-          <div class="task-left">
-            <div class="task-name"><a href="https://app.asana.com/0/0/1213721018777556" target="_blank">SEO Blog: Where to Put Cash Right Now: Options for High Net Worth Investors</a></div>
-            <div class="task-meta">
-              <span class="task-meta-item">Assignee: writing@markology.io</span>
-              <span class="task-meta-item">Due: 2026-05-06</span>
-            </div>
-            <div class="task-comment urgent">"I made some heavy edits to this piece so please review before posting to ensure it flows and there are not grammatical errors, etc." — Katherine Hollenbeck, 2026-05-18</div>
-          </div>
-          <div class="task-right">
-            <span class="days-badge urgent">9d stale</span>
-            <span class="type-tag">Edits Needed</span>
-          </div>
-        </div>
-
-        <div class="task-row">
-          <div class="task-left">
-            <div class="task-name"><a href="https://app.asana.com/0/0/1216139725081769" target="_blank">SEO Blog: When Direct Indexing Tax Loss Harvesting Actually Works for HNW Investors</a></div>
-            <div class="task-meta">
-              <span class="task-meta-item">Assignee: writing@markology.io</span>
-              <span class="task-meta-item">Due: 2026-07-07</span>
-            </div>
-            <div class="task-comment urgent">"Will you please add a paragraph that the investments inside do matter — what index are you tracking? how does the manager consider tracking error? do you have flexibility to restrict specific securities, sectors, etc.?" — Katherine Hollenbeck, 2026-08-13</div>
-          </div>
-          <div class="task-right">
-            <span class="days-badge urgent">9d stale</span>
-            <span class="type-tag">Edits Needed</span>
-          </div>
-        </div>
-
+      <div class="client-body">
+        <table class="task-table">
+          <thead>
+            <tr><th>Task</th><th>Type</th><th>Days Stale</th><th>Assignee</th><th>Due</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1217843748898008" target="_blank">SAS: Investigate missing July 4th CC email and schedule year-end sends</a></td>
+              <td><span class="type-tag">Client Request</span></td>
+              <td><span class="days-num days-urgent">10d</span></td>
+              <td>Markology Support</td>
+              <td>2026-08-28</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1217148110058457" target="_blank">Create Q4 Content Calendar</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-urgent">8d</span></td>
+              <td>Megan Rinehart</td>
+              <td>2026-08-18</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1217697334922269" target="_blank">SAS: Fix Google listing spelling of Specializes and remove CPAs designation</a></td>
+              <td><span class="type-tag">Client Request</span></td>
+              <td><span class="days-num days-urgent">8d</span></td>
+              <td>Megan Rinehart</td>
+              <td>2026-08-21</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1214287278869093" target="_blank">SEO Blog: The Biggest Financial Mistakes Multi-Unit Business Owners Make</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-warn">7d</span></td>
+              <td>writing@markology.io</td>
+              <td>2026-05-26</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1213336312637435" target="_blank">Accessibility access check - SAS CPAs</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-warn">7d</span></td>
+              <td>Megan Rinehart</td>
+              <td>2026-03-09</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1217930801904832" target="_blank">SAS: Michael asking where to view OpenAI ads lead stats in report</a></td>
+              <td><span class="type-tag">Client Request</span></td>
+              <td><span class="days-num days-warn">7d</span></td>
+              <td>Markology Support</td>
+              <td>2026-09-02</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1217882739948101" target="_blank">SAS: Tom requesting CC Q3 newsletter updated with Angela feedback</a></td>
+              <td><span class="type-tag">Client Request</span></td>
+              <td><span class="days-num days-warn">7d</span></td>
+              <td>Markology Support</td>
+              <td>2026-09-01</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1218070531372038" target="_blank">SAS: Tom asking when the Q3 CC email will be scheduled to send</a></td>
+              <td><span class="type-tag">Client Request</span></td>
+              <td><span class="days-num days-warn">1d</span></td>
+              <td>Markology Support</td>
+              <td>&mdash;</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1218376142508347" target="_blank">SAS: Michael approved lookalike display ads + internal domain</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-warn">1d</span></td>
+              <td>Markology Support</td>
+              <td>&mdash;</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
-    <!-- Steven M. Ellard, CPA — 1 urgent, 1 warning -->
-    <div class="client-card">
-      <div class="client-header red">
-        <div class="client-name">Steven M. Ellard, CPA</div>
-        <div class="client-badge-row">
-          <div class="status-dot red"></div>
-          <span class="badge urgent">1 urgent</span>
-          <span class="badge warning">1 warning</span>
+    <!-- Steve Ellard: 3 urgent, 1 warning -->
+    <div class="client-card urgent">
+      <div class="client-header">
+        <div>
+          <div class="client-name">Steven M. Ellard, CPA</div>
+          <div class="client-meta">4 flagged tasks &mdash; 3 urgent, 1 warning &mdash; <strong style="color:var(--c-bad)">oldest: 65 days</strong></div>
+        </div>
+        <div class="client-status">
+          <div class="traffic-light red"></div>
+          <span class="badge badge-urgent">Urgent</span>
         </div>
       </div>
-      <div class="task-list">
-
-        <div class="task-row">
-          <div class="task-left">
-            <div class="task-name"><a href="https://app.asana.com/0/0/1216139830438580" target="_blank">SEO Blog Post: Seasonal Hiring on Cape Cod: Payroll Rules Every Small Business Owner Should Know Before Labor Day</a></div>
-            <div class="task-meta">
-              <span class="task-meta-item">Assignee: writing@markology.io</span>
-              <span class="task-meta-item">Due: 2026-07-14</span>
-            </div>
-            <div class="task-comment urgent">"good content....just remove the reference to seasonal hiring and labor day.... this is a very good explanation of Massachusetts employee rules for any time an employer is hiring." — Steve Ellard, 2026-09-09</div>
-          </div>
-          <div class="task-right">
-            <span class="days-badge urgent">8d stale</span>
-            <span class="type-tag">Edits Needed</span>
-          </div>
-        </div>
-
-        <div class="task-row">
-          <div class="task-left">
-            <div class="task-name"><a href="https://app.asana.com/0/0/1217213459040839" target="_blank">Client Review of blog: Why Cape Cod Restaurants Should Move to Weekly Payroll</a></div>
-            <div class="task-meta">
-              <span class="task-meta-item">Assignee: Megan Rinehart</span>
-            </div>
-            <div class="task-comment warning">"Under the mass.gov pay and recordkeeping, hourly restaurant workers must be paid every week or every other week (bi-weekly)." — Steve Ellard, 2026-09-09 &nbsp;|&nbsp; "no access to blog document" — Karen, 2026-08-20</div>
-          </div>
-          <div class="task-right">
-            <span class="days-badge warning">6d stale</span>
-            <span class="type-tag">Edits Needed</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- Bookkeeping for Brokers — 1 urgent -->
-    <div class="client-card">
-      <div class="client-header red">
-        <div class="client-name">Bookkeeping for Brokers (BFB)</div>
-        <div class="client-badge-row">
-          <div class="status-dot red"></div>
-          <span class="badge urgent">1 urgent</span>
-        </div>
-      </div>
-      <div class="task-list">
-
-        <div class="task-row">
-          <div class="task-left">
-            <div class="task-name"><a href="https://app.asana.com/0/0/1216192758183814" target="_blank">SEO Blog: 1099-NEC For Real Estate Brokerages: How To Pay Agents Without Triggering Misclassification</a></div>
-            <div class="task-meta">
-              <span class="task-meta-item">Assignee: writing@markology.io</span>
-              <span class="task-meta-item">Due: 2026-07-21</span>
-            </div>
-            <div class="task-comment urgent">"There is no doc linked here" — jeremy@amarlo.co, 2026-08-13</div>
-          </div>
-          <div class="task-right">
-            <span class="days-badge urgent">8d stale</span>
-            <span class="type-tag">Edits Needed</span>
-          </div>
-        </div>
-
+      <div class="client-body">
+        <table class="task-table">
+          <thead>
+            <tr><th>Task</th><th>Type</th><th>Days Stale</th><th>Assignee</th><th>Due</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="task-name">
+                <a href="https://app.asana.com/0/0/1215271699171878" target="_blank">Client review of blog post: Mid-Year Financial Check In: How's Your Business Going?</a>
+                <div class="task-comment">In &ldquo;Tasks Needing Revision&rdquo; section + &ldquo;Edits Needed&rdquo; — client has reviewed, revisions outstanding since July</div>
+              </td>
+              <td><span class="type-tag">Revision Section</span></td>
+              <td><span class="days-num days-urgent">65d</span></td>
+              <td>Steve Ellard (client)</td>
+              <td>&mdash;</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1217998640274863" target="_blank">Create Q4 CONTENT CALENDAR</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-urgent">9d</span></td>
+              <td>Megan Rinehart</td>
+              <td>2026-09-14</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1216139830438580" target="_blank">SEO Blog Post: Seasonal Hiring on Cape Cod: Payroll Rules Every Small Business Owner Needs to Know</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-urgent">9d</span></td>
+              <td>writing@markology.io</td>
+              <td>2026-07-14</td>
+            </tr>
+            <tr>
+              <td class="task-name">
+                <a href="https://app.asana.com/0/0/1215271699161300" target="_blank">Client review of blog post: How Much Does Payroll Cost for a Small Business on Cape Cod?</a>
+                <div class="task-comment">In &ldquo;Edits Needed&rdquo; section — client has reviewed</div>
+              </td>
+              <td><span class="type-tag">Revision Section</span></td>
+              <td><span class="days-num days-warn">7d</span></td>
+              <td>Megan Rinehart</td>
+              <td>&mdash;</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
-    <!-- U-Nique Accounting — 1 warning -->
-    <div class="client-card">
-      <div class="client-header yellow">
-        <div class="client-name">U-Nique Accounting</div>
-        <div class="client-badge-row">
-          <div class="status-dot yellow"></div>
-          <span class="badge warning">1 warning</span>
+    <!-- Keen Capital: 2 urgent, 1 warning -->
+    <div class="client-card urgent">
+      <div class="client-header">
+        <div>
+          <div class="client-name">Keen Capital</div>
+          <div class="client-meta">3 flagged tasks &mdash; 2 urgent, 1 warning</div>
+        </div>
+        <div class="client-status">
+          <div class="traffic-light red"></div>
+          <span class="badge badge-urgent">Urgent</span>
         </div>
       </div>
-      <div class="task-list">
-
-        <div class="task-row">
-          <div class="task-left">
-            <div class="task-name"><a href="https://app.asana.com/0/0/1216139650010626" target="_blank">SEO Blog: Prime Cost vs Food Cost (Why Restaurants Need Both Numbers)</a></div>
-            <div class="task-meta">
-              <span class="task-meta-item">Assignee: writing@markology.io</span>
-              <span class="task-meta-item">Due: 2026-07-28</span>
-            </div>
-            <div class="task-comment warning">"Can we do this article again, but in reverse? Labor cost is good, but food cost is throwing off prime cost? Food costs can be hidden because the chef's are hoarding food or not throwing it out properly to hide what is going on..." — Matt Cianciarulo, 2026-08-04</div>
-          </div>
-          <div class="task-right">
-            <span class="days-badge warning">5d stale</span>
-            <span class="type-tag">Edits Needed</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- SAS — 1 warning -->
-    <div class="client-card">
-      <div class="client-header yellow">
-        <div class="client-name">Specialized Accounting Services (SAS)</div>
-        <div class="client-badge-row">
-          <div class="status-dot yellow"></div>
-          <span class="badge warning">1 warning</span>
-        </div>
-      </div>
-      <div class="task-list">
-
-        <div class="task-row">
-          <div class="task-left">
-            <div class="task-name"><a href="https://app.asana.com/0/0/1214287278869093" target="_blank">SEO Blog: The Biggest Financial Mistakes Multi-Unit Business Owners Make</a></div>
-            <div class="task-meta">
-              <span class="task-meta-item">Assignee: writing@markology.io</span>
-              <span class="task-meta-item">Due: 2026-05-26</span>
-            </div>
-            <div class="task-comment warning">"Can you remove 'Commingled Funds Is the Most Common Multi-Unit Mistake' paragraph and then it is good to send." — Tom Pflug, 2026-06-01</div>
-          </div>
-          <div class="task-right">
-            <span class="days-badge warning">6d stale</span>
-            <span class="type-tag">Edits Needed</span>
-          </div>
-        </div>
-
+      <div class="client-body">
+        <table class="task-table">
+          <thead>
+            <tr><th>Task</th><th>Type</th><th>Days Stale</th><th>Assignee</th><th>Due</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1213721018777556" target="_blank">SEO Blog: Where to Put Cash Right Now: Options for High Net Worth Investors</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-urgent">10d</span></td>
+              <td>writing@markology.io</td>
+              <td>2026-05-06</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1216139725081769" target="_blank">SEO Blog: When Direct Indexing Tax Loss Harvesting Actually Works for HNW Investors</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-urgent">10d</span></td>
+              <td>writing@markology.io</td>
+              <td>2026-07-07</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1217999879772592" target="_blank">SEO Blog: How South Carolina Retirement Tax Rules Shape Your Withdrawal Strategy</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-warn">4d</span></td>
+              <td>writing@markology.io</td>
+              <td>2026-09-21</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
-  </div><!-- end clients-section -->
+    <!-- Ashford Sky: 2 urgent, 2 warning -->
+    <div class="client-card urgent">
+      <div class="client-header">
+        <div>
+          <div class="client-name">Ashford Sky</div>
+          <div class="client-meta">4 flagged tasks &mdash; 2 urgent, 2 warning</div>
+        </div>
+        <div class="client-status">
+          <div class="traffic-light red"></div>
+          <span class="badge badge-urgent">Urgent</span>
+        </div>
+      </div>
+      <div class="client-body">
+        <table class="task-table">
+          <thead>
+            <tr><th>Task</th><th>Type</th><th>Days Stale</th><th>Assignee</th><th>Due</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1216216942576044" target="_blank">SEO Blog: Quality of Earnings vs. Audit: What You're Actually Buying with a QoE Report</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-urgent">10d</span></td>
+              <td>Markology Support</td>
+              <td>2026-08-28</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1216216964243887" target="_blank">SEO Blog: Working Capital Adjustments and the Post-Close True-Up Every Acquisition Entrepreneur Should Expect</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-urgent">10d</span></td>
+              <td>Markology Support</td>
+              <td>2026-09-04</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1216216966678187" target="_blank">SEO Blog: The First 100 Days After Closing: Why the Books You Inherited Are Not the Books You Can Trust</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-warn">7d</span></td>
+              <td>Markology Support</td>
+              <td>2026-09-11</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1217998516520286" target="_blank">SEO Blog: The Cheap CPA Problem: How Seller-Side Tax Mistakes Create Buyer Exposure</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-warn">7d</span></td>
+              <td>writing@markology.io</td>
+              <td>2026-09-18</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-</div><!-- end wrap -->
+    <!-- Affinity Accounting: 1 urgent, 1 warning -->
+    <div class="client-card urgent">
+      <div class="client-header">
+        <div>
+          <div class="client-name">Affinity Accounting</div>
+          <div class="client-meta">2 flagged tasks &mdash; 1 urgent, 1 warning</div>
+        </div>
+        <div class="client-status">
+          <div class="traffic-light red"></div>
+          <span class="badge badge-urgent">Urgent</span>
+        </div>
+      </div>
+      <div class="client-body">
+        <table class="task-table">
+          <thead>
+            <tr><th>Task</th><th>Type</th><th>Days Stale</th><th>Assignee</th><th>Due</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1217997812622316" target="_blank">SEO Blog: Why Milwaukee Accounting Firms Lose Clients After Year One (And What Affinity Does Differently)</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-urgent">9d</span></td>
+              <td>writing@markology.io</td>
+              <td>2026-09-11</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1217997812669849" target="_blank">SEO Blog: How to Switch Accountants Without Disrupting Your Service Business</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-warn">7d</span></td>
+              <td>writing@markology.io</td>
+              <td>2026-09-18</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- BFB: 1 urgent, 2 warning -->
+    <div class="client-card urgent">
+      <div class="client-header">
+        <div>
+          <div class="client-name">Bookkeeping for Brokers (BFB)</div>
+          <div class="client-meta">3 flagged tasks &mdash; 1 urgent, 2 warning</div>
+        </div>
+        <div class="client-status">
+          <div class="traffic-light red"></div>
+          <span class="badge badge-urgent">Urgent</span>
+        </div>
+      </div>
+      <div class="client-body">
+        <table class="task-table">
+          <thead>
+            <tr><th>Task</th><th>Type</th><th>Days Stale</th><th>Assignee</th><th>Due</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1216192758183814" target="_blank">SEO Blog: 1099-NEC For Real Estate Brokerages: How To Pay Agents Without Triggering IRS Penalties</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-urgent">9d</span></td>
+              <td>writing@markology.io</td>
+              <td>2026-07-21</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1217997053249599" target="_blank">SEO Blog: Year-End Close Checklist For Real Estate Brokerages</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-warn">7d</span></td>
+              <td>Megan Rinehart</td>
+              <td>2026-09-15</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1217997053344821" target="_blank">SEO Blog: Mortgage Broker 1099-NEC: How To Pay Loan Originators And Stay CFPB-Compliant</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-warn">3d</span></td>
+              <td>Megan Rinehart</td>
+              <td>2026-09-22</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 style="margin-bottom:6px;margin-top:16px">Clients with Warning Flags Only</h2>
+    <p style="color:var(--c-text-muted);font-size:13px;margin-bottom:20px">3–7 days stale, no urgent items.</p>
+
+    <!-- Core Advisors: 1 warning (Thomas Gore), 1 new -->
+    <div class="client-card warning">
+      <div class="client-header">
+        <div>
+          <div class="client-name">Core Advisors</div>
+          <div class="client-meta">2 flagged tasks &mdash; 1 warning, 1 new &mdash; Thomas Gore original revision still open</div>
+        </div>
+        <div class="client-status">
+          <div class="traffic-light yellow"></div>
+          <span class="badge badge-warning">Warning</span>
+        </div>
+      </div>
+      <div class="client-body">
+        <table class="task-table">
+          <thead>
+            <tr><th>Task</th><th>Type</th><th>Days Stale</th><th>Assignee</th><th>Due</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="task-name">
+                <a href="https://app.asana.com/0/0/1210399652916172" target="_blank">SEO Blog Post: How Much Should Dentists Have In Retirement Savings (By Decade)?</a>
+                <div class="task-comment">In &ldquo;Tasks Needing Revision&rdquo; section — Thomas Gore 5/7 feedback, Core Advisors May 2026 board</div>
+              </td>
+              <td><span class="type-tag">Revision Section</span></td>
+              <td><span class="days-num days-warn">7d</span></td>
+              <td>writing@markology.io</td>
+              <td>&mdash;</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1216218731140077" target="_blank">SEO Blog: Cash Vs Accrual Accounting For Dental Practices: Which One Reduces Your Tax Bill</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-new">1d</span></td>
+              <td>Markology Support</td>
+              <td>&mdash;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- U-Nique: 2 warning -->
+    <div class="client-card warning">
+      <div class="client-header">
+        <div>
+          <div class="client-name">U-Nique Accounting</div>
+          <div class="client-meta">2 flagged tasks &mdash; 2 warning</div>
+        </div>
+        <div class="client-status">
+          <div class="traffic-light yellow"></div>
+          <span class="badge badge-warning">Warning</span>
+        </div>
+      </div>
+      <div class="client-body">
+        <table class="task-table">
+          <thead>
+            <tr><th>Task</th><th>Type</th><th>Days Stale</th><th>Assignee</th><th>Due</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1216139650010626" target="_blank">SEO Blog: Prime Cost vs Food Cost (Why Restaurants Need Both Numbers)</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-warn">6d</span></td>
+              <td>writing@markology.io</td>
+              <td>2026-07-28</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1217999986980821" target="_blank">SEO Blog: Brewery Payroll Costs (Taproom vs Production in Your P&amp;L)</a></td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-warn">3d</span></td>
+              <td>writing@markology.io</td>
+              <td>2026-09-15</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 style="margin-bottom:6px;margin-top:16px">Recently Flagged (&lt;3 days)</h2>
+    <p style="color:var(--c-text-muted);font-size:13px;margin-bottom:20px">New Edits Needed flags — monitor for staleness.</p>
+
+    <!-- Cherry Hill, Llamas, Virjee: new -->
+    <div class="client-card clean">
+      <div class="client-header">
+        <div>
+          <div class="client-name">Cherry Hill Advisory &mdash; Llamas Financial &mdash; Virjee Consulting Dental</div>
+          <div class="client-meta">3 newly flagged tasks &mdash; all &lt;2 days stale</div>
+        </div>
+        <div class="client-status">
+          <div class="traffic-light green"></div>
+          <span class="badge badge-new">New</span>
+        </div>
+      </div>
+      <div class="client-body">
+        <table class="task-table">
+          <thead>
+            <tr><th>Task</th><th>Client</th><th>Type</th><th>Days Stale</th><th>Assignee</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1218283224518861" target="_blank">Cherry Hill Advisory: Agentic EQA added to AI-Enabled Services page + EQA page</a></td>
+              <td>Cherry Hill</td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-new">2d</span></td>
+              <td>Vita A</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1217997880634017" target="_blank">SEO Blog: How to Plan Winery Cash Flow Through Harvest and Crush Season</a></td>
+              <td>Llamas Financial</td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-new">0d</span></td>
+              <td>Megan Rinehart</td>
+            </tr>
+            <tr>
+              <td class="task-name"><a href="https://app.asana.com/0/0/1218000384522972" target="_blank">SEO Blog: Asset Sale vs Stock Sale of a Dental Practice: What the Difference Costs You</a></td>
+              <td>Virjee Dental</td>
+              <td><span class="type-tag">Edits Needed</span></td>
+              <td><span class="days-num days-new">0d</span></td>
+              <td>writing@markology.io</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
 
 <div class="footer">
-  Updated daily at 8am Sydney / 22:00 UTC &nbsp;&middot;&nbsp; Internal use only
+  <p>Updated daily at 8am Sydney / 22:00 UTC &nbsp;&bull;&nbsp; <a href="https://app.asana.com/0/1210841782307553" target="_blank">Client Changes project &rarr;</a></p>
+  <p style="margin-top:4px;color:var(--c-text-light);font-size:12px">Sources: Asana Edits Needed status field &bull; Tasks Needing Revision sections &bull; Unactioned client comments</p>
 </div>
 
 </body>

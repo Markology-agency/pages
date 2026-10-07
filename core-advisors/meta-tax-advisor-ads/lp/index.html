@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <style>
+    @font-face{font-family:'Euclid Circular B';src:url('https://coreadvisors.com/wp-content/uploads/2024/12/Euclid-Circular-B-Regular.ttf') format('truetype');font-weight:400;font-display:swap}
+    @font-face{font-family:'Euclid Circular B';src:url('https://coreadvisors.com/wp-content/uploads/2024/12/Euclid-Circular-B-Medium.ttf') format('truetype');font-weight:500;font-display:swap}
+    @font-face{font-family:'Euclid Circular B';src:url('https://coreadvisors.com/wp-content/uploads/2024/12/Euclid-Circular-B-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap}
+    @font-face{font-family:'Euclid Circular B';src:url('https://coreadvisors.com/wp-content/uploads/2024/12/Euclid-Circular-B-Bold.ttf') format('truetype');font-weight:700;font-display:swap}
+    body{margin:0;background:#fff;-webkit-font-smoothing:antialiased}
+    a{color:#092d4f}a:hover{color:#123f68}
+    html{scroll-behavior:smooth}
+  </style>
+</helmet>
+<div style="font-family:'Euclid Circular B','Poppins',system-ui,sans-serif;color:#092d4f;line-height:1.55;">
+  <div style="position:sticky;top:0;z-index:50;background:#1a1a1a;color:#fff;font-family:system-ui,sans-serif;font-size:12px;display:flex;gap:6px;align-items:center;padding:8px 16px;flex-wrap:wrap;">
+    <span style="opacity:0.6;margin-right:6px;">Mockup switcher (not part of the page):</span>
+    <sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3"><button onClick="{{ t.go }}" style="border:1px solid rgba(255,255,255,0.25);background:{{ t.bg }};color:{{ t.fg }};border-radius:99px;padding:6px 12px;font-size:12px;cursor:pointer;font-family:inherit;">{{ t.label }}</button></sc-for>
+  </div>
+
+  <div style="background:#fff;border-bottom:1px solid #e6eef5;">
+    <div style="max-width:1100px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;box-sizing:border-box;">
+      <img src="https://coreadvisors.com/wp-content/uploads/2024/12/CoreAdvisors-logo-with-text.png" alt="Core Advisors" style="height:38px;width:auto;">
+      <div style="display:flex;align-items:center;gap:18px;">
+        <a href="tel:+18039414440" style="font-size:14px;font-weight:600;color:#092d4f;text-decoration:none;white-space:nowrap;">(803) 941-4440</a>
+        <a href="#book" style="background:#092d4f;color:#fff;border-radius:99px;padding:11px 20px;font-size:14px;font-weight:600;text-decoration:none;white-space:nowrap;">Book a call</a>
+      </div>
+    </div>
+  </div>
+
+  <section style="position:relative;overflow:hidden;background:#092d4f;color:#fff;">
+    <sc-if value="{{ isTax }}" hint-placeholder-val="{{ true }}"><img src="uploads/pexels-olly-3881296.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;display:block;"></sc-if>
+    <sc-if value="{{ isChat }}" hint-placeholder-val="{{ false }}"><img src="uploads/pexels-shvetsa-3845981.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block;"></sc-if>
+    <sc-if value="{{ isOp }}" hint-placeholder-val="{{ false }}"><img src="uploads/pexels-arda-kaykisiz-672105204-19879741.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;display:block;"></sc-if>
+    <div style="position:absolute;inset:0;background:linear-gradient(100deg,rgba(9,45,79,0.97) 0%,rgba(9,45,79,0.9) 50%,rgba(9,45,79,0.72) 100%);"></div>
+    <div style="position:relative;max-width:1100px;margin:0 auto;padding:88px 24px 80px;box-sizing:border-box;display:grid;grid-template-columns:minmax(300px,1.25fr) minmax(280px,1fr);gap:56px;align-items:center;">
+      <div>
+        <p style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#d5ecf6;font-weight:600;margin:0 0 20px;">{{ page.eyebrow }}</p>
+        <h1 style="font-size:clamp(40px,5.2vw,64px);line-height:1.02;font-weight:700;letter-spacing:-0.03em;margin:0 0 22px;text-wrap:pretty;color:#fff;">{{ page.h1a }}<br><span style="color:#d5ecf6;">{{ page.h1b }}</span></h1>
+        <p style="font-size:19px;color:rgba(255,255,255,0.82);margin:0 0 32px;max-width:44ch;">{{ page.sub }}</p>
+        <div style="display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-size:14px;color:rgba(255,255,255,0.8);">
+          <span><span style="color:#f5b731;letter-spacing:1px;">★★★★★</span> 5.0 on Google</span>
+          <span style="width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.4);"></span>
+          <span>20+ years, dentists only</span>
+          <span style="width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.4);"></span>
+          <span>Clients in most states</span>
+        </div>
+      </div>
+      <div style="background:#fff;border-radius:20px;padding:30px;color:#092d4f;box-shadow:0 30px 70px rgba(0,0,0,0.35);">
+        <div style="display:flex;gap:14px;align-items:center;margin-bottom:18px;">
+          <img src="uploads/image-1.webp" alt="Jeremiah Barwick" style="width:64px;height:64px;border-radius:50%;object-fit:cover;object-position:top;">
+          <div><p style="margin:0;font-size:17px;font-weight:700;">Jeremiah D. Barwick, CEPA®</p><p style="margin:2px 0 0;font-size:13.5px;color:#5d7186;">Lead Advisor. Takes every intro call.</p></div>
+        </div>
+        <p style="margin:0 0 22px;font-size:16px;line-height:1.55;color:#3d5266;">{{ page.heroCard }}</p>
+        <a href="#book" style="display:block;text-align:center;border-radius:99px;padding:17px 28px;font-size:16px;font-weight:600;text-decoration:none;background:#092d4f;color:#fff;">Book 30 minutes with Jeremiah</a>
+        <p style="margin:12px 0 0;font-size:12.5px;color:#7d8fa3;text-align:center;">Free. No prep. Pick a time that suits you.</p>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1100px;margin:0 auto;padding:96px 24px 0;">
+    <div style="display:grid;grid-template-columns:minmax(260px,1fr) minmax(300px,1.5fr);gap:56px;align-items:start;">
+      <div>
+        <p style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#5d7186;font-weight:600;margin:0 0 14px;">Sound familiar?</p>
+        <h2 style="font-size:clamp(30px,3.6vw,42px);line-height:1.08;font-weight:700;letter-spacing:-0.025em;margin:0 0 18px;text-wrap:pretty;">{{ page.problemH }}</h2>
+        <p style="font-size:17px;color:#3d5266;margin:0;">{{ page.problemP }}</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px;">
+        <sc-for list="{{ page.problems }}" as="p" hint-placeholder-count="3">
+          <div style="display:grid;grid-template-columns:52px 1fr;gap:18px;align-items:start;background:#f4f9fd;border:1px solid #e6eef5;border-radius:16px;padding:22px 24px;">
+            <span style="font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9aabbd;padding-top:4px;">{{ p.k }}</span>
+            <div><p style="margin:0 0 4px;font-size:17px;font-weight:700;">{{ p.t }}</p><p style="margin:0;font-size:15px;color:#3d5266;">{{ p.d }}</p></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#092d4f;color:#fff;margin-top:96px;">
+    <div style="max-width:1100px;margin:0 auto;padding:88px 24px;">
+      <p style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#d5ecf6;font-weight:600;margin:0 0 14px;">How Core does it</p>
+      <h2 style="font-size:clamp(30px,3.6vw,44px);line-height:1.08;font-weight:700;letter-spacing:-0.025em;margin:0 0 44px;max-width:24ch;text-wrap:pretty;color:#fff;">{{ page.solveH }}</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+        <sc-for list="{{ page.steps }}" as="s" hint-placeholder-count="3">
+          <div style="background:rgba(213,236,246,0.08);border:1px solid rgba(213,236,246,0.2);border-radius:18px;padding:28px;">
+            <div style="width:40px;height:40px;border-radius:50%;background:#d5ecf6;color:#092d4f;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;margin-bottom:18px;">{{ s.n }}</div>
+            <p style="margin:0 0 8px;font-size:19px;font-weight:700;color:#fff;">{{ s.t }}</p>
+            <p style="margin:0;font-size:15px;color:rgba(255,255,255,0.78);">{{ s.d }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:18px;align-items:center;margin-top:40px;padding-top:30px;border-top:1px solid rgba(213,236,246,0.2);flex-wrap:wrap;">
+        <img src="https://coreadvisors.com/wp-content/uploads/2024/12/Aragon-Favorite-Headshot-6.jpeg" alt="Thomas Gore" style="width:56px;height:56px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid #d5ecf6;">
+        <p style="margin:0;font-size:18px;line-height:1.45;color:#fff;max-width:60ch;"><strong>{{ page.quote }}</strong><br><span style="font-size:14px;color:rgba(255,255,255,0.7);">Thomas Gore, CPA, Tax Advisor for Dental Practices</span></p>
+        <a href="#book" style="margin-left:auto;background:#d5ecf6;color:#092d4f;border-radius:99px;padding:15px 28px;font-size:15px;font-weight:600;text-decoration:none;white-space:nowrap;">Book a 30-minute call</a>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:1100px;margin:0 auto;padding:96px 24px 0;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:56px;align-items:center;">
+      <div>
+        <p style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#5d7186;font-weight:600;margin:0 0 14px;">Who is Core Advisors</p>
+        <h2 style="font-size:clamp(30px,3.6vw,42px);line-height:1.08;font-weight:700;letter-spacing:-0.025em;margin:0 0 18px;text-wrap:pretty;">CPAs and financial advisors who only work with dentists.</h2>
+        <p style="font-size:17px;color:#3d5266;margin:0 0 14px;">Based in Chapin and Greenville, South Carolina, and Charlotte, North Carolina, with clients in most states. For more than twenty years we have done the books, the tax planning, the payroll and the retirement planning for dental practices, all under one roof.</p>
+        <p style="font-size:17px;color:#3d5266;margin:0 0 28px;">CPAs, CFPs, CFAs and EAs working as one team, so a decision in the practice and a decision at home are planned together. Some clients have been with us close to twenty years, and their kids are now clients too.</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;padding-top:24px;border-top:1px solid #e6eef5;">
+          <div><p style="margin:0;font-size:30px;font-weight:700;letter-spacing:-0.02em;line-height:1;">20+</p><p style="margin:6px 0 0;font-size:13px;color:#5d7186;">years with dental practices</p></div>
+          <div><p style="margin:0;font-size:30px;font-weight:700;letter-spacing:-0.02em;line-height:1;">1</p><p style="margin:6px 0 0;font-size:13px;color:#5d7186;">team for books, tax and wealth</p></div>
+          <div><p style="margin:0;font-size:30px;font-weight:700;letter-spacing:-0.02em;line-height:1;">3</p><p style="margin:6px 0 0;font-size:13px;color:#5d7186;">offices in the Carolinas</p></div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+        <img src="https://coreadvisors.com/wp-content/uploads/2024/12/Aragon-Favorite-Headshot-6.jpeg" alt="Thomas Gore" style="width:100%;aspect-ratio:1;object-fit:cover;object-position:top;border-radius:14px;display:block;">
+        <img src="uploads/image-1.webp" alt="Jeremiah Barwick" style="width:100%;aspect-ratio:1;object-fit:cover;object-position:top;border-radius:14px;display:block;">
+        <img src="https://coreadvisors.com/wp-content/uploads/2024/12/Aragon-Favorite-Headshot-2.jpeg" alt="Katie Hollenbeck" style="width:100%;aspect-ratio:1;object-fit:cover;object-position:top;border-radius:14px;display:block;">
+        <img src="https://coreadvisors.com/wp-content/uploads/2024/12/Aragon-Favorite-Headshot-3-1.jpeg" alt="Kristen Louden" style="width:100%;aspect-ratio:1;object-fit:cover;object-position:top;border-radius:14px;display:block;">
+        <img src="https://coreadvisors.com/wp-content/uploads/2026/04/Director-of-Financial-Planning_KEEN.png" alt="Tanner Merritt" style="width:100%;aspect-ratio:1;object-fit:cover;object-position:top;border-radius:14px;display:block;">
+        <img src="https://coreadvisors.com/wp-content/uploads/2024/12/Aragon-Favorite-Headshot-7.jpeg" alt="Clair Harmon" style="width:100%;aspect-ratio:1;object-fit:cover;object-position:top;border-radius:14px;display:block;">
+        <img src="https://coreadvisors.com/wp-content/uploads/2024/12/Aragon-Favorite-Headshot-5.jpeg" alt="Tara Bolton" style="width:100%;aspect-ratio:1;object-fit:cover;object-position:top;border-radius:14px;display:block;">
+        <img src="https://coreadvisors.com/wp-content/uploads/2025/05/Aragon-Favorite-Headshot-7.jpeg" alt="Jessica Bullock" style="width:100%;aspect-ratio:1;object-fit:cover;object-position:top;border-radius:14px;display:block;">
+        <img src="https://coreadvisors.com/wp-content/uploads/2024/12/Aragon-Favorite-Headshot-3-3.jpeg" alt="Aubree Anderson" style="width:100%;aspect-ratio:1;object-fit:cover;object-position:top;border-radius:14px;display:block;">
+        <img src="https://coreadvisors.com/wp-content/uploads/2024/12/Aragon-Favorite-Headshot-6-1.jpeg" alt="Donna Howlett" style="width:100%;aspect-ratio:1;object-fit:cover;object-position:top;border-radius:14px;display:block;">
+        <img src="https://coreadvisors.com/wp-content/uploads/2024/12/Aragon-Favorite-Headshot-1.jpeg" alt="Mya Taylor" style="width:100%;aspect-ratio:1;object-fit:cover;object-position:top;border-radius:14px;display:block;">
+        <div style="background:#d5ecf6;color:#092d4f;border-radius:14px;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px;font-size:13px;font-weight:600;line-height:1.3;aspect-ratio:1;">Only dentists.<br>Always.</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#f4f9fd;border-top:1px solid #e6eef5;border-bottom:1px solid #e6eef5;margin-top:96px;">
+    <div style="max-width:1100px;margin:0 auto;padding:88px 24px;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap;margin-bottom:34px;">
+        <div>
+          <p style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#5d7186;font-weight:600;margin:0 0 14px;">From dentists we work with</p>
+          <h2 style="font-size:clamp(30px,3.6vw,42px);line-height:1.08;font-weight:700;letter-spacing:-0.025em;margin:0;max-width:22ch;text-wrap:pretty;">Close to 20 years with some of these families.</h2>
+        </div>
+        <p style="margin:0;font-size:14px;color:#3d5266;"><span style="color:#f5b731;letter-spacing:2px;font-size:18px;">★★★★★</span> 5.0 on Google</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+        <div style="background:#fff;border:1px solid #e6eef5;border-radius:18px;padding:28px;"><p style="margin:0 0 16px;font-size:17px;line-height:1.6;">"We have trusted these wonderful people with our finances for close to 20 years and they have always come through for us. Knowing they have our backs is a great comfort!"</p><p style="margin:0;font-size:13px;color:#5d7186;font-weight:600;">Dr. Thomas Edmonds</p></div>
+        <div style="background:#fff;border:1px solid #e6eef5;border-radius:18px;padding:28px;"><p style="margin:0 0 16px;font-size:17px;line-height:1.6;">"Always 3 steps ahead and questions answered before we can ask. Everything is tailored to level of risk and reward, no cookie cut plans here."</p><p style="margin:0;font-size:13px;color:#5d7186;font-weight:600;">Ken and Debra</p></div>
+        <div style="background:#fff;border:1px solid #e6eef5;border-radius:18px;padding:28px;"><p style="margin:0 0 16px;font-size:17px;line-height:1.6;">"They make it really accessible and less intimidating or overwhelming. Also, they are fun to meet with. You enjoy sitting down with them."</p><p style="margin:0;font-size:13px;color:#5d7186;font-weight:600;">Kirk Kicklighter and Leslie Pitner</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section style="max-width:760px;margin:0 auto;padding:96px 24px 0;">
+    <p style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#5d7186;font-weight:600;margin:0 0 14px;">Before you book</p>
+    <h2 style="font-size:clamp(28px,3.4vw,38px);line-height:1.08;font-weight:700;letter-spacing:-0.025em;margin:0 0 24px;">What most owners ask first.</h2>
+    <div style="padding:22px 0;border-top:1px solid #e6eef5;"><p style="margin:0 0 8px;font-size:18px;font-weight:700;">I already have a CPA. Is this a sales call?</p><p style="margin:0;font-size:15.5px;color:#3d5266;line-height:1.6;">It is 30 minutes about your practice and what is not getting planned. If Core is not a fit, Jeremiah will say so. You will leave with at least one thing to fix either way.</p></div>
+    <div style="padding:22px 0;border-top:1px solid #e6eef5;"><p style="margin:0 0 8px;font-size:18px;font-weight:700;">Do I have to move everything to Core at once?</p><p style="margin:0;font-size:15.5px;color:#3d5266;line-height:1.6;">No. Most owners start with tax planning or the books and add the rest when it makes sense. The point is that whoever does each piece sits on the same team.</p></div>
+    <div style="padding:22px 0;border-top:1px solid #e6eef5;"><p style="margin:0 0 8px;font-size:18px;font-weight:700;">We are not in the Carolinas. Does that matter?</p><p style="margin:0;font-size:15.5px;color:#3d5266;line-height:1.6;">No. We have clients in most states and meet on video. The offices are for the dentists who like to come in.</p></div>
+    <div style="padding:22px 0;border-top:1px solid #e6eef5;border-bottom:1px solid #e6eef5;"><p style="margin:0 0 8px;font-size:18px;font-weight:700;">What do I need to prepare?</p><p style="margin:0;font-size:15.5px;color:#3d5266;line-height:1.6;">Nothing. If you have last year's return and a recent P&amp;L handy, bring them. If not, come anyway.</p></div>
+  </section>
+
+  <section id="book" style="position:relative;overflow:hidden;background:#092d4f;color:#fff;margin-top:96px;scroll-margin-top:80px;">
+    <img src="uploads/pexels-oleksiy-yeshtokyn-2147541276-38603843.jpg" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 60%;">
+    <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,45,79,0.97) 0%,rgba(9,45,79,0.85) 55%,rgba(9,45,79,0.65) 100%);"></div>
+    <div style="position:relative;max-width:1100px;margin:0 auto;padding:88px 24px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:48px;align-items:center;">
+      <div>
+        <p style="font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:#d5ecf6;font-weight:600;margin:0 0 14px;">Free 30-minute intro call</p>
+        <h2 style="font-size:clamp(32px,4.2vw,50px);line-height:1.04;font-weight:700;letter-spacing:-0.025em;margin:0 0 16px;max-width:16ch;color:#fff;text-wrap:pretty;">{{ page.closeH }}</h2>
+        <p style="font-size:17px;color:rgba(255,255,255,0.8);margin:0 0 28px;max-width:44ch;">{{ page.closeSub }}</p>
+        <div style="display:flex;gap:14px;align-items:center;padding-top:24px;border-top:1px solid rgba(213,236,246,0.2);">
+          <img src="uploads/image-1.webp" alt="Jeremiah Barwick" style="width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid #d5ecf6;">
+          <div style="font-size:14px;line-height:1.4;"><strong style="color:#fff;">Jeremiah D. Barwick, CEPA®</strong><br><span style="color:rgba(255,255,255,0.7);">Lead Advisor, takes your intro call</span></div>
+        </div>
+      </div>
+      <div style="background:#fff;border-radius:18px;padding:18px 18px 8px;color:#092d4f;box-shadow:0 24px 60px rgba(0,0,0,0.3);">
+        <iframe src="https://calendly.com/thomas-coreadvisors/30-min-meeting?hide_gdpr_banner=1&amp;primary_color=092d4f&amp;text_color=092d4f" title="Book a call" style="width:100%;height:600px;border:0;border-radius:12px;display:block;background:#f4f9fd;"></iframe>
+        <p style="margin:10px 0 8px;font-size:12px;color:#7d8fa3;text-align:center;">Prefer the phone? <a href="tel:+18039414440" style="color:#155081;font-weight:600;text-decoration:none;">(803) 941-4440</a></p>
+      </div>
+    </div>
+  </section>
+
+  <div style="background:#061f38;color:rgba(255,255,255,0.6);padding:22px 24px;text-align:center;font-size:13px;">© Core Advisors · Chapin, SC · Greenville, SC · Charlotte, NC · (803) 941-4440 · <a href="#" style="color:rgba(255,255,255,0.6);">Privacy Policy</a></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { key: ['tax','chat','op'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'tax' };
+  pages() {
+    return {
+      tax: {
+        label: 'April / October', eyebrow: 'Tax planning for dental practice owners',
+        h1a: 'Your CPA calls in April.', h1b: 'Ours calls in October.',
+        sub: 'By the time most CPAs call, the year is over and the only question left is what you owe. Core\u2019s tax advisors plan with you all year, and we only work with dentists.',
+        heroCard: 'If the only time you hear from your CPA is tax season, you are paying for a historian. Give me 30 minutes and you will know what can still be planned this year.',
+        problemH: 'A good return is not a plan.', problemP: 'Nobody made a mistake. The work was done well and on time. The money still left, because every decision that mattered was made months before anyone looked.',
+        problems: [
+          { k: 'Jan', t: 'You buy a new op', d: 'Paid for, installed, booked. Nobody asked which year it should land in or how it should be written off.' },
+          { k: 'Jul', t: 'Owner pay stays where it was', d: 'Set once, years ago. Revenue has changed. The split between salary and distributions has not.' },
+          { k: 'Apr', t: 'Your CPA calls', d: '"Here is what you owe." The retirement contribution that could have changed the number was never adjusted.' },
+        ],
+        solveH: 'Planning is a calendar, not a deadline.',
+        steps: [
+          { n: '1', t: 'A real check-in every quarter', d: 'Numbers reviewed against the plan, estimated payments adjusted, and a short list of what to do before the next quarter.' },
+          { n: '2', t: 'Decisions planned before they happen', d: 'New op, new hire, associate buy-in, second location. You call before you sign, and your tax advisor is already in the loop with your bookkeeper.' },
+          { n: '3', t: 'April is a formality', d: 'Nothing in the return surprises anyone, because every number in it was planned in the months before.' },
+        ],
+        quote: '"I\u2019d rather talk to a dentist in October than April."',
+        closeH: 'It is not April yet. Let\u2019s talk now.', closeSub: 'Thirty minutes with Jeremiah about this year\u2019s numbers and what can still be planned before December. No prep needed.'
+      },
+      chat: {
+        label: 'One team (Reel)', eyebrow: 'One team for your practice and your wealth',
+        h1a: 'Your advisors don\u2019t talk.', h1b: 'Ours share a table.',
+        sub: 'Your CPA, bookkeeper, payroll company and financial advisor each see one piece of your picture. At Core they are one team, in one room, and all of them work only with dentists.',
+        heroCard: 'Bring the whole picture: books, taxes, payroll, retirement. In 30 minutes I will show you exactly where the hand-offs between your advisors are costing you.',
+        problemH: 'You are the only one who sees the whole picture.', problemP: 'Five good people, five different firms, and you in the middle making sure they agree. Every hand-off between them is a place where something gets missed.',
+        problems: [
+          { k: 'Books', t: 'The op gets coded as supplies', d: 'Reasonable. Your bookkeeper never saw the invoice and nobody told them it was equipment.' },
+          { k: 'Tax', t: 'Your CPA finds it in July', d: 'The deduction that should have been planned around is now a footnote on a return that is already late.' },
+          { k: 'Wealth', t: 'Your advisor never hears', d: 'Income came in higher than projected. The retirement contributions and the Roth plan were never adjusted.' },
+        ],
+        solveH: 'You mention the new op once. Everyone hears it.',
+        steps: [
+          { n: '1', t: 'Your bookkeeper sits next to your tax advisor', d: 'The invoice is coded right the first time, because the person planning the deduction is in the same room.' },
+          { n: '2', t: 'Your tax advisor sits next to your planner', d: 'A big deduction shifts your income. Retirement contributions and owner pay move with it, the same week.' },
+          { n: '3', t: 'Your planner sits next to your CPA', d: 'CFPs and CFAs managing your retirement who also see your tax return and your practice P&L.' },
+        ],
+        quote: '"Bring the whole picture. That\u2019s the point."',
+        closeH: 'One call. Everyone at the table.', closeSub: 'Thirty minutes with Jeremiah. Bring the whole picture and we will tell you what one team would change.'
+      },
+      op: {
+        label: 'New Op', eyebrow: 'Tax advisors for dental practices',
+        h1a: 'Bought new equipment?', h1b: 'Plan before you buy.',
+        sub: 'A new op is one of the biggest tax decisions a practice owner makes all year, and most of it is decided before the invoice arrives. Talk to a tax advisor who only works with dental practices.',
+        heroCard: 'Thinking about a new op, a scanner, a second location? Bring the quote. In 30 minutes we will walk through buy, lease and finance and what each one does to this year.',
+        problemH: 'The deduction was decided at the dealer.', problemP: 'The equipment conversation happens with a sales rep and a finance manager. The tax conversation happens months later, when every option has already closed.',
+        problems: [
+          { k: 'Deal', t: 'Buy, lease or finance?', d: 'Each one lands differently on your return and your cash. Most owners decide at the dealer, not with their tax advisor.' },
+          { k: 'Year', t: 'December or January?', d: 'Placing the equipment in service a few weeks earlier or later can change which year the deduction falls in, and what it is worth.' },
+          { k: 'Plan', t: 'Owner pay and retirement', d: 'A big deduction shifts your taxable income. Owner pay, estimated payments and retirement contributions should move with it.' },
+        ],
+        solveH: 'Call us before you call the dealer.',
+        steps: [
+          { n: '1', t: 'Tell us what you are looking at', d: 'The quote, the financing options, the timing. A 30-minute call is enough.' },
+          { n: '2', t: 'We model buy, lease and finance', d: 'Your tax advisor and bookkeeper work out which year, which method, and what it does to owner pay and estimated payments.' },
+          { n: '3', t: 'You buy with one answer', d: 'No surprises in April. The deduction was planned, the books are right, and the retirement plan already knows.' },
+        ],
+        quote: '"The time to plan the deduction was before the purchase."',
+        closeH: 'Looking at new equipment? Call first.', closeSub: 'Thirty minutes with Jeremiah before you sign. Bring the quote and we will walk through buy, lease and finance with you.'
+      },
+    };
+  }
+  renderVals() {
+    const pages = this.pages(); const key = this.state.key; const page = pages[key];
+    const tabs = Object.keys(pages).map(k => ({ label: pages[k].label, go: () => { this.setState({ key: k }); history.replaceState(null, '', '#' + k); window.scrollTo(0, 0); }, bg: k === key ? '#fff' : 'transparent', fg: k === key ? '#1a1a1a' : '#fff' }));
+    return { page, tabs, isTax: key === 'tax', isChat: key === 'chat', isOp: key === 'op' };
+  }
+}
+</script>
+</body>
+</html>

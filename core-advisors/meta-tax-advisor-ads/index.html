@@ -73,6 +73,7 @@ section{padding:44px 0 8px}
 .copy-block{margin-top:28px;background:#fff;border-left:4px solid var(--gold);border-radius:6px;padding:16px 18px;max-width:760px}
 .copy-block h3{font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--blue);margin-bottom:6px}
 .copy-block p{font-size:15px;line-height:1.5}
+.lp-link{display:inline-block;background:var(--navy);color:#fff;text-decoration:none;font-weight:600;font-size:14px;padding:10px 16px;border-radius:999px}
 footer{padding:48px 16px 40px;text-align:center;color:var(--muted);font-size:13px}
 footer a{color:var(--blue)}
 @media (max-width:520px){.row{gap:20px}.phone{width:240px}}
@@ -82,7 +83,7 @@ footer a{color:var(--blue)}
 
 <header><div class="wrap">
   <h1>Core Advisors Meta Ads: Dental Tax Advisor</h1>
-  <p>Here's how each ad would look in the Facebook feed, the Instagram feed and Stories. Every ad points to the same offer, a free 30-minute intro call, and the button reads Book Now.</p>
+  <p>Here's how each ad would look in the Facebook feed, the Instagram feed and Stories. Every ad points to the same offer, a free 30-minute intro call with Jeremiah. Under each ad there's a link to the landing page it sends people to.</p>
 </div></header>
 
 <nav><div class="wrap">
@@ -105,11 +106,11 @@ const COPY = {
 };
 const HEADLINE = "Talk to a Tax Advisor for Dentists";
 const CONCEPTS = [
-  {id:"c1", n:"Concept 1", title:"April / October", desc:"A grayscale photo of a dentist at work with the line \"Your CPA calls in April. Ours calls in October.\"", copy:"A", img:"c1-april-october", story:true},
-  {id:"c2", n:"Concept 2", title:"The Group Chat (Reel)", desc:"A 17-second Reel. The practice owner asks the \"My Advisors\" group chat whether anyone planned for the new op, every advisor deflects, and it ends on \"Your advisors don't talk. Ours share a table.\"", copy:"B", reel:true},
-  {id:"c3", n:"Concept 3", title:"The New Op", desc:"An operatory photo with a gold sticky note asking \"Did anyone plan for this?\" and the headline \"Bought new equipment? Plan before you buy.\"", copy:"C", img:"c3-new-op", story:true},
-  {id:"c4", n:"Concept 4", title:"Thomas", desc:"Thomas on a light-blue quote card: \"I'd rather talk to a dentist in October than April.\" Feed only.", copy:"A", img:"c4-thomas"},
-  {id:"c4b", n:"Concept 4 alt", title:"Jeremiah texts", desc:"Jeremiah next to a text thread that opens with \"Hey Doc, it's October. Got 30 minutes this week to plan the year?\" Feed only.", copy:"A", img:"c4-jeremiah-texts"}
+  {id:"c1", lp:"tax", n:"Concept 1", title:"April / October", desc:"A grayscale photo of a dentist at work with the line \"Your CPA calls in April. Ours calls in October.\"", copy:"A", img:"c1-april-october", story:true},
+  {id:"c2", lp:"chat", n:"Concept 2", title:"The Group Chat (Reel)", desc:"A 17-second Reel. The practice owner asks the \"My Advisors\" group chat whether anyone planned for the new op, every advisor deflects, and it ends on \"Your advisors don't talk. Ours share a table.\"", copy:"B", reel:true},
+  {id:"c3", lp:"op", n:"Concept 3", title:"The New Op", desc:"An operatory photo with a gold sticky note asking \"Did anyone plan for this?\" and the headline \"Bought new equipment? Plan before you buy.\"", copy:"C", img:"c3-new-op", story:true},
+  {id:"c4", lp:"tax", n:"Concept 4", title:"Thomas", desc:"Thomas on a light-blue quote card: \"I'd rather talk to a dentist in October than April.\" Feed only.", copy:"A", img:"c4-thomas"},
+  {id:"c4b", lp:"tax", n:"Concept 4 alt", title:"Jeremiah texts", desc:"Jeremiah next to a text thread that opens with \"Hey Doc, it's October. Got 30 minutes this week to plan the year?\" Feed only.", copy:"A", img:"c4-jeremiah-texts"}
 ];
 const esc = s => s.replace(/&/g,"&amp;").replace(/</g,"&lt;");
 const fb = (c) => `
@@ -146,7 +147,7 @@ document.getElementById("ads").innerHTML = CONCEPTS.map(c => `
   <section id="${c.id}">
     <div class="concept-head"><span class="tag">${c.n}</span><h2>${c.title}</h2><p>${esc(c.desc)}</p></div>
     <div class="row">${c.reel ? reel() : fb(c) + ig(c) + (c.story ? story(c) : "")}</div>
-    <div class="copy-block"><h3>Ad copy</h3><p>${esc(COPY[c.copy])}</p><p style="margin-top:8px"><b>Headline:</b> ${HEADLINE} · <b>Button:</b> Book Now</p></div>
+    <div class="copy-block"><h3>Ad copy</h3><p>${esc(COPY[c.copy])}</p><p style="margin-top:8px"><b>Headline:</b> ${HEADLINE} · <b>Button:</b> Book Now</p><p style="margin-top:12px"><a class="lp-link" href="lp/#${c.lp}" target="_blank" rel="noopener">See the landing page this ad sends people to →</a></p></div>
   </section>`).join("");
 </script>
 </body>

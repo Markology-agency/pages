@@ -1,0 +1,1441 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="robots" content="noindex,nofollow" />
+<title>Dental Practice KPI Checker: Upload Your P&amp;L</title>
+<meta name="description" content="Upload your dental P&amp;L and see your five key numbers against practices at your stage. Free, from CPAs who work with dentists only." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+<style>
+:root{
+  --deep:#0F3501; --dark:#001F1A; --mint:#42D393; --moss:#35583E; --ink:#0B0F0B;
+  --text:#111111; --grey:#72796F; --line:#D9D9D9; --wash:#F0F6FC; --white:#ffffff;
+  --good:#1d7a46; --warn:#a35a00; --bad:#b3261e; --stage:#c9a227;
+  --font-display:"Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-body:"Manrope", system-ui, -apple-system, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--wash);color:var(--text);font-family:var(--font-body);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:var(--deep)}
+.wrap{max-width:1060px;margin:0 auto;padding:36px 16px 80px}
+
+/* intro band */
+.intro{background:var(--dark);color:#fff}
+.intro-in{max-width:1060px;margin:0 auto;padding:clamp(40px,7vw,80px) 16px clamp(36px,6vw,64px)}
+.eyebrow{font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mint);margin-bottom:14px}
+.intro h1{font-family:var(--font-display);font-weight:800;font-size:clamp(30px,4.8vw,50px);line-height:1.1;letter-spacing:-.02em;margin:0 0 18px;color:#fff;max-width:820px}
+.intro h1 .hi{color:var(--mint)}
+.intro .lede{font-size:18px;line-height:1.6;color:#dfe9e3;max-width:680px;margin:0 0 30px}
+.intro-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px}
+@media(max-width:720px){.intro-facts{grid-template-columns:1fr}}
+.intro-facts .f{display:flex;gap:12px;align-items:flex-start}
+.intro-facts .f::before{content:"";flex:0 0 10px;width:10px;height:10px;border-radius:50%;background:var(--mint);margin-top:7px}
+.intro-facts .f b{display:block;font-family:var(--font-display);font-weight:700;font-size:15px;color:#fff;margin-bottom:2px}
+.intro-facts .f span{font-size:14px;line-height:1.55;color:#b9cbc1}
+
+.draft-note{display:none;margin:0 0 20px;padding:12px 16px;border-radius:12px;background:#FFF8E1;border:1px solid #E8D9A8;color:#6B5300;font-size:14px}
+.draft-note.show{display:block}
+
+/* progress */
+.progress{display:flex;gap:6px;margin-bottom:22px}
+.progress .seg{flex:1;height:5px;border-radius:5px;background:var(--line)}
+.progress .seg.done{background:var(--deep)}
+.progress .seg.now{background:var(--mint)}
+
+/* steps */
+.step{display:none;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:clamp(20px,3.4vw,40px);margin-bottom:28px}
+.step.active{display:block}
+.step-head{margin-bottom:22px}
+.step-num{display:inline-block;font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;background:var(--wash);color:var(--deep);padding:6px 14px;border-radius:56px;margin-bottom:12px}
+.step h2{font-family:var(--font-display);font-weight:800;font-size:clamp(24px,3.2vw,32px);line-height:1.15;letter-spacing:-.015em;margin:0;color:var(--deep)}
+.step-sub{margin:8px 0 0;color:#3b4239;font-size:16px;line-height:1.6;max-width:700px}
+
+/* buttons: full pills */
+.btn{display:inline-block;font-family:var(--font-display);font-weight:700;font-size:15px;background:var(--mint);color:var(--ink);
+  padding:14px 28px;border:2px solid var(--mint);border-radius:56px;text-decoration:none;cursor:pointer;transition:.15s}
+.btn:hover{background:var(--deep);border-color:var(--deep);color:#fff}
+.btn.secondary{background:transparent;border-color:var(--line);color:var(--deep)}
+.btn.secondary:hover{border-color:var(--deep)}
+.btn[disabled]{opacity:.4;cursor:not-allowed}
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px;align-items:center}
+
+/* upload */
+.upload-zone{border:2px dashed #b9c3b6;border-radius:16px;background:var(--wash);padding:clamp(30px,6vw,56px) 20px;text-align:center;transition:.18s;cursor:pointer}
+.upload-zone:hover,.upload-zone.drag,.upload-zone:focus{border-color:var(--deep);background:#fff;outline:none}
+.upload-zone .icon{font-family:var(--font-display);font-weight:800;font-size:40px;color:var(--deep);margin-bottom:6px}
+.upload-zone h3{font-family:var(--font-display);font-weight:700;font-size:21px;margin:0 0 6px;color:var(--deep)}
+.upload-zone p{margin:0;color:var(--grey);font-size:15px}
+.upload-zone .formats{margin-top:12px;font-family:var(--font-display);font-weight:700;font-size:12px;letter-spacing:.08em;color:var(--grey)}
+.upload-help{margin-top:20px;padding:16px 20px;border-radius:12px;background:var(--wash);border-left:4px solid var(--mint);font-size:14px;line-height:1.6}
+.upload-help .h{font-family:var(--font-display);font-weight:700;display:block;margin-bottom:4px;color:var(--deep)}
+.upload-alt{margin-top:18px;text-align:center;font-size:15px;color:var(--grey)}
+.upload-alt a{font-weight:700;color:var(--deep);text-decoration:underline;cursor:pointer}
+.err{margin-top:16px;padding:14px 18px;border-radius:12px;background:#FDECEA;border-left:4px solid var(--bad);font-size:14px;line-height:1.5;display:none}
+.err.show{display:block}
+
+/* fields */
+.field{margin-bottom:16px}
+.field label{display:block;font-family:var(--font-display);font-weight:700;font-size:14px;margin-bottom:6px;color:var(--deep)}
+.field input,.field select{width:100%;padding:12px 14px;border:1px solid #c5ccc2;border-radius:10px;background:#fff;font-family:var(--font-body);font-size:16px;color:var(--text)}
+.field input:focus,.field select:focus{outline:none;border-color:var(--deep);box-shadow:0 0 0 3px rgba(66,211,147,.25)}
+.field .hint{font-size:13px;color:var(--grey);margin-top:5px}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:640px){.field-row{grid-template-columns:1fr}}
+.stage-box{padding:18px 20px;border-radius:12px;background:var(--wash);margin-bottom:20px}
+.stage-box .field{margin-bottom:0}
+
+/* mapping table */
+.map-note{padding:14px 18px;border-radius:12px;background:var(--wash);border-left:4px solid var(--mint);font-size:14px;line-height:1.6;margin-bottom:18px}
+.map-warn{padding:14px 18px;border-radius:12px;background:#FFF8E1;border-left:4px solid #E2B23A;font-size:14px;line-height:1.6;margin-bottom:18px;display:none}
+.map-warn.show{display:block}
+.map-scroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px;max-height:520px}
+table.map{width:100%;border-collapse:collapse;font-size:14px;min-width:560px}
+table.map th{font-family:var(--font-display);font-weight:700;font-size:12px;text-align:left;padding:11px 12px;background:var(--moss);color:#fff;position:sticky;top:0;z-index:1}
+table.map td{padding:8px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.map td.amt,table.map th.amt{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+table.map select{width:100%;padding:7px 8px;border:1px solid #c5ccc2;border-radius:8px;background:#fff;font-family:var(--font-body);font-size:13px}
+table.map tr.ignored{opacity:.5}
+.map-totals{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:18px}
+.map-totals div{background:#fff;padding:12px 14px}
+.map-totals .k{font-size:13px;color:var(--grey);margin-bottom:2px}
+.map-totals .v{font-family:var(--font-display);font-weight:800;font-size:19px;color:var(--deep);font-variant-numeric:tabular-nums}
+
+/* results: score band */
+.score-band{background:var(--dark);color:#fff;border-radius:16px;margin-bottom:22px;display:grid;grid-template-columns:250px 1fr;overflow:hidden}
+@media(max-width:680px){.score-band{grid-template-columns:1fr}}
+.sb-grade{background:var(--mint);color:var(--ink);padding:32px 26px;display:flex;flex-direction:column;justify-content:center}
+.sb-grade .lbl{font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase}
+.sb-grade .g{font-family:var(--font-display);font-weight:800;font-size:92px;line-height:.95;letter-spacing:-.03em;margin:8px 0 10px}
+.sb-grade .g-text{font-family:var(--font-display);font-weight:700;font-size:16px;line-height:1.3}
+.sb-grade .g-sub{font-size:13px;margin-top:10px;color:#0f3a26;line-height:1.5}
+.sb-stats{padding:clamp(22px,3.4vw,36px);display:grid;gap:28px;align-content:center}
+.sb-stat .lbl{font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.04em;color:var(--mint);margin-bottom:6px}
+.sb-stat .row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sb-stat .val{font-family:var(--font-display);font-weight:800;font-size:clamp(30px,4vw,42px);line-height:1;font-variant-numeric:tabular-nums}
+.sb-stat .vs{font-size:14px;color:#b9cbc1}
+.sb-bar{position:relative;height:12px;border-radius:12px;background:#163a33;margin-top:14px}
+.sb-bar .zone{position:absolute;top:0;bottom:0;background:rgba(66,211,147,.3);border-left:2px solid var(--mint);border-right:2px solid var(--mint)}
+.sb-bar .mark{position:absolute;top:-5px;width:4px;height:22px;border-radius:2px;background:#fff;transform:translateX(-2px)}
+.sb-bar .mark.good{background:var(--mint)}
+.sb-bar .mark.warn,.sb-bar .mark.stage{background:#f2c14e}
+.sb-bar .mark.bad{background:#ff7a66}
+.sb-scale{display:flex;justify-content:space-between;font-size:12px;color:#8fa79b;margin-top:6px;font-variant-numeric:tabular-nums}
+.sb-stat .sub{font-size:14px;color:#b9cbc1;margin-top:12px;line-height:1.55;max-width:560px}
+
+/* FAB Five strip */
+.fab{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin-bottom:22px}
+.fab .t{font-family:var(--font-display);font-weight:700;font-size:15px;color:var(--deep);margin-bottom:12px}
+.fab-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+@media(max-width:820px){.fab-grid{grid-template-columns:repeat(2,1fr)}}
+.fab-grid .k{font-size:13px;color:var(--grey)}
+.fab-grid .v{font-family:var(--font-display);font-weight:800;font-size:22px;color:var(--deep);font-variant-numeric:tabular-nums}
+.fab-grid .h{font-size:12px;color:var(--grey);line-height:1.4}
+
+/* cards */
+.benchmark-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:26px}
+.bench-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px}
+.bench-card.ctx{background:var(--wash)}
+.bench-card .name{font-family:var(--font-display);font-weight:800;font-size:17px;color:var(--deep);margin-bottom:2px}
+.bench-card .blurb{font-size:13px;color:var(--grey);line-height:1.45;margin-bottom:12px}
+.you-vs{display:flex;align-items:baseline;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.you-vs .you{font-family:var(--font-display);font-weight:800;font-size:31px;line-height:1;color:var(--text);font-variant-numeric:tabular-nums}
+.you-vs .vs{font-size:13px;color:var(--grey)}
+.you-vs .target{font-size:14px;color:#3b4239;font-weight:600}
+.bar-wrap{position:relative;height:10px;border-radius:10px;background:#eef1ec;margin-bottom:12px;overflow:visible}
+.bar-wrap .zone{position:absolute;top:0;bottom:0;background:rgba(66,211,147,.28)}
+.bar{position:absolute;left:0;top:2px;height:6px;border-radius:6px}
+.target-marker{position:absolute;top:-4px;width:2px;height:18px;background:var(--deep)}
+.status{display:inline-block;font-family:var(--font-display);font-weight:700;font-size:12px;padding:4px 12px;border-radius:56px;margin-bottom:10px}
+.status.good{background:#e3f4ea;color:var(--good)}
+.status.warn{background:#fbefdc;color:var(--warn)}
+.status.bad{background:#fbe4e1;color:var(--bad)}
+.status.stage{background:#fbf3d6;color:#7a6110}
+.status.info{background:#eceeea;color:var(--grey)}
+.bench-card .note{font-size:14px;line-height:1.6;color:#2b302a}
+.bench-card .src{margin-top:10px;font-size:12.5px;color:var(--grey)}
+.bench-card .src a,.bench-card .note a{color:var(--deep);text-decoration:underline}
+
+/* CTA band: no photo, Omar's own words */
+.deepdive{background:var(--dark);color:#fff;border-radius:16px;margin-bottom:24px;display:grid;grid-template-columns:1fr 330px;overflow:hidden}
+@media(max-width:760px){.deepdive{grid-template-columns:1fr}}
+.dd-body{padding:clamp(24px,4vw,44px)}
+.dd-eyebrow{font-family:var(--font-display);font-weight:700;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mint);margin-bottom:12px}
+.deepdive h3{font-family:var(--font-display);font-weight:800;font-size:clamp(23px,3.4vw,34px);line-height:1.15;letter-spacing:-.015em;margin:0 0 12px;color:#fff;max-width:640px}
+.deepdive h3 .hi{color:var(--mint)}
+.dd-sub{margin:0 0 20px;font-size:16px;line-height:1.6;color:#dfe9e3;max-width:560px}
+.dd-list{list-style:none;margin:0 0 24px;padding:0;display:grid;gap:10px;max-width:560px}
+.dd-list li{display:flex;gap:12px;align-items:flex-start;font-size:15px;line-height:1.55;color:#e6efe9}
+.dd-list li::before{content:"";flex:0 0 10px;width:10px;height:10px;border-radius:50%;background:var(--mint);margin-top:7px}
+.btn-mint{display:inline-block;font-family:var(--font-display);font-weight:700;font-size:16px;background:var(--mint);color:var(--ink);padding:16px 32px;border-radius:56px;text-decoration:none;transition:.15s}
+.btn-mint:hover{background:#fff}
+.dd-quote{background:#0b2d26;padding:clamp(24px,4vw,40px);display:flex;flex-direction:column;justify-content:center;border-left:1px solid #164036}
+@media(max-width:760px){.dd-quote{border-left:0;border-top:1px solid #164036}}
+.dd-quote blockquote{margin:0 0 14px;font-family:var(--font-display);font-weight:600;font-size:17px;line-height:1.5;color:#fff}
+.dd-quote blockquote::before{content:"\201C";display:block;font-size:52px;line-height:.6;color:var(--mint);margin-bottom:10px}
+.dd-quote .who{font-size:14px;color:var(--mint);font-weight:700}
+.dd-quote .who a{color:#b9cbc1;font-weight:500;font-size:13px}
+
+.secondary-band{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-bottom:24px}
+.secondary-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px}
+.secondary-card h4{font-family:var(--font-display);font-weight:700;font-size:16px;color:var(--deep);margin:0 0 6px}
+.secondary-card p{margin:0 0 12px;font-size:14px;line-height:1.55;color:#3b4239}
+.secondary-card a{font-family:var(--font-display);font-weight:700;font-size:14px;color:var(--deep);text-decoration:underline;cursor:pointer}
+
+.disclosure{border-top:1px solid var(--line);padding-top:16px;font-size:13px;line-height:1.6;color:var(--grey)}
+.disclosure a{color:var(--deep);text-decoration:underline}
+
+.spinner{display:none;align-items:center;gap:11px;margin-top:18px;font-size:14px;color:var(--grey)}
+.spinner.show{display:flex}
+.spinner .dot{width:9px;height:9px;background:var(--mint);border-radius:50%;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:1}}
+
+@media print{
+  html,body{background:#fff}
+  .intro,.progress,.btn,.btn-mint,.draft-note,.secondary-band{display:none}
+  .step{border:0;padding:0}
+  .score-band,.deepdive{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .bench-card{break-inside:avoid}
+}
+</style>
+</head>
+<body>
+<div class="intro">
+  <div class="intro-in">
+    <div class="eyebrow">Free tool for dental practice owners</div>
+    <h1>Check your practice's <span class="hi">five numbers</span>.</h1>
+    <p class="lede">Collections, staff cost, variable cost, fixed cost and EBITDA. Upload your P&amp;L, tell us your practice stage, and see where each line sits against the ranges Omar Avirjee uses with Virjee Consulting clients. Every range links to the video where he says it.</p>
+    <div class="intro-facts">
+      <div class="f"><div><b>What you need</b><span>A Profit and Loss export from QuickBooks or Xero, ideally the last 12 months. You can also type the numbers in by hand.</span></div></div>
+      <div class="f"><div><b>What you get</b><span>Each line as a share of collections, compared with the range we usually see for a practice at your stage.</span></div></div>
+      <div class="f"><div><b>What comes next</b><span>If you want a second pair of eyes, book a call with our team and we will go through it with you.</span></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap" id="tool">
+<div class="draft-note" id="draftNote">Review draft. Lead capture is not connected yet, so nothing you enter on this page is sent anywhere.</div>
+
+<div class="progress" id="progress">
+  <div class="seg now"></div><div class="seg"></div><div class="seg"></div><div class="seg"></div>
+</div>
+
+<!-- ============================ STEP 1: UPLOAD ============================ -->
+<div class="step active" id="step1">
+  <div class="step-head">
+    <div class="step-num">Step 1 of 4</div>
+    <h2>Upload your profit and loss statement.</h2>
+    <p class="step-sub">A QuickBooks or Xero export works, and so does a plain CSV or Excel file. Your file is read in your browser and is not uploaded anywhere.</p>
+  </div>
+
+  <div class="upload-zone" id="dropzone" tabindex="0" role="button" aria-label="Choose a P&amp;L file">
+    <div class="icon">&uarr;</div>
+    <h3>Drop your P&amp;L here</h3>
+    <p>or click to choose a file</p>
+    <div class="formats">CSV &middot; XLSX &middot; XLS &middot; TSV</div>
+  </div>
+  <input type="file" id="fileInput" accept=".csv,.tsv,.txt,.xlsx,.xls" style="display:none" />
+
+  <div class="err" id="uploadErr"></div>
+
+  <div class="upload-help">
+    <span class="h">Where to find it</span>
+    In QuickBooks Online, go to Reports, then Profit and Loss, set the date range and export to Excel or CSV.
+    In Xero, go to Accounting, then Reports, then Profit and Loss, and export.
+    A 12 month period gives the truest picture, because dental collections move with the season.
+  </div>
+
+  <div class="upload-alt">
+    No P&amp;L handy? <a id="manualLink" tabindex="0">Enter your numbers by hand instead &rarr;</a>
+  </div>
+</div>
+
+<!-- ======================= STEP 1b: MANUAL ENTRY ========================== -->
+<div class="step" id="stepManual">
+  <div class="step-head">
+    <div class="step-num">Step 1 of 4</div>
+    <h2>Enter your numbers.</h2>
+    <p class="step-sub">Use dollar totals for one period, not percentages. Leave a line blank if it does not apply.</p>
+  </div>
+
+  <div class="field-row">
+    <div class="field"><label for="m_collections">Collections</label><input type="text" id="m_collections" inputmode="decimal" placeholder="1,159,200" /><div class="hint">What you collected, after write-offs. Not production.</div></div>
+    <div class="field"><label for="m_staff">Staff cost, not including doctors</label><input type="text" id="m_staff" inputmode="decimal" placeholder="437,200" /><div class="hint">Hygiene, assistants, front office, payroll taxes, benefits</div></div>
+  </div>
+  <div class="field-row">
+    <div class="field"><label for="m_doctor">Doctor pay</label><input type="text" id="m_doctor" inputmode="decimal" placeholder="352,200" /><div class="hint">Owner and associate dentists. Shown for reference only.</div></div>
+    <div class="field"><label for="m_lab">Lab fees</label><input type="text" id="m_lab" inputmode="decimal" placeholder="138,900" /></div>
+  </div>
+  <div class="field-row">
+    <div class="field"><label for="m_supplies">Dental supplies</label><input type="text" id="m_supplies" inputmode="decimal" placeholder="103,700" /></div>
+    <div class="field"><label for="m_rent">Rent</label><input type="text" id="m_rent" inputmode="decimal" placeholder="92,800" /></div>
+  </div>
+  <div class="field-row">
+    <div class="field"><label for="m_facility">Utilities, CAM and building upkeep</label><input type="text" id="m_facility" inputmode="decimal" placeholder="28,400" /></div>
+    <div class="field"><label for="m_marketing">Marketing</label><input type="text" id="m_marketing" inputmode="decimal" placeholder="46,900" /></div>
+  </div>
+  <div class="field">
+    <label for="m_ga">General and admin</label>
+    <input type="text" id="m_ga" inputmode="decimal" placeholder="74,620" />
+    <div class="hint">Software, insurance, card processing, accounting, office supplies and everything else. Leave out loan interest and depreciation.</div>
+  </div>
+
+  <div class="err" id="manualErr"></div>
+
+  <div class="btn-row">
+    <button class="btn secondary" id="manualBack">&larr; Back to upload</button>
+    <button class="btn" id="manualNext">Continue &rarr;</button>
+  </div>
+</div>
+
+<!-- ===================== STEP 2: CONFIRM THE MAPPING ====================== -->
+<div class="step" id="step2">
+  <div class="step-head">
+    <div class="step-num">Step 2 of 4</div>
+    <h2>Check what we read.</h2>
+    <p class="step-sub">We matched your accounts to the categories we use for dental practices. Fix anything that landed in the wrong place, then continue.</p>
+  </div>
+
+  <div class="stage-box">
+    <div class="field-row">
+      <div class="field">
+        <label for="stage">Where is your practice right now?</label>
+        <select id="stage"></select>
+        <div class="hint">Startups run higher on staff and facility costs by design, so this changes how we read your numbers.</div>
+      </div>
+      <div class="field">
+        <label for="period">Period this P&amp;L covers</label>
+        <select id="period"></select>
+        <div class="hint">Percentages do not change with the period. This labels your report.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-note" id="mapNote"></div>
+  <div class="map-warn" id="mapWarn"></div>
+
+  <div class="map-scroll">
+    <table class="map">
+      <thead><tr><th>Line from your P&amp;L</th><th style="width:250px">Category</th><th class="amt" style="width:120px">Amount</th></tr></thead>
+      <tbody id="mapBody"></tbody>
+    </table>
+  </div>
+
+  <div class="map-totals" id="mapTotals"></div>
+
+  <div class="btn-row">
+    <button class="btn secondary" id="back1">&larr; Back</button>
+    <button class="btn" id="toStep3">Looks right, continue &rarr;</button>
+  </div>
+</div>
+
+<!-- ========================= STEP 3: CONTACT GATE ========================= -->
+<div class="step" id="step3">
+  <div class="step-head">
+    <div class="step-num">Step 3 of 4</div>
+    <h2>Where should we send your report?</h2>
+    <p class="step-sub">Your results appear on the next screen. We email a copy so you can find it again, and so you do not have to fill in your details twice if you book a call.</p>
+  </div>
+
+  <div class="field-row">
+    <div class="field"><label for="leadName">Your name</label><input type="text" id="leadName" autocomplete="name" placeholder="First and last name" /></div>
+    <div class="field"><label for="leadEmail">Email</label><input type="email" id="leadEmail" autocomplete="email" placeholder="you@yourpractice.com" /></div>
+  </div>
+  <div class="field">
+    <label for="leadPractice">Practice name or website (optional)</label>
+    <input type="text" id="leadPractice" placeholder="yourpractice.com" />
+  </div>
+
+  <div class="field" style="display:flex;gap:10px;align-items:flex-start">
+    <input type="checkbox" id="optin" checked style="width:auto;margin-top:5px" />
+    <label for="optin" style="font-family:var(--font-body);font-weight:400;font-size:14px;color:var(--grey)">
+      Send me Virjee Consulting emails for dental practice owners. You can unsubscribe at any time.
+    </label>
+  </div>
+
+  <div class="err" id="gateErr"></div>
+
+  <div class="btn-row">
+    <button class="btn secondary" id="back2">&larr; Back</button>
+    <button class="btn" id="toStep4">Show my KPI report &rarr;</button>
+  </div>
+  <div class="spinner" id="gateSpin"><div class="dot"></div> Building your report</div>
+
+  <div class="disclosure" style="margin-top:22px">
+    We use your figures to build this report and we never sell your information.
+    <a href="https://www.dentalcpausa.com/privacy-policy/" target="_blank" rel="noopener">Privacy policy</a>.
+  </div>
+</div>
+
+<!-- =========================== STEP 4: RESULTS =========================== -->
+<div class="step" id="step4">
+  <div class="step-head">
+    <div class="step-num">Your report</div>
+    <h2 id="resTitle">Your KPI report</h2>
+    <p class="step-sub" id="resSub"></p>
+  </div>
+
+  <div class="score-band">
+    <div class="sb-grade">
+      <div class="lbl">Overall</div>
+      <div class="g" id="resGrade">-</div>
+      <div class="g-text" id="resGradeText">-</div>
+      <div class="g-sub" id="resGradeSub"></div>
+    </div>
+    <div class="sb-stats">
+      <div class="sb-stat">
+        <div class="lbl">Staff cost, not including doctors</div>
+        <div class="row"><div class="val" id="resStaff">-</div><div class="vs" id="resStaffVs"></div></div>
+        <div class="sb-bar" id="staffBar"></div>
+        <div class="sb-scale" id="staffScale"></div>
+        <div class="sub" id="resStaffSub"></div>
+      </div>
+      <div class="sb-stat">
+        <div class="lbl">Fixed costs</div>
+        <div class="row"><div class="val" id="resFixed">-</div><div class="vs" id="resFixedVs"></div></div>
+        <div class="sb-bar" id="fixedBar"></div>
+        <div class="sb-scale" id="fixedScale"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fab">
+    <div class="t">Your FAB Five, the five numbers we track with every client</div>
+    <div class="fab-grid" id="fabFive"></div>
+  </div>
+
+  <div class="benchmark-grid" id="benchGrid"></div>
+
+  <div class="deepdive">
+    <div class="dd-body">
+      <div class="dd-eyebrow">Your next step</div>
+      <h3 id="ddHead">Walk through these numbers with our team.</h3>
+      <p class="dd-sub" id="ddSub">This report shows where each number sits. A call with our team works out why, and what to look at first.</p>
+      <ul class="dd-list">
+        <li>We work with dentists only, so we read your P&amp;L the way a dental CPA should.</li>
+        <li>We go through your numbers line by line and tell you which one we would look at first.</li>
+      </ul>
+      <a class="btn-mint" id="bookBtn" target="_blank" rel="noopener">Book a call with the Virjee Consulting team &rarr;</a>
+    </div>
+    <div class="dd-quote">
+      <blockquote>Most practice owners run their practice off the production report and the bank statement, that's literally how they judge whether the practice is doing well, but your bank balance is not indicative of whether your practice is great, because tax payments, distributions, and loan payments are all moving pieces that distort it.</blockquote>
+      <div class="who">Omar Avirjee, Virjee Consulting<br><a href="https://www.youtube.com/watch?v=V3fmBnbuav8&amp;t=1191s" target="_blank" rel="noopener">Watch him say it (19:51)</a></div>
+    </div>
+  </div>
+
+  <div class="secondary-band">
+    <div class="secondary-card">
+      <h4>Save your report</h4>
+      <p id="emailedTo">Use your browser print dialog to save a PDF copy of this report.</p>
+      <a id="printBtn" tabindex="0">Download as PDF &rarr;</a>
+    </div>
+    <div class="secondary-card">
+      <h4>Read more about the five numbers</h4>
+      <p>Our write-up of the KPIs we track with every dental client, and why each one matters.</p>
+      <a href="https://www.dentalcpausa.com/dental-key-performance-indicators/" target="_blank" rel="noopener">Read the guide &rarr;</a>
+    </div>
+  </div>
+
+  <div class="disclosure" id="resDisclosure"></div>
+</div>
+
+</div>
+<script>
+/* =============================================================================
+   Virjee Consulting: Dental Practice KPI Checker, benchmark engine
+
+   Every range below is something Omar Avirjee SAID on camera, and only figures
+   marked CONFIRMED in red-flag-pl-scanner-2026-07-02/BENCHMARK-RECONCILIATION-
+   2026-07-16.md are used (two independent transcriptions agree: YouTube
+   captions and faster-whisper). Do not add a range here without a row in that
+   table and a timestamped link in OMAR_SOURCES.
+
+   Figures Omar has said that are NOT in the confirmed table (variable cost,
+   margin targets, profit after doctor pay, collection rate and others) are
+   listed in README.md under "Needs Omar to confirm". They are deliberately not
+   written in this file, so the built page cannot quote them by accident.
+   Those lines are still CALCULATED and shown as context, never graded.
+   ============================================================================= */
+
+const YT = 'https://www.youtube.com/watch?v=';
+
+/* One entry per confirmed row in the reconciliation table. */
+const OMAR_SOURCES = {
+  staffRange:   { url: YT + 'pKYibeHiVCE&t=204s', video: '5 Most Important Dental KPIs To Track', ts: '03:24', said: 'Staff cost, excluding owner comp, 20 to 30% of collections' },
+  staffTypical: { url: YT + 'BTnWd5YFS9I&t=44s',  video: 'Understanding Dental Practice KPIs', ts: '00:44', said: 'Labor around 25% typical, 22 to 26% range (front desk, chairside, assistants)' },
+  staffProfit:  { url: YT + 'LyAHYLT9RSo&t=510s', video: "Why Your Dental Practice Isn't as Profitable as You Think", ts: '08:30', said: 'Staffing cost 25 to 27% of revenue' },
+  labKpi:       { url: YT + 'BTnWd5YFS9I&t=74s',  video: 'Understanding Dental Practice KPIs', ts: '01:14', said: 'Lab and supplies around 5 to 10% each' },
+  labBudget:    { url: YT + '7csYktmpeNU&t=445s', video: 'How to Create a Dental Practice Budget for 2025', ts: '07:25', said: 'Supplies 5 to 8%, lab 10 to 15%' },
+  labPeer:      { url: YT + 'F-LSS3IOh_M&t=1301s', video: "Webinar: Buying a Dental Practice? Don't Make These 6 Figure Mistakes", ts: '21:41', said: 'Lab around 8% peer average; 4 to 4.5% is a red flag, not a win' },
+  facility:     { url: YT + 'LyAHYLT9RSo&t=731s', video: "Why Your Dental Practice Isn't as Profitable as You Think", ts: '12:11', said: 'Facility (rent, utilities, office) 7 to 9% on average' },
+  rent:         { url: YT + 'pKYibeHiVCE&t=516s', video: '5 Most Important Dental KPIs To Track', ts: '08:36', said: 'Rent 5 to 9%, sweet spot 8%' },
+  fixed:        { url: YT + 'pKYibeHiVCE&t=479s', video: '5 Most Important Dental KPIs To Track', ts: '07:59', said: 'Fixed cost (rent, G&A, subscriptions, marketing) 15 to 30%' },
+  marketing:    { url: YT + '7csYktmpeNU&t=721s', video: 'How to Create a Dental Practice Budget for 2025', ts: '12:01', said: 'Marketing around 10%, at or beyond 10% in a growth phase' }
+};
+
+/* Omar hedges every range by stage, so the practice picks one up front. The
+   numbers do not change by stage (he never gave stage-specific numbers); what
+   changes is how a result over the range is read. */
+const STAGES = [
+  { id: 'startup',     label: 'Startup, still building collections' },
+  { id: 'growing',     label: 'Growing, adding patients or capacity' },
+  { id: 'established', label: 'Established, steady collections' }
+];
+
+/* -----------------------------------------------------------------------------
+   Ranges, as a percentage of collections.
+   lo/hi      the range we grade against
+   warnPts    how far past hi still counts as "a little outside" (half credit)
+   floor      marketing only: Omar's "around 10%" is a floor, not a ceiling
+   lowFlag    lab only: under this, Omar calls it a red flag rather than a win
+   stageSoft  a startup running over this range is expected, per Omar
+   ----------------------------------------------------------------------------- */
+const BENCHMARKS = {
+  staff: {
+    name: 'Staff cost',
+    blurb: 'Hygienists, assistants and front office, with payroll taxes and benefits. Doctor pay is left out.',
+    lo: 20, hi: 30, sweet: 25, warnPts: 3, stageSoft: true,
+    source: 'staffRange',
+    rangeText: '20 to 30% of collections, about 25% for most offices',
+    goodNote: 'Inside the range we usually see. Most offices we work with land around 25%.',
+    overNote: 'Above the range we usually see for a practice like yours. Before touching the schedule, check whether pay is above market or collections are low for the chair time you have.',
+    underNote: 'Below the range we usually see. That looks lean, and it is worth checking that every team cost is booked to payroll rather than somewhere else.'
+  },
+  lab: {
+    name: 'Lab fees',
+    blurb: 'Outside lab work as a share of collections.',
+    lo: 10, hi: 15, warnPts: 3, lowFlag: 5,
+    source: 'labBudget',
+    rangeText: '10 to 15% in our budget work, 5 to 10% in our KPI video',
+    goodNote: 'Inside the range we usually see. Lab moves with your procedure mix, so it should stay fairly steady month to month.',
+    lowOkNote: 'Under the 10 to 15% we budget with and inside the 5 to 10% we quote in our KPI video. There is nothing here to worry about.',
+    lowFlagNote: 'Lower than we usually see. When most practices of a similar size spend around 8% and a P&L shows 4%, lab bills are often sitting in another account.',
+    overNote: 'Above the range we usually see. Worth checking your lab pricing and remakes before anything else.'
+  },
+  supplies: {
+    name: 'Dental supplies',
+    blurb: 'Clinical supplies, instruments and handpieces.',
+    lo: 5, hi: 8, warnPts: 2,
+    source: 'labBudget',
+    rangeText: '5 to 8% of collections',
+    goodNote: 'Inside the range we usually see.',
+    underNote: 'At or under the range we usually see.',
+    overNote: 'Above the range we usually see. Implant-heavy practices run higher, and a mature practice should be using its buying power to run lower.'
+  },
+  facility: {
+    name: 'Facility and rent',
+    blurb: 'Rent plus utilities, CAM, property tax and building upkeep.',
+    lo: 7, hi: 9, warnPts: 2, stageSoft: true,
+    source: 'facility',
+    rangeText: '7 to 9% on average, rent alone 5 to 9%',
+    goodNote: 'At or under the range we usually see.',
+    overNote: 'Above the range we usually see. Rent is fixed until the lease is renegotiated, so this one usually gets solved with more production from the same space.'
+  },
+  marketing: {
+    name: 'Marketing',
+    blurb: 'Ads, website, SEO, mail, sponsorships and referral rewards.',
+    floor: 10,
+    source: 'marketing',
+    rangeText: 'around 10%, more in a growth phase',
+    goodNote: 'At or above the roughly 10% we usually see. The question now is whether it is bringing in the new patients it should.',
+    underNote: 'Below the roughly 10% we usually see for marketing. Low marketing spend can look efficient on paper while new patient numbers stay flat, so this is a line we would look at early.',
+    underGrowthNote: 'Below the roughly 10% we usually see. For a practice building its patient base we would expect this at or beyond 10%.',
+    missingNote: 'We did not find a marketing line. If the practice spends nothing on marketing, that is worth a conversation, because we usually see around 10%.'
+  },
+  fixed: {
+    name: 'Fixed costs',
+    blurb: 'Facility, marketing and general and admin (software, insurance, processing fees, accounting).',
+    lo: 15, hi: 30, warnPts: 3, stageSoft: true, derived: true,
+    source: 'fixed',
+    rangeText: '15 to 30% of collections',
+    goodNote: 'Inside the range we usually see. Younger practices sit at the higher end, established ones at the leaner end.',
+    underNote: 'Under the range we usually see. That is lean, as long as low marketing spend is not the reason.',
+    overNote: 'Above the range we usually see for a practice like yours. Fixed costs are slower to move than supplies, so this is a planning conversation more than a cut.'
+  }
+};
+
+const GRADED_KEYS = ['staff', 'lab', 'supplies', 'facility', 'marketing', 'fixed'];
+
+/* Fixed costs is an aggregate of facility, marketing and G&A, so it is left
+   out of any "how many lines are outside" count and out of the "start here"
+   pick. Same rule as prime cost in the restaurant tool. */
+const DERIVED_LINES = ['fixed'];
+
+/* Weights sum to 100. Staff is the biggest expense on every dental P&L Omar
+   talks about, so it carries the most. */
+const GRADE_WEIGHTS = { staff: 35, fixed: 20, facility: 15, lab: 10, supplies: 10, marketing: 10 };
+const STATUS_CREDIT = { good: 1, warn: 0.5, bad: 0 };
+
+/* -----------------------------------------------------------------------------
+   assess(): one line against its range, read through the practice's stage.
+   Returns { status, deltaPts, dir, note }.
+   status: good | warn | bad | stage | info
+   'stage' = over the range, and Omar says that is expected for a startup.
+   ----------------------------------------------------------------------------- */
+function assess(key, val, stage, hasData) {
+  const b = BENCHMARKS[key];
+  if (!hasData) {
+    return { status: 'info', deltaPts: 0, dir: '',
+      note: b.missingNote || 'We did not find this line in your P&L, so there is nothing to compare yet.' };
+  }
+
+  if (b.floor != null) {
+    if (val >= b.floor) return { status: 'good', deltaPts: 0, dir: '', note: b.goodNote };
+    /* Never call low marketing healthy. Omar's figure is a floor. */
+    return { status: 'warn', deltaPts: b.floor - val, dir: 'below',
+      note: stage === 'established' ? b.underNote : b.underGrowthNote };
+  }
+
+  if (b.lowFlag != null && val < b.lowFlag) {
+    return { status: 'warn', deltaPts: b.lowFlag - val, dir: 'below', note: b.lowFlagNote };
+  }
+
+  if (val > b.hi) {
+    const d = val - b.hi;
+    if (b.stageSoft && stage === 'startup') {
+      return { status: 'stage', deltaPts: d, dir: 'above',
+        note: 'Above the range we usually see for an established practice. For a startup this runs higher by design while collections catch up, so we read it as expected for now.' };
+    }
+    return { status: d <= b.warnPts ? 'warn' : 'bad', deltaPts: d, dir: 'above', note: b.overNote };
+  }
+
+  if (val < b.lo) {
+    return { status: 'good', deltaPts: 0, dir: '', note: b.lowOkNote || b.underNote || b.goodNote };
+  }
+  return { status: 'good', deltaPts: 0, dir: '', note: b.goodNote };
+}
+
+/* -----------------------------------------------------------------------------
+   grade(): weighted, with partial credit, ported from the restaurant tool.
+   Startups get no letter. Omar is explicit that a startup's overhead runs high
+   and that is not a red flag, so a letter would be judging it against the
+   wrong practice.
+   ----------------------------------------------------------------------------- */
+function gradeFromResults(rows, stage) {
+  if (stage === 'startup') {
+    return { letter: '-', text: 'Startup: compared for reference',
+      sub: 'Startups run above these ranges by design while collections grow, so we compare without a grade.' };
+  }
+  let earned = 0, possible = 0;
+  for (const r of rows) {
+    if (!r.graded) continue;
+    const w = GRADE_WEIGHTS[r.key];
+    if (w == null) continue;
+    possible += w;
+    earned += w * (STATUS_CREDIT[r.status] ?? 0);
+  }
+  if (!possible) return { letter: '-', text: 'Not enough data', sub: '' };
+  const pct = earned / possible;
+  let letter;
+  if (pct >= 0.9) letter = 'A';
+  else if (pct >= 0.75) letter = 'B';
+  else if (pct >= 0.55) letter = 'C';
+  else if (pct >= 0.35) letter = 'D';
+  else letter = 'F';
+  /* No A while any weighted line is well outside its range. */
+  if (letter === 'A' && rows.some(r => r.graded && r.status === 'bad' && GRADE_WEIGHTS[r.key] != null)) letter = 'B';
+  const text = {
+    A: 'Inside the ranges we usually see',
+    B: 'Mostly inside our ranges',
+    C: 'A few lines worth a look',
+    D: 'Several lines outside our ranges',
+    F: 'Most lines outside our ranges'
+  }[letter];
+  return { letter, text, sub: '' };
+}
+
+/* -----------------------------------------------------------------------------
+   Totals and the full report. Pure functions: app.js and test/run.js both call
+   these, so the test grades exactly what the page grades.
+   ----------------------------------------------------------------------------- */
+function totalsFor(lines) {
+  const t = {};
+  for (const k of Object.keys(CATEGORIES)) t[k] = 0;
+  lines.forEach(l => { t[l.category] = (t[l.category] || 0) + l.amount; });
+  t.collections = t.revenue - t.adjustments;
+  t.variable = t.lab + t.supplies;
+  t.facilityAll = t.rent + t.facility;
+  t.fixed = t.facilityAll + t.marketing + t.ga;
+  t.profitBeforeDoctor = t.collections - t.staff - t.variable - t.fixed;
+  t.profitAfterDoctor = t.profitBeforeDoctor - t.doctor;
+  return t;
+}
+
+function computeReport(lines, stage) {
+  const t = totalsFor(lines);
+  const rev = t.collections;
+  const P = n => (n / rev) * 100;
+  const measured = {
+    staff: P(t.staff), lab: P(t.lab), supplies: P(t.supplies),
+    facility: P(t.facilityAll), rent: P(t.rent), marketing: P(t.marketing),
+    fixed: P(t.fixed), variable: P(t.variable), doctor: P(t.doctor),
+    profitBeforeDoctor: P(t.profitBeforeDoctor), profitAfterDoctor: P(t.profitAfterDoctor)
+  };
+  const spendFor = { staff: t.staff, lab: t.lab, supplies: t.supplies, facility: t.facilityAll, marketing: t.marketing, fixed: t.fixed };
+
+  const rows = [];
+  for (const key of GRADED_KEYS) {
+    const b = BENCHMARKS[key];
+    const val = measured[key];
+    if (!isFinite(val)) continue;
+    const hasData = spendFor[key] > 0;
+    const a = assess(key, val, stage, hasData);
+    rows.push({
+      key, name: b.name, val, status: a.status, deltaPts: a.deltaPts, dir: a.dir, note: a.note,
+      graded: hasData && a.status !== 'info' && a.status !== 'stage',
+      hasData, spend: spendFor[key] || 0,
+      source: OMAR_SOURCES[b.source]
+    });
+  }
+  /* A startup line over its range is read as expected, so it is excluded from
+     the grade (startups get no letter anyway) and from the outside count. */
+  const outOfBand = rows.filter(r => r.hasData && (r.status === 'warn' || r.status === 'bad') && !DERIVED_LINES.includes(r.key)).length;
+  const grade = gradeFromResults(rows, stage);
+  const gradedCount = rows.filter(r => r.graded).length;
+  return { t, rev, measured, rows, outOfBand, gradedCount, grade };
+}
+
+/* The line to talk about first: biggest weighted gap, aggregates excluded. */
+function firstConversation(rows) {
+  return rows
+    .filter(x => (x.status === 'warn' || x.status === 'bad') && x.deltaPts > 0.05 && !DERIVED_LINES.includes(x.key))
+    .sort((a, b) => (GRADE_WEIGHTS[b.key] || 0) * b.deltaPts - (GRADE_WEIGHTS[a.key] || 0) * a.deltaPts)[0] || null;
+}
+
+/* Periods label the report. Ratios are the same whatever the period, so
+   nothing is annualized or projected. */
+const PERIODS = [
+  { id: 'year',    label: 'A full 12 months' },
+  { id: 'ytd',     label: 'Year to date' },
+  { id: 'quarter', label: 'One quarter' },
+  { id: 'month',   label: 'One month' }
+];
+
+/* =============================================================================
+   Virjee Consulting: dental P&L parser
+   Ported from the Vast restaurant benchmark tool (same engine, dental chart of
+   accounts). Takes a CSV / TSV / XLSX export from QuickBooks, Xero or a plain
+   spreadsheet and returns { lines:[{label, amount, category}], revenueTotal }.
+
+   Design notes carried over from the restaurant tool:
+   - Every keyword match is WORD-BOUNDED. Substring matching invents categories
+     at scale ("lab" would match "label", "collection" would match "recollect").
+   - "Total ..." rows are never summed, but "Total Collections" is kept as a
+     cross-check on revenue.
+   - Section headers give the fallback category for rows with no keyword.
+
+   Dental specifics:
+   - Collections are revenue. Production and insurance write-offs sit in the
+     income section of many dental P&Ls and are NOT counted, or collections
+     would be counted twice. If a P&L has production but no collections lines,
+     production becomes revenue and write-offs are subtracted.
+   - Doctor pay (owner W-2, associates, officer comp) is kept out of staff cost.
+     Omar's staff range excludes the doctor.
+   - Owner add-backs and personal items are listed but left out of the ratios.
+   ============================================================================= */
+
+const CATEGORIES = {
+  revenue:     { label: 'Collections',                        sign: 1  },
+  adjustments: { label: 'Refunds (subtracted)',               sign: -1 },
+  production:  { label: 'Production or write-offs (not counted)', sign: 0 },
+  staff:       { label: 'Staff cost (not doctors)',           sign: -1 },
+  doctor:      { label: 'Doctor pay (owner and associates)',  sign: -1 },
+  lab:         { label: 'Lab fees',                           sign: -1 },
+  supplies:    { label: 'Dental supplies',                    sign: -1 },
+  rent:        { label: 'Rent',                               sign: -1 },
+  facility:    { label: 'Other facility (utilities, CAM, upkeep)', sign: -1 },
+  marketing:   { label: 'Marketing',                          sign: -1 },
+  ga:          { label: 'General and admin',                  sign: -1 },
+  owner:       { label: 'Owner personal or add-back (not counted)', sign: 0 },
+  ignore:      { label: 'Not counted',                        sign: 0  }
+};
+
+function hasTerm(text, terms) {
+  for (const t of terms) {
+    const esc = t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '\\s+');
+    if (new RegExp('(^|[^a-z0-9])' + esc + '([^a-z0-9]|$)', 'i').test(text)) return true;
+  }
+  return false;
+}
+
+const IGNORE_TERMS = ['total', 'subtotal', 'gross profit', 'net income', 'net profit', 'net ordinary income',
+  'net operating income', 'operating income', 'ebitda', 'adjusted ebitda', 'depreciation', 'amortization',
+  'interest', 'interest expense', 'income tax', 'income taxes', 'owner draw', 'owners draw', "owner's draw",
+  'distributions', 'shareholder distributions', 'loan payment', 'principal', 'opening balance', 'retained earnings'];
+const REVENUE_TOTAL_TERMS = ['total collections', 'total income', 'total revenue', 'total net collections'];
+const DOCTOR_TERMS = ['doctor comp', 'doctor compensation', 'doctor salary', 'doctor wages', 'doctor pay', 'dr comp',
+  'dentist', 'dentist wages', 'dentist salary', 'associate', 'associate doctor', 'associate dentist', 'associates',
+  'officer compensation', 'officers compensation', "officer's compensation", 'officer salary', 'officer wages',
+  'owner salary', 'owner wages', 'owner compensation', 'owner w-2', 'owner doctor', 'specialist'];
+const PRODUCTION_TERMS = ['production', 'gross production', 'write off', 'write offs', 'write-off', 'write-offs',
+  'writeoff', 'writeoffs', 'adjustments', 'insurance adjustments', 'ppo adjustments', 'contractual adjustments'];
+
+/* Ordered rules. First match wins, so the specific phrases sit above the
+   generic ones ("office supplies" before "supplies", "continuing education
+   (team)" before "team", "equipment lease" before "lease"). */
+const RULES = [
+  { cat: 'adjustments', terms: ['refund', 'refunds', 'patient refunds', 'insurance refunds'] },
+  { cat: 'production',  terms: PRODUCTION_TERMS },
+  { cat: 'revenue',     terms: ['collections', 'collection', 'net collections', 'patient collections', 'insurance collections',
+                                'ppo collections', 'fee for service', 'fee-for-service', 'patient revenue', 'patient income',
+                                'dental income', 'dental revenue', 'revenue', 'income', 'sales', 'other income'] },
+  { cat: 'doctor',      terms: DOCTOR_TERMS },
+  { cat: 'lab',         terms: ['lab', 'labs', 'lab fees', 'lab fee', 'lab expense', 'lab costs', 'laboratory', 'dental lab',
+                                'lab bills', 'outside lab'] },
+  { cat: 'ga',          terms: ['office supplies', 'office expense', 'continuing education', 'ce', 'uniforms', 'laundry',
+                                'equipment lease', 'equipment rental', 'equipment repair', 'equipment repairs',
+                                'malpractice', 'malpractice insurance', 'liability insurance', 'general liability',
+                                'business insurance', 'professional liability', 'payroll processing', 'payroll service'] },
+  { cat: 'supplies',    terms: ['dental supplies', 'clinical supplies', 'supplies', 'supply', 'small instruments',
+                                'instruments', 'handpieces', 'handpiece', 'implant parts', 'implant supplies',
+                                'ortho supplies', 'clear aligners', 'aligners'] },
+  { cat: 'staff',       terms: ['wages', 'salaries', 'salary', 'payroll', 'payroll taxes', 'payroll tax', 'hygienist',
+                                'hygienists', 'hygiene wages', 'dental assistant', 'dental assistants', 'assistant',
+                                'assistants', 'front office', 'front desk', 'office manager', 'receptionist', 'admin wages',
+                                'staff', 'team', 'employee benefits', 'benefits', 'health insurance', 'retirement',
+                                'retirement match', '401k', '401(k)', 'workers comp', 'workers compensation', 'bonus',
+                                'bonuses', 'contract labor', 'temp staffing', 'temporary staffing', 'labor'] },
+  { cat: 'rent',        terms: ['rent', 'base rent', 'office rent', 'building rent', 'lease', 'office lease', 'occupancy'] },
+  { cat: 'facility',    terms: ['cam', 'cam charges', 'common area maintenance', 'property tax', 'property taxes',
+                                'utilities', 'utility', 'electric', 'electricity', 'gas', 'water', 'sewer', 'trash',
+                                'janitorial', 'cleaning', 'building maintenance', 'repairs', 'maintenance', 'internet',
+                                'phone', 'telephone', 'security', 'alarm'] },
+  { cat: 'marketing',   terms: ['marketing', 'advertising', 'ads', 'digital ads', 'google ads', 'seo', 'website',
+                                'social media', 'print', 'direct mail', 'mailers', 'sponsorship', 'sponsorships',
+                                'community sponsorships', 'referral rewards', 'patient referral', 'promotions', 'branding'] },
+  { cat: 'ga',          terms: ['merchant', 'merchant fees', 'processing fees', 'credit card fees', 'software',
+                                'practice management', 'dentrix', 'eaglesoft', 'open dental', 'subscriptions', 'subscription',
+                                'accounting', 'legal', 'professional fees', 'consulting', 'insurance', 'licenses', 'dues',
+                                'bank fees', 'bank charges', 'bank service charges', 'postage', 'travel', 'meals',
+                                'computer', 'it', 'billing service', 'collection agency', 'answering service', 'general'] }
+];
+
+/* Section headers carry meaning: a row under "Payroll & Benefits" is staff
+   cost even when its name has no payroll word. Order matters: owner and
+   below-the-line sections are tested first. */
+const SECTION_HEADERS = [
+  { section: 'owner',     terms: ['add-backs', 'add backs', 'addbacks', 'add-back', 'owner'] },
+  { section: 'below',     terms: ['interest', 'other income', 'other expense', 'other expenses', 'non-operating'] },
+  { section: 'cogs',      terms: ['cost of goods sold', 'cogs', 'cost of sales', 'clinical costs', 'variable costs'] },
+  { section: 'staff',     terms: ['payroll', 'personnel', 'salaries', 'wages', 'staff', 'team'] },
+  { section: 'facility',  terms: ['occupancy', 'facility', 'facilities'] },
+  { section: 'marketing', terms: ['marketing', 'advertising'] },
+  { section: 'ga',        terms: ['general & admin', 'general and admin', 'general and administrative', 'g&a',
+                                  'administrative', 'expenses', 'expense', 'operating expenses', 'overhead'] },
+  { section: 'revenue',   terms: ['income', 'revenue', 'collections', 'ordinary income'] }
+];
+
+const SECTION_FALLBACK = { revenue: 'revenue', cogs: 'supplies', staff: 'staff', facility: 'facility',
+  marketing: 'marketing', ga: 'ga', owner: 'owner', below: 'ignore' };
+
+function sectionHeaderFor(label) {
+  const l = String(label || '').toLowerCase().trim();
+  for (const h of SECTION_HEADERS) if (hasTerm(l, h.terms)) return h.section;
+  return null;
+}
+
+function classify(label, section) {
+  const l = String(label || '').toLowerCase().trim();
+  if (!l) return 'ignore';
+
+  if (hasTerm(l, IGNORE_TERMS)) {
+    if (hasTerm(l, REVENUE_TOTAL_TERMS)) return 'revenue_total';
+    return 'ignore';
+  }
+
+  /* Production rows in the income section ("Production - Owner Doctor") are
+     production, whatever else the name says. */
+  if ((!section || section === 'revenue') && hasTerm(l, PRODUCTION_TERMS)) return 'production';
+
+  /* Doctor pay wins over the owner rule: "Doctor Comp - Owner (W-2)" is doctor
+     pay, "Owner Cell Phone" is an owner personal item. */
+  if (hasTerm(l, DOCTOR_TERMS) && section !== 'owner') return 'doctor';
+  if (section === 'owner' || hasTerm(l, ['owner', "owner's", 'personal'])) return 'owner';
+
+  for (const r of RULES) {
+    if (hasTerm(l, r.terms)) {
+      /* A revenue-named row in an expense section is a cost. */
+      if (r.cat === 'revenue' && section && section !== 'revenue') return 'ga';
+      /* A production word in an expense section ("Production bonus") is staff. */
+      if (r.cat === 'production' && section && section !== 'revenue') return SECTION_FALLBACK[section] || 'ga';
+      return r.cat;
+    }
+  }
+  if (section && SECTION_FALLBACK[section]) return SECTION_FALLBACK[section];
+  return 'ignore';
+}
+
+/* --- number parsing: handles $1,234.56  (1,234.56)  -1234.56 --- */
+function toNumber(raw) {
+  if (raw == null) return null;
+  if (typeof raw === 'number') return isFinite(raw) ? raw : null;
+  let s = String(raw).trim();
+  if (!s) return null;
+  let neg = false;
+  if (/^\(.*\)$/.test(s)) { neg = true; s = s.slice(1, -1); }
+  s = s.replace(/[$\s]/g, '').replace(/,/g, '');
+  if (s.startsWith('-')) { neg = true; s = s.slice(1); }
+  if (!/^\d*\.?\d+$/.test(s)) return null;
+  const n = parseFloat(s);
+  if (!isFinite(n)) return null;
+  return neg ? -n : n;
+}
+
+/* --- CSV / TSV parsing with quoted-field support --- */
+function parseDelimited(text) {
+  const delim = (text.split('\t').length > text.split(',').length) ? '\t' : ',';
+  const rows = [];
+  let row = [], field = '', inQ = false;
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (inQ) {
+      if (c === '"') {
+        if (text[i + 1] === '"') { field += '"'; i++; }
+        else inQ = false;
+      } else field += c;
+    } else if (c === '"') inQ = true;
+    else if (c === delim) { row.push(field); field = ''; }
+    else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+    else if (c === '\r') { /* skip */ }
+    else field += c;
+  }
+  row.push(field);
+  if (row.some(f => f !== '')) rows.push(row);
+  return rows;
+}
+
+/* --- turn a grid of cells into labelled line items --- */
+function rowsToLines(rows) {
+  let lines = [];
+  let revenueTotal = null;
+  let section = null;
+
+  for (const cells of rows) {
+    if (!cells || !cells.length) continue;
+
+    /* Label = every text cell joined. An unquoted comma inside an account name
+       ("Collections - PPO (Delta, MetLife, Cigna)") splits it into several
+       cells; joining them back keeps the full name. */
+    const textCells = cells.map(c => String(c == null ? '' : c).trim())
+      .filter(s => s && /[a-z]/i.test(s) && toNumber(s) == null);
+    const label = textCells.join(', ');
+    if (!label) continue;
+
+    const hasAnyNumber = cells.some(c => toNumber(c) != null);
+    if (!hasAnyNumber) {
+      const sec = sectionHeaderFor(label);
+      if (sec) section = sec;
+      continue;
+    }
+
+    /* amount = last cell that parses as a number. A trailing value under 100
+       after a larger one is a % column, not an amount. */
+    let amount = null, seenLarger = false;
+    for (const c of cells) {
+      const n = toNumber(c);
+      if (n == null) continue;
+      if (Math.abs(n) >= 1000) { amount = n; seenLarger = true; }
+      else if (!seenLarger) amount = n;
+    }
+    if (amount == null || amount === 0) continue;
+
+    const cat = classify(label, section);
+    if (cat === 'revenue_total') { revenueTotal = Math.abs(amount); continue; }
+    if (cat === 'ignore') continue;
+    lines.push({ label, amount: Math.abs(amount), category: cat, signed: amount });
+  }
+
+  /* No collections lines but production present: use production less
+     write-offs, and say so on the mapping screen. */
+  let usedProduction = false;
+  if (!lines.some(l => l.category === 'revenue') && lines.some(l => l.category === 'production')) {
+    usedProduction = true;
+    lines = lines.map(l => {
+      if (l.category !== 'production') return l;
+      const isWriteoff = l.signed < 0 || hasTerm(l.label.toLowerCase(), PRODUCTION_TERMS.filter(t => t !== 'production' && t !== 'gross production'));
+      return Object.assign({}, l, { category: isWriteoff ? 'adjustments' : 'revenue' });
+    });
+  }
+  lines.forEach(l => { delete l.signed; });
+  return { lines, revenueTotal, usedProduction };
+}
+
+/* --- public entry points --- */
+function parseCSVText(text) { return rowsToLines(parseDelimited(text)); }
+
+function parseWorkbook(arrayBuffer) {
+  if (typeof XLSX === 'undefined') {
+    throw new Error('The spreadsheet reader did not load. Please export your P&L as CSV and try again.');
+  }
+  const wb = XLSX.read(arrayBuffer, { type: 'array' });
+  const sheet = wb.Sheets[wb.SheetNames[0]];
+  const rows = XLSX.utils.sheet_to_json(sheet, { header: 1, raw: true, defval: '' });
+  return rowsToLines(rows);
+}
+
+/* =============================================================================
+   Virjee Consulting: Dental Practice KPI Checker, application layer
+   Ported from the Vast restaurant benchmark tool. Same four steps: upload,
+   confirm the mapping, contact gate, results.
+   ============================================================================= */
+
+/* --- CONFIG: the only things to set before go-live ------------------------ */
+const CONFIG = {
+  /* Virjee leads live in HubSpot portal 245428686 (app-na2). formGuid stays
+     EMPTY until a form is created for this tool. While it is empty the submit
+     is a no-op that logs to the console, so the review draft sends nothing. */
+  hubspot: {
+    portalId: '245428686',
+    formGuid: '',
+    endpoint: 'https://api.hsforms.com/submissions/v3/integration/submit/'
+  },
+  /* Booking page. Name and email are appended so nobody re-enters them. */
+  bookingUrl: 'https://www.dentalcpausa.com/contact/'
+};
+
+const S = {
+  lines: [], revenueTotalStated: null, usedProduction: false, source: 'upload',
+  stage: 'established', period: 'year', lead: {}, results: null
+};
+
+const $ = id => document.getElementById(id);
+const money = n => (n < 0 ? '-$' : '$') + Math.abs(Math.round(n)).toLocaleString('en-US');
+const pct = n => (Math.round(n * 10) / 10).toFixed(1) + '%';
+const pts = n => (Math.round(n * 10) / 10).toFixed(1);
+const leadCaptureLive = () => !!(CONFIG.hubspot.formGuid && CONFIG.hubspot.portalId);
+
+/* --------------------------- embedded sizing ----------------------------- */
+/* Served as its own file and framed into the WordPress page, same as the
+   restaurant tool, so WordPress never rewrites the script. */
+function fitFrame() {
+  try {
+    const f = window.frameElement;
+    if (!f) return;
+    const h = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight,
+      document.body.offsetHeight, document.documentElement.offsetHeight);
+    f.style.height = (h + 24) + 'px';
+  } catch (e) { /* cross origin: the parent keeps its own height */ }
+}
+
+/* ------------------------------ navigation ------------------------------- */
+const STEP_INDEX = { step1: 0, stepManual: 0, step2: 1, step3: 2, step4: 3 };
+function go(id) {
+  document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+  $(id).classList.add('active');
+  const i = STEP_INDEX[id];
+  [...$('progress').children].forEach((seg, n) => {
+    seg.className = 'seg' + (n < i ? ' done' : n === i ? ' now' : '');
+  });
+  fitFrame();
+  try {
+    const f = window.frameElement;
+    if (f) f.scrollIntoView({ block: 'start', behavior: 'smooth' });
+    else $('tool').scrollIntoView({ block: 'start', behavior: 'smooth' });
+  } catch (e) { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+}
+function showErr(id, msg) { const e = $(id); e.textContent = msg; e.classList.add('show'); }
+function hideErr(id) { $(id).classList.remove('show'); }
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+/* -------------------------------- upload -------------------------------- */
+function handleFile(file) {
+  hideErr('uploadErr');
+  if (!file) return;
+  if (file.size > 8 * 1024 * 1024) {
+    return showErr('uploadErr', 'That file is larger than 8MB. A P&L export should be well under that, so please check you picked the right file.');
+  }
+  const name = file.name.toLowerCase();
+  const isBook = /\.(xlsx|xls)$/.test(name);
+  const reader = new FileReader();
+  reader.onerror = () => showErr('uploadErr', 'We could not read that file. Please try again, or enter your numbers by hand.');
+  reader.onload = e => {
+    try {
+      const out = isBook ? parseWorkbook(e.target.result) : parseCSVText(e.target.result);
+      if (!out.lines.length) {
+        return showErr('uploadErr', 'We could not find any line items in that file. Make sure it is a Profit and Loss export with account names and amounts, or enter your numbers by hand below.');
+      }
+      const rev = out.lines.filter(l => l.category === 'revenue').reduce((a, b) => a + b.amount, 0);
+      if (rev <= 0 && !out.revenueTotal) {
+        return showErr('uploadErr', 'We found line items but no collections. Please check this is a Profit and Loss rather than a balance sheet or a production report.');
+      }
+      S.lines = out.lines;
+      S.revenueTotalStated = out.revenueTotal;
+      S.usedProduction = !!out.usedProduction;
+      S.source = 'upload';
+      buildMapping();
+      go('step2');
+    } catch (err) {
+      showErr('uploadErr', err.message || 'We could not read that file. Please export it as CSV and try again.');
+    }
+  };
+  if (isBook) reader.readAsArrayBuffer(file);
+  else reader.readAsText(file);
+}
+
+/* -------------------------- manual entry fallback ------------------------ */
+const MANUAL_FIELDS = [
+  ['m_collections', 'Collections', 'revenue'],
+  ['m_staff', 'Staff cost (not doctors)', 'staff'],
+  ['m_doctor', 'Doctor pay (owner and associates)', 'doctor'],
+  ['m_lab', 'Lab fees', 'lab'],
+  ['m_supplies', 'Dental supplies', 'supplies'],
+  ['m_rent', 'Rent', 'rent'],
+  ['m_facility', 'Utilities, CAM and building upkeep', 'facility'],
+  ['m_marketing', 'Marketing', 'marketing'],
+  ['m_ga', 'General and admin', 'ga']
+];
+function manualToLines() {
+  const lines = [];
+  for (const [id, label, cat] of MANUAL_FIELDS) {
+    const v = toNumber($(id).value);
+    if (v != null && Math.abs(v) > 0) lines.push({ label, amount: Math.abs(v), category: cat });
+  }
+  return lines;
+}
+
+/* ------------------------------- mapping -------------------------------- */
+function buildMapping() {
+  const body = $('mapBody');
+  body.innerHTML = '';
+  S.lines.forEach((line, i) => {
+    const tr = document.createElement('tr');
+    if (CATEGORIES[line.category].sign === 0) tr.className = 'ignored';
+    const sel = Object.entries(CATEGORIES).map(([k, v]) =>
+      `<option value="${k}"${k === line.category ? ' selected' : ''}>${v.label}</option>`).join('');
+    tr.innerHTML =
+      `<td>${escapeHtml(line.label)}</td>` +
+      `<td><select data-i="${i}" aria-label="Category for ${escapeHtml(line.label)}">${sel}</select></td>` +
+      `<td class="amt">${money(line.amount)}</td>`;
+    body.appendChild(tr);
+  });
+  body.querySelectorAll('select').forEach(sel => {
+    sel.addEventListener('change', e => {
+      const i = +e.target.dataset.i;
+      S.lines[i].category = e.target.value;
+      e.target.closest('tr').className = CATEGORIES[e.target.value].sign === 0 ? 'ignored' : '';
+      renderTotals();
+    });
+  });
+  let note;
+  if (S.source === 'manual') {
+    note = 'These are the numbers you entered. Change a category if anything is in the wrong place.';
+  } else {
+    note = `We read ${S.lines.length} lines from your P&amp;L. Subtotals, loan interest and depreciation are left out so nothing is counted twice.`;
+    if (S.lines.some(l => l.category === 'production') && !S.usedProduction) {
+      note += ' Production and write-off lines are listed but not counted, because we measure everything against collections.';
+    }
+    if (S.usedProduction) {
+      note += ' We did not find any collections lines, so we are using production less write-offs. If you have a collections figure, enter it by hand for a truer picture.';
+    }
+    if (S.lines.some(l => l.category === 'owner')) {
+      note += ' Owner personal items and add-backs are left out of the ratios. Move any that are real practice costs into the right category.';
+    }
+  }
+  $('mapNote').innerHTML = note;
+  renderTotals();
+}
+
+function renderTotals() {
+  const t = totalsFor(S.lines);
+  $('mapTotals').innerHTML = [
+    ['Collections', money(t.collections)],
+    ['Staff cost', money(t.staff)],
+    ['Lab and supplies', money(t.variable)],
+    ['Fixed costs', money(t.fixed)],
+    ['Doctor pay', money(t.doctor)]
+  ].map(([k, v]) => `<div><div class="k">${k}</div><div class="v">${v}</div></div>`).join('');
+
+  /* Cross-check against the P&L's own stated total collections. */
+  const w = $('mapWarn');
+  if (S.revenueTotalStated && Math.abs(t.collections - S.revenueTotalStated) > 1) {
+    const diff = Math.abs(t.collections - S.revenueTotalStated);
+    w.innerHTML = `Your P&amp;L states total collections of ${money(S.revenueTotalStated)}, but the lines we put under collections come to ${money(t.collections)}, a difference of ${money(diff)}. Check the collections rows below before you continue.`;
+    w.classList.add('show');
+  } else w.classList.remove('show');
+
+  $('toStep3').disabled = t.collections <= 0;
+}
+
+/* ------------------------------ rendering ------------------------------- */
+function drawScoreBar(barId, scaleId, val, lo, hi, status) {
+  const max = Math.max(hi * 1.5, val * 1.15, 10);
+  const zone = `<div class="zone" style="left:${(lo / max) * 100}%;width:${((hi - lo) / max) * 100}%"></div>`;
+  const markL = Math.max(0.5, Math.min(99.5, (val / max) * 100));
+  $(barId).innerHTML = zone + `<div class="mark ${status}" style="left:${markL}%"></div>`;
+  $(scaleId).innerHTML = `<span>0%</span><span>${Math.round(max)}%</span>`;
+}
+
+function statusText(row) {
+  if (!row.hasData) return 'Not found';
+  if (row.status === 'good') return 'Inside our range';
+  if (row.status === 'stage') return 'Expected at your stage';
+  return pts(row.deltaPts) + ' pts ' + row.dir;
+}
+
+function cardRange(row) {
+  const b = BENCHMARKS[row.key];
+  const lo = b.floor != null ? 0 : b.lo, hi = b.floor != null ? b.floor : b.hi;
+  const scaleMax = Math.max(hi * 1.6, row.val * 1.15, 10);
+  return {
+    barW: Math.min(100, (row.val / scaleMax) * 100),
+    zoneL: (lo / scaleMax) * 100,
+    zoneW: ((hi - lo) / scaleMax) * 100,
+    markL: Math.min(100, ((b.floor != null ? b.floor : b.hi) / scaleMax) * 100)
+  };
+}
+
+function sourceLink(src) {
+  return `<a href="${src.url}" target="_blank" rel="noopener">Omar Avirjee, ${escapeHtml(src.video)} (${src.ts})</a>`;
+}
+
+function renderResults() {
+  const r = S.results;
+  const stageLabel = (STAGES.find(s => s.id === S.stage) || {}).label;
+  const periodLabel = (PERIODS.find(p => p.id === S.period) || {}).label;
+
+  $('resTitle').textContent = S.lead.practice
+    ? S.lead.practice.replace(/^https?:\/\//, '').replace(/\/$/, '')
+    : (S.lead.name ? S.lead.name + "'s practice" : 'Your KPI report');
+  $('resSub').textContent =
+    `Based on ${periodLabel.toLowerCase()} of figures, read as a practice that is ${stageLabel.toLowerCase()}. Every range comes from Omar Avirjee and is linked on its card.`;
+
+  /* Score band: grade, staff cost, fixed costs. */
+  $('resGrade').textContent = r.grade.letter;
+  $('resGradeText').textContent = r.grade.text;
+  const insideCount = r.rows.filter(x => x.graded && x.status === 'good').length;
+  $('resGradeSub').textContent = r.grade.sub ||
+    (r.gradedCount ? `${insideCount} of ${r.gradedCount} lines inside the ranges we usually see` : '');
+
+  const staff = r.rows.find(x => x.key === 'staff');
+  if (staff && staff.hasData) {
+    $('resStaff').textContent = pct(staff.val);
+    $('resStaffVs').textContent = 'vs. 20 to 30%, about 25% for most offices';
+    drawScoreBar('staffBar', 'staffScale', staff.val, 20, 30, staff.status);
+  } else {
+    $('resStaff').textContent = '-';
+    $('resStaffVs').textContent = 'No staff cost found';
+  }
+  $('resStaffSub').textContent = r.outOfBand > 0
+    ? `${r.outOfBand} of your lines sit outside the range we usually see for a practice like yours. Staff cost leads the report because it is the biggest expense on almost every dental P&L.`
+    : 'Staff cost leads the report because it is the biggest expense on almost every dental P&L. Every graded line sits inside the range we usually see.';
+  const fixed = r.rows.find(x => x.key === 'fixed');
+  if (fixed && fixed.hasData) {
+    $('resFixed').textContent = pct(fixed.val);
+    $('resFixedVs').textContent = 'vs. 15 to 30%';
+    drawScoreBar('fixedBar', 'fixedScale', fixed.val, 15, 30, fixed.status);
+  }
+
+  /* Omar's FAB Five, as context. EBITDA here is profit before doctor pay. */
+  const m = r.measured;
+  $('fabFive').innerHTML = [
+    ['Collections', money(r.t.collections), 'The figure everything else is measured against'],
+    ['Staff cost', pct(m.staff), 'Graded below'],
+    ['Variable cost', pct(m.variable), 'Lab plus supplies, each graded below'],
+    ['Fixed cost', pct(m.fixed), 'Graded below'],
+    ['EBITDA before doctor pay', pct(m.profitBeforeDoctor), 'Shown for reference, not graded']
+  ].map(([k, v, h]) => `<div><div class="k">${k}</div><div class="v">${v}</div><div class="h">${h}</div></div>`).join('');
+
+  /* One card per graded line. */
+  $('benchGrid').innerHTML = r.rows.map(row => {
+    const b = BENCHMARKS[row.key];
+    const g = cardRange(row);
+    const barColor = row.status === 'good' ? 'var(--good)' : row.status === 'warn' ? 'var(--warn)'
+      : row.status === 'bad' ? 'var(--bad)' : row.status === 'stage' ? 'var(--stage)' : '#c9cfc7';
+    const spendTxt = row.spend > 0 && row.key !== 'fixed'
+      ? ` You spent ${money(row.spend)} on this line in the period.` : '';
+    const rentTxt = row.key === 'facility' && r.t.rent > 0
+      ? ` Rent on its own is ${pct(m.rent)}, against 5 to 9% with a sweet spot around 8% (${sourceLink(OMAR_SOURCES.rent)}).` : '';
+    return `<div class="bench-card">
+      <div class="name">${b.name}</div>
+      <div class="blurb">${b.blurb}</div>
+      <div class="you-vs">
+        <div class="you">${row.hasData ? pct(row.val) : '-'}</div>
+        <div class="vs">vs.</div>
+        <div class="target">${b.rangeText}</div>
+      </div>
+      <div class="bar-wrap">
+        <div class="zone" style="left:${g.zoneL}%;width:${g.zoneW}%"></div>
+        ${row.hasData ? `<div class="bar" style="width:${g.barW}%;background:${barColor}"></div>` : ''}
+        <div class="target-marker" style="left:${g.markL}%"></div>
+      </div>
+      <span class="status ${row.status}">${statusText(row)}</span>
+      <div class="note">${row.note}${spendTxt}${rentTxt}</div>
+      <div class="src">Range: ${sourceLink(row.source)}</div>
+    </div>`;
+  }).join('');
+
+  /* Context cards. Calculated from the P&L, never graded, because Omar has not
+     confirmed a range for these yet. */
+  const ctx = [];
+  if (r.t.variable > 0) {
+    ctx.push(['Variable cost (context)', pct(m.variable), 'Lab plus supplies. Each one is graded on its own card above.']);
+  }
+  if (r.t.doctor > 0) {
+    ctx.push(['Doctor pay (context)', pct(m.doctor), `Owner and associate doctor pay came to ${money(r.t.doctor)}. It is kept out of staff cost, because the staff range leaves the doctor out.`]);
+  }
+  ctx.push(['EBITDA before doctor pay (context)', pct(m.profitBeforeDoctor),
+    `What is left after staff, lab, supplies and fixed costs, before any doctor is paid: ${money(r.t.profitBeforeDoctor)}. After doctor pay it is ${pct(m.profitAfterDoctor)}.`]);
+  $('benchGrid').insertAdjacentHTML('beforeend', ctx.map(([n, v, note]) => `<div class="bench-card ctx">
+      <div class="name">${n}</div>
+      <div class="you-vs"><div class="you">${v}</div><div class="vs">of collections</div></div>
+      <span class="status info">Not graded</span>
+      <div class="note">${note}</div>
+    </div>`).join(''));
+
+  /* CTA headline speaks to the line we would look at first. Facts only. */
+  const worst = firstConversation(r.rows);
+  if (worst) {
+    $('ddHead').innerHTML = `Your ${worst.name.toLowerCase()} is <span class="hi">${pts(worst.deltaPts)} points ${worst.dir}</span> the range we usually see for a practice like yours. That is where we would start.`;
+    $('ddSub').textContent = r.outOfBand > 1
+      ? `${r.outOfBand} lines on this report sit outside our ranges. A call with our team sorts out which one is the cause and which are side effects, and what to look at first.`
+      : 'This report shows where a number sits. A call with our team works out why, and what to look at first.';
+  } else if (S.stage === 'startup') {
+    $('ddHead').innerHTML = `At your stage, the number that matters most is <span class="hi">collections growth</span>.`;
+    $('ddSub').textContent = 'Startups run above these ranges while collections catch up. A call with our team looks at whether your marketing is paying off and when the other lines should start to come down.';
+  } else {
+    $('ddHead').innerHTML = `Your numbers sit inside our ranges. The next question is <span class="hi">whether they stay there</span>.`;
+    $('ddSub').textContent = 'We track these five numbers with our clients every month against their own goals. A call with our team shows you what that looks like for your practice.';
+  }
+
+  const q = new URLSearchParams();
+  if (S.lead.name) q.set('fullname', S.lead.name);
+  if (S.lead.email) q.set('email', S.lead.email);
+  q.set('source', 'kpi-checker');
+  const book = CONFIG.bookingUrl + (CONFIG.bookingUrl.includes('?') ? '&' : '?') + q.toString();
+  $('bookBtn').href = book;
+
+  $('emailedTo').textContent = leadCaptureLive() && S.lead.email
+    ? `We have emailed a copy to ${S.lead.email} so you can find it later.`
+    : 'Use your browser print dialog to save a PDF copy of this report.';
+
+  $('resDisclosure').innerHTML =
+    `Ranges are Omar Avirjee's own figures from Virjee Consulting's videos, linked on each card above. They are what we usually see, and they move with practice stage, number of locations, procedure mix and geography. This report compares the figures you supplied against those ranges. It does not project savings or predict results, and it is not accounting, tax or financial advice. For a look at your own practice, <a href="${book}" target="_blank" rel="noopener">book a call with our team</a>.`;
+}
+
+/* ---------------------- HubSpot Forms submission ------------------------ */
+/* One POST to the HubSpot Forms API. Every field name below must exist on the
+   HubSpot form (and as a contact property) or HubSpot rejects the whole
+   submission. See README "Before go-live". */
+function hubspotPayload() {
+  const r = S.results, t = r.t, m = r.measured;
+  const [firstname, ...rest] = (S.lead.name || '').split(/\s+/);
+  const f = (name, value) => ({ objectTypeId: '0-1', name, value: String(value) });
+  const fields = [
+    f('firstname', firstname || ''),
+    f('lastname', rest.join(' ')),
+    f('email', S.lead.email),
+    f('website', S.lead.practice || ''),
+    f('kpi_checker_stage', (STAGES.find(s => s.id === S.stage) || {}).label),
+    f('kpi_checker_period', (PERIODS.find(p => p.id === S.period) || {}).label),
+    f('kpi_checker_entry', S.source),
+    f('kpi_checker_grade', r.grade.letter),
+    f('kpi_checker_collections', Math.round(t.collections)),
+    f('kpi_checker_staff_pct', m.staff.toFixed(1)),
+    f('kpi_checker_lab_pct', m.lab.toFixed(1)),
+    f('kpi_checker_supplies_pct', m.supplies.toFixed(1)),
+    f('kpi_checker_facility_pct', m.facility.toFixed(1)),
+    f('kpi_checker_marketing_pct', m.marketing.toFixed(1)),
+    f('kpi_checker_fixed_pct', m.fixed.toFixed(1)),
+    f('kpi_checker_ebitda_pct', m.profitBeforeDoctor.toFixed(1)),
+    f('kpi_checker_opt_in', S.lead.optIn ? 'Yes' : 'No'),
+    f('kpi_checker_outside', r.rows
+      .filter(x => (x.status === 'warn' || x.status === 'bad') && !DERIVED_LINES.includes(x.key))
+      .map(x => `${x.name} ${x.val.toFixed(1)}% (${BENCHMARKS[x.key].rangeText})`).join('; '))
+  ];
+  const hutk = (document.cookie.match(/(?:^|;\s*)hubspotutk=([^;]+)/) || [])[1];
+  const context = { pageUri: location.href, pageName: document.title };
+  if (hutk) context.hutk = hutk;
+  /* Consent: legalConsentOptions is added once the HubSpot form exists and
+     its subscription type ID is known. Until then opt-in rides as a field. */
+  return { fields, context };
+}
+
+function submitLead() {
+  const body = hubspotPayload();
+  if (!leadCaptureLive()) {
+    console.info('[virjee kpi-checker] HubSpot formGuid not set; review draft, nothing sent.', body);
+    return Promise.resolve();
+  }
+  const url = CONFIG.hubspot.endpoint + CONFIG.hubspot.portalId + '/' + CONFIG.hubspot.formGuid;
+  return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })
+    .then(res => { if (!res.ok) console.warn('[virjee kpi-checker] HubSpot returned', res.status); })
+    .catch(err => { console.warn('[virjee kpi-checker] submission failed', err); });
+}
+
+/* --------------------------------- wiring ------------------------------- */
+document.addEventListener('DOMContentLoaded', () => {
+  $('stage').innerHTML = STAGES.map(s => `<option value="${s.id}"${s.id === S.stage ? ' selected' : ''}>${s.label}</option>`).join('');
+  $('period').innerHTML = PERIODS.map(p => `<option value="${p.id}">${p.label}</option>`).join('');
+  if (!leadCaptureLive()) $('draftNote').classList.add('show');
+
+  const dz = $('dropzone'), fi = $('fileInput');
+  dz.addEventListener('click', () => fi.click());
+  dz.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fi.click(); } });
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('drag'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('drag'));
+  dz.addEventListener('drop', e => { e.preventDefault(); dz.classList.remove('drag'); handleFile(e.dataTransfer.files[0]); });
+  fi.addEventListener('change', e => handleFile(e.target.files[0]));
+
+  $('manualLink').addEventListener('click', () => go('stepManual'));
+  $('manualBack').addEventListener('click', () => go('step1'));
+  $('manualNext').addEventListener('click', () => {
+    hideErr('manualErr');
+    const lines = manualToLines();
+    const rev = lines.filter(l => l.category === 'revenue').reduce((a, b) => a + b.amount, 0);
+    if (rev <= 0) return showErr('manualErr', 'Please enter your collections for the period. Everything else is optional.');
+    S.lines = lines; S.revenueTotalStated = null; S.usedProduction = false; S.source = 'manual';
+    buildMapping(); go('step2');
+  });
+  MANUAL_FIELDS.forEach(([id]) => $(id).addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); $('manualNext').click(); }
+  }));
+
+  $('stage').addEventListener('change', e => { S.stage = e.target.value; });
+  $('period').addEventListener('change', e => { S.period = e.target.value; });
+
+  $('back1').addEventListener('click', () => go(S.source === 'manual' ? 'stepManual' : 'step1'));
+  $('toStep3').addEventListener('click', () => go('step3'));
+  $('back2').addEventListener('click', () => go('step2'));
+
+  $('toStep4').addEventListener('click', async () => {
+    hideErr('gateErr');
+    const name = $('leadName').value.trim();
+    const email = $('leadEmail').value.trim();
+    const practice = $('leadPractice').value.trim();
+    if (!name) return showErr('gateErr', 'Please add your name so we know who the report belongs to.');
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) return showErr('gateErr', 'Please enter a valid email address so we can send your copy.');
+
+    S.lead = { name, email, practice, optIn: $('optin').checked };
+    S.results = computeReport(S.lines, S.stage);
+
+    $('gateSpin').classList.add('show');
+    $('toStep4').disabled = true;
+    await submitLead();
+    $('gateSpin').classList.remove('show');
+    $('toStep4').disabled = false;
+
+    renderResults();
+    go('step4');
+  });
+  ['leadName', 'leadEmail', 'leadPractice'].forEach(id => $(id).addEventListener('keydown', e => {
+    if (e.key === 'Enter') { e.preventDefault(); $('toStep4').click(); }
+  }));
+
+  $('printBtn').addEventListener('click', () => window.print());
+
+  fitFrame();
+  window.addEventListener('load', fitFrame);
+  window.addEventListener('resize', fitFrame);
+  if (typeof ResizeObserver !== 'undefined') new ResizeObserver(fitFrame).observe(document.body);
+});
+</script>
+</body>
+</html>

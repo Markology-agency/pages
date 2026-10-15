@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  body { margin:0; background:#E9E4DA; }
+  a { color:#0E4333; } a:hover { color:#967C42; }
+  input, select, textarea { font-family:Inter, sans-serif; }
+  input:focus, select:focus { outline:2px solid #967C42; outline-offset:0; }
+</style>
+</helmet>
+
+<section style="padding:48px; display:flex; flex-direction:column; gap:24px; font-family:Inter, sans-serif; color:#2C2620">
+  <div style="display:flex; flex-direction:column; gap:6px; max-width:760px">
+    <div style="font-size:11px; letter-spacing:0.18em; text-transform:uppercase; color:#967C42">Llamas Financial · Website · Piece 1 of 3</div>
+    <div style="font-family:Antonio, sans-serif; font-weight:600; font-size:40px; text-transform:uppercase; color:#0E4333; line-height:1">Ads landing page + thank-you page</div>
+    <div style="font-size:14px; line-height:1.6; color:#5A5248">/winery-accounting-consultation/ → /consultation-thank-you/. Noindex, not in the menu. Submit the form to land on the thank-you page; the accordion opens. Drag a photo onto the hero to swap it.</div>
+  </div>
+
+  <div style="display:flex; flex-wrap:wrap; gap:48px; align-items:flex-start">
+
+    <!-- DESKTOP -->
+    <div style="display:flex; flex-direction:column; gap:12px">
+      <div style="display:flex; align-items:center; gap:12px; width:1280px">
+        <span style="font-size:13px; font-weight:500; color:#0E4333">Desktop · 1280</span>
+        <span style="margin-left:auto; display:flex; gap:6px">
+          <button onClick="{{ dShowLanding }}" style="font-family:Inter, sans-serif; font-size:12px; color:#0E4333; background:#fff; border:1px solid #CFC7B8; border-radius:3px; padding:6px 12px; cursor:pointer">Landing page</button>
+          <button onClick="{{ dShowThanks }}" style="font-family:Inter, sans-serif; font-size:12px; color:#0E4333; background:#fff; border:1px solid #CFC7B8; border-radius:3px; padding:6px 12px; cursor:pointer">Thank-you page</button>
+        </span>
+      </div>
+      <div ref="{{ dRef }}" data-screen-label="Landing desktop" style="width:1280px; background:#F4F2EE; box-shadow:0 2px 24px rgba(0,0,0,0.08); display:flex; flex-direction:column">
+        <div style="background:#0E4333; display:flex; align-items:center; justify-content:space-between; padding:22px 72px">
+          <img src="https://llamasfinancial.com/wp-content/uploads/2026/09/llamas-logo-white.png" alt="Llamas Financial" style="height:34px; width:auto">
+          <div style="display:flex; align-items:center; gap:28px; font-size:14px; color:#F2EADD">
+            <span>(707) 501-0027</span>
+            <button onClick="{{ dScrollToForm }}" style="font-family:Antonio, sans-serif; font-size:17px; letter-spacing:0.02em; text-transform:uppercase; background:#967C42; color:#FFFFFF; font-weight:600; padding:12px 24px; border:0; cursor:pointer" style-hover="background:#AE9050">Book a Quick Call</button>
+          </div>
+        </div>
+
+        <sc-if value="{{ dLanding }}" hint-placeholder-val="{{ true }}">
+          <div style="position:relative; background:#0E4333; overflow:hidden">
+            <div style="position:absolute; inset:0"><image-slot id="lp-hero-photo" shape="rect" src="uploads/pexels-davegarcia-34004193.jpg" placeholder="Winery hero photo"></image-slot></div>
+            <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(14,67,51,0.86) 0%, rgba(14,67,51,0.80) 70%, rgba(14,67,51,0.92) 100%); pointer-events:none"></div>
+            <div style="position:relative; display:grid; grid-template-columns:minmax(0,1.1fr) 480px; gap:72px; padding:88px 72px 220px 72px; align-items:start">
+              <div style="display:flex; flex-direction:column; gap:24px; padding-top:16px">
+                <div style="font-family:Antonio, sans-serif; font-size:18px; letter-spacing:0.12em; text-transform:uppercase; color:#D7B874; font-weight:600">llamas financial</div>
+                <h1 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:76px; line-height:1.0; text-transform:uppercase; color:#F2EADD; text-wrap:pretty">Winery accounting from someone who knows the business</h1>
+                <p style="margin:0; font-size:20px; line-height:1.5; color:#F2EADD; max-width:560px">Clean books, real wine costing, and a free consultation with a Napa-born accountant who ran finance for Quintessa, Faust and Flowers.</p>
+                <div style="display:flex; gap:28px; font-size:14px; color:#F2EADD; padding-top:8px">
+                  <span style="display:flex; align-items:center; gap:8px"><span style="width:8px; height:8px; border-radius:50%; background:#D7B874"></span>Reply within 24 hours</span>
+                  <span style="display:flex; align-items:center; gap:8px"><span style="width:8px; height:8px; border-radius:50%; background:#D7B874"></span>Monthly plans from $500</span>
+                </div>
+              </div>
+              <form ref="{{ dFormRef }}" onSubmit="{{ dSubmit }}" style="background:#FFFFFF; padding:36px; box-shadow:0 8px 40px rgba(0,0,0,0.25); display:flex; flex-direction:column; gap:16px">
+                <div style="font-family:Antonio, sans-serif; font-weight:600; font-size:28px; text-transform:uppercase; color:#0E4333; line-height:1">Book your free consultation</div>
+                <div style="font-size:14px; color:#6A625A; margin-top:-6px">Takes about a minute.</div>
+                <label style="display:flex; flex-direction:column; gap:6px; font-size:13px; font-weight:500; color:#2C2620">Name<input name="name" required placeholder="Your name" style="font-size:15px; padding:13px 14px; border:1px solid #D9D2C5; background:#fff"></label>
+                <label style="display:flex; flex-direction:column; gap:6px; font-size:13px; font-weight:500; color:#2C2620">Email<input name="email" type="email" required placeholder="you@winery.com" style="font-size:15px; padding:13px 14px; border:1px solid #D9D2C5; background:#fff"></label>
+                <label style="display:flex; flex-direction:column; gap:6px; font-size:13px; font-weight:500; color:#2C2620">Winery name<input name="winery" required placeholder="Winery or brand" style="font-size:15px; padding:13px 14px; border:1px solid #D9D2C5; background:#fff"></label>
+                <label style="display:flex; flex-direction:column; gap:6px; font-size:13px; font-weight:500; color:#2C2620">Phone <span style="font-weight:400; color:#8A8278">(optional)</span><input name="phone" type="tel" placeholder="(707) 000-0000" style="font-size:15px; padding:13px 14px; border:1px solid #D9D2C5; background:#fff"></label>
+                <label style="display:flex; flex-direction:column; gap:6px; font-size:13px; font-weight:500; color:#2C2620">What do you need help with?<select name="need" required style="font-size:15px; padding:13px 14px; border:1px solid #D9D2C5; background:#fff; color:#2C2620"><option value="">Choose one</option><option>Bookkeeping</option><option>Tax</option><option>Payroll</option><option>CFO and advisory</option><option>Not sure yet</option></select></label>
+                <button type="submit" style="margin-top:6px; font-family:Antonio, sans-serif; font-size:20px; letter-spacing:0.02em; text-transform:uppercase; font-weight:600; color:#FFFFFF; background:#967C42; border:0; padding:16px; cursor:pointer" style-hover="background:#AE9050">Book my free consultation</button>
+                <div style="font-size:12px; color:#8A8278; text-align:center">No spam. Your details stay with Llamas Financial.</div>
+              </form>
+            </div>
+            <img src="assets/site/bg-white-hills.png" alt="" style="position:absolute; left:0; right:0; bottom:-2px; width:100%; height:auto; display:block; pointer-events:none">
+          </div>
+
+          <div style="padding:40px 72px; display:flex; align-items:center; gap:48px; background:#F4F2EE">
+            <div style="font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:#967C42; font-weight:500; white-space:nowrap">Trusted by</div>
+            <div style="display:flex; align-items:center; gap:56px; flex:1; justify-content:space-around">
+              <div style="width:160px; height:48px"><image-slot id="lp-logo-1" shape="rect" fit="contain" placeholder="Client logo"></image-slot></div>
+              <div style="width:160px; height:48px"><image-slot id="lp-logo-2" shape="rect" fit="contain" placeholder="Client logo"></image-slot></div>
+              <div style="width:160px; height:48px"><image-slot id="lp-logo-3" shape="rect" fit="contain" placeholder="Client logo"></image-slot></div>
+              <div style="width:160px; height:48px"><image-slot id="lp-logo-4" shape="rect" fit="contain" placeholder="Client logo"></image-slot></div>
+              <div style="width:160px; height:48px"><image-slot id="lp-logo-5" shape="rect" fit="contain" placeholder="Client logo"></image-slot></div>
+            </div>
+          </div>
+
+          <div style="padding:96px 72px; background:#FFFFFF; display:flex; flex-direction:column; gap:48px">
+            <div style="display:flex; flex-direction:column; gap:12px; max-width:720px">
+              <div style="font-family:Antonio, sans-serif; font-size:16px; letter-spacing:0.12em; text-transform:uppercase; color:#967C42; font-weight:600">What I do</div>
+              <h2 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:52px; line-height:1.02; text-transform:uppercase; color:#0E4333">Wine is your craft. Accounting is mine.</h2>
+            </div>
+            <div style="display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:32px">
+              <div style="display:flex; flex-direction:column; gap:18px; padding:40px 36px; background:#F4F2EE; border-top:3px solid #967C42">
+                <img src="https://llamasfinancial.com/wp-content/uploads/2025/07/Bookkeeping.svg" alt="" style="width:56px; height:56px">
+                <h3 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:30px; text-transform:uppercase; color:#0E4333">Bookkeeping</h3>
+                <p style="margin:0; font-size:16px; line-height:1.55; color:#4A4540">Clean, accurate books that actually match what's happening in your business.</p>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:18px; padding:40px 36px; background:#F4F2EE; border-top:3px solid #967C42">
+                <img src="https://llamasfinancial.com/wp-content/uploads/2025/07/Compliance.svg" alt="" style="width:56px; height:56px">
+                <h3 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:30px; text-transform:uppercase; color:#0E4333">Tax</h3>
+                <p style="margin:0; font-size:16px; line-height:1.55; color:#4A4540">I speak TTB, CDTFA, and all the other letters, so you don't have to.</p>
+              </div>
+              <div style="display:flex; flex-direction:column; gap:18px; padding:40px 36px; background:#F4F2EE; border-top:3px solid #967C42">
+                <img src="https://llamasfinancial.com/wp-content/uploads/2025/07/CFO-Services.svg" alt="" style="width:56px; height:56px">
+                <h3 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:30px; text-transform:uppercase; color:#0E4333">CFO</h3>
+                <p style="margin:0; font-size:16px; line-height:1.55; color:#4A4540">When you're ready for planning, pricing, and growth, we're ready too.</p>
+              </div>
+            </div>
+          </div>
+
+          <div style="position:relative; background:#0E4333; padding:120px 72px 96px 72px; display:grid; grid-template-columns:420px minmax(0,1fr); gap:80px; align-items:center; overflow:hidden">
+            <img src="assets/site/bg-img-1.webp" alt="" style="position:absolute; right:-40px; top:40px; width:420px; height:auto; opacity:0.35; pointer-events:none">
+            <div style="position:relative; aspect-ratio:4/5; overflow:hidden; border:3px solid #967C42; padding:14px; background:#0E4333"><img src="uploads/Octavio-Llamas-cropped.jpg" alt="Octavio Llamas" style="width:100%; height:100%; object-fit:cover; display:block"></div>
+            <div style="position:relative; display:flex; flex-direction:column; gap:24px">
+              <div style="font-family:Antonio, sans-serif; font-size:16px; letter-spacing:0.12em; text-transform:uppercase; color:#D7B874; font-weight:600">Meet the founder</div>
+              <h2 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:52px; line-height:1.02; text-transform:uppercase; color:#F2EADD">I understand the business behind the bottle</h2>
+              <p style="margin:0; font-size:18px; line-height:1.6; color:#F2EADD; max-width:620px">I know the wine business because I've lived it. I managed the financial operations for some of Napa Valley's most respected wineries, including Quintessa, Faust, Flowers Vineyard &amp; Winery, Leviathan, Benton-Lane Winery, and Favia. I've been in the cellar and in the boardroom, leading accounting at Morlet Family Vineyards and streamlining financial systems at Huneeus Vintners.</p>
+              <div style="display:flex; align-items:center; gap:32px; padding-top:8px">
+                <img src="https://llamasfinancial.com/wp-content/uploads/2025/10/Napa-Valley-CPA.png" alt="Flowers" style="height:40px; width:auto; filter:brightness(0) invert(1); opacity:0.8">
+                <img src="https://llamasfinancial.com/wp-content/uploads/2025/10/Napa-Valley-Accountant.png" alt="Faust" style="height:40px; width:auto; filter:brightness(0) invert(1); opacity:0.8">
+              </div>
+            </div>
+          </div>
+
+          <div style="padding:96px 72px; background:#F4F2EE; display:grid; grid-template-columns:380px minmax(0,1fr); gap:80px">
+            <div style="display:flex; flex-direction:column; gap:12px">
+              <div style="font-family:Antonio, sans-serif; font-size:16px; letter-spacing:0.12em; text-transform:uppercase; color:#967C42; font-weight:600">Questions</div>
+              <h2 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:48px; line-height:1.02; text-transform:uppercase; color:#0E4333">Before you book</h2>
+            </div>
+            <div style="display:flex; flex-direction:column; border-top:1px solid #D9D2C5">
+              <sc-for list="{{ dFaqs }}" as="f" hint-placeholder-count="3">
+                <div style="border-bottom:1px solid #D9D2C5">
+                  <button onClick="{{ f.toggle }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:24px; padding:24px 0; background:none; border:0; cursor:pointer; text-align:left; font-family:Inter, sans-serif; font-size:19px; font-weight:500; color:#0E4333">{{ f.q }}<span style="font-family:Antonio, sans-serif; font-size:30px; color:#967C42; line-height:1; width:24px; text-align:center">{{ f.mark }}</span></button>
+                  <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}"><p style="margin:0; padding:0 48px 24px 0; font-size:16px; line-height:1.6; color:#4A4540">{{ f.a }}</p></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="position:relative; background:#0E4333; padding:96px 72px 200px 72px; display:flex; flex-direction:column; align-items:center; gap:24px; text-align:center; overflow:hidden">
+            <h2 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:56px; line-height:1.02; text-transform:uppercase; color:#F2EADD; max-width:760px">Make your next vintage the most profitable yet</h2>
+            <p style="margin:0; font-size:18px; line-height:1.5; color:#F2EADD; max-width:560px">Let me get your financials cleaned up, dialed in, and actually useful. Share a few details and I'll get back to you within 24 hours.</p>
+            <button onClick="{{ dScrollToForm }}" style="margin-top:8px; font-family:Antonio, sans-serif; font-size:22px; letter-spacing:0.02em; text-transform:uppercase; font-weight:600; color:#FFFFFF; background:#967C42; border:0; padding:18px 40px; cursor:pointer" style-hover="background:#AE9050">Get my free consultation</button>
+            <img src="assets/site/bg-white-hills.png" alt="" style="position:absolute; left:0; right:0; bottom:-2px; width:100%; height:auto; display:block; pointer-events:none">
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ dThanks }}" hint-placeholder-val="{{ false }}">
+          <div style="position:relative; background:#0E4333; padding:96px 72px 200px 72px; display:flex; flex-direction:column; align-items:center; gap:20px; text-align:center; overflow:hidden">
+            <div style="position:absolute; inset:0"><image-slot id="ty-hero-photo" shape="rect" src="uploads/pexels-magda-ehlers-pexels-6492359.jpg" placeholder="Vineyard photo"></image-slot></div>
+            <div style="position:absolute; inset:0; background:rgba(14,67,51,0.86); pointer-events:none"></div>
+            <div style="position:relative; width:64px; height:64px; border-radius:50%; background:#967C42; display:flex; align-items:center; justify-content:center"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div>
+            <h1 style="position:relative; margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:68px; line-height:1; text-transform:uppercase; color:#F2EADD">Thanks{{ dNameSuffix }}. You're in.</h1>
+            <p style="position:relative; margin:0; font-size:20px; line-height:1.5; color:#F2EADD; max-width:620px">I'll reply within 24 hours. If you'd like to skip the wait, pick a time that works for you right now.</p>
+            <img src="assets/site/bg-white-hills.png" alt="" style="position:absolute; left:0; right:0; bottom:-2px; width:100%; height:auto; display:block; pointer-events:none">
+          </div>
+          <div style="padding:0 72px 96px 72px; background:#F4F2EE; display:flex; justify-content:center">
+            <div style="width:100%; max-width:1000px; min-height:640px; background:#FFFFFF; border:1px solid #D9D2C5; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; color:#8A8278; font-size:14px">
+              <div style="font-weight:600; color:#0E4333; font-size:16px">Calendly inline embed</div>
+              <div>Octavio's booking calendar loads here. /consultation-thank-you/ is the conversion URL.</div>
+            </div>
+          </div>
+          <div style="padding:40px 72px; background:#F4F2EE; display:flex; align-items:center; justify-content:space-between; border-top:1px solid #E3DDD1; font-size:14px; color:#4A4540">
+            <span>Questions in the meantime? <a href="mailto:octavio@llamasfinancial.com">octavio@llamasfinancial.com</a> · (707) 501-0027</span>
+            <a href="https://llamasfinancial.com/blog/">Read the blog</a>
+          </div>
+        </sc-if>
+
+        <div style="background:#0E4333; padding:28px 72px; display:flex; align-items:center; justify-content:space-between; font-size:13px; color:#D7B874">
+          <img src="https://llamasfinancial.com/wp-content/uploads/2026/09/llamas-logo-white.png" alt="Llamas Financial" style="height:26px; width:auto">
+          <span>©2026 Llamas Financial · <a href="https://llamasfinancial.com/privacy-policy/" style="color:#D7B874">Privacy Policy</a></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- MOBILE -->
+    <div style="display:flex; flex-direction:column; gap:12px">
+      <div style="display:flex; align-items:center; gap:8px; width:390px">
+        <span style="font-size:13px; font-weight:500; color:#0E4333">Mobile · 390</span>
+        <span style="margin-left:auto; display:flex; gap:6px">
+          <button onClick="{{ mShowLanding }}" style="font-family:Inter, sans-serif; font-size:12px; color:#0E4333; background:#fff; border:1px solid #CFC7B8; border-radius:3px; padding:6px 10px; cursor:pointer">Landing</button>
+          <button onClick="{{ mShowThanks }}" style="font-family:Inter, sans-serif; font-size:12px; color:#0E4333; background:#fff; border:1px solid #CFC7B8; border-radius:3px; padding:6px 10px; cursor:pointer">Thank-you</button>
+        </span>
+      </div>
+      <div ref="{{ mRef }}" data-screen-label="Landing mobile" style="width:390px; background:#F4F2EE; box-shadow:0 2px 24px rgba(0,0,0,0.08); display:flex; flex-direction:column">
+        <div style="background:#0E4333; display:flex; align-items:center; justify-content:space-between; padding:16px 20px">
+          <img src="https://llamasfinancial.com/wp-content/uploads/2026/09/llamas-logo-white.png" alt="Llamas Financial" style="height:24px; width:auto">
+          <a href="tel:7075010027" style="text-decoration:none; font-family:Antonio, sans-serif; font-size:15px; text-transform:uppercase; background:#967C42; color:#FFFFFF; font-weight:600; padding:10px 16px">Call</a>
+        </div>
+
+        <sc-if value="{{ mLanding }}" hint-placeholder-val="{{ true }}">
+          <div style="position:relative; background:#0E4333; overflow:hidden">
+            <div style="position:absolute; inset:0"><image-slot id="lp-hero-photo-m" shape="rect" src="uploads/pexels-davegarcia-34004193.jpg" placeholder="Winery hero photo"></image-slot></div>
+            <div style="position:absolute; inset:0; background:rgba(14,67,51,0.86); pointer-events:none"></div>
+            <div style="position:relative; padding:40px 20px 90px 20px; display:flex; flex-direction:column; gap:20px">
+              <div style="font-family:Antonio, sans-serif; font-size:14px; letter-spacing:0.12em; text-transform:uppercase; color:#D7B874; font-weight:600">llamas financial</div>
+              <h1 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:44px; line-height:1.0; text-transform:uppercase; color:#F2EADD; text-wrap:pretty">Winery accounting from someone who knows the business</h1>
+              <p style="margin:0; font-size:16px; line-height:1.5; color:#F2EADD">Clean books, real wine costing, and a free consultation with a Napa-born accountant who ran finance for Quintessa, Faust and Flowers.</p>
+              <form ref="{{ mFormRef }}" onSubmit="{{ mSubmit }}" style="background:#FFFFFF; padding:24px; box-shadow:0 8px 40px rgba(0,0,0,0.25); display:flex; flex-direction:column; gap:14px; margin-top:8px">
+                <div style="font-family:Antonio, sans-serif; font-weight:600; font-size:24px; text-transform:uppercase; color:#0E4333; line-height:1">Book your free consultation</div>
+                <input name="name" required placeholder="Name" style="font-size:16px; padding:14px; border:1px solid #D9D2C5; background:#fff">
+                <input name="email" type="email" required placeholder="Email" style="font-size:16px; padding:14px; border:1px solid #D9D2C5; background:#fff">
+                <input name="winery" required placeholder="Winery name" style="font-size:16px; padding:14px; border:1px solid #D9D2C5; background:#fff">
+                <input name="phone" type="tel" placeholder="Phone (optional)" style="font-size:16px; padding:14px; border:1px solid #D9D2C5; background:#fff">
+                <select name="need" required style="font-size:16px; padding:14px; border:1px solid #D9D2C5; background:#fff; color:#2C2620"><option value="">What do you need help with?</option><option>Bookkeeping</option><option>Tax</option><option>Payroll</option><option>CFO and advisory</option><option>Not sure yet</option></select>
+                <button type="submit" style="font-family:Antonio, sans-serif; font-size:19px; text-transform:uppercase; font-weight:600; color:#FFFFFF; background:#967C42; border:0; padding:16px; cursor:pointer; min-height:48px">Book my free consultation</button>
+              </form>
+            </div>
+            <img src="assets/site/bg-white-hills.png" alt="" style="position:absolute; left:-30%; bottom:-2px; width:160%; height:auto; display:block; pointer-events:none">
+          </div>
+
+          <div style="padding:28px 20px; display:flex; flex-direction:column; gap:16px; align-items:center">
+            <div style="font-size:11px; letter-spacing:0.16em; text-transform:uppercase; color:#967C42; font-weight:500">Trusted by</div>
+            <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; width:100%">
+              <div style="height:36px"><image-slot id="lp-logo-m1" shape="rect" fit="contain" placeholder="Logo"></image-slot></div>
+              <div style="height:36px"><image-slot id="lp-logo-m2" shape="rect" fit="contain" placeholder="Logo"></image-slot></div>
+              <div style="height:36px"><image-slot id="lp-logo-m3" shape="rect" fit="contain" placeholder="Logo"></image-slot></div>
+            </div>
+          </div>
+
+          <div style="padding:48px 20px; background:#FFFFFF; display:flex; flex-direction:column; gap:28px">
+            <h2 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:34px; line-height:1.02; text-transform:uppercase; color:#0E4333">Wine is your craft. Accounting is mine.</h2>
+            <div style="display:flex; flex-direction:column; gap:16px">
+              <div style="display:flex; gap:18px; padding:24px; background:#F4F2EE; border-top:3px solid #967C42">
+                <img src="https://llamasfinancial.com/wp-content/uploads/2025/07/Bookkeeping.svg" alt="" style="width:44px; height:44px; flex-shrink:0">
+                <div style="display:flex; flex-direction:column; gap:6px"><h3 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:24px; text-transform:uppercase; color:#0E4333">Bookkeeping</h3><p style="margin:0; font-size:15px; line-height:1.5; color:#4A4540">Clean, accurate books that actually match what's happening in your business.</p></div>
+              </div>
+              <div style="display:flex; gap:18px; padding:24px; background:#F4F2EE; border-top:3px solid #967C42">
+                <img src="https://llamasfinancial.com/wp-content/uploads/2025/07/Compliance.svg" alt="" style="width:44px; height:44px; flex-shrink:0">
+                <div style="display:flex; flex-direction:column; gap:6px"><h3 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:24px; text-transform:uppercase; color:#0E4333">Tax</h3><p style="margin:0; font-size:15px; line-height:1.5; color:#4A4540">I speak TTB, CDTFA, and all the other letters, so you don't have to.</p></div>
+              </div>
+              <div style="display:flex; gap:18px; padding:24px; background:#F4F2EE; border-top:3px solid #967C42">
+                <img src="https://llamasfinancial.com/wp-content/uploads/2025/07/CFO-Services.svg" alt="" style="width:44px; height:44px; flex-shrink:0">
+                <div style="display:flex; flex-direction:column; gap:6px"><h3 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:24px; text-transform:uppercase; color:#0E4333">CFO</h3><p style="margin:0; font-size:15px; line-height:1.5; color:#4A4540">When you're ready for planning, pricing, and growth, we're ready too.</p></div>
+              </div>
+            </div>
+          </div>
+
+          <div style="background:#0E4333; padding:48px 20px; display:flex; flex-direction:column; gap:24px">
+            <div style="aspect-ratio:4/5; border:3px solid #967C42; padding:10px"><img src="uploads/Octavio-Llamas-cropped.jpg" alt="Octavio Llamas" style="width:100%; height:100%; object-fit:cover; display:block"></div>
+            <div style="font-family:Antonio, sans-serif; font-size:14px; letter-spacing:0.12em; text-transform:uppercase; color:#D7B874; font-weight:600">Meet the founder</div>
+            <h2 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:36px; line-height:1.02; text-transform:uppercase; color:#F2EADD">I understand the business behind the bottle</h2>
+            <p style="margin:0; font-size:16px; line-height:1.6; color:#F2EADD">I managed the financial operations for some of Napa Valley's most respected wineries, including Quintessa, Faust, Flowers Vineyard &amp; Winery, Leviathan, Benton-Lane Winery, and Favia. I've been in the cellar and in the boardroom.</p>
+          </div>
+
+          <div style="padding:48px 20px; display:flex; flex-direction:column; gap:20px">
+            <h2 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:34px; line-height:1.02; text-transform:uppercase; color:#0E4333">Before you book</h2>
+            <div style="display:flex; flex-direction:column; border-top:1px solid #D9D2C5">
+              <sc-for list="{{ mFaqs }}" as="f" hint-placeholder-count="3">
+                <div style="border-bottom:1px solid #D9D2C5">
+                  <button onClick="{{ f.toggle }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 0; background:none; border:0; cursor:pointer; text-align:left; font-family:Inter, sans-serif; font-size:16px; font-weight:500; color:#0E4333; min-height:48px">{{ f.q }}<span style="font-family:Antonio, sans-serif; font-size:26px; color:#967C42; line-height:1; width:20px; text-align:center; flex-shrink:0">{{ f.mark }}</span></button>
+                  <sc-if value="{{ f.open }}" hint-placeholder-val="{{ false }}"><p style="margin:0; padding:0 0 18px 0; font-size:15px; line-height:1.6; color:#4A4540">{{ f.a }}</p></sc-if>
+                </div>
+              </sc-for>
+            </div>
+          </div>
+
+          <div style="position:relative; background:#0E4333; padding:56px 20px 110px 20px; display:flex; flex-direction:column; gap:18px; text-align:center; align-items:center; overflow:hidden">
+            <h2 style="margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:36px; line-height:1.02; text-transform:uppercase; color:#F2EADD">Make your next vintage the most profitable yet</h2>
+            <button onClick="{{ mScrollToForm }}" style="font-family:Antonio, sans-serif; font-size:19px; text-transform:uppercase; font-weight:600; color:#FFFFFF; background:#967C42; border:0; padding:16px 28px; cursor:pointer; min-height:48px">Get my free consultation</button>
+            <img src="assets/site/bg-white-hills.png" alt="" style="position:absolute; left:-30%; bottom:-2px; width:160%; height:auto; display:block; pointer-events:none">
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ mThanks }}" hint-placeholder-val="{{ false }}">
+          <div style="position:relative; background:#0E4333; padding:56px 20px 110px 20px; display:flex; flex-direction:column; align-items:center; gap:16px; text-align:center; overflow:hidden">
+            <div style="position:relative; width:56px; height:56px; border-radius:50%; background:#967C42; display:flex; align-items:center; justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg></div>
+            <h1 style="position:relative; margin:0; font-family:Antonio, sans-serif; font-weight:600; font-size:44px; line-height:1; text-transform:uppercase; color:#F2EADD">Thanks{{ mNameSuffix }}. You're in.</h1>
+            <p style="position:relative; margin:0; font-size:16px; line-height:1.5; color:#F2EADD">I'll reply within 24 hours. Or pick a time right now.</p>
+            <img src="assets/site/bg-white-hills.png" alt="" style="position:absolute; left:-30%; bottom:-2px; width:160%; height:auto; display:block; pointer-events:none">
+          </div>
+          <div style="padding:0 20px 48px 20px">
+            <div style="min-height:520px; background:#FFFFFF; border:1px solid #D9D2C5; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; color:#8A8278; font-size:13px; text-align:center; padding:20px">
+              <div style="font-weight:600; color:#0E4333; font-size:15px">Calendly inline embed</div>
+              <div>Octavio's calendar loads here.</div>
+            </div>
+          </div>
+        </sc-if>
+
+        <div style="background:#0E4333; padding:20px; display:flex; flex-direction:column; gap:10px; font-size:12px; color:#D7B874">
+          <img src="https://llamasfinancial.com/wp-content/uploads/2026/09/llamas-logo-white.png" alt="Llamas Financial" style="height:22px; width:auto; align-self:flex-start">
+          <span>©2026 Llamas Financial · <a href="https://llamasfinancial.com/privacy-policy/" style="color:#D7B874">Privacy Policy</a></span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { dPage: "landing", mPage: "landing", dName: "", mName: "", dOpen: 0, mOpen: 0 };
+  dRef = React.createRef(); mRef = React.createRef(); dFormRef = React.createRef(); mFormRef = React.createRef();
+  faqs = [
+    { q: "What does the free consultation cover?", a: "About 30 minutes on where your books stand today, what's slowing you down, and what I'd fix first. No pitch deck. You leave with a clear next step whether or not we work together." },
+    { q: "Do you only work with Napa wineries?", a: "No. I'm based in Napa Valley and work with wineries everywhere: estate, custom crush, tasting room brands and multi-label producers." },
+    { q: "What does it cost?", a: "Monthly plans start at $500 and scale with case volume and how much of the accounting you want off your plate. You'll get a fixed quote after the consultation." }
+  ];
+  scrollTo(ref) { const el = ref.current; if (!el) return; const r = el.getBoundingClientRect(); window.scrollBy({ top: r.top - 40, behavior: "smooth" }); el.querySelector("input")?.focus(); }
+  submit(e, which) {
+    e.preventDefault();
+    const form = e.currentTarget; if (!form.reportValidity()) return;
+    const name = (new FormData(form).get("name") || "").toString().trim().split(" ")[0];
+    const ref = which === "d" ? this.dRef : this.mRef;
+    this.setState(which === "d" ? { dPage: "thanks", dName: name } : { mPage: "thanks", mName: name }, () => {
+      const el = ref.current; if (el) window.scrollBy({ top: el.getBoundingClientRect().top - 40, behavior: "smooth" });
+    });
+  }
+  faqList(which) {
+    const open = which === "d" ? this.state.dOpen : this.state.mOpen;
+    return this.faqs.map((f, i) => ({ ...f, open: open === i, mark: open === i ? "−" : "+", toggle: () => this.setState(which === "d" ? { dOpen: open === i ? -1 : i } : { mOpen: open === i ? -1 : i }) }));
+  }
+  renderVals() {
+    const s = this.state;
+    return {
+      dRef: this.dRef, mRef: this.mRef, dFormRef: this.dFormRef, mFormRef: this.mFormRef,
+      dLanding: s.dPage === "landing", dThanks: s.dPage === "thanks",
+      mLanding: s.mPage === "landing", mThanks: s.mPage === "thanks",
+      dNameSuffix: s.dName ? ", " + s.dName : "", mNameSuffix: s.mName ? ", " + s.mName : "",
+      dShowLanding: () => this.setState({ dPage: "landing" }), dShowThanks: () => this.setState({ dPage: "thanks" }),
+      mShowLanding: () => this.setState({ mPage: "landing" }), mShowThanks: () => this.setState({ mPage: "thanks" }),
+      dSubmit: (e) => this.submit(e, "d"), mSubmit: (e) => this.submit(e, "m"),
+      dScrollToForm: () => { if (s.dPage !== "landing") this.setState({ dPage: "landing" }, () => this.scrollTo(this.dFormRef)); else this.scrollTo(this.dFormRef); },
+      mScrollToForm: () => { if (s.mPage !== "landing") this.setState({ mPage: "landing" }, () => this.scrollTo(this.mFormRef)); else this.scrollTo(this.mFormRef); },
+      dFaqs: this.faqList("d"), mFaqs: this.faqList("m")
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,456 +1,1303 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <title>Markology Client Feedback Watch</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-:root{--c-bg:#FFFFFF;--c-bg-alt:#F8FAFC;--c-bg-dark:#0F172A;--c-bg-dark-alt:#1E293B;--c-text:#0F172A;--c-text-muted:#64748B;--c-text-light:#94A3B8;--c-text-on-dark:#F8FAFC;--c-text-on-dark-muted:#CBD5E1;--c-border:#E2E8F0;--c-border-dark:#334155;--c-accent:#0F766E;--c-accent-light:#14B8A6;--c-accent-bg:#F0FDFA;--c-good:#16A34A;--c-good-bg:#F0FDF4;--c-warn:#F59E0B;--c-warn-bg:#FFFBEB;--c-bad:#DC2626;--c-bad-bg:#FEF2F2;--c-ghost:#7C3AED;--c-ghost-bg:#F5F3FF;--font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--max-w:1200px;--radius:10px;--radius-sm:6px;--shadow-sm:0 1px 2px rgba(15,23,42,0.04);--shadow-md:0 4px 12px rgba(15,23,42,0.06)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:var(--font-sans);font-size:15px;line-height:1.55;color:var(--c-text);background:var(--c-bg);-webkit-font-smoothing:antialiased}h1,h2,h3,h4{margin:0 0 12px;font-weight:600;letter-spacing:-0.01em}h1{font-size:36px;line-height:1.15}h2{font-size:26px;line-height:1.2}h3{font-size:18px}h4{font-size:15px}p{margin:0 0 12px}a{color:var(--c-accent);text-decoration:none}a:hover{text-decoration:underline}strong{font-weight:600}
-.topnav{position:sticky;top:0;z-index:100;background:var(--c-bg);border-bottom:1px solid var(--c-border);padding:0 28px}.topnav-inner{max-width:var(--max-w);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;height:64px}.brand-mark{font-weight:700;font-size:18px;letter-spacing:-0.02em;color:var(--c-text)}
-.wrap{max-width:var(--max-w);margin:0 auto;padding:0 28px}section{padding:56px 0;border-bottom:1px solid var(--c-border)}section:last-of-type{border-bottom:none}.section-label{display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-accent);margin-bottom:8px}.section-sub{color:var(--c-text-muted);font-size:15px;max-width:680px;margin-bottom:28px}
-.hero{padding:60px 0 44px;border-bottom:1px solid var(--c-border)}.hero-label{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-accent);margin-bottom:12px}.hero-title{font-size:38px;line-height:1.1;margin-bottom:10px}.hero-title em{font-style:normal;color:var(--c-accent)}.hero-meta{font-size:14px;color:var(--c-text-muted);margin-bottom:0}
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:32px}.kpi-tile{background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow-sm)}.kpi-label{font-size:12px;font-weight:500;color:var(--c-text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}.kpi-value{font-size:28px;font-weight:700;letter-spacing:-0.02em;color:var(--c-text);line-height:1.1}.kpi-sub{font-size:13px;color:var(--c-text-muted);margin-top:6px}.kpi-value.good{color:var(--c-good)}.kpi-value.warn{color:var(--c-warn)}.kpi-value.bad{color:var(--c-bad)}.kpi-value.ghost{color:var(--c-ghost)}
-.alert-box{display:flex;align-items:flex-start;gap:14px;background:var(--c-ghost-bg);border:1.5px solid var(--c-ghost);border-radius:var(--radius);padding:18px 20px;margin-bottom:28px}.alert-icon{font-size:22px;flex-shrink:0;margin-top:1px}.alert-body{flex:1}.alert-title{font-weight:700;font-size:15px;color:var(--c-ghost);margin-bottom:4px}.alert-text{font-size:14px;color:var(--c-text);line-height:1.5}.alert-text a{color:var(--c-ghost)}
-.client-grid{display:flex;flex-direction:column;gap:20px}.client-card{background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm)}.client-card-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--c-border);gap:12px;flex-wrap:wrap}.client-card-header.green{background:var(--c-good-bg);border-left:4px solid var(--c-good)}.client-card-header.yellow{background:var(--c-warn-bg);border-left:4px solid var(--c-warn)}.client-card-header.red{background:var(--c-bad-bg);border-left:4px solid var(--c-bad)}.client-card-header.ghost{background:var(--c-ghost-bg);border-left:4px solid var(--c-ghost)}.client-name{font-weight:700;font-size:17px}.client-meta{font-size:13px;color:var(--c-text-muted)}.traffic-light{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;white-space:nowrap}.traffic-light.green{background:var(--c-good-bg);color:var(--c-good)}.traffic-light.yellow{background:var(--c-warn-bg);color:var(--c-warn)}.traffic-light.red{background:var(--c-bad-bg);color:var(--c-bad)}.traffic-light.ghost{background:var(--c-ghost-bg);color:var(--c-ghost)}.traffic-dot{width:8px;height:8px;border-radius:50%;background:currentColor}
-.client-card-body{padding:20px}
-.table-wrap{background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius-sm);overflow:hidden;margin-bottom:8px;overflow-x:auto}table.data-table{width:100%;border-collapse:collapse;font-size:13px}.data-table thead{background:var(--c-bg-dark);color:var(--c-text-on-dark)}.data-table th{padding:9px 12px;text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap}.data-table td{padding:10px 12px;border-top:1px solid var(--c-border);vertical-align:top}.data-table tbody tr:hover{background:var(--c-bg-alt)}.data-table .badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:11px;font-weight:600}.badge.urgent{background:var(--c-bad-bg);color:var(--c-bad)}.badge.warning{background:var(--c-warn-bg);color:var(--c-warn)}.badge.new{background:#EFF6FF;color:#1D4ED8}.badge.ghost{background:var(--c-ghost-bg);color:var(--c-ghost)}.task-name{font-weight:500}.task-name a{color:var(--c-text)}.task-name a:hover{color:var(--c-accent)}.comment-excerpt{font-size:12px;color:var(--c-text-muted);margin-top:3px;font-style:italic}
-.clean-note{font-size:13px;color:var(--c-good);font-weight:500}
-.footer{padding:32px 0;text-align:center;font-size:13px;color:var(--c-text-muted);border-top:1px solid var(--c-border)}
-@media(max-width:768px){h1,.hero-title{font-size:26px}h2{font-size:20px}.topnav{padding:0 16px}.topnav-inner{height:56px}.wrap{padding:0 16px}section{padding:36px 0}.hero{padding:40px 0 28px}.kpi-grid{grid-template-columns:1fr 1fr}.data-table th,.data-table td{padding:8px 10px}}
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Client Feedback Watch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--c-bg:#FFFFFF;--c-bg-alt:#F8FAFC;--c-bg-dark:#0F172A;--c-bg-dark-alt:#1E293B;--c-text:#0F172A;--c-text-muted:#64748B;--c-text-light:#94A3B8;--c-text-on-dark:#F8FAFC;--c-text-on-dark-muted:#CBD5E1;--c-border:#E2E8F0;--c-border-dark:#334155;--c-accent:#0F766E;--c-accent-light:#14B8A6;--c-accent-bg:#F0FDFA;--c-good:#16A34A;--c-good-bg:#F0FDF4;--c-warn:#D97706;--c-warn-bg:#FFFBEB;--c-bad:#DC2626;--c-bad-bg:#FEF2F2;--font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--max-w:1200px;--radius:10px;--radius-sm:6px;--shadow-sm:0 1px 2px rgba(15,23,42,0.04);--shadow-md:0 4px 12px rgba(15,23,42,0.06)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--font-sans);font-size:15px;line-height:1.55;color:var(--c-text);background:var(--c-bg);-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{margin:0 0 12px;font-weight:600;letter-spacing:-0.01em}h1{font-size:36px;line-height:1.15}h2{font-size:24px;line-height:1.2}h3{font-size:17px}h4{font-size:14px}p{margin:0 0 12px}a{color:var(--c-accent);text-decoration:none}a:hover{text-decoration:underline}strong{font-weight:600}
+.topnav{position:sticky;top:0;z-index:100;background:var(--c-bg);border-bottom:1px solid var(--c-border);padding:0 28px}
+.topnav-inner{max-width:var(--max-w);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:24px;height:64px}
+.brand-mark{font-weight:700;font-size:18px;letter-spacing:-0.02em;color:var(--c-text)}
+.topnav-meta{font-size:13px;color:var(--c-text-muted)}
+.wrap{max-width:var(--max-w);margin:0 auto;padding:0 28px}
+section{padding:40px 0;border-bottom:1px solid var(--c-border)}section:last-of-type{border-bottom:none}
+.hero{padding:48px 0 36px;border-bottom:1px solid var(--c-border);background:var(--c-bg-dark)}
+.hero-inner{max-width:var(--max-w);margin:0 auto;padding:0 28px}
+.hero-label{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-accent-light);margin-bottom:10px}
+.hero-title{font-size:34px;line-height:1.1;margin-bottom:8px;color:var(--c-text-on-dark)}
+.hero-sub{font-size:14px;color:var(--c-text-on-dark-muted);margin-bottom:28px}
+.hero-kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.hero-tile{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.1);border-radius:var(--radius);padding:16px}
+.hero-tile-label{font-size:11px;font-weight:500;color:var(--c-text-on-dark-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:6px}
+.hero-tile-value{font-size:26px;font-weight:700;color:var(--c-text-on-dark);letter-spacing:-0.02em}
+.hero-tile-sub{font-size:12px;color:var(--c-text-on-dark-muted);margin-top:4px}
+.hero-tile-urgent .hero-tile-value{color:#FCA5A5}
+.hero-tile-warning .hero-tile-value{color:#FDE68A}
+.hero-tile-ghost .hero-tile-value{color:#C4B5FD}
+.section-label{display:inline-block;font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-accent);margin-bottom:8px}
+.client-grid{display:flex;flex-direction:column;gap:20px}
+.client-card{background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm)}
+.client-header{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid var(--c-border);background:var(--c-bg-alt)}
+.tl-dot{width:13px;height:13px;border-radius:50%;flex-shrink:0}
+.tl-green{background:var(--c-good)}.tl-yellow{background:var(--c-warn)}.tl-red{background:var(--c-bad)}
+.client-name{font-size:15px;font-weight:600;flex:1}
+.client-meta{font-size:12px;color:var(--c-text-muted)}
+.anomaly-badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:999px;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap}
+.badge-red{background:var(--c-bad-bg);color:var(--c-bad)}.badge-yellow{background:var(--c-warn-bg);color:var(--c-warn)}.badge-green{background:var(--c-good-bg);color:var(--c-good)}
+.table-wrap{border:1px solid var(--c-border);border-radius:var(--radius-sm);overflow-x:auto}
+table.data-table{width:100%;border-collapse:collapse;font-size:13px}
+.data-table thead{background:var(--c-bg-dark);color:var(--c-text-on-dark)}
+.data-table th{padding:9px 12px;text-align:left;font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:0.04em;white-space:nowrap}
+.data-table td{padding:10px 12px;border-top:1px solid var(--c-border);vertical-align:middle}
+.data-table tbody tr:hover{background:var(--c-bg-alt)}
+.footer{text-align:center;padding:28px;font-size:13px;color:var(--c-text-muted);border-top:1px solid var(--c-border)}
+@media(max-width:640px){.hero-title{font-size:24px}.wrap{padding:0 16px}.hero-inner{padding:0 16px}.topnav{padding:0 16px}}
+</style>
 </head>
 <body>
-
 <nav class="topnav">
   <div class="topnav-inner">
     <div class="brand-mark">Markology</div>
-    <div style="font-size:13px;color:var(--c-text-muted)">Internal — Client Feedback Watch</div>
+    <div class="topnav-meta">Client Feedback Watch · 2026-10-15</div>
   </div>
 </nav>
 
-<section class="hero">
-  <div class="wrap">
-    <div class="hero-label">Internal · Daily Watch</div>
-    <h1 class="hero-title">Markology Client Feedback Watch — <em>2026-10-14</em></h1>
-    <p class="hero-meta">Updated 2026-10-14 22:00 UTC · Sources: Edits Needed status, Tasks Needing Revision section, recent client comments</p>
-  </div>
-</section>
-
-<section id="overview">
-  <div class="wrap">
-    <div class="section-label">Agency Totals</div>
-    <h2>Portfolio at a glance</h2>
-
-    <div class="kpi-grid">
-      <div class="kpi-tile">
-        <div class="kpi-label">Total Flagged Tasks</div>
-        <div class="kpi-value">99</div>
-        <div class="kpi-sub">Across 22 named clients</div>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Daily Monitoring Report</div>
+    <h1 class="hero-title">Client Feedback Watch</h1>
+    <div class="hero-sub">Unactioned revision requests across all client boards · Updated 2026-10-15 22:09 UTC</div>
+    <div class="hero-kpi-grid">
+      <div class="hero-tile hero-tile-urgent">
+        <div class="hero-tile-label">Urgent (&gt;7d stale)</div>
+        <div class="hero-tile-value">7</div>
+        <div class="hero-tile-sub">tasks need immediate action</div>
       </div>
-      <div class="kpi-tile">
-        <div class="kpi-label">🔴 Urgent (&gt;7d stale)</div>
-        <div class="kpi-value bad">9</div>
-        <div class="kpi-sub">Action needed now</div>
+      <div class="hero-tile hero-tile-warning">
+        <div class="hero-tile-label">Warning (3–7d)</div>
+        <div class="hero-tile-value">8</div>
+        <div class="hero-tile-sub">tasks getting stale</div>
       </div>
-      <div class="kpi-tile">
-        <div class="kpi-label">🟡 Warning (3–7d stale)</div>
-        <div class="kpi-value warn">13</div>
-        <div class="kpi-sub">Monitor closely</div>
+      <div class="hero-tile">
+        <div class="hero-tile-label">New (&lt;3d)</div>
+        <div class="hero-tile-value">85</div>
+        <div class="hero-tile-sub">recently flagged</div>
       </div>
-      <div class="kpi-tile">
-        <div class="kpi-label">🟢 New (&lt;3d stale)</div>
-        <div class="kpi-value good">77</div>
-        <div class="kpi-sub">Recently flagged</div>
+      <div class="hero-tile hero-tile-ghost">
+        <div class="hero-tile-label">Ghost Comments</div>
+        <div class="hero-tile-value">0</div>
+        <div class="hero-tile-sub">unanswered client msgs</div>
       </div>
-      <div class="kpi-tile">
-        <div class="kpi-label">👻 Ghost Comments</div>
-        <div class="kpi-value ghost">1</div>
-        <div class="kpi-sub">Client comment, no response</div>
+      <div class="hero-tile">
+        <div class="hero-tile-label">Total Flagged</div>
+        <div class="hero-tile-value">100</div>
+        <div class="hero-tile-sub">tasks across all boards</div>
       </div>
-      <div class="kpi-tile">
-        <div class="kpi-label">Clients w/ Urgent Flags</div>
-        <div class="kpi-value bad">1</div>
-        <div class="kpi-sub">KB Financial (7 tasks, 19d)</div>
+      <div class="hero-tile">
+        <div class="hero-tile-label">Clients Affected</div>
+        <div class="hero-tile-value">27</div>
+        <div class="hero-tile-sub">with at least 1 flag</div>
       </div>
     </div>
-
-    <!-- Ghost comment alert -->
-    <div class="alert-box">
-      <div class="alert-icon">👻</div>
-      <div class="alert-body">
-        <div class="alert-title">Ghost Comment — 160 days unanswered</div>
-        <div class="alert-text">
-          <strong>Thomas Gore (Core Advisors)</strong> commented on <a href="https://app.asana.com/0/0/1210399652916172" target="_blank">SEO Blog Post: How Much Should Dentists Have In Retirement Savings (By Decade)?</a> on <strong>May 7, 2026</strong> — no Markology response has been posted. This task is also in the "Tasks Needing Revision" section.<br>
-          <em style="margin-top:6px;display:block">"I don't think the multiples listed work. If including the practice value is intended, I would think to mention that. No too many have that much saved at 45, 55 for example. Not sure how to comment in the doc... Maybe use 'what to save' vs. 'how much to have saved'?"</em>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="clients">
-  <div class="wrap">
-    <div class="section-label">Per-Client</div>
-    <h2>Client cards <span style="font-size:14px;font-weight:400;color:var(--c-text-muted)">— sorted by urgency</span></h2>
-    <p class="section-sub">Sorted by # urgent tasks desc. Tasks with Edits Needed status, Tasks Needing Revision section, or unanswered client comments.</p>
-
-    <div class="client-grid">
-
-      <!-- KB Financial Advisors — RED (7 urgent) -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">KB Financial Advisors</div>
-            <div class="client-meta">7 urgent · 1 warning · 2 new</div>
-          </div>
-          <div class="traffic-light red"><span class="traffic-dot"></span>Red — 7 urgent</div>
-        </div>
-        <div class="client-card-body">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead><tr><th>Task</th><th>Days Stale</th><th>Flag</th><th>Due</th><th>Assignee</th><th>Type</th></tr></thead>
-              <tbody>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1216233137550703" target="_blank">SEO Blog: Roth Conversion Strategy for Founders in a Low-Income Year Before an IPO</a></td>
-                  <td>19d</td><td><span class="badge urgent">URGENT</span></td><td>2026-07-21</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1216232909331221" target="_blank">SEO Blog: QSBS Rollover for Founders: How Section 1045 Extends the Exemption When Selling Early</a></td>
-                  <td>19d</td><td><span class="badge urgent">URGENT</span></td><td>2026-07-07</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1216232910196458" target="_blank">SEO Blog: Cash Management After an IPO: T-Bills, Money Market, and HYSA for Tech IPO Millionaires</a></td>
-                  <td>19d</td><td><span class="badge urgent">URGENT</span></td><td>2026-08-25</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1216233094386951" target="_blank">SEO Blog: How Founders Should Use a Donor Advised Fund for Appreciated Stock Before an IPO</a></td>
-                  <td>19d</td><td><span class="badge urgent">URGENT</span></td><td>2026-08-11</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1216233094440237" target="_blank">SEO Blog: 10b5-1 Plans for Founders: The Cooling Off Period Explained</a></td>
-                  <td>19d</td><td><span class="badge urgent">URGENT</span></td><td>2026-07-14</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1216232909506454" target="_blank">Section 83(i) Deferral for Founders: The Private-Company RSU Election Most Miss</a><div class="comment-excerpt">Note: task name starts with "REPLACE - not used in reality"</div></td>
-                  <td>19d</td><td><span class="badge urgent">URGENT</span></td><td>2026-08-04</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1217999240033632" target="_blank">SEO Blog: Opportunity Zone Fund After an IPO: How to Defer Capital Gains for Tech Founders</a></td>
-                  <td>8d</td><td><span class="badge urgent">URGENT</span></td><td>2026-11-10</td><td>writing@</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1214729615984828" target="_blank">KB Financial Advisors: Add visible Common Questions sections to Elementor service pages</a></td>
-                  <td>7d</td><td><span class="badge warning">WARNING</span></td><td>2026-05-12</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1214287043532631" target="_blank">SEO Blog: When Do You Qualify for QSBS Before an IPO? (5-Year Rule Explained)</a></td>
-                  <td>0d</td><td><span class="badge new">NEW</span></td><td>2026-05-26</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1209068390181609" target="_blank">Create YouTube Intro Video Draft x1</a></td>
-                  <td>0d</td><td><span class="badge new">NEW</span></td><td>—</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Core Advisors — GHOST + WARNING -->
-      <div class="client-card">
-        <div class="client-card-header ghost">
-          <div>
-            <div class="client-name">Core Advisors</div>
-            <div class="client-meta">1 ghost · 1 warning · 3 new</div>
-          </div>
-          <div class="traffic-light ghost"><span class="traffic-dot"></span>Ghost — 160d unanswered</div>
-        </div>
-        <div class="client-card-body">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead><tr><th>Task</th><th>Days Stale</th><th>Flag</th><th>Due</th><th>Assignee</th><th>Type</th></tr></thead>
-              <tbody>
-                <tr>
-                  <td class="task-name">
-                    <a href="https://app.asana.com/0/0/1210399652916172" target="_blank">SEO Blog Post: How Much Should Dentists Have In Retirement Savings (By Decade)?</a>
-                    <div class="comment-excerpt">Thomas Gore (2026-05-07): "I don't think the multiples listed work… Maybe use 'what to save' vs. 'how much to have saved'?"</div>
-                  </td>
-                  <td>5d</td><td><span class="badge ghost">GHOST</span></td><td>2026-05-22</td><td>writing@</td><td>Tasks Needing Revision + Ghost</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1216139830466164" target="_blank">SEO Blog: Health Savings Accounts For Dentists: The Triple-Tax Advantage</a></td>
-                  <td>0d</td><td><span class="badge new">NEW</span></td><td>2026-07-07</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1214285639028292" target="_blank">SEO Blog: How Much Should Dentists Save for Retirement Each Year?</a></td>
-                  <td>0d</td><td><span class="badge new">NEW</span></td><td>2026-05-26</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1214572561224111" target="_blank">Core Advisors: Practice Valuation Hub expansion (state benchmarks + broker worksheets)</a></td>
-                  <td>0d</td><td><span class="badge new">NEW</span></td><td>2026-05-06</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Specialized Accounting Services (SAS) — YELLOW (3 warning, 10 new) -->
-      <div class="client-card">
-        <div class="client-card-header yellow">
-          <div>
-            <div class="client-name">Specialized Accounting Services (SAS)</div>
-            <div class="client-meta">3 warning · 10 new</div>
-          </div>
-          <div class="traffic-light yellow"><span class="traffic-dot"></span>Yellow — 3 warnings</div>
-        </div>
-        <div class="client-card-body">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead><tr><th>Task</th><th>Days Stale</th><th>Flag</th><th>Due</th><th>Assignee</th><th>Type</th></tr></thead>
-              <tbody>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1214287278869093" target="_blank">SEO Blog: The Biggest Financial Mistakes Multi-Unit Business Owners Make</a></td>
-                  <td>5d</td><td><span class="badge warning">WARNING</span></td><td>2026-05-26</td><td>writing@</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1215270561486344" target="_blank">15X Citations</a></td>
-                  <td>4d</td><td><span class="badge warning">WARNING</span></td><td>2026-06-15</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1216139649986376" target="_blank">15X Citations</a></td>
-                  <td>4d</td><td><span class="badge warning">WARNING</span></td><td>2026-07-20</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1217697334922269" target="_blank">SAS: Fix Google listing spelling of Specializes and remove CPAs designation</a></td>
-                  <td>0d</td><td><span class="badge new">NEW</span></td><td>2026-10-13</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr><td colspan="6" style="font-size:12px;color:var(--c-text-muted);font-style:italic">+ 6 more new tasks not shown</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Keen Capital — YELLOW (2 warning, 2 new) -->
-      <div class="client-card">
-        <div class="client-card-header yellow">
-          <div>
-            <div class="client-name">Keen Capital</div>
-            <div class="client-meta">2 warning · 2 new</div>
-          </div>
-          <div class="traffic-light yellow"><span class="traffic-dot"></span>Yellow — 2 warnings</div>
-        </div>
-        <div class="client-card-body">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead><tr><th>Task</th><th>Days Stale</th><th>Flag</th><th>Due</th><th>Assignee</th><th>Type</th></tr></thead>
-              <tbody>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1213721018777556" target="_blank">SEO Blog: Where to Put Cash Right Now: Options for High Net Worth Investors</a></td>
-                  <td>5d</td><td><span class="badge warning">WARNING</span></td><td>2026-05-06</td><td>writing@</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1215271671586028" target="_blank">15X Citations</a></td>
-                  <td>4d</td><td><span class="badge warning">WARNING</span></td><td>2026-06-15</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1213814765843279" target="_blank">Review animated video before next step</a></td>
-                  <td>0d</td><td><span class="badge new">NEW</span></td><td>2026-03-30</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1215793930007042" target="_blank">Keen: Build dedicated /team/ index page</a></td>
-                  <td>0d</td><td><span class="badge new">NEW</span></td><td>2026-06-17</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- U-Nique Accounting — YELLOW (1 warning, 2 new) -->
-      <div class="client-card">
-        <div class="client-card-header yellow">
-          <div>
-            <div class="client-name">U-Nique Accounting</div>
-            <div class="client-meta">1 warning · 2 new</div>
-          </div>
-          <div class="traffic-light yellow"><span class="traffic-dot"></span>Yellow — 1 warning</div>
-        </div>
-        <div class="client-card-body">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead><tr><th>Task</th><th>Days Stale</th><th>Flag</th><th>Due</th><th>Assignee</th><th>Type</th></tr></thead>
-              <tbody>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1213425171352895" target="_blank">Update CoA for 2026 in May</a></td>
-                  <td>7d</td><td><span class="badge warning">WARNING</span></td><td>2026-07-10</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1213506011299372" target="_blank">SEO Blog: How to Use Your Restaurant Tax Return to Plan for 2026</a></td>
-                  <td>0d</td><td><span class="badge new">NEW</span></td><td>2026-04-02</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1216139830468921" target="_blank">SEO Blog: Pour Cost for Taproom Breweries (2026)</a></td>
-                  <td>0d</td><td><span class="badge new">NEW</span></td><td>2026-07-07</td><td>writing@</td><td>Edits Needed</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Vast CFO — YELLOW (1 warning, 2 new) -->
-      <div class="client-card">
-        <div class="client-card-header yellow">
-          <div>
-            <div class="client-name">Vast CFO</div>
-            <div class="client-meta">1 warning · 2 new</div>
-          </div>
-          <div class="traffic-light yellow"><span class="traffic-dot"></span>Yellow — 1 warning</div>
-        </div>
-        <div class="client-card-body">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead><tr><th>Task</th><th>Days Stale</th><th>Flag</th><th>Due</th><th>Assignee</th><th>Type</th></tr></thead>
-              <tbody>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1214733454942952" target="_blank">Vast CFO: Upgrade restaurant break-even calculator (v2 with branded results)</a></td>
-                  <td>7d</td><td><span class="badge warning">WARNING</span></td><td>2026-06-19</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1213080623941720" target="_blank">Create landing page</a></td>
-                  <td>0d</td><td><span class="badge new">NEW</span></td><td>—</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1216572746114178" target="_blank">Review bios &amp; photos</a></td>
-                  <td>0d</td><td><span class="badge new">NEW</span></td><td>—</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Ashford Sky — YELLOW (1 warning, 1 new) -->
-      <div class="client-card">
-        <div class="client-card-header yellow">
-          <div>
-            <div class="client-name">Ashford Sky</div>
-            <div class="client-meta">1 warning · 1 new</div>
-          </div>
-          <div class="traffic-light yellow"><span class="traffic-dot"></span>Yellow — 1 warning</div>
-        </div>
-        <div class="client-card-body">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead><tr><th>Task</th><th>Days Stale</th><th>Flag</th><th>Due</th><th>Assignee</th><th>Type</th></tr></thead>
-              <tbody>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1216224071071014" target="_blank">Run webinar for 23rd</a></td>
-                  <td>7d</td><td><span class="badge warning">WARNING</span></td><td>—</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1212811395051069" target="_blank">Individual Location Pages</a></td>
-                  <td>0d</td><td><span class="badge new">NEW</span></td><td>—</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Unknown client tasks — YELLOW (2 urgent, 2 warning) -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">Unknown / Unassigned Client</div>
-            <div class="client-meta">2 urgent · 2 warning · 19 new — Client custom field not set</div>
-          </div>
-          <div class="traffic-light red"><span class="traffic-dot"></span>Red — 2 urgent (unassigned)</div>
-        </div>
-        <div class="client-card-body">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead><tr><th>Task</th><th>Days Stale</th><th>Flag</th><th>Due</th><th>Assignee</th><th>Type</th></tr></thead>
-              <tbody>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1217996880943012" target="_blank">Send Newsletter</a></td>
-                  <td>14d</td><td><span class="badge urgent">URGENT</span></td><td>2026-09-29</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1212684748701942" target="_blank">Client review of blog post TBD</a></td>
-                  <td>13d</td><td><span class="badge urgent">URGENT</span></td><td>2026-03-12</td><td>Mkt Support</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1217995520177900" target="_blank">Internal Review of blog: How Therapists Can Forecast Income With Variable Sessions</a></td>
-                  <td>5d</td><td><span class="badge warning">WARNING</span></td><td>2026-10-08</td><td>writing@</td><td>Edits Needed</td>
-                </tr>
-                <tr>
-                  <td class="task-name"><a href="https://app.asana.com/0/0/1217995520301134" target="_blank">Internal Review of blog: How To Update Your EIN In Your EHR After A Therapy Practice Restructure</a></td>
-                  <td>5d</td><td><span class="badge warning">WARNING</span></td><td>2026-10-08</td><td>writing@</td><td>Edits Needed</td>
-                </tr>
-                <tr><td colspan="6" style="font-size:12px;color:var(--c-text-muted);font-style:italic">+ 19 more new tasks without Client field set</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Green clients — all new/clean -->
-      <div class="client-card">
-        <div class="client-card-header green">
-          <div>
-            <div class="client-name">Cherry Hill Advisory</div>
-            <div class="client-meta">7 new tasks</div>
-          </div>
-          <div class="traffic-light green"><span class="traffic-dot"></span>Green — all new</div>
-        </div>
-        <div class="client-card-body">
-          <div class="table-wrap">
-            <table class="data-table">
-              <thead><tr><th>Task</th><th>Days Stale</th><th>Flag</th><th>Due</th></tr></thead>
-              <tbody>
-                <tr><td class="task-name"><a href="https://app.asana.com/0/0/1218286838659281" target="_blank">!!! Frontier Brainstorm - how can we advertise more?</a></td><td>0d</td><td><span class="badge new">NEW</span></td><td>2026-10-13</td></tr>
-                <tr><td class="task-name"><a href="https://app.asana.com/0/0/1219464660949252" target="_blank">Cherry Hill Advisory: Q3 review social post</a></td><td>0d</td><td><span class="badge new">NEW</span></td><td>2026-10-14</td></tr>
-                <tr><td class="task-name"><a href="https://app.asana.com/0/0/1215348758411349" target="_blank">Start Nurture Funnel Email Tracks for Every Lead Magnet</a></td><td>0d</td><td><span class="badge new">NEW</span></td><td>2026-10-13</td></tr>
-                <tr><td class="task-name"><a href="https://app.asana.com/0/0/1217147840947675" target="_blank">Input blog into platform</a></td><td>0d</td><td><span class="badge new">NEW</span></td><td>2026-10-13</td></tr>
-                <tr><td colspan="4" style="font-size:12px;color:var(--c-text-muted);font-style:italic">+ 3 more new tasks</td></tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-
-      <!-- Remaining green clients — summary row -->
-      <div class="client-card">
-        <div class="client-card-header green">
-          <div>
-            <div class="client-name">All Other Clients — Green (new tasks only)</div>
-            <div class="client-meta">TL;DR Accounting (4) · Elevated Tax (4) · The Fitness CPA (4) · Tarleton Estate Attorney (3) · BizBud (2) · Bookkeeping for Brokers (2) · Steven M. Ellard CPA (2) · Virjee Consulting Dental (2) · Traktion (2) · Thompson Flaherty (1) · Thompson Flaherty CPA (1) · Cherry Hill CFO (1) · SAS-CPAs (1)</div>
-          </div>
-          <div class="traffic-light green"><span class="traffic-dot"></span>Green — all &lt;3d</div>
-        </div>
-        <div class="client-card-body">
-          <p style="font-size:14px;color:var(--c-text-muted);margin:0">These clients have tasks flagged with Edits Needed status, but all were updated within the last 3 days — no immediate action required. Tasks are actively being worked.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<div class="footer">
-  <div class="wrap">
-    <p>Updated daily at 8am Sydney / 22:00 UTC · <a href="https://app.asana.com/0/1209521999646340" target="_blank">Master Client Tasks List</a> · <a href="https://app.asana.com/0/1210841782307553" target="_blank">Client Changes Project</a></p>
-    <p style="margin:0">Flags: <strong style="color:var(--c-bad)">Urgent</strong> = &gt;7d stale · <strong style="color:var(--c-warn)">Warning</strong> = 3–7d · <strong style="color:#1D4ED8">New</strong> = &lt;3d · <strong style="color:var(--c-ghost)">Ghost</strong> = unanswered client comment</p>
   </div>
 </div>
 
+<div class="wrap">
+  <section>
+    <div class="section-label">Client Breakdown</div>
+    <h2>Flagged Tasks by Client</h2>
+    <p style="color:var(--c-text-muted);font-size:14px">Sorted by urgency. Red = urgent (&gt;7d unactioned), Yellow = warning (3–7d), Green = new (&lt;3d).</p>
+    <div class="client-grid">
+
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-red"></div>
+      <div class="client-name">KB Financial Advisors</div>
+      <div class="client-meta">2 urgent · 1 new</div>
+      <span class="anomaly-badge badge-red">Urgent</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1217999240033632" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: Opportunity Zone Fund After an IPO: How to Defer Capital Gains for Tec…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-bad-bg);color:var(--c-bad);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">URGENT</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">9d ago</td>
+      <td style="font-size:12px">writing@markology.io</td>
+      <td style="font-size:12px;white-space:nowrap">2026-11-10</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214729615984828" target="_blank" style="color:var(--c-accent);font-weight:500">KB Financial Advisors: Add visible Common Questions sections to Elementor servic…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-bad-bg);color:var(--c-bad);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">URGENT</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">8d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-12</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214287043532631" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: When Do You Qualify for QSBS Before an IPO? (5-Year Rule Explained)</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-26</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-red"></div>
+      <div class="client-name">Unknown</div>
+      <div class="client-meta">1 urgent · 2 warning · 16 new</div>
+      <span class="anomaly-badge badge-red">Urgent</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1212684748701942" target="_blank" style="color:var(--c-accent);font-weight:500">Client review of blog post TBD </a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-bad-bg);color:var(--c-bad);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">URGENT</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">14d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-03-12</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1217995520177900" target="_blank" style="color:var(--c-accent);font-weight:500">Internal Review of blog: How Therapists Can Forecast Income With Variable Sessio…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-warn-bg);color:var(--c-warn);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">WARNING</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">6d ago</td>
+      <td style="font-size:12px">writing@markology.io</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-08</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1217995520301134" target="_blank" style="color:var(--c-accent);font-weight:500">Internal Review of blog: How To Update Your EIN In Your EHR After A Therapy Prac…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-warn-bg);color:var(--c-warn);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">WARNING</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">6d ago</td>
+      <td style="font-size:12px">writing@markology.io</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-08</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1216139851691593" target="_blank" style="color:var(--c-accent);font-weight:500">Write Blog: Pour Cost for Taproom Breweries (2026 Guide)</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">1d ago</td>
+      <td style="font-size:12px">Unassigned</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1217997093966010" target="_blank" style="color:var(--c-accent);font-weight:500">Internal Review of blog: How Electrical Contractors Should Plan for Q3 Estimated…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-09-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214865760256535" target="_blank" style="color:var(--c-accent);font-weight:500">3. Add NitroPack plugin (national / slow sites only)</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-24</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214865766488393" target="_blank" style="color:var(--c-accent);font-weight:500">1. Upload Rank Math Pro</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-24</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1215270528284938" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: [BLOG NAME]</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-22</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1215270561258139" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: [BLOG NAME]</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1215270640044274" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: [BLOG NAME]</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1215270640077169" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: [BLOG NAME]</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1215270640086541" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: [BLOG NAME]</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-22</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1215270676114894" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: [BLOG NAME]</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-22</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1213720414709786" target="_blank" style="color:var(--c-accent);font-weight:500">Input blog into platform</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-04-16</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1213620411824029" target="_blank" style="color:var(--c-accent);font-weight:500">Website Improvements: Contact Page</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-03-23</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1213530814417286" target="_blank" style="color:var(--c-accent);font-weight:500">Input blog into platform</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-03-17</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1211791572331424" target="_blank" style="color:var(--c-accent);font-weight:500">Video Cut #1 Development</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-04-29</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1211833925462776" target="_blank" style="color:var(--c-accent);font-weight:500">Create [MONTH] Google Ads Campaign</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1211462349826120" target="_blank" style="color:var(--c-accent);font-weight:500">Write blog post: End of Year Checklist for S-Corp Owners </a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2025-10-20</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-red"></div>
+      <div class="client-name">Vast CFO</div>
+      <div class="client-meta">1 urgent · 2 new</div>
+      <span class="anomaly-badge badge-red">Urgent</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1214733454942952" target="_blank" style="color:var(--c-accent);font-weight:500">Vast CFO: Upgrade restaurant break-even calculator (v2 with branded results)</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-bad-bg);color:var(--c-bad);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">URGENT</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">8d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-19</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1213080623941720" target="_blank" style="color:var(--c-accent);font-weight:500">Create landing page </a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1216572746114178" target="_blank" style="color:var(--c-accent);font-weight:500">review bios &amp; photos</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-red"></div>
+      <div class="client-name">Markology</div>
+      <div class="client-meta">1 urgent</div>
+      <span class="anomaly-badge badge-red">Urgent</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1214731410154678" target="_blank" style="color:var(--c-accent);font-weight:500">Markology: Fix daily-agents workflow failures (Support Intake + Dispatcher)</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-bad-bg);color:var(--c-bad);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">URGENT</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">8d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-12</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-red"></div>
+      <div class="client-name">U-Nique Accounting</div>
+      <div class="client-meta">1 urgent · 2 new</div>
+      <span class="anomaly-badge badge-red">Urgent</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1213425171352895" target="_blank" style="color:var(--c-accent);font-weight:500">Update CoA for 2026 in May </a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-bad-bg);color:var(--c-bad);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">URGENT</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">8d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-07-10</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1216139830468921" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: Pour Cost for Taproom Breweries (2026)</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">1d ago</td>
+      <td style="font-size:12px">writing@markology.io</td>
+      <td style="font-size:12px;white-space:nowrap">2026-07-07</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1213506011299372" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog:  How to Use Your Restaurant Tax Return to Plan for 2026 </a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-04-02</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-red"></div>
+      <div class="client-name">Ashford Sky</div>
+      <div class="client-meta">1 urgent · 1 new</div>
+      <span class="anomaly-badge badge-red">Urgent</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1216224071071014" target="_blank" style="color:var(--c-accent);font-weight:500">Run webinar for 23rd -</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-bad-bg);color:var(--c-bad);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">URGENT</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">8d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1212811395051069" target="_blank" style="color:var(--c-accent);font-weight:500">Individual Location Pages</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-yellow"></div>
+      <div class="client-name">Specialized Accounting Services (SAS)</div>
+      <div class="client-meta">3 warning · 10 new</div>
+      <span class="anomaly-badge badge-yellow">Warning</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1214287278869093" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: The Biggest Financial Mistakes Multi-Unit Business Owners Make</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-warn-bg);color:var(--c-warn);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">WARNING</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">6d ago</td>
+      <td style="font-size:12px">writing@markology.io</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-26</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1215270561486344" target="_blank" style="color:var(--c-accent);font-weight:500">15X Citations</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-warn-bg);color:var(--c-warn);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">WARNING</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">5d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1216139649986376" target="_blank" style="color:var(--c-accent);font-weight:500">15X Citations</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-warn-bg);color:var(--c-warn);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">WARNING</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">5d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-07-20</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1217843707362885" target="_blank" style="color:var(--c-accent);font-weight:500">SAS: Audit historical CC sends and document recurring annual campaigns</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">1d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-13</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1217843746081422" target="_blank" style="color:var(--c-accent);font-weight:500">SAS: Update Constant Contact sender domain to sas-acct.com</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">1d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-13</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1217843748898008" target="_blank" style="color:var(--c-accent);font-weight:500">SAS: Investigate missing July 4th CC email and schedule year-end sends</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">1d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-13</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1216139830500704" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: [BLOG NAME]</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-07-07</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1216139649986358" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: [BLOG NAME]</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-07-21</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1216139851596917" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: [BLOG NAME]</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-07-14</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1210814698009029" target="_blank" style="color:var(--c-accent);font-weight:500">Adding www in front - can we do this Friday night or Sunday night? Let Bobby kno…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1213336312637435" target="_blank" style="color:var(--c-accent);font-weight:500">Accessibility access check - SAS CPAs</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-03-09</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214472037213797" target="_blank" style="color:var(--c-accent);font-weight:500">Review and fix website accessibility compliance</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-01</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1217697334922269" target="_blank" style="color:var(--c-accent);font-weight:500">SAS: Fix Google listing spelling of Specializes and remove CPAs designation</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-13</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-yellow"></div>
+      <div class="client-name">Core Advisors</div>
+      <div class="client-meta">1 warning · 3 new</div>
+      <span class="anomaly-badge badge-yellow">Warning</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1210399652916172" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog Post: How Much Should Dentists Have In Retirement Savings (By Decade)?</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-warn-bg);color:var(--c-warn);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">WARNING</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">6d ago</td>
+      <td style="font-size:12px">writing@markology.io</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-22</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1216139830466164" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: Health Savings Accounts For Dentists: The Triple-Tax Advantage And How…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-07-07</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214285639028292" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: How Much Should Dentists Save for Retirement Each Year?</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-26</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214572561224111" target="_blank" style="color:var(--c-accent);font-weight:500">Core Advisors: Practice Valuation Hub expansion (state benchmarks + broker works…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-06</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-yellow"></div>
+      <div class="client-name">TL;DR Accounting</div>
+      <div class="client-meta">1 warning · 4 new</div>
+      <span class="anomaly-badge badge-yellow">Warning</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1215270528254909" target="_blank" style="color:var(--c-accent);font-weight:500">15X Citations</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-warn-bg);color:var(--c-warn);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">WARNING</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">5d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1215270561189791" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: [BLOG NAME]</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-08</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1215270640093955" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: [BLOG NAME]</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-22</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1215270676085128" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: [BLOG NAME]</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1215270836144636" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: [BLOG NAME]</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-01</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-yellow"></div>
+      <div class="client-name">Keen Capital</div>
+      <div class="client-meta">1 warning · 3 new</div>
+      <span class="anomaly-badge badge-yellow">Warning</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1215271671586028" target="_blank" style="color:var(--c-accent);font-weight:500">15X Citations</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-warn-bg);color:var(--c-warn);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">WARNING</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">5d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1213814765843279" target="_blank" style="color:var(--c-accent);font-weight:500">Review animated video before next step</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-03-30</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1215793930007042" target="_blank" style="color:var(--c-accent);font-weight:500">Keen: Build dedicated /team/ index page</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-17</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1213721018777556" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: Where to Put Cash Right Now: Options for High Net Worth Investors</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">writing@markology.io</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-06</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">Traktion</div>
+      <div class="client-meta">5 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1219303860362613" target="_blank" style="color:var(--c-accent);font-weight:500">Traktion: Retitle the chart of accounts template post for 2026</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">1d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-20</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1217994468549398" target="_blank" style="color:var(--c-accent);font-weight:500">Create September 2026 Google Ads Campaign</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-14</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1217994675377397" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: 1120S Amended Return For Therapists: How To Fix An S Corp Tax Mistake</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-19</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1217996046303622" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: S Corp Payroll For Therapists: How To Book Your Salary And Distributio…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-19</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1217996880902495" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: How To Update Your EIN In Your EHR After A Therapy Practice Entity Cha…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-19</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">Cherry Hill CFO</div>
+      <div class="client-meta">1 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1216964518297882" target="_blank" style="color:var(--c-accent);font-weight:500">Review CFO about page</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">1d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-13</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">Cherry Hill Advisory</div>
+      <div class="client-meta">6 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1215348758411349" target="_blank" style="color:var(--c-accent);font-weight:500">Start Nurture Funnel Email Tracks for Every Lead Magnet</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">1d ago</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-13</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1213875021940541" target="_blank" style="color:var(--c-accent);font-weight:500">Create FAQ Page (Main)</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1213471844376311" target="_blank" style="color:var(--c-accent);font-weight:500">Website Updates - Cherry Hill Advisory</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-03-23</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1217147840947675" target="_blank" style="color:var(--c-accent);font-weight:500">Input blog into platform</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">writing@markology.io</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-13</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1218286838659281" target="_blank" style="color:var(--c-accent);font-weight:500">!!! Frontier Brainstorm - how can we advertise more? </a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-13</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1219464660949252" target="_blank" style="color:var(--c-accent);font-weight:500">Cherry Hill Advisory: Q3 review social post</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-14</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">Bookkeeping for Brokers (BFB)</div>
+      <div class="client-meta">2 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1212352228945499" target="_blank" style="color:var(--c-accent);font-weight:500">Create /videos page and also a video post page</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214287544699513" target="_blank" style="color:var(--c-accent);font-weight:500">Weekly SEO Blog #1</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-05</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">Steven M. Ellard, CPA</div>
+      <div class="client-meta">2 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1215271699161300" target="_blank" style="color:var(--c-accent);font-weight:500">Client review of blog post: How Much Does Payroll Cost for a Small Business on C…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214172249830340" target="_blank" style="color:var(--c-accent);font-weight:500">Client Review of blog: Airbnb &amp; VRBO Tax on Cape Cod: What Hosts Actually Ow…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">Thompson Flaherty</div>
+      <div class="client-meta">1 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1215248555498994" target="_blank" style="color:var(--c-accent);font-weight:500">Send final files today please!</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-05</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">Elevated Tax</div>
+      <div class="client-meta">4 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1214593314779693" target="_blank" style="color:var(--c-accent);font-weight:500">Spin up landing page / ad campaign - real estate agents; single member llcs </a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-22</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1213986575726243" target="_blank" style="color:var(--c-accent);font-weight:500">URGENT! KB CPAs Links Broken - All (See below)</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-07</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1213729851517365" target="_blank" style="color:var(--c-accent);font-weight:500">Add S-Corp calculator to banner in the homepage</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-03-24</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1213729675077672" target="_blank" style="color:var(--c-accent);font-weight:500">Lead magnet for med spas - tax savings checklist? </a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-04-02</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">Tarleton Estate Attorney</div>
+      <div class="client-meta">4 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1214286885475944" target="_blank" style="color:var(--c-accent);font-weight:500">Input blog post into website: What Happens to a Business When the Owner Dies in …</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1213365786636740" target="_blank" style="color:var(--c-accent);font-weight:500">Replace chart in trusts vs. wills blog with new graphic (from Allan's email)</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-29</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1215792290641021" target="_blank" style="color:var(--c-accent);font-weight:500">Dev: Tarleton — Tyler location page build (third Texas market)</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-06-19</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214287109184954" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: Small Estate Affidavit Texas: Requirements, Limits, and How to File</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">writing@markology.io</td>
+      <td style="font-size:12px;white-space:nowrap">2026-05-12</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">BizBud</div>
+      <div class="client-meta">2 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1213798815344827" target="_blank" style="color:var(--c-accent);font-weight:500">Input blog into platform: LLC vs S Corp for Content Creators: What Actually Save…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1213720758465266" target="_blank" style="color:var(--c-accent);font-weight:500">Internal Review of blog: How Much Tax Do Content Creators Actually Pay?</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-04-25</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">Cherry Hill</div>
+      <div class="client-meta">1 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1213546439239100" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog:  The Most Common Cybersecurity Control Failures Internal Audit Identif…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-03-18</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">Tarleton</div>
+      <div class="client-meta">1 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1212713236017760" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog Post: TBD </a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">The Fitness CPA</div>
+      <div class="client-meta">1 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1210154929870343" target="_blank" style="color:var(--c-accent);font-weight:500">Add the email signature pic to this folder - Create folder for approved Eric hea…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">Specialized Accounting Services (SAS-CPAs)</div>
+      <div class="client-meta">1 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1210987007395759" target="_blank" style="color:var(--c-accent);font-weight:500">Review Biggby Coffee Convention - Emails</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">—</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">Thompson Flaherty CPA</div>
+      <div class="client-meta">7 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1217998642889784" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: Retirement Plan Options for Illinois Self-Employed: SEP vs Solo 401(k)</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-16</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214437703320931" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog Post: When Should an Illinois Business Switch from Sole Prop or LLC to …</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">writing@markology.io</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-16</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214627068940685" target="_blank" style="color:var(--c-accent);font-weight:500">SEO Blog: How Much Does an Accountant Cost in the Metro East? (2026 Pricing Guid…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">writing@markology.io</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-16</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214437474738106" target="_blank" style="color:var(--c-accent);font-weight:500">Write blog post</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">writing@markology.io</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214443315378472" target="_blank" style="color:var(--c-accent);font-weight:500">Write blog post</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">writing@markology.io</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214627007870386" target="_blank" style="color:var(--c-accent);font-weight:500">Write blog post: How Much Does an Accountant Cost in the Metro East? (2026 Prici…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">writing@markology.io</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1219159834356662" target="_blank" style="color:var(--c-accent);font-weight:500">Thompson Flaherty CPA: tax tripwire escalation on Missouri PTE blog (OBBBA SALT …</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">Affinity Accounting</div>
+      <div class="client-meta">1 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1219535959544127" target="_blank" style="color:var(--c-accent);font-weight:500">Affinity Accounting: tax tripwire escalation on Illinois PTE blog (OBBBA SALT ca…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Unassigned</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-16</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">Llamas Financial</div>
+      <div class="client-meta">2 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1214596009023886" target="_blank" style="color:var(--c-accent);font-weight:500">Llamas Financial: Fix Google Ads conversion tracking</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1214596009278231" target="_blank" style="color:var(--c-accent);font-weight:500">Llamas Financial: Build winery operations content cluster (5 articles)</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="client-card">
+    <div class="client-header">
+      <div class="tl-dot tl-green"></div>
+      <div class="client-name">Virjee Consulting Dental</div>
+      <div class="client-meta">2 new</div>
+      <span class="anomaly-badge badge-green">On Track</span>
+    </div>
+    <div class="client-body" style="padding:0">
+      <div class="table-wrap" style="margin:0;border:none">
+        <table class="data-table">
+          <thead><tr>
+            <th>Task</th><th>Status</th><th>Stale</th><th>Assignee</th><th>Due</th><th>Source</th>
+          </tr></thead>
+          <tbody><tr>
+      <td><a href="https://app.asana.com/0/0/1219404004541540" target="_blank" style="color:var(--c-accent);font-weight:500">Virjee Consulting - Dental: Redesign Dental Consulting hub page with more real e…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Unassigned</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr><tr>
+      <td><a href="https://app.asana.com/0/0/1218870214302386" target="_blank" style="color:var(--c-accent);font-weight:500">Tax tripwire escalation: dentalcpausa.com refresh (selling taxes, new tax law, y…</a></td>
+      <td style="white-space:nowrap"><span style="background:var(--c-good-bg);color:var(--c-good);font-size:10px;font-weight:700;padding:2px 7px;border-radius:4px;white-space:nowrap">NEW</span></td>
+      <td style="white-space:nowrap;font-size:12px;color:var(--c-text-muted)">Today</td>
+      <td style="font-size:12px">Markology Support Team</td>
+      <td style="font-size:12px;white-space:nowrap">2026-10-15</td>
+      <td style="font-size:11px;color:var(--c-text-muted)">Edits Needed</td>
+    </tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+    </div>
+  </section>
+</div>
+
+<div class="footer">
+  Updated daily at 8am Sydney / 22:00 UTC · <a href="https://markology-agency.github.io/pages/_internal/client-feedback-watch/">Permalink</a>
+</div>
 </body>
 </html>

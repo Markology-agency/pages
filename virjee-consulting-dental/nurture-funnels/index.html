@@ -1,0 +1,193 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<title>Virjee Email Journeys</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap');
+:root{--deep:#0F3501;--dark:#001F1A;--mint:#42D393;--moss:#35583E;--ink:#0B0F0B;--text:#111111;--grey:#72796F;--line:#D9D9D9;--wash:#F0F6FC;--bg:#ffffff;--off:#9AA19A;--gap:#C2410C;--gapbg:#FFF4ED}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 Manrope,system-ui,sans-serif}
+h1,h2,h3{font-family:'Plus Jakarta Sans',sans-serif;color:var(--deep);line-height:1.2;margin:0}
+a{color:var(--deep)}
+.wrap{max-width:1240px;margin:0 auto;padding:0 16px}
+.hero{background:var(--dark);color:#fff;padding:40px 0 34px}
+.hero h1{color:#fff;font-size:clamp(26px,4vw,40px);margin-bottom:10px}
+.hero p{color:#dfe9e3;max-width:760px;margin:0 0 6px}
+.stats{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.stat{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:12px 16px;min-width:150px}
+.stat b{display:block;font:800 26px 'Plus Jakarta Sans',sans-serif;color:var(--mint)}
+.stat.gapc b{color:#FDBA74}
+.stat span{font-size:13px;color:#cfdcd5}
+.legend{display:flex;flex-wrap:wrap;gap:18px;padding:16px 0;font-size:13px;color:var(--grey);border-bottom:1px solid var(--line)}
+.legend i{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:-2px;margin-right:6px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;padding:16px 0}
+.toc a{font-size:13px;text-decoration:none;border:1px solid var(--line);border-radius:56px;padding:6px 12px;color:var(--deep);background:#fff}
+.toc a.off{color:var(--grey);border-style:dashed}
+.toc a.g{color:var(--gap);border-color:#F5C3A5;background:var(--gapbg)}
+h2.group{font-size:22px;margin:34px 0 4px}
+p.groupnote{color:var(--grey);margin:0 0 8px}
+.lane{border:1px solid var(--line);border-radius:16px;margin:18px 0;background:#fff;overflow:hidden}
+.lane.off{border-style:dashed;background:#FAFAFA}
+.lanehead{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:baseline;padding:16px 18px 6px}
+.lanehead h3{font-size:18px}
+.pill{font-size:12px;font-weight:700;border-radius:56px;padding:3px 10px;white-space:nowrap}
+.pill.on{background:#E3F8EE;color:#11643B}.pill.offp{background:#EEE;color:#555}.pill.manual{background:#E8EEF8;color:#2B4A7A}
+.trigger{font-size:13px;color:var(--grey);padding:0 18px 4px}
+.trigger b{color:var(--text);font-weight:600}
+.track{display:flex;gap:0;overflow-x:auto;padding:14px 18px 20px;scroll-snap-type:x proximity}
+.step{flex:0 0 212px;scroll-snap-align:start;position:relative;padding-top:30px;margin-right:16px}
+.step:before{content:"";position:absolute;top:10px;left:0;right:-16px;height:2px;background:var(--line)}
+.step:last-child:before{right:50%}
+.dot{position:absolute;top:4px;left:0;width:14px;height:14px;border-radius:50%;background:var(--mint);border:2px solid #fff;box-shadow:0 0 0 1px var(--moss)}
+.off .dot{background:#D5D8D5;box-shadow:0 0 0 1px var(--off)}
+.when{position:absolute;top:0;left:20px;font:700 12px 'Plus Jakarta Sans',sans-serif;color:var(--moss)}
+.card{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;cursor:zoom-in;display:block;width:100%;padding:0;text-align:left;font:inherit}
+.card:focus-visible{outline:3px solid var(--mint)}
+.thumb{height:250px;overflow:hidden;background:var(--wash);border-bottom:1px solid var(--line)}
+.thumb img{width:100%;display:block}
+.off .thumb img{filter:grayscale(.6);opacity:.85}
+.subj{padding:9px 11px 11px;font-size:13px;line-height:1.35}
+.subj small{display:block;color:var(--grey);font-size:11.5px;margin-top:3px}
+.flag{display:block;margin-top:6px;font-size:11.5px;color:var(--gap);font-weight:600}
+.endcard{border:1px dashed var(--line);border-radius:12px;height:100%;min-height:120px;display:flex;align-items:center;justify-content:center;text-align:center;padding:14px;color:var(--grey);font-size:13px;background:#fff}
+.endcard.gap{border:2px solid #F5C3A5;background:var(--gapbg);color:var(--gap);font-weight:600}
+.step.end .dot{background:#fff;box-shadow:0 0 0 1px var(--line)}
+.step.end.gapstep .dot{background:var(--gap);box-shadow:0 0 0 1px var(--gap)}
+.branchlabel{font:700 13px 'Plus Jakarta Sans',sans-serif;color:var(--deep);padding:12px 18px 0;border-top:1px solid #EEF1EE}
+.branchlabel:first-of-type{border-top:0}
+.branchlabel span{font:500 12px Manrope,sans-serif;color:var(--grey);margin-left:6px}
+.gaps{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:12px 0 10px}
+.gapbox{border:2px solid #F5C3A5;background:var(--gapbg);border-radius:14px;padding:16px}
+.gapbox h3{color:var(--gap);font-size:16px;margin-bottom:6px}
+.gapbox p{margin:0 0 8px;font-size:14px}
+.gapbox .fix{font-size:13px;color:#7A2E0A}
+table.copy{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+table.copy th{background:var(--moss);color:#fff;text-align:left;padding:8px}
+table.copy td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+.scroll{overflow-x:auto}
+footer{color:var(--grey);font-size:13px;padding:30px 0 40px}
+#lb{position:fixed;inset:0;background:rgba(0,20,15,.86);display:none;align-items:flex-start;justify-content:center;overflow:auto;padding:30px 16px;z-index:9}
+#lb.open{display:flex}
+#lb figure{margin:0;max-width:560px;width:100%}
+#lb img{width:100%;border-radius:10px;display:block;background:#fff}
+#lb figcaption{color:#fff;font-size:14px;margin:0 0 10px}
+#lb button{position:fixed;top:14px;right:18px;background:var(--mint);color:var(--ink);border:0;border-radius:56px;padding:8px 16px;font-weight:700;cursor:pointer}
+@media (max-width:600px){.step{flex-basis:180px}.thumb{height:210px}}
+</style></head><body>
+
+<div class="hero"><div class="wrap">
+<h1>What people get from Virjee by email</h1>
+<p>Every automated email in Virjee's HubSpot, laid out as the timeline a person moves through after they book a call, download something or fill in a form. Click any email to read it in full.</p>
+<p>Built from the live HubSpot account on October 15, 2026. If it isn't in HubSpot, it shows here as a gap.</p>
+<div class="stats">
+<div class="stat"><b>8</b><span>journeys switched on</span></div>
+<div class="stat"><b>3</b><span>built but switched off</span></div>
+<div class="stat"><b>40</b><span>emails shown</span></div>
+<div class="stat gapc"><b>6</b><span>places people get nothing</span></div>
+</div>
+</div></div>
+
+<div class="wrap">
+<div class="legend">
+<span><i style="background:var(--mint)"></i>Live: sending now</span>
+<span><i style="background:#D5D8D5;border:1px dashed var(--off)"></i>Built, switched off</span>
+<span><i style="background:var(--gapbg);border:2px solid #F5C3A5"></i>Gap: nothing sends</span>
+<span>Day 0 is the day they enter. Emily's follow-up counts business days between emails.</span>
+</div>
+<nav class="toc" id="toc"></nav>
+
+<h2 class="group">After someone books a call</h2>
+<p class="groupnote">Everyone who books gets a "what to expect" email right away. The next emails depend on how they answered "Which best describes you?" on the form.</p>
+<div id="booked"></div>
+
+<h2 class="group">Lead magnets and welcome series</h2>
+<p class="groupnote">These start when someone downloads something or joins the list.</p>
+<div id="magnets"></div>
+
+<h2 class="group">Built but switched off</h2>
+<p class="groupnote">These are written and wired in HubSpot. Nobody receives them until they're turned on.</p>
+<div id="off"></div>
+
+<h2 class="group">Webinars</h2>
+<p class="groupnote">Webinar emails go out as one-off sends, not as an automated series.</p>
+<div id="webinar"></div>
+
+<h2 class="group" id="gaps">Where people get nothing</h2>
+<div class="gaps">
+<div class="gapbox"><h3>1. Webinar registrants after the replay</h3><p>The Sept 30 replay went to 59 people. Nothing follows it, so a registrant who didn't book hears nothing until the next invite.</p><p class="fix">Fix: a short follow-up after each replay (one idea from the webinar, then a book-a-call email).</p></div>
+<div class="gapbox"><h3>2. Practice buyers</h3><p>The 4-email buying series is switched off. A buyer who fills in the form gets the general owner or startup emails instead, and only if they book.</p><p class="fix">Fix: turn on the buying series. It needs the empty table in email #2 fixed first.</p></div>
+<div class="gapbox"><h3>3. Valuation calculator users</h3><p>Their first email thanks them for joining the mailing list. No email mentions their valuation or what to do with the number.</p><p class="fix">Fix: a first email about their result and a written valuation, then the existing series.</p></div>
+<div class="gapbox"><h3>4. After any series ends</h3><p>Every journey stops after its last email. The Law series even promises "our regular newsletter", but no newsletter is set up in HubSpot.</p><p class="fix">Fix: add everyone who finishes a series to a monthly newsletter list.</p></div>
+<div class="gapbox"><h3>5. Medical contacts</h3><p>The medical welcome is off, and a medical owner who books gets 2 emails where a dental owner gets 3.</p><p class="fix">Decision for Omar: keep nurturing medical leads, or leave them with Emily only.</p></div>
+<div class="gapbox"><h3>6. Form filled, no call booked</h3><p>Emily's 4-email Book a Call follow-up catches these people once a deal is created. The 1-hour reminder we built is off so the two don't double up.</p><p class="fix">Decision for Omar and Emily: keep Emily's sequence alone, or add the 1-hour reminder in front of it.</p></div>
+</div>
+
+<h2 class="group">Copy to fix in emails that are live now</h2>
+<div class="scroll"><table class="copy">
+<tr><th>Email</th><th>What it says</th><th>Change</th></tr>
+<tr><td>Welcome - Local #1</td><td>"We'll be in touch within 24 hours"</td><td>Remove the time promise: "Someone from our team will reach out to set up a call."</td></tr>
+<tr><td>Booked - Medical owner #1</td><td>"our team (who work exclusively with dentists)"</td><td>Say "medical practices" or drop the line.</td></tr>
+<tr><td>Book a Call #1 (Emily)</td><td>"We partner exclusively with healthcare professionals"</td><td>Dental leads read this as "not dental-only". Say "dental practices".</td></tr>
+<tr><td>Book a Call #1 to #4 (Emily)</td><td>All four have the same subject line</td><td>Give each one its own subject so the later ones get opened.</td></tr>
+<tr><td>Booking nudge - No-Show</td><td>Subject "You're one step from booking your call" on an email about a missed call</td><td>Subject: "Sorry we missed you. Want to pick a new time?"</td></tr>
+<tr><td>Welcome - Vet #2</td><td>Subject says "for medical professionals"</td><td>Change to "for veterinarians".</td></tr>
+</table></div>
+
+<footer>Prepared by Markology for Virjee Consulting, October 15, 2026. Source: Virjee HubSpot workflows and marketing emails, read live. Not shown: internal notifications, deal and owner automations, and contact-cleanup workflows.</footer>
+</div>
+
+<div id="lb" role="dialog" aria-modal="true"><button type="button" onclick="closeLb()">Close</button><figure><figcaption id="lbcap"></figcaption><img id="lbimg" alt=""></figure></div>
+
+<script>
+const E={
+'397048978118':'Your call is booked ✅ Here’s what to expect','397048978121':'Dentist Hit with $75K Tax Bill: 5 Strategies We Used to Eliminate It','397048978124':'Dr. Sean Delaney, MD recorded this for you','397048978127':'📅 Your call is booked — Here’s what to expect','397055897326':'💡How one startup owner reduced $22,000 in taxes','397048978131':'Your call is booked ✅ Here’s what to expect','397048978134':'💡How a 1099 associate saved $18,000 in taxes','397055897331':'Your call is booked ✅ Here’s what to expect','397048978138':'Physician Hit with $75K Tax Bill: 5 Strategies We Used to Eliminate It','397048978141':'📅 Your call is booked — Here’s what to expect','397048978144':'💡How one startup owner reduced $22,000 in taxes',
+'397048979143':'Here’s Your Download! 👇','397048979147':'We’re glad you’re here! 👋','397065899725':'Which KPIs Should You Be Tracking? 🎥','397048979154':'How Much Is Your Dental Practice Worth?','397048979157':'How Can We Help?','397048979160':'7 Legal Tax Loopholes To Reduce Your Taxes 💸',
+'397055898307':'We’re glad you’re here','397065899708':'The biggest IOLTA accounting mistakes we see…','397048978157':'How to build a million-dollar Roth (yes, even as a high earner)','397065899712':'Can your next vacation be a tax write-off? 🏝️',
+'397065899721':'We’re glad you’re here','397048979133':'7 legal tax loopholes for medical professionals 🩺','397048979137':'How to build a million-dollar Roth (yes, it’s possible) 💸','397065899715':'We look forward to chatting! 👋',
+'403053614800':'Virjee Consulting - Book a Call','403054161621':'Virjee Consulting - Book a Call','403053747908':'Virjee Consulting - Book a Call','403053616834':'Virjee Consulting - Book a Call','402953081532':'You’re one step from booking your call',
+'402122732231':'You’re one step from booking your call','397048978147':'🛑 Don’t buy a practice before watching this','397055897337':'How one dentist added $250k in equity','397055898300':'The most important metric when buying a practice','397055898304':'3 expensive mistakes we see buyers make',
+'397048978163':'We’re glad you’re here','397048978167':'7 legal tax loopholes for medical professionals 🩺','397065899718':'How to build a million-dollar Roth (yes, it’s possible) 💸',
+'401109556966':'This Wednesday: 7 tax rules to act on before Dec 31','407913808600':'Your replay: the 7 tax rules to act on before Dec 31'};
+const N={'397048978118':'Booked - Dental owner #1','397048978121':'Booked - Dental owner #2','397048978124':'Booked - Dental owner #3','397048978127':'Booked - Dental startup #1','397055897326':'Booked - Dental startup #2','397048978131':'Booked - 1099 associate #1','397048978134':'Booked - 1099 associate #2','397055897331':'Booked - Medical owner #1','397048978138':'Booked - Medical owner #2','397048978141':'Booked - Medical startup #1','397048978144':'Booked - Medical startup #2','397048979143':'eBook download #1','397048979147':'eBook nurture #1','397065899725':'eBook nurture #2','397048979154':'eBook nurture #3','397048979157':'eBook nurture #4','397048979160':'Valuation calculator #3','397055898307':'Welcome - Law #1','397065899708':'Welcome - Law #2','397048978157':'Welcome - Law #3','397065899712':'Welcome - Law #4','397065899721':'Welcome - Vet #1','397048979133':'Welcome - Vet #2','397048979137':'Welcome - Vet #3','397065899715':'Welcome - Local #1','403053614800':'Book a Call #1 (Emily)','403054161621':'Book a Call #2 (Emily)','403053747908':'Book a Call #3 (Emily)','403053616834':'Book a Call #4, last one (Emily)','402953081532':'Booking nudge - No-Show','402122732231':'Booking nudge - form, no call','397048978147':'Buying a practice #1','397055897337':'Buying a practice #2','397055898300':'Buying a practice #3','397055898304':'Buying a practice #4','397048978163':'Welcome - Medical #1','397048978167':'Welcome - Medical #2','397065899718':'Welcome - Medical #3','401109556966':'Sept 30 webinar invite','407913808600':'Sept 30 webinar replay'};
+const F={'397055897331':'Says "work exclusively with dentists" to a medical owner','403053614800':'Says "healthcare professionals" to dental leads','402953081532':'Subject doesn’t match a missed-call email','397065899715':'Promises a reply "within 24 hours"','397048979133':'Subject says "medical professionals" to vets','397055897337':'Comparison table shows no numbers','397065899712':'Promises a newsletter that isn’t set up','397048979147':'Valuation users get "thanks for joining our mailing list"'};
+
+function card(id,when){const f=F[id]?`<span class="flag">${F[id]}</span>`:'';
+return `<div class="step"><span class="dot"></span><span class="when">${when}</span><button type="button" class="card" data-id="${id}"><div class="thumb"><img loading="lazy" src="img/${id}.jpg" alt="${N[id]} email preview"></div><div class="subj">${E[id]}<small>${N[id]}</small>${f}</div></button></div>`}
+function end(txt,gap){return `<div class="step end${gap?' gapstep':''}"><span class="dot"></span><span class="when">${gap?'Then':'End'}</span><div class="endcard${gap?' gap':''}">${txt}</div></div>`}
+function lane(o){const steps=o.branches?o.branches.map(b=>`<div class="branchlabel">${b.label}<span>${b.note||''}</span></div><div class="track">${b.steps.map(s=>card(s[0],s[1])).join('')}${end(b.end||'Series ends. Nothing else sends.',true)}</div>`).join(''):`<div class="track">${o.steps.map(s=>card(s[0],s[1])).join('')}${end(o.end||'Series ends. Nothing else sends.',o.endgap!==false)}</div>`;
+const pill=o.status==='on'?'<span class="pill on">Live</span>':o.status==='manual'?'<span class="pill manual">One-off sends</span>':'<span class="pill offp">Switched off</span>';
+return `<section class="lane${o.status==='off'?' off':''}" id="${o.id}"><div class="lanehead"><h3>${o.title}</h3>${pill}</div><div class="trigger"><b>Who gets it:</b> ${o.who}</div>${steps}</section>`}
+
+const booked=[{id:'booked',title:'Books a call',status:'on',who:'Anyone who books a meeting in HubSpot. 20 people enrolled so far, 17 in the last 7 days.',branches:[
+{label:'Dental owner',note:'everyone not matched below',steps:[['397048978118','Day 0'],['397048978121','Day 1'],['397048978124','Day 2']]},
+{label:'Dental startup',note:'starting a practice',steps:[['397048978127','Day 0'],['397055897326','Day 1']]},
+{label:'1099 associate',note:'any industry',steps:[['397048978131','Day 0'],['397048978134','Day 1']]},
+{label:'Medical owner',steps:[['397055897331','Day 0'],['397048978138','Day 2']],end:'Series ends after 2 emails. Dental owners get a third.'},
+{label:'Medical startup',steps:[['397048978141','Day 0'],['397048978144','Day 1']]}]},
+{id:'emily',title:'Fills in the form but doesn’t book (Emily’s follow-up)',status:'on',who:'A new deal at New Lead or Qualified Opportunity. Each email is skipped once the deal moves forward. 95 enrolled so far. Business days only.',steps:[['403053614800','Day 0'],['403054161621','+2 business days'],['403053747908','+3 business days'],['403053616834','+4 business days']],end:'Deal closed out. Nothing else sends.'},
+{id:'noshow',title:'Misses a booked call',status:'on',who:'A meeting marked as a no-show. Emily also gets an internal alert.',steps:[['402953081532','Day 0']]}];
+
+const magnets=[{id:'ebook',title:'Downloads the 7 Legal Tax Loopholes eBook',status:'on',who:'Lead magnet = 7 Legal Loopholes eBook. Skipped if they already used the calculator.',steps:[['397048979143','Day 0'],['397048979147','1 hour later'],['397065899725','Day 2'],['397048979154','Day 4'],['397048979157','Day 6']]},
+{id:'valuation',title:'Uses the Valuation Calculator',status:'on',who:'Lead magnet = Valuation Calculator. Skipped if they already got the eBook series.',steps:[['397048979147','Day 0'],['397065899725','Day 2'],['397048979160','Day 4'],['397048979157','Day 6']]},
+{id:'local',title:'Contacts the local firm (virjeecpa.com)',status:'on',who:'Book a Call Form on virjeecpa.com.',steps:[['397065899715','Day 0']]},
+{id:'law',title:'Law firm welcome',status:'on',who:'Industry = Law.',steps:[['397055898307','Day 1'],['397065899708','Day 3'],['397048978157','Day 5'],['397065899712','Day 6']]},
+{id:'vet',title:'Veterinarian welcome',status:'on',who:'Industry = Veterinarian.',steps:[['397065899721','Day 0'],['397048979133','Day 2'],['397048979137','Day 4']]}];
+
+const off=[{id:'nudge',title:'Form filled, no call booked: 1-hour reminder',status:'off',who:'Book a Call form on dentalcpausa.com/contact or virjeecpa.com, no booking. Would also create a task for Emily after 1 day.',steps:[['402122732231','1 hour later']],end:'Emily task on Day 1.',endgap:false},
+{id:'buying',title:'Buying a practice',status:'off',who:'Dental, and "I am looking to purchase or buy into a practice".',steps:[['397048978147','Day 1'],['397055897337','Day 6'],['397055898300','Day 13'],['397055898304','Day 20']]},
+{id:'medical',title:'Medical welcome',status:'off',who:'Industry = Medical or Optometrist.',steps:[['397048978163','Day 1'],['397048978167','Day 3'],['397065899718','Day 5']]}];
+
+const webinar=[{id:'webinar',title:'Sept 30 webinar',status:'manual',who:'Invite sent to 1,569 contacts. Replay sent to 59 registrants. Three reminder emails went out on the day.',steps:[['401109556966','Before'],['407913808600','After']],end:'Nothing follows the replay.'}];
+
+document.getElementById('booked').innerHTML=booked.map(lane).join('');
+document.getElementById('magnets').innerHTML=magnets.map(lane).join('');
+document.getElementById('off').innerHTML=off.map(lane).join('');
+document.getElementById('webinar').innerHTML=webinar.map(lane).join('');
+document.getElementById('toc').innerHTML=[...booked,...magnets].map(o=>`<a href="#${o.id}">${o.title}</a>`).join('')+off.map(o=>`<a class="off" href="#${o.id}">${o.title} (off)</a>`).join('')+`<a href="#webinar">Webinars</a><a class="g" href="#gaps">Gaps</a>`;
+
+const lb=document.getElementById('lb');
+document.addEventListener('click',e=>{const c=e.target.closest('.card');if(!c)return;const id=c.dataset.id;document.getElementById('lbimg').src='img/'+id+'.jpg';document.getElementById('lbcap').textContent=N[id]+' · Subject: '+E[id];lb.classList.add('open');lb.scrollTop=0});
+function closeLb(){lb.classList.remove('open')}
+lb.addEventListener('click',e=>{if(e.target===lb)closeLb()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLb()});
+</script>
+</body></html>

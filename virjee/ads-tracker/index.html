@@ -1,0 +1,985 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet"/>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Virjee Consulting — Ads &amp; Leads Performance Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+:root{--paper:#F9F9FF;--navy:#070630;--blue:#3872EB;--lilac:#E6E9FF;--ink:#070630;--mute:#6C6E8A;--hair:rgba(7,6,48,0.10);--good:#10b981;--warn:#f59e0b;--bad:#ef4444;}
+*{box-sizing:border-box;margin:0;padding:0;}html{scroll-behavior:smooth;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:var(--ink);line-height:1.6;font-size:15px;-webkit-font-smoothing:antialiased;}
+.accent{color:var(--blue);}
+.container{max-width:1200px;margin:0 auto;padding:0 32px;}
+section{padding:72px 0;position:relative;overflow:hidden;}
+@media(max-width:720px){section{padding:48px 0;}.container{padding:0 20px;}}
+.star{position:absolute;pointer-events:none;}
+.pill{display:inline-block;padding:6px 14px;background:var(--navy);color:#fff;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;font-weight:700;border-radius:999px;}
+.pill.blue{background:var(--blue);}
+.pill.live{background:var(--good);color:#fff;}
+.pill.live::before{content:"";display:inline-block;width:8px;height:8px;background:#fff;border-radius:50%;margin-right:6px;vertical-align:middle;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.4;}}
+.hero{background:var(--paper);padding-top:96px;padding-bottom:64px;}
+.hero h1{font-family:'Anton','Impact',sans-serif;font-size:clamp(40px,7.5vw,84px);line-height:0.92;letter-spacing:0.02em;color:var(--navy);margin:24px 0 0;}
+.hero .lede{font-size:18px;line-height:1.6;color:var(--mute);max-width:720px;margin-top:24px;}
+.hero .meta{margin-top:28px;display:flex;gap:28px;flex-wrap:wrap;font-size:13px;color:var(--mute);}
+.hero .meta strong{color:var(--navy);font-weight:600;}
+.toolbar{margin-top:28px;display:flex;gap:14px;flex-wrap:wrap;}
+.toolbar a{display:inline-block;padding:10px 18px;background:#fff;border:2px solid var(--navy);border-radius:10px;box-shadow:4px 4px 0 var(--navy);font-size:13px;font-weight:600;color:var(--navy);text-decoration:none;transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.toolbar a:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--navy);}
+
+.goal-section{background:#fff;padding:48px 0;}
+.goal-card{background:var(--lilac);border:2px solid var(--navy);border-radius:20px;padding:32px 36px;box-shadow:6px 6px 0 var(--navy);display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;}
+@media(max-width:720px){.goal-card{grid-template-columns:1fr;}}
+.goal-card .gh{font-family:'Anton',sans-serif;font-size:32px;letter-spacing:0.04em;color:var(--navy);line-height:1;}
+.goal-card .gsub{font-size:14px;color:var(--mute);margin-top:8px;}
+.goal-progress{display:flex;align-items:center;gap:18px;}
+.goal-num{font-family:'Anton',sans-serif;font-size:64px;line-height:0.9;color:var(--blue);}
+.goal-of{font-family:'Anton',sans-serif;font-size:32px;color:var(--navy);opacity:0.5;}
+.goal-bar{margin-top:20px;background:#fff;border:2px solid var(--navy);border-radius:999px;height:18px;overflow:hidden;}
+.goal-bar-fill{background:var(--blue);height:100%;width:0%;transition:width 0.6s ease;}
+
+.kpi-section{background:#fff;padding:48px 0;}
+.kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+@media(max-width:900px){.kpi-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:540px){.kpi-grid{grid-template-columns:1fr;}}
+.kpi{background:var(--paper);border:2px solid var(--navy);border-radius:16px;padding:22px 22px;box-shadow:5px 5px 0 var(--navy);transition:transform 0.15s ease,box-shadow 0.15s ease;}
+.kpi:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--navy);}
+.kpi:nth-child(2){background:var(--lilac);}
+.kpi:nth-child(4){background:var(--lilac);}
+.kpi .label{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);font-weight:700;margin-bottom:12px;}
+.kpi .value{font-family:'Anton',sans-serif;font-size:48px;line-height:1;letter-spacing:0.02em;color:var(--navy);}
+.kpi .delta{margin-top:10px;font-size:13px;font-weight:600;}
+.kpi .delta.up{color:#047857;}
+.kpi .delta.down{color:#b91c1c;}
+.kpi .delta.flat{color:var(--mute);}
+.kpi .explain{margin-top:14px;padding-top:14px;border-top:2px dashed var(--hair);font-size:12px;color:var(--mute);line-height:1.5;}
+
+.section-head{margin-bottom:36px;max-width:820px;}
+.section-head h2{font-family:'Anton',sans-serif;font-size:clamp(36px,5vw,60px);line-height:0.98;letter-spacing:0.02em;color:var(--navy);margin-top:12px;}
+.section-head p{font-size:16px;color:var(--mute);margin-top:14px;line-height:1.6;}
+
+.split{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.split{grid-template-columns:1fr;}}
+.acct-card{background:#fff;border:2px solid var(--navy);border-radius:18px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.acct-card h3{font-family:'Anton',sans-serif;font-size:26px;letter-spacing:0.04em;color:var(--navy);}
+.acct-card .acct-sub{font-size:12px;color:var(--mute);margin-bottom:18px;text-transform:uppercase;letter-spacing:0.12em;font-weight:600;}
+.acct-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px dashed var(--hair);font-size:14px;}
+.acct-row:last-child{border-bottom:none;}
+.acct-row span:last-child{font-weight:600;color:var(--navy);}
+
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+@media(max-width:900px){.chart-row{grid-template-columns:1fr;}}
+.chart-card{background:var(--paper);border:2px solid var(--navy);border-radius:20px;padding:28px;box-shadow:6px 6px 0 var(--navy);}
+.chart-card h4{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:0.04em;color:var(--navy);margin-bottom:4px;}
+.chart-card .chart-sub{font-size:13px;color:var(--mute);margin-bottom:20px;}
+.chart-container{position:relative;height:280px;}
+
+.table-section{background:var(--paper);}
+.table-card{background:#fff;border:2px solid var(--navy);border-radius:20px;overflow:hidden;box-shadow:6px 6px 0 var(--navy);}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+thead{background:var(--navy);}
+th{text-align:left;padding:14px 18px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.18em;color:var(--blue);}
+th.num,td.num{text-align:right;}
+td{padding:14px 18px;border-bottom:1px solid var(--hair);}
+tr:last-child td{border-bottom:none;}
+tbody tr:nth-child(even){background:var(--paper);}
+.status-pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;}
+.status-on{background:#d1fae5;color:#065f46;border:1.5px solid #065f46;}
+.status-off{background:#fee2e2;color:#991b1b;border:1.5px solid #991b1b;}
+.status-test{background:var(--lilac);color:var(--navy);border:1.5px solid var(--navy);}
+
+.timeline-section{background:#fff;}
+.timeline{position:relative;padding-left:40px;}
+.timeline::before{content:"";position:absolute;left:14px;top:8px;bottom:8px;width:3px;background:var(--blue);border-radius:2px;}
+.tl-item{position:relative;margin-bottom:24px;background:var(--paper);border:2px solid var(--navy);border-radius:14px;padding:18px 22px;box-shadow:4px 4px 0 var(--navy);}
+.tl-item::before{content:"";position:absolute;left:-34px;top:18px;width:18px;height:18px;background:var(--blue);border:3px solid var(--navy);border-radius:50%;}
+.tl-date{font-size:11px;color:var(--blue);text-transform:uppercase;letter-spacing:0.18em;font-weight:700;}
+.tl-title{font-weight:600;color:var(--navy);margin-top:4px;font-size:15px;}
+.tl-body{font-size:13px;color:var(--mute);margin-top:6px;line-height:1.5;}
+.tl-tag{display:inline-block;margin-top:8px;padding:3px 10px;background:var(--navy);color:#fff;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;border-radius:6px;}
+.tl-tag.dental{background:var(--blue);}
+.tl-tag.local{background:#7c3aed;}
+.tl-tag.system{background:var(--mute);}
+
+.anomaly-section{background:var(--lilac);}
+.anom-empty{background:#fff;border:2px dashed var(--navy);border-radius:18px;padding:48px 32px;text-align:center;}
+.anom-empty .ae-icon{font-size:48px;}
+.anom-empty .ae-msg{font-family:'Anton',sans-serif;font-size:28px;letter-spacing:0.04em;color:var(--navy);margin-top:8px;}
+.anom-empty .ae-sub{font-size:14px;color:var(--mute);margin-top:8px;}
+
+.footer{background:var(--navy);color:#fff;text-align:center;padding:72px 0;}
+.footer h2{font-family:'Anton',sans-serif;font-size:clamp(32px,4.5vw,48px);line-height:1;letter-spacing:0.02em;}
+.footer h2 .accent{color:var(--blue);}
+.footer p{color:#B4B6D6;margin-top:14px;font-size:14px;}
+.footer .built-by{margin-top:32px;padding-top:24px;border-top:2px dashed rgba(255,255,255,0.2);color:#8A8DB8;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;}
+.footer .built-by a{color:var(--blue);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <svg class="star" style="top:80px;left:80px;transform:rotate(-12deg);" width="32" height="32" viewBox="0 0 24 24" fill="#3872EB"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <svg class="star" style="top:200px;right:120px;transform:rotate(18deg);" width="24" height="24" viewBox="0 0 24 24" fill="#070630"><path d="M12 0l2.9 9.1L24 12l-9.1 2.9L12 24l-2.9-9.1L0 12l9.1-2.9z"/></svg>
+  <div class="container">
+    <span class="pill live">Live Tracker</span>
+    <h1>VIRJEE CONSULTING<br/><span class="accent">PERFORMANCE TRACKER.</span></h1>
+    <p class="lede">Daily Google Ads + lead pipeline visibility for Virjee Consulting Dental and Local. Auto-refreshes every morning Melbourne time. Tracks conversions, campaign changes, anomalies, and the Nov 2026 push toward 20 existing-practice leads. Oct closed: 21 total (5 existing) — goal missed. Nov MTD day 6: 5 total (2 existing).</p>
+    <div class="meta">
+      <span><strong>Accounts:</strong> Virjee Dental + Virjee Consulting (Local)</span>
+      <span><strong>Period:</strong> Nov 2026 (rolling)</span>
+      <span><strong>Last refreshed:</strong> <span id="last-refresh">2026-11-07 10:00 AEDT</span></span>
+    </div>
+    <div class="toolbar">
+      <a href="https://docs.google.com/spreadsheets/d/1ZnV-E86Fa3wu07icqIoMKZyHX4LbuqyNMTJo5zTlINk/edit" target="_blank">Dental leads sheet &rarr;</a>
+      <a href="https://docs.google.com/spreadsheets/d/1SeFxMqFyjbhphT1Fwk--AiGC57K5ZVyoxoF61WN6xu4/edit" target="_blank">Local leads sheet &rarr;</a>
+      <a href="https://ads.google.com/aw/overview?ocid=1164467596" target="_blank">Dental Google Ads &rarr;</a>
+      <a href="https://ads.google.com/aw/overview?ocid=8893090513" target="_blank">Local Google Ads &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<section class="goal-section">
+  <div class="container">
+    <div class="goal-card">
+      <div>
+        <div class="gh">NOV 2026 GOAL: 20 EXISTING-PRACTICE LEADS</div>
+        <div class="gsub">Combined Dental practice owners + Local Medical/Dental practice owners. Excludes Law, Construction, Other, 1099s, startups, associates. Oct closed: 5 combined existing (Dental 0 + Local 5) of 21 total leads — goal missed. Nov MTD (day 6): 2 existing of 5 total leads.</div>
+        <div class="goal-bar"><div class="goal-bar-fill" id="goal-bar-fill" style="width:10%"></div></div>
+      </div>
+      <div class="goal-progress">
+        <div class="goal-num" id="goal-current">0</div>
+        <div class="goal-of">/ 20</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Nov 2026 MTD</span>
+      <h2>HEADLINE NUMBERS.</h2>
+      <p>Nov 2026 month-to-date. Oct closed: 21 total (Dental 0 + Local 21, 5 existing). Nov MTD day 7: 4 total (Dental 0 + Local 4). 0 existing-practice leads. Google Ads totals reflect Sep 30-day window.</p>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Total Leads (Nov 2026 MTD)</div>
+        <div class="value">4</div>
+        <div class="delta flat">Dental 0 + Local 4 &middot; Nov day 7</div>
+        <div class="explain">4 total leads Nov 2026 MTD (Dental 0, Local 4). Oct closed with 0 Dental + 21 Local = 21 total. Note: Dental form integration shows no entries since June 2026.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Existing-Practice Leads (Nov MTD)</div>
+        <div class="value">0</div>
+        <div class="delta down">20 to goal &middot; 0.87/day needed &middot; behind pace &middot; Nov day 7</div>
+        <div class="explain">Dental 0 + Local 0 existing-practice leads for Nov 2026 (day 7). Oct closed with 5 combined existing (Dental 0, Local 5). Goal: 20 existing-practice leads by Nov 30 — need 0.87/day for remaining 23 days (current: 0/day).</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Google Ads Spend (Sep 2026 Final)</div>
+        <div class="value">$990</div>
+        <div class="delta up">Dental $644 + Local $346 &middot; ~$33/day avg</div>
+        <div class="explain">Dental $643.90 (main $546.12 + brand $97.78) + Local $345.76 (PMax $164.40 + Search $15.61 + Local Campaign $165.75). Sep 2026 closed total.</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Ads Conversions (Sep 2026 Final)</div>
+        <div class="value">10</div>
+        <div class="delta up">Dental 3 + Local 7 &middot; $99/conv avg</div>
+        <div class="explain">Dental 3 conv (main campaign) + Local 7 conv (all PMax Medical). PMax Medical carried Local at $23.49 CPL. Dental main at $182/conv. Sep 2026 closed total.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">By account</span>
+      <h2>ACCOUNT BREAKDOWN.</h2>
+      <p>Side-by-side view of where each account stands today and what changed in the last week.</p>
+    </div>
+    <div class="split">
+      <div class="acct-card">
+        <h3>VIRJEE DENTAL</h3>
+        <div class="acct-sub">Customer 1164467596 &middot; dentalcpausa.com</div>
+        <div class="acct-row"><span>Nov leads</span><span>0 (day 7)</span></div>
+        <div class="acct-row"><span>Nov existing-practice</span><span>0 of 0 (day 7)</span></div>
+        <div class="acct-row"><span>Nov ad spend</span><span>TBD</span></div>
+        <div class="acct-row"><span>Nov conversions</span><span>TBD</span></div>
+        <div class="acct-row"><span>Oct baseline</span><span>0 leads &middot; 0 existing (form gap since Jun)</span></div>
+        <div class="acct-row"><span>Active campaigns</span><span>3 (Main, Brand, EXP Health Ins)</span></div>
+      </div>
+      <div class="acct-card">
+        <h3>VIRJEE LOCAL</h3>
+        <div class="acct-sub">Customer 8893090513 &middot; multi-industry</div>
+        <div class="acct-row"><span>Nov leads</span><span>4 (day 7)</span></div>
+        <div class="acct-row"><span>Nov existing (Med/Dental)</span><span>0 of 4 (day 7)</span></div>
+        <div class="acct-row"><span>Nov ad spend</span><span>TBD</span></div>
+        <div class="acct-row"><span>Nov conversions</span><span>TBD</span></div>
+        <div class="acct-row"><span>Oct baseline</span><span>21 leads &middot; 5 existing</span></div>
+        <div class="acct-row"><span>Active campaigns</span><span>3 (PMax, Search Medical, Exp Max conv)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="kpi-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Trends</span>
+      <h2>LEADS &amp; CONVERSIONS.</h2>
+      <p>Monthly lead trend across both accounts. Last 8 months through Nov 2026 MTD.</p>
+    </div>
+    <div class="chart-row">
+      <div class="chart-card">
+        <h4>Monthly Leads by Account</h4>
+        <div class="chart-sub">Total monthly form submissions (All Leads source). Last 8 months.</div>
+        <div class="chart-container"><canvas id="leadsChart"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <h4>Existing-Practice Leads</h4>
+        <div class="chart-sub">Owner-segment leads only. The prized conversions.</div>
+        <div class="chart-container"><canvas id="existingChart"></canvas></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="table-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Live campaigns</span>
+      <h2>ACTIVE GOOGLE ADS CAMPAIGNS.</h2>
+      <p>Current campaign roster across both accounts with daily budgets and last 30-day performance. Updated each morning by the daily check routine.</p>
+    </div>
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr><th>Campaign</th><th>Account</th><th>Status</th><th class="num">Daily Budget</th><th class="num">30-Day Spend</th><th class="num">30-Day Conv</th><th class="num">CPL</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Performance Max - Dental (2026-10-11)</td><td>Dental</td><td><span class="status-pill status-on">Live</span></td><td class="num">$20</td><td class="num">$132.81</td><td class="num">1</td><td class="num">$132.81</td></tr>
+          <tr><td>Virjee Consulting - Campaign - Search</td><td>Dental</td><td><span class="status-pill status-on">Live</span></td><td class="num">$40 (shared)</td><td class="num">$770.28</td><td class="num">1</td><td class="num">$770.28</td></tr>
+          <tr><td>Brand Campaign - Search</td><td>Dental</td><td><span class="status-pill status-on">Live</span></td><td class="num">$10</td><td class="num">$144.49</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Campaign - Search Exp_Exact match KW</td><td>Dental</td><td><span class="status-pill status-test">Trial</span></td><td class="num">$40 (shared)</td><td class="num">$0.00</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Virjee Consulting - Campaign - Search EXP_Health Insurance + Custom Audiences</td><td>Dental</td><td><span class="status-pill status-test">Trial</span></td><td class="num">$40 (shared)</td><td class="num">$0.00</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Virjee Consulting - Campaign - Search (rebuilt 2026-10-08)</td><td>Dental</td><td><span class="status-pill status-off">Paused</span></td><td class="num">$30</td><td class="num">$54.16</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Brand Campaign - Search (rebuilt 2026-10-08)</td><td>Dental</td><td><span class="status-pill status-off">Paused</span></td><td class="num">$2</td><td class="num">$0.00</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Virjee Consulting - October</td><td>Dental</td><td><span class="status-pill status-off">Paused</span></td><td class="num">$20</td><td class="num">$0.00</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Virjee Consulting - November</td><td>Dental</td><td><span class="status-pill status-off">Paused</span></td><td class="num">$15</td><td class="num">$0.00</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Demand Gen - Dental Practice Owners (Test)</td><td>Dental</td><td><span class="status-pill status-off">Paused</span></td><td class="num">$10</td><td class="num">$0.00</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Performance Max - Medical</td><td>Local</td><td><span class="status-pill status-on">Live</span></td><td class="num">$40</td><td class="num">$452.70</td><td class="num">10</td><td class="num">$45.27</td></tr>
+          <tr><td>Search Campaign - Medical Accounting Firm</td><td>Local</td><td><span class="status-pill status-on">Live</span></td><td class="num">$10 (shared)</td><td class="num">$72.46</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Search Campaign - Medical Accounting Firm Exp_ Max conv</td><td>Local</td><td><span class="status-pill status-test">Trial</span></td><td class="num">$10 (shared)</td><td class="num">$0.00</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Performance Max - Medical (rebuilt 2026-10-08)</td><td>Local</td><td><span class="status-pill status-off">Paused</span></td><td class="num">$12</td><td class="num">$37.40</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Local Campaign</td><td>Local</td><td><span class="status-pill status-off">Paused</span></td><td class="num">$20</td><td class="num">$137.55</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Search Campaign - Medical Accounting Firm (rebuilt 2026-10-08)</td><td>Local</td><td><span class="status-pill status-off">Paused</span></td><td class="num">$10</td><td class="num">$0.00</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Dec #2 - Local</td><td>Local</td><td><span class="status-pill status-off">Paused</span></td><td class="num">$10</td><td class="num">$0.00</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Vets - June (OLD)</td><td>Local</td><td><span class="status-pill status-off">Paused</span></td><td class="num">$10</td><td class="num">$0.00</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>June - Vets - NEW</td><td>Local</td><td><span class="status-pill status-off">Paused</span></td><td class="num">$10</td><td class="num">$0.00</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+          <tr><td>Search Campaign - Medical - NEW</td><td>Local</td><td><span class="status-pill status-off">Paused</span></td><td class="num">$6</td><td class="num">$0.00</td><td class="num">0</td><td class="num">&mdash;</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section class="timeline-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Changes log</span>
+      <h2>WHAT CHANGED.</h2>
+      <p>Chronological record of every campaign change, budget move, and structural fix. New items appended at top.</p>
+    </div>
+    <div class="timeline" id="changes-timeline">
+      <div class="tl-item">
+        <div class="tl-date">2026-11-01</div>
+        <div class="tl-title">Monthly auto-refresh kickoff &mdash; Nov 2026</div>
+        <div class="tl-body">First lead-refresh run of November. Oct closed with 4 Local leads (0 existing Medical/Dental owners) — goal of 20 existing-practice leads was missed. Dental pipeline stalled at 0 since June 2. Goal resets to 20 existing-practice leads for Nov 2026. Nov MTD starts from zero. Sheets Enriched tabs rebuilt from raw All Leads data.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-01</div>
+        <div class="tl-title">Monthly auto-refresh kickoff &mdash; Oct 2026</div>
+        <div class="tl-body">First lead-refresh run of October. Sep closed with 22 Local leads (3 existing Medical/Dental owners). Dental pipeline remains stalled at 0 since June 2. Goal resets to 20 existing-practice leads for Oct 2026. Oct MTD starts from zero. Sheets Enriched tabs rebuilt from raw All Leads data.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-22</div>
+        <div class="tl-title">Full refresh after Whitney updated raw All Leads tabs &mdash; May counts up</div>
+        <div class="tl-body">Pulled both All Leads tabs fresh after Whitney's manual update. Dental May went 5 &rarr; 12 (Enriched tab was stale past May 11; new Main Intake leads through May 20: Tai Van, Mitali, Thien, Nick, Daniel, Hiten, plus Tiffany Vo and Rikesh Patel from a secondary form path the Enriched logic was missing). Local May went 17 &rarr; 19 (added the May 21 entries). Existing-practice went 7 &rarr; 9: Tiffany Vo (Dental owner exploring DSO conversion) and Faraz Kureshi (Medical owner whose "Best Describes" had a trailing newline that broke the strict classifier). Combined existing now 9/20 toward May goal (45%). Pacing improved: 43 leads/mo run rate vs the 36 we saw at last refresh.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-19</div>
+        <div class="tl-title">Classifier rule hides leads with blank Best Describes &mdash; fix Jouvonna</div>
+        <div class="tl-body">Re-classified May leads from the raw All-Leads tab (Enriched tabs were stale, last updated May 11/15). Found one hidden existing-practice owner: <strong>Jouvonna Lynette Gray</strong> (Local, Medical, May 18). The strict classifier excluded her because Best Describes is blank, but her free-text reads "I started my business in 2017... I had a really good CPA for a few years" &mdash; clear medical practice owner since 2017. Existing-practice count moved from 6 &rarr; 7. Pattern to watch: any Medical/Dental lead with blank Best Describes but non-spam free-text likely an owner. Daily routine should fall back to free-text scan when Best Describes is empty.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-19</div>
+        <div class="tl-title">May 13 budget unlocks are landing as expected</div>
+        <div class="tl-body">Six days after the May 13 budget raises, conversions have climbed from 1 to 5 (+4 net) and spend from $202 to $614 (+$412). Local PMax Medical holding strong: $135 / 5 conv / $27 CPL over 30 days. Dental Brand campaign hit $20 CPL on 30-day basis (vs $39 last refresh). Main Dental Search still leaking at $343 CPL on 30-day basis &mdash; next round of negatives is the lever.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-13</div>
+        <div class="tl-title">Existing-practice classifier finalized &mdash; Medical/Dental practice owners only</div>
+        <div class="tl-body">Rule locked: Local existing = Industry is Medical/Dental/Vet/Optometrist AND ownership signal (Best Describes contains "own"/"owner" OR collections field filled). Excludes Law firms, Construction, Other, 1099 practitioners, associates, startups, in-process. May Local existing: 3 (Juliya, Hanz, Irum).</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-13</div>
+        <div class="tl-title">Daily refresh routine activated &mdash; source tabs renamed</div>
+        <div class="tl-body">Lead refresh cadence moved from Wednesday-only to daily 10am Melbourne. Source tab names updated to <code>All Leads - Dental</code> and <code>All Leads - Local</code> after Whitney renamed them in the sheets.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-13</div>
+        <div class="tl-title">Local Search "Medical Accounting Firm" unpaused + budget raised $5 &rarr; $10/day</div>
+        <div class="tl-body">Reactivated the April conversion channel that had been paused. Shared budget now $10/day with the trial campaign. Watch for ramp-up in healthcare-owner search traffic.</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-13</div>
+        <div class="tl-title">Local PMax Medical budget tripled $3 &rarr; $9/day</div>
+        <div class="tl-body">April delivered 5 conversions at $17/lead under a $3 cap (best efficiency across both accounts). Unlocked $6/day more capacity. Projected: 4-6 additional conversions in remaining May at same efficiency.</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-13</div>
+        <div class="tl-title">Daily Google Ads check routine created</div>
+        <div class="tl-body">Runs every morning at 8am Melbourne. Pulls yesterday's metrics, flags anomalies (paused campaigns, 0 impressions, conversion drops, spend at cap), posts summary to Asana tasks.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-08</div>
+        <div class="tl-title">Dental main campaign budget raised $20 &rarr; $30/day</div>
+        <div class="tl-body">Three campaigns shared a single $20/day budget &mdash; the main was eating it all, starving the two new EXP campaigns. Raise unlocks all three. Owner-keyword demand confirmed (116 impressions on "dental cpa" last 30 days).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-08</div>
+        <div class="tl-title">13 negative keywords added to Dental main</div>
+        <div class="tl-body">Owner-intent filter: <code>associate dentist</code>, <code>1099</code>, <code>hygienist</code>, <code>dental student</code>, <code>dental school</code>, <code>dental assistant</code>. Competitor brand block: <code>duckett ladd</code>, <code>edge dental advisors</code>, <code>rosen and associates</code>, <code>rosen cpa dental</code>. Junk: <code>free</code>, <code>salary</code>, <code>jobs</code>. Should shift spend toward practice owners.</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-07</div>
+        <div class="tl-title">Weekly lead-report refresh routine created</div>
+        <div class="tl-body">Runs every Wednesday 8am Melbourne. Rebuilds Enriched tabs from raw All Leads, refreshes current-month rows in v2 report tabs, posts summary to Asana.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-05-07</div>
+        <div class="tl-title">Lead reports rebuilt from raw &mdash; Enriched tabs were stale</div>
+        <div class="tl-body">Both Virjee sheets' Enriched tabs were missing recent May rows, causing report tables to show stale totals. Rebuilt Dental Enriched (363 rows) and Local Enriched (696 rows) from raw All Leads / Local Leads-Raw. Added May 2026 row to every v2 report tab.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="anomaly-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="pill blue">Daily monitoring</span>
+      <h2>ANOMALY LOG.</h2>
+      <p>Flagged by the daily 8am Google Ads check. Anomalies clear once resolved. Empty is good &mdash; it means everything's pacing normally.</p>
+    </div>
+    <div class="timeline" id="anomaly-list">
+      <div class="tl-item">
+        <div class="tl-date">2026-11-02</div>
+        <div class="tl-title">SYSTEM: Google Ads data pull failed — Pipeboard token access denied for both accounts (5th consecutive failure)</div>
+        <div class="tl-body">Daily health check could not run. Pipeboard Google Ads MCP returned: "Customer 1164467596 is not in the allowed customer list" and same for 8893090513. Fifth consecutive failure (Oct 24, Oct 28, Oct 29, Oct 31, Nov 2). Ads running blind for 10+ days with no monitoring data. Urgent: re-authorise both accounts in Pipeboard settings at pipeboard.co → Google Ads → Manage accounts.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-31</div>
+        <div class="tl-title">SYSTEM: Google Ads data pull failed — Pipeboard token access denied for both accounts (4th consecutive failure)</div>
+        <div class="tl-body">Daily health check could not run. Pipeboard Google Ads MCP returned: "Customer 1164467596 is not in the allowed customer list" and same for 8893090513. Fourth consecutive failure (also Oct 24, Oct 28, Oct 29). Ads running blind since Oct 23 — 8 days without monitoring data. Urgent: re-authorise both accounts in Pipeboard settings at pipeboard.co → Google Ads → Manage accounts.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-29</div>
+        <div class="tl-title">SYSTEM: Google Ads data pull failed — Pipeboard token access denied for both accounts (3rd consecutive failure)</div>
+        <div class="tl-body">Daily health check could not run. Pipeboard Google Ads MCP returned: "Customer 1164467596 is not in the allowed customer list" and same for 8893090513. Third consecutive failure (also Oct 24, Oct 28). No anomaly data available for 2026-10-28. Action required: re-authorise accounts in Pipeboard settings (pipeboard.co → Google Ads → Manage accounts). Ads running blind since Oct 23.</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-28</div>
+        <div class="tl-title">SYSTEM: Google Ads data pull failed — Pipeboard token access denied for both accounts</div>
+        <div class="tl-body">Daily health check could not run. Pipeboard Google Ads MCP returned: "Customer 1164467596 is not in the allowed customer list" and same for 8893090513. This is the second consecutive failure (also occurred 2026-10-24). No anomaly data available for 2026-10-27. Action required: re-authorise accounts in Pipeboard settings (pipeboard.co → Google Ads → Manage accounts).</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-24</div>
+        <div class="tl-title">SYSTEM: Google Ads data pull failed — Pipeboard token access denied for both accounts</div>
+        <div class="tl-body">Daily health check could not run. Pipeboard Google Ads MCP returned: "Customer 1164467596 is not in the allowed customer list" and same for 8893090513. No anomaly data available for 2026-10-23. Action required: re-authorise accounts in Pipeboard settings (pipeboard.co → Google Ads → Manage accounts).</div>
+        <span class="tl-tag system">System</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-20</div>
+        <div class="tl-title">Performance Max - Dental: Spend 194% of budget + CPC spike +62% + zero conversions</div>
+        <div class="tl-body">$38.85 spent vs $20/day budget (194% &mdash; opportunity to raise). CPC $1.08 vs 7-day avg $0.67 (+62%, above 50% threshold). 0 conversions vs 7-day daily avg 0.14/day (100% drop; spend &ge; $5). Yesterday: $38.85 | 36 clicks | 0 conv (7-day daily avg: $18.97 | 28.4 clicks | 0.14 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-20</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: Spend 128% of $40/day shared budget</div>
+        <div class="tl-body">$51.26 spent vs $40/day shared budget (128% &mdash; persistent overdelivery, raise budget). Yesterday: $51.26 | 4 clicks | 1 conv (7-day daily avg: $42.27 | 4.9 clicks | 0.14 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-20</div>
+        <div class="tl-title">Dental EXP campaigns (Exact match KW + Health Insurance): Zero impressions (persistent 30+ days)</div>
+        <div class="tl-body">Campaign - Search Exp_Exact match KW and EXP_Health Insurance + Custom Audiences each had 0 impressions. ENABLED on $40/day shared budget &mdash; quality/bid issue (budget not the cause). No spend all 30 days. Yesterday (each): $0 | 0 clicks | 0 conv.</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-20</div>
+        <div class="tl-title">Performance Max - Medical: Spend 136% of $40/day budget + zero conversions</div>
+        <div class="tl-body">$54.48 spent vs $40/day budget (136% &mdash; raise budget). 0 conversions vs 7-day daily avg 0.57/day (100% drop; spend &ge; $5). Yesterday: $54.48 | 33 clicks | 0 conv (7-day daily avg: $43.91 | 9.0 clicks | 0.57 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-20</div>
+        <div class="tl-title">Search Campaign - Medical Accounting Firm: Spend 186% of $10/day shared budget</div>
+        <div class="tl-body">$18.59 spent vs $10/day shared budget (186% &mdash; persistent overdelivery, shared budget starving Exp_ Max conv trial). Yesterday: $18.59 | 2 clicks | 0 conv (7-day daily avg: $10.35 | 1.6 clicks | 0 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-20</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions (persistent 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv had 0 impressions. ENABLED, $10/day shared budget available at 47% &mdash; quality/bid issue preventing delivery. No spend all 30 days. Yesterday: $0 | 0 clicks | 0 conv.</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-19</div>
+        <div class="tl-title">Performance Max - Dental: Budget overspend 199% + conversion drop 100%</div>
+        <div class="tl-body">$39.87 spent vs $20/day budget (199% &mdash; raise budget to capture delivery). 0 conversions vs 7-day daily avg 0.14/day (100% drop; spend $39.87 &ge; $5 threshold). Campaign delivering strongly on display inventory ($0.34 CPC / 117 clicks). Yesterday: $39.87 | 117 clicks | 0 conv (7-day daily avg: $13.44 | 23.4 clicks | 0.14 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-19</div>
+        <div class="tl-title">Performance Max - Medical: Overspend 233% + CPC +254% + conversion drop 100%</div>
+        <div class="tl-body">$93.09 spent vs $40/day budget (233% &mdash; raise budget significantly to match delivery). CPC $15.52 yesterday (6 clicks) vs 7-day avg $4.38 (+254% &mdash; above 50% threshold, sustained elevation). 0 conversions vs 7-day daily avg 0.57/day (100% drop; spend $93.09 &ge; $5 threshold). Yesterday: $93.09 | 6 clicks | 0 conv (7-day daily avg: $37.54 | 8.6 clicks | 0.57 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-19</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: Spend 93.9% of shared $40 budget</div>
+        <div class="tl-body">$37.57 spent vs $40/day shared budget (93.9% &mdash; at cap, opportunity to raise). EXP trial campaigns on the same shared budget continue at 0 impressions. Yesterday: $37.57 | 5 clicks | 0 conv (7-day daily avg: $37.97 | 4.9 clicks | 0 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-19</div>
+        <div class="tl-title">Dental EXP campaigns: Zero impressions (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Campaign - Search Exp_Exact match KW (23354050478) and EXP_Health Insurance + Custom Audiences (23538453756) both ENABLED with 0 impressions. Main campaign used $37.57 of $40/day shared budget (93.9%), leaving &lt;$2.43 for EXP variants. Persistent 30+ day zero delivery. Yesterday (each): $0.00 | 0 clicks | 0 conv.</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-19</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions yesterday despite ENABLED status. Partner campaign (23469346237) used $4.70 of $10/day shared budget (47%) &mdash; budget is available but Exp_ Max conv not delivering. Persistent 30+ day issue. Yesterday: $0.00 | 0 clicks | 0 conv (30-day spend: $0.00).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-18</div>
+        <div class="tl-title">Performance Max - Dental (2026-10-11): Budget overspend 199% &mdash; campaign scaling</div>
+        <div class="tl-body">$39.75 spent vs $20/day budget (199%). Campaign has ramped up sharply after clearing the learning phase &mdash; prior 6-day avg was $2.41/day. Delivered 1 conversion at $39.75 CPL. Opportunity to raise budget to $40&ndash;50/day to capture full delivery. Yesterday: $39.75 | 33 clicks | 1 conv (7-day daily avg: $7.74 | 6.7 clicks | 0.14 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-18</div>
+        <div class="tl-title">Dental EXP campaigns: Zero impressions &mdash; budget not the cause (persistent 30+ days)</div>
+        <div class="tl-body">Campaign - Search Exp_Exact match KW (23354050478) and EXP_Health Insurance + Custom Audiences (23538453756) both ENABLED with 0 impressions. Main campaign used only $33.73 of $40/day shared budget (84%) &mdash; budget is available but EXP campaigns still not delivering. Persistent 30+ day issue &mdash; quality score, bid floor, or ad approval needs investigation in Google Ads console. Yesterday (each): $0.00 | 0 clicks | 0 conv.</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-18</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; budget not the cause)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions despite ENABLED status. Partner campaign (23469346237) used only $4.32 of $10/day shared budget (43%) &mdash; budget is available. Persistent 30+ day zero delivery &mdash; quality score or ad approval investigation needed. Yesterday: $0.00 | 0 clicks | 0 conv (30-day spend: $0.00).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-17</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: Budget overspend 107%</div>
+        <div class="tl-body">$42.83 spent vs $40/day shared budget (107%). Persistent over-delivery &mdash; EXP trial campaigns (Exact match KW, Health Ins) continue at 0 impressions as main consumes the shared allotment. Seventh consecutive day of overspend &mdash; consider raising the shared budget or separating EXP campaigns to their own budgets. Yesterday: $42.83 | 5 clicks | 0 conv (30-day daily avg: $22.29 | 4.4 clicks | 0 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-17</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: CPC spike +69%</div>
+        <div class="tl-body">CPC $8.57 yesterday (5 clicks) vs 30-day avg $5.07 (+69% &mdash; above 50% threshold). Low click volume adds day-to-day noise; monitor for sustained elevation. Yesterday: $42.83 | 5 clicks | 0 conv (30-day avg CPC: $5.07).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-17</div>
+        <div class="tl-title">Dental EXP campaigns: Zero impressions (persistent &mdash; shared budget consumed)</div>
+        <div class="tl-body">Campaign - Search Exp_Exact match KW (23354050478) and EXP_Health Insurance + Custom Audiences (23538453756) both ENABLED with 0 impressions. Main campaign consumed shared $40/day budget at $42.83, leaving $0 for EXP variants. Zero spend across full 30-day window &mdash; budget separation or main budget increase needed. Yesterday (each): $0.00 | 0 clicks | 0 conv.</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-17</div>
+        <div class="tl-title">Performance Max - Medical: Budget overspend 159% + CPC elevated (day 5)</div>
+        <div class="tl-body">$63.71 spent vs $40/day budget (159% &mdash; sustained overspend; PMax budget may need raising to $65+/day to match actual delivery). CPC $6.37 yesterday vs 30-day avg $3.41 (+87% &mdash; above 50% threshold, elevated for 5th consecutive day). Campaign delivered 1 conv at $63.71 CPL &mdash; above the 30-day avg $30.66 CPL. Yesterday: $63.71 | 10 clicks | 1 conv (30-day daily avg: $11.24 | 3.3 clicks | 0.37 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-17</div>
+        <div class="tl-title">Search Campaign - Medical Accounting Firm: Budget overspend 113%</div>
+        <div class="tl-body">$11.32 spent vs $10/day shared budget (113%). Second consecutive day of overspend &mdash; strong delivery (28 impressions, 2 clicks) but shared budget fully consumed, starving Exp_ Max conv trial (0 impressions). Raise shared budget to $15&ndash;20/day to capture full delivery and give trial room to run. Yesterday: $11.32 | 2 clicks | 0 conv (30-day daily avg: $1.62 | 0.27 clicks | 0 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-17</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions yesterday despite ENABLED status. Shared $10/day budget consumed by partner campaign at $11.32. Zero delivery continues. Yesterday: $0.00 | 0 clicks | 0 conv (30-day spend: $0.00).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-16</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: Budget overspend 107%</div>
+        <div class="tl-body">$43.01 spent vs $40/day shared budget (107%). Shared budget over-consumed; EXP trial campaigns (Exact match KW, Health Ins) continue at 0 impressions. Persistent overspend &mdash; consider raising shared budget. Yesterday: $43.01 | 5 clicks | 0 conv (7-day daily avg: $22.41 | 2.9 clicks | 0 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-16</div>
+        <div class="tl-title">Performance Max - Medical: CPC spike +178%</div>
+        <div class="tl-body">CPC $6.78 yesterday (5 clicks) vs 7-day avg $2.43/click (+178% &mdash; above 50% threshold). Campaign delivered 1 conversion at $33.89 CPL &mdash; within historical range. PMax CPCs are volatile at low volume; monitor for sustained elevation. Yesterday: $33.89 | 5 clicks | 1 conv (7-day daily avg: $14.94 | 6.1 clicks | 0.43 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-16</div>
+        <div class="tl-title">Search Campaign - Medical Accounting Firm: Budget overspend 190%</div>
+        <div class="tl-body">$19.00 spent vs $10/day shared budget (190%). Strong delivery &mdash; 64 impressions, 3 clicks &mdash; but significantly over daily cap. Shared budget also starved Exp_ Max conv trial (0 impressions). Consider raising shared budget to $20+/day to accommodate delivery. Yesterday: $19.00 | 3 clicks | 0 conv (7-day daily avg: $4.79 | 0.7 clicks | 0 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-16</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions yesterday despite ENABLED status. Shared $10/day budget consumed by partner campaign at $19.00. Zero delivery continues. Yesterday: $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0.0 clicks | 0.00 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-15</div>
+        <div class="tl-title">Brand Campaign - Search: CPC spike +171% + budget overspend 110%</div>
+        <div class="tl-body">CPC $11.06 yesterday (1 click) vs 7-day avg $4.09/click (+171% &mdash; above 50% threshold). Also $11.06 spent vs $10/day budget (110%). Low click volume adds day-to-day noise but threshold was crossed. Check competitor bids or new match type terms driving up CPC. Yesterday: $11.06 | 1 click | 0 conv (7-day avg CPC: $4.09).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-15</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: Budget overspend 106%</div>
+        <div class="tl-body">$42.39 spent vs $40/day shared budget (106%). Shared budget fully consumed, leaving $0 for both EXP trial campaigns. Sixth consecutive day of overspend &mdash; opportunity to raise the shared budget or give EXP campaigns their own budgets. Yesterday: $42.39 | 5 clicks | 0 conv (7-day daily avg: $16.27 | 2.1 clicks | 0 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-15</div>
+        <div class="tl-title">Performance Max - Dental (2026-10-11): Zero impressions &mdash; day 4, escalating</div>
+        <div class="tl-body">New PMax campaign (id 24348876715, $20/day, ENABLED) still 0 impressions after 4 days. Google&rsquo;s standard ad review window is 1&ndash;3 business days &mdash; review should be complete by now. Investigate asset approval status, audience signals, or bidding settings in the Google Ads console. Yesterday: $0.00 | 0 clicks | 0 conv.</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-15</div>
+        <div class="tl-title">Dental EXP campaigns: Zero impressions (persistent &mdash; shared budget consumed)</div>
+        <div class="tl-body">Campaign - Search Exp_Exact match KW (23354050478) and EXP_Health Insurance + Custom Audiences (23538453756) both ENABLED with 0 impressions. Main campaign consumed shared $40/day budget at $42.39, leaving $0 for EXP variants. Zero spend across full 30-day window &mdash; needs budget separation or main budget increase. Yesterday (each): $0.00 | 0 clicks | 0 conv.</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-15</div>
+        <div class="tl-title">Performance Max - Medical: CPC spike +339%</div>
+        <div class="tl-body">CPC $8.43 yesterday (3 clicks) vs 7-day avg $1.92/click (+339% &mdash; above 50% threshold). Campaign did deliver 1 conversion at $25.30 CPL &mdash; below the $32/conv historical average, so efficiency is acceptable today. PMax CPCs are volatile at low volume; monitor for sustained elevation. Yesterday: $25.30 | 3 clicks | 1 conv (7-day daily avg: $10.71 | 5.6 clicks | 0.43 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-15</div>
+        <div class="tl-title">Search Campaign - Medical Accounting Firm: Budget overspend 145%</div>
+        <div class="tl-body">$14.53 spent vs $10/day shared budget (145%). All 7-day activity was in this one day, confirming the campaign resumed full spending after a dormant stretch. Shared budget also starved Exp_ Max conv trial (0 impressions). Raise shared budget to $15&ndash;20/day if conversion activity follows. Yesterday: $14.53 | 2 clicks | 0 conv (7-day total: $14.53).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-15</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions yesterday despite ENABLED status. Shared $10/day budget consumed by partner campaign at $14.53. Zero delivery across full 7-day and 30-day windows. Yesterday: $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0.0 clicks | 0.00 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-14</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: Budget overspend 113%</div>
+        <div class="tl-body">$45.10 spent vs $40/day shared budget (113% &mdash; opportunity to raise or review shared allocation). The two EXP trial campaigns (Exact match KW, Health Ins) both recorded $0 spend on the same shared budget, so the main campaign consumed the full $40 allowance plus Google&rsquo;s ~10% overspend buffer. Yesterday: $45.10 | 5 clicks | 0 conv (7-day daily avg: $32.50 | 8 clicks | 0.00 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-14</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: CPC spike +122%</div>
+        <div class="tl-body">CPC yesterday $9.02 vs 6-day prior average $4.06 (+122% &mdash; above 50% threshold). Yesterday 5 clicks / $45.10 vs prior 6-day 8 clicks / $32.50. Possible causes: increased competition over weekend, higher-intent but lower-volume auctions, or new match types picking up higher-CPC terms after the Oct 8 rebuild. Monitor for next 24h; if CPC stays elevated review search term report for irrelevant high-bid matches. Yesterday: $45.10 | 5 clicks | 0 conv (6-day prior avg CPC: $4.06).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-14</div>
+        <div class="tl-title">Performance Max - Medical: CPC spike +626%</div>
+        <div class="tl-body">CPC yesterday $7.10 vs prior 6-day account average $0.98 (+626% &mdash; above 50% threshold). Prior 6 days were heavily skewed by Oct 11 (30 clicks at $0.33/click &mdash; first day back after rebuild, likely cheap engagement signals). 30-day avg CPC for this campaign is $2.45, making yesterday a +190% spike on that baseline too. Campaign delivered 1 conversion at $35.51 CPL &mdash; within acceptable range but well above the $23/conv historical average. Monitor for sustained CPC elevation; if it persists check audience and bidding strategy settings. Yesterday: $35.51 | 5 clicks | 1 conv (6-day prior avg CPC: $0.98 / 30-day avg CPC: $2.45).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-14</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions yesterday despite ENABLED status. Shared $10/day budget with Search Campaign - Medical Accounting Firm (23469346237), which had 5 impressions and $0 spend. Zero delivery across 30-day window. Budget was raised to $10/day shared on May 13, but Exp_ Max conv campaign has never delivered. Likely keyword quality score, bid floor, or ad disapproval. Yesterday: $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0.0 clicks | 0.00 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-13</div>
+        <div class="tl-title">Performance Max - Medical: Conversion drop 100% after transition</div>
+        <div class="tl-body">0 conversions yesterday vs 7-day daily avg 0.29/day (spend $10.88 &ge; $5 threshold). Campaign resumed delivery after Oct 8&ndash;11 pause: 469 impressions, 31 clicks &mdash; but no conversions. Budget raised to $40/day. 30-day total: 6 conv / $203 spend / $33.90 CPL. Monitor for rebound; campaign may need 2&ndash;3 days to re-enter learning phase. Yesterday: $10.88 | 31 clicks | 0 conv (7-day daily avg: $8.17 | 6.1 clicks | 0.29 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-13</div>
+        <div class="tl-title">Dental EXP campaigns: Zero impressions &mdash; budget uncontested, quality/bid issue</div>
+        <div class="tl-body">Campaign - Search Exp_Exact match KW (23354050478) and EXP_Health Insurance + Custom Audiences (23538453756): 0 impressions yesterday. Main campaign (21979782854) spent only $21.15 of $40/day shared budget &mdash; budget is NOT the cause. Persistent 30+ days. Likely ad disapproval, low bid, or keyword quality score issue. Review ad status and bidding in Google Ads console. Yesterday (each): $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0 clicks | 0 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-13</div>
+        <div class="tl-title">Performance Max - Dental (2026-10-11): Zero impressions &mdash; new campaign, likely in ad review</div>
+        <div class="tl-body">New campaign (id 24348876715, $20/day, ENABLED) created Oct 11 recorded 0 impressions on its first day. Expected during Google&rsquo;s ad review period. Monitor for delivery in the next 24&ndash;48 hours; if still zero by Oct 15, investigate approval status. Yesterday: $0.00 | 0 clicks | 0 conv.</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-13</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions yesterday despite ENABLED status. Shares $10/day budget with Search Campaign - Medical Accounting Firm (23469346237) which had only 2 impressions. Zero delivery across full 7-day and 30-day windows. Yesterday: $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0.0 clicks | 0.00 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-12</div>
+        <div class="tl-title">Performance Max - Medical: Transition day &mdash; 0 effective delivery; original re-enabled Oct 11</div>
+        <div class="tl-body">Original PMax Medical (22576280607, $25/day) was paused Oct 8&ndash;10 while rebuilt (24338520412) ran. Rebuilt recorded $0.16 on Oct 10 before being paused. Original re-enabled Oct 11 &mdash; needs to resume delivery. Primary Local converter: 6 conv / $32.42 CPL over 30 days. Search Medical (23469346237) also re-enabled; both rebuilts now PAUSED. Exp_ Max conv (23547513962) persistent zero on $10/day shared budget (30+ days no delivery). Oct 10: $0.16 total (rebuilt partial) | 0 clicks (original) | 0 conv.</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-12</div>
+        <div class="tl-title">Dental ENABLED campaigns: All zero impressions &mdash; restructuring complete, no delivery Oct 10</div>
+        <div class="tl-body">Rebuilt Search (24327274002) paused Oct 11. Original main (21979782854, $40/day shared) and Brand (23161490386, $10/day) re-enabled but recorded 0 impressions Oct 10 (both paused Oct 8&ndash;10 while rebuilt ran). EXP variants (23354050478, 23538453756) persist at 0 &mdash; shared $40/day budget fully uncontested. Combined budgets $50+/day with zero spend yesterday. New PMax Dental (24348876715) also created Oct 11. If delivery does not resume today, bid/quality-score investigation needed. Oct 10: $0.00 total | 0 clicks | 0 conv.</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-11</div>
+        <div class="tl-title">Performance Max - Medical (rebuilt 2026-10-08): Overspend 160% + CPC spike +145%</div>
+        <div class="tl-body">$19.22 spent vs $12.00/day budget (160% &mdash; opportunity to raise budget). CPC yesterday $1.20 vs 7-day avg $0.49 (+145% &mdash; above 50% threshold). Campaign launched Oct 8 (day 3); 7-day avg is weighted down by ~4 zero-spend pre-launch days. 0 conversions across full window. Consider raising budget to $20&ndash;25/day to capture full delivery. Yesterday: $19.22 | 16 clicks | 0 conv (7-day daily avg: $4.40 | 9.0 clicks | 0.00 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-11</div>
+        <div class="tl-title">EXP campaigns: Zero impressions &mdash; shared $18/day budget now uncontested</div>
+        <div class="tl-body">Both ENABLED Dental EXP campaigns (Exp_Exact match KW id 23354050478, EXP_Health Insurance id 23538453756) recorded 0 impressions yesterday. Old main campaign (21979782854) paused Oct 8 &mdash; their shared $18/day budget is now fully uncontested. Budget competition is no longer the cause. Rebuilt main (24327274002) only spent $3.06 yesterday, confirming $18 budget is available. Likely: ads under review, bid floor, or keyword quality score issues. Yesterday: $0.00 | 0 clicks | 0 conv each.</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-11</div>
+        <div class="tl-title">Search Campaign - Medical Accounting Firm (rebuilt 2026-10-08): Zero impressions &mdash; day 3</div>
+        <div class="tl-body">Rebuilt Search campaign (id 24338500237) still recording 0 impressions after 3 days live (launched Oct 8). Has its own $1/day budget (not shared). Likely cause: ads still under review or $1/day bid floor too low for medical accounting search terms. Yesterday: $0.00 | 0 clicks | 0 conv.</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-11</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions yesterday despite ENABLED status. Zero delivery across the full 7-day and 30-day windows. Partner campaign 23469346237 is PAUSED &mdash; $1/day shared budget fully available, but $1/day too constrained to win any auction. Yesterday: $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0.0 clicks | 0.00 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-10</div>
+        <div class="tl-title">Performance Max - Medical (rebuilt 2026-10-08): Spend 96.3% of daily budget</div>
+        <div class="tl-body">$11.55 spent vs $12.00/day budget on first full day (id 24338520412, launched Oct 8). 47 clicks, 0 conversions. Opportunity to raise budget &mdash; this is now the main Local conversion driver replacing the paused original. Yesterday: $11.55 | 47 clicks | 0 conv (7-day avg: first-day data only).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-10</div>
+        <div class="tl-title">EXP campaigns: Zero impressions despite shared budget now uncontested</div>
+        <div class="tl-body">Both ENABLED Dental EXP campaigns (Exp_Exact match KW id 23354050478 and EXP_Health Insurance id 23538453756) recorded 0 impressions yesterday. Main campaign (21979782854) is now PAUSED as of Oct 8 &mdash; the shared $18/day budget should be fully available to these two campaigns. Still 0 delivery. Likely cause: ad disapprovals, low bids, or keyword targeting issues unrelated to budget. Yesterday: $0.00 | 0 clicks | 0 conv (30-day spend: $0.00 each).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-10</div>
+        <div class="tl-title">Search Campaign - Medical Accounting Firm (rebuilt 2026-10-08): Zero impressions &mdash; first day</div>
+        <div class="tl-body">Rebuilt Search campaign (id 24338500237) launched Oct 8 with $1/day shared budget &mdash; 0 impressions on launch day. Shares budget pool with Exp_ Max conv trial. Either ads are still in review or $1/day is too low to compete in auction. Yesterday: $0.00 | 0 clicks | 0 conv.</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-10</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions yesterday despite ENABLED status. Zero delivery across the full 7-day and 30-day windows. Shares a $1/day budget &mdash; budget too constrained for any delivery. Yesterday: $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0.0 clicks | 0.00 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-05</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: Spend 118% of daily budget</div>
+        <div class="tl-body">$21.30 spent vs $18.00/day shared budget &mdash; main campaign over-delivering, consuming shared allotment and starving both EXP variants (Exact match KW + Health Ins, both at 0 impressions). Opportunity to raise shared budget. Yesterday: $21.30 | 4 clicks | 0 conv (7-day daily avg: $26.31 | 6.6 clicks | 0.00 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-05</div>
+        <div class="tl-title">Campaign - Search Exp_Exact match KW + EXP_Health Insurance: Zero impressions for 24h</div>
+        <div class="tl-body">Both ENABLED EXP campaigns (ids 23354050478, 23538453756) recorded 0 impressions yesterday. Root cause: main campaign consumed the full shared $18/day budget at $21.30. Both EXP campaigns have $0 spend across the full 30-day window. Persistent &mdash; no impressions since shared budget was established. Yesterday: $0.00 | 0 clicks | 0 conv (30-day spend: $0.00 each).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-05</div>
+        <div class="tl-title">Search Campaign - Medical Accounting Firm: Zero impressions for 24h</div>
+        <div class="tl-body">Campaign 23469346237 is ENABLED but recorded 0 impressions yesterday. Shares a $1/day budget with the Exp_ Max conv trial. Had 129 impressions over the last 30 days ($11.61 spend) but none yesterday &mdash; budget too constrained within the shared $1/day cap. Yesterday: $0.00 | 0 clicks | 0 conv (7-day: 8 impressions, $0.00 spend).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-05</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions yesterday despite ENABLED status. Zero delivery across full 7-day and 30-day windows. Shares a $1/day budget with the proven Medical Accounting Firm campaign &mdash; budget too constrained for both. Yesterday: $0.00 | 0 clicks | 0 conv (30-day spend: $0.00).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-05</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: Spend 103.8% of daily budget</div>
+        <div class="tl-body">$31.15 spent vs $30.00/day shared budget &mdash; main campaign over-delivering, consuming shared allotment and starving both EXP variants (Exact match KW + Health Ins, both at 0 impressions). Opportunity to raise shared budget after auditing General ad group first (per T3 rec). Yesterday: $31.15 | 7 clicks | 0 conv (7-day daily avg: $28.97 | 7.3 clicks | 0.00 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-05</div>
+        <div class="tl-title">Performance Max - Medical: Spend 145% of budget + conversion drop</div>
+        <div class="tl-body">Two anomalies: (1) $17.41 spent vs $12/day budget (145% &mdash; opportunity to raise). (2) 0 conversions yesterday vs 7-day daily avg 0.14/day &mdash; 100% drop (spend $17.41 &ge; $5 threshold). Budget has recovered to $12/day but delivery continues to exceed cap. Conversion drop may be day-to-day variance given low 7-day baseline of 1 total conv. Yesterday: $17.41 | 3 clicks | 0 conv (7-day daily avg: $8.20 | 1.9 clicks | 0.14 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-05</div>
+        <div class="tl-title">Search Campaign - Medical Accounting Firm: Zero impressions for 24h</div>
+        <div class="tl-body">Campaign 23469346237 is ENABLED but recorded 0 impressions yesterday. Shares a $1/day budget with the Exp_ Max conv trial. Had 10 impressions in the 7-day window but none yesterday &mdash; budget too constrained for both campaigns within the shared $1/day cap. Yesterday: $0.00 | 0 clicks | 0 conv (7-day: 10 impressions, $0.00 spend).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-05</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions yesterday despite ENABLED status. Zero delivery across full 7-day and 30-day windows. Shares a $1/day budget with the proven Medical Accounting Firm campaign &mdash; budget too constrained for both. Yesterday: $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0.0 clicks | 0.00 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-04</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: Spend 90.6% of daily budget</div>
+        <div class="tl-body">$27.17 spent vs $30.00/day shared budget &mdash; at 90.6% of daily cap. Opportunity to raise the shared budget to give EXP variants room to run. EXP campaigns (Exact match KW, Health Ins) continue at 0 impressions as main consumes the shared allotment. Yesterday: $27.17 | 7 clicks | 0 conv (7-day daily avg: $31.57 | 7.7 clicks | 0.0 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-04</div>
+        <div class="tl-title">Search Campaign - Medical Accounting Firm: Zero impressions for 24h</div>
+        <div class="tl-body">Campaign 23469346237 is ENABLED but recorded 0 impressions yesterday. Shares a $1/day budget with the Exp_ Max conv trial. Had 11 impressions in the 7-day window (avg 1.6/day) but none yesterday &mdash; likely budget competition within the shared $1/day cap. Yesterday: $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0.0 clicks | 0.0 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-04</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions yesterday despite ENABLED status. Zero delivery across the full 7-day window. Shares a $1/day budget with the proven Medical Accounting Firm campaign &mdash; budget too constrained for both. Yesterday: $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0.0 clicks | 0.0 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-02</div>
+        <div class="tl-title">Performance Max - Medical: Conv drop 100% + Spend 123% of budget + CPC +288%</div>
+        <div class="tl-body">3 simultaneous anomalies on PMax Medical (id 22576280607). (1) 0 conversions yesterday vs 7-day daily avg 0.14/conv &mdash; 100% drop, spend $14.77 &ge; $5 threshold. (2) Spend $14.77 vs $12/day budget (123% &mdash; opportunity to raise). (3) CPC yesterday $14.77 (1 click) vs 7-day avg $3.81 (+288%, well above 50% threshold &mdash; likely a single high-value click skewing CPC). Yesterday: $14.77 | 1 click | 0 conv (7-day daily avg: $6.53 | 1.7 clicks | 0.14 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-02</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: Spend 116.5% of daily budget</div>
+        <div class="tl-body">$34.96 spent vs $30.00/day shared budget &mdash; main campaign over-delivering, consuming the shared allotment and starving both EXP variants (Exact match KW + Health Ins, both at 0 impressions). Opportunity to raise the shared budget (pending General ad group audit per T3 recommendation). Yesterday: $34.96 | 9 clicks | 0 conv (7-day daily avg: $33.85 | 8.1 clicks | 0.00 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-02</div>
+        <div class="tl-title">Campaign - Search Exp_Exact match KW + EXP_Health Insurance: Zero impressions for 24h</div>
+        <div class="tl-body">Both ENABLED EXP campaigns (ids 23354050478, 23538453756) recorded 0 impressions yesterday. Root cause: the main Dental search campaign consumed the full shared $30/day budget at $34.96. Both EXP campaigns continue at $0 spend across the full 30-day window. Persistent &mdash; no impressions since shared budget was established. Yesterday: $0.00 | 0 clicks | 0 conv (30-day spend: $0.00 each).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-02</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions on 2026-10-01 despite ENABLED status. Zero delivery across the full 7-day and 30-day window. Shares a $1/day budget with the proven Medical Accounting Firm campaign &mdash; budget too constrained for both. Yesterday: $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0.0 clicks | 0.00 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-02</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: Spend 99.8% of daily budget</div>
+        <div class="tl-body">$29.94 spent vs $30.00/day budget &mdash; campaign nearly capped. EXP campaigns (Exact Match KW, Health Ins) share this budget and got 0 impressions yesterday. Opportunity to raise the shared budget. Yesterday: $29.94 | 10 clicks | 0 conv (7-day daily avg: $32.23 | 7.9 clicks | 0 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-02</div>
+        <div class="tl-title">Search Campaign - Medical Accounting Firm: Zero impressions for 24h</div>
+        <div class="tl-body">Campaign ID 23469346237 is ENABLED but recorded 0 impressions on 2026-10-01. Shares a $1/day budget with the Exp_ Max conv trial. Had 18 impressions over the 7-day window (avg ~2.6/day) but none yesterday &mdash; possible budget competition within the shared $1/day cap. Yesterday: $0.00 | 0 clicks | 0 conv (7-day total: 18 impressions, $0.00 spend).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-02</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions on 2026-10-01 despite ENABLED status. Zero delivery across the full 7-day and 30-day window. Shares a $1/day budget with the proven Medical Accounting Firm campaign &mdash; budget too constrained for both. Yesterday: $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0.0 clicks | 0.00 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-10-01</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions on 2026-09-30 despite ENABLED status. Zero delivery across the full 7-day and 30-day window. Shares a $1/day budget with the proven Medical Accounting Firm campaign &mdash; budget too constrained for both. Yesterday: $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0.0 clicks | 0.00 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-30</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: Spend 173% of daily budget</div>
+        <div class="tl-body">$24.30 spent vs $14/day shared budget &mdash; main campaign over-delivering on a reduced shared budget. EXP campaigns (Exact match KW, Health Ins) continue at 0 impressions as main consumes full shared allotment. Opportunity to raise the shared budget. Yesterday: $24.30 | 5 clicks | 0 conv (7-day daily avg: $32.73 | 7.4 clicks | 0 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-30</div>
+        <div class="tl-title">Campaign - Search Exp_Exact match KW: Zero impressions for 24h</div>
+        <div class="tl-body">Campaign ID 23354050478 is ENABLED but recorded 0 impressions on 2026-09-29. Shares the $14/day budget with the main campaign which spent $24.30 &mdash; shared budget fully consumed. Yesterday: $0.00 | 0 clicks | 0 conv (7-day spend: $0.00).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-30</div>
+        <div class="tl-title">EXP_Health Insurance + Custom Audiences: Zero impressions for 24h</div>
+        <div class="tl-body">Campaign ID 23538453756 is ENABLED but recorded 0 impressions on 2026-09-29. Same root cause &mdash; shares $14/day budget with main campaign. Yesterday: $0.00 | 0 clicks | 0 conv (7-day spend: $0.00).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-30</div>
+        <div class="tl-title">Performance Max - Medical: Spend 258% of budget + CPC spike +121%</div>
+        <div class="tl-body">$13.91 spent vs $5.40/day budget (258%). CPC yesterday $6.96 vs 7-day avg $3.15 (+121% &mdash; flagged). Also 0 conversions vs 7-day daily avg 0.14/day (spend $13.91 &ge; $5 threshold). Budget severely under-sized for actual delivery. Yesterday: $13.91 | 2 clicks | 0 conv (7-day daily avg: $6.30 | 2.0 clicks | 0.14 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-30</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions on 2026-09-29 despite ENABLED status. Zero delivery across entire 7-day and 30-day window. Shares a $1/day budget with the proven Medical Accounting Firm campaign &mdash; budget too constrained for both. Yesterday: $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0.0 clicks | 0.00 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-28</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: Spend 153% of daily budget</div>
+        <div class="tl-body">$39.86 spent vs $26/day shared budget &mdash; main campaign over-delivering on a reduced shared budget (was $40/day on Sep 27). EXP campaigns continue to get 0 impressions as the main consumes the full budget. Opportunity to raise the shared budget. Yesterday: $39.86 | 9 clicks | 0 conv (7-day daily avg: $32.77 | 7.3 clicks | 0 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-28</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions on 2026-09-27 despite ENABLED status. Zero delivery across the full 7-day window. Shares a $6/day budget with the proven Medical Accounting Firm campaign &mdash; budget too constrained for both. Yesterday: $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0.0 clicks | 0.00 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-27</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: Spend 123% of daily budget</div>
+        <div class="tl-body">$49.38 spent vs $40/day shared budget &mdash; main campaign is over-delivering, consuming the shared budget and starving both EXP campaigns. Opportunity to raise the shared budget or separate into individual budgets. Yesterday: $49.38 | 10 clicks | 0 conv (30-day daily avg: $16.21 | 2.7 clicks | 0.10 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-27</div>
+        <div class="tl-title">Brand Campaign - Search: Spend 292% of daily budget</div>
+        <div class="tl-body">$23.36 spent vs $8/day budget &mdash; significant over-delivery (7x the 30-day daily average of $3.26/day). Opportunity to raise budget. Yesterday: $23.36 | 2 clicks | 0 conv (30-day daily avg: $3.26 | 0.9 clicks | 0 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-27</div>
+        <div class="tl-title">Campaign - Search Exp_Exact match KW: Zero impressions for 24h</div>
+        <div class="tl-body">Campaign ID 23354050478 is ENABLED but recorded 0 impressions on 2026-09-26. Shares the $40/day budget with the main campaign which spent $49.38 &mdash; shared budget fully consumed by main. Yesterday: $0.00 | 0 clicks | 0 conv (30-day spend: $0.00).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-27</div>
+        <div class="tl-title">EXP_Health Insurance + Custom Audiences: Zero impressions for 24h</div>
+        <div class="tl-body">Campaign ID 23538453756 is ENABLED but recorded 0 impressions on 2026-09-26. Same root cause &mdash; shares $40/day budget with the main campaign which over-delivered at $49.38. Yesterday: $0.00 | 0 clicks | 0 conv (30-day spend: $0.00).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-27</div>
+        <div class="tl-title">Performance Max - Medical: Spend 140% of budget + conversion drop</div>
+        <div class="tl-body">$7.70 spent vs $5.50/day budget (140%). Also 0 conversions yesterday vs 7-day daily avg 0.29/day (100% drop, spend $7.70 &ge; $5). Budget needs raising to match actual delivery. Yesterday: $7.70 | 3 clicks | 0 conv (7-day daily avg: $4.52 | 1.7 clicks | 0.29 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-27</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persistent &mdash; 30+ days)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions on 2026-09-26 despite ENABLED status. Zero delivery across the full 30-day window. Shares a $1/day budget with the proven Medical Accounting Firm campaign &mdash; budget too constrained for both. Yesterday: $0.00 | 0 clicks | 0 conv (30-day spend: $0.00).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-23</div>
+        <div class="tl-title">Virjee Consulting - Campaign - Search: Spend 123% of daily budget</div>
+        <div class="tl-body">$24.56 spent vs $20/day budget (overdelivery) &mdash; budget is constraining this campaign, consider raising. Yesterday: $24.56 | 4 clicks | 0 conv (7-day daily avg: $11.05 | 2.0 clicks | 0.00 conv).</div>
+        <span class="tl-tag dental">Dental</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-23</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h (persists)</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions on 2026-09-22 despite ENABLED status. Zero delivery across entire 7-day window. Shares a $2/day budget with the proven Medical Accounting Firm campaign &mdash; shared budget too constrained for both. Yesterday: $0.00 | 0 clicks | 0 conv (7-day daily avg: $0.00 | 0.0 clicks | 0.00 conv).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-date">2026-09-22</div>
+        <div class="tl-title">Exp_ Max conv: Zero impressions for 24h</div>
+        <div class="tl-body">Search Campaign - Medical Accounting Firm Exp_ Max conv (id 23547513962) recorded 0 impressions on 2026-09-21 despite ENABLED status. Shares a $2/day budget with the proven Medical Accounting Firm campaign &mdash; budget may be too constrained for both campaigns to compete. 30-day activity also zero. Yesterday: $0 | 0 clicks | 0 conv (7-day daily avg: $0 | 0 | 0).</div>
+        <span class="tl-tag local">Local</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <h2>VIRJEE CONSULTING<br/><span class="accent">TRACKER LIVE.</span></h2>
+    <p>Updated every morning Melbourne time by the daily and weekly Markology routines.</p>
+    <div class="built-by">Built by <a href="https://markology.io">Markology</a> &middot; Auto-refresh routines running</div>
+  </div>
+</footer>
+
+<script>
+const navy = '#070630', blue = '#3872EB', lilac = '#E6E9FF', mute = '#6C6E8A';
+
+// Monthly Leads chart (Dental vs Local)
+const leadsChart = new Chart(document.getElementById('leadsChart').getContext('2d'), {
+  type: 'bar',
+  data: {
+    labels: ['Apr 26', 'May 26', 'Jun 26', 'Jul 26', 'Aug 26', 'Sep 26', 'Oct 26', 'Nov 26'],
+    datasets: [
+      { label: 'Dental', data: [25, 12, 4, 0, 0, 0, 0, 0], backgroundColor: blue, borderColor: navy, borderWidth: 2 },
+      { label: 'Local', data: [37, 8, 28, 29, 30, 22, 21, 4], backgroundColor: lilac, borderColor: navy, borderWidth: 2 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter', weight: '600' }, color: navy } } },
+    scales: { y: { beginAtZero: true, grid: { color: 'rgba(7,6,48,0.08)' }, ticks: { color: mute } }, x: { grid: { display: false }, ticks: { color: mute } } }
+  }
+});
+
+// Existing-practice leads (the prized segment)
+const existingChart = new Chart(document.getElementById('existingChart').getContext('2d'), {
+  type: 'line',
+  data: {
+    labels: ['Apr 26', 'May 26', 'Jun 26', 'Jul 26', 'Aug 26', 'Sep 26', 'Oct 26', 'Nov 26'],
+    datasets: [
+      { label: 'Dental Existing', data: [16, 4, 1, 0, 0, 0, 0, 0], borderColor: blue, backgroundColor: 'rgba(56,114,235,0.15)', borderWidth: 3, tension: 0.3, fill: true, pointBackgroundColor: blue, pointBorderColor: navy, pointBorderWidth: 2, pointRadius: 5 },
+      { label: 'Local Existing (Med/Dental)', data: [3, 0, 3, 3, 5, 3, 5, 0], borderColor: '#7c3aed', backgroundColor: 'rgba(124,58,237,0.15)', borderWidth: 3, tension: 0.3, fill: true, pointBackgroundColor: '#7c3aed', pointBorderColor: navy, pointBorderWidth: 2, pointRadius: 5 }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { font: { family: 'Inter', weight: '600' }, color: navy } } },
+    scales: { y: { beginAtZero: true, grid: { color: 'rgba(7,6,48,0.08)' }, ticks: { color: mute } }, x: { grid: { display: false }, ticks: { color: mute } } }
+  }
+});
+
+// Update goal bar based on current value
+const goalCurrent = parseInt(document.getElementById('goal-current').textContent);
+const goalPct = Math.min(100, Math.round((goalCurrent / 20) * 100));
+document.getElementById('goal-bar-fill').style.width = goalPct + '%';
+</script>
+
+</body>
+</html>

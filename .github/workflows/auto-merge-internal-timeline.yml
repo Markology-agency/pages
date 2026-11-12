@@ -1,0 +1,28 @@
+# Whitney 2026-11-12: updates to the internal timeline page go live without a manual merge.
+# Merges a PR only when every changed file is inside markology/internal-timeline/ and the
+# branch is in this repo (never a fork). Any other file in the PR means it waits for Whitney.
+name: Auto-merge internal timeline
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  merge:
+    if: github.event.pull_request.head.repo.full_name == github.repository && !github.event.pull_request.draft
+    runs-on: ubuntu-latest
+    steps:
+      - name: Merge if only the timeline folder changed
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR: ${{ github.event.pull_request.number }}
+          REPO: ${{ github.repository }}
+        run: |
+          files=$(gh pr view "$PR" -R "$REPO" --json files -q '.files[].path')
+          echo "$files"
+          [ -n "$files" ] || exit 0
+          if echo "$files" | grep -qv '^markology/internal-timeline/'; then
+            echo "Other files changed; leaving this PR for review."; exit 0
+          fi
+          gh pr merge "$PR" -R "$REPO" --squash --delete-branch

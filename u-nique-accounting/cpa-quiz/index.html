@@ -42,6 +42,11 @@ p strong{color:var(--ink)}
 .form-ex{margin:16px 0 4px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
 .form-ex img{display:block;width:100%;height:auto}
 .form-ex figcaption{font-size:13px;color:var(--mute);padding:8px 12px;border-top:1px solid var(--line);background:var(--paper)}
+.money{background:#F1F8E6;border:2px solid var(--g);border-radius:16px;padding:20px 22px;margin:4px 0 20px}
+.money p{color:var(--ink);margin-bottom:0;font-size:16px}
+.money .money-big{font-family:'Alata',sans-serif;font-size:clamp(24px,5.5vw,32px);line-height:1.15;color:var(--gd);margin-bottom:8px}
+.btn-big{font-size:18px;padding:16px 36px;margin-top:4px}
+.small .again{margin-left:6px;font-size:13px}
 .screen{display:none}
 .screen.show{display:block}
 </style>
@@ -99,14 +104,18 @@ p strong{color:var(--ink)}
 
     <!-- Result: not expert -->
     <section class="screen" id="fail">
-      <div class="verdict">🤔</div>
-      <h2>It may be worth taking a closer look at your CPA.</h2>
+      <div class="verdict">💸</div>
+      <h2>You could be missing out on tens of thousands of dollars.</h2>
       <p>We could ask you a bunch more questions. But if you answered no to either of these, you don't have an industry expert. It's that simple.</p>
       <div class="recap" id="recap"></div>
-      <p>We do this for restaurant and brewery owners every day. Tell us a little about your business and we'll show you what an industry expert would be doing with your books.</p>
-      <a class="btn" href="https://u-niqueaccounting.com/contact-us/">Get In Touch</a>
-      <button class="again" onclick="restart()">Take it again</button>
-      <p class="small">Want to see what the tip credit could be worth to you? Try our <a href="https://u-niqueaccounting.com/fica-tip-credit-calculator/">FICA Tip Credit Calculator</a>.</p>
+      <div class="money">
+        <p class="money-big">$10,000, $20,000, or even $30,000+</p>
+        <p>That's what the FICA tip credit can be worth to a restaurant or brewery every year. We've saved our clients tens of thousands of dollars in taxes with credits like this one, which many traditional accountants don't bother with.</p>
+      </div>
+      <p>We take on new clients all the time who have been open for 10+ years and have never claimed Form 8846. That's thousands of dollars lost every single year they've been in business. The savings more than cover the cost of switching to an accountant who knows your industry.</p>
+      <p><strong>Let's find out what you've been missing.</strong> Tell us a little about your business and we'll take a look.</p>
+      <a class="btn btn-big" href="https://u-niqueaccounting.com/contact-us/">Find My Missing Money</a>
+      <p class="small">Want a number first? Run it through our <a href="https://u-niqueaccounting.com/fica-tip-credit-calculator/">FICA Tip Credit Calculator</a>. <button class="again" onclick="restart()">Take the quiz again</button></p>
     </section>
   </div>
 </div>
@@ -123,8 +132,8 @@ function answer(q,ok){
   if(q===1){go(2);return;}
   if(score[1]&&score[2]){go('pass');return;}
   var r=[];
-  if(!score[1]) r.push('<p><strong>No Form 8846.</strong> If you have tipped staff, you may be leaving the FICA tip credit on the table every year.</p>');
-  if(!score[2]) r.push('<p><strong>Monthly lump-sum entries.</strong> One entry a month hides what your sales, tips and comps are doing day to day, so problems show up weeks late.</p>');
+  if(!score[1]) r.push('<p><strong>No Form 8846.</strong> If you have tipped staff, your CPA may be leaving the FICA tip credit on the table, and it adds up every year you don't claim it.</p>');
+  if(!score[2]) r.push('<p><strong>Monthly lump-sum entries.</strong> One entry a month hides what your sales, tips and comps are doing day to day. Problems show up weeks late, after the money is already gone.</p>');
   document.getElementById('recap').innerHTML=r.join('');
   go('fail');
 }

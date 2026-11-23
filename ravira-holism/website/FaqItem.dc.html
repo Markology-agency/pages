@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ravira: FaqItem</title>
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<div style="border-top:1.5px solid #27302A;font-family:'Nunito Sans',sans-serif;color:#27302A">
+  <button type="button" onClick="{{ toggle }}" style="width:100%;display:flex;justify-content:space-between;align-items:center;gap:24px;background:transparent;border:none;padding:24px 0;cursor:pointer;text-align:left;color:#27302A">
+    <span style="font-family:'Instrument Serif',serif;font-size:clamp(22px,2cqi,28px);line-height:1.2">{{ q }}</span>
+    <span style="flex:none;width:40px;height:40px;border-radius:50%;border:1.5px solid #27302A;display:grid;place-items:center;font-size:20px">{{ sign }}</span>
+  </button>
+  <sc-if value="{{ open }}" hint-placeholder-val="{{ false }}">
+    <p style="font-size:18px;line-height:1.6;color:#4A544C;margin:0;padding:0 64px 28px 0;max-width:820px">{{ a }}</p>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;900px&quot;,&quot;height&quot;:&quot;200px&quot;},&quot;q&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Question&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;a&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Answer&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;defaultOpen&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { open: null };
+  renderVals() {
+    const open = this.state.open ?? !!this.props.defaultOpen;
+    return { q: this.props.q, a: this.props.a, open, sign: open ? '–' : '+', toggle: () => this.setState({ open: !open }) };
+  }
+}
+</script>
+</body>
+</html>

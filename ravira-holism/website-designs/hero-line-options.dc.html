@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Ravira: hero line options</title>
+<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Nunito+Sans:wght@400;600;700&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#F1F2EC;font-family:'Nunito Sans',sans-serif;color:#27302A}a{color:#27302A}*{box-sizing:border-box}</style>
+</helmet>
+<div style="padding:48px;max-width:1900px;margin:0 auto">
+  <h1 style="font-family:'Instrument Serif',serif;font-weight:400;font-size:48px;margin:0">Homepage hero line · variations</h1>
+  <p style="font-size:16px;color:#5B655C;margin:8px 0 0">Same size and place as on the homepage. 1 is the approved line.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:32px">
+    <sc-for list="{{ variants }}" as="v" hint-placeholder-count="5">
+      <div style="background:#FBFAF5;border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:'Nanum Pen Script',cursive;font-size:28px;color:#B4553B">{{ v.n }}</span><span style="font-family:'Instrument Serif',serif;font-size:28px">{{ v.name }}</span></div>
+        <p style="font-size:14px;line-height:1.5;color:#4A544C;margin:0;min-height:42px">{{ v.note }}</p>
+        <div style="position:relative;height:520px">
+          <svg viewBox="0 0 400 640" style="width:100%;height:100%;overflow:visible" fill="none">
+            <path d="{{ v.d1 }}" stroke="#27302A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="{{ v.d2 }}" stroke="#E27A5F" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="{{ foot }}" stroke="#E27A5F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <div style="position:absolute;left:0;top:4%;font-family:'Nanum Pen Script',cursive;font-size:22px;color:#5B655C;transform:rotate(-4deg)">trying harder</div>
+          <div style="position:absolute;right:0;bottom:4%;font-family:'Nanum Pen Script',cursive;font-size:22px;color:#B4553B;transform:rotate(3deg)">your next best step</div>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const cx = 200, hy = 115;
+    const P = p => { if (!p.length) return ''; let d = `M${p[0][0].toFixed(1)} ${p[0][1].toFixed(1)}`; for (let i = 0; i < p.length - 1; i++) { const p0 = p[i - 1] || p[i], p1 = p[i], p2 = p[i + 1], p3 = p[i + 2] || p2; d += ` C${(p1[0] + (p2[0] - p0[0]) / 6).toFixed(1)} ${(p1[1] + (p2[1] - p0[1]) / 6).toFixed(1)} ${(p2[0] - (p3[0] - p1[0]) / 6).toFixed(1)} ${(p2[1] - (p3[1] - p1[1]) / 6).toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`; } return d; };
+    const rng = seed => { let s = seed; return () => { s = (s * 16807) % 2147483647; return s / 2147483647; }; };
+    const scribble = (seed, n, r) => { const rnd = typeof seed === 'function' ? seed : rng(seed), a = []; for (let i = 0; i < n; i++) { const t = rnd() * Math.PI * 2, q = r * (0.25 + 0.75 * rnd()); a.push([cx + q * Math.cos(t), hy + q * Math.sin(t)]); } a.push([cx + 10, hy + r + 10]); return a; };
+    const tail = (seed, amp0) => { const rnd = typeof seed === 'function' ? seed : rng(seed), a = []; for (let y = 200; y <= 540; y += 28) { const t = (y - 200) / 340, amp = amp0 * (1 - t) + 4; a.push([cx + Math.sin(y / 38) * amp + (rnd() - 0.5) * amp * 0.5, y]); } a.push([cx + 8, 560], [cx + 20, 585]); return a; };
+    const r7 = rng(7);
+    const orig = scribble(r7, 30, 64).concat(tail(r7, 70));
+    const calm = scribble(13, 12, 50).concat(tail(5, 46));
+    const spiral = []; for (let t = 0; t <= Math.PI * 6; t += 0.3) { const r = 10 + t * 3.2; spiral.push([cx + r * Math.cos(t), hy + r * Math.sin(t)]); }
+    const sp = spiral.concat(tail(9, 50));
+    const s = []; for (let y = 40; y <= 560; y += 20) { const t = (y - 40) / 520, amp = 90 * Math.pow(1 - t, 1.4) + 3; s.push([cx + Math.sin(y / 22) * amp, y]); } s.push([cx + 20, 585]);
+    const half = Math.floor(orig.length * 0.62);
+    const fx = cx + 36;
+    const foot = `M${cx + 20} 585 C${cx + 26} 592 ${fx - 24} 596 ${fx - 22} 604 C${fx - 20} 618 ${fx + 22} 620 ${fx + 24} 606 C${fx + 26} 594 ${fx - 6} 590 ${fx - 2} 598`;
+    return {
+      foot,
+      variants: [
+        { n: '1', name: 'Approved', note: 'The current homepage line.', d1: P(orig), d2: '' },
+        { n: '2', name: 'Calmer tangle', note: 'Fewer loops and a gentler sway. It looks busy without feeling chaotic.', d1: P(calm), d2: '' },
+        { n: '3', name: 'Spiral mind', note: 'The tangle becomes one spiral, echoing logo option A and your picks.', d1: P(sp), d2: '' },
+        { n: '4', name: 'Settling sway', note: 'No knot. A wide swing at the top that quiets down into the step.', d1: P(s), d2: '' },
+        { n: '5', name: 'Ink to terracotta', note: 'The approved line, turning terracotta as it loosens.', d1: P(orig.slice(0, half + 1)), d2: P(orig.slice(half)) }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

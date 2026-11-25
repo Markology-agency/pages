@@ -1,561 +1,1111 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Client Feedback Watch</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{--c-bg:#FFFFFF;--c-bg-alt:#F8FAFC;--c-bg-dark:#0F172A;--c-bg-dark-alt:#1E293B;--c-text:#0F172A;--c-text-muted:#64748B;--c-text-light:#94A3B8;--c-text-on-dark:#F8FAFC;--c-text-on-dark-muted:#CBD5E1;--c-border:#E2E8F0;--c-border-dark:#334155;--c-accent:#0F766E;--c-accent-light:#14B8A6;--c-accent-bg:#F0FDFA;--c-good:#16A34A;--c-good-bg:#F0FDF4;--c-warn:#F59E0B;--c-warn-bg:#FFFBEB;--c-bad:#DC2626;--c-bad-bg:#FEF2F2;--font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;--max-w:1200px;--radius:10px;--radius-sm:6px;--shadow-sm:0 1px 2px rgba(15,23,42,0.04);--shadow-md:0 4px 12px rgba(15,23,42,0.06)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:var(--font-sans);font-size:15px;line-height:1.55;color:var(--c-text);background:var(--c-bg);-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4{margin:0 0 8px;font-weight:600;letter-spacing:-0.01em}p{margin:0 0 10px}a{color:var(--c-accent);text-decoration:none}a:hover{text-decoration:underline}
-.hero{background:var(--c-bg-dark);padding:48px 0 36px}
-.wrap{max-width:var(--max-w);margin:0 auto;padding:0 28px}
-.hero-label{font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--c-accent-light);margin-bottom:10px}
-.hero-title{font-size:34px;line-height:1.1;margin-bottom:6px;color:var(--c-text-on-dark)}.hero-title em{font-style:normal;color:var(--c-accent-light)}
-.hero-sub{font-size:13px;color:var(--c-text-on-dark-muted);margin:0}
-.kpi-section{padding:28px 0;border-bottom:1px solid var(--c-border);background:var(--c-bg-alt)}
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
-.kpi-tile{background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-sm)}
-.kpi-label{font-size:11px;font-weight:600;color:var(--c-text-muted);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px}
-.kpi-value{font-size:28px;font-weight:700;letter-spacing:-0.02em;color:var(--c-text);line-height:1.1}
-.kpi-sub{font-size:12px;color:var(--c-text-muted);margin-top:3px}
-.kpi-value.bad{color:var(--c-bad)}.kpi-value.warn{color:var(--c-warn)}.kpi-value.good{color:var(--c-good)}
-.clients-section{padding:28px 0}
-.section-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--c-text-muted);margin-bottom:16px}
-.client-grid{display:flex;flex-direction:column;gap:14px}
-.client-card{background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-sm)}
-.client-card-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1px solid var(--c-border);gap:12px;flex-wrap:wrap}
-.client-card-header.red{border-left:4px solid var(--c-bad)}.client-card-header.yellow{border-left:4px solid var(--c-warn)}.client-card-header.green{border-left:4px solid var(--c-good)}
-.client-name{font-size:15px;font-weight:600;margin:0}
-.client-meta{font-size:12px;color:var(--c-text-muted)}
-.traffic-light{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;white-space:nowrap}
-.traffic-light.red{background:var(--c-bad-bg);color:var(--c-bad)}.traffic-light.yellow{background:var(--c-warn-bg);color:var(--c-warn)}.traffic-light.green{background:var(--c-good-bg);color:var(--c-good)}
-.client-card-body{padding:4px 0}
-.task-table{width:100%;border-collapse:collapse;font-size:12px}
-.task-table th{padding:7px 14px;text-align:left;font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--c-text-muted);background:var(--c-bg-alt);border-bottom:1px solid var(--c-border);white-space:nowrap}
-.task-table td{padding:9px 14px;border-top:1px solid var(--c-border);vertical-align:top;font-size:12px;line-height:1.4}
-.task-table tbody tr:hover{background:var(--c-bg-alt)}
-.badge{display:inline-block;padding:2px 7px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;white-space:nowrap}
-.badge.urgent{background:var(--c-bad-bg);color:var(--c-bad)}.badge.warning{background:var(--c-warn-bg);color:var(--c-warn)}.badge.new{background:var(--c-good-bg);color:var(--c-good)}
-.task-link{color:var(--c-accent);font-size:11px;white-space:nowrap}
-.task-name{font-weight:500;color:var(--c-text);max-width:360px}
-.task-assignee{color:var(--c-text-muted);white-space:nowrap}
-.days-cell{font-weight:700;white-space:nowrap}
-.days-cell.urgent{color:var(--c-bad)}.days-cell.warning{color:var(--c-warn)}.days-cell.new{color:var(--c-good)}
-.footer{padding:24px 0;border-top:1px solid var(--c-border);background:var(--c-bg-alt);text-align:center;font-size:12px;color:var(--c-text-muted)}
-@media(max-width:640px){.wrap{padding:0 16px}.hero-title{font-size:24px}.kpi-grid{grid-template-columns:repeat(2,1fr)}.task-table td,.task-table th{padding:7px 10px}}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font-sans);background:var(--c-bg-alt);color:var(--c-text);line-height:1.5;font-size:14px}
+.hero{background:var(--c-bg-dark);color:var(--c-text-on-dark);padding:32px 24px}
+.hero-inner{max-width:var(--max-w);margin:0 auto}
+.hero h1{font-size:22px;font-weight:700;letter-spacing:-0.3px}
+.hero .sub{color:var(--c-text-on-dark-muted);font-size:13px;margin-top:4px}
+.hero .updated{color:var(--c-accent-light);font-size:12px;margin-top:6px}
+.main{max-width:var(--max-w);margin:0 auto;padding:24px 16px}
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:28px}
+.kpi{background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius);padding:16px 18px;box-shadow:var(--shadow-sm)}
+.kpi .num{font-size:28px;font-weight:700;line-height:1}
+.kpi .lbl{font-size:12px;color:var(--c-text-muted);margin-top:4px;font-weight:500}
+.kpi.urgent .num{color:var(--c-bad)}
+.kpi.warning .num{color:var(--c-warn)}
+.kpi.good .num{color:var(--c-good)}
+.card{background:var(--c-bg);border:1px solid var(--c-border);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.card-urgent{border-left:4px solid var(--c-bad)}
+.card-warn{border-left:4px solid var(--c-warn)}
+.card-ok{border-left:4px solid var(--c-good)}
+.card-header{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--c-border);background:var(--c-bg-alt)}
+.card-header h2{font-size:15px;font-weight:600;flex:1}
+.badges{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dot-red{background:var(--c-bad)}
+.dot-yellow{background:var(--c-warn)}
+.dot-green{background:var(--c-good)}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;color:var(--c-text-muted);padding:10px 14px;border-bottom:1px solid var(--c-border);background:var(--c-bg-alt)}
+td{padding:10px 14px;border-bottom:1px solid var(--c-border);vertical-align:top;font-size:13px}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#f1f5f9}
+td a{color:var(--c-accent);text-decoration:none;font-weight:500}
+td a:hover{text-decoration:underline}
+.muted{color:var(--c-text-muted)}
+.badge{display:inline-block;border-radius:4px;padding:2px 7px;font-size:11px;font-weight:600;letter-spacing:0.3px;white-space:nowrap}
+.badge-urgent{background:var(--c-bad-bg);color:var(--c-bad)}
+.badge-warn{background:var(--c-warn-bg);color:#B45309}
+.badge-new{background:var(--c-accent-bg);color:var(--c-accent)}
+.badge-ghost{background:#F3E8FF;color:#7C3AED}
+footer{text-align:center;padding:24px;color:var(--c-text-muted);font-size:12px;border-top:1px solid var(--c-border);margin-top:16px}
 </style>
 </head>
 <body>
-
 <div class="hero">
-  <div class="wrap">
-    <div class="hero-label">Markology Agency</div>
-    <h1 class="hero-title">Client <em>Feedback Watch</em></h1>
-    <p class="hero-sub">Updated 2026-11-24 22:00 UTC &nbsp;·&nbsp; Unactioned revision requests across all client boards</p>
+  <div class="hero-inner">
+    <h1>Markology Client Feedback Watch</h1>
+    <div class="sub">Daily scan for unactioned revision requests</div>
+    <div class="updated">Updated 2026-11-25 22:08 UTC</div>
   </div>
 </div>
-
-<div class="kpi-section">
-  <div class="wrap">
-    <div class="kpi-grid">
-      <div class="kpi-tile">
-        <div class="kpi-label">Urgent (&gt;7d stale)</div>
-        <div class="kpi-value bad">78</div>
-        <div class="kpi-sub">Needs immediate action</div>
-      </div>
-      <div class="kpi-tile">
-        <div class="kpi-label">Warning (3–7d)</div>
-        <div class="kpi-value warn">13</div>
-        <div class="kpi-sub">Approaching stale</div>
-      </div>
-      <div class="kpi-tile">
-        <div class="kpi-label">New (&lt;3d)</div>
-        <div class="kpi-value good">10</div>
-        <div class="kpi-sub">Recently flagged</div>
-      </div>
-      <div class="kpi-tile">
-        <div class="kpi-label">Ghost Comments</div>
-        <div class="kpi-value">0</div>
-        <div class="kpi-sub">Client comment unanswered</div>
-      </div>
-      <div class="kpi-tile">
-        <div class="kpi-label">Clients Flagged</div>
-        <div class="kpi-value bad">22</div>
-        <div class="kpi-sub">With ≥1 open revision</div>
-      </div>
-      <div class="kpi-tile">
-        <div class="kpi-label">Total Tasks</div>
-        <div class="kpi-value">101</div>
-        <div class="kpi-sub">Across all sources</div>
-      </div>
-    </div>
+<div class="main">
+  <div class="kpi-grid">
+    <div class="kpi urgent"><div class="num">78</div><div class="lbl">Urgent (&gt;7d stale)</div></div>
+    <div class="kpi warning"><div class="num">13</div><div class="lbl">Warning (3–7d)</div></div>
+    <div class="kpi good"><div class="num">9</div><div class="lbl">New (&lt;3d)</div></div>
+    <div class="kpi"><div class="num">0</div><div class="lbl">Ghost Comments</div></div>
+    <div class="kpi"><div class="num">100</div><div class="lbl">Total Flagged</div></div>
+    <div class="kpi"><div class="num">24</div><div class="lbl">Clients Flagged</div></div>
   </div>
+
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>Unknown</h2>
+    <div class="badges"><span class="badge badge-urgent">13 urgent</span> <span class="badge badge-warn">3 warning</span> <span class="badge badge-new">2 new</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1217997093966010" target="_blank" rel="noopener">Internal Review of blog: How Electrical Contractors Should Plan for Q3 Estimated…</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-09-15</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214865760256535" target="_blank" rel="noopener">3. Add NitroPack plugin (national / slow sites only)</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-05-24</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214865766488393" target="_blank" rel="noopener">1. Upload Rank Math Pro</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-05-24</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215270528284938" target="_blank" rel="noopener">SEO Blog: [BLOG NAME]</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-22</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215270561258139" target="_blank" rel="noopener">SEO Blog: [BLOG NAME]</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-15</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215270640044274" target="_blank" rel="noopener">SEO Blog: [BLOG NAME]</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-15</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215270640077169" target="_blank" rel="noopener">SEO Blog: [BLOG NAME]</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-15</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215270640086541" target="_blank" rel="noopener">SEO Blog: [BLOG NAME]</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-22</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215270676114894" target="_blank" rel="noopener">SEO Blog: [BLOG NAME]</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-22</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1211791572331424" target="_blank" rel="noopener">Video Cut #1 Development</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-04-29</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1211833925462776" target="_blank" rel="noopener">Create [MONTH] Google Ads Campaign</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">—</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214287296966405" target="_blank" rel="noopener">Video: TBD - May</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-05-29</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216139649963399" target="_blank" rel="noopener">Create social posts to promote blog: Restaurant Insurance Cost (GL, Workers Comp…</a></td>
+      <td><span class="badge badge-urgent">URGENT · 19d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Social Team</td>
+      <td class="muted">2026-08-18</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1217105671838866" target="_blank" rel="noopener">Input blog post into website: How To Plan For Cash Flow Swings In Your HVAC Busi…</a></td>
+      <td><span class="badge badge-warn">WARNING · 5d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Erin Cowan</td>
+      <td class="muted">—</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1217105673080216" target="_blank" rel="noopener">Internal Review of blog: S-Corp Election for Electrical Contractors: Salary vs. …</a></td>
+      <td><span class="badge badge-warn">WARNING · 5d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-08-16</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1217105514949886" target="_blank" rel="noopener">Input blog post into website: Job Costing for Plumbing Businesses: How to Know I…</a></td>
+      <td><span class="badge badge-warn">WARNING · 5d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Erin Cowan</td>
+      <td class="muted">—</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1209839358159149" target="_blank" rel="noopener">SEO Blog Post: Part 3: Themes</a></td>
+      <td><span class="badge badge-new">NEW · 1d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">—</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213532424419760" target="_blank" rel="noopener">Write Blog: What Is the Cost of Hiring a Therapist in a Group Practice?</a></td>
+      <td><span class="badge badge-new">NEW · 0d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-05-13</td>
+    </tr>
+    </tbody>
+  </table>
 </div>
-
-<div class="clients-section">
-  <div class="wrap">
-    <div class="section-title">Per-Client Breakdown — sorted by urgent count</div>
-    <div class="client-grid">
-
-      <!-- SAS: 12 urgent -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">Specialized Accounting Services (SAS)</div>
-            <div class="client-meta">12 urgent &nbsp;·&nbsp; 1 warning &nbsp;·&nbsp; Oldest: 41 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog: [BLOG NAME] (Week 1)</td><td class="task-assignee">Markology Support</td><td>2026-07-07</td><td><a class="task-link" href="https://app.asana.com/0/0/1216139830500704" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog: [BLOG NAME] (Week 2)</td><td class="task-assignee">Markology Support</td><td>2026-07-14</td><td><a class="task-link" href="https://app.asana.com/0/0/1216139851596917" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog: [BLOG NAME] (Week 3)</td><td class="task-assignee">Markology Support</td><td>2026-07-21</td><td><a class="task-link" href="https://app.asana.com/0/0/1216139649986358" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Design new business cards (Canva, QR code)</td><td class="task-assignee">Markology Support</td><td>2026-05-01</td><td><a class="task-link" href="https://app.asana.com/0/0/1214363926195930" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">A/B Manage Google Ads Campaign (Jul 13)</td><td class="task-assignee">Markology Support</td><td>2026-07-13</td><td><a class="task-link" href="https://app.asana.com/0/0/1216139830471768" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">A/B Manage Google Ads Campaign (Jul 20)</td><td class="task-assignee">Markology Support</td><td>2026-07-20</td><td><a class="task-link" href="https://app.asana.com/0/0/1216139649986349" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO On-page brand + hygiene cleanup (retire 'SAS CPAs')</td><td class="task-assignee">Markology Support</td><td>2026-07-17</td><td><a class="task-link" href="https://app.asana.com/0/0/1216449485839456" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">A/B Manage Google Ads Campaign (Jul 27)</td><td class="task-assignee">Markology Support</td><td>2026-07-27</td><td><a class="task-link" href="https://app.asana.com/0/0/1216139844088889" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Build real structured-data graph (AccountingService/LocalBusiness)</td><td class="task-assignee">Markology Support</td><td>2026-07-17</td><td><a class="task-link" href="https://app.asana.com/0/0/1216464530232765" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">8d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SAS: Fix Google listing spelling of Specializes and remove CPAs designation</td><td class="task-assignee">Markology Support</td><td>2026-11-17</td><td><a class="task-link" href="https://app.asana.com/0/0/1217697334922269" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">8d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SAS: Audit historical CC sends and document recurring annual campaigns</td><td class="task-assignee">Markology Support</td><td>2026-11-17</td><td><a class="task-link" href="https://app.asana.com/0/0/1217843707362885" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">8d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SAS: Update Constant Contact sender domain to sas-acct.com</td><td class="task-assignee">Markology Support</td><td>2026-11-17</td><td><a class="task-link" href="https://app.asana.com/0/0/1217843746081422" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell warning">6d</td><td><span class="badge warning">Warning</span></td><td class="task-name">Review Biggby Coffee Convention Emails</td><td class="task-assignee">Erin Cowan</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1210987007395759" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Keen Capital: 10 urgent -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">Keen Capital</div>
-            <div class="client-meta">10 urgent &nbsp;·&nbsp; 1 warning &nbsp;·&nbsp; Oldest: 41 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Review animated video before next step</td><td class="task-assignee">Markology Support</td><td>2026-03-30</td><td><a class="task-link" href="https://app.asana.com/0/0/1213814765843279" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Keen Meta Ads: Launch local HNW campaign</td><td class="task-assignee">Markology Support</td><td>2026-06-22</td><td><a class="task-link" href="https://app.asana.com/0/0/1215788490311661" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Start meta retargeting ads</td><td class="task-assignee">Markology Support</td><td>2026-06-19</td><td><a class="task-link" href="https://app.asana.com/0/0/1215812976196462" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog: Signs Your Financial Plan Needs an Update</td><td class="task-assignee">writing@markology.io</td><td>2026-06-16</td><td><a class="task-link" href="https://app.asana.com/0/0/1215270528222739" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Internal Review of blog: Alternative Investments for HNW Investors</td><td class="task-assignee">writing@markology.io</td><td>2026-06-09</td><td><a class="task-link" href="https://app.asana.com/0/0/1215270640001430" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">15X Citations</td><td class="task-assignee">Markology Support</td><td>2026-06-15</td><td><a class="task-link" href="https://app.asana.com/0/0/1215271671586028" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Keen Meta Ads: 30-day performance review + creative refresh</td><td class="task-assignee">Markology Support</td><td>2026-07-22</td><td><a class="task-link" href="https://app.asana.com/0/0/1215788754400595" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Keen: Build dedicated /team/ index page</td><td class="task-assignee">Markology Support</td><td>2026-06-17</td><td><a class="task-link" href="https://app.asana.com/0/0/1215793930007042" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Katie approves Q2 newsletter and requests it be sent</td><td class="task-assignee">writing@markology.io</td><td>2026-07-07</td><td><a class="task-link" href="https://app.asana.com/0/0/1216253398745252" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Katie requesting latest Keen Insight published to blog</td><td class="task-assignee">Markology Support</td><td>2026-07-28</td><td><a class="task-link" href="https://app.asana.com/0/0/1216802872062874" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell warning">6d</td><td><span class="badge warning">Warning</span></td><td class="task-name">SEO Blog: Where to Put Cash Right Now: Options for HNW Investors</td><td class="task-assignee">writing@markology.io</td><td>2026-04-25</td><td><a class="task-link" href="https://app.asana.com/0/0/1213721018777556" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Core Advisors: 9 urgent -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">Core Advisors</div>
-            <div class="client-meta">9 urgent &nbsp;·&nbsp; Oldest: 28 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">28d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Review SEO Blog: 401(k) or SIMPLE IRA for Dental Practice Retirement Plan?</td><td class="task-assignee">writing@markology.io</td><td>2026-05-22</td><td><a class="task-link" href="https://app.asana.com/0/0/1211074978455265" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog: How Much Should Dentists Save for Retirement Each Year?</td><td class="task-assignee">writing@markology.io</td><td>2026-05-26</td><td><a class="task-link" href="https://app.asana.com/0/0/1214285639028292" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Service page rewrite project (7 pages, SEO+LLM structure)</td><td class="task-assignee">Markology Support</td><td>2026-05-29</td><td><a class="task-link" href="https://app.asana.com/0/0/1214572387500948" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Practice Valuation Hub expansion (state benchmarks + broker worksheet)</td><td class="task-assignee">Markology Support</td><td>2026-05-06</td><td><a class="task-link" href="https://app.asana.com/0/0/1214572561224111" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Build dental practice acquisition content hub (buyer/seller side)</td><td class="task-assignee">Markology Support</td><td>2026-05-29</td><td><a class="task-link" href="https://app.asana.com/0/0/1214572790390067" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Internal Review of blog: Dental Practice Cash Flow: Why Profit ≠ Money in Bank</td><td class="task-assignee">writing@markology.io</td><td>2026-06-09</td><td><a class="task-link" href="https://app.asana.com/0/0/1215270836144941" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Create June 2026 Google Ads Campaign</td><td class="task-assignee">Markology Support</td><td>2026-06-01</td><td><a class="task-link" href="https://app.asana.com/0/0/1215271777034275" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Re-author 'best dental financial advisors' blog as Core POV</td><td class="task-assignee">Markology Support</td><td>2026-07-12</td><td><a class="task-link" href="https://app.asana.com/0/0/1215791064218406" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">20d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Integration from RightCapital into Excel (Advyzon data to dashboard screenshot)</td><td class="task-assignee">Vita A</td><td>2026-05-28</td><td><a class="task-link" href="https://app.asana.com/0/0/1213975180834862" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Cherry Hill Advisory: 6 urgent -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">Cherry Hill Advisory</div>
-            <div class="client-meta">6 urgent &nbsp;·&nbsp; 1 warning &nbsp;·&nbsp; Oldest: 41 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Website Updates - Cherry Hill Advisory</td><td class="task-assignee">Markology Support</td><td>2026-03-23</td><td><a class="task-link" href="https://app.asana.com/0/0/1213471844376311" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog: The Most Common Cybersecurity Control Failures Internal Audit Identifies (Q1 draft)</td><td class="task-assignee">Markology Support</td><td>2026-03-18</td><td><a class="task-link" href="https://app.asana.com/0/0/1213546439239100" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Cherry Hill Advisory: SEO optimize and edit submitted blog post</td><td class="task-assignee">Markology Support</td><td>2026-07-01</td><td><a class="task-link" href="https://app.asana.com/0/0/1216086885634247" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Cherry Hill Advisory: Mike requesting blog SEO optimization and editing</td><td class="task-assignee">Markology Support</td><td>2026-07-01</td><td><a class="task-link" href="https://app.asana.com/0/0/1216093647103363" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">32d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Create FAQ Page (Main)</td><td class="task-assignee">Erin Cowan</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1213875021940541" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">8d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog: The Most Common Cybersecurity Control Failures (Jun draft)</td><td class="task-assignee">writing@markology.io</td><td>2026-05-19</td><td><a class="task-link" href="https://app.asana.com/0/0/1214287071416968" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell warning">6d</td><td><span class="badge warning">Warning</span></td><td class="task-name">SEO Blog: How to Audit AI Systems: A Practical Starting Point for Internal Audit Leaders</td><td class="task-assignee">writing@markology.io</td><td>2026-05-26</td><td><a class="task-link" href="https://app.asana.com/0/0/1214287109959285" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- TL;DR Accounting: 4 urgent -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">TL;DR Accounting</div>
-            <div class="client-meta">4 urgent &nbsp;·&nbsp; Oldest: 41 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog: [BLOG NAME] — Week 1 (Jun)</td><td class="task-assignee">Markology Support</td><td>2026-06-01</td><td><a class="task-link" href="https://app.asana.com/0/0/1215270836144636" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog: [BLOG NAME] — Week 3 (Jun)</td><td class="task-assignee">Markology Support</td><td>2026-06-15</td><td><a class="task-link" href="https://app.asana.com/0/0/1215270676085128" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog: [BLOG NAME] — Week 2 (Jun)</td><td class="task-assignee">Markology Support</td><td>2026-06-08</td><td><a class="task-link" href="https://app.asana.com/0/0/1215270561189791" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog: [BLOG NAME] — Week 4 (Jun)</td><td class="task-assignee">Markology Support</td><td>2026-06-22</td><td><a class="task-link" href="https://app.asana.com/0/0/1215270640093955" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Bookkeeping for Brokers: 4 urgent -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">Bookkeeping for Brokers (BFB)</div>
-            <div class="client-meta">4 urgent &nbsp;·&nbsp; Oldest: 41 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Weekly SEO Blog #1 (May week 1)</td><td class="task-assignee">Markology Support</td><td>2026-05-05</td><td><a class="task-link" href="https://app.asana.com/0/0/1214287544699513" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Create /videos page and video post page</td><td class="task-assignee">Markology Support</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1212352228945499" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">BFB: Run E-E-A-T audit + Markology-side dev sprint</td><td class="task-assignee">Markology Support</td><td>2026-06-03</td><td><a class="task-link" href="https://app.asana.com/0/0/1214730518027332" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">19d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog: 1099-NEC For Real Estate Brokerages: How To Pay Agents Without Triggering Misclassification</td><td class="task-assignee">writing@markology.io</td><td>2026-07-21</td><td><a class="task-link" href="https://app.asana.com/0/0/1216192758183814" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Steven M. Ellard: 4 urgent, 1 new -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">Steven M. Ellard, CPA</div>
-            <div class="client-meta">4 urgent &nbsp;·&nbsp; 1 new &nbsp;·&nbsp; Oldest: 41 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Client review of blog: How Much Does Payroll Cost for a Small Business on Cape Cod?</td><td class="task-assignee">Markology Support</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1215271699161300" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Client Review of blog: Airbnb &amp; VRBO Tax on Cape Cod: What Hosts Actually Owe</td><td class="task-assignee">Markology Support</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1214172249830340" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog: Airbnb &amp; VRBO Tax on Cape Cod: What Hosts Actually Owe</td><td class="task-assignee">writing@markology.io</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1214153786392924" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog Post: How Much Should You Pay Yourself As a Business Owner?</td><td class="task-assignee">writing@markology.io</td><td>2026-03-09</td><td><a class="task-link" href="https://app.asana.com/0/0/1213105448669569" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell new">0d</td><td><span class="badge new">New</span></td><td class="task-name">Steve Ellard CPA: Qualified Improvement Property blog hits the OBBBA tripwire (bonus depreciation, Section 179)</td><td class="task-assignee">—</td><td>2026-11-20</td><td><a class="task-link" href="https://app.asana.com/0/0/1220700563182923" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- The Fitness CPA: 3 urgent (oldest 375d!) -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">The Fitness CPA</div>
-            <div class="client-meta">3 urgent &nbsp;·&nbsp; 2 new &nbsp;·&nbsp; ⚠️ Oldest: 375 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">375d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Create Newsletter: Why You Should STOP Using QuickBooks for Gyms (Tasks Needing Revision)</td><td class="task-assignee">Eric Killian</td><td>2025-03-17</td><td><a class="task-link" href="https://app.asana.com/0/0/1209624861142209" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Create New Drip Funnels (Apr 2026)</td><td class="task-assignee">—</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1213964810245947" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Create New Drip Funnels (Jan 2026 — Client Changes)</td><td class="task-assignee">writing@markology.io</td><td>2026-03-23</td><td><a class="task-link" href="https://app.asana.com/0/0/1212738464336701" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell new">0d</td><td><span class="badge new">New</span></td><td class="task-name">Add email signature pic to folder / Create folder for approved Eric headshots</td><td class="task-assignee">Erin Cowan</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1210154929870343" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell new">0d</td><td><span class="badge new">New</span></td><td class="task-name">SEO Blog Post: Part 3: Themes</td><td class="task-assignee">writing@markology.io</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1209839358159149" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Traktion: 3 urgent, 1 warning, 3 new -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">Traktion</div>
-            <div class="client-meta">3 urgent &nbsp;·&nbsp; 1 warning &nbsp;·&nbsp; 3 new &nbsp;·&nbsp; Oldest: 33 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Create landing page — estimated taxes; s-corp; reasonable comp for Ads A/B test</td><td class="task-assignee">Markology Support</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1212560716737427" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">20d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Write Blog: How Therapists Can Forecast Income With Variable Session Counts</td><td class="task-assignee">writing@markology.io</td><td>2026-08-28</td><td><a class="task-link" href="https://app.asana.com/0/0/1217996046304724" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">8d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog Post: End of Year Checklist for S-Corp Owners</td><td class="task-assignee">writing@markology.io</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1213532424419760" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell warning">6d</td><td><span class="badge warning">Warning</span></td><td class="task-name">Internal Review of blog: S-Corp Election for Electrical Contractors: Salary vs. Distribution Math</td><td class="task-assignee">writing@markology.io</td><td>2026-08-16</td><td><a class="task-link" href="https://app.asana.com/0/0/1211462349826110" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell new">0d</td><td><span class="badge new">New</span></td><td class="task-name">SEO Blog: Private Practice Checklist For Therapists: The Money Setup First</td><td class="task-assignee">writing@markology.io</td><td>2026-11-25</td><td><a class="task-link" href="https://app.asana.com/0/0/1218935990720415" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell new">0d</td><td><span class="badge new">New</span></td><td class="task-name">SEO Blog: What Is the Cost of Hiring a Therapist in a Group Practice?</td><td class="task-assignee">writing@markology.io</td><td>2026-11-24</td><td><a class="task-link" href="https://app.asana.com/0/0/1213528405236351" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell new">0d</td><td><span class="badge new">New</span></td><td class="task-name">Create September 2026 Google Ads Campaign</td><td class="task-assignee">Markology Support</td><td>2026-11-24</td><td><a class="task-link" href="https://app.asana.com/0/0/1217994468549398" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- KB Financial Advisors: 2 urgent, 1 warning, 1 new -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">KB Financial Advisors</div>
-            <div class="client-meta">2 urgent &nbsp;·&nbsp; 1 warning &nbsp;·&nbsp; 1 new &nbsp;·&nbsp; Oldest: 33 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog: Should You Sell in a Tender Offer or Wait for the IPO?</td><td class="task-assignee">writing@markology.io</td><td>2026-05-19</td><td><a class="task-link" href="https://app.asana.com/0/0/1214287110544339" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">12d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Client Review of blog: Should You Sell in a Tender Offer or Wait for the IPO?</td><td class="task-assignee">Erin Cowan</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1214287068720416" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell warning">6d</td><td><span class="badge warning">Warning</span></td><td class="task-name">SEO Blog: Opportunity Zone Fund After an IPO: How to Defer Capital Gains for Tech Employees</td><td class="task-assignee">writing@markology.io</td><td>2026-11-18</td><td><a class="task-link" href="https://app.asana.com/0/0/1217999240033632" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell new">0d</td><td><span class="badge new">New</span></td><td class="task-name">FAANG company-specific equity guides (top 10 employers)</td><td class="task-assignee">writing@markology.io</td><td>2026-07-31</td><td><a class="task-link" href="https://app.asana.com/0/0/1214595916086485" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Vast CFO: 2 urgent -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">Vast CFO</div>
-            <div class="client-meta">2 urgent &nbsp;·&nbsp; Oldest: 41 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Create landing page</td><td class="task-assignee">Markology Support</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1213080623941720" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">13d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Review bios &amp; photos</td><td class="task-assignee">Erin Cowan</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1216572746114178" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Ashford Sky: 2 urgent -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">Ashford Sky</div>
-            <div class="client-meta">2 urgent &nbsp;·&nbsp; Oldest: 33 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Run webinar for 23rd</td><td class="task-assignee">Markology Support</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1216224071071014" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">22d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">E-E-A-T Sprint P2: Build Out About/Team Page + Author Bylines on All Pages</td><td class="task-assignee">Markology Support</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1214797062429848" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- BizBud: 2 urgent -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">BizBud</div>
-            <div class="client-meta">2 urgent &nbsp;·&nbsp; Oldest: 41 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Input blog into platform: LLC vs S Corp for Content Creators: What Actually Saves You Money</td><td class="task-assignee">Markology Support</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1213798815344827" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Internal Review of blog: How Much Tax Do Content Creators Actually Pay?</td><td class="task-assignee">Markology Support</td><td>2026-04-25</td><td><a class="task-link" href="https://app.asana.com/0/0/1213720758465266" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Thompson Flaherty CPA: 1 urgent, 2 warning, 1 new -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">Thompson Flaherty CPA</div>
-            <div class="client-meta">1 urgent &nbsp;·&nbsp; 2 warning &nbsp;·&nbsp; 1 new &nbsp;·&nbsp; Oldest: 41 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Send final files today please! (May 2026 design task)</td><td class="task-assignee">Markology Support</td><td>2026-06-05</td><td><a class="task-link" href="https://app.asana.com/0/0/1215248555498994" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell warning">5d</td><td><span class="badge warning">Warning</span></td><td class="task-name">Write Blog: Illinois Paid Leave for All Workers Act: What Metro East Employers Must Track</td><td class="task-assignee">writing@markology.io</td><td>2026-10-02</td><td><a class="task-link" href="https://app.asana.com/0/0/1218925499276935" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell warning">5d</td><td><span class="badge warning">Warning</span></td><td class="task-name">Write blog post</td><td class="task-assignee">writing@markology.io</td><td>2026-11-19</td><td><a class="task-link" href="https://app.asana.com/0/0/1214443315378472" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell new">0d</td><td><span class="badge new">New</span></td><td class="task-name">SEO Blog: Illinois Paid Leave for All Workers Act: What Metro East Employers Must Track</td><td class="task-assignee">writing@markology.io</td><td>2026-11-19</td><td><a class="task-link" href="https://app.asana.com/0/0/1218920868576881" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Elevated Tax: 1 urgent -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">Elevated Tax</div>
-            <div class="client-meta">1 urgent &nbsp;·&nbsp; Oldest: 41 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">URGENT! KB CPAs Links Broken - All (See below)</td><td class="task-assignee">Markology Support</td><td>2026-05-07</td><td><a class="task-link" href="https://app.asana.com/0/0/1213986575726243" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- MedTax: 1 urgent -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">MedTax</div>
-            <div class="client-meta">1 urgent &nbsp;·&nbsp; Oldest: 33 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Video: TBD — May</td><td class="task-assignee">Markology Support</td><td>2026-05-29</td><td><a class="task-link" href="https://app.asana.com/0/0/1214287296966405" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Virjee Consulting Dental: 1 urgent, 1 warning -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">Virjee Consulting Dental</div>
-            <div class="client-meta">1 urgent &nbsp;·&nbsp; 1 warning &nbsp;·&nbsp; Oldest: 33 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">33d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">Virjee Consulting Dental: Add Google Ads metrics to Gecko dashboard</td><td class="task-assignee">Markology Support</td><td>2026-07-20</td><td><a class="task-link" href="https://app.asana.com/0/0/1216642041208899" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell warning">4d</td><td><span class="badge warning">Warning</span></td><td class="task-name">Virjee Consulting - Dental: Redesign Dental Consulting hub page with more real examples</td><td class="task-assignee">—</td><td>2026-11-20</td><td><a class="task-link" href="https://app.asana.com/0/0/1219404004541540" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- U-Nique Accounting: 1 urgent, 1 new -->
-      <div class="client-card">
-        <div class="client-card-header red">
-          <div>
-            <div class="client-name">U-Nique Accounting</div>
-            <div class="client-meta">1 urgent &nbsp;·&nbsp; 1 new &nbsp;·&nbsp; Oldest: 41 days</div>
-          </div>
-          <span class="traffic-light red">&#9679; Urgent</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell urgent">41d</td><td><span class="badge urgent">Urgent</span></td><td class="task-name">SEO Blog: How to Use Your Restaurant Tax Return to Plan for 2026</td><td class="task-assignee">Markology Support</td><td>2026-04-02</td><td><a class="task-link" href="https://app.asana.com/0/0/1213506011299372" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell new">0d</td><td><span class="badge new">New</span></td><td class="task-name">About Page: Matt review &amp; complete "about" update bullets</td><td class="task-assignee">Matt Cianciarulo</td><td>2026-11-24</td><td><a class="task-link" href="https://app.asana.com/0/0/1220395658376475" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Tarleton Estate Attorney: 0 urgent, 1 warning, 1 new -->
-      <div class="client-card">
-        <div class="client-card-header yellow">
-          <div>
-            <div class="client-name">Tarleton Estate Attorney</div>
-            <div class="client-meta">1 warning &nbsp;·&nbsp; 1 new</div>
-          </div>
-          <span class="traffic-light yellow">&#9679; Warning</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell warning">4d</td><td><span class="badge warning">Warning</span></td><td class="task-name">Replace chart in trusts vs. wills blog with new graphic (from Allan's email)</td><td class="task-assignee">Markology Support</td><td>2026-11-21</td><td><a class="task-link" href="https://app.asana.com/0/0/1213365786636740" target="_blank">Open ↗</a></td></tr>
-              <tr><td class="days-cell new">1d</td><td><span class="badge new">New</span></td><td class="task-name">Dev: Tarleton — Tyler location page build (third Texas market)</td><td class="task-assignee">Markology Support</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1215792290641021" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <!-- Adam Traywick: 1 warning -->
-      <div class="client-card">
-        <div class="client-card-header yellow">
-          <div>
-            <div class="client-name">Adam Traywick</div>
-            <div class="client-meta">1 warning</div>
-          </div>
-          <span class="traffic-light yellow">&#9679; Warning</span>
-        </div>
-        <div class="client-card-body">
-          <table class="task-table">
-            <thead><tr><th>Days</th><th>Status</th><th>Task</th><th>Assignee</th><th>Due</th><th>Link</th></tr></thead>
-            <tbody>
-              <tr><td class="days-cell warning">4d</td><td><span class="badge warning">Warning</span></td><td class="task-name">Input blog post into website: S-Corp Election for Electrical Contractors: Salary vs. Distribution Math</td><td class="task-assignee">Erin Cowan</td><td>—</td><td><a class="task-link" href="https://app.asana.com/0/0/1217105516122740" target="_blank">Open ↗</a></td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div><!-- /client-grid -->
-  </div><!-- /wrap -->
-</div><!-- /clients-section -->
-
-<div class="footer">
-  Updated daily at 8am Sydney / 22:00 UTC &nbsp;·&nbsp; Sources: Edits Needed status field + Tasks Needing Revision sections &nbsp;·&nbsp; Markology Agency internal use only
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>Specialized Accounting Services (SAS)</h2>
+    <div class="badges"><span class="badge badge-urgent">12 urgent</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216139830500704" target="_blank" rel="noopener">SEO Blog: [BLOG NAME]</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-07-07</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216139649986358" target="_blank" rel="noopener">SEO Blog: [BLOG NAME]</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-07-21</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216139851596917" target="_blank" rel="noopener">SEO Blog: [BLOG NAME]</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-07-14</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216139830471768" target="_blank" rel="noopener">A/B Manage Google Ads Campaign</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-07-13</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216139649986349" target="_blank" rel="noopener">A/B Manage Google Ads Campaign</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-07-20</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216449485839456" target="_blank" rel="noopener">SEO - SAS - On-page brand + hygiene cleanup (retire 'SAS CPAs' brand in titles/m…</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-07-17</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216139844088889" target="_blank" rel="noopener">A/B Manage Google Ads Campaign</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-07-27</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216464530232765" target="_blank" rel="noopener">SEO - SAS - Build real structured-data graph (AccountingService/LocalBusiness + …</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-07-17</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214363926195930" target="_blank" rel="noopener">Design new business cards: images 1 and 2 from Canva, client-specified typeface,…</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-05-01</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1217697334922269" target="_blank" rel="noopener">SAS: Fix Google listing spelling of Specializes and remove CPAs designation</a></td>
+      <td><span class="badge badge-urgent">URGENT · 9d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-11-17</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1217843707362885" target="_blank" rel="noopener">SAS: Audit historical CC sends and document recurring annual campaigns</a></td>
+      <td><span class="badge badge-urgent">URGENT · 9d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-11-17</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1217843746081422" target="_blank" rel="noopener">SAS: Update Constant Contact sender domain to sas-acct.com</a></td>
+      <td><span class="badge badge-urgent">URGENT · 9d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-11-17</td>
+    </tr>
+    </tbody>
+  </table>
 </div>
-
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>Keen Capital</h2>
+    <div class="badges"><span class="badge badge-urgent">10 urgent</span> <span class="badge badge-warn">1 warning</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213814765843279" target="_blank" rel="noopener">Review animated video before next step</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-03-30</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215788490311661" target="_blank" rel="noopener">Keen Meta Ads: Launch local HNW campaign (build campaign + ad sets + ads)</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-22</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215812976196462" target="_blank" rel="noopener">Start meta retargeting ads</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-19</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215270528222739" target="_blank" rel="noopener">SEO Blog: Signs Your Financial Plan Needs an Update (And What to Do Next)</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-06-16</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215270640001430" target="_blank" rel="noopener">Internal Review of blog: Alternative Investments for High Net Worth Investors: W…</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-06-09</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215271671586028" target="_blank" rel="noopener">15X Citations</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-15</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215788754400595" target="_blank" rel="noopener">Keen Meta Ads: 30-day performance review + creative refresh decision</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-07-22</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215793930007042" target="_blank" rel="noopener">Keen: Build dedicated /team/ index page</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-17</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216253398745252" target="_blank" rel="noopener">Keen Capital: Katie approves Q2 newsletter and requests it be sent</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-07-07</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216802872062874" target="_blank" rel="noopener">Keen Capital: Katie requesting latest Keen Insight published to blog</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-07-28</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213721018777556" target="_blank" rel="noopener">SEO Blog: Where to Put Cash Right Now: Options for High Net Worth Investors</a></td>
+      <td><span class="badge badge-warn">WARNING · 7d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-05-06</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>Core Advisors</h2>
+    <div class="badges"><span class="badge badge-urgent">9 urgent</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1211074978455265" target="_blank" rel="noopener">Review SEO Blog Post: Should You Use a 401(k) or a SIMPLE IRA for Your Dental Pr…</a></td>
+      <td><span class="badge badge-urgent">URGENT · 29d</span></td>
+      <td class="muted">Edits Needed + Tasks Needing Revision</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-05-22</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214285639028292" target="_blank" rel="noopener">SEO Blog: How Much Should Dentists Save for Retirement Each Year?</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-05-26</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214572387500948" target="_blank" rel="noopener">Core Advisors: Service page rewrite project (7 pages, SEO+LLM structure)</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-05-29</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214572561224111" target="_blank" rel="noopener">Core Advisors: Practice Valuation Hub expansion (state benchmarks + broker works…</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-05-06</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214572790390067" target="_blank" rel="noopener">[SEO] Build a dental practice acquisition content hub - preparing your practice …</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-05-29</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215270836144941" target="_blank" rel="noopener">Internal Review of blog: Dental Practice Cash Flow: Why Profit Doesn't Always Me…</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-06-09</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215271777034275" target="_blank" rel="noopener">Create June 2026 Google Ads Campaign</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-01</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215791064218406" target="_blank" rel="noopener">Core Advisors: Re-author 'best dental financial advisors' blog as Core POV</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-07-12</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213975180834862" target="_blank" rel="noopener">Integration from RightCapital into Excel or other platform to populate data and …</a></td>
+      <td><span class="badge badge-urgent">URGENT · 21d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Vita A</td>
+      <td class="muted">2026-05-28</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>Cherry Hill Advisory</h2>
+    <div class="badges"><span class="badge badge-urgent">5 urgent</span> <span class="badge badge-warn">1 warning</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213471844376311" target="_blank" rel="noopener">Website Updates - Cherry Hill Advisory</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-03-23</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216093647103363" target="_blank" rel="noopener">Cherry Hill Advisory: Mike requesting blog SEO optimization and editing</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-07-01</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216086885634247" target="_blank" rel="noopener">Cherry Hill Advisory: SEO optimize and edit submitted blog post</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-07-01</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213875021940541" target="_blank" rel="noopener">Create FAQ Page (Main)</a></td>
+      <td><span class="badge badge-urgent">URGENT · 33d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Erin Cowan</td>
+      <td class="muted">—</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214287071416968" target="_blank" rel="noopener">SEO Blog: The Most Common Cybersecurity Control Failures Internal Audit Identifi…</a></td>
+      <td><span class="badge badge-urgent">URGENT · 9d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-05-19</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214287109959285" target="_blank" rel="noopener">SEO Blog: How to Audit AI Systems: A Practical Starting Point for Internal Audit…</a></td>
+      <td><span class="badge badge-warn">WARNING · 7d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-05-26</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>Bookkeeping for Brokers (BFB)</h2>
+    <div class="badges"><span class="badge badge-urgent">4 urgent</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1212352228945499" target="_blank" rel="noopener">Create /videos page and also a video post page</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">—</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214287544699513" target="_blank" rel="noopener">Weekly SEO Blog #1</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-05-05</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214730518027332" target="_blank" rel="noopener">Bookkeeping for Brokers (BFB): Run E-E-A-T audit + Markology-side dev sprint</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-03</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216192758183814" target="_blank" rel="noopener">SEO Blog: 1099-NEC For Real Estate Brokerages: How To Pay Agents Without Trigger…</a></td>
+      <td><span class="badge badge-urgent">URGENT · 20d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-07-21</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>Steven M. Ellard, CPA</h2>
+    <div class="badges"><span class="badge badge-urgent">4 urgent</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215271699161300" target="_blank" rel="noopener">Client review of blog post: How Much Does Payroll Cost for a Small Business on C…</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">—</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214172249830340" target="_blank" rel="noopener">Client Review of blog: Airbnb & VRBO Tax on Cape Cod: What Hosts Actually Owe</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">—</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214153786392924" target="_blank" rel="noopener">SEO Blog: Airbnb & VRBO Tax on Cape Cod: What Hosts Actually Owe</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">—</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213105448669569" target="_blank" rel="noopener">SEO Blog Post: How Much Should You Pay Yourself As a Business Owner?</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-03-09</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>TL;DR Accounting</h2>
+    <div class="badges"><span class="badge badge-urgent">4 urgent</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215270561189791" target="_blank" rel="noopener">SEO Blog: [BLOG NAME]</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-08</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215270640093955" target="_blank" rel="noopener">SEO Blog: [BLOG NAME]</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-22</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215270676085128" target="_blank" rel="noopener">SEO Blog: [BLOG NAME]</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-15</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215270836144636" target="_blank" rel="noopener">SEO Blog: [BLOG NAME]</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-01</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>Traktion</h2>
+    <div class="badges"><span class="badge badge-urgent">2 urgent</span> <span class="badge badge-warn">1 warning</span> <span class="badge badge-new">2 new</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1212560716737427" target="_blank" rel="noopener">Create landing page - specifically on estimated taxes; s-corp; reasonable comp t…</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">—</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1217996046304724" target="_blank" rel="noopener">Write Blog: How Therapists Can Forecast Income With Variable Session Counts</a></td>
+      <td><span class="badge badge-urgent">URGENT · 21d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-08-28</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1211462349826110" target="_blank" rel="noopener">SEO Blog Post: End of Year Checklist for S-Corp Owners </a></td>
+      <td><span class="badge badge-warn">WARNING · 7d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">—</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213528405236351" target="_blank" rel="noopener">SEO Blog: What Is the Cost of Hiring a Therapist in a Group Practice?</a></td>
+      <td><span class="badge badge-new">NEW · 0d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-11-25</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1217994468549398" target="_blank" rel="noopener">Create September 2026 Google Ads Campaign</a></td>
+      <td><span class="badge badge-new">NEW · 0d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-11-25</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>Vast CFO</h2>
+    <div class="badges"><span class="badge badge-urgent">2 urgent</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213080623941720" target="_blank" rel="noopener">Create landing page </a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">—</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216572746114178" target="_blank" rel="noopener">review bios & photos</a></td>
+      <td><span class="badge badge-urgent">URGENT · 14d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Erin Cowan</td>
+      <td class="muted">—</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>BizBud</h2>
+    <div class="badges"><span class="badge badge-urgent">2 urgent</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213798815344827" target="_blank" rel="noopener">Input blog into platform: LLC vs S Corp for Content Creators: What Actually Save…</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">—</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213720758465266" target="_blank" rel="noopener">Internal Review of blog: How Much Tax Do Content Creators Actually Pay?</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-04-25</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>The Fitness CPA</h2>
+    <div class="badges"><span class="badge badge-urgent">2 urgent</span> <span class="badge badge-new">1 new</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213964810245947" target="_blank" rel="noopener">Create New Drip Funnels</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Unassigned</td>
+      <td class="muted">—</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1212738464336701" target="_blank" rel="noopener">Create New Drip Funnels</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-03-23</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1210154929870343" target="_blank" rel="noopener">Add the email signature pic to this folder - Create folder for approved Eric hea…</a></td>
+      <td><span class="badge badge-new">NEW · 1d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Erin Cowan</td>
+      <td class="muted">—</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>Ashford Sky</h2>
+    <div class="badges"><span class="badge badge-urgent">2 urgent</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216224071071014" target="_blank" rel="noopener">Run webinar for 23rd -</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">—</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214797062429848" target="_blank" rel="noopener">E-E-A-T Sprint P2: Build Out About/Team Page + Author Bylines on All Pages — Ash…</a></td>
+      <td><span class="badge badge-urgent">URGENT · 23d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Unassigned</td>
+      <td class="muted">2026-06-14</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>KB Financial Advisors</h2>
+    <div class="badges"><span class="badge badge-urgent">1 urgent</span> <span class="badge badge-warn">1 warning</span> <span class="badge badge-new">2 new</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214287110544339" target="_blank" rel="noopener">SEO Blog: Should You Sell in a Tender Offer or Wait for the IPO?</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-05-19</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1217999240033632" target="_blank" rel="noopener">SEO Blog: Opportunity Zone Fund After an IPO: How to Defer Capital Gains for Tec…</a></td>
+      <td><span class="badge badge-warn">WARNING · 7d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-11-18</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214595916086485" target="_blank" rel="noopener">FAANG company-specific equity guides (top 10 employers)</a></td>
+      <td><span class="badge badge-new">NEW · 1d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-07-31</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214287068720416" target="_blank" rel="noopener">Client Review of blog: Should You Sell in a Tender Offer or Wait for the IPO?</a></td>
+      <td><span class="badge badge-new">NEW · 0d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Erin Cowan</td>
+      <td class="muted">—</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>Virjee Consulting Dental</h2>
+    <div class="badges"><span class="badge badge-urgent">1 urgent</span> <span class="badge badge-warn">1 warning</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1216642041208899" target="_blank" rel="noopener">Virjee Consulting Dental: Add Google Ads metrics to Gecko dashboard</a></td>
+      <td><span class="badge badge-urgent">URGENT · 34d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-07-20</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1219404004541540" target="_blank" rel="noopener">Virjee Consulting - Dental: Redesign Dental Consulting hub page with more real e…</a></td>
+      <td><span class="badge badge-warn">WARNING · 5d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Unassigned</td>
+      <td class="muted">2026-11-20</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>Thompson Flaherty</h2>
+    <div class="badges"><span class="badge badge-urgent">1 urgent</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215248555498994" target="_blank" rel="noopener">Send final files today please!</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-06-05</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>Elevated Tax</h2>
+    <div class="badges"><span class="badge badge-urgent">1 urgent</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213986575726243" target="_blank" rel="noopener">URGENT! KB CPAs Links Broken - All (See below)</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-05-07</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>Cherry Hill</h2>
+    <div class="badges"><span class="badge badge-urgent">1 urgent</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213546439239100" target="_blank" rel="noopener">SEO Blog:  The Most Common Cybersecurity Control Failures Internal Audit Identif…</a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-03-18</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>U-Nique Accounting</h2>
+    <div class="badges"><span class="badge badge-urgent">1 urgent</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213506011299372" target="_blank" rel="noopener">SEO Blog:  How to Use Your Restaurant Tax Return to Plan for 2026 </a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-04-02</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-urgent">
+  <div class="card-header">
+    <span class="dot dot-red"></span>
+    <h2>Tarleton</h2>
+    <div class="badges"><span class="badge badge-urgent">1 urgent</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1212713236017760" target="_blank" rel="noopener">SEO Blog Post: TBD </a></td>
+      <td><span class="badge badge-urgent">URGENT · 42d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">—</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-warn">
+  <div class="card-header">
+    <span class="dot dot-yellow"></span>
+    <h2>Thompson Flaherty CPA</h2>
+    <div class="badges"><span class="badge badge-warn">2 warning</span> <span class="badge badge-new">1 new</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1218925499276935" target="_blank" rel="noopener">Write Blog: Illinois Paid Leave for All Workers Act: What Metro East Employers M…</a></td>
+      <td><span class="badge badge-warn">WARNING · 6d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-10-02</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1214443315378472" target="_blank" rel="noopener">Write blog post</a></td>
+      <td><span class="badge badge-warn">WARNING · 6d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-11-19</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1218920868576881" target="_blank" rel="noopener">SEO Blog: Illinois Paid Leave for All Workers Act: What Metro East Employers Mus…</a></td>
+      <td><span class="badge badge-new">NEW · 0d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">writing@markology.io</td>
+      <td class="muted">2026-11-19</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-warn">
+  <div class="card-header">
+    <span class="dot dot-yellow"></span>
+    <h2>Specialized Accounting Services (SAS-CPAs)</h2>
+    <div class="badges"><span class="badge badge-warn">1 warning</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1210987007395759" target="_blank" rel="noopener">Review Biggby Coffee Convention - Emails</a></td>
+      <td><span class="badge badge-warn">WARNING · 7d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Erin Cowan</td>
+      <td class="muted">—</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-warn">
+  <div class="card-header">
+    <span class="dot dot-yellow"></span>
+    <h2>Tarleton Estate Attorney</h2>
+    <div class="badges"><span class="badge badge-warn">1 warning</span> <span class="badge badge-new">1 new</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1213365786636740" target="_blank" rel="noopener">Replace chart in trusts vs. wills blog with new graphic (from Allan's email)</a></td>
+      <td><span class="badge badge-warn">WARNING · 5d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-11-21</td>
+    </tr>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1215792290641021" target="_blank" rel="noopener">Dev: Tarleton — Tyler location page build (third Texas market)</a></td>
+      <td><span class="badge badge-new">NEW · 2d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Markology Support Team</td>
+      <td class="muted">2026-11-23</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<div class="card card-warn">
+  <div class="card-header">
+    <span class="dot dot-yellow"></span>
+    <h2>Adam Traywick</h2>
+    <div class="badges"><span class="badge badge-warn">1 warning</span></div>
+  </div>
+  <table>
+    <thead><tr>
+      <th>Task</th><th>Status</th><th>Type</th><th>Assignee</th><th>Due</th>
+    </tr></thead>
+    <tbody>
+<tr>
+      <td><a href="https://app.asana.com/0/0/1217105516122740" target="_blank" rel="noopener">Input blog post into website: S-Corp Election for Electrical Contractors: Salary…</a></td>
+      <td><span class="badge badge-warn">WARNING · 5d</span></td>
+      <td class="muted">Edits Needed</td>
+      <td class="muted">Erin Cowan</td>
+      <td class="muted">—</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+<footer>Updated daily at 8am Sydney / 22:00 UTC &nbsp;·&nbsp; Markology Client Feedback Watch</footer>
 </body>
 </html>
